@@ -2,5 +2,17 @@
   "HomePage": {
     "title": "Hello world!",
     "subtile": "This is a translation"
+  },
+  "globalError": {
+    "message": "The web site seems to be down",
+    "button": "Click here to try again"
+  },
+  "error": {
+    "message": "Something went wrong",
+    "button": "Click here to try again"
+  },
+  "legalNotices": {
+    "title": "legal notices",
+    "description": "description"
   }
 }

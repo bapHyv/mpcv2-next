@@ -4,6 +4,7 @@ import "../globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "@/app/providers";
+import ThemeSwitch from "@/app/components/ThemeSwitch";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,10 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
-          <Providers>{children}</Providers>
+          <Providers>
+            <ThemeSwitch />
+            {children}
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

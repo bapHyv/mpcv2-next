@@ -1,6 +1,18 @@
 {
   "HomePage": {
     "title": "Hola Cabrones!",
-    "subtile": "This is a translatio but in spanish"
+    "subtile": "This is a translation but in spanish"
+  },
+  "globalError": {
+    "message": "The web site seems to be down es",
+    "button": "Click here to try again es"
+  },
+  "error": {
+    "message": "Something went wrong es",
+    "button": "Click here to try again es"
+  },
+  "legalNotices": {
+    "title": "avisos legales",
+    "description": "description en espagnol"
   }
 }
