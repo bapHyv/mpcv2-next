@@ -11,8 +11,45 @@
     "message": "Quelque chose c'est mal passé",
     "button": "Cliquez ici pour réessayer"
   },
+  "notFound": {
+    "title": "Page non trouvée",
+    "text": "Désolé, nous n'avons pas trouvé la page que vous demandez",
+    "button": "Retour à la page d'accueil"
+  },
   "legalNotices": {
     "title": "Mentions légales",
+    "description": "description"
+  },
+  "conditionsOfUse": {
+    "title": "Conditions d'utilisation",
+    "description": "description"
+  },
+  "FAQ": {
+    "title": "FAQ",
+    "description": "description"
+  },
+  "GCS": {
+    "title": "Conditions générales de vente",
+    "description": "description"
+  },
+  "privacyPolicies": {
+    "title": "politiques de confidentialite",
+    "description": "description"
+  },
+  "about": {
+    "title": "À propos",
+    "description": "description"
+  },
+  "signIn": {
+    "title": "Connexion",
+    "description": "description"
+  },
+  "myAccount": {
+    "title": "Mon Compte",
+    "description": "description"
+  },
+  "category": {
+    "title": "Produits",
     "description": "description"
   }
 }

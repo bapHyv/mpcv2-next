@@ -11,8 +11,45 @@
     "message": "Something went wrong",
     "button": "Click here to try again"
   },
+  "notFound": {
+    "title": "Page Not Found",
+    "text": "Sorry, we could not find the page you are looking for.",
+    "button": "Go back home"
+  },
   "legalNotices": {
     "title": "legal notices",
+    "description": "description"
+  },
+  "conditionsOfUse": {
+    "title": "Conditions d'utilisation",
+    "description": "description"
+  },
+  "FAQ": {
+    "title": "FAQ",
+    "description": "description"
+  },
+  "GCS": {
+    "title": "Conditions générales de vente",
+    "description": "description"
+  },
+  "privacyPolicies": {
+    "title": "privacy policy",
+    "description": "description"
+  },
+  "about": {
+    "title": "About",
+    "description": "description"
+  },
+  "signIn": {
+    "title": "Sign In",
+    "description": "description"
+  },
+  "myAccount": {
+    "title": "Mon Compte",
+    "description": "description"
+  },
+  "category": {
+    "title": "Produits",
     "description": "description"
   }
 }
