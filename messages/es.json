@@ -51,5 +51,19 @@
   "category": {
     "title": "Produits",
     "description": "description"
+  },
+  "navbar": {
+    "hemp": "cbd hemp es",
+    "hash": "cbd hash es",
+    "moonrock": "cbd moonrock es",
+    "oil": "cbd oil es",
+    "tea": "cbd tea es",
+    "cream": "cbd cream es",
+    "vaporisateur": "vapo cbd es",
+    "connection": "Sign in es",
+    "info": "Informations personnelles es",
+    "addresses": "Adresses es",
+    "orders": "Commandes es",
+    "fidelity": "Point de fidélité & parrainage es"
   }
 }

@@ -16,7 +16,7 @@ const categories = [
   "huiles",
   "infusions",
   "soins",
-  "vaporisateur",
+  "vaporisateurs",
 ];
 
 export async function generateMetadata({ params: { locale } }: Params) {

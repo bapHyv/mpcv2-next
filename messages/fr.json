@@ -51,5 +51,27 @@
   "category": {
     "title": "Produits",
     "description": "description"
+  },
+  "navbar": {
+    "hemp": "fleur cbd",
+    "hash": "Pollens/résine cbd",
+    "moonrock": "moonrock cbd",
+    "oil": "huile cbd",
+    "tea": "infusions cbd",
+    "cream": "soins cbd",
+    "vaporisateur": "vaporisateur",
+    "connection": "Connexion",
+    "info": "Informations personnelles",
+    "addresses": "Adresses",
+    "orders": "Commandes",
+    "fidelity": "Point de fidélité & parrainage"
+  },
+  "footer": {
+    "legalNotices": "Mentions légales",
+    "conditionsOfUse": "Conditions d'utilisation",
+    "FAQ": "FAQ",
+    "GCS": "Conditions générales de vente",
+    "privacyPolicies": "Politiques de confidentialité",
+    "about": "À propos"
   }
 }
