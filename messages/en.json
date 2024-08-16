@@ -17,8 +17,17 @@
     "button": "Go back home"
   },
   "legalNotices": {
-    "title": "legal notices",
-    "description": "description"
+    "title": "Legal Notices",
+    "description": "description",
+    "subtitle1": "Site Presentation",
+    "p1": "In accordance with Article 6 of Law No. 2004-575 of June 21, 2004, for confidence in the digital economy, users of the website monplancbd.fr are informed of the identity of the various stakeholders involved in its creation and monitoring:",
+    "subtitle2": "Legal Information",
+    "subtitle3": "Hosting",
+    "subtitle4": "Site Administration",
+    "subtitle5": "Hypertext Links and Use of Cookies",
+    "p2": "The site monplancbd.fr contains a number of hypertext links to other sites, set up with the authorization of MONPLANCBD. However, MONPLANCBD does not have the ability to verify the content of the sites visited and will not assume any responsibility in this regard. Browsing the site monplancbd.fr may result in the installation of cookie(s) on the user's computer. A cookie is a small file that does not allow the identification of the user but records information relating to the navigation of a computer on a site. The data thus obtained is intended to facilitate subsequent navigation on the site and is also intended to allow various traffic measurements. Refusing to install a cookie may result in the impossibility of accessing certain services. The user can, however, configure their computer as follows, to refuse the installation of cookies: On Internet Explorer: tool tab (gear icon at the top right) / internet options. Click on Privacy and select Block all cookies. Confirm by clicking Ok. On Firefox: at the top of the browser window, click the Firefox button, then go to the Options tab. Click on the Privacy tab. Set the retention rules to: use custom settings for history. Finally, uncheck it to disable cookies. On Safari: Click at the top right of the browser on the menu icon (symbolized by a gear). Select Settings. Click on Show advanced settings. In the 'Privacy' section, click on Content settings. In the 'Cookies' section, you can block cookies. On Chrome: Click at the top right of the browser on the menu icon (symbolized by three horizontal lines). Select Settings. Click on Show advanced settings. In the 'Privacy' section, click on preferences. In the 'Privacy' tab, you can block cookies.",
+    "subtitle6": "Use of Personal Data",
+    "p3": "In France, personal data is particularly protected by Law No. 78-87 of January 6, 1978, Law No. 2004-801 of August 6, 2004, Article L. 226-13 of the Penal Code, and the European Directive of October 24, 1995. When using the site monplancbd.fr, the following may be collected: the URL of the links through which the user accessed the site monplancbd.fr, the user's internet service provider, the user's Internet Protocol (IP) address. In any case, MONPLANCBD only collects personal information about the user for the need of certain services offered by the site monplancbd.fr. The user provides this information with full knowledge of the facts, especially when they enter it themselves. It is then specified to the user of the site monplancbd.fr whether or not they are required to provide this information. In accordance with the provisions of Articles 38 and following of Law 78-17 of January 6, 1978, relating to information technology, files, and freedoms, every user has the right to access, rectify, and oppose personal data concerning them, by making a written and signed request, accompanied by a copy of the identity document with the signature of the holder, specifying the address to which the response must be sent. No personal information of the user of the site monplancbd.fr is published without the user's knowledge, exchanged, transferred, assigned, or sold on any medium to third parties. Only in the event of the purchase of MONPLANCBD and its rights would the transmission of the said information to the potential buyer be allowed, who would in turn be bound by the same obligation to retain and modify the data with respect to the user of the site monplancbd.fr. The databases are protected by the provisions of the Law of July 1, 1998, transposing Directive 96/9 of March 11, 1996, on the legal protection of databases."
   },
   "conditionsOfUse": {
     "title": "Conditions d'utilisation",
@@ -26,7 +35,17 @@
   },
   "FAQ": {
     "title": "FAQ",
-    "description": "description"
+    "description": "description",
+    "subtitle1": "CBD : Le cannabidiol, qu’est-ce que c’est ?",
+    "p1": "Le cannabidiol (CBD) est une molécule présente dans le chanvre et complète le spectre des 110 autres cannabinoïdes connus à ce jour. On lui connaît des vertus bien-être pour le sommeil, le stress, l’anxiété, les tensions musculaires, etc. On le retrouve sous forme de baume, d’huile ou de fleurs à infuser.",
+    "subtitle2": "Comment connaître le taux de CBD/THC?",
+    "p2": "Il est tout naturel de vouloir connaître les taux de CBD ou de THC présents dans les fleurs et les huiles de chanvre que nous vous proposons. C’est pourquoi chaque étiquette produit se verra apposer un QR code qui vous redirigera vers l’analyse associée, répondant aux procédures requises par l’arrêté 2004-02-24 art. 3 JORF du 21 mars 2004.",
+    "subtitle3": "Comment utiliser du CBD ?",
+    "p3": "Il n’y a pas une seule meilleure façon, tout simplement parce que chaque personne a un profil unique et particulier. La méthode la plus connue est l’infusion de la fleur de chanvre en incorporant un corps gras dans le mélange. Par exemple, vVous pouvez ajouter du beurre, de la crème ou encore de huile végétale (comme l’huile de coco) dans de l’eau frémissante à 90°C Laissez infuser 10 à 15 min. Servez.",
+    "subtitle4": "Puis-je me faire livrer du CBD à domicile ?",
+    "p4": "Si vous habitez dans l’une de ces villes (voir la carte), vous pourrez recevoir vos produits sous 24H. La qualité de service et d’information sont des critères essentiels pour Mon Plan CBD.  Pour cette raison, vous recevrez votre commande dans un conditionnement garantissant une conservation optimale afin de profiter au maximum des vertus bien-êtres recherchées.",
+    "subtitle5": "Quelques recommandations…",
+    "p5": "Conformément à la loi en vigueur, nos produits ne sont pas destinés à la combustion. Il s’agit de respecter la méthode mentionnée plus haut, à savoir l’infusion avec un corps gras. Ne pas fumer, ne pas conduire après consommation, déconseillé pour la femme enceinte ou allaitante. Si vous souhaitez en savoir plus sur les conditions d’utilisation, veuillez cliquer ici. Nos produits ne sont ni des stupéfiants, ni des médicaments. Pour toute question, n’hésitez pas à nous joindre sur les réseaux sociaux ou par e-mail à l’adresse que vous trouverez dans la rubrique « Contact », en mentionnant votre demande en objet."
   },
   "GCS": {
     "title": "Conditions générales de vente",
