@@ -8,7 +8,7 @@ export default async function Footer({ locale }: { locale: string }) {
   const social = [
     {
       name: "Facebook",
-      href: "#",
+      href: "https://www.facebook.com/monplancbd",
       icon: (props: any) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -21,7 +21,7 @@ export default async function Footer({ locale }: { locale: string }) {
     },
     {
       name: "Instagram",
-      href: "#",
+      href: "https://www.instagram.com/monplancbd.fr",
       icon: (props: any) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -44,57 +44,58 @@ export default async function Footer({ locale }: { locale: string }) {
   ];
 
   return (
-    <footer aria-labelledby="footer-heading" className="bg-black dark:bg-black">
+    <footer
+      aria-labelledby="footer-heading"
+      className="bg-black dark:bg-black p-10"
+    >
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="space-y-8">
+      <div className="flex space-x-10">
+        <div>
+          <Link href="/">
             <Image
               alt="Monplancbd"
               src="/logo-blanc.png"
-              className="h-7"
-              width={50}
-              height={50}
+              width={150}
+              height={150}
             />
-            <div className="flex space-x-6">
-              {social.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-500 hover:text-gray-400"
-                >
-                  <span className="sr-only">{item.name}</span>
-                  <item.icon aria-hidden="true" className="h-6 w-6" />
-                </a>
-              ))}
-            </div>
-          </div>
-          <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">
-                  Navigations
-                </h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={`/${locale}/${item.href}`}
-                        className="text-sm leading-6 text-gray-300 hover:text-white"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+          </Link>
+          <div className="flex space-x-6">
+            {social.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-neutral-100 hover:bg-neutral-700 p-2 rounded-full"
+                target="_blank"
+              >
+                <span className="sr-only">{item.name}</span>
+                <item.icon aria-hidden="true" className="h-6 w-6" />
+              </a>
+            ))}
           </div>
         </div>
+        <div>
+          <h3 className="text-sm font-semibold leading-6 text-white">
+            Navigations
+          </h3>
+          <ul role="list" className="mt-6 space-y-4">
+            {navigation.map((item) => (
+              <li key={item.name}>
+                <Link
+                  href={`/${locale}/${item.href}`}
+                  className="text-sm leading-6 text-gray-300 hover:text-white"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="">
         <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-          <p className="text-xs leading-5 text-gray-400">
+          <p className="text-xs leading-5 text-neutral-100">
             &copy; 2024 Monplancbd tout droits réservés.
           </p>
         </div>
