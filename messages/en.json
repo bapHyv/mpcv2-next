@@ -51,5 +51,27 @@
   "category": {
     "title": "Produits",
     "description": "description"
+  },
+  "navbar": {
+    "hemp": "cbd hemp",
+    "hash": "cbd hash",
+    "moonrock": "cbd moonrock",
+    "oil": "cbd oil",
+    "tea": "cbd tea",
+    "cream": "cbd cream",
+    "vaporisateur": "vapo cbd",
+    "connection": "Sign in",
+    "info": "Profile",
+    "addresses": "Addresses",
+    "orders": "Orders",
+    "fidelity": "Sponsorship"
+  },
+  "footer": {
+    "legalNotices": "legal notices",
+    "conditionsOfUse": "Conditions d'utilisation",
+    "FAQ": "FAQ",
+    "GCS": "Conditions générales de vente",
+    "privacyPolicies": "privacy policy",
+    "about": "About"
   }
 }

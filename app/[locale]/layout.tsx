@@ -4,7 +4,9 @@ import "../globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "@/app/providers";
-import ThemeSwitch from "@/app/components/ThemeSwitch";
+
+import NabBar from "@/app/components/NavBar";
+import Footer from "@/app/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +29,9 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <Providers>
-            <ThemeSwitch />
-            {children}
+            <NabBar locale={locale} />
+            <main className="min-h-screen">{children}</main>
+            <Footer locale={locale} />
           </Providers>
         </NextIntlClientProvider>
       </body>
