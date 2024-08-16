@@ -92,7 +92,7 @@ export default async function NavBar({ locale }: { locale: string }) {
         <div className="relative flex h-16 items-center justify-between">
           {/* Mobile menu button*/}
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-neutral-100 hover:bg-neutral-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
               <Bars3Icon
@@ -110,20 +110,20 @@ export default async function NavBar({ locale }: { locale: string }) {
               <Image
                 alt="Monplancbd"
                 src="/logo-blanc.png"
-                width={50}
-                height={50}
+                width={80}
+                height={80}
               />
             </Link>
-            <ThemeSwitch />
+            {/* <ThemeSwitch /> */}
             <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 h-full items-center">
                 <Dropdown
                   button={
                     <>
                       <span>Produits</span>
                       <ChevronDownIcon
                         aria-hidden="true"
-                        className="-mr-1 h-5 w-5 text-gray-400"
+                        className="-mr-1 h-5 w-5 text-neutral-100"
                       />
                     </>
                   }
@@ -131,8 +131,8 @@ export default async function NavBar({ locale }: { locale: string }) {
                   locale={locale}
                 />
                 <Link
-                  href="/blog"
-                  className="uppercase text-neutral-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  href={`/${locale}/blog`}
+                  className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green"
                 >
                   blog
                 </Link>
@@ -147,11 +147,13 @@ export default async function NavBar({ locale }: { locale: string }) {
                   <>
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">Open user menu</span>
-                    <UserCircleIcon className="h-10 w-10 text-green bg-white" />
+                    <UserCircleIcon className="h-10 w-10 text-white" />
                   </>
                 }
                 items={itemsProfile}
                 locale={locale}
+                menuButtonClassname="rounded-full p-1"
+                menuItemsClassname="right-0 left-auto"
               />
             ) : (
               <Link
@@ -166,27 +168,31 @@ export default async function NavBar({ locale }: { locale: string }) {
       </div>
 
       <DisclosurePanel className="sm:hidden">
-        <div className="w-1/4">
-          <div className="space-y-1 px-2 pb-3 pt-2 flex flex-col">
-            <Dropdown
-              button={
-                <>
-                  <span>Produits</span>
-                  <ChevronDownIcon
-                    aria-hidden="true"
-                    className="-mr-1 h-5 w-5 text-gray-400"
-                  />
-                </>
-              }
-              items={itemsDropdown}
-              locale={locale}
-            />
-            <Link
-              href="/blog"
-              className="uppercase text-neutral-300 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-            >
-              blog
-            </Link>
+        <div className="w-1/2">
+          <div className="space-y-3 px-2 pb-3 pt-2 flex flex-col">
+            <div>
+              <Dropdown
+                button={
+                  <>
+                    <span>Produits</span>
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="-mr-1 h-5 w-5 text-neutral-100"
+                    />
+                  </>
+                }
+                items={itemsDropdown}
+                locale={locale}
+              />
+            </div>
+            <div>
+              <Link
+                href={`/${locale}/blog`}
+                className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green"
+              >
+                blog
+              </Link>
+            </div>
           </div>
         </div>
       </DisclosurePanel>

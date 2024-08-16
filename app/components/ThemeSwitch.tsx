@@ -29,6 +29,6 @@ export default function ThemeSwitch() {
   }
 
   if (resolvedTheme === "light") {
-    return <FiMoon className="text-white" onClick={() => setTheme("dark")} />;
+    return <FiMoon className="text-black" onClick={() => setTheme("dark")} />;
   }
 }
