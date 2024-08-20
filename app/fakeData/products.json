@@ -1,0 +1,485 @@
+{
+  "fleurs": [
+    {
+      "name": "Grosse fleur sa mere",
+      "prices": {
+        "per": "g",
+        "1": "3.50",
+        "3": "3.50",
+        "5": "3.50",
+        "10": "3.50",
+        "25": "3.50",
+        "50": "3.50",
+        "100": "3.50"
+      },
+      "stock": "4000",
+      "image": "/fleur_1.webp",
+      "growingMethod": "Greenhouse",
+      "cannabinoids": {
+        "CBD": "42",
+        "CBG": "4.2"
+      },
+      "terpenes": {
+        "Linalol": "3",
+        "myrcene": "5",
+        "Pinene": "1",
+        "Limonen": "0"
+      },
+      "grower": "France",
+      "productUrl": "/fleur_1",
+      "isPromo": true
+    },
+    {
+      "name": "Purple Dream",
+      "prices": {
+        "per": "g",
+        "1": "5.50",
+        "3": "5.00",
+        "5": "4.50",
+        "10": "4.00",
+        "25": "3.75",
+        "50": "3.50",
+        "100": "3.25"
+      },
+      "stock": "3200",
+      "image": "/fleur_2.webp",
+      "growingMethod": "Intérieur",
+      "cannabinoids": {
+        "CBD": "22",
+        "CBN": "3.8"
+      },
+      "terpenes": {
+        "Myrcene": "6",
+        "Pinene": "2",
+        "Limonen": "3"
+      },
+      "grower": "Suisse",
+      "productUrl": "/purple_dream",
+      "isPromo": false
+    },
+    {
+      "name": "Sunrise Haze",
+      "prices": {
+        "per": "g",
+        "1": "4.90",
+        "3": "4.40",
+        "5": "4.00",
+        "10": "3.70",
+        "25": "3.40",
+        "50": "3.10",
+        "100": "2.80"
+      },
+      "stock": "1500",
+      "image": "/fleur_3.webp",
+      "growingMethod": "Greenhouse",
+      "cannabinoids": {
+        "CBD": "35",
+        "CBG": "5.0"
+      },
+      "terpenes": {
+        "Linalol": "4",
+        "Limonen": "2"
+      },
+      "grower": "Espagne",
+      "productUrl": "/sunrise_haze",
+      "isPromo": true
+    },
+    {
+      "name": "Alpine Breeze",
+      "prices": {
+        "per": "g",
+        "1": "6.00",
+        "3": "5.60",
+        "5": "5.20",
+        "10": "4.80",
+        "25": "4.40",
+        "50": "4.00",
+        "100": "3.60"
+      },
+      "stock": "2100",
+      "image": "/fleur_4.webp",
+      "growingMethod": "Extérieur",
+      "cannabinoids": {
+        "CBD": "45"
+      },
+      "terpenes": {
+        "Myrcene": "3",
+        "Pinene": "4",
+        "Limonen": "1"
+      },
+      "grower": "France",
+      "productUrl": "/alpine_breeze",
+      "isPromo": false
+    },
+    {
+      "name": "Golden Glow",
+      "prices": {
+        "per": "g",
+        "1": "4.20",
+        "3": "3.90",
+        "5": "3.60",
+        "10": "3.30",
+        "25": "3.00",
+        "50": "2.75",
+        "100": "2.50"
+      },
+      "stock": "5000",
+      "image": "/fleur_1.webp",
+      "growingMethod": "Greenhouse",
+      "cannabinoids": {
+        "CBG": "38",
+        "CBN": "2.5"
+      },
+      "terpenes": {
+        "Linalol": "2",
+        "Pinene": "3"
+      },
+      "grower": "Espagne",
+      "productUrl": "/golden_glow",
+      "isPromo": true
+    },
+    {
+      "name": "Crystal Ice",
+      "prices": {
+        "per": "g",
+        "1": "7.00",
+        "3": "6.50",
+        "5": "6.00",
+        "10": "5.50",
+        "25": "5.00",
+        "50": "4.50",
+        "100": "4.00"
+      },
+      "stock": "800",
+      "image": "/fleur_2.webp",
+      "growingMethod": "Intérieur",
+      "cannabinoids": {
+        "CBD": "50",
+        "CBG": "2.0",
+        "CBN": "1.5"
+      },
+      "terpenes": {
+        "Myrcene": "5",
+        "Limonen": "4"
+      },
+      "grower": "Etat-Unis",
+      "productUrl": "/crystal_ice",
+      "isPromo": false
+    }
+  ],
+  "hashs": [
+    {
+      "name": "Moroccan Gold",
+      "prices": {
+        "per": "g",
+        "1": "8.00",
+        "3": "7.50",
+        "5": "7.00",
+        "10": "6.50",
+        "25": "6.00",
+        "50": "5.50",
+        "100": "5.00"
+      },
+      "stock": "3500",
+      "image": "/hash_1.jpg",
+      "cannabinoids": {
+        "CBD": "30",
+        "CBG": "4.0"
+      },
+      "terpenes": {
+        "Linalol": "3",
+        "Pinene": "2"
+      },
+      "grower": "Maroc",
+      "productUrl": "/moroccan_gold",
+      "isPromo": true
+    },
+    {
+      "name": "Afghan Black",
+      "prices": {
+        "per": "g",
+        "1": "9.00",
+        "3": "8.50",
+        "5": "8.00",
+        "10": "7.50",
+        "25": "7.00",
+        "50": "6.50",
+        "100": "6.00"
+      },
+      "stock": "1200",
+      "image": "/hash_2.jpg",
+      "cannabinoids": {
+        "CBD": "40",
+        "CBN": "5.0"
+      },
+      "terpenes": {
+        "Myrcene": "4",
+        "Limonen": "2"
+      },
+      "grower": "Afghanistan",
+      "productUrl": "/afghan_black",
+      "isPromo": false
+    },
+    {
+      "name": "Lebanese Red",
+      "prices": {
+        "per": "g",
+        "1": "7.50",
+        "3": "7.00",
+        "5": "6.50",
+        "10": "6.00",
+        "25": "5.50",
+        "50": "5.00",
+        "100": "4.50"
+      },
+      "stock": "2800",
+      "image": "/hash_3.jpg",
+      "cannabinoids": {
+        "CBG": "25"
+      },
+      "terpenes": {
+        "Pinene": "3",
+        "Linalol": "1"
+      },
+      "grower": "Liban",
+      "productUrl": "/lebanese_red",
+      "isPromo": true
+    },
+    {
+      "name": "Nepal Temple",
+      "prices": {
+        "per": "g",
+        "1": "10.00",
+        "3": "9.50",
+        "5": "9.00",
+        "10": "8.50",
+        "25": "8.00",
+        "50": "7.50",
+        "100": "7.00"
+      },
+      "stock": "500",
+      "image": "/hash_4.jpg",
+      "cannabinoids": {
+        "CBD": "50",
+        "CBG": "3.5",
+        "CBN": "2.0"
+      },
+      "terpenes": {
+        "Myrcene": "5",
+        "Limonen": "3"
+      },
+      "grower": "Népal",
+      "productUrl": "/nepal_temple",
+      "isPromo": false
+    }
+  ],
+  "moonrocks": [
+    {
+      "name": "Stardust Moonrock",
+      "prices": {
+        "per": "g",
+        "1": "12.00",
+        "3": "11.50",
+        "5": "11.00",
+        "10": "10.50",
+        "25": "10.00",
+        "50": "9.50"
+      },
+      "stock": "2000",
+      "image": "/moonrock_1.jpg",
+      "cannabinoids": {
+        "CBD": "60",
+        "CBG": "5.0"
+      },
+      "grower": "Etat-Unis",
+      "productUrl": "/stardust_moonrock",
+      "isPromo": true
+    },
+    {
+      "name": "Galactic Moonrock",
+      "prices": {
+        "per": "g",
+        "1": "14.00",
+        "3": "13.50",
+        "5": "13.00",
+        "10": "12.50",
+        "25": "12.00",
+        "50": "11.50"
+      },
+      "stock": "750",
+      "image": "/moonrock_2.jpg",
+      "cannabinoids": {
+        "CBD": "70",
+        "CBN": "4.5"
+      },
+      "grower": "Suisse",
+      "productUrl": "/galactic_moonrock",
+      "isPromo": false
+    }
+  ],
+  "huiles": [
+    {
+      "name": "Pure CBD Oil",
+      "prices": {
+        "per": "unit",
+        "1": "40.00",
+        "3": "38.00",
+        "5": "36.00"
+      },
+      "stock": "1500",
+      "image": "/huile_1.jpg",
+      "cannabinoids": {
+        "CBD": "80",
+        "CBG": "2.0"
+      },
+      "productUrl": "/pure_cbd_oil",
+      "isPromo": true
+    },
+    {
+      "name": "Full Spectrum Oil",
+      "prices": {
+        "per": "unit",
+        "1": "45.00",
+        "3": "43.00",
+        "5": "41.00"
+      },
+      "stock": "1200",
+      "image": "/huile_2.jpg",
+      "cannabinoids": {
+        "CBD": "75",
+        "CBN": "4.0"
+      },
+      "productUrl": "/full_spectrum_oil",
+      "isPromo": false
+    },
+    {
+      "name": "Organic Hemp Oil",
+      "prices": {
+        "per": "unit",
+        "1": "50.00",
+        "3": "48.00",
+        "5": "46.00"
+      },
+      "stock": "2000",
+      "image": "/huile_3.jpg",
+      "cannabinoids": {
+        "CBD": "85"
+      },
+      "productUrl": "/organic_hemp_oil",
+      "isPromo": true
+    },
+    {
+      "name": "CBG Rich Oil",
+      "prices": {
+        "per": "unit",
+        "1": "55.00",
+        "3": "53.00",
+        "5": "51.00"
+      },
+      "stock": "900",
+      "image": "/huile_4.jpg",
+      "cannabinoids": {
+        "CBG": "60",
+        "CBD": "15"
+      },
+      "productUrl": "/cbg_rich_oil",
+      "isPromo": false
+    },
+    {
+      "name": "CBN Sleep Oil",
+      "prices": {
+        "per": "unit",
+        "1": "60.00",
+        "3": "58.00",
+        "5": "56.00"
+      },
+      "stock": "800",
+      "image": "/huile_5.jpg",
+      "cannabinoids": {
+        "CBN": "50",
+        "CBD": "30"
+      },
+      "productUrl": "/cbn_sleep_oil",
+      "isPromo": true
+    },
+    {
+      "name": "CBD & Turmeric Oil",
+      "prices": {
+        "per": "unit",
+        "1": "42.00",
+        "3": "40.00",
+        "5": "38.00"
+      },
+      "stock": "2500",
+      "image": "/huile_6.jpg",
+      "cannabinoids": {
+        "CBD": "70",
+        "CBG": "10"
+      },
+      "productUrl": "/cbd_turmeric_oil",
+      "isPromo": false
+    }
+  ],
+  "infusions": [
+    {
+      "name": "Relaxing Chamomile Blend",
+      "prices": {
+        "50": "15.00",
+        "100": "25.00",
+        "150": "35.00"
+      },
+      "stock": "1200",
+      "image": "/infusion_1.jpg",
+      "productUrl": "/relaxing_chamomile_blend",
+      "isPromo": true
+    },
+    {
+      "name": "Revitalizing Mint Tea",
+      "prices": {
+        "50": "14.00",
+        "100": "24.00",
+        "150": "34.00"
+      },
+      "stock": "1500",
+      "image": "/infusion_2.jpg",
+      "productUrl": "/revitalizing_mint_tea",
+      "isPromo": false
+    },
+    {
+      "name": "Detox Green Tea",
+      "prices": {
+        "50": "16.00",
+        "100": "26.00",
+        "150": "36.00"
+      },
+      "stock": "2000",
+      "image": "/infusion_3.jpg",
+      "productUrl": "/detox_green_tea",
+      "isPromo": true
+    }
+  ],
+  "soins": [
+    {
+      "name": "CBD Soothing Balm",
+      "prices": {
+        "1": "25.00"
+      },
+      "stock": "500",
+      "image": "/baume_1.jpg",
+      "productUrl": "/cbd_soothing_balm",
+      "isPromo": true
+    }
+  ],
+  "vaporisateurs": [
+    {
+      "name": "Herbal Vape Pen",
+      "prices": {
+        "1": "45.00"
+      },
+      "stock": "300",
+      "image": "/vapo_1.jpg",
+      "productUrl": "/herbal_vape_pen",
+      "isPromo": false
+    }
+  ]
+}
