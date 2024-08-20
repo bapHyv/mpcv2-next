@@ -46,7 +46,7 @@ export default async function NavBar({ locale }: { locale: string }) {
     },
     {
       text: t("moonrock"),
-      href: `moonrock`,
+      href: `moonrocks`,
     },
     {
       text: t("oil"),
@@ -78,7 +78,7 @@ export default async function NavBar({ locale }: { locale: string }) {
     },
     {
       text: t("orders"),
-      href: `moonrock`,
+      href: `moonrocks`,
     },
     {
       text: t("fidelity"),
@@ -114,7 +114,7 @@ export default async function NavBar({ locale }: { locale: string }) {
                 height={80}
               />
             </Link>
-            {/* <ThemeSwitch /> */}
+            <ThemeSwitch />
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4 h-full items-center">
                 <Dropdown
