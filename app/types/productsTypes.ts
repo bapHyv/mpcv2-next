@@ -1,6 +1,16 @@
+export type CurrentCategory =
+  | "fleurs"
+  | "hashs"
+  | "moonrocks"
+  | "huiles"
+  | "infusions"
+  | "soins"
+  | "vaporisateurs";
+
 export interface Category {
   url: string;
   category: keyof Products;
+  title: string;
 }
 
 export interface Prices {
@@ -20,27 +30,53 @@ export interface Terpenes {
   Limonen?: string;
 }
 
-export interface Product {
+export interface Image {
+  IMAGE_URL: string;
+  IMAGE_ALT: string;
+}
+
+export interface Rating {
+  quantity: string;
+  value: string;
+}
+
+export interface BaseProduct {
   name: string;
   prices: Prices;
   stock: string;
-  image: string;
-  growingMethod?: string;
-  cannabinoids?: Cannabinoids;
-  terpenes?: Terpenes;
-  grower?: string;
+  image: Image;
   productUrl: string;
   isPromo: boolean;
+  rating: Rating;
+}
+
+export interface NaturalProduct extends BaseProduct {
+  cannabinoids: Cannabinoids;
+}
+
+export interface EndProduct extends NaturalProduct {
+  terpenes: Terpenes;
+  grower: string;
+}
+
+export interface Oil extends NaturalProduct {}
+
+export interface Hash extends EndProduct {}
+
+export interface Moonrock extends EndProduct {}
+
+export interface Flower extends EndProduct {
+  growingMethod: string;
 }
 
 export interface Products {
-  fleurs: Product[];
-  hashs: Product[];
-  moonrocks: Product[];
-  huiles: Product[];
-  infusions: Product[];
-  soins: Product[];
-  vaporisateurs: Product[];
+  fleurs: Flower[];
+  hashs: Hash[];
+  moonrocks: Moonrock[];
+  huiles: Oil[];
+  infusions: BaseProduct[];
+  soins: BaseProduct[];
+  vaporisateurs: BaseProduct[];
 }
 
 export type categories = Category[];

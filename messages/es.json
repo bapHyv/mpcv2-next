@@ -69,7 +69,24 @@
   },
   "category": {
     "title": "Produits",
-    "description": "description"
+    "description": "description",
+    "flower": "CBD Flower es",
+    "hash": "CBD Hash es",
+    "moonrock": "CBD Moonrocks es",
+    "oil": "CBD oil es",
+    "herbalTea": "CBD Herbal Infusion es",
+    "health": "CBD Soothing Balm es",
+    "vaporizer": "Vaporizer",
+    "caryophyllene": "bois es",
+    "limonene": "agrumes es",
+    "myrcene": "sylvestre es",
+    "linalol": "floral es",
+    "terpinolene": "terrestre es",
+    "piperine": "pimente es",
+    "caryophyllenePeper": "poivre es",
+    "pinene": "sapin es",
+    "humulene": "terrestr ese",
+    "origin": "origin es"
   },
   "navbar": {
     "hemp": "cbd hemp es",
