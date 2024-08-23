@@ -4,6 +4,14 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import Link from "next/link";
 import { IDropdown } from "@/app/types";
 import { twMerge } from "tailwind-merge";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+
+function generatePathWithLocale(pathname: string, locale: string) {
+  const newPath = pathname.split("/");
+  newPath[1] = locale;
+  return newPath.join("/");
+}
 
 export default function Dropdown({
   items,
@@ -11,14 +19,21 @@ export default function Dropdown({
   locale,
   menuButtonClassname,
   menuItemsClassname,
+  menuClassname,
 }: IDropdown) {
+  const pathname = usePathname();
+
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu
+      as="div"
+      className={twMerge("relative inline-block text-left", menuClassname)}
+    >
       <div>
         <MenuButton
           className={twMerge(
             `uppercase inline-flex w-full justify-center gap-x-1.5 rounded-md bg-green px-3 py-2 
-            text-sm font-semibold text-neutral-100 shadow-sm hover:ring-1 ring-inset ring-neutral-100 hover:bg-light-green`,
+            text-sm font-semibold text-neutral-100 shadow-sm 
+            hover:ring-1 ring-inset ring-neutral-100 hover:bg-light-green`,
             menuButtonClassname
           )}
         >
@@ -37,14 +52,30 @@ export default function Dropdown({
         )}
       >
         {items.map((item) => (
-          <div className="py-1" key={`${item.text}-${item.href}`}>
+          <div className="py-1" key={`${item.text}`}>
             <MenuItem>
-              <Link
-                href={`/${locale}/${item.href}`}
-                className="uppercase group flex items-center px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-              >
-                {item.text}
-              </Link>
+              {"href" in item ? (
+                <Link
+                  href={`/${locale}/${item.href}`}
+                  className="uppercase group flex items-center px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                >
+                  {item.text}
+                </Link>
+              ) : (
+                <Link
+                  href={generatePathWithLocale(pathname, item.text as string)}
+                  className="flex items-center justify-between uppercase group px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                >
+                  {item.text}
+                  <Image
+                    alt={item.text || ""}
+                    src={`/${item.text}.png`}
+                    height={30}
+                    width={30}
+                    className="mr-3"
+                  />
+                </Link>
+              )}
             </MenuItem>
           </div>
         ))}

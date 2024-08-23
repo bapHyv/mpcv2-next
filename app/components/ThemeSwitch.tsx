@@ -4,8 +4,13 @@ import { FiSun, FiMoon } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import { twMerge } from "tailwind-merge";
 
-export default function ThemeSwitch() {
+interface Props {
+  classname?: string;
+}
+
+export default function ThemeSwitch({ classname }: Props) {
   const [mounted, setMounted] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
 
@@ -25,10 +30,26 @@ export default function ThemeSwitch() {
     );
 
   if (resolvedTheme === "dark") {
-    return <FiSun className="text-white" onClick={() => setTheme("light")} />;
+    return (
+      <FiSun
+        className={twMerge(
+          "text-black p-1.5 w-10 h-10 rounded-full bg-white",
+          classname
+        )}
+        onClick={() => setTheme("light")}
+      />
+    );
   }
 
   if (resolvedTheme === "light") {
-    return <FiMoon className="text-white" onClick={() => setTheme("dark")} />;
+    return (
+      <FiMoon
+        className={twMerge(
+          "text-black p-1.5 w-10 h-10 rounded-full bg-white",
+          classname
+        )}
+        onClick={() => setTheme("dark")}
+      />
+    );
   }
 }
