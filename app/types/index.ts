@@ -3,9 +3,9 @@
 import { ReactElement } from "react";
 
 export interface IDropdownItem {
-  //   icon: any;
-  text: string;
-  href: string;
+  text?: string;
+  href?: string;
+  icon?: any;
 }
 
 export interface IDropdown {
@@ -14,6 +14,7 @@ export interface IDropdown {
   items: IDropdownItem[];
   menuButtonClassname?: string;
   menuItemsClassname?: string;
+  menuClassname?: string;
 }
 
 // ------ DROPDOWN END------
