@@ -69,7 +69,24 @@
   },
   "category": {
     "title": "Produits",
-    "description": "description"
+    "description": "description",
+    "flower": "Fleurs CBD",
+    "hash": "Hash CBD",
+    "moonrock": "Moonrocks CBD",
+    "oil": "Huiles CBD",
+    "herbalTea": "Infusions CBD",
+    "health": "Soins CBD",
+    "vaporizer": "Vaporisateur",
+    "caryophyllene": "bois",
+    "limonene": "agrumes",
+    "myrcene": "sylvestre",
+    "linalol": "floral",
+    "terpinolene": "terrestre",
+    "piperine": "pimente",
+    "caryophyllenePeper": "poivre",
+    "pinene": "sapin",
+    "humulene": "terrestre",
+    "origin": "Provenance"
   },
   "navbar": {
     "hemp": "fleur cbd",

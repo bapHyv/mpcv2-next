@@ -17,6 +17,10 @@ const config: Config = {
         "light-green": "#35917f",
         white: "#FFFFFF",
       },
+      gridTemplateColumns: {
+        "16": "repeat(16, minmax(0, 1fr));",
+        "14": "repeat(14, minmax(0, 1fr));",
+      },
       keyframes: {
         tada: {
           "0%": {

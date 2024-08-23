@@ -70,19 +70,19 @@ export default async function NavBar({ locale }: { locale: string }) {
   const itemsProfile = [
     {
       text: t("info"),
-      href: `fleurs%20de%20cbd`,
+      href: `/`,
     },
     {
       text: t("addresses"),
-      href: `hash%20de%20cbd`,
+      href: `/`,
     },
     {
       text: t("orders"),
-      href: `moonrocks`,
+      href: `/`,
     },
     {
       text: t("fidelity"),
-      href: `huiles`,
+      href: `/`,
     },
   ];
 

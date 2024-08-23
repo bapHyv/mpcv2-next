@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 
 export default async function Page({ params: { locale, product } }: Params) {
   // TODO fetch products here. Use the category
-  if (!products.includes(product)) notFound();
+  // if (!products.includes(product)) notFound();
 
   // const t = await getTranslations({ locale, namespace: "product" });
 
