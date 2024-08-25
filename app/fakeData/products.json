@@ -30,7 +30,10 @@
       "grower": "fr",
       "productUrl": "/fleur_1",
       "isPromo": true,
-      "rating": { "quantity": "12", "value": "2" }
+      "rating": {
+        "quantity": "12",
+        "value": "2"
+      }
     },
     {
       "name": "Purple Dream",

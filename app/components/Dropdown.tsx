@@ -28,18 +28,17 @@ export default function Dropdown({
       as="div"
       className={twMerge("relative inline-block text-left", menuClassname)}
     >
-      <div>
-        <MenuButton
-          className={twMerge(
-            `uppercase inline-flex w-full justify-center gap-x-1.5 rounded-md bg-green px-3 py-2 
+      <MenuButton
+        className={twMerge(
+          `uppercase inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-green px-3 py-2 
             text-sm font-semibold text-neutral-100 shadow-sm 
-            hover:ring-1 ring-inset ring-neutral-100 hover:bg-light-green`,
-            menuButtonClassname
-          )}
-        >
-          {button}
-        </MenuButton>
-      </div>
+            hover:ring-1 ring-inset ring-neutral-100 hover:bg-light-green
+            [&>*:first-child]:mt-1`,
+          menuButtonClassname
+        )}
+      >
+        {button}
+      </MenuButton>
 
       <MenuItems
         transition

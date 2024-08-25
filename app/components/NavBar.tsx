@@ -154,7 +154,7 @@ export default async function NavBar({ locale }: { locale: string }) {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex justify-center gap-3 sm:static sm:inset-auto sm:pr-0">
-            <div className="flex items-center justify-center w-full">
+            <div className="hidden sm:block">
               <Dropdown
                 button={
                   <>
@@ -169,15 +169,16 @@ export default async function NavBar({ locale }: { locale: string }) {
                 }
                 items={languageSelector}
                 locale={locale}
+                menuClassname="sm:flex items-center justify-center w-full"
                 menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
                 menuItemsClassname="right-0 left-auto w-28"
               />
             </div>
-            <div className="relative">
+            <div className="relative flex items-center">
               <ShoppingCartIcon className="w-10 h-10 rounded-full bg-white text-black p-1" />
               <div>
                 <span className="sr-only">Items in shopping cart</span>
-                <span className="absolute top-0 text-white bg-red-600 rounded-full text-xs px-1">
+                <span className="absolute -right-1 -top-1 text-white bg-red-600 rounded-full text-xs px-1">
                   2
                 </span>
               </div>
