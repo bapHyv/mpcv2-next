@@ -88,6 +88,14 @@
     "humulene": "terrestre",
     "origin": "Provenance"
   },
+  "singleProduct": {
+    "analyzes": "analyses",
+    "origin": "provenance",
+    "cannabinoids": "cannabinoïdes",
+    "terpenes": "terpènes",
+    "reviews": "Les avis de nos clients",
+    "relatedProducts": "Nos clients ont également acheté ces produits"
+  },
   "navbar": {
     "hemp": "fleur cbd",
     "hash": "Pollens/résine cbd",

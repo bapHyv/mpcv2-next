@@ -1,0 +1,1096 @@
+{
+  "fleurs": {
+    "name": "Grosse fleur sa mere",
+    "prices": {
+      "per": "g",
+      "1": "3.50",
+      "3": "3.00",
+      "5": "2.50",
+      "10": "2.00",
+      "25": "1.50",
+      "50": "1.00",
+      "100": "0.75"
+    },
+    "stock": "4000",
+    "image": {
+      "IMAGES": [
+        { "url": "/fleur_1.webp", "alt": "fleur_1" },
+        { "url": "/fleur_2.webp", "alt": "fleur_2" },
+        { "url": "/fleur_3.webp", "alt": "fleur_3" },
+        { "url": "/fleur_4.webp", "alt": "fleur_4" }
+      ]
+    },
+    "growingMethod": "Greenhouse",
+    "cannabinoids": {
+      "CBD": "12",
+      "CBG": "8",
+      "CBN": "5"
+    },
+    "terpenes": {
+      "Linalol": "3",
+      "myrcene": "5",
+      "Pinene": "1",
+      "Limonene": "2"
+    },
+    "grower": "fr",
+    "productUrl": "/fleur_1",
+    "isPromo": true,
+    "rating": {
+      "quantity": "12",
+      "value": "4",
+      "reviews": [
+        {
+          "user": "Alice Dupont",
+          "date": "August 20, 2023",
+          "value": "5",
+          "content": "Produit incroyable, cette fleur de CBD m'a vraiment aidé à me détendre. Je recommande fortement !"
+        },
+        {
+          "user": "Marc Lemaitre",
+          "date": "April 11, 2022",
+          "value": "3",
+          "content": "La qualité est bonne mais j'ai trouvé l'effet un peu léger par rapport à d'autres marques."
+        },
+        {
+          "user": "Sophie Martin",
+          "date": "December 5, 2022",
+          "value": "4",
+          "content": "J'adore l'arôme de cette fleur, très agréable et relaxant. Un bon produit dans l'ensemble."
+        },
+        {
+          "user": "Pierre Laurent",
+          "date": "July 15, 2023",
+          "value": "2",
+          "content": "Déçu par la qualité, les effets étaient presque inexistants. Je ne rachèterai pas."
+        },
+        {
+          "user": "Camille Bernard",
+          "date": "September 22, 2020",
+          "value": "5",
+          "content": "Excellente qualité, l'effet est puissant et apaisant. Parfait pour mes besoins."
+        }
+      ]
+    },
+    "shortDescription": "Short Description",
+    "longDescription": "Long Description",
+    "analyses": {
+      "cannabinoids": "",
+      "terpenes": ""
+    },
+    "relatedProducts": [
+      {
+        "name": "Purple Dream",
+        "prices": {
+          "per": "g",
+          "1": "5.50",
+          "3": "5.00",
+          "5": "4.50",
+          "10": "4.00",
+          "25": "3.75",
+          "50": "3.50",
+          "100": "3.25"
+        },
+        "stock": "3200",
+        "image": {
+          "IMAGE_URL": "/fleur_2.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Intérieur",
+        "cannabinoids": {
+          "CBN": "3.8"
+        },
+        "terpenes": {
+          "Myrcene": "6",
+          "Pinene": "2",
+          "Limonen": "3"
+        },
+        "grower": "ch",
+        "productUrl": "/purple_dream",
+        "isPromo": false,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Sunrise Haze",
+        "prices": {
+          "per": "g",
+          "1": "4.90",
+          "3": "4.40",
+          "5": "4.00",
+          "10": "3.70",
+          "25": "3.40",
+          "50": "3.10",
+          "100": "2.80"
+        },
+        "stock": "1500",
+        "image": {
+          "IMAGE_URL": "/fleur_3.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Greenhouse",
+        "cannabinoids": {
+          "CBD": "9",
+          "CBG": "5.0"
+        },
+        "terpenes": {
+          "Linalol": "4",
+          "Limonen": "2"
+        },
+        "grower": "es",
+        "productUrl": "/sunrise_haze",
+        "isPromo": true,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Alpine Breeze",
+        "prices": {
+          "per": "g",
+          "1": "6.00",
+          "3": "5.60",
+          "5": "5.20",
+          "10": "4.80",
+          "25": "4.40",
+          "50": "4.00",
+          "100": "3.60"
+        },
+        "stock": "2100",
+        "image": {
+          "IMAGE_URL": "/fleur_4.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Extérieur",
+        "cannabinoids": {
+          "CBD": "13"
+        },
+        "terpenes": {
+          "Myrcene": "3",
+          "Pinene": "4",
+          "Limonen": "1"
+        },
+        "grower": "fr",
+        "productUrl": "/alpine_breeze",
+        "isPromo": false,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Golden Glow",
+        "prices": {
+          "per": "g",
+          "1": "4.20",
+          "3": "3.90",
+          "5": "3.60",
+          "10": "3.30",
+          "25": "3.00",
+          "50": "2.75",
+          "100": "2.50"
+        },
+        "stock": "5000",
+        "image": {
+          "IMAGE_URL": "/fleur_1.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Greenhouse",
+        "cannabinoids": {
+          "CBG": "12",
+          "CBN": "2.5"
+        },
+        "terpenes": {
+          "Linalol": "2",
+          "Pinene": "3"
+        },
+        "grower": "es",
+        "productUrl": "/golden_glow",
+        "isPromo": true,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Crystal Ice",
+        "prices": {
+          "per": "g",
+          "1": "7.00",
+          "3": "6.50",
+          "5": "6.00",
+          "10": "5.50",
+          "25": "5.00",
+          "50": "4.50",
+          "100": "4.00"
+        },
+        "stock": "800",
+        "image": {
+          "IMAGE_URL": "/fleur_2.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Intérieur",
+        "cannabinoids": {
+          "CBG": "2.0",
+          "CBN": "1.5"
+        },
+        "terpenes": {
+          "Myrcene": "5",
+          "Limonen": "4"
+        },
+        "grower": "usa",
+        "productUrl": "/crystal_ice",
+        "isPromo": false,
+        "rating": { "quantity": "400", "value": "4" }
+      }
+    ]
+  },
+  "hashs": {
+    "name": "Moroccan Gold",
+    "prices": {
+      "per": "g",
+      "1": "8.00",
+      "3": "7.50",
+      "5": "7.00",
+      "10": "6.50",
+      "25": "6.00",
+      "50": "5.50",
+      "100": "5.00"
+    },
+    "stock": "4000",
+    "image": {
+      "IMAGES": [
+        { "url": "/hash_1.jpg", "alt": "hash_1" },
+        { "url": "/hash_2.jpg", "alt": "hash_2" },
+        { "url": "/hash_3.jpg", "alt": "hash_3" },
+        { "url": "/hash_4.jpg", "alt": "hash_4" }
+      ]
+    },
+    "cannabinoids": {
+      "CBD": "12"
+    },
+    "terpenes": {
+      "Linalol": "3",
+      "myrcene": "5",
+      "Pinene": "1",
+      "Limonen": "0"
+    },
+    "grower": "ma",
+    "productUrl": "/fleur_1",
+    "isPromo": true,
+    "rating": {
+      "quantity": "12",
+      "value": "2",
+      "reviews": [
+        {
+          "user": "John Doe",
+          "date": "May 16, 2021",
+          "value": "4",
+          "content": "Lorem Ipsum c'est genial"
+        },
+        {
+          "user": "Jane Doe",
+          "date": "May 17, 2021",
+          "value": "5",
+          "content": "C'est d'la bombe"
+        }
+      ]
+    },
+    "shortDescription": "Short Description",
+    "longDescription": "Long Description",
+    "analyses": {
+      "cannabinoids": "",
+      "terpenes": ""
+    },
+    "relatedProducts": [
+      {
+        "name": "Grosse fleur sa mere",
+        "prices": {
+          "per": "g",
+          "1": "3.50",
+          "3": "3.50",
+          "5": "3.50",
+          "10": "3.50",
+          "25": "3.50",
+          "50": "3.50",
+          "100": "3.50"
+        },
+        "stock": "4000",
+        "image": {
+          "IMAGE_URL": "/fleur_1.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Greenhouse",
+        "cannabinoids": {
+          "CBD": "12"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "myrcene": "5",
+          "Pinene": "1",
+          "Limonen": "0"
+        },
+        "grower": "fr",
+        "productUrl": "/fleur_1",
+        "isPromo": true,
+        "rating": {
+          "quantity": "12",
+          "value": "2"
+        }
+      },
+      {
+        "name": "Moroccan Gold",
+        "prices": {
+          "per": "g",
+          "1": "8.00",
+          "3": "7.50",
+          "5": "7.00",
+          "10": "6.50",
+          "25": "6.00",
+          "50": "5.50",
+          "100": "5.00"
+        },
+        "stock": "3500",
+        "image": {
+          "IMAGE_URL": "/hash_1.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "30",
+          "CBG": "4.0"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "Pinene": "2"
+        },
+        "grower": "ma",
+        "productUrl": "/moroccan_gold",
+        "isPromo": true,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Afghan Black",
+        "prices": {
+          "per": "g",
+          "1": "9.00",
+          "3": "8.50",
+          "5": "8.00",
+          "10": "7.50",
+          "25": "7.00",
+          "50": "6.50",
+          "100": "6.00"
+        },
+        "stock": "1200",
+        "image": {
+          "IMAGE_URL": "/hash_2.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "40",
+          "CBN": "5.0"
+        },
+        "terpenes": {
+          "Myrcene": "4",
+          "Limonen": "2"
+        },
+        "grower": "af",
+        "productUrl": "/afghan_black",
+        "isPromo": false,
+        "rating": { "quantity": "400", "value": "4" }
+      }
+    ]
+  },
+  "moonrocks": {
+    "name": "Stardust Moonrock",
+    "prices": {
+      "per": "g",
+      "1": "12.00",
+      "3": "11.50",
+      "5": "11.00",
+      "10": "10.50",
+      "25": "10.00",
+      "50": "9.50"
+    },
+    "stock": "4000",
+    "image": {
+      "IMAGES": [
+        { "url": "/moonrock_1.jpg", "alt": "moonrock_1" },
+        { "url": "/moonrock_2.jpg", "alt": "moonrock_2" }
+      ]
+    },
+    "cannabinoids": {
+      "CBD": "12"
+    },
+    "terpenes": {
+      "Linalol": "3",
+      "myrcene": "5",
+      "Pinene": "1",
+      "Limonen": "0"
+    },
+    "grower": "ma",
+    "productUrl": "/fleur_1",
+    "isPromo": true,
+    "rating": {
+      "quantity": "12",
+      "value": "5",
+      "reviews": [
+        {
+          "user": "John Doe",
+          "date": "May 16, 2021",
+          "value": "4",
+          "content": "Lorem Ipsum c'est genial"
+        },
+        {
+          "user": "Jane Doe",
+          "date": "May 17, 2021",
+          "value": "5",
+          "content": "C'est d'la bombe"
+        }
+      ]
+    },
+    "shortDescription": "Short Description",
+    "longDescription": "Long Description",
+    "analyses": {
+      "cannabinoids": "",
+      "terpenes": ""
+    },
+    "relatedProducts": [
+      {
+        "name": "Grosse fleur sa mere",
+        "prices": {
+          "per": "g",
+          "1": "3.50",
+          "3": "3.50",
+          "5": "3.50",
+          "10": "3.50",
+          "25": "3.50",
+          "50": "3.50",
+          "100": "3.50"
+        },
+        "stock": "4000",
+        "image": {
+          "IMAGE_URL": "/fleur_1.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Greenhouse",
+        "cannabinoids": {
+          "CBD": "12"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "myrcene": "5",
+          "Pinene": "1",
+          "Limonen": "0"
+        },
+        "grower": "fr",
+        "productUrl": "/fleur_1",
+        "isPromo": true,
+        "rating": {
+          "quantity": "12",
+          "value": "2"
+        }
+      },
+      {
+        "name": "Moroccan Gold",
+        "prices": {
+          "per": "g",
+          "1": "8.00",
+          "3": "7.50",
+          "5": "7.00",
+          "10": "6.50",
+          "25": "6.00",
+          "50": "5.50",
+          "100": "5.00"
+        },
+        "stock": "3500",
+        "image": {
+          "IMAGE_URL": "/hash_1.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "30",
+          "CBG": "4.0"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "Pinene": "2"
+        },
+        "grower": "ma",
+        "productUrl": "/moroccan_gold",
+        "isPromo": true,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Afghan Black",
+        "prices": {
+          "per": "g",
+          "1": "9.00",
+          "3": "8.50",
+          "5": "8.00",
+          "10": "7.50",
+          "25": "7.00",
+          "50": "6.50",
+          "100": "6.00"
+        },
+        "stock": "1200",
+        "image": {
+          "IMAGE_URL": "/hash_2.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "40",
+          "CBN": "5.0"
+        },
+        "terpenes": {
+          "Myrcene": "4",
+          "Limonen": "2"
+        },
+        "grower": "af",
+        "productUrl": "/afghan_black",
+        "isPromo": false,
+        "rating": { "quantity": "400", "value": "4" }
+      }
+    ]
+  },
+  "huiles": {
+    "name": "Pure CBD Oil",
+    "prices": {
+      "per": "unit",
+      "1": "40.00",
+      "3": "38.00",
+      "5": "36.00"
+    },
+    "stock": "4000",
+    "image": {
+      "IMAGES": [
+        { "url": "/huile_1.jpg", "alt": "huile_1" },
+        { "url": "/huile_2.jpg", "alt": "huile_2" },
+        { "url": "/huile_3.jpg", "alt": "huile_3" },
+        { "url": "/huile_4.jpg", "alt": "huile_4" },
+        { "url": "/huile_5.jpg", "alt": "huile_5" },
+        { "url": "/huile_6.jpg", "alt": "huile_6" }
+      ]
+    },
+    "cannabinoids": {
+      "CBD": "12"
+    },
+    "productUrl": "/fleur_1",
+    "isPromo": true,
+    "rating": {
+      "quantity": "12",
+      "value": "5",
+      "reviews": [
+        {
+          "user": "John Doe",
+          "date": "May 16, 2021",
+          "value": "4",
+          "content": "Lorem Ipsum c'est genial"
+        },
+        {
+          "user": "Jane Doe",
+          "date": "May 17, 2021",
+          "value": "5",
+          "content": "C'est d'la bombe"
+        }
+      ]
+    },
+    "shortDescription": "Short Description",
+    "longDescription": "Long Description",
+    "analyses": {
+      "cannabinoids": "",
+      "terpenes": ""
+    },
+    "relatedProducts": [
+      {
+        "name": "Grosse fleur sa mere",
+        "prices": {
+          "per": "g",
+          "1": "3.50",
+          "3": "3.50",
+          "5": "3.50",
+          "10": "3.50",
+          "25": "3.50",
+          "50": "3.50",
+          "100": "3.50"
+        },
+        "stock": "4000",
+        "image": {
+          "IMAGE_URL": "/fleur_1.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Greenhouse",
+        "cannabinoids": {
+          "CBD": "12"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "myrcene": "5",
+          "Pinene": "1",
+          "Limonen": "0"
+        },
+        "grower": "fr",
+        "productUrl": "/fleur_1",
+        "isPromo": true,
+        "rating": {
+          "quantity": "12",
+          "value": "2"
+        }
+      },
+      {
+        "name": "Moroccan Gold",
+        "prices": {
+          "per": "g",
+          "1": "8.00",
+          "3": "7.50",
+          "5": "7.00",
+          "10": "6.50",
+          "25": "6.00",
+          "50": "5.50",
+          "100": "5.00"
+        },
+        "stock": "3500",
+        "image": {
+          "IMAGE_URL": "/hash_1.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "30",
+          "CBG": "4.0"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "Pinene": "2"
+        },
+        "grower": "ma",
+        "productUrl": "/moroccan_gold",
+        "isPromo": true,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Afghan Black",
+        "prices": {
+          "per": "g",
+          "1": "9.00",
+          "3": "8.50",
+          "5": "8.00",
+          "10": "7.50",
+          "25": "7.00",
+          "50": "6.50",
+          "100": "6.00"
+        },
+        "stock": "1200",
+        "image": {
+          "IMAGE_URL": "/hash_2.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "40",
+          "CBN": "5.0"
+        },
+        "terpenes": {
+          "Myrcene": "4",
+          "Limonen": "2"
+        },
+        "grower": "af",
+        "productUrl": "/afghan_black",
+        "isPromo": false,
+        "rating": { "quantity": "400", "value": "4" }
+      }
+    ]
+  },
+  "infusions": {
+    "name": "Relaxing Chamomile Blend",
+    "prices": {
+      "50": "15.00",
+      "100": "25.00",
+      "150": "35.00"
+    },
+    "stock": "4000",
+    "image": {
+      "IMAGES": [
+        { "url": "/infusion_1.jpg", "alt": "infusion_1" },
+        { "url": "/infusion_2.jpg", "alt": "infusion_2" },
+        { "url": "/infusion_3.jpg", "alt": "infusion_3" }
+      ]
+    },
+    "productUrl": "/fleur_1",
+    "isPromo": true,
+    "rating": {
+      "quantity": "12",
+      "value": "5",
+      "reviews": [
+        {
+          "user": "John Doe",
+          "date": "May 16, 2021",
+          "value": "4",
+          "content": "Lorem Ipsum c'est genial"
+        },
+        {
+          "user": "Jane Doe",
+          "date": "May 17, 2021",
+          "value": "5",
+          "content": "C'est d'la bombe"
+        }
+      ]
+    },
+    "shortDescription": "Short Description",
+    "longDescription": "Long Description",
+    "analyses": {
+      "cannabinoids": "",
+      "terpenes": ""
+    },
+    "relatedProducts": [
+      {
+        "name": "Grosse fleur sa mere",
+        "prices": {
+          "per": "g",
+          "1": "3.50",
+          "3": "3.50",
+          "5": "3.50",
+          "10": "3.50",
+          "25": "3.50",
+          "50": "3.50",
+          "100": "3.50"
+        },
+        "stock": "4000",
+        "image": {
+          "IMAGE_URL": "/fleur_1.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Greenhouse",
+        "cannabinoids": {
+          "CBD": "12"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "myrcene": "5",
+          "Pinene": "1",
+          "Limonen": "0"
+        },
+        "grower": "fr",
+        "productUrl": "/fleur_1",
+        "isPromo": true,
+        "rating": {
+          "quantity": "12",
+          "value": "2"
+        }
+      },
+      {
+        "name": "Moroccan Gold",
+        "prices": {
+          "per": "g",
+          "1": "8.00",
+          "3": "7.50",
+          "5": "7.00",
+          "10": "6.50",
+          "25": "6.00",
+          "50": "5.50",
+          "100": "5.00"
+        },
+        "stock": "3500",
+        "image": {
+          "IMAGE_URL": "/hash_1.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "30",
+          "CBG": "4.0"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "Pinene": "2"
+        },
+        "grower": "ma",
+        "productUrl": "/moroccan_gold",
+        "isPromo": true,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Afghan Black",
+        "prices": {
+          "per": "g",
+          "1": "9.00",
+          "3": "8.50",
+          "5": "8.00",
+          "10": "7.50",
+          "25": "7.00",
+          "50": "6.50",
+          "100": "6.00"
+        },
+        "stock": "1200",
+        "image": {
+          "IMAGE_URL": "/hash_2.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "40",
+          "CBN": "5.0"
+        },
+        "terpenes": {
+          "Myrcene": "4",
+          "Limonen": "2"
+        },
+        "grower": "af",
+        "productUrl": "/afghan_black",
+        "isPromo": false,
+        "rating": { "quantity": "400", "value": "4" }
+      }
+    ]
+  },
+  "soins": {
+    "name": "CBD Soothing Balm",
+    "prices": {
+      "1": "25.00"
+    },
+    "stock": "500",
+    "image": {
+      "IMAGES": [{ "url": "/baume_1.jpg", "alt": "baume_1" }]
+    },
+    "productUrl": "/fleur_1",
+    "isPromo": true,
+    "rating": {
+      "quantity": "12",
+      "value": "5",
+      "reviews": [
+        {
+          "user": "John Doe",
+          "date": "May 16, 2021",
+          "value": "4",
+          "content": "Lorem Ipsum c'est genial"
+        },
+        {
+          "user": "Jane Doe",
+          "date": "May 17, 2021",
+          "value": "5",
+          "content": "C'est d'la bombe"
+        }
+      ]
+    },
+    "shortDescription": "Short Description",
+    "longDescription": "Long Description",
+    "analyses": {
+      "cannabinoids": "",
+      "terpenes": ""
+    },
+    "relatedProducts": [
+      {
+        "name": "Grosse fleur sa mere",
+        "prices": {
+          "per": "g",
+          "1": "3.50",
+          "3": "3.50",
+          "5": "3.50",
+          "10": "3.50",
+          "25": "3.50",
+          "50": "3.50",
+          "100": "3.50"
+        },
+        "stock": "4000",
+        "image": {
+          "IMAGE_URL": "/fleur_1.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Greenhouse",
+        "cannabinoids": {
+          "CBD": "12"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "myrcene": "5",
+          "Pinene": "1",
+          "Limonen": "0"
+        },
+        "grower": "fr",
+        "productUrl": "/fleur_1",
+        "isPromo": true,
+        "rating": {
+          "quantity": "12",
+          "value": "2"
+        }
+      },
+      {
+        "name": "Moroccan Gold",
+        "prices": {
+          "per": "g",
+          "1": "8.00",
+          "3": "7.50",
+          "5": "7.00",
+          "10": "6.50",
+          "25": "6.00",
+          "50": "5.50",
+          "100": "5.00"
+        },
+        "stock": "3500",
+        "image": {
+          "IMAGE_URL": "/hash_1.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "30",
+          "CBG": "4.0"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "Pinene": "2"
+        },
+        "grower": "ma",
+        "productUrl": "/moroccan_gold",
+        "isPromo": true,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Afghan Black",
+        "prices": {
+          "per": "g",
+          "1": "9.00",
+          "3": "8.50",
+          "5": "8.00",
+          "10": "7.50",
+          "25": "7.00",
+          "50": "6.50",
+          "100": "6.00"
+        },
+        "stock": "1200",
+        "image": {
+          "IMAGE_URL": "/hash_2.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "40",
+          "CBN": "5.0"
+        },
+        "terpenes": {
+          "Myrcene": "4",
+          "Limonen": "2"
+        },
+        "grower": "af",
+        "productUrl": "/afghan_black",
+        "isPromo": false,
+        "rating": { "quantity": "400", "value": "4" }
+      }
+    ]
+  },
+  "vaporisateurs": {
+    "name": "Herbal Vape Pen",
+    "prices": {
+      "1": "45.00"
+    },
+    "stock": "500",
+    "image": {
+      "IMAGES": [{ "url": "/vapo_1.jpg", "alt": "vapo_1" }]
+    },
+    "productUrl": "/fleur_1",
+    "isPromo": true,
+    "rating": {
+      "quantity": "12",
+      "value": "5",
+      "reviews": [
+        {
+          "user": "John Doe",
+          "date": "May 16, 2021",
+          "value": "4",
+          "content": "Lorem Ipsum c'est genial"
+        },
+        {
+          "user": "Jane Doe",
+          "date": "May 17, 2021",
+          "value": "5",
+          "content": "C'est d'la bombe"
+        }
+      ]
+    },
+    "shortDescription": "Short Description",
+    "longDescription": "Long Description",
+    "analyses": {
+      "cannabinoids": "",
+      "terpenes": ""
+    },
+    "relatedProducts": [
+      {
+        "name": "Grosse fleur sa mere",
+        "prices": {
+          "per": "g",
+          "1": "3.50",
+          "3": "3.50",
+          "5": "3.50",
+          "10": "3.50",
+          "25": "3.50",
+          "50": "3.50",
+          "100": "3.50"
+        },
+        "stock": "4000",
+        "image": {
+          "IMAGE_URL": "/fleur_1.webp",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "growingMethod": "Greenhouse",
+        "cannabinoids": {
+          "CBD": "12"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "myrcene": "5",
+          "Pinene": "1",
+          "Limonen": "0"
+        },
+        "grower": "fr",
+        "productUrl": "/fleur_1",
+        "isPromo": true,
+        "rating": {
+          "quantity": "12",
+          "value": "2"
+        }
+      },
+      {
+        "name": "Moroccan Gold",
+        "prices": {
+          "per": "g",
+          "1": "8.00",
+          "3": "7.50",
+          "5": "7.00",
+          "10": "6.50",
+          "25": "6.00",
+          "50": "5.50",
+          "100": "5.00"
+        },
+        "stock": "3500",
+        "image": {
+          "IMAGE_URL": "/hash_1.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "30",
+          "CBG": "4.0"
+        },
+        "terpenes": {
+          "Linalol": "3",
+          "Pinene": "2"
+        },
+        "grower": "ma",
+        "productUrl": "/moroccan_gold",
+        "isPromo": true,
+        "rating": { "quantity": "400", "value": "4" }
+      },
+      {
+        "name": "Afghan Black",
+        "prices": {
+          "per": "g",
+          "1": "9.00",
+          "3": "8.50",
+          "5": "8.00",
+          "10": "7.50",
+          "25": "7.00",
+          "50": "6.50",
+          "100": "6.00"
+        },
+        "stock": "1200",
+        "image": {
+          "IMAGE_URL": "/hash_2.jpg",
+          "IMAGE_ALT": "this is an alt image"
+        },
+        "cannabinoids": {
+          "CBD": "40",
+          "CBN": "5.0"
+        },
+        "terpenes": {
+          "Myrcene": "4",
+          "Limonen": "2"
+        },
+        "grower": "af",
+        "productUrl": "/afghan_black",
+        "isPromo": false,
+        "rating": { "quantity": "400", "value": "4" }
+      }
+    ]
+  }
+}

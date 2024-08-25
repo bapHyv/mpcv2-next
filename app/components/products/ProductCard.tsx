@@ -1,87 +1,20 @@
-"use client";
-
-import { useState } from "react";
-import { Radio, RadioGroup } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import {
-  Cannabinoids,
-  Prices,
   BaseProduct,
-  Terpenes,
-  Flower,
   Hash,
   Moonrock,
   Oil,
+  Flower,
 } from "@/app/types/productsTypes";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
 import clsx from "clsx";
+import { findHighest, findHighestQuantity } from "@/app/utils/productFunctions";
+import { getTranslations } from "next-intl/server";
+import ProductPrice from "./ProductPrice";
+import ProductOptions from "./ProductOptions";
 
-function findHighest(values: Cannabinoids | Terpenes | undefined) {
-  if (!values) return null;
-
-  const entries = Object.entries(values)
-    .map(([key, value]) => ({
-      name: key,
-      value: parseFloat(value || "0"),
-    }))
-    .filter(Boolean);
-
-  if (!entries.length) return null;
-
-  const highest = entries.reduce((prev, current) =>
-    current.value > prev.value ? current : prev
-  );
-
-  return highest;
-}
-
-function findHighestQuantity(prices: Prices) {
-  const highestQuantity = { quantity: 0, price: 0 };
-
-  Object.entries(prices)
-    .map(([key, value]) => {
-      if (Number(parseInt(key) && Number(parseFloat(value)))) {
-        return {
-          quantity: parseInt(key),
-          price: parseFloat(value || "0"),
-        };
-      } else {
-        return null;
-      }
-    })
-    .filter(Boolean)
-    .forEach((price) => {
-      if (!price) return null;
-      if (price.quantity > highestQuantity.quantity) {
-        highestQuantity.quantity = price.quantity;
-        highestQuantity.price = price.price;
-      }
-    }, 0);
-
-  return highestQuantity;
-}
-
-function formatOption(prices: Prices) {
-  const entries = Object.entries(prices)
-    .map(([key, value]) => {
-      if (Number(parseInt(key) && Number(parseFloat(value)))) {
-        return {
-          quantity: key,
-          price: value,
-        };
-      } else {
-        return null;
-      }
-    })
-    .filter(Boolean);
-
-  return entries;
-}
-
-export default function ProductCard({
+export default async function ProductCard({
   image,
   isPromo,
   name,
@@ -89,24 +22,23 @@ export default function ProductCard({
   productUrl,
   stock,
   rating,
+  // @ts-ignore
   cannabinoids,
+  // @ts-ignore
   grower,
-  growingMethod,
+  // @ts-ignore
   terpenes,
-}: BaseProduct | Oil | Hash | Moonrock | Flower) {
-  const [selectedOption, setSelectedOption] = useState(
-    formatOption(prices)[0]?.quantity
-  );
-
-  const params = useParams();
-
-  const t = useTranslations("category");
+  locale,
+  category,
+}: (BaseProduct | Oil | Hash | Moonrock | Flower) & {
+  locale: string;
+  category: string;
+}) {
+  const t = await getTranslations({ locale, namespace: "category" });
 
   const cannabinoidRating = findHighest(cannabinoids);
 
   const highestQuantity = findHighestQuantity(prices);
-
-  const formatedOption = formatOption(prices);
 
   const highestTerpene = findHighest(terpenes);
 
@@ -166,13 +98,7 @@ export default function ProductCard({
               )}
 
               {/* PRODUCT PRICE */}
-              <p className="font-medium text-neutral-900 dark:text-neutral-100">
-                {selectedOption
-                  ? parseFloat(prices[selectedOption]) *
-                    parseInt(selectedOption)
-                  : prices["1"]}{" "}
-                €
-              </p>
+              <ProductPrice name={name} />
             </section>
             {/* SEPARATOR */}
             <div className="flex items-center justify-center">
@@ -201,12 +127,9 @@ export default function ProductCard({
                   ))}
                 </div>
                 <div className="ml-4 hidden lg:flex lg:items-center">
-                  <a
-                    href="#"
-                    className="ml-4 text-sm font-medium text-green hover:text-light-green"
-                  >
-                    See all {rating.quantity} reviews
-                  </a>
+                  <span className="ml-4 text-sm font-medium text-neutral-700 dark:text-neutral-200">
+                    {rating.quantity} Reviews
+                  </span>
                 </div>
               </div>
             </div>
@@ -252,58 +175,15 @@ export default function ProductCard({
                 Product options
               </h3>
 
-              <form>
-                {/* Size picker */}
-                {("per" in prices || "unit" in prices) && (
-                  <fieldset aria-label="Choose a size" className="mt-8">
-                    <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                      {prices?.per === "g" ? "Quantité" : "unité"}
-                    </div>
-
-                    <RadioGroup
-                      value={selectedOption}
-                      onChange={setSelectedOption}
-                      className="mt-2 flex gap-2 flex-wrap"
-                    >
-                      {formatedOption.map((price) => (
-                        <Radio
-                          key={price?.quantity}
-                          value={price?.quantity}
-                          className={clsx(
-                            stock
-                              ? "cursor-pointer focus:outline-none"
-                              : "cursor-not-allowed opacity-25",
-                            `flex items-center justify-center rounded-md border border-gray-200 bg-white px-3 py-3 text-sm font-medium uppercase text-neutral-900 hover:bg-neutral-200
-                                data-[checked]:border-transparent data-[checked]:bg-green data-[checked]:text-white data-[focus]:ring-2 data-[focus]:ring-green data-[focus]:ring-offset-2
-                                data-[checked]:hover:bg-dark-green sm:flex-1`
-                          )}
-                        >
-                          {price?.quantity}
-                        </Radio>
-                      ))}
-                    </RadioGroup>
-                  </fieldset>
-                )}
-
-                <div className="flex items-center justify-center">
-                  <button
-                    type="submit"
-                    className={`mt-8 flex w-full items-center justify-center rounded-md border border-transparent 2xl:w-2/3
-                    bg-green px-8 py-3 text-base font-medium text-white hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2`}
-                  >
-                    Ajouter au panier
-                  </button>
-                </div>
-
-                <p className="text-center my-4">
-                  <Link
-                    href={`/${params.locale}/${params.category}/${productUrl}`}
-                    className="font-medium text-green hover:text-light-green"
-                  >
-                    Voir plus de détails
-                  </Link>
-                </p>
-              </form>
+              <ProductOptions name={name} prices={prices} />
+              <p className="text-center my-4">
+                <Link
+                  href={`/${locale}/${category}/${productUrl}`}
+                  className="font-medium text-green hover:text-light-green"
+                >
+                  Voir plus de détails
+                </Link>
+              </p>
             </section>
           </div>
         </div>

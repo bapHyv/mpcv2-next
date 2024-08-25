@@ -5,25 +5,19 @@ import { categories } from "@/app/types/productsTypes";
 import Title from "@/app/components/Title";
 import Link from "next/link";
 import clsx from "clsx";
-import Products from "@/app/components/products/Products";
+
+import {
+  doesCategoryExists,
+  findCategory,
+  findTitle,
+} from "@/app/utils/productFunctions";
+import ProductCard from "@/app/components/products/ProductCard";
 
 interface Params {
   params: {
     locale: string;
     category: string;
   };
-}
-
-function doesCategoryExists(categories: categories, category: string) {
-  return categories.find((e) => e.url === category);
-}
-
-function findCategory(categories: categories, category: string) {
-  return categories.filter((cat) => cat.url === category)[0].category;
-}
-
-function findTitle(categories: categories, category: string) {
-  return categories.filter((cat) => cat.url === category)[0].title;
 }
 
 export async function generateMetadata({ params: { locale } }: Params) {
@@ -54,6 +48,8 @@ export default async function Page({ params: { locale, category } }: Params) {
 
   const currentTitle = findTitle(categories, category);
 
+  const currentProducts = products[currentCategory];
+
   return (
     <div>
       <Title
@@ -63,7 +59,7 @@ export default async function Page({ params: { locale, category } }: Params) {
       />
 
       {/* NAV CATEGORY */}
-      <div className="mt-5 px-5 bg-neutral-200 dark:bg-light-black flex items-center md:justify-center xl:gap-7 h-14 overflow-scroll">
+      <div className="mt-5 px-5 bg-neutral-200 dark:bg-light-black flex items-center md:justify-center xl:gap-7 h-14 overflow-scroll no-scrollbar">
         {categories.map((cat) => (
           <Link
             key={cat.title}
@@ -78,11 +74,26 @@ export default async function Page({ params: { locale, category } }: Params) {
         ))}
       </div>
 
-      <Products
+      <div className="grid grid-cols-12 gap-4 px-2">
+        {/* PRODUCT FILTERS */}
+        {/* <ProductFilter
         currentCategory={currentCategory}
         locale={locale}
         products={products}
-      />
+        currentProduct={currentProducts}
+        setCurrentProducts={setCurrentProducts}
+      /> */}
+
+        {/* PRODUCT CARDS */}
+        {currentProducts.map((prod) => (
+          <ProductCard
+            key={prod.name}
+            locale={locale}
+            category={category}
+            {...prod}
+          />
+        ))}
+      </div>
     </div>
   );
 }

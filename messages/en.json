@@ -88,6 +88,14 @@
     "humulene": "earthy",
     "origin": "origin"
   },
+  "singleProduct": {
+    "analyzes": "analyzes",
+    "origin": "origin",
+    "cannabinoids": "cannabinoids",
+    "terpenes": "terpenes",
+    "reviews": "reviews",
+    "relatedProducts": "Related products"
+  },
   "navbar": {
     "hemp": "cbd hemp",
     "hash": "cbd hash",
