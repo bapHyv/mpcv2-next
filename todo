@@ -1,2 +1,15 @@
-Installer la font
-ProductCard: Mettre le selecteur d'option dans un composant client
+TODO:
+Ajouter selecteur de quantite dans ProductCardCart
+Traduction ProductCardCart
+Traduction Cart
+Mettre le Cart dans le local storage
+Mettre le bouton "passer la commande" en sticky?
+
+DONE:
+Lors de l'ajout au panier, recalculer le stock pour disable les options
+Design ProductCardCart responsive md, lg, xl 2xl
+lister tous les attribut possible en fonction des produits
+Ajouter un produit au panier
+Retirer un produit du panier
+desactiver boutton option si option superieur a stock
+Ajouter alerte lors de l'ajout d'un produit dans le panier (mettre un setTimeOut et disable le button pendant 1 seconde)

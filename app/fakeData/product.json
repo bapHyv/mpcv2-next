@@ -1,5 +1,6 @@
 {
   "fleurs": {
+    "id": "b1f9b0b8-f89a-47b2-92b5-0b8e074ae5e7",
     "name": "Grosse fleur sa mere",
     "prices": {
       "per": "g",
@@ -11,7 +12,7 @@
       "50": "1.00",
       "100": "0.75"
     },
-    "stock": "4000",
+    "stock": "0",
     "image": {
       "IMAGES": [
         { "url": "/fleur_1.webp", "alt": "fleur_1" },
@@ -236,6 +237,7 @@
     ]
   },
   "hashs": {
+    "id": "2b6c2bc8-75a1-4819-a929-c0c040b32f2b",
     "name": "Moroccan Gold",
     "prices": {
       "per": "g",
@@ -391,6 +393,7 @@
     ]
   },
   "moonrocks": {
+    "id": "670f5b80-5fa4-4b7e-bac2-3d8e2186fa50",
     "name": "Stardust Moonrock",
     "prices": {
       "per": "g",
@@ -543,6 +546,7 @@
     ]
   },
   "huiles": {
+    "id": "0d1b2581-1107-4e2a-b68c-c2e4d8a61415",
     "name": "Pure CBD Oil",
     "prices": {
       "per": "unit",
@@ -689,6 +693,7 @@
     ]
   },
   "infusions": {
+    "id": "301736be-e5fa-4be4-8978-748f1b4b9628",
     "name": "Relaxing Chamomile Blend",
     "prices": {
       "50": "15.00",
@@ -828,6 +833,7 @@
     ]
   },
   "soins": {
+    "id": "546d423f-09e4-49bc-a4bc-509a2b12e1f5",
     "name": "CBD Soothing Balm",
     "prices": {
       "1": "25.00"
@@ -961,6 +967,7 @@
     ]
   },
   "vaporisateurs": {
+    "id": "272597eb-0073-49f5-b0e2-72009db526bb",
     "name": "Herbal Vape Pen",
     "prices": {
       "1": "45.00"

@@ -247,8 +247,6 @@ export default async function RootLayout({
 }>) {
   const messages = await getMessages();
 
-  console.log(myFont.className);
-
   return (
     <html className="scroll-smooth" lang={locale} suppressHydrationWarning>
       <body className={`${myFont.className} max-w-[1920px] m-auto`}>

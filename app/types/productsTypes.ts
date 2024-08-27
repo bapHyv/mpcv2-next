@@ -41,6 +41,7 @@ export interface Rating {
 }
 
 export interface BaseProduct {
+  id: string;
   name: string;
   prices: Prices;
   stock: string;

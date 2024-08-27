@@ -39,9 +39,14 @@ const config: Config = {
             transform: "scale3d(1, 1, 1)",
           },
         },
+        slideinright: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
       animation: {
         tada: "tada 1s ease-in-out 0.25s infinite",
+        slideinright: "slideinright 0.5s ease-out forwards",
       },
     },
   },

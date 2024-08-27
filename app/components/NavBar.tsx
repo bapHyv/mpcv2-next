@@ -12,21 +12,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { IDropdownItem } from "../types";
 import { getTranslations } from "next-intl/server";
-import { ChevronDownIcon, ShoppingCartIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import Dropdown from "@/app/components/Dropdown";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
-
-const navigation = [
-  { name: "Produits", href: "/", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import Cart from "@/app/components/cart/Cart";
 
 export default async function NavBar({ locale }: { locale: string }) {
   // TODO add auth check
@@ -174,16 +164,7 @@ export default async function NavBar({ locale }: { locale: string }) {
                 menuItemsClassname="right-0 left-auto w-28"
               />
             </div>
-            <div className="relative flex items-center">
-              <ShoppingCartIcon className="w-10 h-10 rounded-full bg-white text-black p-1" />
-              <div>
-                <span className="sr-only">Items in shopping cart</span>
-                <span className="absolute -right-1 -top-1 text-white bg-red-600 rounded-full text-xs px-1">
-                  2
-                </span>
-              </div>
-            </div>
-
+            <Cart />
             {/* Profile dropdown */}
             {isSignedId ? (
               <Dropdown

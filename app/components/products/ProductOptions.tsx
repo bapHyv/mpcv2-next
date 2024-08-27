@@ -1,54 +1,129 @@
 "use client";
 
+import { useAlerts } from "@/app/alertsContext";
+import { ProductCart, useCart } from "@/app/cartContext";
 import { useProducts } from "@/app/productsContext";
-import { Prices } from "@/app/types/productsTypes";
+import { Image, Prices } from "@/app/types/productsTypes";
 import { formatOption } from "@/app/utils/productFunctions";
 import { Radio, RadioGroup } from "@headlessui/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 
 interface Params {
+  image: Image;
   prices: Prices;
   name: string;
+  id: string;
+  stock: string;
 }
 
 // TODO AJOUTER ID
-export default function ProductOptions({ prices, name }: Params) {
+export default function ProductOptions({
+  prices,
+  name,
+  id,
+  image,
+  stock,
+}: Params) {
   const [selectedOption, setSelectedOption] = useState(
     formatOption(prices)[0]?.quantity
   );
+  const [productStock, setProductStock] = useState(parseInt(stock));
 
   const { products, setProducts } = useProducts();
+  const { cart, setCart } = useCart();
+  const { addAlert } = useAlerts();
 
   useEffect(() => {
+    // This is used to stock all the prices in the productsContext in order to display the right price
+    // See ProductPrice.tsx
     setProducts((prevState) => {
       return {
         ...prevState,
-        [name]: {
-          id: Math.random().toString(),
+        [id]: {
+          id,
           name,
           option: selectedOption as string,
           price:
             parseFloat(prices[selectedOption as string]) *
             parseFloat(selectedOption as string),
+          image,
         },
       };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const addProductToCart = () => {
+    const _product: ProductCart = {
+      cartItemId: uuid(),
+      id: id,
+      name: name,
+      quantity: 1,
+      option: selectedOption as string,
+      per: "per" in prices ? prices.per : "",
+      unitPrice: parseFloat(prices[selectedOption as string]),
+      totalPrice: 0,
+      image,
+    };
+
+    // Set the total price before the setCart action to have the _product ready to be inserted in the cart context.
+    // It could go in the else statement...
+    _product.totalPrice =
+      _product.unitPrice *
+      _product.quantity *
+      parseFloat(selectedOption as string);
+
+    setCart((prevCart) => {
+      // Check if the same product and option is already in the cart
+      const isSameProductAndOptionInCart = prevCart.some(
+        (product) => product.id === id && product.option === _product.option
+      );
+
+      if (isSameProductAndOptionInCart) {
+        // If it's in the cart, increment the quantity
+        return prevCart.map((product) => {
+          if (product.id === id && product.option === _product.option) {
+            return {
+              ...product,
+              quantity: product.quantity + 1,
+              totalPrice:
+                (product.quantity + 1) *
+                product.unitPrice *
+                parseFloat(selectedOption as string),
+            };
+          }
+          return product;
+        });
+      } else {
+        // If it's not in the cart, add it as a new item
+        return [...prevCart, _product];
+      }
+    });
+
+    setProductStock(
+      (prevStock) => prevStock - parseInt(selectedOption as string)
+    );
+
+    console.log(productStock);
+
+    const alterDescription = `${selectedOption} ${prices.per} du produit ${name} a bien ete ajoute`;
+    addAlert(uuid(), alterDescription, "Ajout de produit", "emerald");
+  };
+
   const formatedOption = formatOption(prices);
 
-  console.log(products);
-
-  return (
-    <form>
+  return !!productStock ? (
+    <div>
       {/* Option picker */}
       {("per" in prices || "unit" in prices) && (
         <fieldset aria-label="Choose a size" className="mt-8">
-          <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-            {prices?.per === "g" ? "Quantité" : "unité"}
-          </div>
+          {
+            <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+              {prices?.per === "g" ? "Quantité" : "unité"}
+            </div>
+          }
 
           <RadioGroup
             value={selectedOption}
@@ -57,8 +132,8 @@ export default function ProductOptions({ prices, name }: Params) {
               setProducts((prevState) => {
                 return {
                   ...prevState,
-                  [name]: {
-                    id: Math.random().toString(),
+                  [id]: {
+                    id,
                     name,
                     option: arg,
                     price: parseFloat(prices[arg]) * parseFloat(arg),
@@ -73,10 +148,15 @@ export default function ProductOptions({ prices, name }: Params) {
                 key={price?.quantity}
                 value={price?.quantity}
                 className={clsx(
-                  `cursor-pointer focus:outline-none flex items-center justify-center rounded-md border border-gray-200 bg-white px-3 py-3 text-sm font-medium uppercase text-neutral-900 hover:bg-neutral-200
+                  parseInt(price?.quantity || "") > productStock
+                    ? "hidden"
+                    : "",
+                  `cursor-pointer focus:outline-none flex items-center justify-center rounded-md border 
+                  border-gray-200 bg-white p-2 w-10 h-10 text-sm font-medium uppercase text-neutral-900 hover:bg-neutral-200
                   data-[checked]:border-transparent data-[checked]:bg-green data-[checked]:text-white data-[focus]:ring-2 data-[focus]:ring-green data-[focus]:ring-offset-2
-                  data-[checked]:hover:bg-dark-green sm:flex-1`
+                  data-[checked]:hover:bg-dark-green sm:flex-1 relative`
                 )}
+                disabled={parseInt(price?.quantity || "") > productStock}
               >
                 {price?.quantity}
               </Radio>
@@ -87,13 +167,18 @@ export default function ProductOptions({ prices, name }: Params) {
 
       <div className="flex items-center justify-center">
         <button
-          type="submit"
+          onClick={() => addProductToCart()}
           className={`mt-8 flex w-full items-center justify-center rounded-md border border-transparent 2xl:w-2/3
-      bg-green px-8 py-3 text-base font-medium text-white hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2`}
+      bg-green px-8 py-3 text-base font-medium text-white hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2 disabled:bg-neutral-400 disabled:cursor-not-allowed`}
+          disabled={!productStock}
         >
           Ajouter au panier
         </button>
       </div>
-    </form>
+    </div>
+  ) : (
+    <p className="mt-8 text-xl text-red-600 uppercase text-center font-medium">
+      Rupture de stock
+    </p>
   );
 }
