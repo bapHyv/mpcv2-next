@@ -26,8 +26,11 @@ export default function ProductOptions({
   image,
   stock,
 }: Params) {
+  const [formatedOption, setFormatedOption] = useState(
+    formatOption(prices, stock)
+  );
   const [selectedOption, setSelectedOption] = useState(
-    formatOption(prices)[0]?.quantity
+    formatOption(prices, stock)[0]?.quantity
   );
   const [productStock, setProductStock] = useState(parseInt(stock));
 
@@ -36,7 +39,8 @@ export default function ProductOptions({
   const { addAlert } = useAlerts();
 
   useEffect(() => {
-    // This is used to stock all the prices in the productsContext in order to display the right price
+    // This is used to stock all the prices in the productsContext in order to display the right price on the ProductCard.tsx
+    // See ProductCard.tsx
     // See ProductPrice.tsx
     setProducts((prevState) => {
       return {
@@ -102,17 +106,33 @@ export default function ProductOptions({
       }
     });
 
-    setProductStock(
-      (prevStock) => prevStock - parseInt(selectedOption as string)
-    );
+    // Keep track of the product stock to remove the options (stock quantity available) that are greater than the current stock
+    setProductStock((prevStock) => {
+      const newStock = prevStock - parseInt(selectedOption as string);
 
-    console.log(productStock);
+      // Every time a product is added to the cart, the options will be recomputed to make sure no option greater
+      // than the stock is displayed
+      setFormatedOption(formatOption(prices, newStock.toString()));
+
+      // This is used to prevent the following edge case. Let's say the stock is equal to 15. If the user chooses 10 then add
+      // the product to its cart, the stock left is now 5. The option 10 disapear (because it's greater than the stock which has now a value of 5) but is still selected.
+      // This line recompute the selected option to make sure that if the selected option is greater than the newStock, the selectedOption will be the next available.
+      setSelectedOption((prevSelectedOption) => {
+        if (parseInt(prevSelectedOption as string) > newStock) {
+          return formatOption(prices, newStock.toString())[
+            formatOption(prices, newStock.toString()).length - 1
+          ]?.quantity;
+        } else {
+          return prevSelectedOption;
+        }
+      });
+
+      return newStock < 0 ? 0 : newStock;
+    });
 
     const alterDescription = `${selectedOption} ${prices.per} du produit ${name} a bien ete ajoute`;
     addAlert(uuid(), alterDescription, "Ajout de produit", "emerald");
   };
-
-  const formatedOption = formatOption(prices);
 
   return !!productStock ? (
     <div>
@@ -148,15 +168,11 @@ export default function ProductOptions({
                 key={price?.quantity}
                 value={price?.quantity}
                 className={clsx(
-                  parseInt(price?.quantity || "") > productStock
-                    ? "hidden"
-                    : "",
                   `cursor-pointer focus:outline-none flex items-center justify-center rounded-md border 
                   border-gray-200 bg-white p-2 w-10 h-10 text-sm font-medium uppercase text-neutral-900 hover:bg-neutral-200
                   data-[checked]:border-transparent data-[checked]:bg-green data-[checked]:text-white data-[focus]:ring-2 data-[focus]:ring-green data-[focus]:ring-offset-2
                   data-[checked]:hover:bg-dark-green sm:flex-1 relative`
                 )}
-                disabled={parseInt(price?.quantity || "") > productStock}
               >
                 {price?.quantity}
               </Radio>
