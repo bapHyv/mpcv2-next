@@ -15,7 +15,7 @@ interface IProduct {
 }
 
 interface IProducts {
-  // The key is the id of the product
+  // The key is the product's id
   [key: string]: IProduct;
 }
 

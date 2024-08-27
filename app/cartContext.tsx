@@ -7,6 +7,7 @@ import {
   useContext,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
 import { Cannabinoids, Image } from "./types/productsTypes";
 
@@ -34,7 +35,15 @@ export function CartProvider({
 }: {
   children: ReactNode;
 }): JSX.Element {
-  const [cart, setCart] = useState<ProductCart[]>([]);
+  const [cart, setCart] = useState<ProductCart[]>(
+    (JSON.parse(
+      localStorage.getItem("cart") || ""
+    ) as unknown as ProductCart[]) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <cartContext.Provider

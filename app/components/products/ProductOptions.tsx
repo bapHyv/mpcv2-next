@@ -18,7 +18,6 @@ interface Params {
   stock: string;
 }
 
-// TODO AJOUTER ID
 export default function ProductOptions({
   prices,
   name,

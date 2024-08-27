@@ -3,7 +3,7 @@
 import { ProductCart, useCart } from "@/app/cartContext";
 import Image from "next/image";
 import Separator from "@/app/components/Separator";
-import { findHighest } from "@/app/utils/productFunctions";
+import { useTranslations } from "next-intl";
 
 export default function ProductCardCart({
   cartItemId,
@@ -17,6 +17,7 @@ export default function ProductCardCart({
   per,
 }: ProductCart) {
   const { cart, setCart } = useCart();
+  const t = useTranslations("productCardCart");
 
   const removeProduct = () => {
     const _cart = cart.filter((product) => product.cartItemId !== cartItemId);
@@ -46,8 +47,9 @@ export default function ProductCardCart({
           </p>
           <Separator classname="bg-neutral-400 dark:bg-neutral-200 mt-0" />
 
-          <p className="mt-4">
-            Nombre d&apos;article{quantity > 1 ? "s" : ""}:{" "}
+          <p className="mt-4 capitalize">
+            {t("nbItem")}
+            {quantity > 1 ? "s" : ""}:{" "}
             <span className="text-neutral-600 dark:text-neutral-300">
               {quantity}
             </span>
@@ -56,7 +58,7 @@ export default function ProductCardCart({
           {/* Will be displayed if the product is either flower, hash, moonrock or infusion */}
           {per === "g" && (
             <p>
-              Prix au gramme:{" "}
+              <span className="capitalize">{t("gPrice")}</span>:{" "}
               <span className="text-neutral-600 dark:text-neutral-300">
                 {unitPrice} €/{per}
               </span>
@@ -66,7 +68,7 @@ export default function ProductCardCart({
           {/* Will only be displayed when the product is oil */}
           {per === "unit" && (
             <p>
-              Prix a l&apos;unite:{" "}
+              <span className="capitalize">{t("unitPrice")}</span>:{" "}
               <span className="text-neutral-600 dark:text-neutral-300">
                 {unitPrice} €/{per}
               </span>
@@ -75,7 +77,7 @@ export default function ProductCardCart({
 
           {!!per && (
             <p>
-              Quantite:{" "}
+              <span className="capitalize">{t("quantity")}</span>:{" "}
               <span className="text-neutral-600 dark:text-neutral-300">
                 {option} {per}
                 {per === "unit" && parseInt(option) > 1 ? "s" : ""}
@@ -84,14 +86,14 @@ export default function ProductCardCart({
           )}
 
           <p className="mt-4">
-            Prix d&apos;un article:{" "}
+            <span className="capitalize">{t("priceOneArticle")}</span>:{" "}
             <span className="text-neutral-600 dark:text-neutral-300">
               {(parseInt(option) * unitPrice).toFixed(2)}€
             </span>
           </p>
           <Separator classname="bg-neutral-400 dark:bg-neutral-200 mb-4 mt-0" />
           <p className="font-medium italic text-right">
-            Sous-total:{" "}
+            <span className="capitalize">{t("subtotal")}</span>:{" "}
             <span className="text-blue-600 dark:text-blue-400">
               {totalPrice.toFixed(2)}€
             </span>
