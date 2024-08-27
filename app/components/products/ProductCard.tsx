@@ -13,8 +13,10 @@ import { findHighest, findHighestQuantity } from "@/app/utils/productFunctions";
 import { getTranslations } from "next-intl/server";
 import ProductPrice from "./ProductPrice";
 import ProductOptions from "./ProductOptions";
+import Separator from "../Separator";
 
 export default async function ProductCard({
+  id,
   image,
   isPromo,
   name,
@@ -55,10 +57,22 @@ export default async function ProductCard({
   };
 
   return (
-    <div className="relative col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 flex w-full transform text-left text-base transition my-4">
-      <div className="flex w-full items-center overflow-hidden bg-neutral-100 dark:bg-light-black p-2 pt-3 shadow-lg rounded-xl">
-        <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:items-center lg:gap-x-8">
-          <div className="overflow-hidden rounded-lg col-span-12">
+    <div
+      className={clsx(
+        !parseInt(stock) ? "opacity-60" : "",
+        "col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 flex w-full transform text-left text-base transition my-4"
+      )}
+    >
+      <div className="flex w-full overflow-hidden bg-neutral-100 dark:bg-light-black p-2 pt-3 shadow-lg rounded-xl">
+        <div
+          // Dirty way to fix a css problem on ProductCard. The problem is a huge space between product info and photo when the product is out of stock.
+          // Here I remove the grid system that mess things up. See below where I add a margin-top to simulate the right gap
+          className={clsx(
+            parseInt(stock) ? "grid" : "",
+            "w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+          )}
+        >
+          <div className="relative overflow-hidden rounded-lg col-span-12 h-min">
             <Image
               alt={image.IMAGE_ALT}
               src={image.IMAGE_URL}
@@ -66,8 +80,18 @@ export default async function ProductCard({
               width={1080}
               height={1920}
             />
+            {!parseInt(stock) ? (
+              <div className="absolute right-5 top-5 p-1 text-sm rounded-md text-white bg-red-600">
+                Rupture
+              </div>
+            ) : isPromo ? (
+              <div className="absolute right-5 top-5 p-1 text-sm rounded-md animate-tada text-white bg-green">
+                Promo
+              </div>
+            ) : null}
           </div>
-          <div className="col-span-12">
+          {/* Add margin top to display the product infos as it is supposed to be */}
+          <div className={clsx(!parseInt(stock) ? "mt-8" : "", "col-span-12")}>
             <h2 className="text-xl font-medium text-neutral-900 dark:text-neutral-100">
               {name}
               {cannabinoidRating && (
@@ -77,11 +101,6 @@ export default async function ProductCard({
               )}
             </h2>
 
-            {isPromo && (
-              <div className="absolute right-5 top-5 p-1 text-sm rounded-md animate-tada text-white bg-green">
-                Promo
-              </div>
-            )}
             <section
               aria-labelledby="information-heading"
               className="mt-1 flex flex-col gap-1"
@@ -98,12 +117,9 @@ export default async function ProductCard({
               )}
 
               {/* PRODUCT PRICE */}
-              <ProductPrice name={name} />
+              <ProductPrice id={id} />
             </section>
-            {/* SEPARATOR */}
-            <div className="flex items-center justify-center">
-              <div className="bg-neutral-200 dark:bg-neutral-600 h-[1px] mt-4 w-full"></div>
-            </div>
+            <Separator />
             {/* RATING - REVIEWS */}
             <div className="mt-4">
               <h4 className="sr-only">Reviews</h4>
@@ -165,17 +181,21 @@ export default async function ProductCard({
                 </div>
               </section>
             )}
-            {/* SEPARATOR */}
-            <div className="flex items-center justify-center">
-              <div className="bg-neutral-200 dark:bg-neutral-600 h-[1px] mt-4 w-full"></div>
-            </div>
 
             <section aria-labelledby="options-heading" className="mt-8">
               <h3 id="options-heading" className="sr-only">
                 Product options
               </h3>
 
-              <ProductOptions name={name} prices={prices} />
+              {/* The image props is necessary to pass it in the cartContext in order to display it
+              in the ProductCartCard */}
+              <ProductOptions
+                image={image}
+                prices={prices}
+                name={name}
+                id={id}
+                stock={stock}
+              />
               <p className="text-center my-4">
                 <Link
                   href={`/${locale}/${category}/${productUrl}`}

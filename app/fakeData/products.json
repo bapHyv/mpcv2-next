@@ -1,6 +1,7 @@
 {
   "fleurs": [
     {
+      "id": "b1f9b0b8-f89a-47b2-92b5-0b8e074ae5e7",
       "name": "Grosse fleur sa mere",
       "prices": {
         "per": "g",
@@ -12,7 +13,7 @@
         "50": "3.50",
         "100": "3.50"
       },
-      "stock": "4000",
+      "stock": "0",
       "image": {
         "IMAGE_URL": "/fleur_1.webp",
         "IMAGE_ALT": "this is an alt image"
@@ -36,6 +37,7 @@
       }
     },
     {
+      "id": "94a2b226-25df-4e41-85e8-989f85e36b6a",
       "name": "Purple Dream",
       "prices": {
         "per": "g",
@@ -47,7 +49,7 @@
         "50": "3.50",
         "100": "3.25"
       },
-      "stock": "3200",
+      "stock": "15",
       "image": {
         "IMAGE_URL": "/fleur_2.webp",
         "IMAGE_ALT": "this is an alt image"
@@ -67,6 +69,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "f60e0d37-2f97-40c6-8d59-b59b6f58b8c1",
       "name": "Sunrise Haze",
       "prices": {
         "per": "g",
@@ -98,6 +101,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "25c0c750-5de7-4619-8513-9b614d37d097",
       "name": "Alpine Breeze",
       "prices": {
         "per": "g",
@@ -129,6 +133,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "aa7127b2-34d4-4d15-8b98-ff29b2f3d8a0",
       "name": "Golden Glow",
       "prices": {
         "per": "g",
@@ -160,6 +165,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "1394299e-6d68-4a02-b512-c5f48922cbbc",
       "name": "Crystal Ice",
       "prices": {
         "per": "g",
@@ -193,6 +199,7 @@
   ],
   "hashs": [
     {
+      "id": "2b6c2bc8-75a1-4819-a929-c0c040b32f2b",
       "name": "Moroccan Gold",
       "prices": {
         "per": "g",
@@ -223,6 +230,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "f8c7eb39-daf5-404f-8850-e22b2e5c6206",
       "name": "Afghan Black",
       "prices": {
         "per": "g",
@@ -253,6 +261,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "b746167f-4198-40c6-a933-c4aa8cfa4f68",
       "name": "Lebanese Red",
       "prices": {
         "per": "g",
@@ -282,6 +291,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "b2ae5c9e-bad1-495b-81c6-6ae2890fbcec",
       "name": "Nepal Temple",
       "prices": {
         "per": "g",
@@ -315,6 +325,7 @@
   ],
   "moonrocks": [
     {
+      "id": "670f5b80-5fa4-4b7e-bac2-3d8e2186fa50",
       "name": "Stardust Moonrock",
       "prices": {
         "per": "g",
@@ -345,6 +356,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "24c1e4a5-5735-43db-8c5b-5ad5f064da06",
       "name": "Galactic Moonrock",
       "prices": {
         "per": "g",
@@ -377,6 +389,7 @@
   ],
   "huiles": [
     {
+      "id": "0d1b2581-1107-4e2a-b68c-c2e4d8a61415",
       "name": "Pure CBD Oil",
       "prices": {
         "per": "unit",
@@ -398,6 +411,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "1fe8ac6f-07a4-4dd4-abb0-1f379fb7058f",
       "name": "Full Spectrum Oil",
       "prices": {
         "per": "unit",
@@ -419,6 +433,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "25f1ecde-f2a5-4146-a7f2-c5c89f9ea9c8",
       "name": "Organic Hemp Oil",
       "prices": {
         "per": "unit",
@@ -439,6 +454,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "90796db7-6a6a-4020-aacc-78e404be59da",
       "name": "CBG Rich Oil",
       "prices": {
         "per": "unit",
@@ -460,6 +476,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "693982e5-0b19-4aeb-a73c-2bffb53d7f2a",
       "name": "CBN Sleep Oil",
       "prices": {
         "per": "unit",
@@ -481,6 +498,7 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "ac3b21d8-145f-4a90-9f75-68ae5b9f52a0",
       "name": "CBD & Turmeric Oil",
       "prices": {
         "per": "unit",
@@ -504,11 +522,13 @@
   ],
   "infusions": [
     {
+      "id": "301736be-e5fa-4be4-8978-748f1b4b9628",
       "name": "Relaxing Chamomile Blend",
       "prices": {
-        "50": "15.00",
-        "100": "25.00",
-        "150": "35.00"
+        "per": "g",
+        "50": "1.35",
+        "100": "1.10",
+        "150": "0.95"
       },
       "stock": "1200",
       "image": {
@@ -520,11 +540,13 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "ca6b75bb-1df0-4a27-88ae-85f7fd22612a",
       "name": "Revitalizing Mint Tea",
       "prices": {
-        "50": "14.00",
-        "100": "24.00",
-        "150": "34.00"
+        "per": "g",
+        "50": "1.20",
+        "100": "1.05",
+        "150": "0.85"
       },
       "stock": "1500",
       "image": {
@@ -536,11 +558,13 @@
       "rating": { "quantity": "400", "value": "4" }
     },
     {
+      "id": "9c9f925d-77e0-4c90-b48f-58768a8a0e6f",
       "name": "Detox Green Tea",
       "prices": {
-        "50": "16.00",
-        "100": "26.00",
-        "150": "36.00"
+        "per": "g",
+        "50": "1.45",
+        "100": "1.20",
+        "150": "1.08"
       },
       "stock": "2000",
       "image": {
@@ -554,6 +578,7 @@
   ],
   "soins": [
     {
+      "id": "546d423f-09e4-49bc-a4bc-509a2b12e1f5",
       "name": "CBD Soothing Balm",
       "prices": {
         "1": "25.00"
@@ -570,6 +595,7 @@
   ],
   "vaporisateurs": [
     {
+      "id": "272597eb-0073-49f5-b0e2-72009db526bb",
       "name": "Herbal Vape Pen",
       "prices": {
         "1": "45.00"

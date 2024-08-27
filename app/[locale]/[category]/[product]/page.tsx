@@ -417,7 +417,7 @@ export default async function Page({ params: { locale, category } }: Params) {
             </h1>
 
             {/* PRODUCT PRICE */}
-            <ProductPrice name={product.name} />
+            <ProductPrice id={product.id} />
 
             {/* Reviews */}
             {!!parseInt(product.rating.quantity) && (
@@ -463,8 +463,16 @@ export default async function Page({ params: { locale, category } }: Params) {
             </div>
 
             {/* Option picker */}
-            {/* TODO AJOUTER ID */}
-            <ProductOptions prices={product.prices} name={product.name} />
+            <ProductOptions
+              prices={product.prices}
+              name={product.name}
+              id={product.id}
+              image={{
+                IMAGE_ALT: product.image.IMAGES[0].alt,
+                IMAGE_URL: product.image.IMAGES[0].url,
+              }}
+              stock={product.stock}
+            />
 
             <section aria-labelledby="details-heading" className="mt-12">
               <h2 id="details-heading" className="sr-only">
