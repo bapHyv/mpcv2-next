@@ -50,10 +50,21 @@ export function findHighestQuantity(prices: Prices) {
   return highestQuantity;
 }
 
-export function formatOption(prices: Prices) {
+export function formatOption(prices: Prices, stock: string) {
   const entries = Object.entries(prices)
     .map(([key, value]) => {
-      if (Number(parseInt(key) && Number(parseFloat(value)))) {
+      // This boolean is used to remove the options that are greater than the stock.
+      // Those options will not be displayed in the ProductOptions.tsx
+      const isOptionIsGreaterThanStock = parseInt(key) > parseInt(stock);
+      // if (Number(parseInt(key) && Number(parseFloat(value)))) {
+      // In some cases the key can be equal to "per" and the value equal to "g" or "unit"
+      // Only the numeric option are needed.
+      // Ex: key = 100 and value === 3.50. It reprensents 100g for 3.50€/g
+      if (
+        !!Number(parseInt(key)) &&
+        !!Number(parseFloat(value)) &&
+        !isOptionIsGreaterThanStock
+      ) {
         return {
           quantity: key,
           price: value,
@@ -63,6 +74,8 @@ export function formatOption(prices: Prices) {
       }
     })
     .filter(Boolean);
+
+  console.log({ entries });
 
   return entries;
 }

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Disclosure,
   DisclosureButton,
@@ -12,13 +11,11 @@ import {
 import { StarIcon } from "@heroicons/react/20/solid";
 import {
   ArrowUpRightIcon,
-  HeartIcon,
   MinusIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
-import { Prices, categories } from "@/app/types/productsTypes";
-import clsx from "clsx";
-import fakeproduct from "@/app/fakeData/product.json";
+import { categories } from "@/app/types/productsTypes";
+import fakeProductFromJSON from "@/app/fakeData/product.json";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +23,6 @@ import { terpenesToColor } from "@/app/utils/terpenesToColor";
 import {
   findHighest,
   findHighestQuantity,
-  formatOption,
   findCategory,
 } from "@/app/utils/productFunctions";
 import ProductOptions from "@/app/components/products/ProductOptions";
@@ -44,225 +40,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-const reviews = [
-  {
-    id: 1,
-    title: "Can't say enough good things",
-    rating: 5,
-    content: `
-      <p>I was really pleased with the overall shopping experience. My order even included a little personal, handwritten note, which delighted me!</p>
-      <p>The product quality is amazing, it looks and feel even better than I had anticipated. Brilliant stuff! I would gladly recommend this store to my friends. And, now that I think of it... I actually have, many times!</p>
-    `,
-    author: "Risako M",
-    date: "May 16, 2021",
-    datetime: "2021-01-06",
-  },
-  {
-    id: 1,
-    title: "Can't say enough good things",
-    rating: 5,
-    content: `
-      <p>I was really pleased with the overall shopping experience. My order even included a little personal, handwritten note, which delighted me!</p>
-      <p>The product quality is amazing, it looks and feel even better than I had anticipated. Brilliant stuff! I would gladly recommend this store to my friends. And, now that I think of it... I actually have, many times!</p>
-    `,
-    author: "Risako M",
-    date: "May 16, 2021",
-    datetime: "2021-01-06",
-  },
-  {
-    id: 1,
-    title: "Can't say enough good things",
-    rating: 5,
-    content: `
-      <p>I was really pleased with the overall shopping experience. My order even included a little personal, handwritten note, which delighted me!</p>
-      <p>The product quality is amazing, it looks and feel even better than I had anticipated. Brilliant stuff! I would gladly recommend this store to my friends. And, now that I think of it... I actually have, many times!</p>
-    `,
-    author: "Risako M",
-    date: "May 16, 2021",
-    datetime: "2021-01-06",
-  },
-  // More reviews...
-];
-
-const relatedProducts = [
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc: "/fleur_1.webp",
-    imageAlt: "Lemon haze",
-    price: "$35",
-    color: "Aspen White",
-  },
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc: "/fleur_2.webp",
-    imageAlt: "Lemon haze",
-    price: "$35",
-    color: "Aspen White",
-  },
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc: "/fleur_3.webp",
-    imageAlt: "Lemon haze",
-    price: "$35",
-    color: "Aspen White",
-  },
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc: "/fleur_4.webp",
-    imageAlt: "Lemon haze",
-    price: "$35",
-    color: "Aspen White",
-  },
-];
-
-const fleur = {
-  name: "Grosse fleur sa mere",
-  prices: {
-    per: "g",
-    "1": "3.50",
-    "3": "3.50",
-    "5": "3.50",
-    "10": "3.50",
-    "25": "3.50",
-    "50": "3.50",
-    "100": "3.50",
-  },
-  stock: "4000",
-  image: {
-    IMAGES: [
-      { url: "/fleur_1.webp", alt: "fleur_1" },
-      { url: "/fleur_1.webp", alt: "fleur_1" },
-      { url: "/fleur_1.webp", alt: "fleur_1" },
-    ],
-    IMAGE_ALT: "this is an alt image",
-  },
-  growingMethod: "Greenhouse",
-  cannabinoids: {
-    CBD: "12",
-  },
-  terpenes: {
-    Linalol: "3",
-    myrcene: "5",
-    Pinene: "1",
-    Limonen: "0",
-  },
-  grower: "fr",
-  productUrl: "/fleur_1",
-  isPromo: true,
-  rating: {
-    quantity: "12",
-    value: "2",
-    reviews: [
-      {
-        user: "John Doe",
-        date: "May 16, 2021",
-        value: "4",
-        content: "Lorem Ipsum c'est genial",
-      },
-    ],
-  },
-  shortDescription: "Short Description",
-  longDescription: "Long Description",
-  relatedProducts: [
-    {
-      name: "Grosse fleur sa mere",
-      prices: {
-        per: "g",
-        "1": "3.50",
-        "3": "3.50",
-        "5": "3.50",
-        "10": "3.50",
-        "25": "3.50",
-        "50": "3.50",
-        "100": "3.50",
-      },
-      stock: "4000",
-      image: {
-        IMAGE_URL: "/fleur_1.webp",
-        IMAGE_ALT: "this is an alt image",
-      },
-      growingMethod: "Greenhouse",
-      cannabinoids: {
-        CBD: "12",
-      },
-      terpenes: {
-        Linalol: "3",
-        myrcene: "5",
-        Pinene: "1",
-        Limonen: "0",
-      },
-      grower: "fr",
-      productUrl: "/fleur_1",
-      isPromo: true,
-      rating: {
-        quantity: "12",
-        value: "2",
-      },
-    },
-  ],
-};
-
-const fakeProduct = {
-  name: "Grosse fleur sa mere",
-  price: "$4000",
-  rating: 5,
-  prices: {
-    per: "g",
-    "1": "3.50",
-    "3": "3.50",
-    "5": "3.50",
-    "10": "3.50",
-    "25": "3.50",
-    "50": "3.50",
-    "100": "3.50",
-  },
-  images: [
-    {
-      id: 1,
-      name: "Angled view",
-      src: "/fleur_1.webp",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    {
-      id: 1,
-      name: "Angled view",
-      src: "/fleur_2.webp",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    {
-      id: 1,
-      name: "Angled view",
-      src: "/fleur_3.webp",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    {
-      id: 1,
-      name: "Angled view",
-      src: "/fleur_4.webp",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-  ],
-  colors: [
-    {
-      name: "Washed Black",
-      bgColor: "bg-gray-700",
-      selectedColor: "ring-gray-700",
-    },
-    { name: "White", bgColor: "bg-white", selectedColor: "ring-gray-400" },
-    {
-      name: "Washed Gray",
-      bgColor: "bg-gray-500",
-      selectedColor: "ring-gray-500",
-    },
-  ],
+const shortAndLongDescription = {
   shortDescription: `
     <p>Découvrez la A6 CBD, une fleur de chanvre française exceptionnelle.
     Ses arômes envoûtants de terre, de bois et d’agrumes, ainsi que ses effets relaxants puissants, 
@@ -282,48 +60,9 @@ const fakeProduct = {
       <li><span class="font-bold text-xl">Réduction du Stress</span> : Aide à apaiser l’esprit et à réduire les niveaux de stress et d’anxiété.</li>
     </ul>
   `,
-  details: [
-    {
-      name: "Analyses",
-      items: ["Cannabinoids", "terpenes"],
-    },
-    {
-      name: "Origin et Methode de culture",
-      items: ["France", "Sous-serre"],
-    },
-    {
-      name: "Cannabinoids",
-      items: ["CBD: 30%", "CBG: 8%", "CBN: 3%"],
-    },
-    {
-      name: "Terpenes",
-      items: ["Linalol: 5", "Caryophyllene: 3", "myrcene: 1", "Limonen: 3"],
-    },
-    // More sections...
-  ],
 };
 
-// export async function generateMetadata({
-//   params: { locale, product },
-// }: Params) {
-//   const t = await getTranslations({ locale, namespace: "category" });
-//   return {
-//     title: product,
-//     description: t("description"),
-//   };
-// }
-
-// export async function generateStaticParams() {
-//   return products.map((product) => ({ product }));
-// }
-
-// Sur mobile, aligner les options
-
 export default async function Page({ params: { locale, category } }: Params) {
-  // const [selectedOption, setSelectedOption] = useState(
-  //   formatOption(fakeProduct.prices)[0]?.quantity
-  // );
-
   const t = await getTranslations({ locale });
 
   const categories: categories = [
@@ -346,15 +85,13 @@ export default async function Page({ params: { locale, category } }: Params) {
 
   const currentCategory = findCategory(categories, category);
 
-  const formatedOption = formatOption(fakeProduct.prices);
-
-  const product = fakeproduct[currentCategory];
+  const product = fakeProductFromJSON[currentCategory];
 
   const cannabinoidRating =
     "cannabinoids" in product ? findHighest(product.cannabinoids) : null;
 
-  product.shortDescription = fakeProduct.shortDescription;
-  product.longDescription = fakeProduct.longDescription;
+  product.shortDescription = shortAndLongDescription.shortDescription;
+  product.longDescription = shortAndLongDescription.longDescription;
 
   return (
     <div className="bg-white dark:bg-light-black">
