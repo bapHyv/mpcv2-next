@@ -101,5 +101,17 @@
     "addresses": "Adresses es",
     "orders": "Commandes es",
     "fidelity": "Point de fidélité & parrainage es"
+  },
+  "cart": {
+    "cart": "carrito",
+    "order": "realizar pedido"
+  },
+  "productCardCart": {
+    "nbItem": "número de artículos",
+    "gPrice": "precio por gramo",
+    "unitPrice": "precio unitario",
+    "quantity": "cantidad",
+    "priceOneArticle": "precio por artículo",
+    "subtotal": "subtotal"
   }
 }

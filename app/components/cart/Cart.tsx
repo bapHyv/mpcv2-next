@@ -10,6 +10,7 @@ import {
 } from "@headlessui/react";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import ProductCardCart from "./ProductCardCart";
+import { useTranslations } from "next-intl";
 
 interface CartProduct {
   id: string;
@@ -32,6 +33,7 @@ interface Commande {
 export default function Cart() {
   const [open, setOpen] = useState(false);
   const { cart } = useCart();
+  const t = useTranslations("cart");
 
   const computeTotal = () => {
     let total = 0;
@@ -71,13 +73,13 @@ export default function Cart() {
             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
               <DialogPanel
                 transition
-                className="pointer-events-auto w-screen max-w-2xl md:max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700"
+                className="pointer-events-auto w-screen max-w-xs sm:max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700"
               >
                 <div className="flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 py-6 shadow-xl">
                   <div className="px-4 sm:px-6">
                     <div className="flex items-start justify-between">
-                      <DialogTitle className="text-base font-semibold leading-6 text-neutral-900 dark:text-neutral-200">
-                        Panier
+                      <DialogTitle className="text-base font-semibold leading-6 text-neutral-900 dark:text-neutral-200 capitalize">
+                        {t("cart")}
                       </DialogTitle>
                       <div className="ml-3 flex h-7 items-center">
                         <button
@@ -108,8 +110,8 @@ export default function Cart() {
                         </span>
                       </p>
                       <div className="flex">
-                        <button className="bg-green text-white w-full py-3 rounded-md mt-5">
-                          PASSER LA COMMANDE
+                        <button className="bg-green text-white w-full py-3 rounded-md mt-5 uppercase">
+                          {t("order")}
                         </button>
                       </div>
                     </div>

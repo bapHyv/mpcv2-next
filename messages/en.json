@@ -117,5 +117,17 @@
     "GCS": "Conditions générales de vente",
     "privacyPolicies": "privacy policy",
     "about": "About"
+  },
+  "cart": {
+    "cart": "cart",
+    "order": "place order"
+  },
+  "productCardCart": {
+    "nbItem": "number of items",
+    "gPrice": "price per gram",
+    "unitPrice": "unit price",
+    "quantity": "quantity",
+    "priceOneArticle": "price per item",
+    "subtotal": "subtotal"
   }
 }

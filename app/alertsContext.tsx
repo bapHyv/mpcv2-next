@@ -73,7 +73,7 @@ export function AlertsProvider({
         const _alerts = alerts.slice(0, alerts.length - 1);
         setAlerts([..._alerts]);
       }, 1750);
-      console.log("Timeout in useEffect in alertContext");
+      // console.log("Timeout in useEffect in alertContext");
       return () => clearTimeout(timeoutId);
     }
   }, [alerts]);
@@ -96,7 +96,7 @@ export function AlertsProvider({
     setAlerts((prevState) => [...prevState, element]);
   };
 
-  console.log("In alerts context");
+  // console.log("In alerts context");
 
   return (
     <alertsContext.Provider
@@ -106,7 +106,7 @@ export function AlertsProvider({
     >
       <>
         {children}
-        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-5 top-5 flex flex-col gap-5">
+        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-5 top-20 flex flex-col gap-5">
           {alerts}
         </div>
       </>
