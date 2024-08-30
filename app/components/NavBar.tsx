@@ -161,7 +161,7 @@ export default async function NavBar({ locale }: { locale: string }) {
                 locale={locale}
                 menuClassname="sm:flex items-center justify-center w-full"
                 menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
-                menuItemsClassname="right-0 left-auto w-28"
+                menuItemsClassname="right-0 left-auto top-0 w-28"
               />
             </div>
             <Cart />

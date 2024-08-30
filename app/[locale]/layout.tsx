@@ -253,7 +253,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <NavBar locale={locale} />
-            <main className="min-h-screen">{children}</main>
+            <main className="min-h-screen p-2">{children}</main>
             <Footer locale={locale} />
           </Providers>
         </NextIntlClientProvider>

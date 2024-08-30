@@ -1,7 +1,44 @@
 {
   "HomePage": {
-    "title": "Hello world!",
-    "subtile": "This is a translation"
+    "title": "Hello, World!",
+    "subtitle": "This is a translation",
+    "services": {
+      "title": "Our Services",
+      "delivery": {
+        "title": "Fast Delivery",
+        "text": "NEXT-DAY DELIVERY ACROSS FRANCE (3 TO 5 DAYS FOR CORSICA AND EUROPE)"
+      },
+      "payment": {
+        "title": "Secure Payments",
+        "text": "SECURE PAYMENTS, ENSURING THE SECURITY OF YOUR DATA DURING TRANSACTIONS"
+      },
+      "products": {
+        "title": "Quality Products",
+        "text": "HEMP AND CBD PRODUCTS PROVIDED WITH OUR COUNTER ANALYSES CERTIFYING A DELTA9 THC LEVEL COMPLIANT WITH FRENCH AND EUROPEAN REGULATIONS (0.3%)"
+      },
+      "fidelity": {
+        "title": "Economical",
+        "text": "EARN ONE LOYALTY POINT FOR EVERY EURO SPENT ON THE SITE AND TEN POINTS FOR A PRODUCT REVIEW. 10 POINTS = 1 € DISCOUNT"
+      },
+      "sponsoring": {
+        "title": "A Rewarding Loyalty Program",
+        "text": "EARN BETWEEN 50 AND 100 POINTS FOR EACH REFERRED PERSON (1ST ORDER +- 30 €)! YOUR REFERRAL WILL RECEIVE 50 POINTS! LINK AVAILABLE IN 'MY ACCOUNT'"
+      }
+    },
+    "discountProducts": "CBD Deals",
+    "flowers": "CBD Flowers",
+    "hashs": "CBD Hash",
+    "oils": "CBD Oils",
+    "cbdSection": {
+      "imgAlt": "cbd foot tip",
+      "title": "What is CBD?",
+      "text": "Cannabidiol (CBD) is a molecule found in hemp. CBD complements the spectrum of 110 other cannabinoids known to date. It is known for its wellness benefits for sleep, stress, anxiety, muscle tension, etc. It is available in the form of CBD balm, oil, or CBD flowers for infusion."
+    },
+    "cbdPassion": {
+      "imgAlt": "CBD flowers with full spectrum oils and hemp seeds",
+      "title": "A Passion for CBD...",
+      "text": "My CBD Plan, it’s an idea that sprouted one winter afternoon at the Bistrot des Halles in Bayonne. Each of us has individually cultivated an interest in this plant, hemp. Whether for personal use, for our loved ones, or our community, we agree, like many others, that a promising future is shaping up around this plant, which has been used ancestrally around the world."
+    }
   },
   "globalError": {
     "message": "The web site seems to be down",

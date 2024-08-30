@@ -1,7 +1,44 @@
 {
   "HomePage": {
-    "title": "Hola Cabrones!",
-    "subtile": "This is a translation but in spanish"
+    "title": "¡Hola, Mundo!",
+    "subtitle": "Esta es una traducción",
+    "services": {
+      "title": "Nuestros Servicios",
+      "delivery": {
+        "title": "Entrega Rápida",
+        "text": "ENTREGA AL DÍA SIGUIENTE EN TODA FRANCIA (3 A 5 DÍAS PARA CÓRCEGA Y EUROPA)"
+      },
+      "payment": {
+        "title": "Pagos Seguros",
+        "text": "PAGOS SEGUROS, GARANTIZANDO LA SEGURIDAD DE SUS DATOS DURANTE LAS TRANSACCIONES"
+      },
+      "products": {
+        "title": "Productos de Calidad",
+        "text": "PRODUCTOS DE CÁÑAMO Y CBD PROPORCIONADOS CON NUESTROS CONTRAANÁLISIS QUE CERTIFICAN UN NIVEL DE THC DELTA9 CUMPLIDO CON LAS REGULACIONES FRANCESAS Y EUROPEAS (0,3%)"
+      },
+      "fidelity": {
+        "title": "Económico",
+        "text": "GANA UN PUNTO DE FIDELIDAD POR CADA EURO GASTADO EN EL SITIO Y DIEZ PUNTOS POR UNA RESEÑA DE PRODUCTO. 10 PUNTOS = 1 € DE DESCUENTO"
+      },
+      "sponsoring": {
+        "title": "Un Programa de Fidelidad Gratificante",
+        "text": "GANA ENTRE 50 Y 100 PUNTOS POR CADA PERSONA REFERIDA (1ER PEDIDO +- 30 €)! ¡SU REFERIDO RECIBIRÁ 50 PUNTOS! ENLACE DISPONIBLE EN 'MI CUENTA'"
+      }
+    },
+    "discountProducts": "Ofertas de CBD",
+    "flowers": "Flores de CBD",
+    "hashs": "Hachís de CBD",
+    "oils": "Aceites de CBD",
+    "cbdSection": {
+      "imgAlt": "punta de pie de cbd",
+      "title": "¿Qué es el CBD?",
+      "text": "El cannabidiol (CBD) es una molécula que se encuentra en el cáñamo. El CBD complementa el espectro de otros 110 cannabinoides conocidos hasta la fecha. Se conoce por sus beneficios para el bienestar en el sueño, el estrés, la ansiedad, la tensión muscular, etc. Está disponible en forma de bálsamo de CBD, aceite o flores de CBD para infusión."
+    },
+    "cbdPassion": {
+      "imgAlt": "Flores de CBD con aceites de espectro completo y semillas de cáñamo",
+      "title": "Una Pasión por el CBD...",
+      "text": "Mi Plan CBD, es una idea que brotó una tarde de invierno en el Bistrot des Halles de Bayonne. Cada uno de nosotros ha cultivado individualmente un interés en esta planta, el cáñamo. Ya sea para uso personal, para nuestros seres queridos, o nuestra comunidad, coincidimos, como muchas otras personas, en que un futuro prometedor se está gestando en torno a esta planta, que ha sido utilizada ancestralmente en todo el mundo."
+    }
   },
   "globalError": {
     "message": "The web site seems to be down es",
