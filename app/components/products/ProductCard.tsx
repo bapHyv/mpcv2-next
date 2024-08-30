@@ -14,6 +14,7 @@ import { getTranslations } from "next-intl/server";
 import ProductPrice from "./ProductPrice";
 import ProductOptions from "./ProductOptions";
 import Separator from "../Separator";
+import { twMerge } from "tailwind-merge";
 
 export default async function ProductCard({
   id,
@@ -32,9 +33,13 @@ export default async function ProductCard({
   terpenes,
   locale,
   category,
+  mainDivClassname,
+  secondeDivClassname,
 }: (BaseProduct | Oil | Hash | Moonrock | Flower) & {
   locale: string;
   category: string;
+  mainDivClassname?: string;
+  secondeDivClassname?: string;
 }) {
   const t = await getTranslations({ locale, namespace: "category" });
 
@@ -58,25 +63,31 @@ export default async function ProductCard({
 
   return (
     <div
-      className={clsx(
-        !parseInt(stock) ? "opacity-60" : "",
-        "col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 flex w-full transform text-left text-base transition my-4"
+      className={twMerge(
+        clsx(
+          !parseInt(stock) ? "opacity-60" : "",
+          "col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 w-full transform text-left text-base transition my-4"
+        ),
+        mainDivClassname
       )}
     >
-      <div className="flex w-full overflow-hidden bg-neutral-100 dark:bg-light-black p-2 pt-3 shadow-lg rounded-xl">
+      <div className="flex w-full overflow-hidden bg-neutral-100 dark:bg-light-black p-2 pt-3 shadow-lg rounded-md">
         <div
           // Dirty way to fix a css problem on ProductCard. The problem is a huge space between product info and photo when the product is out of stock.
           // Here I remove the grid system that mess things up. See below where I add a margin-top to simulate the right gap
-          className={clsx(
-            parseInt(stock) ? "grid" : "",
-            "w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+          className={twMerge(
+            clsx(
+              parseInt(stock) ? "grid" : "",
+              "w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+            ),
+            secondeDivClassname
           )}
         >
-          <div className="relative overflow-hidden rounded-lg col-span-12 h-min">
+          <div className="relative flex justify-center items-center overflow-hidden rounded-lg col-span-12 h-min">
             <Image
               alt={image.IMAGE_ALT}
               src={image.IMAGE_URL}
-              className="object-cover object-center"
+              className="object-cover object-center w-80 h-52 rounded-t-md"
               width={1080}
               height={1920}
             />

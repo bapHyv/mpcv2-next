@@ -48,6 +48,10 @@ const config: Config = {
         tada: "tada 1s ease-in-out 0.25s infinite",
         slideinright: "slideinright 0.5s ease-out forwards",
       },
+      boxShadow: {
+        carousel: "inset 0px 0px 10px #000000",
+        "carousel-dark": "inset 0px 0px 10px #525252",
+      },
     },
   },
   darkMode: "class",

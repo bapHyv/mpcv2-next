@@ -35,15 +35,38 @@ export function CartProvider({
 }: {
   children: ReactNode;
 }): JSX.Element {
-  const [cart, setCart] = useState<ProductCart[]>(
-    (JSON.parse(
-      localStorage.getItem("cart") || ""
-    ) as unknown as ProductCart[]) || []
-  );
+  const [isMounted, setIsMounted] = useState(false);
+  const [cart, setCart] = useState<ProductCart[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (isMounted) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+      console.log("4");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
+
+  useEffect(() => {
+    console.log("1");
+    if (!isMounted) {
+      setIsMounted(true);
+      console.log("2");
+    }
+
+    return () => setIsMounted(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      console.log("3");
+      setCart(
+        (JSON.parse(
+          localStorage.getItem("cart") || ""
+        ) as unknown as ProductCart[]) || []
+      );
+    }
+  }, [isMounted]);
 
   return (
     <cartContext.Provider
