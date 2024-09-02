@@ -14,8 +14,8 @@
   "stock": "4000",
   "images": [
     { "url": "/fleur_1.webp", "alt": "fleur_1", "main": true },
-    { "url": "/fleur_1.webp", "alt": "fleur_1" },
-    { "url": "/fleur_1.webp", "alt": "fleur_1" }
+    { "url": "/fleur_2.webp", "alt": "fleur_2" },
+    { "url": "/fleur_3.webp", "alt": "fleur_3" }
   ],
   "growingMethod": "GH",
   "cannabinoids": {

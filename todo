@@ -1,3 +1,8 @@
+TODO update products data:
+pricesPer
+prices
+images
+
 TODO:
 -Ajouter selecteur de quantite dans ProductCardCart
 
@@ -6,11 +11,6 @@ TODO:
 -Edge case: Ajouter un produit dans le panier jusqu'a rupture de stock. Supprimer le produit du panier. Le produit est toujours en rupture de stock alors qu'il devrait etre de nouveau valide
 
 Si un gars a un article dans son panier puis qu'il revient quelque jour apres et que le produit est hors stock, ou que la quantite qu'il a dans le panier est superieur au stock actuel du produit que faire?
-
-Homepage:
--Carousel Service
--Qu'est-ce que le CBD
--Fix language selector
 
 DONE:
 Lors de l'ajout au panier, recalculer le stock pour disable les options
@@ -23,3 +23,8 @@ Ajouter alerte lors de l'ajout d'un produit dans le panier (mettre un setTimeOut
 Mettre le Cart dans le local storage
 Traduction ProductCardCart
 Traduction Cart
+
+Homepage:
+-Carousel Service
+-Qu'est-ce que le CBD
+-Fix language selector

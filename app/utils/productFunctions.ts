@@ -3,7 +3,17 @@ import {
   Terpenes,
   Prices,
   categories,
+  Image,
 } from "@/app/types/productsTypes";
+
+export function findMainImage(images: Image[]) {
+  const mainImage = { url: "", alt: "" };
+  const _images = images.filter((image) => image.main);
+  mainImage.alt = _images[0].alt;
+  mainImage.url = _images[0].url;
+
+  return mainImage;
+}
 
 export function findHighest(values: Cannabinoids | Terpenes | undefined) {
   if (!values) return null;
@@ -29,14 +39,10 @@ export function findHighestQuantity(prices: Prices) {
 
   Object.entries(prices)
     .map(([key, value]) => {
-      if (Number(parseInt(key) && Number(parseFloat(value)))) {
-        return {
-          quantity: parseInt(key),
-          price: parseFloat(value || "0"),
-        };
-      } else {
-        return null;
-      }
+      return {
+        quantity: parseInt(key),
+        price: parseFloat(value || "0"),
+      };
     })
     .filter(Boolean)
     .forEach((price) => {

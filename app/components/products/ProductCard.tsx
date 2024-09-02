@@ -9,7 +9,11 @@ import {
 } from "@/app/types/productsTypes";
 import Link from "next/link";
 import clsx from "clsx";
-import { findHighest, findHighestQuantity } from "@/app/utils/productFunctions";
+import {
+  findHighest,
+  findHighestQuantity,
+  findMainImage,
+} from "@/app/utils/productFunctions";
 import { getTranslations } from "next-intl/server";
 import ProductPrice from "./ProductPrice";
 import ProductOptions from "./ProductOptions";
@@ -18,7 +22,8 @@ import { twMerge } from "tailwind-merge";
 
 export default async function ProductCard({
   id,
-  image,
+  images,
+  pricesPer,
   isPromo,
   name,
   prices,
@@ -48,6 +53,8 @@ export default async function ProductCard({
   const highestQuantity = findHighestQuantity(prices);
 
   const highestTerpene = findHighest(terpenes);
+
+  const image = findMainImage(images);
 
   const terpenesFlavor = {
     caryophyllene: t("caryophyllene"),
@@ -85,8 +92,8 @@ export default async function ProductCard({
         >
           <div className="relative flex justify-center items-center overflow-hidden rounded-lg col-span-12 h-min">
             <Image
-              alt={image.IMAGE_ALT}
-              src={image.IMAGE_URL}
+              alt={image.alt}
+              src={image.url}
               className="object-cover object-center w-80 h-52 rounded-t-md"
               width={1080}
               height={1920}
@@ -121,11 +128,9 @@ export default async function ProductCard({
               </h3>
 
               {/* PRICE / UNIT */}
-              {"per" in prices && (
-                <p className="text-neutral-600 dark:text-neutral-400">
-                  À partir de {highestQuantity.price}€/{prices.per}
-                </p>
-              )}
+              <p className="text-neutral-600 dark:text-neutral-400">
+                À partir de {highestQuantity.price}€/{pricesPer}
+              </p>
 
               {/* PRODUCT PRICE */}
               <ProductPrice id={id} />
@@ -201,6 +206,7 @@ export default async function ProductCard({
               {/* The image props is necessary to pass it in the cartContext in order to display it
               in the ProductCartCard */}
               <ProductOptions
+                pricesPer={pricesPer}
                 image={image}
                 prices={prices}
                 name={name}

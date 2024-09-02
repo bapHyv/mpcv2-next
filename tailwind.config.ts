@@ -51,6 +51,7 @@ const config: Config = {
       boxShadow: {
         carousel: "inset 0px 0px 10px #000000",
         "carousel-dark": "inset 0px 0px 10px #525252",
+        "category-nav": "inset 0px 0px 5px #737373",
       },
     },
   },
