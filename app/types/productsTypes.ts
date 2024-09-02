@@ -7,6 +7,15 @@ export type CurrentCategory =
   | "soins"
   | "vaporisateurs";
 
+export type slugCategories =
+  | "fleurs-cbd"
+  | "pollens-resines-hash-cbd"
+  | "moonrocks-cbd"
+  | "huiles-cbd"
+  | "infusions-cbd"
+  | "soins-cbd"
+  | "vaporisateur-cbd";
+
 export interface Category {
   url: string;
   category: keyof Products;
@@ -14,7 +23,7 @@ export interface Category {
 }
 
 export interface Prices {
-  [key: string]: string; // Les clés sont des chaînes (par exemple "1", "3", "5", "50", "100", etc.), les valeurs sont des prix sous forme de chaîne.
+  [key: string]: string;
 }
 
 export interface Cannabinoids {
@@ -31,8 +40,9 @@ export interface Terpenes {
 }
 
 export interface Image {
-  IMAGE_URL: string;
-  IMAGE_ALT: string;
+  url: string;
+  alt: string;
+  main?: boolean;
 }
 
 export interface Rating {
@@ -43,9 +53,10 @@ export interface Rating {
 export interface BaseProduct {
   id: string;
   name: string;
+  pricesPer: "g" | "unit";
   prices: Prices;
   stock: string;
-  image: Image;
+  images: Image[];
   productUrl: string;
   isPromo: boolean;
   rating: Rating;
@@ -69,7 +80,8 @@ export interface Moonrock extends EndProduct {}
 export interface Flower extends EndProduct {
   growingMethod: string;
 }
-
+// api.monplancbd.fr/product/id
+// api.monplancbd.fr/product/slug (category)
 export interface Products {
   fleurs: Flower[];
   hashs: Hash[];
