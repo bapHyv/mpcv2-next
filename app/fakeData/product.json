@@ -2,8 +2,8 @@
   "fleurs": {
     "id": "b1f9b0b8-f89a-47b2-92b5-0b8e074ae5e7",
     "name": "Grosse fleur sa mere",
+    "pricesPer": "g",
     "prices": {
-      "per": "g",
       "1": "3.50",
       "3": "3.00",
       "5": "2.50",
@@ -13,14 +13,12 @@
       "100": "0.75"
     },
     "stock": "0",
-    "image": {
-      "IMAGES": [
-        { "url": "/fleur_1.webp", "alt": "fleur_1" },
-        { "url": "/fleur_2.webp", "alt": "fleur_2" },
-        { "url": "/fleur_3.webp", "alt": "fleur_3" },
-        { "url": "/fleur_4.webp", "alt": "fleur_4" }
-      ]
-    },
+    "images": [
+      { "url": "/fleur_1.webp", "alt": "fleur_1", "main": true },
+      { "url": "/fleur_2.webp", "alt": "fleur_2" },
+      { "url": "/fleur_3.webp", "alt": "fleur_3" },
+      { "url": "/fleur_4.webp", "alt": "fleur_4" }
+    ],
     "growingMethod": "Greenhouse",
     "cannabinoids": {
       "CBD": "12",
@@ -81,8 +79,8 @@
     "relatedProducts": [
       {
         "name": "Purple Dream",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "5.50",
           "3": "5.00",
           "5": "4.50",
@@ -92,10 +90,13 @@
           "100": "3.25"
         },
         "stock": "3200",
-        "image": {
-          "IMAGE_URL": "/fleur_2.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_2.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Intérieur",
         "cannabinoids": {
           "CBN": "3.8"
@@ -112,8 +113,8 @@
       },
       {
         "name": "Sunrise Haze",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "4.90",
           "3": "4.40",
           "5": "4.00",
@@ -123,10 +124,13 @@
           "100": "2.80"
         },
         "stock": "1500",
-        "image": {
-          "IMAGE_URL": "/fleur_3.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_3.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Greenhouse",
         "cannabinoids": {
           "CBD": "9",
@@ -143,8 +147,8 @@
       },
       {
         "name": "Alpine Breeze",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "6.00",
           "3": "5.60",
           "5": "5.20",
@@ -154,10 +158,13 @@
           "100": "3.60"
         },
         "stock": "2100",
-        "image": {
-          "IMAGE_URL": "/fleur_4.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_4.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Extérieur",
         "cannabinoids": {
           "CBD": "13"
@@ -174,8 +181,8 @@
       },
       {
         "name": "Golden Glow",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "4.20",
           "3": "3.90",
           "5": "3.60",
@@ -185,10 +192,13 @@
           "100": "2.50"
         },
         "stock": "5000",
-        "image": {
-          "IMAGE_URL": "/fleur_1.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_1.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Greenhouse",
         "cannabinoids": {
           "CBG": "12",
@@ -205,8 +215,8 @@
       },
       {
         "name": "Crystal Ice",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "7.00",
           "3": "6.50",
           "5": "6.00",
@@ -216,10 +226,13 @@
           "100": "4.00"
         },
         "stock": "800",
-        "image": {
-          "IMAGE_URL": "/fleur_2.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_2.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Intérieur",
         "cannabinoids": {
           "CBG": "2.0",
@@ -239,8 +252,8 @@
   "hashs": {
     "id": "2b6c2bc8-75a1-4819-a929-c0c040b32f2b",
     "name": "Moroccan Gold",
+    "pricesPer": "g",
     "prices": {
-      "per": "g",
       "1": "8.00",
       "3": "7.50",
       "5": "7.00",
@@ -250,14 +263,12 @@
       "100": "5.00"
     },
     "stock": "4000",
-    "image": {
-      "IMAGES": [
-        { "url": "/hash_1.jpg", "alt": "hash_1" },
-        { "url": "/hash_2.jpg", "alt": "hash_2" },
-        { "url": "/hash_3.jpg", "alt": "hash_3" },
-        { "url": "/hash_4.jpg", "alt": "hash_4" }
-      ]
-    },
+    "images": [
+      { "url": "/hash_1.jpg", "alt": "hash_1", "main": true },
+      { "url": "/hash_2.jpg", "alt": "hash_2" },
+      { "url": "/hash_3.jpg", "alt": "hash_3" },
+      { "url": "/hash_4.jpg", "alt": "hash_4" }
+    ],
     "cannabinoids": {
       "CBD": "12"
     },
@@ -297,8 +308,8 @@
     "relatedProducts": [
       {
         "name": "Grosse fleur sa mere",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "3.50",
           "3": "3.50",
           "5": "3.50",
@@ -308,10 +319,13 @@
           "100": "3.50"
         },
         "stock": "4000",
-        "image": {
-          "IMAGE_URL": "/fleur_1.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_1.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Greenhouse",
         "cannabinoids": {
           "CBD": "12"
@@ -332,8 +346,8 @@
       },
       {
         "name": "Moroccan Gold",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "8.00",
           "3": "7.50",
           "5": "7.00",
@@ -343,10 +357,9 @@
           "100": "5.00"
         },
         "stock": "3500",
-        "image": {
-          "IMAGE_URL": "/hash_1.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_1.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "30",
           "CBG": "4.0"
@@ -362,8 +375,8 @@
       },
       {
         "name": "Afghan Black",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "9.00",
           "3": "8.50",
           "5": "8.00",
@@ -373,10 +386,10 @@
           "100": "6.00"
         },
         "stock": "1200",
-        "image": {
-          "IMAGE_URL": "/hash_2.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_2.jpg", "alt": "this is an alt image", "main": true }
+        ],
+        "growingMethod": "Intérieur",
         "cannabinoids": {
           "CBD": "40",
           "CBN": "5.0"
@@ -395,8 +408,8 @@
   "moonrocks": {
     "id": "670f5b80-5fa4-4b7e-bac2-3d8e2186fa50",
     "name": "Stardust Moonrock",
+    "pricesPer": "g",
     "prices": {
-      "per": "g",
       "1": "12.00",
       "3": "11.50",
       "5": "11.00",
@@ -405,12 +418,10 @@
       "50": "9.50"
     },
     "stock": "4000",
-    "image": {
-      "IMAGES": [
-        { "url": "/moonrock_1.jpg", "alt": "moonrock_1" },
-        { "url": "/moonrock_2.jpg", "alt": "moonrock_2" }
-      ]
-    },
+    "images": [
+      { "url": "/moonrock_1.jpg", "alt": "moonrock_1", "main": true },
+      { "url": "/moonrock_2.jpg", "alt": "moonrock_2" }
+    ],
     "cannabinoids": {
       "CBD": "12"
     },
@@ -450,8 +461,8 @@
     "relatedProducts": [
       {
         "name": "Grosse fleur sa mere",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "3.50",
           "3": "3.50",
           "5": "3.50",
@@ -461,10 +472,13 @@
           "100": "3.50"
         },
         "stock": "4000",
-        "image": {
-          "IMAGE_URL": "/fleur_1.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_1.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Greenhouse",
         "cannabinoids": {
           "CBD": "12"
@@ -485,8 +499,8 @@
       },
       {
         "name": "Moroccan Gold",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "8.00",
           "3": "7.50",
           "5": "7.00",
@@ -496,10 +510,9 @@
           "100": "5.00"
         },
         "stock": "3500",
-        "image": {
-          "IMAGE_URL": "/hash_1.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_1.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "30",
           "CBG": "4.0"
@@ -515,8 +528,8 @@
       },
       {
         "name": "Afghan Black",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "9.00",
           "3": "8.50",
           "5": "8.00",
@@ -526,10 +539,9 @@
           "100": "6.00"
         },
         "stock": "1200",
-        "image": {
-          "IMAGE_URL": "/hash_2.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_2.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "40",
           "CBN": "5.0"
@@ -548,23 +560,21 @@
   "huiles": {
     "id": "0d1b2581-1107-4e2a-b68c-c2e4d8a61415",
     "name": "Pure CBD Oil",
+    "pricesPer": "unit",
     "prices": {
-      "per": "unit",
       "1": "40.00",
       "3": "38.00",
       "5": "36.00"
     },
     "stock": "4000",
-    "image": {
-      "IMAGES": [
-        { "url": "/huile_1.jpg", "alt": "huile_1" },
-        { "url": "/huile_2.jpg", "alt": "huile_2" },
-        { "url": "/huile_3.jpg", "alt": "huile_3" },
-        { "url": "/huile_4.jpg", "alt": "huile_4" },
-        { "url": "/huile_5.jpg", "alt": "huile_5" },
-        { "url": "/huile_6.jpg", "alt": "huile_6" }
-      ]
-    },
+    "images": [
+      { "url": "/huile_1.jpg", "alt": "huile_1", "main": true },
+      { "url": "/huile_2.jpg", "alt": "huile_2" },
+      { "url": "/huile_3.jpg", "alt": "huile_3" },
+      { "url": "/huile_4.jpg", "alt": "huile_4" },
+      { "url": "/huile_5.jpg", "alt": "huile_5" },
+      { "url": "/huile_6.jpg", "alt": "huile_6" }
+    ],
     "cannabinoids": {
       "CBD": "12"
     },
@@ -597,8 +607,8 @@
     "relatedProducts": [
       {
         "name": "Grosse fleur sa mere",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "3.50",
           "3": "3.50",
           "5": "3.50",
@@ -608,10 +618,13 @@
           "100": "3.50"
         },
         "stock": "4000",
-        "image": {
-          "IMAGE_URL": "/fleur_1.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_1.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Greenhouse",
         "cannabinoids": {
           "CBD": "12"
@@ -632,8 +645,8 @@
       },
       {
         "name": "Moroccan Gold",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "8.00",
           "3": "7.50",
           "5": "7.00",
@@ -643,10 +656,9 @@
           "100": "5.00"
         },
         "stock": "3500",
-        "image": {
-          "IMAGE_URL": "/hash_1.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_1.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "30",
           "CBG": "4.0"
@@ -662,8 +674,8 @@
       },
       {
         "name": "Afghan Black",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "9.00",
           "3": "8.50",
           "5": "8.00",
@@ -673,10 +685,9 @@
           "100": "6.00"
         },
         "stock": "1200",
-        "image": {
-          "IMAGE_URL": "/hash_2.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_2.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "40",
           "CBN": "5.0"
@@ -695,19 +706,18 @@
   "infusions": {
     "id": "301736be-e5fa-4be4-8978-748f1b4b9628",
     "name": "Relaxing Chamomile Blend",
+    "pricesPer": "g",
     "prices": {
       "50": "15.00",
       "100": "25.00",
       "150": "35.00"
     },
     "stock": "4000",
-    "image": {
-      "IMAGES": [
-        { "url": "/infusion_1.jpg", "alt": "infusion_1" },
-        { "url": "/infusion_2.jpg", "alt": "infusion_2" },
-        { "url": "/infusion_3.jpg", "alt": "infusion_3" }
-      ]
-    },
+    "images": [
+      { "url": "/infusion_1.jpg", "alt": "infusion_1", "main": true },
+      { "url": "/infusion_2.jpg", "alt": "infusion_2" },
+      { "url": "/infusion_3.jpg", "alt": "infusion_3" }
+    ],
     "productUrl": "/fleur_1",
     "isPromo": true,
     "rating": {
@@ -737,8 +747,8 @@
     "relatedProducts": [
       {
         "name": "Grosse fleur sa mere",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "3.50",
           "3": "3.50",
           "5": "3.50",
@@ -748,10 +758,13 @@
           "100": "3.50"
         },
         "stock": "4000",
-        "image": {
-          "IMAGE_URL": "/fleur_1.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_1.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Greenhouse",
         "cannabinoids": {
           "CBD": "12"
@@ -772,8 +785,8 @@
       },
       {
         "name": "Moroccan Gold",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "8.00",
           "3": "7.50",
           "5": "7.00",
@@ -783,10 +796,9 @@
           "100": "5.00"
         },
         "stock": "3500",
-        "image": {
-          "IMAGE_URL": "/hash_1.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_1.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "30",
           "CBG": "4.0"
@@ -802,8 +814,8 @@
       },
       {
         "name": "Afghan Black",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "9.00",
           "3": "8.50",
           "5": "8.00",
@@ -813,10 +825,9 @@
           "100": "6.00"
         },
         "stock": "1200",
-        "image": {
-          "IMAGE_URL": "/hash_2.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_2.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "40",
           "CBN": "5.0"
@@ -835,13 +846,12 @@
   "soins": {
     "id": "546d423f-09e4-49bc-a4bc-509a2b12e1f5",
     "name": "CBD Soothing Balm",
+    "pricesPer": "unit",
     "prices": {
       "1": "25.00"
     },
     "stock": "500",
-    "image": {
-      "IMAGES": [{ "url": "/baume_1.jpg", "alt": "baume_1" }]
-    },
+    "images": [{ "url": "/baume_1.jpg", "alt": "baume_1", "main": true }],
     "productUrl": "/fleur_1",
     "isPromo": true,
     "rating": {
@@ -871,8 +881,8 @@
     "relatedProducts": [
       {
         "name": "Grosse fleur sa mere",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "3.50",
           "3": "3.50",
           "5": "3.50",
@@ -882,10 +892,13 @@
           "100": "3.50"
         },
         "stock": "4000",
-        "image": {
-          "IMAGE_URL": "/fleur_1.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_1.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Greenhouse",
         "cannabinoids": {
           "CBD": "12"
@@ -906,8 +919,8 @@
       },
       {
         "name": "Moroccan Gold",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "8.00",
           "3": "7.50",
           "5": "7.00",
@@ -917,10 +930,9 @@
           "100": "5.00"
         },
         "stock": "3500",
-        "image": {
-          "IMAGE_URL": "/hash_1.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_1.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "30",
           "CBG": "4.0"
@@ -936,8 +948,8 @@
       },
       {
         "name": "Afghan Black",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "9.00",
           "3": "8.50",
           "5": "8.00",
@@ -947,10 +959,9 @@
           "100": "6.00"
         },
         "stock": "1200",
-        "image": {
-          "IMAGE_URL": "/hash_2.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_2.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "40",
           "CBN": "5.0"
@@ -969,13 +980,12 @@
   "vaporisateurs": {
     "id": "272597eb-0073-49f5-b0e2-72009db526bb",
     "name": "Herbal Vape Pen",
+    "pricesPer": "unit",
     "prices": {
       "1": "45.00"
     },
     "stock": "500",
-    "image": {
-      "IMAGES": [{ "url": "/vapo_1.jpg", "alt": "vapo_1" }]
-    },
+    "images": [{ "url": "/vapo_1.jpg", "alt": "vapo_1", "main": true }],
     "productUrl": "/fleur_1",
     "isPromo": true,
     "rating": {
@@ -1005,8 +1015,8 @@
     "relatedProducts": [
       {
         "name": "Grosse fleur sa mere",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "3.50",
           "3": "3.50",
           "5": "3.50",
@@ -1016,10 +1026,13 @@
           "100": "3.50"
         },
         "stock": "4000",
-        "image": {
-          "IMAGE_URL": "/fleur_1.webp",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          {
+            "url": "/fleur_1.webp",
+            "alt": "this is an alt image",
+            "main": true
+          }
+        ],
         "growingMethod": "Greenhouse",
         "cannabinoids": {
           "CBD": "12"
@@ -1040,8 +1053,8 @@
       },
       {
         "name": "Moroccan Gold",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "8.00",
           "3": "7.50",
           "5": "7.00",
@@ -1051,10 +1064,9 @@
           "100": "5.00"
         },
         "stock": "3500",
-        "image": {
-          "IMAGE_URL": "/hash_1.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_1.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "30",
           "CBG": "4.0"
@@ -1070,8 +1082,8 @@
       },
       {
         "name": "Afghan Black",
+        "pricesPer": "g",
         "prices": {
-          "per": "g",
           "1": "9.00",
           "3": "8.50",
           "5": "8.00",
@@ -1081,10 +1093,9 @@
           "100": "6.00"
         },
         "stock": "1200",
-        "image": {
-          "IMAGE_URL": "/hash_2.jpg",
-          "IMAGE_ALT": "this is an alt image"
-        },
+        "images": [
+          { "url": "/hash_2.jpg", "alt": "this is an alt image", "main": true }
+        ],
         "cannabinoids": {
           "CBD": "40",
           "CBN": "5.0"

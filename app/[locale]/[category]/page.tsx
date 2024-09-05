@@ -12,6 +12,7 @@ import {
   findTitle,
 } from "@/app/utils/productFunctions";
 import ProductCard from "@/app/components/products/ProductCard";
+import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 
 interface Params {
   params: {
@@ -59,7 +60,7 @@ export default async function Page({ params: { locale, category } }: Params) {
       />
 
       {/* NAV CATEGORY */}
-      <div className="mt-5 px-5 bg-neutral-200 dark:bg-light-black flex items-center md:justify-center xl:gap-7 h-14 overflow-scroll no-scrollbar">
+      <div className="mt-5 px-5 bg-neutral-200 dark:bg-light-black flex items-center md:justify-center xl:gap-7 h-14 overflow-scroll no-scrollbar shadow-category-nav">
         {categories.map((cat) => (
           <Link
             key={cat.title}
@@ -93,6 +94,10 @@ export default async function Page({ params: { locale, category } }: Params) {
             {...prod}
           />
         ))}
+
+        {/* {currentProducts.map((prod) => (
+          <ProductCardSkeleton key={prod.id} />
+        ))} */}
       </div>
     </div>
   );

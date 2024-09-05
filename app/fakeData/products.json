@@ -3,8 +3,8 @@
     {
       "id": "b1f9b0b8-f89a-47b2-92b5-0b8e074ae5e7",
       "name": "Grosse fleur sa mere",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "3.50",
         "3": "3.50",
         "5": "3.50",
@@ -14,10 +14,9 @@
         "100": "3.50"
       },
       "stock": "150",
-      "image": {
-        "IMAGE_URL": "/fleur_1.webp",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/fleur_1.webp", "alt": "this is an alt image", "main": true }
+      ],
       "growingMethod": "Greenhouse",
       "cannabinoids": {
         "CBD": "12"
@@ -39,8 +38,8 @@
     {
       "id": "94a2b226-25df-4e41-85e8-989f85e36b6a",
       "name": "Purple Dream",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "5.50",
         "3": "5.00",
         "5": "4.50",
@@ -50,10 +49,9 @@
         "100": "3.25"
       },
       "stock": "15",
-      "image": {
-        "IMAGE_URL": "/fleur_2.webp",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/fleur_2.webp", "alt": "this is an alt image", "main": true }
+      ],
       "growingMethod": "Intérieur",
       "cannabinoids": {
         "CBN": "3.8"
@@ -71,8 +69,8 @@
     {
       "id": "f60e0d37-2f97-40c6-8d59-b59b6f58b8c1",
       "name": "Sunrise Haze",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "4.90",
         "3": "4.40",
         "5": "4.00",
@@ -82,10 +80,9 @@
         "100": "2.80"
       },
       "stock": "1500",
-      "image": {
-        "IMAGE_URL": "/fleur_3.webp",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/fleur_3.webp", "alt": "this is an alt image", "main": true }
+      ],
       "growingMethod": "Greenhouse",
       "cannabinoids": {
         "CBD": "9",
@@ -103,8 +100,8 @@
     {
       "id": "25c0c750-5de7-4619-8513-9b614d37d097",
       "name": "Alpine Breeze",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "6.00",
         "3": "5.60",
         "5": "5.20",
@@ -114,10 +111,9 @@
         "100": "3.60"
       },
       "stock": "2100",
-      "image": {
-        "IMAGE_URL": "/fleur_4.webp",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/fleur_4.webp", "alt": "this is an alt image", "main": true }
+      ],
       "growingMethod": "Extérieur",
       "cannabinoids": {
         "CBD": "13"
@@ -135,8 +131,8 @@
     {
       "id": "aa7127b2-34d4-4d15-8b98-ff29b2f3d8a0",
       "name": "Golden Glow",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "4.20",
         "3": "3.90",
         "5": "3.60",
@@ -146,10 +142,9 @@
         "100": "2.50"
       },
       "stock": "5000",
-      "image": {
-        "IMAGE_URL": "/fleur_1.webp",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/fleur_5.webp", "alt": "this is an alt image", "main": true }
+      ],
       "growingMethod": "Greenhouse",
       "cannabinoids": {
         "CBG": "12",
@@ -167,8 +162,8 @@
     {
       "id": "1394299e-6d68-4a02-b512-c5f48922cbbc",
       "name": "Crystal Ice",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "7.00",
         "3": "6.50",
         "5": "6.00",
@@ -178,10 +173,9 @@
         "100": "4.00"
       },
       "stock": "800",
-      "image": {
-        "IMAGE_URL": "/fleur_2.webp",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/fleur_6.webp", "alt": "this is an alt image", "main": true }
+      ],
       "growingMethod": "Intérieur",
       "cannabinoids": {
         "CBG": "2.0",
@@ -201,8 +195,8 @@
     {
       "id": "2b6c2bc8-75a1-4819-a929-c0c040b32f2b",
       "name": "Moroccan Gold",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "8.00",
         "3": "7.50",
         "5": "7.00",
@@ -212,10 +206,9 @@
         "100": "5.00"
       },
       "stock": "3500",
-      "image": {
-        "IMAGE_URL": "/hash_1.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/hash_1.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBD": "30",
         "CBG": "4.0"
@@ -232,8 +225,8 @@
     {
       "id": "f8c7eb39-daf5-404f-8850-e22b2e5c6206",
       "name": "Afghan Black",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "9.00",
         "3": "8.50",
         "5": "8.00",
@@ -243,10 +236,9 @@
         "100": "6.00"
       },
       "stock": "1200",
-      "image": {
-        "IMAGE_URL": "/hash_2.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/hash_2.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBD": "40",
         "CBN": "5.0"
@@ -263,8 +255,8 @@
     {
       "id": "b746167f-4198-40c6-a933-c4aa8cfa4f68",
       "name": "Lebanese Red",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "7.50",
         "3": "7.00",
         "5": "6.50",
@@ -274,10 +266,9 @@
         "100": "4.50"
       },
       "stock": "2800",
-      "image": {
-        "IMAGE_URL": "/hash_3.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/hash_3.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBG": "25"
       },
@@ -293,8 +284,8 @@
     {
       "id": "b2ae5c9e-bad1-495b-81c6-6ae2890fbcec",
       "name": "Nepal Temple",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "10.00",
         "3": "9.50",
         "5": "9.00",
@@ -304,10 +295,9 @@
         "100": "7.00"
       },
       "stock": "500",
-      "image": {
-        "IMAGE_URL": "/hash_4.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/hash_4.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBD": "50",
         "CBG": "3.5",
@@ -327,8 +317,8 @@
     {
       "id": "670f5b80-5fa4-4b7e-bac2-3d8e2186fa50",
       "name": "Stardust Moonrock",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "12.00",
         "3": "11.50",
         "5": "11.00",
@@ -337,10 +327,13 @@
         "50": "9.50"
       },
       "stock": "2000",
-      "image": {
-        "IMAGE_URL": "/moonrock_1.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        {
+          "url": "/moonrock_1.jpg",
+          "alt": "this is an alt image",
+          "main": true
+        }
+      ],
       "cannabinoids": {
         "CBD": "60",
         "CBG": "5.0"
@@ -358,8 +351,8 @@
     {
       "id": "24c1e4a5-5735-43db-8c5b-5ad5f064da06",
       "name": "Galactic Moonrock",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "1": "14.00",
         "3": "13.50",
         "5": "13.00",
@@ -368,10 +361,13 @@
         "50": "11.50"
       },
       "stock": "750",
-      "image": {
-        "IMAGE_URL": "/moonrock_2.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        {
+          "url": "/moonrock_2.jpg",
+          "alt": "this is an alt image",
+          "main": true
+        }
+      ],
       "cannabinoids": {
         "CBD": "70",
         "CBN": "4.5"
@@ -391,17 +387,16 @@
     {
       "id": "0d1b2581-1107-4e2a-b68c-c2e4d8a61415",
       "name": "Pure CBD Oil",
+      "pricesPer": "unit",
       "prices": {
-        "per": "unit",
         "1": "40.00",
         "3": "38.00",
         "5": "36.00"
       },
       "stock": "1500",
-      "image": {
-        "IMAGE_URL": "/huile_1.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/huile_1.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBD": "80",
         "CBG": "2.0"
@@ -413,17 +408,16 @@
     {
       "id": "1fe8ac6f-07a4-4dd4-abb0-1f379fb7058f",
       "name": "Full Spectrum Oil",
+      "pricesPer": "unit",
       "prices": {
-        "per": "unit",
         "1": "45.00",
         "3": "43.00",
         "5": "41.00"
       },
       "stock": "1200",
-      "image": {
-        "IMAGE_URL": "/huile_2.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/huile_2.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBD": "75",
         "CBN": "4.0"
@@ -435,17 +429,16 @@
     {
       "id": "25f1ecde-f2a5-4146-a7f2-c5c89f9ea9c8",
       "name": "Organic Hemp Oil",
+      "pricesPer": "unit",
       "prices": {
-        "per": "unit",
         "1": "50.00",
         "3": "48.00",
         "5": "46.00"
       },
       "stock": "2000",
-      "image": {
-        "IMAGE_URL": "/huile_3.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/huile_3.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBD": "85"
       },
@@ -456,17 +449,16 @@
     {
       "id": "90796db7-6a6a-4020-aacc-78e404be59da",
       "name": "CBG Rich Oil",
+      "pricesPer": "unit",
       "prices": {
-        "per": "unit",
         "1": "55.00",
         "3": "53.00",
         "5": "51.00"
       },
       "stock": "900",
-      "image": {
-        "IMAGE_URL": "/huile_4.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/huile_4.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBG": "60",
         "CBD": "15"
@@ -478,17 +470,16 @@
     {
       "id": "693982e5-0b19-4aeb-a73c-2bffb53d7f2a",
       "name": "CBN Sleep Oil",
+      "pricesPer": "unit",
       "prices": {
-        "per": "unit",
         "1": "60.00",
         "3": "58.00",
         "5": "56.00"
       },
       "stock": "800",
-      "image": {
-        "IMAGE_URL": "/huile_5.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/huile_5.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBN": "50",
         "CBD": "30"
@@ -500,17 +491,16 @@
     {
       "id": "ac3b21d8-145f-4a90-9f75-68ae5b9f52a0",
       "name": "CBD & Turmeric Oil",
+      "pricesPer": "unit",
       "prices": {
-        "per": "unit",
         "1": "42.00",
         "3": "40.00",
         "5": "38.00"
       },
       "stock": "2500",
-      "image": {
-        "IMAGE_URL": "/huile_6.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/huile_6.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "cannabinoids": {
         "CBD": "70",
         "CBG": "10"
@@ -524,17 +514,20 @@
     {
       "id": "301736be-e5fa-4be4-8978-748f1b4b9628",
       "name": "Relaxing Chamomile Blend",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "50": "1.35",
         "100": "1.10",
         "150": "0.95"
       },
       "stock": "1200",
-      "image": {
-        "IMAGE_URL": "/infusion_1.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        {
+          "url": "/infusion_1.jpg",
+          "alt": "this is an alt image",
+          "main": true
+        }
+      ],
       "productUrl": "/relaxing_chamomile_blend",
       "isPromo": true,
       "rating": { "quantity": "400", "value": "4" }
@@ -542,17 +535,20 @@
     {
       "id": "ca6b75bb-1df0-4a27-88ae-85f7fd22612a",
       "name": "Revitalizing Mint Tea",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "50": "1.20",
         "100": "1.05",
         "150": "0.85"
       },
       "stock": "1500",
-      "image": {
-        "IMAGE_URL": "/infusion_2.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        {
+          "url": "/infusion_2.jpg",
+          "alt": "this is an alt image",
+          "main": true
+        }
+      ],
       "productUrl": "/revitalizing_mint_tea",
       "isPromo": false,
       "rating": { "quantity": "400", "value": "4" }
@@ -560,17 +556,20 @@
     {
       "id": "9c9f925d-77e0-4c90-b48f-58768a8a0e6f",
       "name": "Detox Green Tea",
+      "pricesPer": "g",
       "prices": {
-        "per": "g",
         "50": "1.45",
         "100": "1.20",
         "150": "1.08"
       },
       "stock": "2000",
-      "image": {
-        "IMAGE_URL": "/infusion_3.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        {
+          "url": "/infusion_3.jpg",
+          "alt": "this is an alt image",
+          "main": true
+        }
+      ],
       "productUrl": "/detox_green_tea",
       "isPromo": true,
       "rating": { "quantity": "400", "value": "4" }
@@ -580,14 +579,14 @@
     {
       "id": "546d423f-09e4-49bc-a4bc-509a2b12e1f5",
       "name": "CBD Soothing Balm",
+      "pricesPer": "unit",
       "prices": {
         "1": "25.00"
       },
       "stock": "500",
-      "image": {
-        "IMAGE_URL": "/baume_1.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/baume_1.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "productUrl": "/cbd_soothing_balm",
       "isPromo": true,
       "rating": { "quantity": "400", "value": "4" }
@@ -597,14 +596,14 @@
     {
       "id": "272597eb-0073-49f5-b0e2-72009db526bb",
       "name": "Herbal Vape Pen",
+      "pricesPer": "unit",
       "prices": {
         "1": "45.00"
       },
       "stock": "300",
-      "image": {
-        "IMAGE_URL": "/vapo_1.jpg",
-        "IMAGE_ALT": "this is an alt image"
-      },
+      "images": [
+        { "url": "/vapo_1.jpg", "alt": "this is an alt image", "main": true }
+      ],
       "productUrl": "/herbal_vape_pen",
       "isPromo": false,
       "rating": { "quantity": "400", "value": "4" }

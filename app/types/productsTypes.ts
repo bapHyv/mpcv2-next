@@ -53,7 +53,7 @@ export interface Rating {
 export interface BaseProduct {
   id: string;
   name: string;
-  pricesPer: "g" | "unit";
+  pricesPer: string;
   prices: Prices;
   stock: string;
   images: Image[];

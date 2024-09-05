@@ -102,7 +102,7 @@ export default async function Page({ params: { locale, category } }: Params) {
             {/* Image selector */}
             <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
               <TabList className="grid grid-cols-4 gap-6">
-                {product.image.IMAGES.map((image) => (
+                {product.images.map((image) => (
                   <Tab
                     key={image.alt}
                     className={`group relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm
@@ -128,7 +128,7 @@ export default async function Page({ params: { locale, category } }: Params) {
             </div>
 
             <TabPanels className="aspect-h-1 aspect-w-1 w-full">
-              {product.image.IMAGES.map((image) => (
+              {product.images.map((image) => (
                 <TabPanel key={image.alt}>
                   <Image
                     alt={image.alt}
@@ -201,12 +201,13 @@ export default async function Page({ params: { locale, category } }: Params) {
 
             {/* Option picker */}
             <ProductOptions
+              pricesPer={product.pricesPer}
               prices={product.prices}
               name={product.name}
               id={product.id}
               image={{
-                IMAGE_ALT: product.image.IMAGES[0].alt,
-                IMAGE_URL: product.image.IMAGES[0].url,
+                url: product.images[0].alt,
+                alt: product.images[0].url,
               }}
               stock={product.stock}
             />
@@ -497,8 +498,8 @@ export default async function Page({ params: { locale, category } }: Params) {
               >
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-t-md lg:aspect-none group-hover:opacity-75 lg:h-80">
                   <Image
-                    alt={relatedProduct.image.IMAGE_ALT}
-                    src={relatedProduct.image.IMAGE_URL}
+                    alt={relatedProduct.images[0].alt}
+                    src={relatedProduct.images[0].url}
                     width={1920}
                     height={1080}
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
@@ -529,13 +530,13 @@ export default async function Page({ params: { locale, category } }: Params) {
                     )}
                   </Link>
                 </div>
-                {"per" in relatedProduct.prices && (
+                {
                   <p className="text-neutral-600 dark:text-neutral-400 p-1 text-md sm:text-xs">
                     À partir de{" "}
                     {findHighestQuantity(relatedProduct.prices).price}€/
-                    {relatedProduct.prices.per}
+                    {relatedProduct.pricesPer}
                   </p>
-                )}
+                }
               </div>
             ))}
           </div>

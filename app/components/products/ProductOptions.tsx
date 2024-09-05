@@ -12,6 +12,7 @@ import { v4 as uuid } from "uuid";
 
 interface Params {
   image: Image;
+  pricesPer: string;
   prices: Prices;
   name: string;
   id: string;
@@ -20,6 +21,7 @@ interface Params {
 
 export default function ProductOptions({
   prices,
+  pricesPer,
   name,
   id,
   image,
@@ -65,7 +67,7 @@ export default function ProductOptions({
       name: name,
       quantity: 1,
       option: selectedOption as string,
-      per: "per" in prices ? prices.per : "",
+      per: pricesPer,
       unitPrice: parseFloat(prices[selectedOption as string]),
       totalPrice: 0,
       image,
@@ -129,18 +131,18 @@ export default function ProductOptions({
       return newStock < 0 ? 0 : newStock;
     });
 
-    const alterDescription = `${selectedOption} ${prices.per} du produit ${name} a bien ete ajoute`;
+    const alterDescription = `${selectedOption} ${pricesPer} du produit ${name} a bien ete ajoute`;
     addAlert(uuid(), alterDescription, "Ajout de produit", "emerald");
   };
 
   return !!productStock ? (
     <div>
       {/* Option picker */}
-      {("per" in prices || "unit" in prices) && (
+      {
         <fieldset aria-label="Choose a size" className="mt-8">
           {
             <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-              {prices?.per === "g" ? "Quantité" : "unité"}
+              {pricesPer === "g" ? "Quantité" : "unité"}
             </div>
           }
 
@@ -178,7 +180,7 @@ export default function ProductOptions({
             ))}
           </RadioGroup>
         </fieldset>
-      )}
+      }
 
       <div className="flex items-center justify-center">
         <button
