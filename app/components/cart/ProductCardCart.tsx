@@ -35,8 +35,8 @@ export default function ProductCardCart({
           x
         </button>
         <Image
-          src={image.IMAGE_URL}
-          alt={image.IMAGE_ALT}
+          src={image.url}
+          alt={image.url}
           width={1920}
           height={1080}
           className="rounded-t-md"
