@@ -58,6 +58,8 @@ export default function Home({ locale }: Params) {
     },
   ];
 
+  console.log(locale);
+
   return (
     <>
       <section>

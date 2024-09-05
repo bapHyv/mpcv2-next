@@ -143,7 +143,7 @@
       },
       "stock": "5000",
       "images": [
-        { "url": "/fleur_5.webp", "alt": "this is an alt image", "main": true }
+        { "url": "/fleur_1.webp", "alt": "this is an alt image", "main": true }
       ],
       "growingMethod": "Greenhouse",
       "cannabinoids": {
@@ -174,7 +174,7 @@
       },
       "stock": "800",
       "images": [
-        { "url": "/fleur_6.webp", "alt": "this is an alt image", "main": true }
+        { "url": "/fleur_3.webp", "alt": "this is an alt image", "main": true }
       ],
       "growingMethod": "Intérieur",
       "cannabinoids": {

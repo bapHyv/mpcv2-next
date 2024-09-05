@@ -9,7 +9,7 @@ import {
   SetStateAction,
   useEffect,
 } from "react";
-import { Cannabinoids, Image } from "./types/productsTypes";
+import { Image } from "./types/productsTypes";
 
 export interface ProductCart {
   cartItemId: string; // uuid generated when adding a product in the cart. It is used to delete
@@ -41,16 +41,13 @@ export function CartProvider({
   useEffect(() => {
     if (isMounted) {
       localStorage.setItem("cart", JSON.stringify(cart));
-      console.log("4");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   useEffect(() => {
-    console.log("1");
     if (!isMounted) {
       setIsMounted(true);
-      console.log("2");
     }
 
     return () => setIsMounted(false);
@@ -59,7 +56,6 @@ export function CartProvider({
 
   useEffect(() => {
     if (isMounted) {
-      console.log("3");
       setCart(
         (JSON.parse(
           localStorage.getItem("cart") || ""

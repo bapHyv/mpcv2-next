@@ -107,7 +107,7 @@ export default async function NavBar({ locale }: { locale: string }) {
             >
               produits
             </Link>
-            <Link href="/">
+            <Link href={`/${locale}`}>
               <Image
                 alt="Monplancbd"
                 src="/logo-blanc.png"
