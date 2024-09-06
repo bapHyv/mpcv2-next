@@ -192,16 +192,35 @@ export default async function NavBar({ locale }: { locale: string }) {
         </div>
       </div>
 
+      {/* MOBILE */}
       <DisclosurePanel className="sm:hidden">
         <div className="">
-          <div className="space-y-3 px-2 pb-3 pt-2 flex flex-col">
-            <div className="flex items-center justify-between w-full">
-              <Link
-                href={`/${locale}/blog`}
-                className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green"
-              >
-                blog
-              </Link>
+          <div className="px-2 pb-3 pt-2 flex justify-between">
+            <Link
+              href={`/${locale}/blog`}
+              className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green w-1/2"
+            >
+              blog
+            </Link>
+            <div className="w-1/2 flex justify-end gap-x-3">
+              <ThemeSwitch />
+              <Dropdown
+                button={
+                  <>
+                    <span className="sr-only">Language selector menu</span>
+                    <Image
+                      alt={locale}
+                      src={`/${locale}.png`}
+                      height={40}
+                      width={40}
+                    />
+                  </>
+                }
+                items={languageSelector}
+                locale={locale}
+                menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
+                menuItemsClassname="right-0 left-auto w-28"
+              />
               {isSignedId ? (
                 <Dropdown
                   button={
@@ -223,28 +242,6 @@ export default async function NavBar({ locale }: { locale: string }) {
                   {t("connection")}
                 </Link>
               )}
-            </div>
-            <div className="flex items-center justify-end w-full">
-              <ThemeSwitch />
-            </div>
-            <div className="flex items-center justify-end w-full">
-              <Dropdown
-                button={
-                  <>
-                    <span className="sr-only">Language selector menu</span>
-                    <Image
-                      alt={locale}
-                      src={`/${locale}.png`}
-                      height={40}
-                      width={40}
-                    />
-                  </>
-                }
-                items={languageSelector}
-                locale={locale}
-                menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
-                menuItemsClassname="right-0 left-auto w-28"
-              />
             </div>
           </div>
         </div>

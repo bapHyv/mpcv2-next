@@ -141,8 +141,8 @@ export default function ProductOptions({
       return newStock < 0 ? 0 : newStock;
     });
 
-    const alterDescription = `${selectedOption} ${pricesPer} du produit ${name} a bien ete ajoute`;
-    addAlert(uuid(), alterDescription, "Ajout de produit", "emerald");
+    const alertDescription = `${selectedOption} ${pricesPer} du produit ${name} a bien ete ajoute`;
+    addAlert(uuid(), alertDescription, "Ajout de produit", "emerald");
   };
 
   return !!productStock ? (
