@@ -75,7 +75,7 @@ export default function Cart() {
                 transition
                 className="pointer-events-auto w-screen max-w-xs sm:max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700"
               >
-                <div className="flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 py-6 shadow-xl">
+                <div className="flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 py-6 shadow-xl mt-20">
                   <div className="px-4 sm:px-6">
                     <div className="flex items-start justify-between">
                       <DialogTitle className="text-base font-semibold leading-6 text-neutral-900 dark:text-neutral-200 capitalize">

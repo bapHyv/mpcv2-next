@@ -1,28 +1,12 @@
 "use client";
 
-// import {
-//   ArrowLeftCircleIcon,
-//   ArrowLeftIcon,
-//   ArrowRightCircleIcon,
-//   ArrowRightIcon,
-// } from "@heroicons/react/24/outline";
 import { useRef } from "react";
 import Separator from "./Separator";
-import {
-  ArrowLeftCircleIcon,
-  ArrowLeftIcon,
-  ArrowRightCircleIcon,
-  ArrowRightIcon,
-} from "@heroicons/react/20/solid";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
 
 interface Props {
   children: JSX.Element[];
 }
-
-/**
- * Si scrollLeft % divRev.current.clientWidth - gap !== 0
- *
- */
 
 export default function Carousel({ children }: Props) {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -81,7 +65,7 @@ export default function Carousel({ children }: Props) {
           ref={divRef}
           className={`flex gap-2 p-2 sm:gap-3 overflow-x-scroll w-full rounded-md no-scrollbar
           shadow-carousel dark:shadow-carousel-dark 
-          bg-neutral-200 dark:bg-none
+          bg-neutral-200 dark:bg-dark-black
           `}
         >
           {children}
@@ -91,7 +75,7 @@ export default function Carousel({ children }: Props) {
           className={`lg:flex absolute cursor-pointer lg:items-center lg:justify-center z-10 
           -bottom-12 right-14 lg:left-2 lg:top-1/2 text-green border-2 border-green
           h-9 w-9 lg:h-9 lg:w-9 rounded-md lg:-translate-y-1/2
-          animate-backgroundOpacitySlightPulse
+          animate-backgroundOpacitySlightPulse dark:animate-none dark:bg-light-black dark:text-light-green
           `}
         />
         <ArrowRightIcon
@@ -99,7 +83,7 @@ export default function Carousel({ children }: Props) {
           className={`lg:flex absolute cursor-pointer lg:items-center lg:justify-center z-10 
           -bottom-12 right-2 lg:top-1/2 text-green border-2 border-green
           h-9 w-9 lg:h-9 lg:w-9 rounded-md lg:-translate-y-1/2
-          animate-backgroundOpacitySlightPulse
+          animate-backgroundOpacitySlightPulse dark:animate-none dark:bg-light-black dark:text-light-green
           `}
         />
       </div>

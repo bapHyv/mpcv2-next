@@ -4,6 +4,9 @@ import { ProductCart, useCart } from "@/app/cartContext";
 import Image from "next/image";
 import Separator from "@/app/components/Separator";
 import { useTranslations } from "next-intl";
+import { TrashIcon } from "@heroicons/react/20/solid";
+import { useAlerts } from "@/app/alertsContext";
+import { v4 as uuid } from "uuid";
 
 export default function ProductCardCart({
   cartItemId,
@@ -16,24 +19,32 @@ export default function ProductCardCart({
   image,
   per,
 }: ProductCart) {
+  const { addAlert } = useAlerts();
   const { cart, setCart } = useCart();
   const t = useTranslations("productCardCart");
 
   const removeProduct = () => {
     const _cart = cart.filter((product) => product.cartItemId !== cartItemId);
-
     setCart(_cart);
   };
+
+  const alertDescription = `Le produit ${name} a bien été retiré du panier`;
 
   return (
     <>
       <div className="relative flex flex-col border border-neutral-400 rounded-md shadow-xl dark:shadow-neutral-700 dark:shadow-lg bg-neutral-50 dark:bg-black">
-        <button
-          onClick={removeProduct}
-          className="absolute h-6 w-6 bg-red-600 top-1 right-1 flex items-center justify-center text-white rounded-md shadow-sm shadow-black border border-black"
-        >
-          x
-        </button>
+        <TrashIcon
+          onClick={() => {
+            removeProduct();
+            addAlert(
+              uuid(),
+              alertDescription,
+              "Suppression de produit",
+              "emerald"
+            );
+          }}
+          className="absolute h-[22px] w-[22px] top-1 right-1 text-red-600 cursor-pointer rounded-md hover:bg-red-100"
+        />
         <Image
           src={image.url}
           alt={image.url}

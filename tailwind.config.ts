@@ -63,6 +63,11 @@ const config: Config = {
           "50%": { "background-color": "rgba(233, 243, 241, 0)" },
           "100%": { "background-color": "rgba(233, 243, 241, 1)" },
         },
+        backgroundOpacitySlightPulseDark: {
+          "0%": { "background-color": "rgba(0, 0, 0, 1)" },
+          "50%": { "background-color": "rgba(0, 0, 0, 0.5)" },
+          "100%": { "background-color": "rgba(0, 0, 0, 1)" },
+        },
       },
       animation: {
         tada: "tada 1s ease-in-out 0.25s infinite",
@@ -72,6 +77,8 @@ const config: Config = {
         slightpulse: "slightpulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         backgroundOpacitySlightPulse:
           "backgroundOpacitySlightPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        backgroundOpacitySlightPulseDark:
+          "backgroundOpacitySlightPulseDark 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       boxShadow: {
         carousel: "inset 0px 0px 10px #000000",

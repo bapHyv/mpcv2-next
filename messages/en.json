@@ -166,7 +166,7 @@
     "order": "place order"
   },
   "productCardCart": {
-    "nbItem": "number of items",
+    "nbItem": "number of item",
     "gPrice": "price per gram",
     "unitPrice": "unit price",
     "quantity": "quantity",
