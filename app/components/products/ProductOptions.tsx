@@ -6,7 +6,10 @@ import { useProducts } from "@/app/productsContext";
 import { Image, Prices } from "@/app/types/productsTypes";
 import { formatOption } from "@/app/utils/productFunctions";
 import { Radio, RadioGroup } from "@headlessui/react";
+import { PlusIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
@@ -17,6 +20,9 @@ interface Params {
   name: string;
   id: string;
   stock: string;
+  locale: string;
+  category: string;
+  productUrl: string;
 }
 
 export default function ProductOptions({
@@ -26,6 +32,9 @@ export default function ProductOptions({
   id,
   image,
   stock,
+  category,
+  locale,
+  productUrl,
 }: Params) {
   const [formatedOption, setFormatedOption] = useState(
     formatOption(prices, stock)
@@ -35,8 +44,9 @@ export default function ProductOptions({
   );
   const [productStock, setProductStock] = useState(parseInt(stock));
 
-  const { products, setProducts } = useProducts();
-  const { cart, setCart } = useCart();
+  const t = useTranslations("category");
+  const { setProducts } = useProducts();
+  const { setCart } = useCart();
   const { addAlert } = useAlerts();
 
   useEffect(() => {
@@ -139,10 +149,13 @@ export default function ProductOptions({
     <div>
       {/* Option picker */}
       {
-        <fieldset aria-label="Choose a size" className="mt-8">
+        <fieldset
+          aria-label="Choose a size"
+          className="mt-2 sm:mt-6 pr-3 sm:pr-0"
+        >
           {
             <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-              {pricesPer === "g" ? "Quantité" : "unité"}
+              {pricesPer === "g" ? t("quantity") : t("unit")}
             </div>
           }
 
@@ -162,17 +175,17 @@ export default function ProductOptions({
                 };
               });
             }}
-            className="mt-2 flex gap-2 flex-wrap"
+            className="mt-2 flex gap-1 sm:gap-2 sm:flex-wrap"
           >
             {formatedOption.map((price) => (
               <Radio
                 key={price?.quantity}
                 value={price?.quantity}
                 className={clsx(
-                  `cursor-pointer focus:outline-none flex items-center justify-center rounded-md border 
-                  border-gray-200 bg-white p-2 w-10 h-10 text-sm font-medium uppercase text-neutral-900 hover:bg-neutral-200
+                  `p-1 w-8 h-8 text-xs sm:p-2 sm:w-10 sm:h-10 sm:font-medium cursor-pointer focus:outline-none flex items-center justify-center rounded-md border 
+                  border-gray-200 bg-white uppercase text-neutral-900 hover:bg-neutral-200
                   data-[checked]:border-transparent data-[checked]:bg-green data-[checked]:text-white data-[focus]:ring-2 data-[focus]:ring-green data-[focus]:ring-offset-2
-                  data-[checked]:hover:bg-dark-green sm:flex-1 relative`
+                  data-[checked]:hover:bg-dark-green relative`
                 )}
               >
                 {price?.quantity}
@@ -182,15 +195,41 @@ export default function ProductOptions({
         </fieldset>
       }
 
-      <div className="flex items-center justify-center">
+      {/* ADD CART BUTTON TABLET AND BIGGER SCREEN */}
+      <div className="hidden sm:flex sm:flex-col sm:items-center sm:justify-center">
         <button
           onClick={() => addProductToCart()}
-          className={`mt-8 flex w-full items-center justify-center rounded-md border border-transparent 2xl:w-2/3
-      bg-green px-8 py-3 text-base font-medium text-white hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2 disabled:bg-neutral-400 disabled:cursor-not-allowed`}
+          className={`mt-8 px-8 py-3 text-base font-medium flex w-full items-center justify-center rounded-md border border-transparent 2xl:w-2/3
+                    bg-green text-white hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2 
+                    disabled:bg-neutral-400 disabled:cursor-not-allowed`}
           disabled={!productStock}
         >
           Ajouter au panier
         </button>
+        <p className="text-center my-4">
+          <Link
+            href={`${category}/${productUrl}`}
+            className="font-medium text-green hover:text-light-green underline"
+          >
+            {t("details")}
+          </Link>
+        </p>
+      </div>
+
+      {/* ADD CART BUTTON SMARTPHONE */}
+      <div className="relative mt-4 flex justify-between items-center pr-3 sm:hidden">
+        <p className="text-center my-4">
+          <Link
+            href={`${category}/${productUrl}`}
+            className="font-medium text-green hover:text-light-green underline pl-1"
+          >
+            {t("details")}
+          </Link>
+        </p>
+        <div onClick={() => addProductToCart()}>
+          <PlusIcon className="absolute top-2 right-2.5 w-4 h-4 text-white z-[2]" />
+          <ShoppingBagIcon className="w-10 h-10 p-1 rounded-md text-white bg-green z-[1]" />
+        </div>
       </div>
     </div>
   ) : (
