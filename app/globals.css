@@ -30,7 +30,7 @@
   background-size: 250% 250%, 100% 100%;
 
   /* Apply the animation */
-  animation: shine 2s infinite linear;
+  animation: shine 1s infinite linear;
 }
 
 @layer utilities {

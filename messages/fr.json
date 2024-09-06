@@ -123,7 +123,13 @@
     "caryophyllenePeper": "poivre",
     "pinene": "sapin",
     "humulene": "terrestre",
-    "origin": "Provenance"
+    "origin": "Provenance",
+    "promo": "Promo",
+    "outOfStock": "Rupture",
+    "fromPrice": "À partir de",
+    "quantity": "Quantité",
+    "unit": "Unité",
+    "details": "Voir plus de détails"
   },
   "singleProduct": {
     "analyzes": "analyses",

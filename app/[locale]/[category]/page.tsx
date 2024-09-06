@@ -56,7 +56,10 @@ export default async function Page({ params: { locale, category } }: Params) {
       <Title
         title={currentTitle}
         type="h1"
-        classname="bg-green text-white text-6xl py-5 text-center"
+        classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
+          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
+          dark:after:bg-white`}
+        firstLetterClassname="text-4xl"
       />
 
       {/* NAV CATEGORY */}

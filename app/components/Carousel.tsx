@@ -1,53 +1,109 @@
 "use client";
 
+// import {
+//   ArrowLeftCircleIcon,
+//   ArrowLeftIcon,
+//   ArrowRightCircleIcon,
+//   ArrowRightIcon,
+// } from "@heroicons/react/24/outline";
 import { useRef } from "react";
+import Separator from "./Separator";
 import {
   ArrowLeftCircleIcon,
+  ArrowLeftIcon,
   ArrowRightCircleIcon,
+  ArrowRightIcon,
 } from "@heroicons/react/20/solid";
 
 interface Props {
   children: JSX.Element[];
 }
 
+/**
+ * Si scrollLeft % divRev.current.clientWidth - gap !== 0
+ *
+ */
+
 export default function Carousel({ children }: Props) {
   const divRef = useRef<HTMLDivElement | null>(null);
+  console.log(divRef);
 
   const scrollRight = () => {
-    divRef.current?.scrollTo({
-      left: divRef.current.scrollLeft + 500,
-      behavior: "smooth",
-    });
+    if (divRef.current) {
+      const scrL = divRef.current.scrollLeft;
+      // @ts-ignore
+      const cardWidth = divRef.current.childNodes[0].clientWidth + 8;
+
+      let left = scrL + cardWidth;
+
+      if (scrL % cardWidth !== 0) {
+        left = scrL + (cardWidth - (scrL % cardWidth));
+      }
+
+      if (left > divRef.current.scrollWidth) {
+        left = divRef.current.scrollWidth;
+      }
+
+      divRef.current?.scrollTo({
+        left,
+        behavior: "smooth",
+      });
+    }
   };
 
   const scrollLeft = () => {
-    divRef.current?.scrollTo({
-      left: divRef.current.scrollLeft - 500,
-      behavior: "smooth",
-    });
+    if (divRef.current) {
+      const scrL = divRef.current.scrollLeft;
+      // @ts-ignore
+      const cardWidth = divRef.current.childNodes[0].clientWidth + 8;
+
+      let left = scrL - cardWidth;
+
+      if (scrL % cardWidth !== 0) {
+        left = scrL - (scrL % cardWidth);
+      }
+
+      if (left < 0) {
+        left = 0;
+      }
+
+      divRef.current?.scrollTo({
+        left,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
-    <div className="relative px-2 sm:px-8 xl:px-16">
-      <div
-        ref={divRef}
-        className={`flex gap-2 p-2 sm:gap-3 sm:p-3 overflow-x-scroll w-full rounded-md no-scrollbar
+    <>
+      <div className="relative px-2 xl:px-16 mb-12 lg:mb-0">
+        <div
+          ref={divRef}
+          className={`flex gap-2 p-2 sm:gap-3 overflow-x-scroll w-full rounded-md no-scrollbar
           shadow-carousel dark:shadow-carousel-dark 
           bg-neutral-200 dark:bg-none
           `}
-      >
-        {children}
+        >
+          {children}
+        </div>
+        <ArrowLeftIcon
+          onClick={scrollLeft}
+          className={`lg:flex absolute cursor-pointer lg:items-center lg:justify-center z-10 
+          -bottom-12 right-14 lg:left-2 lg:top-1/2 text-green border-2 border-green
+          h-9 w-9 lg:h-9 lg:w-9 rounded-md lg:-translate-y-1/2
+          animate-backgroundOpacitySlightPulse
+          `}
+        />
+        <ArrowRightIcon
+          onClick={scrollRight}
+          className={`lg:flex absolute cursor-pointer lg:items-center lg:justify-center z-10 
+          -bottom-12 right-2 lg:top-1/2 text-green border-2 border-green
+          h-9 w-9 lg:h-9 lg:w-9 rounded-md lg:-translate-y-1/2
+          animate-backgroundOpacitySlightPulse
+          `}
+        />
       </div>
-      <ArrowLeftCircleIcon
-        onClick={scrollLeft}
-        className={`hidden sm:flex absolute cursor-pointer sm:items-center sm:justify-center z-10 
-             left-2 top-1/2 bg-green text-white h-8 w-8 sm:h-9 sm:w-9 rounded-full -translate-y-1/2`}
-      />
-      <ArrowRightCircleIcon
-        onClick={scrollRight}
-        className={`hidden sm:flex absolute cursor-pointer sm:items-center sm:justify-center z-10 
-             right-2 top-1/2 bg-green text-white h-8 w-8 sm:h-9 sm:w-9 rounded-full -translate-y-1/2`}
-      />
-    </div>
+      <Separator />
+    </>
   );
 }

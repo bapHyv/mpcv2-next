@@ -79,7 +79,7 @@ export default async function NavBar({ locale }: { locale: string }) {
   const languageSelector = [{ text: "fr" }, { text: "es" }, { text: "en" }];
 
   return (
-    <Disclosure as="nav" className="bg-black z-50">
+    <Disclosure as="nav" className="bg-black fixed w-full max-w-[1920px] z-50">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between">
           {/* Mobile menu button*/}
