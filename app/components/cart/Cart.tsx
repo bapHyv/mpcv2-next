@@ -68,58 +68,57 @@ export default function Cart() {
         />
         <div className="fixed inset-0" />
 
-        <div className="fixed inset-0 overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-              <DialogPanel
-                transition
-                className="pointer-events-auto w-screen max-w-xs sm:max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700"
-              >
-                <div className="flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 py-6 shadow-xl mt-20">
-                  <div className="px-4 sm:px-6">
-                    <div className="flex items-start justify-between">
-                      <DialogTitle className="text-base font-semibold leading-6 text-neutral-900 dark:text-neutral-200 capitalize">
-                        {t("cart")}
-                      </DialogTitle>
-                      <div className="ml-3 flex h-7 items-center">
-                        <button
-                          type="button"
-                          onClick={() => setOpen(false)}
-                          className="relative rounded-md bg-white text-neutral-400 hover:text-neutral-500 dark:text-neutral-700 dark:hover:text-neutral-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        >
-                          <span className="absolute -inset-2.5" />
-                          <span className="sr-only">Close panel</span>
-                          <XMarkIcon aria-hidden="true" className="h-6 w-6" />
-                        </button>
-                      </div>
-                    </div>
+        <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+          <DialogPanel
+            transition
+            className="pointer-events-auto w-screen max-w-xs sm:max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700"
+          >
+            <div className="relative flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 shadow-xl pt-28 pb-10">
+              <div className="px-4 sm:px-6">
+                <div className="flex items-start justify-between">
+                  <DialogTitle className="text-base font-semibold leading-6 text-neutral-900 dark:text-neutral-200 capitalize">
+                    {t("cart")}
+                  </DialogTitle>
+                  <div className="ml-3 flex h-7 items-center">
+                    <button
+                      type="button"
+                      onClick={() => setOpen(false)}
+                      className="relative rounded-md bg-white text-neutral-400 hover:text-neutral-500 dark:text-neutral-700 dark:hover:text-neutral-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      <span className="absolute -inset-2.5" />
+                      <span className="sr-only">Close panel</span>
+                      <XMarkIcon aria-hidden="true" className="h-6 w-6" />
+                    </button>
                   </div>
-                  {!!cart.length && (
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                      {/* PRODUCT CART */}
-                      {cart.map((props) => (
-                        <ProductCardCart
-                          key={`${props.id}-${props.option}-${props.name}-${props.cartItemId}`}
-                          {...props}
-                        />
-                      ))}
-                      <p className="text-right font-bold text-2xl">
-                        TOTAL:{" "}
-                        <span className="text-blue-600 dark:text-blue-400">
-                          {computeTotal().toFixed(2)}€
-                        </span>
-                      </p>
-                      <div className="flex">
-                        <button className="bg-green text-white w-full py-3 rounded-md mt-5 uppercase">
-                          {t("order")}
-                        </button>
-                      </div>
-                    </div>
-                  )}
                 </div>
-              </DialogPanel>
+              </div>
+              {!!cart.length && (
+                <div className="mt-6 flex-1 px-2">
+                  {/* PRODUCT CART */}
+                  {cart.map((props) => (
+                    <ProductCardCart
+                      key={`${props.id}-${props.option}-${props.name}-${props.cartItemId}`}
+                      {...props}
+                    />
+                  ))}
+                </div>
+              )}
+              <div className="fixed bottom-0 flex justify-between items-center w-full px-2 bg-white py-3">
+                <p className="font-semibold text-lg">
+                  TOTAL:{" "}
+                  <span className="text-blue-600 dark:text-blue-400">
+                    {computeTotal().toFixed(2)}€
+                  </span>
+                </p>
+                <button
+                  disabled={!cart.length}
+                  className="bg-green py-1 px-2 text-white rounded-md uppercase z-[4000] disabled:bg-neutral-400 disabled:cursor-not-allowed"
+                >
+                  {t("order")}
+                </button>
+              </div>
             </div>
-          </div>
+          </DialogPanel>
         </div>
       </Dialog>
     </>

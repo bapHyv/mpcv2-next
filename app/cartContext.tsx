@@ -39,13 +39,6 @@ export function CartProvider({
   const [cart, setCart] = useState<ProductCart[]>([]);
 
   useEffect(() => {
-    if (isMounted) {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cart]);
-
-  useEffect(() => {
     if (!isMounted) {
       setIsMounted(true);
     }
@@ -63,6 +56,13 @@ export function CartProvider({
       );
     }
   }, [isMounted]);
+
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMounted, cart]);
 
   return (
     <cartContext.Provider

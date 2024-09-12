@@ -10,7 +10,6 @@ interface Props {
 
 export default function Carousel({ children }: Props) {
   const divRef = useRef<HTMLDivElement | null>(null);
-  console.log(divRef);
 
   const scrollRight = () => {
     if (divRef.current) {

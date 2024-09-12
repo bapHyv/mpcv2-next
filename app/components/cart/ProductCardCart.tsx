@@ -40,7 +40,7 @@ export default function ProductCardCart({
               uuid(),
               alertDescription,
               "Suppression de produit",
-              "emerald"
+              "yellow"
             );
           }}
           className="absolute h-[22px] w-[22px] top-1 right-1 text-red-600 cursor-pointer rounded-md hover:bg-red-100"

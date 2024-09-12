@@ -163,7 +163,7 @@
   },
   "cart": {
     "cart": "panier",
-    "order": "passer la commande"
+    "order": "Commander"
   },
   "productCardCart": {
     "nbItem": "nombre d'article",
