@@ -16,7 +16,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import Dropdown from "@/app/components/Dropdown";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
-import Cart from "@/app/components/cart/Cart";
+import SideCart from "@/app/components/cart/SideCart";
 
 export default async function NavBar({ locale }: { locale: string }) {
   // TODO add auth check
@@ -164,7 +164,7 @@ export default async function NavBar({ locale }: { locale: string }) {
                 menuItemsClassname="right-0 left-auto top-0 w-28"
               />
             </div>
-            <Cart />
+            <SideCart />
             {/* Profile dropdown */}
             {isSignedId ? (
               <Dropdown
