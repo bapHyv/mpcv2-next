@@ -5,6 +5,7 @@ interface Title {
   title: string;
   classname?: string;
   firstLetterClassname?: string;
+  id?: string;
 }
 
 export default function Title({
@@ -12,53 +13,54 @@ export default function Title({
   title,
   classname,
   firstLetterClassname,
+  id,
 }: Title) {
   switch (type) {
     case "h1":
       return (
-        <h1 className={classname}>
+        <h1 className={classname} id={id}>
           <span className={firstLetterClassname}>{title.substring(0, 1)}</span>
           {title.substring(1, title.length)}
         </h1>
       );
     case "h2":
       return (
-        <h2 className={classname}>
+        <h2 className={classname} id={id}>
           <span className={firstLetterClassname}>{title.substring(0, 1)}</span>
           {title.substring(1, title.length)}
         </h2>
       );
     case "h3":
       return (
-        <h3 className={classname}>
+        <h3 className={classname} id={id}>
           <span className={firstLetterClassname}>{title.substring(0, 1)}</span>
           {title.substring(1, title.length)}
         </h3>
       );
     case "h4":
       return (
-        <h4 className={classname}>
+        <h4 className={classname} id={id}>
           <span className={firstLetterClassname}>{title.substring(0, 1)}</span>
           {title.substring(1, title.length)}
         </h4>
       );
     case "h5":
       return (
-        <h5 className={classname}>
+        <h5 className={classname} id={id}>
           <span className={firstLetterClassname}>{title.substring(0, 1)}</span>
           {title.substring(1, title.length)}
         </h5>
       );
     case "h6":
       return (
-        <h6 className={classname}>
+        <h6 className={classname} id={id}>
           <span className={firstLetterClassname}>{title.substring(0, 1)}</span>
           {title.substring(1, title.length)}
         </h6>
       );
     default:
       return (
-        <h1 className={classname}>
+        <h1 className={classname} id={id}>
           <span className={firstLetterClassname}>{title.substring(0, 1)}</span>
           {title.substring(1, title.length)}
         </h1>
