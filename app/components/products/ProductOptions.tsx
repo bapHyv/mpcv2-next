@@ -25,6 +25,7 @@ interface Params {
   productUrl: string;
 }
 
+// This Component is used to display the product's option but is also used as a gateway into client features like contexts.
 export default function ProductOptions({
   prices,
   pricesPer,
@@ -70,6 +71,7 @@ export default function ProductOptions({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Yes this function has multiple responsabilities...
   const addProductToCart = () => {
     const _product: ProductCart = {
       cartItemId: uuid(),
@@ -126,7 +128,7 @@ export default function ProductOptions({
       setFormatedOption(formatOption(prices, newStock.toString()));
 
       // This is used to prevent the following edge case. Let's say the stock is equal to 15. If the user chooses 10 then add
-      // the product to its cart, the stock left is now 5. The option 10 disapear (because it's greater than the stock which has now a value of 5) but is still selected.
+      // the product to his cart, the stock left is now 5. The option 10 disapear (because it's greater than the stock which has now a value of 5) but is still selected.
       // This line recompute the selected option to make sure that if the selected option is greater than the newStock, the selectedOption will be the next available.
       setSelectedOption((prevSelectedOption) => {
         if (parseInt(prevSelectedOption as string) > newStock) {

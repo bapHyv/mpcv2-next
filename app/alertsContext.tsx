@@ -92,24 +92,11 @@ function AlertElement({
           : "animate-slideinright",
         `relative rounded-r-md bg${color}50 border-l-4 border${color}400 p-4 border-y border-r shadow-xl`
       )}
-      onMouseEnter={() => {
-        console.log("mouse enter");
-        setCloseTime(60000);
-      }} // when the mouse enters the element
-      onTouchStart={() => {
-        console.log("touch start");
-        setCloseTime(60000);
-      }} // when the user stay pressed
-      onMouseLeave={() => {
-        console.log("mouse leave");
-        setCloseTime(1000);
-      }} // when the mouse leaves the element
-      onTouchEnd={() => {
-        console.log("touch end");
-        setCloseTime(1000);
-      }}
+      onMouseEnter={() => setCloseTime(60000)} // when the mouse enters the element
+      onTouchStart={() => setCloseTime(60000)} // when the user stay pressed
+      onMouseLeave={() => setCloseTime(1000)} // when the mouse leaves the element
+      onTouchEnd={() => setCloseTime(1000)}
       onTouchMove={() => {
-        console.log("touch move");
         setIsFingerClosing(true);
 
         // This promised is used to trigger the closeAlert function after 500ms delay
