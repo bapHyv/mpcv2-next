@@ -12,6 +12,7 @@ interface IProduct {
   name: string;
   price: number;
   option: string;
+  stock: string;
 }
 
 interface IProducts {

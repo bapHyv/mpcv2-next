@@ -96,7 +96,6 @@ export default function ProductFilter({
           currentProduct.forEach((product) => {
             Object.entries(value).forEach(([key, value]) => {
               if (value.length && key in product) {
-                console.log({ key, value });
                 if (key === "growingMethod") {
                   //@ts-ignore
                   if (value.includes(product.growingMethod as string)) {
@@ -117,8 +116,6 @@ export default function ProductFilter({
                   //@ts-ignore
                   Object.entries(product[key as any]).forEach(
                     ([productKey, productValue]) => {
-                      console.log({ productKey, productValue });
-
                       if (value.includes(productKey as string)) {
                         let isProductAlreadyInside = false;
 

@@ -28,31 +28,31 @@ export default async function NavBar({ locale }: { locale: string }) {
   const itemsDropdown: IDropdownItem[] = [
     {
       text: t("hemp"),
-      href: `fleurs%20de%20cbd`,
+      href: "fleurs-cbd",
     },
     {
       text: t("hash"),
-      href: `hash%20de%20cbd`,
+      href: "pollens-resines-hash-cbd",
     },
     {
       text: t("moonrock"),
-      href: `moonrocks`,
+      href: "moonrocks-cbd",
     },
     {
       text: t("oil"),
-      href: `huiles`,
+      href: "huiles-cbd",
     },
     {
       text: t("tea"),
-      href: `infusions`,
+      href: "infusions-cbd",
     },
     {
       text: t("cream"),
-      href: `soins`,
+      href: "soins-cbd",
     },
     {
       text: t("vaporisateur"),
-      href: `vaporisateurs`,
+      href: "vaporisateur",
     },
   ];
 

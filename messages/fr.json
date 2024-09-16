@@ -125,11 +125,12 @@
     "humulene": "terrestre",
     "origin": "Provenance",
     "promo": "Promo",
-    "outOfStock": "Rupture",
+    "outOfStock": "Rupture de stock",
     "fromPrice": "À partir de",
     "quantity": "Quantité",
     "unit": "Unité",
-    "details": "Voir plus de détails"
+    "details": "Voir plus de détails",
+    "reviews": "avis"
   },
   "singleProduct": {
     "analyzes": "analyses",

@@ -9,11 +9,7 @@ import {
 } from "@/app/types/productsTypes";
 import Link from "next/link";
 import clsx from "clsx";
-import {
-  findHighest,
-  findHighestQuantity,
-  findMainImage,
-} from "@/app/utils/productFunctions";
+import { findHighest, findHighestQuantity } from "@/app/utils/productFunctions";
 import { getTranslations } from "next-intl/server";
 import ProductPrice from "./ProductPrice";
 import ProductOptions from "./ProductOptions";
@@ -29,7 +25,7 @@ export default async function ProductCard({
   prices,
   productUrl,
   stock,
-  rating,
+  ratings,
   // @ts-ignore
   cannabinoids,
   // @ts-ignore
@@ -40,6 +36,7 @@ export default async function ProductCard({
   category,
   mainDivClassname,
   secondeDivClassname,
+  slug,
 }: (BaseProduct | Oil | Hash | Moonrock | Flower) & {
   locale: string;
   category: string;
@@ -53,8 +50,6 @@ export default async function ProductCard({
   const highestQuantity = findHighestQuantity(prices);
 
   const highestTerpene = findHighest(terpenes);
-
-  const image = findMainImage(images);
 
   const terpenesFlavor = {
     caryophyllene: t("caryophyllene"),
@@ -91,13 +86,15 @@ export default async function ProductCard({
           )}
         >
           <div className="relative m-auto rounded-lg col-span-12 h-min">
-            <Image
-              alt={image.alt}
-              src={image.url}
-              className="object-cover object-center w-56 h-36 sm:w-80 sm:h-44 rounded-md"
-              width={1080}
-              height={1920}
-            />
+            {!!images.main && (
+              <Image
+                alt={images.main.alt}
+                src={`${process.env.MAIN_URL}${process.env.IMG_HOST}${images.main.url}`}
+                className="object-cover object-center w-56 h-36 sm:w-80 sm:h-44 rounded-md"
+                width={1080}
+                height={1920}
+              />
+            )}
             {!parseInt(stock) ? (
               <div className="absolute right-5 top-5 p-1 text-sm rounded-md text-white bg-red-600">
                 {t("outOfStock")}
@@ -129,7 +126,9 @@ export default async function ProductCard({
 
               {/* PRICE / UNIT */}
               <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
-                {t("fromPrice")} {highestQuantity.price}€/{pricesPer}
+                {t("fromPrice")}{" "}
+                {(highestQuantity.price / highestQuantity.quantity).toFixed(2)}
+                €/{pricesPer}
               </p>
 
               {/* PRODUCT PRICE */}
@@ -138,34 +137,36 @@ export default async function ProductCard({
             <Separator />
             <div className="flex items-center justify-between mt-3 pr-3 sm:pr-0 sm:mt-0 sm:flex-col sm:items-start">
               {/* RATING - REVIEWS */}
-              <div className="mt-0 sm:mt-4">
-                <h4 className="sr-only">Reviews</h4>
-                <div className="flex items-center">
-                  <p className="text-sm text-neutral-700 dark:text-neutral-200">
-                    {Math.round(parseFloat(rating.value))}
-                    <span className="sr-only"> out of 5 stars</span>
-                  </p>
-                  <div className="ml-1 flex items-center">
-                    {[0, 1, 2, 3, 4].map((ratingStar) => (
-                      <StarIcon
-                        key={ratingStar}
-                        aria-hidden="true"
-                        className={clsx(
-                          Math.round(parseFloat(rating.value)) > ratingStar
-                            ? "text-yellow-400"
-                            : "text-gray-200",
-                          "h-5 w-5 flex-shrink-0 mb-1"
-                        )}
-                      />
-                    ))}
-                  </div>
-                  <div className="ml-4 hidden lg:flex lg:items-center">
-                    <span className="ml-4 text-sm font-medium text-neutral-700 dark:text-neutral-200">
-                      {rating.quantity} Reviews
-                    </span>
+              {!!ratings.amount && (
+                <div className="mt-0 sm:mt-4">
+                  <h4 className="sr-only">Reviews</h4>
+                  <div className="flex items-center">
+                    <p className="text-sm text-neutral-700 dark:text-neutral-200">
+                      {Math.round(ratings.value)}
+                      <span className="sr-only"> out of 5 stars</span>
+                    </p>
+                    <div className="ml-1 flex items-center">
+                      {[0, 1, 2, 3, 4].map((ratingStar) => (
+                        <StarIcon
+                          key={ratingStar}
+                          aria-hidden="true"
+                          className={clsx(
+                            Math.round(ratings.value) > ratingStar
+                              ? "text-yellow-400"
+                              : "text-gray-200",
+                            "h-5 w-5 flex-shrink-0 mb-1"
+                          )}
+                        />
+                      ))}
+                    </div>
+                    <div className="ml-4 hidden lg:flex lg:items-center">
+                      <span className="ml-4 text-sm font-medium text-neutral-700 dark:text-neutral-200">
+                        {ratings.amount} {t("reviews")}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* TERPENES & ORIGIN */}
               {highestTerpene && (
@@ -209,14 +210,13 @@ export default async function ProductCard({
               in the ProductCartCard */}
               <ProductOptions
                 pricesPer={pricesPer}
-                image={image}
+                image={images.main}
                 prices={prices}
                 name={name}
                 id={id}
                 stock={stock}
-                locale={locale}
+                slug={slug}
                 category={category}
-                productUrl={productUrl}
               />
             </section>
           </div>

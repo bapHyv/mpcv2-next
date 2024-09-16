@@ -57,12 +57,10 @@ function AlertElement({
 
   useEffect(() => {
     const timeoutIdAnimate = setTimeout(() => {
-      console.log("TimeoutAnimate");
       setIsClosing(true);
     }, closeTime - 500);
 
     const timeoutIdClose = setTimeout(() => {
-      console.log("TimeoutClose");
       closeAlert(alertId);
     }, closeTime);
 
@@ -186,7 +184,7 @@ export function AlertsProvider({
     >
       <>
         {children}
-        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-5 top-24 flex flex-col gap-5 z-[9999]">
+        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-5 bottom-4 flex flex-col gap-5 z-[9999]">
           {alerts}
         </div>
       </>
