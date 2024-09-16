@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/app/cartContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -12,7 +12,7 @@ import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import CartProductCard from "./CartProductCard";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 interface CartProduct {
   id: string;
@@ -34,21 +34,26 @@ interface Commande {
 
 export default function Cart() {
   const [open, setOpen] = useState(false);
+
   const { cart } = useCart();
   const t = useTranslations("cart");
   const { locale } = useParams();
+  const pathname = usePathname();
 
-  // console.log(locale);
+  useEffect(() => {
+    // Close the sideCart on navigate
+    setOpen(false);
+  }, [pathname]);
 
-  const computeTotal = () => {
-    let total = 0;
+  // const computeTotal = () => {
+  //   let total = 0;
 
-    cart.forEach((product) => {
-      total += product.totalPrice;
-    });
+  //   cart.forEach((product) => {
+  //     total += product.totalPrice;
+  //   });
 
-    return total;
-  };
+  //   return total;
+  // };
 
   return (
     <>
@@ -59,9 +64,9 @@ export default function Cart() {
             className="w-10 h-10 rounded-full bg-white text-black p-1 cursor-pointer"
           />
           <span className="sr-only">Items in shopping cart</span>
-          {!!cart.length && (
+          {!!cart?.products?.length && (
             <span className="absolute -top-1 -right-1 text-white bg-red-600 rounded-full text-xs px-1">
-              {cart.length}
+              {cart?.products?.length}
             </span>
           )}
         </div>
@@ -97,10 +102,10 @@ export default function Cart() {
                   </div>
                 </div>
               </div>
-              {!!cart.length && (
+              {!!cart?.products?.length && (
                 <div className="mt-6 flex-1 px-2">
                   {/* PRODUCT CART */}
-                  {cart.map((product) => (
+                  {cart?.products?.map((product) => (
                     <CartProductCard
                       key={`${product.id}-${product.option}-${product.name}-${product.cartItemId}`}
                       {...product}
@@ -112,12 +117,12 @@ export default function Cart() {
                 <p className="font-semibold text-sm">
                   TOTAL:{" "}
                   <span className="text-blue-600 dark:text-blue-400">
-                    {computeTotal().toFixed(2)}€
+                    {cart?.total?.toFixed(2)}€
                   </span>
                 </p>
                 <Link href={`/${locale}/panier`}>
                   <button
-                    disabled={!cart.length}
+                    disabled={!cart?.products?.length}
                     className="bg-green py-1 px-2 text-white rounded-md uppercase text-sm z-[4000] disabled:bg-neutral-400 disabled:cursor-not-allowed"
                   >
                     {t("order")}

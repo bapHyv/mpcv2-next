@@ -14,12 +14,13 @@ export type slugCategories =
   | "huiles-cbd"
   | "infusions-cbd"
   | "soins-cbd"
-  | "vaporisateur-cbd";
+  | "vaporisateur";
 
 export interface Category {
   url: string;
   category: keyof Products;
   title: string;
+  slug: slugCategories;
 }
 
 export interface Prices {
@@ -42,12 +43,23 @@ export interface Terpenes {
 export interface Image {
   url: string;
   alt: string;
-  main?: boolean;
+}
+
+export interface Review {
+  author: string;
+  content: string;
+  date: string;
+  rating: string;
 }
 
 export interface Rating {
-  quantity: string;
-  value: string;
+  amount: number;
+  value: number;
+  reviews: Review[];
+}
+
+export interface Analyse {
+  [key: string]: string;
 }
 
 export interface BaseProduct {
@@ -56,14 +68,19 @@ export interface BaseProduct {
   pricesPer: string;
   prices: Prices;
   stock: string;
-  images: Image[];
+  images: { main: Image; others: Image[] };
   productUrl: string;
   isPromo: boolean;
-  rating: Rating;
+  ratings: Rating;
+  shortDescription: string;
+  longDescription: string;
+  relatedProducts: IProducts[];
+  slug: string;
 }
 
 export interface NaturalProduct extends BaseProduct {
   cannabinoids: Cannabinoids;
+  analyses: Analyse;
 }
 
 export interface EndProduct extends NaturalProduct {
@@ -80,8 +97,9 @@ export interface Moonrock extends EndProduct {}
 export interface Flower extends EndProduct {
   growingMethod: string;
 }
-// api.monplancbd.fr/product/id
-// api.monplancbd.fr/product/slug (category)
+
+export type IProducts = BaseProduct | Oil | Moonrock | Hash | Flower;
+
 export interface Products {
   fleurs: Flower[];
   hashs: Hash[];

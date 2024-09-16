@@ -129,7 +129,8 @@
     "fromPrice": "From",
     "quantity": "Quantity",
     "unit": "Unit",
-    "details": "Details"
+    "details": "Details",
+    "reviews": "reviews"
   },
   "singleProduct": {
     "analyzes": "analyzes",

@@ -24,8 +24,13 @@ export interface ProductCart {
 }
 
 interface CartContext {
-  cart: ProductCart[];
-  setCart: Dispatch<SetStateAction<ProductCart[]>>;
+  cart: { total: number; products: ProductCart[] };
+  setCart: Dispatch<
+    SetStateAction<{
+      total: number;
+      products: ProductCart[];
+    }>
+  >;
 }
 
 const cartContext = createContext({} as CartContext);
@@ -35,34 +40,14 @@ export function CartProvider({
 }: {
   children: ReactNode;
 }): JSX.Element {
-  const [isMounted, setIsMounted] = useState(false);
-  const [cart, setCart] = useState<ProductCart[]>([]);
+  const [cart, setCart] = useState({ total: 0, products: [] as ProductCart[] });
 
   useEffect(() => {
-    if (!isMounted) {
-      setIsMounted(true);
+    // If there is a cart in the localStorage, set the cart state with its value
+    if (!!localStorage.getItem("cart")) {
+      setCart(JSON.parse(localStorage.getItem("cart") as string));
     }
-
-    return () => setIsMounted(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (isMounted) {
-      setCart(
-        (JSON.parse(
-          localStorage.getItem("cart") || ""
-        ) as unknown as ProductCart[]) || []
-      );
-    }
-  }, [isMounted]);
-
-  useEffect(() => {
-    if (isMounted) {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMounted, cart]);
 
   return (
     <cartContext.Provider

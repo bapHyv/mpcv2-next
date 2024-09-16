@@ -6,15 +6,6 @@ import {
   Image,
 } from "@/app/types/productsTypes";
 
-export function findMainImage(images: Image[]) {
-  const mainImage = { url: "", alt: "" };
-  const _images = images.filter((image) => image.main);
-  mainImage.alt = _images[0].alt;
-  mainImage.url = _images[0].url;
-
-  return mainImage;
-}
-
 export function findHighest(values: Cannabinoids | Terpenes | undefined) {
   if (!values) return null;
 
@@ -84,13 +75,17 @@ export function formatOption(prices: Prices, stock: string) {
 }
 
 export function doesCategoryExists(categories: categories, category: string) {
-  return categories.find((e) => e.url === category);
+  return categories.find((e) => e.slug === category);
 }
 
 export function findCategory(categories: categories, category: string) {
-  return categories.filter((cat) => cat.url === category)[0].category;
+  return categories.filter((cat) => cat.slug === category)[0].category;
+}
+
+export function findSlug(categories: categories, category: string) {
+  return categories.filter((cat) => cat.slug === category)[0].slug;
 }
 
 export function findTitle(categories: categories, category: string) {
-  return categories.filter((cat) => cat.url === category)[0].title;
+  return categories.filter((cat) => cat.slug === category)[0].title;
 }

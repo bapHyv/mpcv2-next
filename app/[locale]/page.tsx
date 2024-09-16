@@ -12,23 +12,59 @@ import {
 } from "@heroicons/react/20/solid";
 import ServiceCard from "@/app/components/homepage/ServiceCard";
 import Image from "next/image";
+import { Flower, Hash, Oil } from "@/app/types/productsTypes";
+import { v4 as uuid } from "uuid";
+import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
+import { getTranslations } from "next-intl/server";
 
 interface Params {
   locale: string;
 }
 
-export default function Home({ locale }: Params) {
-  const t = useTranslations("HomePage");
+async function getFlowers() {
+  const res: Flower[] = await fetch(
+    `${process.env.API_HOST}/products/fleurs-cbd`
+  ).then((res) => res.json());
+
+  return res;
+}
+
+async function getHashs() {
+  const res: Hash[] = await fetch(
+    `${process.env.API_HOST}/products/pollens-resines-hash-cbd`
+  ).then((res) => res.json());
+
+  return res;
+}
+
+async function getOils() {
+  const res: Oil[] = await fetch(
+    `${process.env.API_HOST}/products/huiles-cbd`
+  ).then((res) => res.json());
+
+  return res;
+}
+
+export default async function Page({ locale }: Params) {
+  const t = await getTranslations({ locale, namespace: "HomePage" });
 
   const promo = Object.entries(products)
     .map(([key, value]) => value.filter((product) => product.isPromo))
     .flatMap((e) => e);
 
-  const flowers = products.fleurs;
+  const flowersData = getFlowers();
+  const hashsData = getHashs();
+  const oilsData = getOils();
 
-  const hashs = products.hashs;
+  const [flowers, hashs, oils] = await Promise.all([
+    flowersData,
+    hashsData,
+    oilsData,
+  ]);
 
-  const oils = products.huiles;
+  const productCardsSkeleton: JSX.Element[] = new Array(8)
+    .fill(0)
+    .map(() => <ProductCardSkeleton key={uuid()} />);
 
   const services = [
     {
@@ -58,7 +94,7 @@ export default function Home({ locale }: Params) {
     },
   ];
 
-  console.log(locale);
+  console.log(flowers[0]);
 
   return (
     <>
@@ -71,7 +107,7 @@ export default function Home({ locale }: Params) {
           dark:after:bg-white`}
           firstLetterClassname="text-4xl"
         />
-        <Carousel>
+        {/* <Carousel>
           {promo.map((product) => (
             <ProductCard
               key={product.id}
@@ -82,7 +118,7 @@ export default function Home({ locale }: Params) {
               secondeDivClassname="w-96"
             />
           ))}
-        </Carousel>
+        </Carousel> */}
       </section>
       <section>
         <Title
@@ -94,16 +130,18 @@ export default function Home({ locale }: Params) {
           firstLetterClassname="text-4xl"
         />
         <Carousel>
-          {flowers.map((flower) => (
-            <ProductCard
-              key={flower.id}
-              {...flower}
-              locale={locale}
-              category={"fleurs%20de%20cbd"}
-              mainDivClassname="sm:w-96 m-0 rounded-md"
-              secondeDivClassname="w-96"
-            />
-          ))}
+          {!flowers
+            ? productCardsSkeleton
+            : flowers.map((flower) => (
+                <ProductCard
+                  key={flower.id}
+                  {...flower}
+                  locale={locale}
+                  category={"fleurs-cbd"}
+                  mainDivClassname="sm:w-96 m-0 rounded-md"
+                  secondeDivClassname="w-96"
+                />
+              ))}
         </Carousel>
       </section>
       <section>
@@ -116,16 +154,18 @@ export default function Home({ locale }: Params) {
           firstLetterClassname="text-4xl"
         />
         <Carousel>
-          {hashs.map((hash) => (
-            <ProductCard
-              key={hash.id}
-              {...hash}
-              locale={locale}
-              category={"hash%20de%20cbd"}
-              mainDivClassname="sm:w-96 m-0 rounded-md"
-              secondeDivClassname="w-96"
-            />
-          ))}
+          {!hashs
+            ? productCardsSkeleton
+            : hashs.map((hash) => (
+                <ProductCard
+                  key={hash.id}
+                  {...hash}
+                  locale={locale}
+                  category={"pollens-resines-hash-cbd"}
+                  mainDivClassname="sm:w-96 m-0 rounded-md"
+                  secondeDivClassname="w-96"
+                />
+              ))}
         </Carousel>
       </section>
       <section>
@@ -138,16 +178,18 @@ export default function Home({ locale }: Params) {
           firstLetterClassname="text-4xl"
         />
         <Carousel>
-          {oils.map((oil) => (
-            <ProductCard
-              key={oil.id}
-              {...oil}
-              locale={locale}
-              category={"huiles"}
-              mainDivClassname="sm:w-96 m-0 rounded-md"
-              secondeDivClassname="w-96"
-            />
-          ))}
+          {!oils
+            ? productCardsSkeleton
+            : oils.map((oil) => (
+                <ProductCard
+                  key={oil.id}
+                  {...oil}
+                  locale={locale}
+                  category={"huiles-cbd"}
+                  mainDivClassname="sm:w-96 m-0 rounded-md"
+                  secondeDivClassname="w-96"
+                />
+              ))}
         </Carousel>
       </section>
       <section className="relative mt-4 sm:mt-8">
