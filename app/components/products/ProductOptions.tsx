@@ -4,14 +4,13 @@ import { useAlerts } from "@/app/alertsContext";
 import { ProductCart, useCart } from "@/app/cartContext";
 import { useProducts } from "@/app/productsContext";
 import { Image, Prices } from "@/app/types/productsTypes";
-import { formatOptions } from "@/app/utils/productFunctions";
+import { formatOptions, updateProductLogic } from "@/app/utils/productFunctions";
 import { Radio, RadioGroup } from "@headlessui/react";
 import { PlusIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuid } from "uuid";
 
@@ -37,7 +36,7 @@ export default function ProductOptions({
   slug,
   category,
 }: Params) {
-  const { products, setProducts, updateProduct } = useProducts();
+  const { products, updateProduct } = useProducts();
 
   const t = useTranslations("category");
   const { setCart } = useCart();
@@ -117,29 +116,8 @@ export default function ProductOptions({
     const stock = products[id].stock;
 
     const computedStock = parseInt(stock) - parseInt(option);
-    const updatedStock = computedStock <= 0 ? 0 : computedStock;
-    const formatedOptions = formatOptions(
-      products[id].productOptions,
-      updatedStock.toString()
-    );
-    const l = formatedOptions.length;
 
-    const doesFormatedOptionsHasPrice = formatedOptions.some(
-      (formatedOption) => formatedOption?.price === price
-    );
-    const doesFormatedOptionHasOption = formatedOptions.some(
-      (formatedOption) => formatedOption?.option === option
-    );
-
-    if (!doesFormatedOptionsHasPrice) {
-      price = formatedOptions[l - 1]?.price || "";
-    }
-
-    if (!doesFormatedOptionHasOption) {
-      option = formatedOptions[l - 1]?.option || "";
-    }
-
-    updateProduct(id, { option, price, formatedOptions, stock: updatedStock.toString() });
+    updateProductLogic(products[id], id, option, price, computedStock, updateProduct);
 
     // Triggers an alert to give feedback to the user when he adds a product in the cart
     const alertDescription = `${option} ${pricesPer} du produit ${name} a bien ete ajoute`;

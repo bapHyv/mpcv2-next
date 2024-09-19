@@ -1,4 +1,5 @@
 import { Cannabinoids, Terpenes, Prices, categories, Image } from "@/app/types/productsTypes";
+import { IProduct } from "@/app/productsContext";
 
 export function findHighest(values: Cannabinoids | Terpenes | undefined) {
   if (!values) return null;
@@ -85,3 +86,34 @@ export function findSlug(categories: categories, category: string) {
 export function findTitle(categories: categories, category: string) {
   return categories.filter((cat) => cat.slug === category)[0].title;
 }
+
+export const updateProductLogic = (
+  product: IProduct,
+  id: string,
+  option: string,
+  price: string,
+  computedStock: number,
+  updateProduct: (productId: string | number, updates: Partial<IProduct>) => void
+) => {
+  const updatedStock = computedStock <= 0 ? 0 : computedStock;
+
+  const formatedOptions = formatOptions(product.productOptions, updatedStock.toString());
+  const l = formatedOptions.length;
+
+  const doesFormatedOptionsHasPrice = formatedOptions.some(
+    (formatedOption) => formatedOption?.price === price
+  );
+  const doesFormatedOptionHasOption = formatedOptions.some(
+    (formatedOption) => formatedOption?.option === option
+  );
+
+  if (!doesFormatedOptionsHasPrice) {
+    price = formatedOptions[l - 1]?.price || "";
+  }
+
+  if (!doesFormatedOptionHasOption) {
+    option = formatedOptions[l - 1]?.option || "";
+  }
+
+  updateProduct(id, { option, price, formatedOptions, stock: updatedStock.toString() });
+};

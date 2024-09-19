@@ -9,7 +9,7 @@ import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 import { useProducts } from "@/app/productsContext";
-import { formatOptions } from "@/app/utils/productFunctions";
+import { formatOptions, updateProductLogic } from "@/app/utils/productFunctions";
 
 export default function CartProductCard({
   cartItemId,
@@ -37,30 +37,14 @@ export default function CartProductCard({
 
         const productCartOption = parseInt(product.option);
         const quantity = product.quantity;
-        const stock = parseInt(products[id].stock);
-        const computedStock = (productCartOption * quantity + stock).toString();
 
-        let price = products[id].price;
         let option = products[id].option;
-        const formatedOptions = formatOptions(products[id].productOptions, computedStock);
-        const l = formatedOptions.length;
+        let price = products[id].price;
+        const stock = products[id].stock;
 
-        const doesFormatedOptionsHasPrice = formatedOptions.some(
-          (formatedOption) => formatedOption?.price === price
-        );
-        const doesFormatedOptionHasOption = formatedOptions.some(
-          (formatedOption) => formatedOption?.option === option
-        );
+        const computedStock = productCartOption * quantity + parseInt(stock);
 
-        if (!doesFormatedOptionsHasPrice) {
-          price = formatedOptions[l - 1]?.price || "";
-        }
-
-        if (!doesFormatedOptionHasOption) {
-          option = formatedOptions[l - 1]?.option || "";
-        }
-
-        updateProduct(id, { option, price, formatedOptions, stock: computedStock });
+        updateProductLogic(products[id], id, option, price, computedStock, updateProduct);
       }
 
       return product.cartItemId !== cartItemId;
@@ -104,38 +88,12 @@ export default function CartProductCard({
       // recompute the selectedPrice in case the available options change
 
       let _option = products[id].option;
-      const stock = products[id].stock;
-      const computedStock = parseInt(stock) - parseInt(option);
-      const updatedStock = computedStock <= 0 ? 0 : computedStock;
-
-      const formatedOptions = formatOptions(
-        products[id].productOptions,
-        updatedStock.toString()
-      );
-      const l = formatedOptions.length;
       let price = products[id].price;
+      const stock = products[id].stock;
 
-      const doesFormatedOptionsHasPrice = formatedOptions.some(
-        (formatedOption) => formatedOption?.price === price
-      );
-      const doesFormatedOptionsHasOption = formatedOptions.some(
-        (formatedOption) => formatedOption?.option === _option
-      );
+      const computedStock = parseInt(stock) - parseInt(option);
 
-      if (!doesFormatedOptionsHasPrice) {
-        price = formatedOptions[l - 1]?.price || "";
-      }
-
-      if (!doesFormatedOptionsHasOption) {
-        _option = formatedOptions[l - 1]?.option || "";
-      }
-
-      updateProduct(id, {
-        option: _option,
-        price,
-        formatedOptions,
-        stock: updatedStock.toString(),
-      });
+      updateProductLogic(products[id], id, _option, price, computedStock, updateProduct);
 
       const alertAddQuantityDescription = `Vous avez bien ajouté ${option} ${per} du produit: ${name}`;
       addAlert(uuid(), alertAddQuantityDescription, "Ajout de produit", "emerald");
@@ -168,44 +126,11 @@ export default function CartProductCard({
       });
 
       let _option = products[id].option;
+      let price = products[id].price;
       const stock = products[id].stock;
       const computedStock = parseInt(stock) + parseInt(option);
-      const updatedStock = computedStock <= 0 ? 0 : computedStock;
 
-      const formatedOptions = formatOptions(
-        products[id].productOptions,
-        updatedStock.toString()
-      );
-      const l = formatedOptions.length;
-      let price = products[id].price;
-
-      const doesFormatedOptionsHasPrice = formatedOptions.some(
-        (formatedOption) => formatedOption?.price === price
-      );
-      const doesFormatedOptionsHasOption = formatedOptions.some(
-        (formatedOption) => formatedOption?.option === _option
-      );
-
-      if (!doesFormatedOptionsHasPrice) {
-        price = formatedOptions[l - 1]?.price || "";
-      }
-
-      if (!doesFormatedOptionsHasOption) {
-        _option = formatedOptions[l - 1]?.option || "";
-      }
-
-      updateProduct(id, { option, price, formatedOptions, stock: updatedStock.toString() });
-
-      // Update the current stock of the product being removed
-      // setProducts((prevProducts) => {
-      //   const product = prevProducts[id];
-
-      //   const updatedStock = parseInt(product.stock) + parseInt(option);
-
-      //   product.stock = updatedStock.toString();
-
-      //   return { ...prevProducts, [id]: { ...product } };
-      // });
+      updateProductLogic(products[id], id, _option, price, computedStock, updateProduct);
 
       const alertRemoveQuantityDescription = `Vous avez retiré ${option} ${per} du produit: ${name}`;
       addAlert(uuid(), alertRemoveQuantityDescription, "Ajout de produit", "yellow");

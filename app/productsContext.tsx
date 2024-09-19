@@ -19,7 +19,7 @@ import {
 } from "@/app/types/productsTypes";
 import { formatOptions } from "@/app/utils/productFunctions";
 
-interface IProduct {
+export interface IProduct {
   id: string;
   name: string;
   slug: string;
