@@ -22,9 +22,9 @@ interface Params {
 }
 
 async function getFlowers() {
-  const res: Flower[] = await fetch(
-    `${process.env.API_HOST}/products/fleurs-cbd`
-  ).then((res) => res.json());
+  const res: Flower[] = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`).then(
+    (res) => res.json()
+  );
 
   return res;
 }
@@ -38,9 +38,9 @@ async function getHashs() {
 }
 
 async function getOils() {
-  const res: Oil[] = await fetch(
-    `${process.env.API_HOST}/products/huiles-cbd`
-  ).then((res) => res.json());
+  const res: Oil[] = await fetch(`${process.env.API_HOST}/products/huiles-cbd`).then((res) =>
+    res.json()
+  );
 
   return res;
 }
@@ -56,11 +56,7 @@ export default async function Page({ locale }: Params) {
   const hashsData = getHashs();
   const oilsData = getOils();
 
-  const [flowers, hashs, oils] = await Promise.all([
-    flowersData,
-    hashsData,
-    oilsData,
-  ]);
+  const [flowers, hashs, oils] = await Promise.all([flowersData, hashsData, oilsData]);
 
   const productCardsSkeleton: JSX.Element[] = new Array(8)
     .fill(0)
@@ -93,8 +89,6 @@ export default async function Page({ locale }: Params) {
       text: t("services.sponsoring.text"),
     },
   ];
-
-  console.log(flowers[0]);
 
   return (
     <>

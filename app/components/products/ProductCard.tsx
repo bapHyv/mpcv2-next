@@ -9,7 +9,7 @@ import {
 } from "@/app/types/productsTypes";
 import Link from "next/link";
 import clsx from "clsx";
-import { findHighest, findHighestQuantity } from "@/app/utils/productFunctions";
+import { findHighest, findHighestOption } from "@/app/utils/productFunctions";
 import { getTranslations } from "next-intl/server";
 import ProductPrice from "./ProductPrice";
 import ProductOptions from "./ProductOptions";
@@ -47,7 +47,7 @@ export default async function ProductCard({
 
   const cannabinoidRating = findHighest(cannabinoids);
 
-  const highestQuantity = findHighestQuantity(prices);
+  const highestOption = findHighestOption(prices);
 
   const highestTerpene = findHighest(terpenes);
 
@@ -67,7 +67,6 @@ export default async function ProductCard({
     <div
       className={twMerge(
         clsx(
-          !parseInt(stock) ? "opacity-60" : "",
           "col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 w-full transform text-left text-base transition my-4"
         ),
         mainDivClassname
@@ -85,15 +84,18 @@ export default async function ProductCard({
             secondeDivClassname
           )}
         >
+          {/* IMAGE */}
           <div className="relative m-auto rounded-lg col-span-12 h-min">
             {!!images.main && (
-              <Image
-                alt={images.main.alt}
-                src={`${process.env.MAIN_URL}${process.env.IMG_HOST}${images.main.url}`}
-                className="object-cover object-center w-56 h-36 sm:w-80 sm:h-44 rounded-md"
-                width={1080}
-                height={1920}
-              />
+              <div className={clsx(!parseInt(stock) ? "opacity-60" : "")}>
+                <Image
+                  alt={images.main.alt}
+                  src={`${process.env.MAIN_URL}${process.env.IMG_HOST}${images.main.url}`}
+                  className="rounded-md w-[368px] h-[245px] object-cover"
+                  width={1080}
+                  height={1920}
+                />
+              </div>
             )}
             {!parseInt(stock) ? (
               <div className="absolute right-5 top-5 p-1 text-sm rounded-md text-white bg-red-600">
@@ -105,9 +107,11 @@ export default async function ProductCard({
               </div>
             ) : null}
           </div>
+
           {/* Add margin top to display the product infos as it is supposed to be */}
           <div className={clsx(!parseInt(stock) ? "mt-8" : "", "col-span-12")}>
-            <h2 className="text-base sm:text-xl font-medium text-neutral-900 dark:text-neutral-100">
+            {/* PRODUCT NAME */}
+            <h2 className="text-base sm:text-xl font-medium text-neutral-900 dark:text-neutral-100 text-ellipsis overflow-hidden text-nowrap">
               {name}
               {cannabinoidRating && (
                 <span className="text-dark-green dark:text-light-green">
@@ -116,6 +120,7 @@ export default async function ProductCard({
               )}
             </h2>
 
+            {/* PRODUCT PRICE FROM & PRODUCT PRICE */}
             <section
               aria-labelledby="information-heading"
               className="mt-2 sm:mt-1 pr-3 sm:pr-0 flex items-center justify-between sm:flex-col sm:items-start gap-1"
@@ -127,17 +132,20 @@ export default async function ProductCard({
               {/* PRICE / UNIT */}
               <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
                 {t("fromPrice")}{" "}
-                {(highestQuantity.price / highestQuantity.quantity).toFixed(2)}
+                {(highestOption.price / highestOption.quantity).toFixed(2)}
                 €/{pricesPer}
               </p>
 
               {/* PRODUCT PRICE */}
               <ProductPrice id={id} />
             </section>
+
             <Separator />
+
+            {/* RATINGS, TERPENES & ORIGIN */}
             <div className="flex items-center justify-between mt-3 pr-3 sm:pr-0 sm:mt-0 sm:flex-col sm:items-start">
               {/* RATING - REVIEWS */}
-              {!!ratings.amount && (
+              {!!ratings.amount ? (
                 <div className="mt-0 sm:mt-4">
                   <h4 className="sr-only">Reviews</h4>
                   <div className="flex items-center">
@@ -165,6 +173,11 @@ export default async function ProductCard({
                       </span>
                     </div>
                   </div>
+                </div>
+              ) : (
+                <div className="h-[24px] sm:h-[40px]">
+                  <h4 className="sr-only">Reviews</h4>
+                  <div className="flex items-center"></div>
                 </div>
               )}
 
@@ -201,6 +214,7 @@ export default async function ProductCard({
               )}
             </div>
 
+            {/* PRODUCT OPTIONS */}
             <section aria-labelledby="options-heading" className="mt-2">
               <h3 id="options-heading" className="sr-only">
                 Product options

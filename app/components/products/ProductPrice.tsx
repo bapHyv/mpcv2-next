@@ -7,11 +7,11 @@ export default function ProductPrice({ id }: { id: string }) {
 
   return (
     <>
-      {!!products[id]?.price ? (
+      {!!products[id]?.price && !!parseInt(products[id]?.stock) ? (
         <div className="sm:mt-3">
           <h2 className="sr-only">product information</h2>
           <p className="text-xl sm:text-3xl tracking-tight text-neutral-900 dark:text-neutral-100">
-            {products[id].price.toFixed(2)} €
+            {parseFloat(products[id].price).toFixed(2)} €
           </p>
         </div>
       ) : (
