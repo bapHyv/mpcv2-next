@@ -46,12 +46,12 @@ export interface IProduct {
   ratings: { amount: number; value: number };
   relatedProducts: IProductsFromAPI[];
   stock: string;
-  option: string;
-  price: string;
+  option: string; // Selected option (see ProductOptions.tsx)
+  price: string; // Displayed price (see ProductPrice.tsx)
   formatedOptions: ({
     option: string;
     price: string;
-  } | null)[];
+  } | null)[]; // Available options related to stock (see productFunction.ts => formatOptions)
 }
 
 interface IProducts {
@@ -210,78 +210,41 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
       });
     }
 
+    // Every time the cart changes, the product's stock, formatedOptions, price (displayed price in the ui) and option (selected option)
+    // has to be recomputed. The "bool" variable is here to check if a specific product is in the cart to compute the stock.
     if (!!Object.keys(products).length) {
-      // When the cart is empty, the products' stock are equal to the stocks from sse
-      if (!Object.entries(_productsCartStock).length) {
-        Object.entries(sseData.stocks).forEach(([productId, stockFromSse]) => {
-          setProducts((prevProducts) => {
-            const computedStock = stockFromSse;
-            const formatedOptions = formatOptions(
-              prevProducts[productId].productOptions,
-              computedStock.toString()
-            );
+      Object.entries(sseData.stocks).forEach(([productId, stockFromSse]) => {
+        const bool = productId in _productsCartStock;
+        const computedStock = bool
+          ? stockFromSse - _productsCartStock[productId]
+          : stockFromSse;
+        const formatedOptions = formatOptions(
+          products[productId].productOptions,
+          computedStock.toString()
+        );
+        const l = formatedOptions.length;
+        const doesFormatedOptionsHasPrice = formatedOptions.some(
+          (formatedOption) => formatedOption?.price === products[productId].price
+        );
+        const doesFormatedOptionHasOption = formatedOptions.some(
+          (formatedOption) => formatedOption?.option === products[productId].option
+        );
 
-            const l = formatedOptions.length;
-
-            const doesFormatedOptionsHasPrice = formatedOptions.some(
-              (formatedOption) => formatedOption?.price === prevProducts[productId].price
-            );
-
-            const doesFormatedOptionsHasOption = formatedOptions.some(
-              (formatedOption) => formatedOption?.option === prevProducts[productId].option
-            );
-
-            return {
-              ...prevProducts,
-              [productId]: {
-                ...prevProducts[productId],
-                price: !doesFormatedOptionsHasPrice
-                  ? formatedOptions[l - 1]?.price
-                  : prevProducts[productId].price,
-                option: !doesFormatedOptionsHasOption
-                  ? formatedOptions[l - 1]?.option
-                  : prevProducts[productId].option,
-                stock: stockFromSse.toString(),
-                formatedOptions,
-              },
-            };
-          });
-        });
-      } else {
-        Object.entries(_productsCartStock).forEach(([productId, productCartStockQuantity]) => {
-          setProducts((prevProducts) => {
-            const computedStock = sseData.stocks[productId] - productCartStockQuantity;
-            const formatedOptions = formatOptions(
-              prevProducts[productId].productOptions,
-              computedStock.toString()
-            );
-            const l = formatedOptions.length;
-
-            const doesFormatedOptionsHasPrice = formatedOptions.some(
-              (formatedOption) => formatedOption?.price === prevProducts[productId].price
-            );
-
-            const doesFormatedOptionsHasOption = formatedOptions.some(
-              (formatedOption) => formatedOption?.option === prevProducts[productId].option
-            );
-
-            return {
-              ...prevProducts,
-              [productId]: {
-                ...prevProducts[productId],
-                price: !doesFormatedOptionsHasPrice
-                  ? formatedOptions[l - 1]?.price
-                  : prevProducts[productId].price,
-                option: !doesFormatedOptionsHasOption
-                  ? formatedOptions[l - 1]?.option
-                  : prevProducts[productId].option,
-                stock: computedStock.toString(),
-                formatedOptions,
-              },
-            };
-          });
-        });
-      }
+        setProducts((prevProducts) => ({
+          ...prevProducts,
+          [productId]: {
+            ...prevProducts[productId],
+            price: !doesFormatedOptionsHasPrice
+              ? formatedOptions[l - 1].price
+              : prevProducts[productId].price,
+            option: !doesFormatedOptionHasOption
+              ? formatedOptions[l - 1].option
+              : prevProducts[productId].option,
+            stock: computedStock.toString(),
+            formatedOptions,
+          },
+        }));
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart.products, areProductsReady, sseData.stocks]);
