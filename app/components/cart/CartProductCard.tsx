@@ -9,7 +9,7 @@ import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 import { useProducts } from "@/app/productsContext";
-import { formatOptions, updateProductLogic } from "@/app/utils/productFunctions";
+import { updateProductLogic } from "@/app/utils/productFunctions";
 
 export default function CartProductCard({
   cartItemId,
@@ -29,43 +29,18 @@ export default function CartProductCard({
 
   // When removing a product from the cart, the cart total and the product's stock must be recomputed
   const removeProduct = () => {
-    let newTotal = cart.total;
-
-    const updatedCartProducts = cart.products.filter((product) => {
-      if (product.cartItemId === cartItemId) {
-        newTotal -= product.totalPrice;
-
-        const productCartOption = parseInt(product.option);
-        const quantity = product.quantity;
-
-        let option = products[id].option;
-        let price = products[id].price;
-        const stock = products[id].stock;
-
-        const computedStock = productCartOption * quantity + parseInt(stock);
-
-        updateProductLogic(products[id], id, option, price, computedStock, updateProduct);
-      }
-
-      return product.cartItemId !== cartItemId;
-    });
-
-    localStorage.setItem(
-      "cart",
-      JSON.stringify({ total: newTotal, products: updatedCartProducts })
+    const updatedCartProducts = cart.products.filter(
+      (product) => product.cartItemId !== cartItemId
     );
 
-    setCart({ total: newTotal, products: updatedCartProducts });
+    setCart((prevCart) => ({ ...prevCart, products: updatedCartProducts }));
   };
 
   const incrementQuantity = () => {
     if (parseInt(products[id].stock) >= parseInt(option)) {
       setCart((prevCart) => {
-        let newTotal = prevCart.total;
-
         const updatedCartProducts = prevCart.products.map((product) => {
           if (product.cartItemId === cartItemId) {
-            newTotal += product.unitPrice;
             return {
               ...product,
               quantity: product.quantity + 1,
@@ -75,26 +50,8 @@ export default function CartProductCard({
           return product;
         });
 
-        localStorage.setItem(
-          "cart",
-          JSON.stringify({ total: newTotal, products: updatedCartProducts })
-        );
-
-        return { total: newTotal, products: updatedCartProducts };
+        return { ...prevCart, products: updatedCartProducts };
       });
-
-      // Update the current stock of the product being added. It also recompute the product options and price
-      // recompute the available product's option in case it is no longer available (because option < stock)
-      // recompute the selectedPrice in case the available options change
-
-      let _option = products[id].option;
-      let price = products[id].price;
-      const stock = products[id].stock;
-
-      const computedStock = parseInt(stock) - parseInt(option);
-
-      updateProductLogic(products[id], id, _option, price, computedStock, updateProduct);
-
       const alertAddQuantityDescription = `Vous avez bien ajouté ${option} ${per} du produit: ${name}`;
       addAlert(uuid(), alertAddQuantityDescription, "Ajout de produit", "emerald");
     }
@@ -103,11 +60,8 @@ export default function CartProductCard({
   const decrementQuantity = () => {
     if (quantity > 1) {
       setCart((prevCart) => {
-        let newTotal = prevCart.total;
-
         const updatedCartProducts = prevCart.products.map((product) => {
           if (product.cartItemId === cartItemId) {
-            newTotal -= product.unitPrice;
             return {
               ...product,
               quantity: product.quantity - 1,
@@ -117,20 +71,8 @@ export default function CartProductCard({
           return product;
         });
 
-        localStorage.setItem(
-          "cart",
-          JSON.stringify({ total: newTotal, products: updatedCartProducts })
-        );
-
-        return { total: newTotal, products: updatedCartProducts };
+        return { ...prevCart, products: updatedCartProducts };
       });
-
-      let _option = products[id].option;
-      let price = products[id].price;
-      const stock = products[id].stock;
-      const computedStock = parseInt(stock) + parseInt(option);
-
-      updateProductLogic(products[id], id, _option, price, computedStock, updateProduct);
 
       const alertRemoveQuantityDescription = `Vous avez retiré ${option} ${per} du produit: ${name}`;
       addAlert(uuid(), alertRemoveQuantityDescription, "Ajout de produit", "yellow");

@@ -11,9 +11,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AlertsProvider>
         <SseProvider>
-          <ProductsProvider>
-            <CartProvider>{children}</CartProvider>
-          </ProductsProvider>
+          <CartProvider>
+            <ProductsProvider>{children}</ProductsProvider>
+          </CartProvider>
         </SseProvider>
       </AlertsProvider>
     </ThemeProvider>

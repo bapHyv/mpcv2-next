@@ -45,6 +45,27 @@ export function CartProvider({ children }: { children: ReactNode }): JSX.Element
     }
   }, []);
 
+  useEffect(() => {
+    const tot = cart.total;
+    let newTotal = 0;
+
+    cart.products.forEach((product) => {
+      newTotal += product.totalPrice;
+    });
+
+    if (tot !== newTotal) {
+      setCart((prevCart) => ({
+        ...prevCart,
+        total: newTotal,
+      }));
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ total: newTotal, products: cart.products })
+      );
+    }
+  }, [cart]);
+
   return (
     <cartContext.Provider
       value={{

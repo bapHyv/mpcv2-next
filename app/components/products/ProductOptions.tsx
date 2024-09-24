@@ -66,14 +66,10 @@ export default function ProductOptions({
         (product) => product.id === id && product.option === _product.option
       );
 
-      let newCartTotal = prevCart.total;
-
       if (isSameProductAndOptionInCart) {
         // If it's in the cart, increment the quantity
         const updatedCartProducts = prevCart.products.map((product) => {
           if (product.id === id && product.option === _product.option) {
-            newCartTotal += product.unitPrice;
-
             return {
               ...product,
               quantity: product.quantity + 1,
@@ -83,44 +79,19 @@ export default function ProductOptions({
           return product;
         });
 
-        localStorage.setItem(
-          "cart",
-          JSON.stringify({ total: newCartTotal, products: updatedCartProducts })
-        );
-
-        return { total: newCartTotal, products: updatedCartProducts };
+        return { ...prevCart, products: updatedCartProducts };
       } else {
         _product.totalPrice = _product.unitPrice * _product.quantity;
 
-        newCartTotal += _product.unitPrice;
-
-        // If it's not in the cart, add it as a new item
-        localStorage.setItem(
-          "cart",
-          JSON.stringify({
-            total: newCartTotal,
-            products: [...prevCart.products, _product],
-          })
-        );
-
         return {
-          total: newCartTotal,
+          ...prevCart,
           products: [...prevCart.products, _product],
         };
       }
     });
 
-    // When the products stock changes, the product's option, price and formatedOptions has to be recomputed
-    let option = products[id].option;
-    let price = products[id].price;
-    const stock = products[id].stock;
-
-    const computedStock = parseInt(stock) - parseInt(option);
-
-    updateProductLogic(products[id], id, option, price, computedStock, updateProduct);
-
     // Triggers an alert to give feedback to the user when he adds a product in the cart
-    const alertDescription = `${option} ${pricesPer} du produit ${name} a bien ete ajoute`;
+    const alertDescription = `${products[id].option} ${pricesPer} du produit ${name} a bien ete ajoute`;
     addAlert(uuid(), alertDescription, "Ajout de produit", "emerald");
   };
 
@@ -142,7 +113,6 @@ export default function ProductOptions({
               // It is needed to display the right price in the UI (see productPrice)
               const option = arg;
               const price = products[id].productOptions[arg];
-
               updateProduct(id, { option, price });
             }}
             className="mt-2 flex gap-1 sm:gap-2 sm:flex-wrap"

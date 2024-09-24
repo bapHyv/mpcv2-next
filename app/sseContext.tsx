@@ -30,7 +30,7 @@ const fakeSseData = {
     341: 46,
     342: 11,
     346: 40,
-    4658: 960,
+    4658: 750,
     6416: 136,
     8575: 4,
     16762: 90,
@@ -40,9 +40,7 @@ const fakeSseData = {
     18614: 42,
     18647: 6,
     18919: 100,
-    19276: 0,
     19547: 95,
-    20028: 12,
     20274: 0,
     20385: 396,
     20460: 1667,
@@ -109,25 +107,25 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
 
   const { addAlert } = useAlerts();
 
-  //   useEffect(() => {
-  //     const eventSource = new EventSource("https://api.monplancbd.fr/new-sse-client");
+  // useEffect(() => {
+  //   const eventSource = new EventSource("https://api.monplancbd.fr/new-sse-client");
 
-  //     eventSource.onopen = () => {
-  //       console.log("Connection with the SSE opened");
-  //     };
+  //   eventSource.onopen = () => {
+  //     console.log("Connection with the SSE opened");
+  //   };
 
-  //     eventSource.onerror = (e) => {
-  //       //   addAlert(uuid(), e.type, "Error in SSE", "red");
-  //       console.error(e);
-  //     };
+  //   eventSource.onerror = (e) => {
+  //     //   addAlert(uuid(), e.type, "Error in SSE", "red");
+  //     console.error(e);
+  //   };
 
-  //     eventSource.onmessage = (e) => {
-  //       console.log(e.data);
-  //     };
+  //   eventSource.onmessage = (e) => {
+  //     console.log(e.data);
+  //   };
 
-  //     return () => eventSource.close();
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, []);
+  //   return () => eventSource.close();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <sseContext.Provider

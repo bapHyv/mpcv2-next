@@ -72,8 +72,6 @@ export default async function Page({ params: { locale, category } }: Params) {
     `${process.env.API_HOST}/products/${currentSlug}`
   ).then((res) => res.json());
 
-  console.log(currentProducts);
-
   return (
     <div>
       <Title

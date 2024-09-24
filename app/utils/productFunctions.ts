@@ -42,7 +42,13 @@ export function findHighestOption(prices: Prices) {
   return highestOption;
 }
 
-export function formatOptions(prices: Prices, stock: string) {
+export function formatOptions(
+  prices: Prices,
+  stock: string
+): {
+  option: string;
+  price: string;
+}[] {
   let entries = Object.entries(prices)
     .map(([key, value]) => {
       // This boolean is used to remove the options that are greater than the stock.
@@ -54,11 +60,9 @@ export function formatOptions(prices: Prices, stock: string) {
           option: key,
           price: value,
         };
-      } else {
-        return null;
       }
     })
-    .filter(Boolean);
+    .filter((entry) => !!entry);
 
   // This is here to prevent to return an empty array. It is needed because
   // if the array is empty, no price is displayed and no option is selected
@@ -115,5 +119,5 @@ export const updateProductLogic = (
     option = formatedOptions[l - 1]?.option || "";
   }
 
-  updateProduct(id, { option, price, formatedOptions, stock: updatedStock.toString() });
+  updateProduct(id, { option, price, formatedOptions });
 };
