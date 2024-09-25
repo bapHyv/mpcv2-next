@@ -12,11 +12,11 @@ import {
 import { Image } from "./types/productsTypes";
 
 export interface ProductCart {
-  cartItemId: string; // uuid generated when adding a product in the cart. It is used to delete
-  id: string;
+  cartItemId: string; // uuid generated when adding a product in the cart. It is used to delete it
+  id: string; // This is the productId
   name: string;
   quantity: number;
-  option: string; // Will the number of "g" or "unit" choosed
+  option: string; // Will the number of "g" or "unit" choosed.
   per: string; // Will be either "g" or "unit"
   totalPrice: number;
   unitPrice: number;
@@ -35,11 +35,7 @@ interface CartContext {
 
 const cartContext = createContext({} as CartContext);
 
-export function CartProvider({
-  children,
-}: {
-  children: ReactNode;
-}): JSX.Element {
+export function CartProvider({ children }: { children: ReactNode }): JSX.Element {
   const [cart, setCart] = useState({ total: 0, products: [] as ProductCart[] });
 
   useEffect(() => {
@@ -48,6 +44,27 @@ export function CartProvider({
       setCart(JSON.parse(localStorage.getItem("cart") as string));
     }
   }, []);
+
+  useEffect(() => {
+    const tot = cart.total;
+    let newTotal = 0;
+
+    cart.products.forEach((product) => {
+      newTotal += product.totalPrice;
+    });
+
+    if (tot !== newTotal) {
+      setCart((prevCart) => ({
+        ...prevCart,
+        total: newTotal,
+      }));
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ total: newTotal, products: cart.products })
+      );
+    }
+  }, [cart]);
 
   return (
     <cartContext.Provider

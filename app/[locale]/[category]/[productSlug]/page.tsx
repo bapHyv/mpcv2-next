@@ -15,7 +15,7 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 import { terpenesToColor } from "@/app/utils/terpenesToColor";
-import { findHighest, findHighestQuantity } from "@/app/utils/productFunctions";
+import { findHighest, findHighestOption } from "@/app/utils/productFunctions";
 import ProductOptions from "@/app/components/products/ProductOptions";
 import ProductPrice from "@/app/components/products/ProductPrice";
 
@@ -494,7 +494,7 @@ export default async function Page({
                   {
                     <p className="text-neutral-600 dark:text-neutral-400 p-1 text-md sm:text-xs">
                       À partir de{" "}
-                      {findHighestQuantity(relatedProduct.prices).price}€/
+                      {findHighestOption(relatedProduct.prices).price}€/
                       {relatedProduct.pricesPer}
                     </p>
                   }

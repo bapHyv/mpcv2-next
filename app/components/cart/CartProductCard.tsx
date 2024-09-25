@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 import { useProducts } from "@/app/productsContext";
+import { updateProductLogic } from "@/app/utils/productFunctions";
 
 export default function CartProductCard({
   cartItemId,
@@ -23,50 +24,23 @@ export default function CartProductCard({
 }: ProductCart) {
   const { addAlert } = useAlerts();
   const { cart, setCart } = useCart();
-  const { products, setProducts } = useProducts();
+  const { products, setProducts, updateProduct } = useProducts();
   const t = useTranslations("productCardCart");
 
-  //
+  // When removing a product from the cart, the cart total and the product's stock must be recomputed
   const removeProduct = () => {
-    let newTotal = cart.total;
-
-    const updatedCartProducts = cart.products.filter((product) => {
-      // Compute the new cart total price
-      // Compute the product stock
-      if (product.cartItemId === cartItemId) {
-        newTotal -= product.totalPrice;
-        const quantity = product.quantity;
-        const option = product.option;
-        const newStock = quantity * parseInt(option);
-
-        setProducts((prevProducts) => {
-          const product = prevProducts[id];
-
-          product.stock = newStock.toString();
-
-          return { ...prevProducts, [id]: { ...product } };
-        });
-      }
-
-      return product.cartItemId !== cartItemId;
-    });
-
-    localStorage.setItem(
-      "cart",
-      JSON.stringify({ total: newTotal, products: updatedCartProducts })
+    const updatedCartProducts = cart.products.filter(
+      (product) => product.cartItemId !== cartItemId
     );
 
-    setCart({ total: newTotal, products: updatedCartProducts });
+    setCart((prevCart) => ({ ...prevCart, products: updatedCartProducts }));
   };
 
-  const addQuantity = () => {
+  const incrementQuantity = () => {
     if (parseInt(products[id].stock) >= parseInt(option)) {
       setCart((prevCart) => {
-        let newTotal = prevCart.total;
-
         const updatedCartProducts = prevCart.products.map((product) => {
           if (product.cartItemId === cartItemId) {
-            newTotal += product.unitPrice;
             return {
               ...product,
               quantity: product.quantity + 1,
@@ -76,43 +50,18 @@ export default function CartProductCard({
           return product;
         });
 
-        localStorage.setItem(
-          "cart",
-          JSON.stringify({ total: newTotal, products: updatedCartProducts })
-        );
-
-        return { total: newTotal, products: updatedCartProducts };
+        return { ...prevCart, products: updatedCartProducts };
       });
-
-      // Update the current stock of the product being added
-      setProducts((prevProducts) => {
-        const product = prevProducts[id];
-
-        const updatedStock = parseInt(product.stock) - parseInt(option);
-
-        product.stock = updatedStock.toString();
-
-        return { ...prevProducts, [id]: { ...product } };
-      });
-
       const alertAddQuantityDescription = `Vous avez bien ajouté ${option} ${per} du produit: ${name}`;
-      addAlert(
-        uuid(),
-        alertAddQuantityDescription,
-        "Ajout de produit",
-        "emerald"
-      );
+      addAlert(uuid(), alertAddQuantityDescription, "Ajout de produit", "emerald");
     }
   };
 
-  const removeQuantity = () => {
+  const decrementQuantity = () => {
     if (quantity > 1) {
       setCart((prevCart) => {
-        let newTotal = prevCart.total;
-
         const updatedCartProducts = prevCart.products.map((product) => {
           if (product.cartItemId === cartItemId) {
-            newTotal -= product.unitPrice;
             return {
               ...product,
               quantity: product.quantity - 1,
@@ -122,60 +71,15 @@ export default function CartProductCard({
           return product;
         });
 
-        localStorage.setItem(
-          "cart",
-          JSON.stringify({ total: newTotal, products: updatedCartProducts })
-        );
-
-        return { total: newTotal, products: updatedCartProducts };
-      });
-
-      // Update the current stock of the product being removed
-      setProducts((prevProducts) => {
-        const product = prevProducts[id];
-
-        const updatedStock = parseInt(product.stock) + parseInt(option);
-
-        product.stock = updatedStock.toString();
-
-        return { ...prevProducts, [id]: { ...product } };
+        return { ...prevCart, products: updatedCartProducts };
       });
 
       const alertRemoveQuantityDescription = `Vous avez retiré ${option} ${per} du produit: ${name}`;
-      addAlert(
-        uuid(),
-        alertRemoveQuantityDescription,
-        "Ajout de produit",
-        "yellow"
-      );
+      addAlert(uuid(), alertRemoveQuantityDescription, "Ajout de produit", "yellow");
     }
   };
 
   const alertRemoveProductDescription = `Le produit ${name} a bien été retiré du panier`;
-
-  /**
-   * X Si quantite === 1 disable le minus
-   * X Si la quantite * nb gramme > stock, desactiver +
-   *
-   * X Lorsque j'appuis sur le +: meme chose que dans addProductToCart
-   * X Lorsque j'appuis sur le -: inverse que dans le addProductToCart
-   *
-   * X En cas d'appuis sur le + mettre une alerte verte qui dit que l'ajout du produit a bien
-   * X En cas d'appuis sur le - mettre une alerte jaune qui dit que la suppression du produit a bien ete faite
-   *
-   * Set le cart dans le local storage
-   *
-   * Le vrai stock c'est ce qu'il y a dans le panier - le stock recus:
-   *  -Le stock recus arrive du server et ce qu'il y a dans le panier est stocke en local
-   *  -Lors du set du stock dans le productsContext, il faut prendre en compte ce qu'il y deja dans le panier
-   *
-   *
-   *
-   * Aller chercher le stock du produit dans productsContext avec products[id]
-   * compare l'option au current stock. Si l'option est plus grande que products[id].stock je disable le button
-   */
-
-  // console.log(products[id]);
 
   return (
     <>
@@ -198,7 +102,6 @@ export default function CartProductCard({
             alt={image.alt}
             width={1920}
             height={1080}
-            objectFit="cover"
             className="rounded-l-md w-full h-full top-0 left-0 object-cover"
           />
         </div>
@@ -206,9 +109,7 @@ export default function CartProductCard({
         {/*Huile, soins, vapo titre \n nb unit - prix/unit*/}
 
         <div className="w-3/4 text-neutral-900 dark:text-neutral-50 p-3 md:text-lg">
-          <p className="text-md md:text-lg text-dark-green dark:text-light-green">
-            {name}
-          </p>
+          <p className="text-md md:text-lg text-dark-green dark:text-light-green">{name}</p>
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm">
               {option} {per} - {unitPrice}€/{per}
@@ -216,7 +117,7 @@ export default function CartProductCard({
 
             <div className="flex items-center gap-x-3 border border-neutral-300 bg-neutral-200 rounded-full">
               <MinusIcon
-                onClick={removeQuantity}
+                onClick={decrementQuantity}
                 className={twMerge(
                   clsx(
                     quantity === 1
@@ -228,7 +129,7 @@ export default function CartProductCard({
               />
               <span className="text-sm">{quantity}</span>
               <PlusIcon
-                onClick={addQuantity}
+                onClick={incrementQuantity}
                 className={twMerge(
                   clsx(
                     parseInt(products[id].stock) < parseInt(option)
@@ -247,9 +148,7 @@ export default function CartProductCard({
 
           <p className="font-medium italic text-right text-sm">
             {/* <span className="capitalize">{t("subtotal")}</span>:{" "} */}
-            <span className="text-blue-600 dark:text-blue-400">
-              {totalPrice.toFixed(2)}€
-            </span>
+            <span className="text-blue-600 dark:text-blue-400">{totalPrice.toFixed(2)}€</span>
           </p>
         </div>
       </div>

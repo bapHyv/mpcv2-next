@@ -5,11 +5,7 @@ import Title from "@/app/components/Title";
 import Link from "next/link";
 import clsx from "clsx";
 
-import {
-  doesCategoryExists,
-  findSlug,
-  findTitle,
-} from "@/app/utils/productFunctions";
+import { doesCategoryExists, findSlug, findTitle } from "@/app/utils/productFunctions";
 import ProductCard from "@/app/components/products/ProductCard";
 import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 
@@ -115,16 +111,9 @@ export default async function Page({ params: { locale, category } }: Params) {
 
         {/* PRODUCT CARDS */}
         {!currentProducts
-          ? new Array(8)
-              .fill(0)
-              .map((e) => <ProductCardSkeleton key={Math.random()} />)
+          ? new Array(8).fill(0).map((e) => <ProductCardSkeleton key={Math.random()} />)
           : currentProducts.map((prod) => (
-              <ProductCard
-                key={prod.name}
-                locale={locale}
-                category={category}
-                {...prod}
-              />
+              <ProductCard key={prod.name} locale={locale} {...prod} />
             ))}
 
         {/* {currentProducts.map((prod) => (

@@ -65,6 +65,8 @@ export interface Analyse {
 export interface BaseProduct {
   id: string;
   name: string;
+  slug: string;
+  category: string;
   pricesPer: string;
   prices: Prices;
   stock: string;
@@ -75,7 +77,6 @@ export interface BaseProduct {
   shortDescription: string;
   longDescription: string;
   relatedProducts: IProducts[];
-  slug: string;
 }
 
 export interface NaturalProduct extends BaseProduct {
