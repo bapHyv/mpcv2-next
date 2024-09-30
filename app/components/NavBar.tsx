@@ -1,3 +1,4 @@
+
 import {
   Disclosure,
   DisclosureButton,
@@ -17,12 +18,14 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Dropdown from "@/app/components/Dropdown";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
 import Cart from "@/app/components/cart/Cart";
+import PublicHeader from './ProfileHeader'
+import ProfileHeader from "./ProfileHeader";
+
 
 export default async function NavBar({ locale }: { locale: string }) {
-  // TODO add auth check
-  const isSignedId = true;
 
   const t = await getTranslations({ locale, namespace: "navbar" });
+  const isSignedIn = true
 
   // TODO add locale and trad and icons
   const itemsDropdown: IDropdownItem[] = [
@@ -56,25 +59,31 @@ export default async function NavBar({ locale }: { locale: string }) {
     },
   ];
 
-  // TODO add href and icons
   const itemsProfile = [
     {
       text: t("info"),
-      href: `/`,
+      href: `/mon_compte/profile`,
     },
     {
-      text: t("addresses"),
-      href: `/`,
+      text: t("adresses"),
+      href: `/mon_compte/adresses`,
     },
     {
       text: t("orders"),
-      href: `/`,
+      href: `/mon_compte/commandes`,
     },
     {
       text: t("fidelity"),
-      href: `/`,
+      href: `/mon_compte/fidelite`,
     },
+    {
+      text: t("logout"),
+      // onClick: logout()
+      href : ''
+    }
   ];
+
+ 
 
   const languageSelector = [{ text: "fr" }, { text: "es" }, { text: "en" }];
 
@@ -166,28 +175,7 @@ export default async function NavBar({ locale }: { locale: string }) {
             </div>
             <Cart />
             {/* Profile dropdown */}
-            {isSignedId ? (
-              <Dropdown
-                button={
-                  <>
-                    <span className="sr-only">Open user menu</span>
-                    <UserCircleIcon className="h-8 w-8 text-white" />
-                  </>
-                }
-                items={itemsProfile}
-                locale={locale}
-                menuClassname="hidden sm:inline-block"
-                menuButtonClassname="rounded-full p-1"
-                menuItemsClassname="right-0 left-auto"
-              />
-            ) : (
-              <Link
-                href="/"
-                className="text-white bg-green py-2 px-1 rounded-md"
-              >
-                {t("connection")}
-              </Link>
-            )}
+                <ProfileHeader locale={locale} />
           </div>
         </div>
       </div>
@@ -202,7 +190,7 @@ export default async function NavBar({ locale }: { locale: string }) {
               >
                 blog
               </Link>
-              {isSignedId ? (
+              {isSignedIn ? (
                 <Dropdown
                   button={
                     <>
@@ -217,7 +205,7 @@ export default async function NavBar({ locale }: { locale: string }) {
                 />
               ) : (
                 <Link
-                  href="/"
+                  href={`/${locale}/login`}
                   className="text-white bg-green py-2 px-1 rounded-md"
                 >
                   {t("connection")}
