@@ -41,12 +41,49 @@ const config: Config = {
         },
         slideinright: {
           "0%": { transform: "translateX(100%)" },
+          "50%": { transform: "translateX(-10%)" },
           "100%": { transform: "translateX(0)" },
+        },
+        slideoutright: {
+          "0%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(-10%)" },
+          "100%": { transform: "translateX(110%)" },
+        },
+        fingerslideoutright: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+        slightpulse: {
+          "0%": { opacity: "1" },
+          "50%": { opacity: "0.7" },
+          "100%": { opacity: "1" },
+        },
+        backgroundOpacitySlightPulse: {
+          "0%": { "background-color": "rgba(233, 243, 241, 1)" },
+          "50%": { "background-color": "rgba(233, 243, 241, 0)" },
+          "100%": { "background-color": "rgba(233, 243, 241, 1)" },
+        },
+        backgroundOpacitySlightPulseDark: {
+          "0%": { "background-color": "rgba(0, 0, 0, 1)" },
+          "50%": { "background-color": "rgba(0, 0, 0, 0.5)" },
+          "100%": { "background-color": "rgba(0, 0, 0, 1)" },
         },
       },
       animation: {
         tada: "tada 1s ease-in-out 0.25s infinite",
         slideinright: "slideinright 0.5s ease-out forwards",
+        slideoutright: "slideoutright 0.5s ease-out forwards",
+        fingerslideoutright: "fingerslideoutright 0.5s ease-out forwards",
+        slightpulse: "slightpulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        backgroundOpacitySlightPulse:
+          "backgroundOpacitySlightPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        backgroundOpacitySlightPulseDark:
+          "backgroundOpacitySlightPulseDark 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+      },
+      boxShadow: {
+        carousel: "inset 0px 0px 10px #000000",
+        "carousel-dark": "inset 0px 0px 10px #525252",
+        "category-nav": "inset 0px 0px 5px #737373",
       },
     },
   },

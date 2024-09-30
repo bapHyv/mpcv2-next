@@ -1,105 +1,177 @@
 {
   "HomePage": {
-    "title": "Hola Cabrones!",
-    "subtile": "This is a translation but in spanish"
+    "title": "¡Hola Mundo!",
+    "subtile": "Esta es una traducción",
+    "services": {
+      "title": "Nuestros servicios",
+      "delivery": {
+        "title": "Entrega rápida",
+        "text": "ENTREGA EN 1 DÍA HÁBIL EN TODA FRANCIA (3 A 5 DÍAS PARA CÓRCEGA Y EUROPA)"
+      },
+      "payment": {
+        "title": "Pagos seguros",
+        "text": "PAGOS SEGUROS, GARANTÍA DE LA SEGURIDAD DE SUS DATOS DURANTE LA TRANSACCIÓN"
+      },
+      "products": {
+        "title": "Productos de calidad",
+        "text": "PRODUCTOS A BASE DE CÁÑAMO Y CBD CON NUESTROS CONTRA ANÁLISIS QUE CERTIFICAN UN NIVEL DE DELTA9 THC CONFORME A LAS LEGISLACIONES FRANCESAS Y EUROPEAS (0,3%)"
+      },
+      "fidelity": {
+        "title": "Económico",
+        "text": "¡DISFRUTA DE UN PUNTO DE FIDELIDAD POR CADA EURO GASTADO EN EL SITIO Y DIEZ PUNTOS POR CADA COMENTARIO SOBRE NUESTROS PRODUCTOS! 10 PUNTOS = 1 € DE DESCUENTO"
+      },
+      "sponsoring": {
+        "title": "Un programa de fidelidad ventajoso",
+        "text": "¡RECIBE ENTRE 50 Y 100 PUNTOS POR CADA PERSONA PATROCINADA (1ER PEDIDO +- 30 €)! ¡SU AHIJADO/A RECIBIRÁ 50 PUNTOS! ENLACE DISPONIBLE EN «MI CUENTA»"
+      }
+    },
+    "discountProducts": "Ofertas de CBD",
+    "flowers": "Flores de CBD",
+    "hashs": "Hashs de CBD",
+    "oils": "Aceites de CBD",
+    "cbdSection": {
+      "imgAlt": "brote de CBD",
+      "title": "¿Qué es el CBD?",
+      "text": "El cannabidiol (CBD) es una molécula presente en el cáñamo. El CBD complementa el espectro de los otros 110 cannabinoides conocidos hasta la fecha. Se le atribuyen propiedades de bienestar para el sueño, el estrés, la ansiedad, las tensiones musculares, etc. Se encuentra en forma de bálsamo de CBD, aceite o flores de CBD para infusionar."
+    },
+    "cbdPassion": {
+      "imgAlt": "Flores de CBD con aceites de espectro completo y semillas de cáñamo",
+      "title": "Una pasión por el CBD...",
+      "text": "Mon Plan CBD es una idea que surgió una tarde de invierno en el Bistrot des Halles de Bayona. Todos nosotros, individualmente, cultivamos un interés por esta planta que es el cáñamo. Para usos personales, para nuestros familiares o amigos. Ya sea en aceite, bálsamo o infusión, estamos de acuerdo en creer, como muchas otras personas, que un futuro prometedor gira en torno a esta planta utilizada ancestralmente en todo el mundo."
+    }
   },
   "globalError": {
-    "message": "The web site seems to be down es",
-    "button": "Click here to try again es"
+    "message": "Parece que el sitio ya no funciona",
+    "button": "Haga clic aquí para intentar de nuevo"
   },
   "error": {
-    "message": "Something went wrong es",
-    "button": "Click here to try again es"
+    "message": "Algo salió mal",
+    "button": "Haga clic aquí para intentar de nuevo"
   },
   "notFound": {
-    "title": "Page Not Found es",
-    "text": "Sorry, we could not find the page you are looking for. es",
-    "button": "Go back home es"
+    "title": "Página no encontrada",
+    "text": "Lo sentimos, no hemos encontrado la página que solicitó",
+    "button": "Volver a la página principal"
   },
   "legalNotices": {
-    "title": "Avisos Legales",
-    "description": "description",
-    "subtitle1": "Presentación del Sitio",
-    "p1": "De conformidad con el artículo 6 de la Ley n.º 2004-575 del 21 de junio de 2004, para la confianza en la economía digital, se informa a los usuarios del sitio monplancbd.fr sobre la identidad de los diferentes participantes en el marco de su realización y seguimiento:",
-    "subtitle2": "Información Legal",
+    "title": "Aviso legal",
+    "description": "descripción",
+    "subtitle1": "Presentación del sitio",
+    "p1": "En virtud del artículo 6 de la ley n° 2004-575 del 21 de junio de 2004 para la confianza en la economía digital, se especifica a los usuarios del sitio monplancbd.fr la identidad de los diferentes actores en el marco de su realización y seguimiento:",
+    "subtitle2": "Información legal",
     "subtitle3": "Alojamiento",
-    "subtitle4": "Administración del Sitio",
-    "subtitle5": "Enlaces Hipertexto y Uso de Cookies",
-    "p2": "El sitio monplancbd.fr contiene una serie de enlaces de hipertexto a otros sitios, establecidos con la autorización de MONPLANCBD. Sin embargo, MONPLANCBD no tiene la posibilidad de verificar el contenido de los sitios visitados y, en consecuencia, no asumirá ninguna responsabilidad al respecto. Navegar por el sitio monplancbd.fr puede resultar en la instalación de cookie(s) en la computadora del usuario. Una cookie es un archivo pequeño que no permite la identificación del usuario, pero que registra información relacionada con la navegación de una computadora en un sitio. Los datos así obtenidos están destinados a facilitar la navegación posterior en el sitio y también tienen como objetivo permitir diversas medidas de tráfico. Rechazar la instalación de una cookie puede resultar en la imposibilidad de acceder a ciertos servicios. Sin embargo, el usuario puede configurar su computadora de la siguiente manera para rechazar la instalación de cookies: En Internet Explorer: pestaña de herramientas (icono de engranaje en la parte superior derecha) / opciones de internet. Haga clic en Privacidad y seleccione Bloquear todas las cookies. Confirme haciendo clic en Ok. En Firefox: en la parte superior de la ventana del navegador, haga clic en el botón Firefox, luego vaya a la pestaña Opciones. Haga clic en la pestaña Privacidad. Configure las reglas de retención en: usar configuraciones personalizadas para el historial. Finalmente, desmarque para desactivar las cookies. En Safari: Haga clic en la parte superior derecha del navegador en el icono de menú (simbolizado por un engranaje). Seleccione Configuración. Haga clic en Mostrar configuración avanzada. En la sección “Privacidad”, haga clic en Configuración de contenido. En la sección “Cookies”, puede bloquear las cookies. En Chrome: Haga clic en la parte superior derecha del navegador en el icono de menú (simbolizado por tres líneas horizontales). Seleccione Configuración. Haga clic en Mostrar configuración avanzada. En la sección “Privacidad”, haga clic en preferencias. En la pestaña “Privacidad”, puede bloquear las cookies.",
-    "subtitle6": "Uso de Datos Personales",
-    "p3": "En Francia, los datos personales están particularmente protegidos por la Ley n.º 78-87 del 6 de enero de 1978, la Ley n.º 2004-801 del 6 de agosto de 2004, el artículo L. 226-13 del Código Penal, y la Directiva Europea del 24 de octubre de 1995. Durante el uso del sitio monplancbd.fr, se pueden recopilar: la URL de los enlaces a través de los cuales el usuario accedió al sitio monplancbd.fr, el proveedor de servicios de internet del usuario, la dirección de Protocolo de Internet (IP) del usuario. En cualquier caso, MONPLANCBD solo recopila información personal sobre el usuario cuando es necesario para ciertos servicios ofrecidos por el sitio monplancbd.fr. El usuario proporciona esta información con pleno conocimiento de los hechos, especialmente cuando la ingresa él mismo. Se especifica entonces al usuario del sitio monplancbd.fr si es o no necesario proporcionar esta información. De conformidad con las disposiciones de los artículos 38 y siguientes de la Ley 78-17 del 6 de enero de 1978, relativa a la informática, los archivos y las libertades, todo usuario tiene derecho de acceso, rectificación y oposición a los datos personales que le conciernen, realizando una solicitud por escrito y firmada, acompañada de una copia del documento de identidad con la firma del titular, especificando la dirección a la que debe enviarse la respuesta. Ninguna información personal del usuario del sitio monplancbd.fr se publica sin el conocimiento del usuario, se intercambia, transfiere, cede o vende en ningún soporte a terceros. Solo en el caso de la compra de MONPLANCBD y sus derechos se permitiría la transmisión de dicha información al posible comprador, quien a su vez estaría obligado a la misma obligación de conservación y modificación de los datos con respecto al usuario del sitio monplancbd.fr. Las bases de datos están protegidas por las disposiciones de la Ley del 1 de julio de 1998 que transpone la Directiva 96/9 del 11 de marzo de 1996 sobre la protección jurídica de las bases de datos."
+    "subtitle4": "Administración del sitio",
+    "subtitle5": "Enlaces de hipertexto y uso de cookies",
+    "p2": "El sitio monplancbd.fr contiene una serie de enlaces de hipertexto a otros sitios, implementados con la autorización de MONPLANCBD. Sin embargo, MONPLANCBD no tiene la posibilidad de verificar el contenido de los sitios visitados de esta manera y, por lo tanto, no asumirá ninguna responsabilidad en este sentido. La navegación en el sitio monplancbd.fr puede provocar la instalación de cookie(s) en la computadora del usuario. Una cookie es un archivo pequeño, que no permite la identificación del usuario, pero que registra información relacionada con la navegación de una computadora en un sitio. Los datos así obtenidos están destinados a facilitar la navegación posterior en el sitio y también tienen como objetivo permitir diversas mediciones de audiencia. La negativa a la instalación de una cookie puede impedir el acceso a ciertos servicios. Sin embargo, el usuario puede configurar su computadora de la siguiente manera para rechazar la instalación de cookies: En Internet Explorer: pestaña de herramientas (icono en forma de engranaje en la parte superior derecha) / opciones de Internet. Haga clic en Privacidad y elija Bloquear todas las cookies. Haga clic en Aceptar. En Firefox: en la parte superior de la ventana del navegador, haga clic en el botón Firefox, luego vaya a la pestaña Opciones. Haga clic en la pestaña Privacidad. Establezca las Reglas de conservación en: usar configuraciones personalizadas para el historial. Finalmente, desmarque la opción para desactivar las cookies. En Safari: Haga clic en la parte superior derecha del navegador en el icono de menú (simbolizado por un engranaje). Seleccione Configuración. Haga clic en Mostrar configuración avanzada. En la sección 'Privacidad', haga clic en Configuración de contenido. En la sección 'Cookies', puede bloquear las cookies. En Chrome: Haga clic en la parte superior derecha del navegador en el icono de menú (simbolizado por tres líneas horizontales). Seleccione Configuración. Haga clic en Mostrar configuración avanzada. En la sección 'Privacidad', haga clic en Preferencias. En la pestaña 'Privacidad', puede bloquear las cookies.",
+    "subtitle6": "Uso de datos personales",
+    "p3": "En Francia, los datos personales están protegidos por la ley n° 78-87 del 6 de enero de 1978, la ley n° 2004-801 del 6 de agosto de 2004, el artículo L. 226-13 del Código Penal y la Directiva Europea del 24 de octubre de 1995. Con motivo de la utilización del sitio monplancbd.fr, pueden recopilarse: la URL de los enlaces a través de los cuales el usuario accedió al sitio monplancbd.fr, el proveedor de acceso del usuario, la dirección de protocolo de Internet (IP) del usuario. En cualquier caso, MONPLANCBD solo recopila información personal del usuario para la necesidad de ciertos servicios ofrecidos por el sitio monplancbd.fr. El usuario proporciona esta información con pleno conocimiento de causa, especialmente cuando él mismo realiza la introducción de los datos. Entonces se le especifica al usuario del sitio monplancbd.fr si está o no obligado a proporcionar dicha información. De acuerdo con las disposiciones de los artículos 38 y siguientes de la ley 78-17 del 6 de enero de 1978 relativa a la informática, los archivos y las libertades, cualquier usuario tiene derecho a acceder, rectificar y oponerse a los datos personales que le conciernen, enviando su solicitud por escrito y firmada, acompañada de una copia del documento de identidad con la firma del titular del documento, especificando la dirección a la que se debe enviar la respuesta. Ninguna información personal del usuario del sitio monplancbd.fr se publica sin el conocimiento del usuario, se intercambia, transfiere, cede o vende en ningún soporte a terceros. Solo la hipótesis de la compra de MONPLANCBD y sus derechos permitiría la transmisión de dicha información al posible comprador que a su vez estaría obligado a la misma obligación de conservación y modificación de los datos con respecto al usuario del sitio monplancbd.fr. Las bases de datos están protegidas por las disposiciones de la ley del 1 de julio de 1998 que transpone la directiva 96/9 del 11 de marzo de 1996 relativa a la protección jurídica de las bases de datos."
   },
   "conditionsOfUse": {
-    "title": "Conditions d'utilisation",
-    "description": "description"
+    "title": "Condiciones de uso",
+    "description": "descripción"
   },
   "FAQ": {
     "title": "FAQ",
-    "description": "description",
-    "subtitle1": "CBD : Le cannabidiol, qu’est-ce que c’est ?",
-    "p1": "Le cannabidiol (CBD) est une molécule présente dans le chanvre et complète le spectre des 110 autres cannabinoïdes connus à ce jour. On lui connaît des vertus bien-être pour le sommeil, le stress, l’anxiété, les tensions musculaires, etc. On le retrouve sous forme de baume, d’huile ou de fleurs à infuser.",
-    "subtitle2": "Comment connaître le taux de CBD/THC?",
-    "p2": "Il est tout naturel de vouloir connaître les taux de CBD ou de THC présents dans les fleurs et les huiles de chanvre que nous vous proposons. C’est pourquoi chaque étiquette produit se verra apposer un QR code qui vous redirigera vers l’analyse associée, répondant aux procédures requises par l’arrêté 2004-02-24 art. 3 JORF du 21 mars 2004.",
-    "subtitle3": "Comment utiliser du CBD ?",
-    "p3": "Il n’y a pas une seule meilleure façon, tout simplement parce que chaque personne a un profil unique et particulier. La méthode la plus connue est l’infusion de la fleur de chanvre en incorporant un corps gras dans le mélange. Par exemple, vVous pouvez ajouter du beurre, de la crème ou encore de huile végétale (comme l’huile de coco) dans de l’eau frémissante à 90°C Laissez infuser 10 à 15 min. Servez.",
-    "subtitle4": "Puis-je me faire livrer du CBD à domicile ?",
-    "p4": "Si vous habitez dans l’une de ces villes (voir la carte), vous pourrez recevoir vos produits sous 24H. La qualité de service et d’information sont des critères essentiels pour Mon Plan CBD.  Pour cette raison, vous recevrez votre commande dans un conditionnement garantissant une conservation optimale afin de profiter au maximum des vertus bien-êtres recherchées.",
-    "subtitle5": "Quelques recommandations…",
-    "p5": "Conformément à la loi en vigueur, nos produits ne sont pas destinés à la combustion. Il s’agit de respecter la méthode mentionnée plus haut, à savoir l’infusion avec un corps gras. Ne pas fumer, ne pas conduire après consommation, déconseillé pour la femme enceinte ou allaitante. Si vous souhaitez en savoir plus sur les conditions d’utilisation, veuillez cliquer ici. Nos produits ne sont ni des stupéfiants, ni des médicaments. Pour toute question, n’hésitez pas à nous joindre sur les réseaux sociaux ou par e-mail à l’adresse que vous trouverez dans la rubrique « Contact », en mentionnant votre demande en objet."
+    "description": "descripción",
+    "subtitle1": "CBD: ¿Qué es el cannabidiol?",
+    "p1": "El cannabidiol (CBD) es una molécula presente en el cáñamo que complementa el espectro de los otros 110 cannabinoides conocidos hasta la fecha. Se le atribuyen propiedades de bienestar para el sueño, el estrés, la ansiedad, las tensiones musculares, etc. Se encuentra en forma de bálsamo, aceite o flores para infusionar.",
+    "subtitle2": "¿Cómo conocer el nivel de CBD/THC?",
+    "p2": "Es natural querer conocer los niveles de CBD o THC presentes en las flores y aceites de cáñamo que ofrecemos. Es por eso que cada etiqueta de producto tendrá un código QR que lo redirigirá al análisis asociado, cumpliendo con los procedimientos requeridos por la orden del 24 de febrero de 2004 art. 3 JORF del 21 de marzo de 2004.",
+    "subtitle3": "¿Cómo usar CBD?",
+    "p3": "No hay una única mejor manera, simplemente porque cada persona tiene un perfil único y particular. El método más conocido es infusionar la flor de cáñamo incorporando una grasa en la mezcla. Por ejemplo, puede agregar mantequilla, crema o aceite vegetal (como aceite de coco) en agua hirviendo a 90°C. Deje infusionar de 10 a 15 minutos. Sirva.",
+    "subtitle4": "¿Puedo recibir CBD en casa?",
+    "p4": "Si vive en una de estas ciudades (ver mapa), puede recibir sus productos en 24 horas. La calidad del servicio y la información son criterios esenciales para Mon Plan CBD. Por esta razón, recibirá su pedido en un empaque que garantiza una conservación óptima para aprovechar al máximo las propiedades de bienestar que busca.",
+    "subtitle5": "Algunas recomendaciones...",
+    "p5": "De acuerdo con la ley vigente, nuestros productos no están destinados a la combustión. Se trata de respetar el método mencionado anteriormente, es decir, la infusión con una grasa. No fumar, no conducir después del consumo, desaconsejado para mujeres embarazadas o en periodo de lactancia. Si desea saber más sobre las condiciones de uso, haga clic aquí. Nuestros productos no son estupefacientes ni medicamentos. Para cualquier pregunta, no dude en contactarnos en las redes sociales o por correo electrónico en la dirección que encontrará en la sección 'Contacto', mencionando su consulta en el asunto."
   },
   "GCS": {
-    "title": "Conditions générales de vente",
-    "description": "description"
+    "title": "Condiciones generales de venta",
+    "description": "descripción"
   },
   "privacyPolicies": {
-    "title": "privacy policy",
-    "description": "description"
+    "title": "Políticas de privacidad",
+    "description": "descripción"
   },
   "about": {
-    "title": "About es",
-    "description": "description es"
+    "title": "Acerca de",
+    "description": "descripción"
   },
   "signIn": {
-    "title": "Connexion",
-    "description": "description"
+    "title": "Iniciar sesión",
+    "description": "descripción"
   },
   "myAccount": {
-    "title": "Mon Compte",
-    "description": "description"
+    "title": "Mi cuenta",
+    "description": "descripción"
   },
   "category": {
-    "title": "Produits",
-    "description": "description",
-    "flower": "CBD Flower es",
-    "hash": "CBD Hash es",
-    "moonrock": "CBD Moonrocks es",
-    "oil": "CBD oil es",
-    "herbalTea": "CBD Herbal Infusion es",
-    "health": "CBD Soothing Balm es",
-    "vaporizer": "Vaporizer",
-    "caryophyllene": "bois es",
-    "limonene": "agrumes es",
-    "myrcene": "sylvestre es",
-    "linalol": "floral es",
-    "terpinolene": "terrestre es",
-    "piperine": "pimente es",
-    "caryophyllenePeper": "poivre es",
-    "pinene": "sapin es",
-    "humulene": "terrestr ese",
-    "origin": "origin es"
+    "title": "Productos",
+    "description": "descripción",
+    "flower": "Flores de CBD",
+    "hash": "Hash CBD",
+    "moonrock": "Moonrocks CBD",
+    "oil": "Aceites de CBD",
+    "herbalTea": "Infusiones de CBD",
+    "health": "Cuidados de CBD",
+    "vaporizer": "Vaporizador",
+    "caryophyllene": "madera",
+    "limonene": "cítrico",
+    "myrcene": "forestal",
+    "linalol": "floral",
+    "terpinolene": "terrestre",
+    "piperine": "picante",
+    "caryophyllenePeper": "pimienta",
+    "pinene": "pino",
+    "humulene": "terrestre",
+    "origin": "Origen",
+    "promo": "Promoción",
+    "outOfStock": "Agotado",
+    "fromPrice": "Desde",
+    "quantity": "Cantidad",
+    "unit": "Unidad",
+    "details": "Ver más detalles",
+    "reviews": "avis es"
+  },
+  "singleProduct": {
+    "analyzes": "análisis",
+    "origin": "origen",
+    "cannabinoids": "cannabinoides",
+    "terpenes": "terpenos",
+    "reviews": "Opiniones de nuestros clientes",
+    "relatedProducts": "Nuestros clientes también compraron estos productos"
   },
   "navbar": {
-    "hemp": "cbd hemp es",
-    "hash": "cbd hash es",
-    "moonrock": "cbd moonrock es",
-    "oil": "cbd oil es",
-    "tea": "cbd tea es",
-    "cream": "cbd cream es",
-    "vaporisateur": "vapo cbd es",
-    "connection": "Sign in es",
-    "info": "Informations personnelles es",
-    "addresses": "Adresses es",
-    "orders": "Commandes es",
-    "fidelity": "Point de fidélité & parrainage es"
+    "hemp": "flor de CBD",
+    "hash": "Polen/resina de CBD",
+    "moonrock": "moonrock de CBD",
+    "oil": "aceite de CBD",
+    "tea": "infusiones de CBD",
+    "cream": "cuidados de CBD",
+    "vaporisateur": "vaporizador",
+    "connection": "Conexión",
+    "info": "Información personal",
+    "addresses": "Direcciones",
+    "orders": "Pedidos",
+    "fidelity": "Punto de fidelidad & patrocinio"
+  },
+  "footer": {
+    "legalNotices": "Aviso legal",
+    "conditionsOfUse": "Condiciones de uso",
+    "FAQ": "FAQ",
+    "GCS": "Condiciones generales de venta",
+    "privacyPolicies": "Políticas de privacidad",
+    "about": "Acerca de"
+  },
+  "cart": {
+    "cart": "carrito",
+    "order": "realizar el pedido"
+  },
+  "productCardCart": {
+    "nbItem": "número de artículo",
+    "gPrice": "precio por gramo",
+    "unitPrice": "precio por unidad",
+    "quantity": "cantidad",
+    "priceOneArticle": "precio de un artículo",
+    "subtotal": "subtotal"
   }
 }

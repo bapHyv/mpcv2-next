@@ -1,14 +1,5 @@
-
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-} from "@headlessui/react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { IDropdownItem } from "../types";
@@ -17,45 +8,44 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import Dropdown from "@/app/components/Dropdown";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
-import Cart from "@/app/components/cart/Cart";
-import PublicHeader from './ProfileHeader'
-import ProfileHeader from "./ProfileHeader";
+import PublicHeader from "@/app/components/ProfileHeader";
+import ProfileHeader from "@/app/components/ProfileHeader";
 
+import SideCart from "@/app/components/cart/SideCart";
 
 export default async function NavBar({ locale }: { locale: string }) {
-
   const t = await getTranslations({ locale, namespace: "navbar" });
-  const isSignedIn = true
+  const isSignedIn = true;
 
   // TODO add locale and trad and icons
   const itemsDropdown: IDropdownItem[] = [
     {
       text: t("hemp"),
-      href: `fleurs%20de%20cbd`,
+      href: "fleurs-cbd",
     },
     {
       text: t("hash"),
-      href: `hash%20de%20cbd`,
+      href: "pollens-resines-hash-cbd",
     },
     {
       text: t("moonrock"),
-      href: `moonrocks`,
+      href: "moonrocks-cbd",
     },
     {
       text: t("oil"),
-      href: `huiles`,
+      href: "huiles-cbd",
     },
     {
       text: t("tea"),
-      href: `infusions`,
+      href: "infusions-cbd",
     },
     {
       text: t("cream"),
-      href: `soins`,
+      href: "soins-cbd",
     },
     {
       text: t("vaporisateur"),
-      href: `vaporisateurs`,
+      href: "vaporisateur",
     },
   ];
 
@@ -79,16 +69,14 @@ export default async function NavBar({ locale }: { locale: string }) {
     {
       text: t("logout"),
       // onClick: logout()
-      href : ''
-    }
+      href: "",
+    },
   ];
-
- 
 
   const languageSelector = [{ text: "fr" }, { text: "es" }, { text: "en" }];
 
   return (
-    <Disclosure as="nav" className="bg-black z-50">
+    <Disclosure as="nav" className="bg-black fixed w-full max-w-[1920px] z-50">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between">
           {/* Mobile menu button*/}
@@ -116,13 +104,8 @@ export default async function NavBar({ locale }: { locale: string }) {
             >
               produits
             </Link>
-            <Link href="/">
-              <Image
-                alt="Monplancbd"
-                src="/logo-blanc.png"
-                width={80}
-                height={80}
-              />
+            <Link href={`/${locale}`}>
+              <Image alt="Monplancbd" src="/logo-blanc.png" width={80} height={80} />
             </Link>
             <div className="hidden sm:flex items-center">
               <ThemeSwitch />
@@ -158,38 +141,47 @@ export default async function NavBar({ locale }: { locale: string }) {
                 button={
                   <>
                     <span className="sr-only">Language selector menu</span>
-                    <Image
-                      alt={locale}
-                      src={`/${locale}.png`}
-                      height={40}
-                      width={40}
-                    />
+                    <Image alt={locale} src={`/${locale}.png`} height={40} width={40} />
                   </>
                 }
                 items={languageSelector}
                 locale={locale}
                 menuClassname="sm:flex items-center justify-center w-full"
                 menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
-                menuItemsClassname="right-0 left-auto w-28"
+                menuItemsClassname="right-0 left-auto top-0 w-28"
               />
             </div>
-            <Cart />
+            <SideCart />
             {/* Profile dropdown */}
-                <ProfileHeader locale={locale} />
+            <ProfileHeader locale={locale} />
           </div>
         </div>
       </div>
 
+      {/* MOBILE */}
       <DisclosurePanel className="sm:hidden">
         <div className="">
-          <div className="space-y-3 px-2 pb-3 pt-2 flex flex-col">
-            <div className="flex items-center justify-between w-full">
-              <Link
-                href={`/${locale}/blog`}
-                className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green"
-              >
-                blog
-              </Link>
+          <div className="px-2 pb-3 pt-2 flex justify-between">
+            <Link
+              href={`/${locale}/blog`}
+              className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green w-1/2"
+            >
+              blog
+            </Link>
+            <div className="w-1/2 flex justify-end gap-x-3">
+              <ThemeSwitch />
+              <Dropdown
+                button={
+                  <>
+                    <span className="sr-only">Language selector menu</span>
+                    <Image alt={locale} src={`/${locale}.png`} height={40} width={40} />
+                  </>
+                }
+                items={languageSelector}
+                locale={locale}
+                menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
+                menuItemsClassname="right-0 left-auto w-28"
+              />
               {isSignedIn ? (
                 <Dropdown
                   button={
@@ -211,28 +203,6 @@ export default async function NavBar({ locale }: { locale: string }) {
                   {t("connection")}
                 </Link>
               )}
-            </div>
-            <div className="flex items-center justify-end w-full">
-              <ThemeSwitch />
-            </div>
-            <div className="flex items-center justify-end w-full">
-              <Dropdown
-                button={
-                  <>
-                    <span className="sr-only">Language selector menu</span>
-                    <Image
-                      alt={locale}
-                      src={`/${locale}.png`}
-                      height={40}
-                      width={40}
-                    />
-                  </>
-                }
-                items={languageSelector}
-                locale={locale}
-                menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
-                menuItemsClassname="right-0 left-auto w-28"
-              />
             </div>
           </div>
         </div>

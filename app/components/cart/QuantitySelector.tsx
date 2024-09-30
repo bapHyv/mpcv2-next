@@ -1,64 +1,38 @@
+import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+
 export default function QuantitySelector() {
   return (
-    <div className="relative flex items-center max-w-[8rem] border border-neutral-300 rounded-s-lg rounded-e-lg">
+    <div className="relative flex items-center w-4/12 border border-neutral-300 rounded-s-lg rounded-e-lg">
+      <span className="sr-only">Decrement quantity button</span>
       <button
         type="button"
-        id="decrement-button"
-        data-input-counter-decrement="quantity-input"
-        className={`bg-neutral-100 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:border-neutral-600 
-                                hover:bg-neutral-200 border border-neutral-300 rounded-s-lg p-3 h-5 focus:ring-neutral-100 dark:focus:ring-neutral-700 
-                                focus:ring-2 focus:outline-none flex items-center`}
+        className={`w-1/3 bg-neutral-100 flex items-center justify-center rounded-s-lg p-1 
+                  hover:bg-neutral-200 border border-neutral-300
+                  dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:border-neutral-600
+                  focus:ring-blue-500 focus:border-blue-500 focus:ring-2 focus:outline-none`}
       >
-        <svg
-          className="w-3 h-3 text-neutral-900 dark:text-white"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 18 2"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M1 1h16"
-          />
-        </svg>
+        <MinusIcon className="w-4 h-4 text-neutral-900 dark:text-white" />
       </button>
-      <input
-        type="text"
+      <span className="sr-only">Product quantity button</span>
+      <div
         id="quantity-input"
-        data-input-counter
         aria-describedby="helper-text-explanation"
-        className={`flex items-center border-x-0 border-neutral-300 text-center h-full text-neutral-900
-                                 focus:ring-blue-500 focus:border-blue-500 w-full
-                                dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-        placeholder={"2"}
-        required
-      />
+        className={`w-1/3 flex items-center justify-center text-md h-full border-x-0 border-neutral-300 text-neutral-900
+                  focus:ring-blue-500 focus:border-blue-500
+                  dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white 
+                  dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+      >
+        10
+      </div>
+      <span className="sr-only">Increment quantity button</span>
       <button
         type="button"
-        id="increment-button"
-        data-input-counter-increment="quantity-input"
-        className={`bg-neutral-100 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:border-neutral-600
-                                hover:bg-neutral-200 border border-neutral-300 rounded-e-lg p-3 h-5 focus:ring-neutral-100 dark:focus:ring-neutral-700
-                                focus:ring-2 focus:outline-none flex items-center`}
+        className={`w-1/3 bg-neutral-100 flex items-center justify-center rounded-e-lg p-1 
+                  hover:bg-neutral-200 border border-neutral-300
+                  dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:border-neutral-600
+                  focus:ring-blue-500 focus:border-blue-500 focus:ring-2 focus:outline-none`}
       >
-        <svg
-          className="w-3 h-3 text-neutral-900 dark:text-white"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 18 18"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M9 1v16M1 9h16"
-          />
-        </svg>
+        <PlusIcon className="w-4 h-4 text-neutral-900 dark:text-white" />
       </button>
     </div>
   );

@@ -6,18 +6,19 @@ import { CartProvider } from "@/app/cartContext";
 import { AlertsProvider } from "@/app/alertsContext";
 import { AuthProvider } from "@/app/authContext";
 
+import { SseProvider } from "@/app/sseContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AlertsProvider>
-        <AuthProvider>
-          <ProductsProvider>
+        <SseProvider>
+          <AuthProvider>
             <CartProvider>
-              {children}
+              <ProductsProvider>{children}</ProductsProvider>
             </CartProvider>
-          </ProductsProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </SseProvider>
       </AlertsProvider>
     </ThemeProvider>
   );

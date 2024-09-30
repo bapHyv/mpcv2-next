@@ -1,7 +1,44 @@
 {
   "HomePage": {
     "title": "Bonjour le monde!",
-    "subtile": "Ceci est une traduction"
+    "subtile": "Ceci est une traduction",
+    "services": {
+      "title": "Nos services",
+      "delivery": {
+        "title": "Livraison Rapide",
+        "text": "LIVRAISON EN 1 JOUR OUVRÉ DANS TOUTE LA FRANCE (3 À 5 JOURS POUR LA CORSE ET L’EUROPE)"
+      },
+      "payment": {
+        "title": "Paiements Sécurisés",
+        "text": "PAIEMENTS SÉCURISÉS, GARANTIE DE LA SÉCURITÉ DE VOS DONNÉES LORS DE LA TRANSACTION"
+      },
+      "products": {
+        "title": "Produits de qualités",
+        "text": "PRODUITS À BASE DE CHANVRE ET DE CBD FOURNIS AVEC NOS CONTRE ANALYSES CERTIFIANTS D’UN TAUX DE DELTA9 THC CONFORME AUX LÉGISLATIONS FRANÇAISE ET EUROPÉENNE (0,3%)"
+      },
+      "fidelity": {
+        "title": "Économique",
+        "text": "BÉNÉFICIEZ D’UN POINT DE FIDÉLITÉ POUR CHAQUE EURO DÉPENSÉ SUR LE SITE ET DE DIX POINTS POUR UN COMMENTAIRE SUR NOS PRODUITS. 10 POINTS = 1 € DE RÉDUCTION"
+      },
+      "sponsoring": {
+        "title": "Un programme de fidélité avantageux",
+        "text": "RECEVEZ ENTRE 50 ET 100 POINTS POUR CHAQUE PERSONNE PARRAINÉE (1ERE COMMANDE +- 30 €) ! VOTRE FILLEUL.E RECEVRA 50 POINTS ! LIEN DISPONIBLE DANS « MON COMPTE »"
+      }
+    },
+    "discountProducts": "Les bons plans CBD",
+    "flowers": "Les fleurs de CBD",
+    "hashs": "Les hashs de CBD",
+    "oils": "Les huiles de CBD",
+    "cbdSection": {
+      "imgAlt": "boutu de pied de cbd",
+      "title": "Qu'est-ce que le CBD?",
+      "text": "Le cannabidiol (CBD) est une molécule présente dans le chanvre. Le CBD complète le spectre des 110 autres cannabinoïdes connus à ce jour. On lui connaît des vertus bien-être pour le sommeil, le stress, l’anxiété, les tensions musculaires, etc. On le retrouve sous forme de baume de CBD, d’huile ou de fleurs de CBD à infuser."
+    },
+    "cbdPassion": {
+      "imgAlt": "Fleurs de cbd avec des huiles full spectum et des graines de chanvre",
+      "title": "Une passion pour le CBD...",
+      "text": "Mon Plan CBD, c’est une idée qui a germé une fin d’après-midi d’hiver dans le Bistrot des Halles de Bayonne. Nous avons tous, individuellement, cultivé un intérêt pour cette plante qu’est le chanvre. Pour des usages personnels, pour nos proches ou encore notre entourage. Que ce soit en huile, en baume, en infusion, nous nous accordons à croire, comme beaucoup d’autres personnes, qu’un avenir prometteur se dessine autour de cette plante ancestralement utilisée de part le monde."
+    }
   },
   "globalError": {
     "message": "Le site a l'air de ne plus fonctionner",
@@ -86,7 +123,14 @@
     "caryophyllenePeper": "poivre",
     "pinene": "sapin",
     "humulene": "terrestre",
-    "origin": "Provenance"
+    "origin": "Provenance",
+    "promo": "Promo",
+    "outOfStock": "Rupture de stock",
+    "fromPrice": "À partir de",
+    "quantity": "Quantité",
+    "unit": "Unité",
+    "details": "Voir plus de détails",
+    "reviews": "avis"
   },
   "singleProduct": {
     "analyzes": "analyses",
@@ -117,5 +161,17 @@
     "GCS": "Conditions générales de vente",
     "privacyPolicies": "Politiques de confidentialité",
     "about": "À propos"
+  },
+  "cart": {
+    "cart": "panier",
+    "order": "Commander"
+  },
+  "productCardCart": {
+    "nbItem": "nombre d'article",
+    "gPrice": "prix au gramme",
+    "unitPrice": "prix à l'unité",
+    "quantity": "quantité",
+    "priceOneArticle": "prix d'un article",
+    "subtotal": "sous-total"
   }
 }

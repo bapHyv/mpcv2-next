@@ -16,11 +16,6 @@ export const metadata: Metadata = {
 const myFont = localFont({
   src: [
     {
-      path: "../fonts/noirPro/NoirPro-Bold.eot",
-      weight: "700",
-      style: "bold",
-    },
-    {
       path: "../fonts/noirPro/NoirPro-Bold.ttf",
       weight: "700",
       style: "bold",
@@ -34,11 +29,6 @@ const myFont = localFont({
       path: "../fonts/noirPro/NoirPro-Bold.woff2",
       weight: "700",
       style: "bold",
-    },
-    {
-      path: "../fonts/noirPro/NoirPro-BoldItalic.eot",
-      weight: "700",
-      style: "italic",
     },
     {
       path: "../fonts/noirPro/NoirPro-BoldItalic.ttf",
@@ -56,11 +46,6 @@ const myFont = localFont({
       style: "italic",
     },
     {
-      path: "../fonts/noirPro/NoirPro-Heavy.eot",
-      weight: "900",
-      style: "normal",
-    },
-    {
       path: "../fonts/noirPro/NoirPro-Heavy.ttf",
       weight: "900",
       style: "normal",
@@ -76,11 +61,6 @@ const myFont = localFont({
       style: "normal",
     },
     {
-      path: "../fonts/noirPro/NoirPro-HeavyItalic.eot",
-      weight: "900",
-      style: "italic",
-    },
-    {
       path: "../fonts/noirPro/NoirPro-HeavyItalic.ttf",
       weight: "900",
       style: "italic",
@@ -93,11 +73,6 @@ const myFont = localFont({
     {
       path: "../fonts/noirPro/NoirPro-HeavyItalic.woff2",
       weight: "900",
-      style: "italic",
-    },
-    {
-      path: "../fonts/noirPro/NoirPro-Italic.eot",
-      weight: "400",
       style: "italic",
     },
     {
@@ -116,11 +91,6 @@ const myFont = localFont({
       style: "italic",
     },
     {
-      path: "../fonts/noirPro/NoirPro-Light.eot",
-      weight: "300",
-      style: "normal",
-    },
-    {
       path: "../fonts/noirPro/NoirPro-Light.ttf",
       weight: "300",
       style: "normal",
@@ -134,11 +104,6 @@ const myFont = localFont({
       path: "../fonts/noirPro/NoirPro-Light.woff2",
       weight: "300",
       style: "normal",
-    },
-    {
-      path: "../fonts/noirPro/NoirPro-LightItalic.eot",
-      weight: "300",
-      style: "italic",
     },
     {
       path: "../fonts/noirPro/NoirPro-LightItalic.ttf",
@@ -156,11 +121,6 @@ const myFont = localFont({
       style: "italic",
     },
     {
-      path: "../fonts/noirPro/NoirPro-Medium.eot",
-      weight: "500",
-      style: "normal",
-    },
-    {
       path: "../fonts/noirPro/NoirPro-Medium.ttf",
       weight: "500",
       style: "normal",
@@ -174,11 +134,6 @@ const myFont = localFont({
       path: "../fonts/noirPro/NoirPro-Medium.woff2",
       weight: "500",
       style: "normal",
-    },
-    {
-      path: "../fonts/noirPro/NoirPro-MediumItalic.eot",
-      weight: "500",
-      style: "italic",
     },
     {
       path: "../fonts/noirPro/NoirPro-MediumItalic.ttf",
@@ -196,11 +151,6 @@ const myFont = localFont({
       style: "italic",
     },
     {
-      path: "../fonts/noirPro/NoirPro-Regular.eot",
-      weight: "400",
-      style: "normal",
-    },
-    {
       path: "../fonts/noirPro/NoirPro-Regular.ttf",
       weight: "400",
       style: "normal",
@@ -214,11 +164,6 @@ const myFont = localFont({
       path: "../fonts/noirPro/NoirPro-Regular.woff2",
       weight: "400",
       style: "normal",
-    },
-    {
-      path: "../fonts/noirPro/NoirPro-SemiBoldItalic.eot",
-      weight: "600",
-      style: "italic",
     },
     {
       path: "../fonts/noirPro/NoirPro-SemiBoldItalic.ttf",
@@ -253,7 +198,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <NavBar locale={locale} />
-            <main className="min-h-screen">{children}</main>
+            <main className="min-h-screen px-2 2xl:px-0 pt-20">{children}</main>
             <Footer locale={locale} />
           </Providers>
         </NextIntlClientProvider>

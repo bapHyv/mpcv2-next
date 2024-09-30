@@ -1,17 +1,13 @@
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import products from "@/app/fakeData/products.json";
-import { categories } from "@/app/types/productsTypes";
+import { categories, IProducts } from "@/app/types/productsTypes";
 import Title from "@/app/components/Title";
 import Link from "next/link";
 import clsx from "clsx";
 
-import {
-  doesCategoryExists,
-  findCategory,
-  findTitle,
-} from "@/app/utils/productFunctions";
+import { doesCategoryExists, findSlug, findTitle } from "@/app/utils/productFunctions";
 import ProductCard from "@/app/components/products/ProductCard";
+import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 
 interface Params {
   params: {
@@ -20,52 +16,81 @@ interface Params {
   };
 }
 
-export async function generateMetadata({ params: { locale } }: Params) {
-  const t = await getTranslations({ locale, namespace: "category" });
-  return {
-    title: t("title"),
-    description: t("description"),
-  };
-}
+// export async function generateMetadata({ params: { locale } }: Params) {
+//   const t = await getTranslations({ locale, namespace: "category" });
+//   return {
+//     title: t("title"),
+//     description: t("description"),
+//   };
+// }
 
 export default async function Page({ params: { locale, category } }: Params) {
-  // TODO category ici
   const t = await getTranslations({ locale, namespace: "category" });
 
   const categories: categories = [
-    { url: "fleurs%20de%20cbd", category: "fleurs", title: t("flower") },
-    { url: "hash%20de%20cbd", category: "hashs", title: t("hash") },
-    { url: "moonrocks", category: "moonrocks", title: t("moonrock") },
-    { url: "huiles", category: "huiles", title: t("oil") },
-    { url: "infusions", category: "infusions", title: t("herbalTea") },
-    { url: "soins", category: "soins", title: t("health") },
-    { url: "vaporisateurs", category: "vaporisateurs", title: t("vaporizer") },
+    {
+      url: "fleurs%20de%20cbd",
+      category: "fleurs",
+      title: t("flower"),
+      slug: "fleurs-cbd",
+    },
+    {
+      url: "hash%20de%20cbd",
+      category: "hashs",
+      title: t("hash"),
+      slug: "pollens-resines-hash-cbd",
+    },
+    {
+      url: "moonrocks",
+      category: "moonrocks",
+      title: t("moonrock"),
+      slug: "moonrocks-cbd",
+    },
+    { url: "huiles", category: "huiles", title: t("oil"), slug: "huiles-cbd" },
+    {
+      url: "infusions",
+      category: "infusions",
+      title: t("herbalTea"),
+      slug: "infusions-cbd",
+    },
+    { url: "soins", category: "soins", title: t("health"), slug: "soins-cbd" },
+    {
+      url: "vaporisateurs",
+      category: "vaporisateurs",
+      title: t("vaporizer"),
+      slug: "vaporisateur",
+    },
   ];
-  // TODO fetch categories here
-  if (!doesCategoryExists(categories, category)) notFound();
 
-  const currentCategory = findCategory(categories, category);
+  if (!doesCategoryExists(categories, category)) notFound();
 
   const currentTitle = findTitle(categories, category);
 
-  const currentProducts = products[currentCategory];
+  const currentSlug = findSlug(categories, category);
+
+  const currentProducts: IProducts[] = await fetch(
+    `${process.env.API_HOST}/products/${currentSlug}`
+  ).then((res) => res.json());
 
   return (
     <div>
       <Title
         title={currentTitle}
         type="h1"
-        classname="bg-green text-white text-6xl py-5 text-center"
+        classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
+          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
+          dark:after:bg-white`}
+        firstLetterClassname="text-4xl"
       />
 
       {/* NAV CATEGORY */}
-      <div className="mt-5 px-5 bg-neutral-200 dark:bg-light-black flex items-center md:justify-center xl:gap-7 h-14 overflow-scroll no-scrollbar">
+      <div className="mt-5 px-5 bg-neutral-200 dark:bg-light-black flex items-center md:justify-center xl:gap-7 h-14 overflow-scroll no-scrollbar shadow-category-nav">
         {categories.map((cat) => (
           <Link
             key={cat.title}
-            href={cat.url}
+            href={cat.slug}
             className={clsx(
-              category === cat.url ? "bg-green text-white" : "bg-none",
+              category === cat.slug ? "bg-green text-white" : "bg-none",
               "capitalize text-center text-sm xl:text-2xl py-1 px-2 rounded-md text-nowrap"
             )}
           >
@@ -85,14 +110,15 @@ export default async function Page({ params: { locale, category } }: Params) {
       /> */}
 
         {/* PRODUCT CARDS */}
-        {currentProducts.map((prod) => (
-          <ProductCard
-            key={prod.name}
-            locale={locale}
-            category={category}
-            {...prod}
-          />
-        ))}
+        {!currentProducts
+          ? new Array(8).fill(0).map((e) => <ProductCardSkeleton key={Math.random()} />)
+          : currentProducts.map((prod) => (
+              <ProductCard key={prod.name} locale={locale} {...prod} />
+            ))}
+
+        {/* {currentProducts.map((prod) => (
+          <ProductCardSkeleton key={prod.id} />
+        ))} */}
       </div>
     </div>
   );
