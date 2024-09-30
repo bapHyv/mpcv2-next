@@ -4,6 +4,8 @@ import { ThemeProvider } from "next-themes";
 import { ProductsProvider } from "@/app/productsContext";
 import { CartProvider } from "@/app/cartContext";
 import { AlertsProvider } from "@/app/alertsContext";
+import { AuthProvider } from "@/app/authContext";
+
 import { SseProvider } from "@/app/sseContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -11,9 +13,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AlertsProvider>
         <SseProvider>
-          <CartProvider>
-            <ProductsProvider>{children}</ProductsProvider>
-          </CartProvider>
+          <AuthProvider>
+            <CartProvider>
+              <ProductsProvider>{children}</ProductsProvider>
+            </CartProvider>
+          </AuthProvider>
         </SseProvider>
       </AlertsProvider>
     </ThemeProvider>

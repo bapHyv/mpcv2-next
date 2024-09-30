@@ -1,13 +1,5 @@
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-} from "@headlessui/react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { IDropdownItem } from "../types";
@@ -16,13 +8,14 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import Dropdown from "@/app/components/Dropdown";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
+import PublicHeader from "@/app/components/ProfileHeader";
+import ProfileHeader from "@/app/components/ProfileHeader";
+
 import SideCart from "@/app/components/cart/SideCart";
 
 export default async function NavBar({ locale }: { locale: string }) {
-  // TODO add auth check
-  const isSignedId = true;
-
   const t = await getTranslations({ locale, namespace: "navbar" });
+  const isSignedIn = true;
 
   // TODO add locale and trad and icons
   const itemsDropdown: IDropdownItem[] = [
@@ -56,23 +49,27 @@ export default async function NavBar({ locale }: { locale: string }) {
     },
   ];
 
-  // TODO add href and icons
   const itemsProfile = [
     {
       text: t("info"),
-      href: `/`,
+      href: `/mon_compte/profile`,
     },
     {
-      text: t("addresses"),
-      href: `/`,
+      text: t("adresses"),
+      href: `/mon_compte/adresses`,
     },
     {
       text: t("orders"),
-      href: `/`,
+      href: `/mon_compte/commandes`,
     },
     {
       text: t("fidelity"),
-      href: `/`,
+      href: `/mon_compte/fidelite`,
+    },
+    {
+      text: t("logout"),
+      // onClick: logout()
+      href: "",
     },
   ];
 
@@ -108,12 +105,7 @@ export default async function NavBar({ locale }: { locale: string }) {
               produits
             </Link>
             <Link href={`/${locale}`}>
-              <Image
-                alt="Monplancbd"
-                src="/logo-blanc.png"
-                width={80}
-                height={80}
-              />
+              <Image alt="Monplancbd" src="/logo-blanc.png" width={80} height={80} />
             </Link>
             <div className="hidden sm:flex items-center">
               <ThemeSwitch />
@@ -149,12 +141,7 @@ export default async function NavBar({ locale }: { locale: string }) {
                 button={
                   <>
                     <span className="sr-only">Language selector menu</span>
-                    <Image
-                      alt={locale}
-                      src={`/${locale}.png`}
-                      height={40}
-                      width={40}
-                    />
+                    <Image alt={locale} src={`/${locale}.png`} height={40} width={40} />
                   </>
                 }
                 items={languageSelector}
@@ -166,28 +153,7 @@ export default async function NavBar({ locale }: { locale: string }) {
             </div>
             <SideCart />
             {/* Profile dropdown */}
-            {isSignedId ? (
-              <Dropdown
-                button={
-                  <>
-                    <span className="sr-only">Open user menu</span>
-                    <UserCircleIcon className="h-8 w-8 text-white" />
-                  </>
-                }
-                items={itemsProfile}
-                locale={locale}
-                menuClassname="hidden sm:inline-block"
-                menuButtonClassname="rounded-full p-1"
-                menuItemsClassname="right-0 left-auto"
-              />
-            ) : (
-              <Link
-                href="/"
-                className="text-white bg-green py-2 px-1 rounded-md"
-              >
-                {t("connection")}
-              </Link>
-            )}
+            <ProfileHeader locale={locale} />
           </div>
         </div>
       </div>
@@ -208,12 +174,7 @@ export default async function NavBar({ locale }: { locale: string }) {
                 button={
                   <>
                     <span className="sr-only">Language selector menu</span>
-                    <Image
-                      alt={locale}
-                      src={`/${locale}.png`}
-                      height={40}
-                      width={40}
-                    />
+                    <Image alt={locale} src={`/${locale}.png`} height={40} width={40} />
                   </>
                 }
                 items={languageSelector}
@@ -221,7 +182,7 @@ export default async function NavBar({ locale }: { locale: string }) {
                 menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
                 menuItemsClassname="right-0 left-auto w-28"
               />
-              {isSignedId ? (
+              {isSignedIn ? (
                 <Dropdown
                   button={
                     <>
@@ -236,7 +197,7 @@ export default async function NavBar({ locale }: { locale: string }) {
                 />
               ) : (
                 <Link
-                  href="/"
+                  href={`/${locale}/login`}
                   className="text-white bg-green py-2 px-1 rounded-md"
                 >
                   {t("connection")}

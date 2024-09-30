@@ -7,7 +7,7 @@ interface Params {
 }
 
 export async function generateMetadata({ params: { locale } }: Params) {
-  const t = await getTranslations({ locale, namespace: "myAccount" });
+  const t = await getTranslations({ locale, namespace: "profile" });
   return {
     title: t("title"),
     description: t("description"),
@@ -15,6 +15,6 @@ export async function generateMetadata({ params: { locale } }: Params) {
 }
 
 export default async function Page({ params: { locale } }: Params) {
-  const t = await getTranslations({ locale, namespace: "myAccount" });
+  const t = await getTranslations({ locale, namespace: "profile" });
   return <h1>{t("title")}</h1>;
 }
