@@ -8,7 +8,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { Cannabinoids, Image } from "./types/productsTypes";
+import { Cannabinoids, Image } from "../types/productsTypes";
 
 export interface ProductCart {
   cartItemId: string; // uuid generated when adding a product in the cart. It is used to delete

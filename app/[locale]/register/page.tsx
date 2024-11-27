@@ -1,7 +1,7 @@
 "use client"
 // import { getTranslations } from "next-intl/server";
 import { useState } from "react";
-import { useAuth } from '../../authContext';
+import { useAuth } from '../../context/authContext';
 
 export default  function Login({ locale }: { locale: string }) {
   // const t = await getTranslations({ locale, namespace: "register" });

@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductCart, useCart } from "@/app/cartContext";
+import { ProductCart, useCart } from "@/app/context/cartContext";
 import Image from "next/image";
 import Separator from "@/app/components/Separator";
 import { findHighest } from "@/app/utils/productFunctions";

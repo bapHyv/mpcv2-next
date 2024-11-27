@@ -1,13 +1,14 @@
 "use client"
 // import { getTranslations } from "next-intl/server";
 import { useState } from "react";
-import { useAuth } from '../../authContext';
+import { useAuth } from '../../context/authContext';
 
 
 
 
 
 export default function Login({ locale }: { locale: string }) {
+  
     // const t = await getTranslations({ locale, namespace: "signIn" });
 
     const { login } = useAuth();
@@ -19,12 +20,13 @@ export default function Login({ locale }: { locale: string }) {
  
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
-      try{
+      setError(''); // Reset error before new login attempt
+      try {
         await login(user);
-      }
-      catch(err : any){
-        console.log(err)
-        setError(err)
+      } catch (err: any) {
+        // Display the error message
+        alert('User or password invalid')
+        setError('');
       }
     };
 

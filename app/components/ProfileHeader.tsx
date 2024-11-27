@@ -1,7 +1,7 @@
 'use client'
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { getTranslations } from "next-intl/server";
-import { useAuth } from "../authContext";
+import { useAuth } from "../context/authContext";
 import Dropdown from "@/app/components/Dropdown";
 
 

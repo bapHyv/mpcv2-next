@@ -1,10 +1,10 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { ProductsProvider } from "@/app/productsContext";
-import { CartProvider } from "@/app/cartContext";
-import { AlertsProvider } from "@/app/alertsContext";
-import { AuthProvider } from "@/app/authContext";
+import { ProductsProvider } from "@/app/context/productsContext";
+import { CartProvider } from "@/app/context/cartContext";
+import { AlertsProvider } from "@/app/context/alertsContext";
+import { AuthProvider } from "@/app/context/authContext";
 
 
 export function Providers({ children }: { children: React.ReactNode }) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useProducts } from "@/app/productsContext";
+import { useProducts } from "@/app/context/productsContext";
 
 export default function ProductPrice({ id }: { id: string }) {
   const { products } = useProducts();
