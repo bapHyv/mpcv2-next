@@ -55,7 +55,7 @@ export default async function NavBar({ locale }: { locale: string }) {
       href: `/mon_compte/profile`,
     },
     {
-      text: t("adresses"),
+      text: t("addresses"),
       href: `/mon_compte/adresses`,
     },
     {

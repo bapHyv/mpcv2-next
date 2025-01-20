@@ -117,7 +117,8 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
         await fetch(baseUrl)
           .then((res) => res.json())
           .then((res) => {
-            res.forEach((p: IProductsFromAPI) => {
+            // @ts-ignore
+            Object.values(res).forEach((p: IProductsFromAPI) => {
               if (!!Object.entries(p.prices).length) {
                 set_products(p);
               }
@@ -144,7 +145,7 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
     cart.products.forEach((cartProduct) => {
       // if the productId exists in product stock, increment the quantity instead of adding a new key.
       // It is necessary because it has to compute the quantity (in g or unit) inside the cart
-      // for example, the cart could contain trim 2x10g and trim 1x50g. The result is {trimId: 70}
+      // for example, the cart could contain trim 2x10g and trim 1x50g. The result is { [trimId]: 70 }
       if (cartProduct.id in _productsCartStock) {
         _productsCartStock[cartProduct.id] =
           _productsCartStock[cartProduct.id] +

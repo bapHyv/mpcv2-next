@@ -152,7 +152,8 @@
     "info": "Profile",
     "addresses": "Addresses",
     "orders": "Orders",
-    "fidelity": "Sponsorship"
+    "fidelity": "Sponsorship",
+    "logout": "logout"
   },
   "footer": {
     "legalNotices": "legal notices",

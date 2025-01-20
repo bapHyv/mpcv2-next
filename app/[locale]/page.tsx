@@ -26,7 +26,7 @@ async function getFlowers() {
     (res) => res.json()
   );
 
-  return res;
+  return Object.values(res);
 }
 
 async function getHashs() {
@@ -34,7 +34,7 @@ async function getHashs() {
     `${process.env.API_HOST}/products/pollens-resines-hash-cbd`
   ).then((res) => res.json());
 
-  return res;
+  return Object.values(res);
 }
 
 async function getOils() {
@@ -42,7 +42,7 @@ async function getOils() {
     res.json()
   );
 
-  return res;
+  return Object.values(res);
 }
 
 export default async function Page({ locale }: Params) {

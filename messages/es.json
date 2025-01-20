@@ -152,7 +152,8 @@
     "info": "Información personal",
     "addresses": "Direcciones",
     "orders": "Pedidos",
-    "fidelity": "Punto de fidelidad & patrocinio"
+    "fidelity": "Punto de fidelidad & patrocinio",
+    "logout": "logout"
   },
   "footer": {
     "legalNotices": "Aviso legal",

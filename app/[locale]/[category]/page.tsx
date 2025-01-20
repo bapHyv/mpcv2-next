@@ -68,9 +68,9 @@ export default async function Page({ params: { locale, category } }: Params) {
 
   const currentSlug = findSlug(categories, category);
 
-  const currentProducts: IProducts[] = await fetch(
-    `${process.env.API_HOST}/products/${currentSlug}`
-  ).then((res) => res.json());
+  const currentProducts = await fetch(`${process.env.API_HOST}/products/${currentSlug}`);
+  const jsonProducts = await currentProducts.json();
+  const formatedProducts: IProducts[] = Object.values(jsonProducts);
 
   return (
     <div>
@@ -112,7 +112,7 @@ export default async function Page({ params: { locale, category } }: Params) {
         {/* PRODUCT CARDS */}
         {!currentProducts
           ? new Array(8).fill(0).map((e) => <ProductCardSkeleton key={Math.random()} />)
-          : currentProducts.map((prod) => (
+          : formatedProducts.map((prod) => (
               <ProductCard key={prod.name} locale={locale} {...prod} />
             ))}
 
