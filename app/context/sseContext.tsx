@@ -5,11 +5,8 @@ import {
   useContext,
   Dispatch,
   SetStateAction,
-  useEffect,
 } from "react";
-import { Prices } from "@/app/types/productsTypes";
-import { useAlerts } from "./alertsContext";
-import { v4 as uuid } from "uuid";
+import { useAlerts } from "@/app/context/alertsContext";
 
 const fakeSseData = {
   coupons: {

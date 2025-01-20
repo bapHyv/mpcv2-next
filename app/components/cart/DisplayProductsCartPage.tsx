@@ -1,5 +1,5 @@
 "use client";
-import { useCart } from "@/app/cartContext";
+import { useCart } from "@/app/context/cartContext";
 import CartProductCard from "./CartProductCard";
 
 export default function DisplayProductsCartPage() {

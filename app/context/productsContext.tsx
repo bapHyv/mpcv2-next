@@ -10,9 +10,9 @@ import {
 
 import { Prices, IProducts as IProductsFromAPI } from "@/app/types/productsTypes";
 import { formatOptions } from "@/app/utils/productFunctions";
-import { useSse } from "./sseContext";
-import { useCart } from "./cartContext";
-import { useAlerts } from "./alertsContext";
+import { useSse } from "@/app/context/sseContext";
+import { useCart } from "@/app/context/cartContext";
+import { useAlerts } from "@/app/context/alertsContext";
 import { v4 as uuid } from "uuid";
 
 /**

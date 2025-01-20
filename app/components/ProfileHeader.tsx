@@ -1,7 +1,7 @@
 'use client'
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { getTranslations } from "next-intl/server";
-import { useAuth } from "../authContext";
+import { useAuth } from "../context/authContext";
 import Dropdown from "@/app/components/Dropdown";
 
 
@@ -54,7 +54,7 @@ export default function ProfileHeader({ locale }: { locale: string }) {
             button={
                 <>
                     <span className="sr-only">Open user menu</span>
-                    <UserCircleIcon className="h-8 w-8 text-white" />
+                    <UserCircleIcon className="h-8 w-8 text-white" role="button" />
                 </>
             }
             items={isSignedIn ? itemsProfile : itemsAuth}

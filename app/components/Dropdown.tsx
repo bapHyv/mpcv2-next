@@ -24,10 +24,7 @@ export default function Dropdown({
   const pathname = usePathname();
 
   return (
-    <Menu
-      as="div"
-      className={twMerge("relative inline-block text-left", menuClassname)}
-    >
+    <Menu as="div" className={twMerge("relative inline-block text-left", menuClassname)}>
       <MenuButton
         className={twMerge(
           `uppercase inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-green px-3 py-2 
@@ -60,34 +57,29 @@ export default function Dropdown({
                 >
                   {item.text}
                 </Link>
-              ) :
-                "onClick" in item ? (
-                  <button
-                    key={item.text}
-                    onClick={item.onClick ? (e: React.MouseEvent<HTMLButtonElement>) => item.onClick?.(e) : undefined}
-                    className="uppercase group flex items-center px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-
-                  >
-                    {item.text}
-                  </button>
- 
-                )
-                  :
-                  (
-                    <Link
-                      href={generatePathWithLocale(pathname, item.text as string)}
-                      className="flex items-center justify-between uppercase group px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                    >
-                      {item.text}
-                      <Image
-                        alt={item.text || ""}
-                        src={`/${item.text}.png`}
-                        height={30}
-                        width={30}
-                        className="mr-3"
-                      />
-                    </Link>
-                  )}
+              ) : "onClick" in item ? (
+                <button
+                  key={item.text}
+                  onClick={"onClick" in item ? () => item.onClick : undefined}
+                  className="uppercase group flex items-center px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 w-full text-"
+                >
+                  {item.text}
+                </button>
+              ) : (
+                <Link
+                  href={generatePathWithLocale(pathname, item.text as string)}
+                  className="flex items-center justify-between uppercase group px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                >
+                  {item.text}
+                  <Image
+                    alt={item.text || ""}
+                    src={`/${item.text}.png`}
+                    height={30}
+                    width={30}
+                    className="mr-3"
+                  />
+                </Link>
+              )}
             </MenuItem>
           </div>
         ))}

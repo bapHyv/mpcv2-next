@@ -1,13 +1,8 @@
 "use client";
 
-import { useCart } from "@/app/cartContext";
+import { useCart } from "@/app/context/cartContext";
 import { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  DialogTitle,
-} from "@headlessui/react";
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import CartProductCard from "./CartProductCard";
 import { useTranslations } from "next-intl";

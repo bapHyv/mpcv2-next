@@ -1,14 +1,14 @@
 "use client";
 
-import { ProductCart, useCart } from "@/app/cartContext";
+import { ProductCart, useCart } from "@/app/context/cartContext";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { XMarkIcon, PlusIcon, MinusIcon } from "@heroicons/react/20/solid";
-import { useAlerts } from "@/app/alertsContext";
+import { useAlerts } from "@/app/context/alertsContext";
 import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
-import { useProducts } from "@/app/productsContext";
+import { useProducts } from "@/app/context/productsContext";
 import { updateProductLogic } from "@/app/utils/productFunctions";
 
 export default function CartProductCard({

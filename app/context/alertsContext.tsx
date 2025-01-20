@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  ReactNode,
-  useState,
-  useContext,
-  useEffect,
-} from "react";
+import { createContext, ReactNode, useState, useContext, useEffect } from "react";
 import {
   ExclamationTriangleIcon,
   XCircleIcon,
@@ -15,16 +9,10 @@ import {
   XMarkIcon,
 } from "@heroicons/react/20/solid";
 
-import { v4 as uuid } from "uuid";
 import clsx from "clsx";
 
 interface AlertsContext {
-  addAlert: (
-    alertId: string,
-    description: string,
-    title: string,
-    color: color
-  ) => void;
+  addAlert: (alertId: string, description: string, title: string, color: color) => void;
 }
 
 const alertsContext = createContext({} as AlertsContext);
@@ -39,13 +27,7 @@ interface IAlertElement {
   closeAlert: (alertId: string) => void;
 }
 
-function AlertElement({
-  alertId,
-  color,
-  description,
-  title,
-  closeAlert,
-}: IAlertElement) {
+function AlertElement({ alertId, color, description, title, closeAlert }: IAlertElement) {
   const [isClosing, setIsClosing] = useState(false);
   const [isFingerClosing, setIsFingerClosing] = useState(false);
   const [closeTime, setCloseTime] = useState(3500);
@@ -104,9 +86,7 @@ function AlertElement({
             closeAlert(alertId);
             resolve(timeoutIdClose);
           }, 500);
-        }).then((timeoutIdClose) =>
-          clearTimeout(timeoutIdClose as NodeJS.Timeout)
-        );
+        }).then((timeoutIdClose) => clearTimeout(timeoutIdClose as NodeJS.Timeout));
       }}
     >
       <div
@@ -120,9 +100,7 @@ function AlertElement({
               closeAlert(alertId);
               resolve(timeoutIdClose);
             }, 500);
-          }).then((timeoutIdClose) =>
-            clearTimeout(timeoutIdClose as NodeJS.Timeout)
-          );
+          }).then((timeoutIdClose) => clearTimeout(timeoutIdClose as NodeJS.Timeout));
         }}
       >
         <span className="sr-only">Dismiss</span>
@@ -144,25 +122,14 @@ function AlertElement({
   );
 }
 
-export function AlertsProvider({
-  children,
-}: {
-  children: ReactNode;
-}): JSX.Element {
+export function AlertsProvider({ children }: { children: ReactNode }): JSX.Element {
   const [alerts, setAlerts] = useState<JSX.Element[]>([]);
 
   const closeAlert = (alertId: string) => {
-    setAlerts((prevState) =>
-      prevState.filter((alert) => alert.props.alertId !== alertId)
-    );
+    setAlerts((prevState) => prevState.filter((alert) => alert.props.alertId !== alertId));
   };
 
-  const addAlert = (
-    alertId: string,
-    description: string,
-    title: string,
-    color: color
-  ) => {
+  const addAlert = (alertId: string, description: string, title: string, color: color) => {
     const element = (
       <AlertElement
         key={alertId}

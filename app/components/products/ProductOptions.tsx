@@ -1,8 +1,8 @@
 "use client";
 
-import { useAlerts } from "@/app/alertsContext";
-import { ProductCart, useCart } from "@/app/cartContext";
-import { useProducts } from "@/app/productsContext";
+import { useAlerts } from "@/app/context/alertsContext";
+import { ProductCart, useCart } from "@/app/context/cartContext";
+import { useProducts } from "@/app/context/productsContext";
 import { Image, Prices } from "@/app/types/productsTypes";
 import { formatOptions, updateProductLogic } from "@/app/utils/productFunctions";
 import { Radio, RadioGroup } from "@headlessui/react";
