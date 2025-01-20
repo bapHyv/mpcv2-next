@@ -1,12 +1,8 @@
-'use client'
-import { useAuth } from "@/app/authContext"
+"use client";
+import { useAuth } from "@/app/authContext";
 
 export default function Example() {
-
-  const { userData } = useAuth()
-
-  console.log(userData)
-
+  const { userData } = useAuth();
 
   return (
     <form>
@@ -14,7 +10,10 @@ export default function Example() {
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
             <div className="sm:col-span-3">
-              <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="country"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Country
               </label>
               <div className="mt-2">
@@ -34,7 +33,10 @@ export default function Example() {
             </div>
 
             <div className="col-span-full">
-              <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="street-address"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Street address
               </label>
               <div className="mt-2">
@@ -49,7 +51,10 @@ export default function Example() {
             </div>
 
             <div className="sm:col-span-2 sm:col-start-1">
-              <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="city"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 City
               </label>
               <div className="mt-2">
@@ -64,7 +69,10 @@ export default function Example() {
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="region"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 State / Province
               </label>
               <div className="mt-2">
@@ -79,7 +87,10 @@ export default function Example() {
             </div>
 
             <div className="sm:col-span-2">
-              <label htmlFor="postal-code" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="postal-code"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 ZIP / Postal code
               </label>
               <div className="mt-2">
@@ -96,21 +107,20 @@ export default function Example() {
         </div>
         <ul role="list" className="divide-y divide-gray-200">
           {userData?.addresses.map((address) => (
-             <li key={address.id} className="py-4">
-             <div className="flex justify-between addresss-start">
-               <div>
-                 <h3 className="text-sm font-semibold text-gray-900">{address.address1}</h3>
-                 <p className="text-sm text-gray-600">{`${address.country}, ${address.city} ${address.postalCode}`}</p>
-               </div>
-               <div className="text-sm text-gray-500">
-                 {/* Add any additional actions or details if needed */}
-                 <button className="text-indigo-600 hover:text-indigo-900">Edit</button>
-               </div>
-             </div>
-           </li>
+            <li key={address.id} className="py-4">
+              <div className="flex justify-between addresss-start">
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900">{address.address1}</h3>
+                  <p className="text-sm text-gray-600">{`${address.country}, ${address.city} ${address.postalCode}`}</p>
+                </div>
+                <div className="text-sm text-gray-500">
+                  {/* Add any additional actions or details if needed */}
+                  <button className="text-indigo-600 hover:text-indigo-900">Edit</button>
+                </div>
+              </div>
+            </li>
           ))}
         </ul>
-
 
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
@@ -125,5 +135,5 @@ export default function Example() {
         </div>
       </div>
     </form>
-  )
+  );
 }

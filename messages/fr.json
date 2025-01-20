@@ -152,7 +152,8 @@
     "info": "Informations personnelles",
     "addresses": "Adresses",
     "orders": "Commandes",
-    "fidelity": "Point de fidélité & parrainage"
+    "fidelity": "Point de fidélité & parrainage",
+    "logout": "Déconnexion"
   },
   "footer": {
     "legalNotices": "Mentions légales",
