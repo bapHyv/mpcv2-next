@@ -65,7 +65,7 @@ export default function Dropdown({
                   <button
                     key={item.text}
                     onClick={item.onClick ? (e: React.MouseEvent<HTMLButtonElement>) => item.onClick?.(e) : undefined}
-                    className="uppercase group flex items-center px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                    className="uppercase group flex items-center px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 w-full text-"
 
                   >
                     {item.text}

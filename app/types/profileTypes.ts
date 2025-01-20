@@ -13,8 +13,6 @@ export interface UserData {
     optInMarketing?: boolean;
     oldPassword?: string;
     newPassword?: string;
-
-
 }
 
 export interface UpdatedUserData {

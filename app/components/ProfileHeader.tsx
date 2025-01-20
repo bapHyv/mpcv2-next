@@ -54,7 +54,7 @@ export default function ProfileHeader({ locale }: { locale: string }) {
             button={
                 <>
                     <span className="sr-only">Open user menu</span>
-                    <UserCircleIcon className="h-8 w-8 text-white" />
+                    <UserCircleIcon className="h-8 w-8 text-white" role="button" />
                 </>
             }
             items={isSignedIn ? itemsProfile : itemsAuth}

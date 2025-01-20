@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                         lastname: data.lastname,
                         mail: data.mail,
                         nickname: data.nickname,
-                        addresses: data.addresses
+                        addresses: data.addresses ? data.addresses : []
                     });
                     const oldStorage = JSON.parse(localStorage.getItem('userData') || '{}');
 
@@ -78,7 +78,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, [router]); // Run when the component mounts
 
     const login = async (user: User) => {
-        console.log(user)
         setLoading(true);
         try {
             const { data } = await axiosInstance.post('https://api.monplancbd.fr/login', user,
@@ -89,8 +88,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 }
             );
             // Store the access token in the localStorage
-            console.log(data)
             if (data) {
+                console.log(data)
                 localStorage.setItem('accessToken', data.accessToken)
                 setUserData({
                     display_name: data.display_name,
@@ -98,7 +97,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                     lastname: data.lastname,
                     mail: data.mail,
                     nickname: data.nickname,
-                    addresses: data.addresses
+                    addresses: data.addresses ? data.addresses : []
                 });
                 localStorage.setItem('userData', JSON.stringify(data));
                 setIsSignedIn(true)
