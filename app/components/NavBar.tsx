@@ -84,13 +84,18 @@ export default async function NavBar({ locale }: { locale: string }) {
 
   const languageSelector = [{ text: "fr" }, { text: "es" }, { text: "en" }];
 
+  /**
+   * TODO:
+   */
+
   return (
     <Disclosure
       as="nav"
       className="bg-black fixed bottom-0 sm:top-0 sm:bottom-auto w-full max-w-[1920px] z-50 flex"
     >
-      <div className="w-full max-w-7xl px-3 sm:px-6 lg:px-8 my-1">
-        <div className="flex items-center justify-around">
+      <div className="relative w-full max-w-7xl px-3 sm:px-6 lg:px-8 my-1">
+        {/* PHONE ITEMS NAVBAR */}
+        <div className="flex items-center justify-around sm:hidden">
           {/* BURGER MENU PHONE */}
           <div className="inset-y-0 left-0 flex items-center sm:hidden">
             <DisclosureButton
@@ -111,9 +116,7 @@ export default async function NavBar({ locale }: { locale: string }) {
           </div>
 
           {/* PROFILE DROPDOWN PHONE */}
-          <div className="">
-            <ProfileHeader locale={locale} />
-          </div>
+          <ProfileHeader locale={locale} />
 
           {/* LOGO PHONE */}
           <Link href={`/${locale}`}>
@@ -132,61 +135,61 @@ export default async function NavBar({ locale }: { locale: string }) {
 
           {/* CART BUTTON AND SIDE CART */}
           <SideCart />
+        </div>
 
-          <div className="hidden sm:flex flex-1 gap-6 items-center justify-center sm:items-stretch sm:justify-start sm:gap-16">
-            {/* LOGO PHONE TABLET AND DESKTOP */}
-            <Link href={`/${locale}`}>
-              <Image alt="Monplancbd" src="/logo-blanc.png" width={80} height={80} />
-            </Link>
+        <div className="hidden sm:flex flex-1 gap-6 items-center justify-center sm:items-stretch sm:justify-start sm:gap-16">
+          {/* LOGO PHONE TABLET AND DESKTOP */}
+          <Link href={`/${locale}`}>
+            <Image alt="Monplancbd" src="/logo-blanc.png" width={80} height={80} />
+          </Link>
 
-            {/* THEME SWITCH TABLET AND DESKTOP */}
-            <div className="sm:flex items-center">
-              <ThemeSwitch />
-            </div>
-
-            {/* PRODUCTS BUTTON TABLET AND DESKTOP */}
-            <div className="sm:ml-6 sm:block">
-              <div className="flex space-x-4 h-full items-center">
-                <Dropdown
-                  button={
-                    <>
-                      <span>Produits</span>
-                      <ChevronDownIcon
-                        aria-hidden="true"
-                        className="-mr-1 h-5 w-5 text-neutral-100"
-                      />
-                    </>
-                  }
-                  items={itemsDropdown}
-                  locale={locale}
-                />
-                <Link
-                  href={`/${locale}/blog`}
-                  className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green"
-                >
-                  blog
-                </Link>
-              </div>
-            </div>
+          {/* THEME SWITCH TABLET AND DESKTOP */}
+          <div className="sm:flex items-center">
+            <ThemeSwitch />
           </div>
 
-          <div className="hidden inset-y-0 right-0 sm:flex justify-center gap-3 sm:static sm:inset-auto sm:pr-0">
-            {/* LANGUAGE SELECTOR TABLET AND DESKTOP */}
-            <div className="sm:block">
+          {/* PRODUCTS BUTTON TABLET AND DESKTOP */}
+          <div className="sm:ml-6 sm:block">
+            <div className="flex space-x-4 h-full items-center">
               <Dropdown
                 button={
                   <>
-                    <span className="sr-only">Language selector menu</span>
-                    <Image alt={locale} src={`/${locale}.png`} height={40} width={40} />
+                    <span>Produits</span>
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="-mr-1 h-5 w-5 text-neutral-100"
+                    />
                   </>
                 }
-                items={languageSelector}
+                items={itemsDropdown}
                 locale={locale}
-                menuClassname="sm:flex items-center justify-center w-full"
-                menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
-                menuItemsClassname="right-0 left-auto top-0 w-28"
               />
+              <Link
+                href={`/${locale}/blog`}
+                className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green"
+              >
+                blog
+              </Link>
             </div>
+          </div>
+        </div>
+
+        <div className="hidden inset-y-0 right-0 sm:flex justify-center gap-3 sm:static sm:inset-auto sm:pr-0">
+          {/* LANGUAGE SELECTOR TABLET AND DESKTOP */}
+          <div className="sm:block">
+            <Dropdown
+              button={
+                <>
+                  <span className="sr-only">Language selector menu</span>
+                  <Image alt={locale} src={`/${locale}.png`} height={40} width={40} />
+                </>
+              }
+              items={languageSelector}
+              locale={locale}
+              menuClassname="sm:flex items-center justify-center w-full"
+              menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
+              menuItemsClassname="right-0 left-auto top-0 w-28"
+            />
           </div>
         </div>
       </div>

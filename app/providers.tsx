@@ -5,8 +5,8 @@ import { ProductsProvider } from "@/app/context/productsContext";
 import { CartProvider } from "@/app/context/cartContext";
 import { AlertsProvider } from "@/app/context/alertsContext";
 import { AuthProvider } from "@/app/context/authContext";
-
 import { SseProvider } from "@/app/context/sseContext";
+// import { ClickOutsideProvider } from "@/app/context/clickOutsideContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
