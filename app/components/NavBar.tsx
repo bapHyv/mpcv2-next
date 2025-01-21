@@ -1,5 +1,11 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  UserCircleIcon,
+  NewspaperIcon,
+  ShoppingBagIcon,
+} from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { IDropdownItem } from "../types";
@@ -16,6 +22,9 @@ import SideCart from "@/app/components/cart/SideCart";
 export default async function NavBar({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "navbar" });
   const isSignedIn = true;
+
+  // Nav: dropdown profile logo produit cart
+  // dropdown: blog language theme
 
   // TODO add locale and trad and icons
   const itemsDropdown: IDropdownItem[] = [
@@ -49,7 +58,7 @@ export default async function NavBar({ locale }: { locale: string }) {
     },
   ];
 
-  const itemsProfile = [
+  const itemsProfile: IDropdownItem[] = [
     {
       text: t("info"),
       href: `/mon_compte/profile`,
@@ -68,7 +77,7 @@ export default async function NavBar({ locale }: { locale: string }) {
     },
     {
       text: t("logout"),
-      // onClick: logout()
+      onClick: "logout",
       href: "",
     },
   ];
@@ -76,42 +85,67 @@ export default async function NavBar({ locale }: { locale: string }) {
   const languageSelector = [{ text: "fr" }, { text: "es" }, { text: "en" }];
 
   return (
-    <Disclosure as="nav" className="bg-black fixed w-full max-w-[1920px] z-50">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between">
-          {/* Mobile menu button*/}
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+    <Disclosure
+      as="nav"
+      className="bg-black fixed bottom-0 sm:top-0 sm:bottom-auto w-full max-w-[1920px] z-50 flex"
+    >
+      <div className="w-full max-w-7xl px-3 sm:px-6 lg:px-8 my-1">
+        <div className="flex items-center justify-around">
+          {/* BURGER MENU PHONE */}
+          <div className="inset-y-0 left-0 flex items-center sm:hidden">
             <DisclosureButton
-              className={`group relative inline-flex items-center justify-center rounded-md p-2 text-neutral-100 
+              className={`group relative inline-flex items-center justify-center rounded-md text-neutral-100 
                 hover:bg-neutral-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white`}
             >
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
               <Bars3Icon
                 aria-hidden="true"
-                className="block h-6 w-6 group-data-[open]:hidden"
+                className="block h-8 w-8 group-data-[open]:hidden"
               />
               <XMarkIcon
                 aria-hidden="true"
-                className="hidden h-6 w-6 group-data-[open]:block"
+                className="hidden h-8 w-8 group-data-[open]:block"
               />
             </DisclosureButton>
           </div>
-          <div className="flex flex-1 gap-6 items-center justify-center sm:items-stretch sm:justify-start sm:gap-16">
-            <Link
-              href={`/${locale}/${itemsDropdown[0].href}`}
-              className="text-white text-xl capitalize bg-green px-4 py-1 rounded-md sm:hidden"
-            >
-              produits
-            </Link>
+
+          {/* PROFILE DROPDOWN PHONE */}
+          <div className="">
+            <ProfileHeader locale={locale} />
+          </div>
+
+          {/* LOGO PHONE */}
+          <Link href={`/${locale}`}>
+            <Image
+              alt="Monplancbd"
+              src="/logo_fleur_verte_souligne_blanc.png"
+              width={50}
+              height={50}
+            />
+          </Link>
+
+          {/* PRODUCTS LINK PHONE */}
+          <Link href={`/${locale}/${itemsDropdown[0].href}`}>
+            <ShoppingBagIcon className="w-10 h-10 text-white" />
+          </Link>
+
+          {/* CART BUTTON AND SIDE CART */}
+          <SideCart />
+
+          <div className="hidden sm:flex flex-1 gap-6 items-center justify-center sm:items-stretch sm:justify-start sm:gap-16">
+            {/* LOGO PHONE TABLET AND DESKTOP */}
             <Link href={`/${locale}`}>
               <Image alt="Monplancbd" src="/logo-blanc.png" width={80} height={80} />
             </Link>
-            <div className="hidden sm:flex items-center">
+
+            {/* THEME SWITCH TABLET AND DESKTOP */}
+            <div className="sm:flex items-center">
               <ThemeSwitch />
             </div>
 
-            <div className="hidden sm:ml-6 sm:block">
+            {/* PRODUCTS BUTTON TABLET AND DESKTOP */}
+            <div className="sm:ml-6 sm:block">
               <div className="flex space-x-4 h-full items-center">
                 <Dropdown
                   button={
@@ -135,8 +169,10 @@ export default async function NavBar({ locale }: { locale: string }) {
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex justify-center gap-3 sm:static sm:inset-auto sm:pr-0">
-            <div className="hidden sm:block">
+
+          <div className="hidden inset-y-0 right-0 sm:flex justify-center gap-3 sm:static sm:inset-auto sm:pr-0">
+            {/* LANGUAGE SELECTOR TABLET AND DESKTOP */}
+            <div className="sm:block">
               <Dropdown
                 button={
                   <>
@@ -151,59 +187,54 @@ export default async function NavBar({ locale }: { locale: string }) {
                 menuItemsClassname="right-0 left-auto top-0 w-28"
               />
             </div>
-            <SideCart />
-            {/* Profile dropdown */}
-            <ProfileHeader locale={locale} />
           </div>
         </div>
       </div>
 
-      {/* MOBILE */}
+      {/* OPENED BURGER MENU */}
       <DisclosurePanel className="sm:hidden">
-        <div className="">
-          <div className="px-2 pb-3 pt-2 flex justify-between">
-            <Link
-              href={`/${locale}/blog`}
-              className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green w-1/2"
-            >
-              blog
-            </Link>
-            <div className="w-1/2 flex justify-end gap-x-3">
-              <ThemeSwitch />
+        <div className="px-2 pb-3 pt-2 flex justify-between">
+          <Link
+            href={`/${locale}/blog`}
+            className="uppercase text-neutral-100 hover:text-white rounded-md px-3 py-2 text-sm font-medium hover:ring-1 hover:ring-green w-1/2"
+          >
+            blog
+          </Link>
+          <div className="w-1/2 flex justify-end gap-x-3">
+            <ThemeSwitch />
+            <Dropdown
+              button={
+                <>
+                  <span className="sr-only">Language selector menu</span>
+                  <Image alt={locale} src={`/${locale}.png`} height={40} width={40} />
+                </>
+              }
+              items={languageSelector}
+              locale={locale}
+              menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
+              menuItemsClassname="right-0 left-auto w-28"
+            />
+            {isSignedIn ? (
               <Dropdown
                 button={
                   <>
-                    <span className="sr-only">Language selector menu</span>
-                    <Image alt={locale} src={`/${locale}.png`} height={40} width={40} />
+                    <span className="sr-only">Open user menu</span>
+                    <UserCircleIcon className="h-8 w-8 text-white" />
                   </>
                 }
-                items={languageSelector}
+                items={itemsProfile}
                 locale={locale}
-                menuButtonClassname="bg-transparent p-0 hover:bg-black hover:ring-0"
-                menuItemsClassname="right-0 left-auto w-28"
+                menuButtonClassname="rounded-full p-1"
+                menuItemsClassname="right-0 left-auto"
               />
-              {isSignedIn ? (
-                <Dropdown
-                  button={
-                    <>
-                      <span className="sr-only">Open user menu</span>
-                      <UserCircleIcon className="h-8 w-8 text-white" />
-                    </>
-                  }
-                  items={itemsProfile}
-                  locale={locale}
-                  menuButtonClassname="rounded-full p-1"
-                  menuItemsClassname="right-0 left-auto"
-                />
-              ) : (
-                <Link
-                  href={`/${locale}/login`}
-                  className="text-white bg-green py-2 px-1 rounded-md"
-                >
-                  {t("connection")}
-                </Link>
-              )}
-            </div>
+            ) : (
+              <Link
+                href={`/${locale}/login`}
+                className="text-white bg-green py-2 px-1 rounded-md"
+              >
+                {t("connection")}
+              </Link>
+            )}
           </div>
         </div>
       </DisclosurePanel>

@@ -149,11 +149,13 @@
     "cream": "soins cbd",
     "vaporisateur": "vaporisateur",
     "connection": "Connexion",
-    "info": "Informations personnelles",
+    "info": "Informations",
     "addresses": "Adresses",
     "orders": "Commandes",
-    "fidelity": "Point de fidélité & parrainage",
-    "logout": "Déconnexion"
+    "fidelity": "Fidélité",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "register": "S'inscrire"
   },
   "footer": {
     "legalNotices": "Mentions légales",

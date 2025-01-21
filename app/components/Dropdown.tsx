@@ -6,6 +6,7 @@ import { IDropdown } from "@/app/types";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useAuth } from "../context/authContext";
 
 function generatePathWithLocale(pathname: string, locale: string) {
   const newPath = pathname.split("/");
@@ -22,6 +23,16 @@ export default function Dropdown({
   menuClassname,
 }: IDropdown) {
   const pathname = usePathname();
+  const { logout } = useAuth();
+  const onClick = {
+    logout: logout,
+  };
+
+  items.forEach((item) => {
+    if ("onClick" in item) {
+      console.log(item);
+    }
+  });
 
   return (
     <Menu as="div" className={twMerge("relative inline-block text-left", menuClassname)}>
@@ -60,7 +71,7 @@ export default function Dropdown({
               ) : "onClick" in item ? (
                 <button
                   key={item.text}
-                  onClick={"onClick" in item ? () => item.onClick : undefined}
+                  onClick={onClick[item.onClick]}
                   className="uppercase group flex items-center px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 w-full text-"
                 >
                   {item.text}

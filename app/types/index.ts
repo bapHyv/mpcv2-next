@@ -6,6 +6,7 @@ export interface IDropdownItem {
   text?: string;
   href?: string;
   icon?: any;
+  onClick?: string;
 }
 
 export interface IDropdown {

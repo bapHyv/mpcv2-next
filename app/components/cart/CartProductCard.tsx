@@ -79,8 +79,6 @@ export default function CartProductCard({
     }
   };
 
-  const alertRemoveProductDescription = `Le produit ${name} a bien été retiré du panier`;
-
   return (
     <>
       <div className="relative flex border border-neutral-400 rounded-md shadow-xl dark:shadow-neutral-700 dark:shadow-lg bg-neutral-50 dark:bg-black mb-2 max-h-[140px]">
@@ -89,7 +87,7 @@ export default function CartProductCard({
             removeProduct();
             addAlert(
               uuid(),
-              alertRemoveProductDescription,
+              `Le produit ${name} a bien été retiré du panier`,
               "Suppression de produit",
               "yellow"
             );
@@ -132,7 +130,7 @@ export default function CartProductCard({
                 onClick={incrementQuantity}
                 className={twMerge(
                   clsx(
-                    parseInt(products[id].stock) < parseInt(option)
+                    parseInt(products[id]?.stock) < parseInt(option)
                       ? "cursor-not-allowed bg-neutral-400"
                       : "cursor-pointer bg-green",
                     "text-white rounded-full h-5 w-5"

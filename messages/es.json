@@ -153,7 +153,9 @@
     "addresses": "Direcciones",
     "orders": "Pedidos",
     "fidelity": "Punto de fidelidad & patrocinio",
-    "logout": "logout"
+    "logout": "logout es",
+    "login": "Login es",
+    "register": "Sign up es"
   },
   "footer": {
     "legalNotices": "Aviso legal",
