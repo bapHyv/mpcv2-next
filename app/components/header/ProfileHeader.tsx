@@ -40,6 +40,17 @@ export default function ProfileHeader({ locale }: { locale: string }) {
   const [isVisible, setIsVisible] = useState(false);
   const pathName = usePathname();
   const iconRef = useRef<HTMLDivElement | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleIsClosing = () => {
+    setIsClosing(true);
+    // This setTimeout is here to let the animation trigger before removing the component
+    // The time must be equal to animation-duration property in .close-menu-item class (see globals.css)
+    setTimeout(() => {
+      setIsVisible(false);
+      setIsClosing(false);
+    }, 150);
+  };
 
   useEffect(() => {
     setIsVisible(false);
@@ -47,15 +58,27 @@ export default function ProfileHeader({ locale }: { locale: string }) {
 
   return (
     <div>
-      <div ref={iconRef} className="flex" onClick={() => setIsVisible((prev) => !prev)}>
+      <div
+        ref={iconRef}
+        className="flex"
+        onClick={() => {
+          if (isVisible) {
+            handleIsClosing();
+          } else {
+            setIsVisible(true);
+          }
+        }}
+      >
         <span className="sr-only">Open user menu</span>
         <UserCircleIcon className="h-10 w-10 text-white" role="button" />
       </div>
       {isVisible && (
         <UserMenu
           locale={locale}
-          onClickOutside={() => setIsVisible(false)}
+          onClickOutside={() => handleIsClosing()}
           iconRef={iconRef}
+          isVisible={isVisible}
+          isClosing={isClosing}
         />
       )}
     </div>
@@ -66,10 +89,14 @@ function UserMenu({
   locale,
   onClickOutside,
   iconRef,
+  isVisible,
+  isClosing,
 }: {
   locale: string;
   onClickOutside: any;
   iconRef: MutableRefObject<HTMLDivElement | null>;
+  isVisible: boolean;
+  isClosing: boolean;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const t = useTranslations("navbar");
@@ -177,7 +204,10 @@ function UserMenu({
   return (
     <div
       ref={ref}
-      className="absolute bottom-14 bg-black text-white flex flex-col rounded-t-md w-[40dvw]"
+      className={clsx(
+        "absolute -top-52 bg-black text-white flex flex-col rounded-t-md w-[45dvw]",
+        { "open-menu-item": isVisible, "close-menu-item": isClosing }
+      )}
     >
       {isSignedIn ? loggedInItems : loggedOutItems}
     </div>

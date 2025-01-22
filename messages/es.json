@@ -149,13 +149,18 @@
     "cream": "cuidados de CBD",
     "vaporisateur": "vaporizador",
     "connection": "Conexión",
-    "info": "Información personal",
+    "info": "Información",
     "addresses": "Direcciones",
     "orders": "Pedidos",
-    "fidelity": "Punto de fidelidad & patrocinio",
+    "fidelity": "Fidelidad",
     "logout": "logout es",
     "login": "Login es",
-    "register": "Sign up es"
+    "register": "Sign up es",
+    "burger": {
+      "english": "Inglés",
+      "spanish": "Español",
+      "french": "Francés"
+    }
   },
   "footer": {
     "legalNotices": "Aviso legal",

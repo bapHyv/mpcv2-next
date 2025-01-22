@@ -7,18 +7,12 @@ import ThemeSwitch from "@/app/components/ThemeSwitch";
 import Separator from "../Separator";
 import React from "react";
 import clsx from "clsx";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 
 const iconClassname = `h-10 w-10 text-neutral-100 flex items-center
-hover:text-white hover:bg-neutral-700
+hover:text-white
 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white`;
-
-/**
- * TODO:
- *  -Traduction (alt image)
- *  -Theme switch (it must take the whole row)
- */
 
 function generatePathWithLocale(pathname: string, locale: string) {
   const newPath = pathname.split("/");
@@ -28,8 +22,19 @@ function generatePathWithLocale(pathname: string, locale: string) {
 
 export default function BurgerMenuHeader({ locale }: { locale: string }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const pathName = usePathname();
   const iconRef = useRef<SVGSVGElement | null>(null);
+
+  const handleIsClosing = () => {
+    setIsClosing(true);
+    // This setTimeout is here to let the animation trigger before removing the component
+    // The time must be equal to animation-duration property in .close-menu-item class (see globals.css)
+    setTimeout(() => {
+      setIsVisible(false);
+      setIsClosing(false);
+    }, 150);
+  };
 
   useEffect(() => {
     setIsVisible(false);
@@ -43,7 +48,7 @@ export default function BurgerMenuHeader({ locale }: { locale: string }) {
           ref={iconRef}
           role="button"
           className={iconClassname}
-          onClick={() => setIsVisible(false)}
+          onClick={() => handleIsClosing()}
         />
       ) : (
         <Bars3Icon
@@ -55,8 +60,10 @@ export default function BurgerMenuHeader({ locale }: { locale: string }) {
       {isVisible && (
         <BurgerMenu
           locale={locale}
-          onClickOutside={() => setIsVisible(false)}
+          onClickOutside={() => handleIsClosing()}
           iconRef={iconRef}
+          isVisible={isVisible}
+          isClosing={isClosing}
         />
       )}
     </div>
@@ -67,14 +74,19 @@ function BurgerMenu({
   locale,
   onClickOutside,
   iconRef,
+  isVisible,
+  isClosing,
 }: {
   locale: string;
   onClickOutside: any;
   iconRef: MutableRefObject<SVGSVGElement | null>;
+  isVisible: boolean;
+  isClosing: boolean;
 }) {
   const urlLocale = useLocale();
   const pathname = usePathname();
   const ref = useRef<HTMLDivElement | null>(null);
+  const t = useTranslations("navbar.burger");
 
   useEffect(() => {
     const handleClickOutsideBurgerMenu = (event: MouseEvent) => {
@@ -84,7 +96,6 @@ function BurgerMenu({
         !ref.current.contains(event.target as HTMLElement) &&
         !iconRef.current.contains(event.target as HTMLElement)
       ) {
-        console.log("here");
         onClickOutside && onClickOutside();
       }
     };
@@ -99,7 +110,7 @@ function BurgerMenu({
   const languageSelector = [
     {
       key: "Français",
-      alt: "Français",
+      alt: t("french"),
       text: "Français",
       src: "/fr.png",
       locale: "fr",
@@ -108,8 +119,8 @@ function BurgerMenu({
     },
     {
       key: "Espagnol",
-      alt: "Espagnol",
-      text: "Espagnol",
+      alt: t("spanish"),
+      text: "Español",
       src: "/es.png",
       locale: "es",
       h: hw.h,
@@ -117,18 +128,22 @@ function BurgerMenu({
     },
     {
       key: "Anglais",
-      alt: "Anglais",
-      text: "Anglais",
+      alt: t("english"),
+      text: "English",
       src: "/en.png",
       locale: "en",
       h: hw.h,
       w: hw.w,
     },
   ];
+
   return (
     <div
       ref={ref}
-      className="absolute bottom-14 bg-black text-white flex flex-col rounded-t-md w-[40dvw]"
+      className={clsx(
+        "absolute -top-52 bg-black text-white flex flex-col rounded-t-md w-[45dvw]",
+        { "open-menu-item": isVisible, "close-menu-item": isClosing }
+      )}
     >
       {/* BLOG */}
       <Link href={`/${locale}/blog`} className="flex items-center ml-2">
@@ -138,10 +153,7 @@ function BurgerMenu({
       <Separator classname="m-0" />
 
       {/* THEME */}
-      <div className="flex items-center ml-2">
-        <ThemeSwitch />
-        <span className="p-2">Theme</span>
-      </div>
+      <ThemeSwitch />
       <Separator classname="m-0" />
       {/* LANGUAGE SELECTOR */}
       {languageSelector.map((e, i, a) => (

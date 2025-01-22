@@ -155,7 +155,12 @@
     "fidelity": "Sponsorship",
     "logout": "Logout",
     "login": "Login",
-    "register": "Sign up"
+    "register": "Sign up",
+    "burger": {
+      "english": "English",
+      "spanish": "Spanish",
+      "french": "French"
+    }
   },
   "footer": {
     "legalNotices": "legal notices",

@@ -31,19 +31,19 @@ export default function ThemeSwitch({ classname }: Props) {
 
   if (resolvedTheme === "dark") {
     return (
-      <FiSun
-        className={twMerge("text-white w-6 h-6", classname)}
-        onClick={() => setTheme("light")}
-      />
+      <div className="flex items-center" onClick={() => setTheme("light")}>
+        <FiSun className={twMerge("text-white w-6 h-6 ml-2", classname)} />
+        <span className="p-2">Theme: {resolvedTheme}</span>
+      </div>
     );
   }
 
   if (resolvedTheme === "light") {
     return (
-      <FiMoon
-        className={twMerge("text-white w-6 h-6", classname)}
-        onClick={() => setTheme("dark")}
-      />
+      <div className="flex items-center" onClick={() => setTheme("dark")}>
+        <FiMoon className={twMerge("text-white w-6 h-6 ml-2", classname)} />
+        <span className="p-2">Theme: {resolvedTheme}</span>
+      </div>
     );
   }
 }

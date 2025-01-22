@@ -2,12 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes shine {
-  0% {
-    background-position: -200% 0, 0 0;
+.open-menu-item {
+  animation-name: openMenuItem;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes openMenuItem {
+  from {
+    max-height: 0px;
+    opacity: 0;
   }
-  100% {
-    background-position: 200% 0, 0 0;
+
+  to {
+    max-height: fit-content;
+    opacity: 1;
+  }
+}
+
+.close-menu-item {
+  animation-name: closeMenuItem;
+  animation-duration: 0.15s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes closeMenuItem {
+  from {
+    max-height: fit-content;
+    opacity: 1;
+  }
+
+  to {
+    max-height: 0px;
+    opacity: 0;
   }
 }
 
@@ -31,6 +62,15 @@
 
   /* Apply the animation */
   animation: shine 1s infinite linear;
+}
+
+@keyframes shine {
+  0% {
+    background-position: -200% 0, 0 0;
+  }
+  100% {
+    background-position: 200% 0, 0 0;
+  }
 }
 
 @layer utilities {

@@ -155,7 +155,12 @@
     "fidelity": "Fidélité",
     "logout": "Déconnexion",
     "login": "Connexion",
-    "register": "S'inscrire"
+    "register": "S'inscrire",
+    "burger": {
+      "english": "Anglais",
+      "spanish": "Espagnol",
+      "french": "Français"
+    }
   },
   "footer": {
     "legalNotices": "Mentions légales",
