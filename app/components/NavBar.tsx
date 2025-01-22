@@ -1,30 +1,21 @@
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-  UserCircleIcon,
-  NewspaperIcon,
-  ShoppingBagIcon,
-} from "@heroicons/react/24/outline";
+import { Disclosure, DisclosurePanel } from "@headlessui/react";
+import { UserCircleIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import { IDropdownItem } from "../types";
+import { IDropdownItem } from "@/app/types";
 import { getTranslations } from "next-intl/server";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import Dropdown from "@/app/components/Dropdown";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
-import PublicHeader from "@/app/components/ProfileHeader";
-import ProfileHeader from "@/app/components/ProfileHeader";
+import ProfileHeader from "@/app/components/header/ProfileHeader";
 
 import SideCart from "@/app/components/cart/SideCart";
+import BurgerMenuHeader from "@/app/components/header/BurgerMenuHeader";
 
 export default async function NavBar({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "navbar" });
   const isSignedIn = true;
-
-  // Nav: dropdown profile logo produit cart
-  // dropdown: blog language theme
 
   // TODO add locale and trad and icons
   const itemsDropdown: IDropdownItem[] = [
@@ -85,7 +76,13 @@ export default async function NavBar({ locale }: { locale: string }) {
   const languageSelector = [{ text: "fr" }, { text: "es" }, { text: "en" }];
 
   /**
+   * Nav: dropdown profile logo produit cart
+   * dropdown: blog language theme
+   *
    * TODO:
+   * Remplacer menu burger disclosure par un menu burger perso (voir menu user)
+   * Ajouter un effet brillant sur la navbar pour attirer l'oeil
+   * Refaire la navbar sur tablet et desktop
    */
 
   return (
@@ -97,23 +94,7 @@ export default async function NavBar({ locale }: { locale: string }) {
         {/* PHONE ITEMS NAVBAR */}
         <div className="flex items-center justify-around sm:hidden">
           {/* BURGER MENU PHONE */}
-          <div className="inset-y-0 left-0 flex items-center sm:hidden">
-            <DisclosureButton
-              className={`group relative inline-flex items-center justify-center rounded-md text-neutral-100 
-                hover:bg-neutral-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white`}
-            >
-              <span className="absolute -inset-0.5" />
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon
-                aria-hidden="true"
-                className="block h-8 w-8 group-data-[open]:hidden"
-              />
-              <XMarkIcon
-                aria-hidden="true"
-                className="hidden h-8 w-8 group-data-[open]:block"
-              />
-            </DisclosureButton>
-          </div>
+          <BurgerMenuHeader locale={locale} />
 
           {/* PROFILE DROPDOWN PHONE */}
           <ProfileHeader locale={locale} />

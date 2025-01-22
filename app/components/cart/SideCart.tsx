@@ -3,7 +3,7 @@
 import { useCart } from "@/app/context/cartContext";
 import { useEffect, useState } from "react";
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
-import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import CartProductCard from "./CartProductCard";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -56,7 +56,7 @@ export default function Cart() {
         <div className="relative">
           <ShoppingCartIcon
             onClick={() => setOpen(true)}
-            className="w-10 h-10 rounded-full bg-white text-black p-1 cursor-pointer"
+            className="w-10 h-10 text-white cursor-pointer"
           />
           <span className="sr-only">Items in shopping cart</span>
           {!!cart?.products?.length && (

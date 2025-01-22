@@ -32,10 +32,7 @@ export default function ThemeSwitch({ classname }: Props) {
   if (resolvedTheme === "dark") {
     return (
       <FiSun
-        className={twMerge(
-          "text-black p-1.5 w-10 h-10 rounded-full bg-white",
-          classname
-        )}
+        className={twMerge("text-white w-6 h-6", classname)}
         onClick={() => setTheme("light")}
       />
     );
@@ -44,10 +41,7 @@ export default function ThemeSwitch({ classname }: Props) {
   if (resolvedTheme === "light") {
     return (
       <FiMoon
-        className={twMerge(
-          "text-black p-1.5 w-10 h-10 rounded-full bg-white",
-          classname
-        )}
+        className={twMerge("text-white w-6 h-6", classname)}
         onClick={() => setTheme("dark")}
       />
     );
