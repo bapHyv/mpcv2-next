@@ -2,12 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes shine {
-  0% {
-    background-position: -200% 0, 0 0;
+.open-menu-item {
+  animation-name: openMenuItem;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes openMenuItem {
+  from {
+    max-height: 0px;
+    opacity: 0;
   }
+
+  to {
+    max-height: fit-content;
+    opacity: 1;
+  }
+}
+
+.close-menu-item {
+  animation-name: closeMenuItem;
+  animation-duration: 0.15s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes closeMenuItem {
+  from {
+    max-height: fit-content;
+    opacity: 1;
+  }
+
+  to {
+    max-height: 0px;
+    opacity: 0;
+  }
+}
+
+.animate-pulse-effect {
+  animation-name: animatePulseEffect;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+@keyframes animatePulseEffect {
+  0% {
+    background-color: #1e1e1c;
+  }
+
+  50% {
+    background-color: #1e1e1cf7;
+  }
+
   100% {
-    background-position: 200% 0, 0 0;
+    background-color: #1e1e1c;
   }
 }
 
@@ -30,7 +83,19 @@
   background-size: 250% 250%, 100% 100%;
 
   /* Apply the animation */
-  animation: shine 1s infinite linear;
+  animation: shine 5s infinite linear;
+}
+
+@keyframes shine {
+  0% {
+    background-position: -200% 0, 0 0;
+  }
+  80% {
+    background-position: -100% 0, 0 0;
+  }
+  100% {
+    background-position: 100% 0, 0 0;
+  }
 }
 
 @layer utilities {

@@ -23,6 +23,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const router = useRouter();
 
+  const cleanUpLocalStorageUserRelated = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userData");
+  };
+
   // Check for access token and auto-login on initial load
   useEffect(() => {
     const checkToken = async () => {
@@ -113,17 +118,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
-    console.log("logout");
     try {
       const logoutUser = await axios.get(`https://api.monplancbd.fr/logout`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-      localStorage.clear();
+      console.log("-----");
+      cleanUpLocalStorageUserRelated();
       setUser(null);
       setIsSignedIn(false);
+      setUserData(null);
       router.push("/");
+      console.log("-----");
     } catch (err) {
       console.error(err);
     }

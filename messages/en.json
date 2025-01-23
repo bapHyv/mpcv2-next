@@ -153,7 +153,14 @@
     "addresses": "Addresses",
     "orders": "Orders",
     "fidelity": "Sponsorship",
-    "logout": "logout"
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Sign up",
+    "burger": {
+      "english": "English",
+      "spanish": "Spanish",
+      "french": "French"
+    }
   },
   "footer": {
     "legalNotices": "legal notices",

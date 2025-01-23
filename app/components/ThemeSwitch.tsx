@@ -14,6 +14,8 @@ export default function ThemeSwitch({ classname }: Props) {
   const [mounted, setMounted] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
 
+  const iconClassname = "text-white w-6 h-6 ml-2 lg:w-8 lg:h-8 xl:w-10 xl:h-10";
+
   useEffect(() => setMounted(true), []);
 
   if (!mounted)
@@ -31,25 +33,19 @@ export default function ThemeSwitch({ classname }: Props) {
 
   if (resolvedTheme === "dark") {
     return (
-      <FiSun
-        className={twMerge(
-          "text-black p-1.5 w-10 h-10 rounded-full bg-white",
-          classname
-        )}
-        onClick={() => setTheme("light")}
-      />
+      <div className="flex items-center" onClick={() => setTheme("light")}>
+        <FiSun role="button" className={twMerge(iconClassname, classname)} />
+        <span className="p-2 sm:hidden">Theme: {resolvedTheme}</span>
+      </div>
     );
   }
 
   if (resolvedTheme === "light") {
     return (
-      <FiMoon
-        className={twMerge(
-          "text-black p-1.5 w-10 h-10 rounded-full bg-white",
-          classname
-        )}
-        onClick={() => setTheme("dark")}
-      />
+      <div className="flex items-center" onClick={() => setTheme("dark")}>
+        <FiMoon role="button" className={twMerge(iconClassname, classname)} />
+        <span className="p-2 sm:hidden">Theme: {resolvedTheme}</span>
+      </div>
     );
   }
 }
