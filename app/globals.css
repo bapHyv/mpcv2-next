@@ -42,6 +42,28 @@
   }
 }
 
+.animate-pulse-effect {
+  animation-name: animatePulseEffect;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+@keyframes animatePulseEffect {
+  0% {
+    background-color: #1e1e1c;
+  }
+
+  50% {
+    background-color: #1e1e1cf7;
+  }
+
+  100% {
+    background-color: #1e1e1c;
+  }
+}
+
 .card-shine-effect {
   --shine-deg: 45deg;
 
@@ -61,15 +83,18 @@
   background-size: 250% 250%, 100% 100%;
 
   /* Apply the animation */
-  animation: shine 1s infinite linear;
+  animation: shine 5s infinite linear;
 }
 
 @keyframes shine {
   0% {
     background-position: -200% 0, 0 0;
   }
+  80% {
+    background-position: -100% 0, 0 0;
+  }
   100% {
-    background-position: 200% 0, 0 0;
+    background-position: 100% 0, 0 0;
   }
 }
 

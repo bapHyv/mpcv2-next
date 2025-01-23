@@ -36,19 +36,8 @@ export default function Cart() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Close the sideCart on navigate
     setOpen(false);
   }, [pathname]);
-
-  // const computeTotal = () => {
-  //   let total = 0;
-
-  //   cart.forEach((product) => {
-  //     total += product.totalPrice;
-  //   });
-
-  //   return total;
-  // };
 
   return (
     <>
@@ -56,7 +45,7 @@ export default function Cart() {
         <div className="relative">
           <ShoppingCartIcon
             onClick={() => setOpen(true)}
-            className="w-10 h-10 text-white cursor-pointer"
+            className="w-10 h-10 sm:w-6 sm:h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-white cursor-pointer"
           />
           <span className="sr-only">Items in shopping cart</span>
           {!!cart?.products?.length && (

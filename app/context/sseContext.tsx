@@ -71,6 +71,46 @@ const fakeSseData = {
   },
 };
 
+// {
+//   COUPON_LABEL: {
+//       linkedToUser: Boolean
+//       individualUse: Boolean
+//       discountType: string
+//       discountValue: string
+//       freeShipping: Boolean
+//       minCartAmount: number
+//       maxCartAmount: number
+//       excludePromoProduct: boolean
+//       maxUsage: number
+//       maxUsageByUser: number
+//       nbItemsLimit: number
+//       requiredProducts: array of product ids
+//       requiredCategories: array of category ids
+//       excludedProducts: array of product ids
+//       excludedCategories: array of category ids
+//       totalUsage: number
+//   }
+// }
+
+// shippingMethods: {
+//   byShippingZones: {
+//       'France': {
+//           methods: {
+//               METHOD_ID: {
+
+//               },
+//               ...
+//           }
+//       }
+//   },
+//   byId: {
+//       METHOD_ID: {
+
+//       },
+//       ...
+//   }
+// }
+
 interface IDiscountCode {
   [code: string]: {
     linkedToUser: boolean;

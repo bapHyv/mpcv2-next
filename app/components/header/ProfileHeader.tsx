@@ -38,9 +38,11 @@ type ItemsProfile = WithHref | WithOnClick;
 
 export default function ProfileHeader({ locale }: { locale: string }) {
   const [isVisible, setIsVisible] = useState(false);
-  const pathName = usePathname();
-  const iconRef = useRef<HTMLDivElement | null>(null);
   const [isClosing, setIsClosing] = useState(false);
+
+  const iconRef = useRef<HTMLDivElement | null>(null);
+
+  const pathName = usePathname();
 
   const handleIsClosing = () => {
     setIsClosing(true);
@@ -57,21 +59,22 @@ export default function ProfileHeader({ locale }: { locale: string }) {
   }, [pathName]);
 
   return (
-    <div>
-      <div
-        ref={iconRef}
-        className="flex"
-        onClick={() => {
-          if (isVisible) {
-            handleIsClosing();
-          } else {
-            setIsVisible(true);
-          }
-        }}
-      >
-        <span className="sr-only">Open user menu</span>
-        <UserCircleIcon className="h-10 w-10 text-white" role="button" />
-      </div>
+    <div
+      ref={iconRef}
+      className="relative"
+      onClick={() => {
+        if (isVisible) {
+          handleIsClosing();
+        } else {
+          setIsVisible(true);
+        }
+      }}
+    >
+      <span className="sr-only">Open user menu</span>
+      <UserCircleIcon
+        className="h-10 w-10 sm:w-6 sm:h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-white"
+        role="button"
+      />
       {isVisible && (
         <UserMenu
           locale={locale}
@@ -99,8 +102,11 @@ function UserMenu({
   isClosing: boolean;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
+
   const t = useTranslations("navbar");
   const { isSignedIn, logout } = useAuth();
+
+  const iconClassname = "w-6 h-6 text-white ml-2";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -125,31 +131,31 @@ function UserMenu({
       text: t("info"),
       href: `/mon_compte/profile`,
       key: "info",
-      icon: <UserIcon className="w-6 h-6 text-white" />,
+      icon: <UserIcon className={iconClassname} />,
     },
     {
       text: t("addresses"),
       href: `/mon_compte/adresses`,
       key: "addresses",
-      icon: <HomeModernIcon className="w-6 h-6 text-white" />,
+      icon: <HomeModernIcon className={iconClassname} />,
     },
     {
       text: t("orders"),
       href: `/mon_compte/commandes`,
       key: "orders",
-      icon: <TruckIcon className="w-6 h-6 text-white" />,
+      icon: <TruckIcon className={iconClassname} />,
     },
     {
       text: t("fidelity"),
       href: `/mon_compte/fidelite`,
       key: "fidelity",
-      icon: <ChatBubbleLeftRightIcon className="w-6 h-6 text-white" />,
+      icon: <ChatBubbleLeftRightIcon className={iconClassname} />,
     },
     {
       text: t("logout"),
       onClick: () => logout(),
       key: "logout",
-      icon: <ArrowRightStartOnRectangleIcon className="w-6 h-6 text-white" />,
+      icon: <ArrowRightStartOnRectangleIcon className={iconClassname} />,
     },
   ];
 
@@ -158,55 +164,63 @@ function UserMenu({
       text: t("login"),
       href: `/login`,
       key: "login",
-      icon: <ArrowLeftEndOnRectangleIcon className="w-6 h-6 text-white" />,
+      icon: <ArrowLeftEndOnRectangleIcon className={iconClassname} />,
     },
     {
       text: t("register"),
       href: `/register`,
       key: "register",
-      icon: <PencilSquareIcon className="w-6 h-6 text-white" />,
+      icon: <PencilSquareIcon className={iconClassname} />,
     },
   ];
 
-  const loggedInItems = itemsProfile.map((e) => (
-    <div key={e.key}>
-      {"href" in e ? (
-        <>
-          <Link href={`/${locale}${e.href}`} className="flex items-center ml-2">
-            {e.icon}
-            <span className="p-2">{e.text}</span>
-          </Link>
-          <Separator classname="m-0" />
-        </>
-      ) : (
-        <div className="flex items-center ml-2">
-          {e.icon}
-          <button onClick={e.onClick} className="p-2 text-left">
-            {e.text}
-          </button>
-        </div>
-      )}
-    </div>
-  ));
-
-  const loggedOutItems = itemsAuth.map((e) => (
-    <React.Fragment key={e.key}>
-      <Link href={`/${locale}/${e.href}`} className="ml-2">
-        <div className="flex items-center">
-          {e.icon}
-          <span className="p-2">{e.text}</span>
-        </div>
+  const loggedInItems = itemsProfile.map((e) => {
+    return "href" in e ? (
+      <Link
+        key={e.key}
+        href={`/${locale}${e.href}`}
+        className="flex items-center hover:bg-light-black"
+      >
+        {e.icon}
+        <span className="p-2">{e.text}</span>
       </Link>
-      <Separator classname="m-0" />
-    </React.Fragment>
+    ) : (
+      <div key={e.key} className="flex items-center hover:bg-light-black sm:rounded-b-md">
+        {e.icon}
+        <button onClick={e.onClick} className="p-2 text-left">
+          {e.text}
+        </button>
+      </div>
+    );
+  });
+
+  const loggedOutItems = itemsAuth.map((e, i, a) => (
+    <Link
+      key={e.key}
+      href={`/${locale}/${e.href}`}
+      className={clsx("hover:bg-light-black", { "sm:rounded-b-md": i === a.length - 1 })}
+    >
+      <div className="flex items-center">
+        {e.icon}
+        <span className="p-2 text-nowrap">{e.text}</span>
+      </div>
+    </Link>
   ));
 
   return (
     <div
       ref={ref}
       className={clsx(
-        "absolute -top-52 bg-black text-white flex flex-col rounded-t-md w-[45dvw]",
-        { "open-menu-item": isVisible, "close-menu-item": isClosing }
+        "absolute bg-black text-white flex flex-col rounded-t-md w-[45dvw]",
+        "sm:top-14 sm:w-fit sm:-translate-x-[calc(50%-12px)] sm:rounded-t-none sm:rounded-b-md",
+        "lg:-translate-x-[calc(50%-16px)]",
+        "xl:top-16 xl:-translate-x-[calc(50%-20px)]",
+        {
+          "open-menu-item": isVisible,
+          "close-menu-item": isClosing,
+          "-top-52": isSignedIn,
+          "-top-[5.5rem]": !isSignedIn,
+        }
       )}
     >
       {isSignedIn ? loggedInItems : loggedOutItems}
