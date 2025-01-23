@@ -135,19 +135,19 @@ export default function Profile() {
     //     </div>
     //   </div>
     // </form>
-    <section className="bg-white text-teal-600 py-10 px-5">
+    <section className="bg-white py-10 px-5">
       {/* Header */}
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-xl font-bold mb-6">Informations personnelles</h2>
+        <h2 className="text-xl font-bold mb-6 text-teal-600">Informations personnelles</h2>
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-10">
           {/*  Personal Information Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Title */}
             <fieldset className="col-span-1 md:col-span-2">
-              <legend className="text-sm font-bold mb-4">Titre</legend>
+              <legend className="text-sm font-bold mb-4 text-teal-600">Titre</legend>
               <div className="flex items-center space-x-6">
-                <label className="flex items-center space-x-2">
+                <label className="flex items-center space-x-2 ">
                   <input
                     type="radio"
                     name="title"
@@ -156,7 +156,7 @@ export default function Profile() {
                   />
                   <span>Madame</span>
                 </label>
-                <label className="flex items-center space-x-2">
+                <label className="flex items-center space-x-2 ">
                   <input
                     type="radio"
                     name="title"
@@ -170,7 +170,7 @@ export default function Profile() {
 
             {/* First Name */}
             <div>
-              <label htmlFor="firstname" className="block text-sm font-bold">
+              <label htmlFor="firstname" className="block text-sm font-bold text-teal-600">
                 Prénom
               </label>
               <input
@@ -185,7 +185,7 @@ export default function Profile() {
 
             {/* Last Name */}
             <div>
-              <label htmlFor="lastname" className="block text-sm font-bold">
+              <label htmlFor="lastname" className="block text-sm font-bold text-teal-600">
                 Nom
               </label>
               <input
@@ -200,7 +200,7 @@ export default function Profile() {
 
             {/* Display Name */}
             <div className="md:col-span-2">
-              <label htmlFor="displayName" className="block text-sm font-bold">
+              <label htmlFor="displayName" className="block text-sm font-bold text-teal-600">
                 Nom affiché
               </label>
               <input
@@ -211,7 +211,7 @@ export default function Profile() {
                 onChange={handleChange}
                 className="mt-1 block w-full border border-grey-200 rounded-md shadow-sm focus:ring-teal-600 focus:border-teal-600"
               />
-              <p className="mt-1 text-sm text-teal-500">
+              <p className="mt-1 text-sm text-gray-500">
                 Indique comment votre nom apparaîtra dans la section relative au compte et dans
                 les avis
               </p>
@@ -219,7 +219,7 @@ export default function Profile() {
 
             {/* Email */}
             <div className="md:col-span-2">
-              <label htmlFor="email" className="block text-sm font-bold">
+              <label htmlFor="email" className="block text-sm font-bold text-teal-600">
                 E-mail
               </label>
               <input
@@ -235,11 +235,11 @@ export default function Profile() {
 
           {/* Password Section */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Mon mot de passe</h3>
+            <h3 className="text-lg font-bold mb-4 text-teal-600">Mon mot de passe</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Current Password */}
               <div className="md:col-span-2">
-                <label htmlFor="currentPassword" className="block text-sm font-bold">
+                <label htmlFor="currentPassword" className="block text-sm font-bold text-teal-600">
                   Mot de passe actuel
                 </label>
                 <input
@@ -248,13 +248,13 @@ export default function Profile() {
                   name="currentPassword"
                   value={formData.oldPassword}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-grey-200 rounded-md shadow-sm focus:ring-teal-600 focus:border-teal-600"
+                  className="mt-1 block w-full border border-grey-200 rounded-md shadow-sm focus:ring-teal-600 focus:border-teal-600 bg-white"
                 />
               </div>
 
               {/* New Password */}
               <div>
-                <label htmlFor="newPassword" className="block text-sm font-bold">
+                <label htmlFor="newPassword" className="block text-sm font-bold text-teal-600">
                   Nouveau mot de passe
                 </label>
                 <input
@@ -282,7 +282,7 @@ export default function Profile() {
 
           {/* Communication Preferences */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Mes options</h3>
+            <h3 className="text-lg font-bold mb-4 text-teal-600">Mes options</h3>
             <fieldset className="space-y-4">
               <label className="flex items-start space-x-3">
                 <input
@@ -293,7 +293,7 @@ export default function Profile() {
                 />
                 <span>
                   Mises à jour sur les produits et les promotions
-                  <p className="text-sm text-teal-500">
+                  <p className="text-sm text-gray-500">
                     Recevez des communications marketing qui, selon nous, vous intéresseront.
                   </p>
                 </span>
@@ -307,7 +307,7 @@ export default function Profile() {
                 />
                 <span>
                   Informations sur le compte et les commandes
-                  <p className="text-sm text-teal-500">
+                  <p className="text-sm text-gray-500">
                     Recevez des informations importantes au sujet de vos commandes et de votre
                     compte.
                   </p>
