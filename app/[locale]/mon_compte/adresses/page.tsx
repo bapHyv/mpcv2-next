@@ -163,18 +163,19 @@ export default function Addresses() {
 
   return (
     <>
-      <ul role="list" className="divide-y divide-gray-200">
-        {addresses.length > 0 && "Addresses"}
+      <ul role="list">
+        {addresses.length > 0 && <p className="text-teal-600 items-center text-center font-medium text-lg mt-8">My addresses</p>}
         {addresses.map((address: any) => (
+          <div className="px-12 mt-4 mb-4">
           <li key={address.id} className="py-4">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="text-sm font-semibold text-gray-900">{address.address1}</h3>
+                <h3 className="text-sm font-semibold text-teal-600">{address.address1}</h3>
                 <p className="text-sm text-gray-600">{`${address.country}, ${address.city} ${address.postalCode}`}</p>
               </div>
               <div className="text-sm text-gray-500 flex gap-4">
                 <button
-                  className="text-blue-600 hover:text-blue-800"
+                  className="text-teal-600 hover:text-teal-800"
                   onClick={() => {
                     setEditingAddress(address);
                     setIsModalOpen(true);
@@ -191,6 +192,8 @@ export default function Addresses() {
               </div>
             </div>
           </li>
+        </div>
+        
         ))}
 
         {isModalOpen && editingAddress && (
@@ -227,7 +230,7 @@ export default function Addresses() {
                         setEditingAddress((prev) => ({ ...prev!, firstname: e.target.value }))
                       }
                       placeholder="Firstname"
-                      className="block w-full border border-gray-300 rounded px-3 py-2"
+                      className="block w-full border border-gray-300 rounded px-3 py-2  focus:border-teal-500 focus:ring-teal-500"
                     />
                   </div>
 
@@ -248,7 +251,7 @@ export default function Addresses() {
                         setEditingAddress((prev) => ({ ...prev!, lastname: e.target.value }))
                       }
                       placeholder="Lastname"
-                      className="block w-full border border-gray-300 rounded px-3 py-2"
+                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
                     />
                   </div>
 
@@ -269,7 +272,7 @@ export default function Addresses() {
                         setEditingAddress((prev) => ({ ...prev!, address1: e.target.value }))
                       }
                       placeholder="Address Line 1"
-                      className="block w-full border border-gray-300 rounded px-3 py-2"
+                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
                     />
                   </div>
 
@@ -290,7 +293,7 @@ export default function Addresses() {
                         setEditingAddress((prev) => ({ ...prev!, address2: e.target.value }))
                       }
                       placeholder="Address Line 2"
-                      className="block w-full border border-gray-300 rounded px-3 py-2"
+                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
                     />
                   </div>
 
@@ -308,7 +311,7 @@ export default function Addresses() {
                         setEditingAddress((prev) => ({ ...prev!, city: e.target.value }))
                       }
                       placeholder="City"
-                      className="block w-full border border-gray-300 rounded px-3 py-2"
+                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
                     />
                   </div>
 
@@ -329,7 +332,7 @@ export default function Addresses() {
                         setEditingAddress((prev) => ({ ...prev!, postalCode: e.target.value }))
                       }
                       placeholder="Postal Code"
-                      className="block w-full border border-gray-300 rounded px-3 py-2"
+                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
                     />
                   </div>
 
@@ -350,7 +353,7 @@ export default function Addresses() {
                         setEditingAddress((prev) => ({ ...prev!, country: e.target.value }))
                       }
                       placeholder="Country"
-                      className="block w-full border border-gray-300 rounded px-3 py-2"
+                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
                     />
                   </div>
 
@@ -368,7 +371,7 @@ export default function Addresses() {
                         setEditingAddress((prev) => ({ ...prev!, phone: e.target.value }))
                       }
                       placeholder="Phone"
-                      className="block w-full border border-gray-300 rounded px-3 py-2"
+                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
                     />
                   </div>
 
@@ -398,7 +401,7 @@ export default function Addresses() {
                           shipping: value === "shipping" || value === "both",
                         }));
                       }}
-                      className="block w-full border border-gray-300 rounded px-3 py-2"
+                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
                     >
                       <option value="billing">Billing</option>
                       <option value="shipping">Shipping</option>
@@ -415,7 +418,7 @@ export default function Addresses() {
                   >
                     Cancel
                   </button>
-                  <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded">
+                  <button type="submit" className="bg-teal-600 text-white px-4 py-2 rounded">
                     Save
                   </button>
                 </div>
@@ -442,7 +445,7 @@ export default function Addresses() {
                   type="text"
                   value={formData.firstname}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
                 />
               </div>
 
@@ -457,7 +460,7 @@ export default function Addresses() {
                   type="text"
                   value={formData.lastname}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
                 />
               </div>
 
@@ -471,7 +474,7 @@ export default function Addresses() {
                   name="country"
                   value={formData.country}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
                 >
                   <option>France</option>
                   <option>Belgium</option>
@@ -489,7 +492,7 @@ export default function Addresses() {
                   type="text"
                   value={formData.address1}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
                 />
               </div>
 
@@ -504,7 +507,7 @@ export default function Addresses() {
                   type="text"
                   value={formData.address2 || ""}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
                 />
               </div>
 
@@ -519,7 +522,7 @@ export default function Addresses() {
                   type="text"
                   value={formData.city}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
                 />
               </div>
 
@@ -537,7 +540,7 @@ export default function Addresses() {
                   type="text"
                   value={formData.postalCode}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
                 />
               </div>
 
@@ -552,7 +555,7 @@ export default function Addresses() {
                   type="text"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
                 />
               </div>
 
@@ -567,7 +570,7 @@ export default function Addresses() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
                 />
               </div>
 
@@ -579,7 +582,7 @@ export default function Addresses() {
                   type="checkbox"
                   checked={formData.billing}
                   onChange={handleChange}
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                 />
                 <label htmlFor="billing" className="text-sm font-medium text-gray-700">
                   Use as billing address
@@ -594,7 +597,7 @@ export default function Addresses() {
                   type="checkbox"
                   checked={formData.shipping}
                   onChange={handleChange}
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                 />
                 <label htmlFor="shipping" className="text-sm font-medium text-gray-700">
                   Use as shipping address
@@ -607,7 +610,7 @@ export default function Addresses() {
           <div className="mt-6 flex justify-end gap-4">
             <button
               type="submit"
-              className="rounded-md bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-500"
+              className="rounded-md bg-teal-600 px-4 py-2 text-sm text-white hover:bg-teal-500 focus:ring-2 focus:ring-teal-500"
             >
               Add a new address
             </button>
