@@ -117,7 +117,12 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
         await fetch(baseUrl)
           .then((res) => res.json())
           .then((res) => {
-            console.log(res);
+            // TODO: DELETE THIS (Quick and dirty fix)
+            for (const id in res) {
+              if (Array.isArray(res[id])) {
+                delete res[id];
+              }
+            }
             // @ts-ignore
             Object.values(res).forEach((p: IProductsFromAPI) => {
               if (!!Object.entries(p.prices).length) {
