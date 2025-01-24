@@ -40,10 +40,11 @@ const Commandes = () => {
                     className={`text-sm font-medium ${
                       order.status === "Delivered"
                         ? "text-green-600"
-                        : "text-yellow-600"
+
+                        : order.status === 'wc-on-hold' ? "text-yellow-600" : 'text-red-600'
                     }`}
                   >
-                    {order.status}
+                    {order.status === 'wc-on-hold' ?  'In progress' :  order.status === 'wc-failed' ? 'Failed' : 'Delivered' }
                   </p>
                 </div>
               </div>

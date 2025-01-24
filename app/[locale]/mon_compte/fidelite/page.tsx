@@ -29,7 +29,7 @@ const PointsSection: React.FC = () => {
 
   return (
     <>
-      <section className="bg-light-green text-white py-10 px-5 text-center">
+      <section className="bg-light-green text-white py-10 px-5 text-center ">
         {/* Header */}
         <div className="mb-8">
           <h2 className="text-2xl mb-2">
@@ -39,7 +39,7 @@ const PointsSection: React.FC = () => {
         </div>
 
         {/* Boxes */}
-        <div className="flex flex-col md:flex-row justify-center items-start gap-6">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6 text-center align-center">
           {/* Box 1 */}
           <div className="border-white border-2 rounded-lg w-72 h-64 flex flex-col justify-center items-center p-5">
             <h4 className="text-lg text-center mb-3">Gagnez 1 point pour chaque € dépensé dans notre boutique !</h4>
