@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { categories, IProducts } from "@/app/types/productsTypes";
+import { categories, Product } from "@/app/types/productsTypes";
 import Title from "@/app/components/Title";
 import Link from "next/link";
 import clsx from "clsx";
@@ -15,14 +15,6 @@ interface Params {
     category: string;
   };
 }
-
-// export async function generateMetadata({ params: { locale } }: Params) {
-//   const t = await getTranslations({ locale, namespace: "category" });
-//   return {
-//     title: t("title"),
-//     description: t("description"),
-//   };
-// }
 
 export default async function Page({ params: { locale, category } }: Params) {
   const t = await getTranslations({ locale, namespace: "category" });
@@ -70,7 +62,7 @@ export default async function Page({ params: { locale, category } }: Params) {
 
   const currentProducts = await fetch(`${process.env.API_HOST}/products/${currentSlug}`);
   const jsonProducts = await currentProducts.json();
-  const formatedProducts: IProducts[] = Object.values(jsonProducts);
+  const formatedProducts: Product[] = Object.values(jsonProducts);
 
   return (
     <div>
@@ -100,25 +92,12 @@ export default async function Page({ params: { locale, category } }: Params) {
       </div>
 
       <div className="grid grid-cols-12 gap-4 px-2">
-        {/* PRODUCT FILTERS */}
-        {/* <ProductFilter
-        currentCategory={currentCategory}
-        locale={locale}
-        products={products}
-        currentProduct={currentProducts}
-        setCurrentProducts={setCurrentProducts}
-      /> */}
-
         {/* PRODUCT CARDS */}
         {!currentProducts
           ? new Array(8).fill(0).map((e) => <ProductCardSkeleton key={Math.random()} />)
           : formatedProducts.map((prod) => (
               <ProductCard key={prod.name} locale={locale} {...prod} />
             ))}
-
-        {/* {currentProducts.map((prod) => (
-          <ProductCardSkeleton key={prod.id} />
-        ))} */}
       </div>
     </div>
   );

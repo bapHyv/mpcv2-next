@@ -9,7 +9,6 @@ import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 import { useProducts } from "@/app/context/productsContext";
-import { updateProductLogic } from "@/app/utils/productFunctions";
 
 export default function CartProductCard({
   cartItemId,

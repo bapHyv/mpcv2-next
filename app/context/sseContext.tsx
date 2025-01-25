@@ -5,150 +5,93 @@ import {
   useContext,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
 import { useAlerts } from "@/app/context/alertsContext";
 
-const fakeSseData = {
-  coupons: {
-    aurelie10: {
-      linkedToUser: false,
-      individualUse: false,
-      discountType: "fixed_cart",
-      discountValue: "10",
-    },
-    carole5: {
-      linkedToUser: true,
-      individualUse: false,
-      discountType: "fixed_cart",
-      discountValue: "5",
-    },
-  },
-  stocks: {
-    341: 234,
-    342: 234,
-    346: 234,
-    4658: 234,
-    5679: 234,
-    6416: 234,
-    8139: 234,
-    8575: 234,
-    16762: 234,
-    18033: 234,
-    18061: 234,
-    18601: 234,
-    18614: 234,
-    18647: 234,
-    18967: 234,
-    18986: 234,
-    18993: 234,
-    19547: 234,
-    20274: 234,
-    20494: 234,
-    20670: 234,
-    20798: 234,
-    20891: 234,
-    20904: 234,
-    21103: 234,
-    21226: 234,
-    21477: 234,
-    21491: 234,
-    21502: 234,
-    21644: 234,
-    21850: 234,
-    21865: 234,
-  },
-  shippingMethods: {
-    "France (hors Corse)": {
-      zone_id: 2,
-      name: "France (hors Corse)",
-      methods: [
-        { instanceId: 6, id: "boxtal_connect" },
-        { instanceId: 65, id: "local_pickup" },
-        { instanceId: 8, id: "free_shipping" },
-        { instanceId: 7, id: "flat_rate" },
-      ],
-    },
-  },
-};
-
-// {
-//   COUPON_LABEL: {
-//       linkedToUser: Boolean
-//       individualUse: Boolean
-//       discountType: string
-//       discountValue: string
-//       freeShipping: Boolean
-//       minCartAmount: number
-//       maxCartAmount: number
-//       excludePromoProduct: boolean
-//       maxUsage: number
-//       maxUsageByUser: number
-//       nbItemsLimit: number
-//       requiredProducts: array of product ids
-//       requiredCategories: array of category ids
-//       excludedProducts: array of product ids
-//       excludedCategories: array of category ids
-//       totalUsage: number
-//   }
-// }
-
-// shippingMethods: {
-//   byShippingZones: {
-//       'France': {
-//           methods: {
-//               METHOD_ID: {
-
-//               },
-//               ...
-//           }
-//       }
-//   },
-//   byId: {
-//       METHOD_ID: {
-
-//       },
-//       ...
-//   }
-// }
-
-interface IDiscountCode {
-  [code: string]: {
-    linkedToUser: boolean;
-    individualUse: boolean;
-    discountType: string;
-    discountValue: string;
-  };
+interface SSEDataAPIResponse {
+  stocks: Record<string, string | null>;
+  coupons: Record<string, Coupon>;
+  shippingMethods: ShippingMethods;
 }
 
-interface IProductStock {
-  [productId: number | string]: number;
+interface SSEData {
+  stocks: Record<string, number>;
+  coupons: Record<string, Coupon>;
+  shippingMethods: ShippingMethods;
 }
 
-interface IShippingMethods {
-  [method: string]: {
-    zone_id: number;
-    name: string;
-    methods: { instanceId: number; id: string }[];
-  };
+interface Coupon {
+  linkedToUser: boolean;
+  individualUse: boolean;
+  discountType: "percent" | "fixed_cart" | "fixed_product";
+  discountValue: string;
+  freeShipping: boolean;
+  excludePromoProduct?: boolean;
+  maxUsage: number;
+  maxUsageByUser: number;
+  nbItemsLimit?: number;
+  requiredProducts: string[];
+  requiredCategories: number[];
+  excludedProducts: string[];
+  excludedCategories: number[];
+  totalUsage: number;
+  maxCartAmount?: string;
+  minCartAmount?: string;
 }
 
-interface ISseData {
-  coupons: IDiscountCode;
-  stocks: IProductStock;
-  shippingMethods: IShippingMethods;
+interface ShippingMethods {
+  byShippingZones: Record<string, ShippingZone>;
+  byId: Record<string, ShippingMethod>;
+}
+
+interface ShippingZone {
+  zone_id: number;
+  name: string;
+  methods: ShippingMethod[];
+}
+
+interface ShippingMethod {
+  instanceId: number;
+  id: string;
 }
 
 interface ISseContext {
-  sseData: ISseData;
-  setSseData: Dispatch<SetStateAction<ISseData>>;
+  sseData: null | SSEData;
+  setSseData: Dispatch<SetStateAction<null | SSEData>>;
 }
 
 const sseContext = createContext({} as ISseContext);
 
 export function SseProvider({ children }: { children: ReactNode }): JSX.Element {
-  const [sseData, setSseData] = useState<ISseData>(fakeSseData as ISseData);
+  const [sseData, setSseData] = useState<null | SSEData>(null);
 
   const { addAlert } = useAlerts();
+
+  useEffect(() => {
+    const fetchSSEData = async () => {
+      const data: SSEDataAPIResponse = await fetch("https://api.monplancbd.fr/test-sse").then(
+        (res) => res.json()
+      );
+      for (const productId in data.stocks) {
+        if (!data.stocks[productId]) {
+          delete data.stocks[productId];
+        } else if (parseInt(data.stocks[productId]) < 0) {
+          // @ts-ignore
+          data.stocks[productId] = 0;
+        } else {
+          // @ts-ignore
+          data.stocks[productId] = parseInt(data.stocks[productId]);
+        }
+      }
+
+      console.log(data);
+      // @ts-ignore
+      setSseData(data as SSEData);
+    };
+
+    fetchSSEData();
+  }, []);
 
   // useEffect(() => {
   //   const eventSource = new EventSource("https://api.monplancbd.fr/new-sse-client");

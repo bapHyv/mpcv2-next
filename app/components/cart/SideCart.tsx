@@ -86,9 +86,10 @@ export default function Cart() {
                   </div>
                 </div>
               </div>
+
+              {/* PRODUCT CARDS CART */}
               {!!cart?.products?.length && (
                 <div className="mt-6 flex-1 px-2">
-                  {/* PRODUCT CART */}
                   {cart?.products?.map((product) => (
                     <CartProductCard
                       key={`${product.id}-${product.option}-${product.name}-${product.cartItemId}`}
@@ -97,6 +98,8 @@ export default function Cart() {
                   ))}
                 </div>
               )}
+
+              {/* TOTAL + "PLACE ORDER" BUTTON */}
               <div className="fixed bottom-0 flex justify-between items-center w-full px-2 bg-white py-3">
                 <p className="font-semibold text-sm">
                   TOTAL:{" "}
