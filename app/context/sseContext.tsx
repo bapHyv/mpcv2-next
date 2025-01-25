@@ -63,6 +63,8 @@ interface ISseContext {
 
 const sseContext = createContext({} as ISseContext);
 
+const baseUrl = "https://api.monplancbd.fr/test-sse";
+
 export function SseProvider({ children }: { children: ReactNode }): JSX.Element {
   const [sseData, setSseData] = useState<null | SSEData>(null);
 
@@ -70,24 +72,26 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
 
   useEffect(() => {
     const fetchSSEData = async () => {
-      const data: SSEDataAPIResponse = await fetch("https://api.monplancbd.fr/test-sse").then(
-        (res) => res.json()
-      );
-      for (const productId in data.stocks) {
-        if (!data.stocks[productId]) {
-          delete data.stocks[productId];
-        } else if (parseInt(data.stocks[productId]) < 0) {
-          // @ts-ignore
-          data.stocks[productId] = 0;
-        } else {
-          // @ts-ignore
-          data.stocks[productId] = parseInt(data.stocks[productId]);
-        }
-      }
+      const response = await fetch(baseUrl);
+      const data: SSEDataAPIResponse = await response.json();
 
-      console.log(data);
-      // @ts-ignore
-      setSseData(data as SSEData);
+      const transformedStocks: Record<string, number> = Object.entries(data.stocks).reduce(
+        (acc, [productId, stock]) => {
+          if (stock !== null) {
+            acc[productId] = Math.max(0, parseInt(stock));
+          }
+          return acc;
+        },
+        {} as Record<string, number>
+      );
+
+      const sseData: SSEData = {
+        stocks: transformedStocks,
+        coupons: data.coupons,
+        shippingMethods: data.shippingMethods,
+      };
+
+      setSseData(sseData);
     };
 
     fetchSSEData();
