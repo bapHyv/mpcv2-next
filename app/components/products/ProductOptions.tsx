@@ -4,12 +4,13 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { ProductCart, useCart } from "@/app/context/cartContext";
 import { useProducts } from "@/app/context/productsContext";
 import { Image, Prices } from "@/app/types/productsTypes";
-import { Radio, RadioGroup } from "@headlessui/react";
+import { Field, Radio, RadioGroup } from "@headlessui/react";
 import { PlusIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { Fragment, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuid } from "uuid";
 
@@ -25,22 +26,18 @@ interface Params {
 }
 
 // This Component is used to display the product's option but is also used as a gateway into client features like contexts.
-export default function ProductOptions({
-  prices,
-  pricesPer,
-  name,
-  id,
-  image,
-  stock,
-  slug,
-  category,
-}: Params) {
+export default function ProductOptions({ prices, pricesPer, name, id, image, stock, slug, category }: Params) {
   const { products, updateProduct } = useProducts();
 
   const t = useTranslations("category");
   const { setCart } = useCart();
   const { addAlert } = useAlerts();
   const params = useParams();
+
+  const hasStockAvailable = useMemo(() => {
+    return !!products[id] ? parseInt(products[id].stock) > 0 : false;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [products[id]?.stock]);
 
   const addProductToCart = () => {
     const productBeingAddedToCart: ProductCart = {
@@ -81,8 +78,7 @@ export default function ProductOptions({
 
         return { ...prevCart, products: updatedCartProducts };
       } else {
-        productBeingAddedToCart.totalPrice =
-          productBeingAddedToCart.unitPrice * productBeingAddedToCart.quantity;
+        productBeingAddedToCart.totalPrice = productBeingAddedToCart.unitPrice * productBeingAddedToCart.quantity;
 
         return {
           ...prevCart,
@@ -96,97 +92,142 @@ export default function ProductOptions({
     addAlert(uuid(), alertDescription, "Ajout de produit", "emerald");
   };
 
-  return (
-    !!parseInt(products[id]?.stock) && (
-      <div>
-        {/* Option picker */}
-        <fieldset aria-label="Choose a size" className="mt-2 sm:mt-6 pr-3 sm:pr-0">
-          {
-            <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-              {pricesPer === "g" ? t("quantity") : t("unit")}
-            </div>
-          }
+  const handleSelectOption = (value: string) => {
+    updateProduct(id, { option: value, price: products[id].productOptions[value] });
+  };
 
-          <RadioGroup
-            value={products[id].option}
-            onChange={(arg) => {
-              // This is used to update the price when selecting an option.
-              // It is needed to display the right price in the UI (see productPrice)
-              const option = arg;
-              const price = products[id].productOptions[arg];
-              updateProduct(id, { option, price });
-            }}
-            className="mt-2 flex gap-1 sm:gap-2 sm:flex-wrap"
-          >
-            {products[id].formatedOptions.map((option) => {
-              return (
-                <Radio
-                  key={option?.option}
-                  value={option?.option}
-                  className={clsx(
-                    `p-1 w-8 h-8 text-xs sm:p-2 sm:w-10 sm:h-10 sm:font-medium cursor-pointer focus:outline-none flex items-center justify-center rounded-md border 
-                  border-gray-200 bg-white uppercase text-neutral-900 hover:bg-neutral-200
-                  data-[checked]:border-transparent data-[checked]:bg-green data-[checked]:text-white data-[focus]:ring-2 data-[focus]:ring-green data-[focus]:ring-offset-2
-                  data-[checked]:hover:bg-dark-green relative`
-                  )}
-                >
-                  {option?.option}
-                </Radio>
-              );
-            })}
-          </RadioGroup>
-        </fieldset>
+  return !!products[id] ? (
+    <div>
+      {/* Option picker */}
+      <fieldset aria-label="Choose a size" className="mt-2 sm:mt-6 pr-3 sm:pr-0">
+        <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{pricesPer === "g" ? t("quantity") : t("unit")}</div>
 
-        {/* ADD CART BUTTON TABLET AND BIGGER SCREEN */}
-        <div className="hidden sm:flex sm:flex-col sm:items-center sm:justify-center">
-          <button
-            onClick={addProductToCart}
-            disabled={!products[id]?.stock}
-            className={twMerge(
-              clsx(
-                `mt-8 px-8 py-3 text-base font-medium flex w-full items-center justify-center rounded-md border border-transparent 2xl:w-2/3 text-white`,
-                !products[id]?.stock
-                  ? "cursor-not-allowed bg-neutral-400"
-                  : "bg-green hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
+        <RadioGroup value={products[id].option} onChange={handleSelectOption} className="mt-2 flex gap-1 sm:gap-2 sm:flex-wrap">
+          {products[id].formatedOptions.map(
+            (option) =>
+              option && (
+                <Field key={option.option} disabled={parseInt(products[id].stock) < parseInt(option.option)}>
+                  <Radio as={Fragment} value={option.option}>
+                    {({ checked, disabled, focus, hover }) => (
+                      <span
+                        className={twMerge(
+                          clsx(
+                            "relative p-1 w-8 h-8 text-xs cursor-pointer flex items-center justify-center rounded-md border border-gray-200 bg-white uppercase text-neutral-900",
+                            "sm:p-2 sm:w-10 sm:h-10 sm:font-medium",
+                            { "border-transparent bg-green text-white hover:bg-dark-green": checked },
+                            { "ring-2 ring-green ring-offset-2 outline-none": focus },
+                            { "bg-neutral-200": hover },
+                            { "cursor-not-allowed bg-neutral-400 text-neutral-900": disabled }
+                          )
+                        )}
+                      >
+                        {option.option}
+                      </span>
+                    )}
+                  </Radio>
+                </Field>
               )
-            )}
-          >
-            Ajouter au panier
-          </button>
-          {/* This condition is here to remove the "details" when on the single product page */}
-          {!("productSlug" in params) && (
-            <p className="text-center my-4">
-              <Link
-                href={`/${category}/${slug}`}
-                className="font-medium text-green hover:text-light-green underline"
-              >
-                {t("details")}
-              </Link>
-            </p>
           )}
-        </div>
+        </RadioGroup>
+      </fieldset>
 
-        {/* ADD CART BUTTON SMARTPHONE */}
-        <div className="mt-4 flex justify-between items-center pr-3 sm:hidden">
-          {/* This condition is here to remove the "details" when on the single product page */}
-          {!("productSlug" in params) ? (
-            <p className="text-center my-4">
-              <Link
-                href={`/${category}/${slug}`}
-                className="font-medium text-green hover:text-light-green underline pl-1"
-              >
-                {t("details")}
-              </Link>
-            </p>
-          ) : (
-            <div></div>
+      {/* ADD CART BUTTON TABLET AND BIGGER SCREEN */}
+      <div className="hidden sm:flex sm:flex-col sm:items-center sm:justify-center">
+        <button
+          onClick={addProductToCart}
+          disabled={parseInt(products[id].stock) <= 0}
+          className={twMerge(
+            clsx(
+              "mt-8 px-8 py-3 text-base font-medium flex w-full items-center justify-center rounded-md border border-transparent 2xl:w-2/3 text-white",
+              { "bg-green hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2": hasStockAvailable },
+              { "cursor-not-allowed bg-neutral-400": !hasStockAvailable }
+            )
           )}
-          <div onClick={addProductToCart} className="relative">
-            <PlusIcon className="absolute top-0 -right-0.5 w-4 h-4 text-white z-[2]" />
-            <ShoppingBagIcon className="w-10 h-10 p-1 rounded-md text-white bg-green z-[1]" />
-          </div>
-        </div>
+        >
+          {t("addToCart")}
+        </button>
+        {/* This condition is here to remove the "details" when on the single product page */}
+        {!("productSlug" in params) && (
+          <p className="text-center my-4">
+            <Link href={`/${category}/${slug}`} className="font-medium text-green hover:text-light-green underline">
+              {t("details")}
+            </Link>
+          </p>
+        )}
       </div>
-    )
+
+      {/* ADD CART BUTTON SMARTPHONE */}
+      <div className="mt-4 flex justify-between items-center pr-3 sm:hidden">
+        {/* This condition is here to remove the "details" when on the single product page */}
+        {!("productSlug" in params) ? (
+          <p className="text-center my-4">
+            <Link href={`/${category}/${slug}`} className="font-medium text-green hover:text-light-green underline pl-1">
+              {t("details")}
+            </Link>
+          </p>
+        ) : (
+          <div></div>
+        )}
+        <button onClick={addProductToCart} className="relative" disabled={!hasStockAvailable}>
+          {hasStockAvailable && <PlusIcon className="absolute top-0 -right-0.5 w-4 h-4 text-white z-[2]" />}
+          <ShoppingBagIcon
+            className={twMerge(clsx("w-10 h-10 p-1 rounded-md text-white bg-green z-[1]", { "bg-neutral-400": !hasStockAvailable }))}
+          />
+        </button>
+      </div>
+    </div>
+  ) : (
+    <div className="mt-2 sm:mt-6 pr-3 sm:pr-0">
+      <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{pricesPer === "g" ? t("quantity") : t("unit")}</div>
+      <div className="mt-2 flex gap-1 sm:gap-2 sm:flex-wrap">
+        {new Array(1).fill(0).map((_, i) => (
+          <div
+            key={`${i}-key`}
+            className={clsx(
+              "relative p-1 w-8 h-8 text-xs cursor-pointer flex items-center justify-center rounded-md border border-gray-200 bg-white uppercase text-neutral-900 animate-pulse",
+              "sm:p-2 sm:w-10 sm:h-10 sm:font-medium"
+            )}
+          ></div>
+        ))}
+      </div>
+      <div className="hidden sm:flex sm:flex-col sm:items-center sm:justify-center">
+        <button
+          onClick={addProductToCart}
+          disabled
+          className={twMerge(
+            clsx(
+              "mt-8 px-8 py-3 text-base font-medium flex w-full items-center justify-center rounded-md border border-transparent 2xl:w-2/3 text-neutral-400 animate-pulse",
+              { "bg-green hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2": hasStockAvailable },
+              { "cursor-not-allowed bg-neutral-400": !hasStockAvailable }
+            )
+          )}
+        >
+          {t("addToCart")}
+        </button>
+        {/* This condition is here to remove the "details" when on the single product page */}
+        {!("productSlug" in params) && (
+          <p className="text-center my-4">
+            <Link href={`/${category}/${slug}`} className="font-medium text-green hover:text-light-green underline">
+              {t("details")}
+            </Link>
+          </p>
+        )}
+      </div>
+      <div className="mt-4 flex justify-between items-center sm:hidden">
+        {/* This condition is here to remove the "details" when on the single product page */}
+        {!("productSlug" in params) ? (
+          <p className="text-center my-4">
+            <Link href={`/${category}/${slug}`} className="font-medium text-green hover:text-light-green underline pl-1">
+              {t("details")}
+            </Link>
+          </p>
+        ) : (
+          <div></div>
+        )}
+        <button onClick={addProductToCart} className="relative animate-pulse" disabled={!hasStockAvailable}>
+          <ShoppingBagIcon className={twMerge(clsx("w-10 h-10 p-1 rounded-md text-white bg-neutral-400 z-[1]"))} />
+        </button>
+      </div>
+    </div>
   );
 }

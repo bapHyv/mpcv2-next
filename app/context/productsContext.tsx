@@ -1,12 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useState,
-  useContext,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-} from "react";
+import { createContext, ReactNode, useState, useContext, Dispatch, SetStateAction, useEffect } from "react";
 
 import { Prices, Product } from "@/app/types/productsTypes";
 import { formatOptions } from "@/app/utils/productFunctions";
@@ -78,36 +70,33 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
         const response = await fetch(baseUrl);
         const data: ProductsAPIResponse = await response.json();
 
-        const transformedProducts = Object.values(data).reduce(
-          (acc: ProductsFromContext, product: Product) => {
-            if (Array.isArray(product) || !Object.entries(product.prices).length) {
-              return acc;
-            }
-
-            acc[product.id] = {
-              id: product.id,
-              name: product.name,
-              slug: product.slug,
-              category: product.category,
-              pricesPer: product.pricesPer,
-              productOptions: product.prices,
-              image: {
-                url: product.images?.main?.url || "",
-                alt: product.images?.main?.alt || "",
-              },
-              productUrl: product.productUrl,
-              ratings: { amount: product.ratings.amount, value: product.ratings.value },
-              relatedProducts: product.relatedProducts,
-              option: Object.entries(product.prices)[0][0],
-              price: Object.entries(product.prices)[0][1],
-              formatedOptions: formatOptions(product.prices, product.stock),
-              stock: product.stock,
-            };
-
+        const transformedProducts = Object.values(data).reduce((acc: ProductsFromContext, product: Product) => {
+          if (Array.isArray(product) || !Object.entries(product.prices).length) {
             return acc;
-          },
-          {} as ProductsFromContext
-        );
+          }
+
+          acc[product.id] = {
+            id: product.id,
+            name: product.name,
+            slug: product.slug,
+            category: product.category,
+            pricesPer: product.pricesPer,
+            productOptions: product.prices,
+            image: {
+              url: product.images?.main?.url || "",
+              alt: product.images?.main?.alt || "",
+            },
+            productUrl: product.productUrl,
+            ratings: { amount: product.ratings.amount, value: product.ratings.value },
+            relatedProducts: product.relatedProducts,
+            option: Object.entries(product.prices)[0][0],
+            price: Object.entries(product.prices)[0][1],
+            formatedOptions: formatOptions(product.prices, product.stock),
+            stock: product.stock,
+          };
+
+          return acc;
+        }, {} as ProductsFromContext);
 
         setProducts(transformedProducts);
         setAreProductsReady(true);
@@ -129,12 +118,9 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
       // It is necessary because it has to compute the quantity (in g or unit) inside the cart
       // for example, the cart could contain trim 2x10g and trim 1x50g. The result is { [trimId]: 70 }
       if (cartProduct.id in _productsCartStock) {
-        _productsCartStock[cartProduct.id] =
-          _productsCartStock[cartProduct.id] +
-          cartProduct.quantity * parseInt(cartProduct.option);
+        _productsCartStock[cartProduct.id] = _productsCartStock[cartProduct.id] + cartProduct.quantity * parseInt(cartProduct.option);
       } else {
-        _productsCartStock[cartProduct.id] =
-          cartProduct.quantity * parseInt(cartProduct.option);
+        _productsCartStock[cartProduct.id] = cartProduct.quantity * parseInt(cartProduct.option);
       }
     });
 
@@ -155,18 +141,11 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
     });
 
     // Check for each product in the cart if the quantity (in g or unit) is still available in the db (from sse)
-    if (
-      sseData &&
-      !!Object.keys(_productsCartStock).length &&
-      !!Object.keys(sseData.stocks) &&
-      !!cart.products.length
-    ) {
+    if (sseData && !!Object.keys(_productsCartStock).length && !!Object.keys(sseData.stocks) && !!cart.products.length) {
       Object.entries(_productsCartStock).forEach(([productId, stock]) => {
         if (sseData.stocks[productId] < stock) {
           let delta = stock - sseData.stocks[productId];
-          const products = cart.products
-            .filter((product) => product.id == productId)
-            .toSorted((a, b) => parseInt(a.option) + parseInt(b.option));
+          const products = cart.products.filter((product) => product.id == productId).toSorted((a, b) => parseInt(a.option) + parseInt(b.option));
           // const cartItemIdToRemove: string[] = [];
           const cartItemIdToRemove: { [cartItemId: string]: string } = {};
 
@@ -186,9 +165,7 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
 
           setCart((prevCart) => ({
             ...prevCart,
-            products: prevCart.products.filter(
-              (product) => !(product.cartItemId in cartItemIdToRemove)
-            ),
+            products: prevCart.products.filter((product) => !(product.cartItemId in cartItemIdToRemove)),
           }));
         }
       });
@@ -200,35 +177,21 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
       Object.entries(sseData.stocks).forEach(([productId, stockFromSse]) => {
         if (productId in products) {
           const isProductInCart = productId in _productsCartStock;
-          const computedStock = isProductInCart
-            ? stockFromSse - _productsCartStock[productId]
-            : stockFromSse;
+          const computedStock = isProductInCart ? stockFromSse - _productsCartStock[productId] : stockFromSse;
 
-          const formatedOptions = formatOptions(
-            products[productId].productOptions,
-            computedStock.toString()
-          );
+          const formatedOptions = formatOptions(products[productId].productOptions, computedStock.toString());
 
           const l = formatedOptions.length;
-          const doesFormatedOptionsHasPrice = formatedOptions.some(
-            (formatedOption) => formatedOption?.price === products[productId].price
-          );
-          const doesFormatedOptionHasOption = formatedOptions.some(
-            (formatedOption) => formatedOption?.option === products[productId].option
-          );
+          const doesFormatedOptionsHasPrice = formatedOptions.some((formatedOption) => formatedOption?.price === products[productId].price);
+          const doesFormatedOptionHasOption = formatedOptions.some((formatedOption) => formatedOption?.option === products[productId].option);
 
           setProducts((prevProducts) => ({
             ...prevProducts,
             [productId]: {
               ...prevProducts[productId],
-              price: !doesFormatedOptionsHasPrice
-                ? formatedOptions[l - 1].price
-                : prevProducts[productId].price,
-              option: !doesFormatedOptionHasOption
-                ? formatedOptions[l - 1].option
-                : prevProducts[productId].option,
+              price: !doesFormatedOptionsHasPrice ? formatedOptions[l - 1].price : prevProducts[productId].price,
+              option: !doesFormatedOptionHasOption ? formatedOptions[l - 1].option : prevProducts[productId].option,
               stock: computedStock.toString(),
-              formatedOptions,
             },
           }));
         }

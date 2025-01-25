@@ -130,7 +130,8 @@
     "quantity": "Quantité",
     "unit": "Unité",
     "details": "Voir plus de détails",
-    "reviews": "avis"
+    "reviews": "avis",
+    "addToCart": "Ajouter au panier"
   },
   "singleProduct": {
     "analyzes": "analyses",

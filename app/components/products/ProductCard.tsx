@@ -1,12 +1,6 @@
 import { StarIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
-import {
-  BaseProduct,
-  Hash,
-  Moonrock,
-  Oil,
-  Flower,
-} from "@/app/types/productsTypes";
+import { BaseProduct, Hash, Moonrock, Oil, Flower } from "@/app/types/productsTypes";
 import Link from "next/link";
 import clsx from "clsx";
 import { findHighest, findHighestOption } from "@/app/utils/productFunctions";
@@ -64,28 +58,11 @@ export default async function ProductCard({
   };
 
   return (
-    <div
-      className={twMerge(
-        clsx(
-          "col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 w-full transform text-left text-base transition my-4"
-        ),
-        mainDivClassname
-      )}
-    >
+    <div className={twMerge(clsx("w-full transform text-left text-base transition my-4"), mainDivClassname)}>
       <div className="flex w-full overflow-hidden bg-neutral-100 dark:bg-light-black px-2 py-2 shadow-lg rounded-md">
-        <div
-          // Dirty way to fix a css problem on ProductCard. The problem is a huge space between product info and photo when the product is out of stock.
-          // Here I remove the grid system that mess things up. See below where I add a margin-top to simulate the right gap
-          className={twMerge(
-            clsx(
-              parseInt(stock) ? "grid" : "",
-              "w-full grid-cols-1 items-start gap-x-6 gap-y-3 sm:gap-y-8 sm:grid-cols-12 lg:gap-x-8"
-            ),
-            secondeDivClassname
-          )}
-        >
+        <div className={twMerge(clsx(secondeDivClassname))}>
           {/* IMAGE */}
-          <div className="relative m-auto rounded-lg col-span-12 h-min">
+          <div className="relative m-auto rounded-lg h-min">
             {!!images.main && (
               <div className={clsx(!parseInt(stock) ? "opacity-60" : "")}>
                 <Image
@@ -98,25 +75,18 @@ export default async function ProductCard({
               </div>
             )}
             {!parseInt(stock) ? (
-              <div className="absolute right-5 top-5 p-1 text-sm rounded-md text-white bg-red-600">
-                {t("outOfStock")}
-              </div>
+              <div className="absolute right-5 top-5 p-1 text-sm rounded-md text-white bg-red-600">{t("outOfStock")}</div>
             ) : isPromo ? (
-              <div className="absolute right-5 top-5 p-1 text-sm rounded-md animate-tada text-white bg-green">
-                {t("promo")}
-              </div>
+              <div className="absolute right-5 top-5 p-1 text-sm rounded-md animate-tada text-white bg-green">{t("promo")}</div>
             ) : null}
           </div>
 
-          {/* Add margin top to display the product infos as it is supposed to be */}
-          <div className={clsx(!parseInt(stock) ? "mt-8" : "", "col-span-12")}>
+          <div>
             {/* PRODUCT NAME */}
-            <h2 className="text-base sm:text-xl font-medium text-neutral-900 dark:text-neutral-100 text-ellipsis overflow-hidden text-nowrap">
+            <h2 className="text-base sm:text-xl font-medium text-neutral-900 dark:text-neutral-100 text-ellipsis overflow-hidden text-nowrap mt-3">
               {name}
               {cannabinoidRating && (
-                <span className="text-dark-green dark:text-light-green">
-                  {` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}
-                </span>
+                <span className="text-dark-green dark:text-light-green">{` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}</span>
               )}
             </h2>
 
@@ -131,8 +101,7 @@ export default async function ProductCard({
 
               {/* PRICE / UNIT */}
               <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
-                {t("fromPrice")}{" "}
-                {(highestOption.price / highestOption.quantity).toFixed(2)}
+                {t("fromPrice")} {(highestOption.price / highestOption.quantity).toFixed(2)}
                 €/{pricesPer}
               </p>
 
@@ -158,12 +127,7 @@ export default async function ProductCard({
                         <StarIcon
                           key={ratingStar}
                           aria-hidden="true"
-                          className={clsx(
-                            Math.round(ratings.value) > ratingStar
-                              ? "text-yellow-400"
-                              : "text-gray-200",
-                            "h-5 w-5 flex-shrink-0 mb-1"
-                          )}
+                          className={clsx(Math.round(ratings.value) > ratingStar ? "text-yellow-400" : "text-gray-200", "h-5 w-5 flex-shrink-0 mb-1")}
                         />
                       ))}
                     </div>
@@ -200,15 +164,8 @@ export default async function ProductCard({
                     />
                   </div>
                   <div className="flex items-end sm:items-center gap-2">
-                    <p className="mb-1 sm:mb-0 capitize text-neutral-700 dark:text-neutral-200">
-                      {t("origin")}
-                    </p>
-                    <Image
-                      src={`/${grower}.png`}
-                      alt={highestTerpene?.name || "terpene alt"}
-                      width={30}
-                      height={30}
-                    />
+                    <p className="mb-1 sm:mb-0 capitize text-neutral-700 dark:text-neutral-200">{t("origin")}</p>
+                    <Image src={`/${grower}.png`} alt={highestTerpene?.name || "terpene alt"} width={30} height={30} />
                   </div>
                 </section>
               )}
