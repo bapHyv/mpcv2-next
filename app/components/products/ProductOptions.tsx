@@ -4,7 +4,6 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { ProductCart, useCart } from "@/app/context/cartContext";
 import { useProducts } from "@/app/context/productsContext";
 import { Image, Prices } from "@/app/types/productsTypes";
-import { formatOptions, updateProductLogic } from "@/app/utils/productFunctions";
 import { Radio, RadioGroup } from "@headlessui/react";
 import { PlusIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
@@ -44,7 +43,7 @@ export default function ProductOptions({
   const params = useParams();
 
   const addProductToCart = () => {
-    const _product: ProductCart = {
+    const productBeingAddedToCart: ProductCart = {
       cartItemId: uuid(),
       id: id,
       name: products[id].name,
@@ -63,13 +62,14 @@ export default function ProductOptions({
     setCart((prevCart) => {
       // Check if the same product and option is already in the cart
       const isSameProductAndOptionInCart = prevCart.products?.some(
-        (product) => product.id === id && product.option === _product.option
+        (product) => product.id === id && product.option === productBeingAddedToCart.option
       );
 
       if (isSameProductAndOptionInCart) {
-        // If it's in the cart, increment the quantity
+        // If the same product with the same option is in the cart, increment the quantity
+        // and compute de price
         const updatedCartProducts = prevCart.products.map((product) => {
-          if (product.id === id && product.option === _product.option) {
+          if (product.id === id && product.option === productBeingAddedToCart.option) {
             return {
               ...product,
               quantity: product.quantity + 1,
@@ -81,11 +81,12 @@ export default function ProductOptions({
 
         return { ...prevCart, products: updatedCartProducts };
       } else {
-        _product.totalPrice = _product.unitPrice * _product.quantity;
+        productBeingAddedToCart.totalPrice =
+          productBeingAddedToCart.unitPrice * productBeingAddedToCart.quantity;
 
         return {
           ...prevCart,
-          products: [...prevCart.products, _product],
+          products: [...prevCart.products, productBeingAddedToCart],
         };
       }
     });

@@ -42,11 +42,11 @@
   },
   "globalError": {
     "message": "Le site a l'air de ne plus fonctionner",
-    "button": "Cliquez ici pour réessayer"
+    "button": "Cliquez ici pour revenir à la page d'accueil"
   },
   "error": {
     "message": "Quelque chose c'est mal passé",
-    "button": "Cliquez ici pour réessayer"
+    "button": "Cliquez ici pour revenir à la page d'accueil"
   },
   "notFound": {
     "title": "Page non trouvée",

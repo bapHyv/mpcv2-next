@@ -8,33 +8,14 @@ import {
   useEffect,
 } from "react";
 
-import { Prices, IProducts as IProductsFromAPI } from "@/app/types/productsTypes";
+import { Prices, Product } from "@/app/types/productsTypes";
 import { formatOptions } from "@/app/utils/productFunctions";
 import { useSse } from "@/app/context/sseContext";
 import { useCart } from "@/app/context/cartContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { v4 as uuid } from "uuid";
 
-/**
- * {
-    products: {
-        ID_PRODUCT: [
-            {item: 'XXXX', amount: '50', quantity: '1'},
-            ...
-        ],
-        ...
-    },
-    discounts: [
-        {type: 'coupon', value: 'toto4000'},
-        {type: 'loyaltyPoints', value: '4000'},
-        ...
-    ],
-shippingMethod: SHIPPING_METHOD_ID,
-paymentMethod: CARD || TRANSFER
-}
- */
-
-export interface IProduct {
+export interface FormatedProduct {
   id: string;
   name: string;
   slug: string;
@@ -44,7 +25,7 @@ export interface IProduct {
   image: { url: string; alt: string };
   productUrl: string;
   ratings: { amount: number; value: number };
-  relatedProducts: IProductsFromAPI[];
+  relatedProducts: Product[];
   stock: string;
   option: string; // Selected option (see ProductOptions.tsx)
   price: string; // Displayed price (see ProductPrice.tsx)
@@ -54,14 +35,18 @@ export interface IProduct {
   } | null)[]; // Available options related to stock (see productFunction.ts => formatOptions)
 }
 
-interface IProducts {
-  [productId: string | number]: IProduct;
+interface ProductsAPIResponse {
+  [productId: string | number]: Product;
+}
+
+interface ProductsFromContext {
+  [productId: string | number]: FormatedProduct;
 }
 
 interface ProductsContext {
-  products: IProducts;
-  setProducts: Dispatch<SetStateAction<IProducts>>;
-  updateProduct: (productId: string | number, updates: Partial<IProduct>) => void;
+  products: ProductsFromContext;
+  setProducts: Dispatch<SetStateAction<ProductsFromContext>>;
+  updateProduct: (productId: string | number, updates: Partial<FormatedProduct>) => void;
 }
 
 const productsContext = createContext({} as ProductsContext);
@@ -69,13 +54,13 @@ const productsContext = createContext({} as ProductsContext);
 const baseUrl = "https://api.monplancbd.fr/products";
 
 export function ProductsProvider({ children }: { children: ReactNode }): JSX.Element {
-  const [products, setProducts] = useState<IProducts>({});
+  const [products, setProducts] = useState<ProductsFromContext>({});
   const [areProductsReady, setAreProductsReady] = useState(false);
   const { sseData } = useSse();
   const { cart, setCart } = useCart();
   const { addAlert } = useAlerts();
 
-  const updateProduct = (productId: string | number, updates: Partial<IProduct>) => {
+  const updateProduct = (productId: string | number, updates: Partial<FormatedProduct>) => {
     setProducts((prevProducts) => {
       return {
         ...prevProducts,
@@ -90,58 +75,49 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const _products: IProducts = {};
+        const response = await fetch(baseUrl);
+        const data: ProductsAPIResponse = await response.json();
 
-        const set_products = (product: IProductsFromAPI) => {
-          _products[product.id] = {
-            id: product.id,
-            name: product.name,
-            slug: product.slug,
-            category: product.category,
-            pricesPer: product.pricesPer,
-            productOptions: product.prices,
-            image: {
-              url: product.images?.main?.url || "",
-              alt: product.images?.main?.alt || "",
-            },
-            productUrl: product.productUrl,
-            ratings: { amount: product.ratings.amount, value: product.ratings.value },
-            relatedProducts: product.relatedProducts,
-            option: Object.entries(product.prices)[0][0],
-            price: Object.entries(product.prices)[0][1],
-            formatedOptions: formatOptions(product.prices, product.stock),
-            stock: product.stock,
-          };
-        };
-
-        await fetch(baseUrl)
-          .then((res) => res.json())
-          .then((res) => {
-            // TODO: DELETE THIS (Quick and dirty fix)
-            for (const id in res) {
-              if (Array.isArray(res[id])) {
-                delete res[id];
-              }
+        const transformedProducts = Object.values(data).reduce(
+          (acc: ProductsFromContext, product: Product) => {
+            if (Array.isArray(product) || !Object.entries(product.prices).length) {
+              return acc;
             }
-            // @ts-ignore
-            Object.values(res).forEach((p: IProductsFromAPI) => {
-              if (!!Object.entries(p.prices).length) {
-                set_products(p);
-              }
-            });
-          });
 
-        setProducts(_products);
+            acc[product.id] = {
+              id: product.id,
+              name: product.name,
+              slug: product.slug,
+              category: product.category,
+              pricesPer: product.pricesPer,
+              productOptions: product.prices,
+              image: {
+                url: product.images?.main?.url || "",
+                alt: product.images?.main?.alt || "",
+              },
+              productUrl: product.productUrl,
+              ratings: { amount: product.ratings.amount, value: product.ratings.value },
+              relatedProducts: product.relatedProducts,
+              option: Object.entries(product.prices)[0][0],
+              price: Object.entries(product.prices)[0][1],
+              formatedOptions: formatOptions(product.prices, product.stock),
+              stock: product.stock,
+            };
+
+            return acc;
+          },
+          {} as ProductsFromContext
+        );
+
+        setProducts(transformedProducts);
         setAreProductsReady(true);
       } catch (error) {
         setAreProductsReady(false);
-        console.error(error);
+        console.error("Failed to fetch products:", error);
       }
     };
 
-    if (!Object.keys(products).length) {
-      fetchProducts();
-    }
+    fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -165,7 +141,7 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
     // Check if products in cart still exists in products from sse
     // If the product does not exist in the db (from sse), it removes it from the cart
     Object.keys(_productsCartStock).forEach((productId) => {
-      if (!(productId in sseData.stocks)) {
+      if (sseData && !(productId in sseData.stocks)) {
         const description = `Il n'y a plus de stock pour le produit ${productId}. Il a ete enleve de votre panier`;
         addAlert(uuid(), description, "Produit n'est plus disponible", "red");
 
@@ -180,6 +156,7 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
 
     // Check for each product in the cart if the quantity (in g or unit) is still available in the db (from sse)
     if (
+      sseData &&
       !!Object.keys(_productsCartStock).length &&
       !!Object.keys(sseData.stocks) &&
       !!cart.products.length
@@ -218,43 +195,47 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
     }
 
     // Every time the cart changes, the product's stock, formatedOptions, price (displayed price in the ui) and option (selected option)
-    // has to be recomputed. The "bool" variable is here to check if a specific product is in the cart to compute the stock.
-    if (!!Object.keys(products).length) {
+    // has to be recomputed. The "isProductInCart" variable is here to check if a specific product is in the cart to compute the stock.
+    if (sseData && !!Object.keys(products).length) {
       Object.entries(sseData.stocks).forEach(([productId, stockFromSse]) => {
-        const bool = productId in _productsCartStock;
-        const computedStock = bool
-          ? stockFromSse - _productsCartStock[productId]
-          : stockFromSse;
-        const formatedOptions = formatOptions(
-          products[productId].productOptions,
-          computedStock.toString()
-        );
-        const l = formatedOptions.length;
-        const doesFormatedOptionsHasPrice = formatedOptions.some(
-          (formatedOption) => formatedOption?.price === products[productId].price
-        );
-        const doesFormatedOptionHasOption = formatedOptions.some(
-          (formatedOption) => formatedOption?.option === products[productId].option
-        );
+        if (productId in products) {
+          const isProductInCart = productId in _productsCartStock;
+          const computedStock = isProductInCart
+            ? stockFromSse - _productsCartStock[productId]
+            : stockFromSse;
 
-        setProducts((prevProducts) => ({
-          ...prevProducts,
-          [productId]: {
-            ...prevProducts[productId],
-            price: !doesFormatedOptionsHasPrice
-              ? formatedOptions[l - 1].price
-              : prevProducts[productId].price,
-            option: !doesFormatedOptionHasOption
-              ? formatedOptions[l - 1].option
-              : prevProducts[productId].option,
-            stock: computedStock.toString(),
-            formatedOptions,
-          },
-        }));
+          const formatedOptions = formatOptions(
+            products[productId].productOptions,
+            computedStock.toString()
+          );
+
+          const l = formatedOptions.length;
+          const doesFormatedOptionsHasPrice = formatedOptions.some(
+            (formatedOption) => formatedOption?.price === products[productId].price
+          );
+          const doesFormatedOptionHasOption = formatedOptions.some(
+            (formatedOption) => formatedOption?.option === products[productId].option
+          );
+
+          setProducts((prevProducts) => ({
+            ...prevProducts,
+            [productId]: {
+              ...prevProducts[productId],
+              price: !doesFormatedOptionsHasPrice
+                ? formatedOptions[l - 1].price
+                : prevProducts[productId].price,
+              option: !doesFormatedOptionHasOption
+                ? formatedOptions[l - 1].option
+                : prevProducts[productId].option,
+              stock: computedStock.toString(),
+              formatedOptions,
+            },
+          }));
+        }
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cart.products, areProductsReady, sseData.stocks]);
+  }, [cart.products, areProductsReady, sseData?.stocks]);
 
   return (
     <productsContext.Provider

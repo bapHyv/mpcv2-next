@@ -63,20 +63,20 @@ export interface Analyse {
 }
 
 export interface BaseProduct {
-  id: string;
-  name: string;
-  slug: string;
   category: string;
-  pricesPer: string;
-  prices: Prices;
-  stock: string;
+  id: string;
   images: { main: Image; others: Image[] };
-  productUrl: string;
   isPromo: boolean;
-  ratings: Rating;
-  shortDescription: string;
   longDescription: string;
-  relatedProducts: IProducts[];
+  name: string;
+  prices: Prices;
+  pricesPer: string;
+  productUrl: string;
+  ratings: Rating;
+  relatedProducts: Product[];
+  shortDescription: string;
+  slug: string;
+  stock: string;
 }
 
 export interface NaturalProduct extends BaseProduct {
@@ -99,7 +99,7 @@ export interface Flower extends EndProduct {
   growingMethod: string;
 }
 
-export type IProducts = BaseProduct | Oil | Moonrock | Hash | Flower;
+export type Product = BaseProduct | Oil | Moonrock | Hash | Flower;
 
 export interface Products {
   fleurs: Flower[];

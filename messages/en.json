@@ -42,11 +42,11 @@
   },
   "globalError": {
     "message": "The web site seems to be down",
-    "button": "Click here to try again"
+    "button": "Click here to go back to the homepage"
   },
   "error": {
     "message": "Something went wrong",
-    "button": "Click here to try again"
+    "button": "Click here to go back to the homepage"
   },
   "notFound": {
     "title": "Page Not Found",

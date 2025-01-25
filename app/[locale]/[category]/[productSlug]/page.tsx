@@ -10,7 +10,7 @@ import {
 } from "@headlessui/react";
 import { ArrowUpRightIcon, StarIcon } from "@heroicons/react/20/solid";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { categories, Flower, IProducts } from "@/app/types/productsTypes";
+import { Product } from "@/app/types/productsTypes";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,12 +31,10 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default async function Page({
-  params: { category, locale, productSlug },
-}: Params) {
+export default async function Page({ params: { category, locale, productSlug } }: Params) {
   const t = await getTranslations({ locale });
 
-  const product: IProducts = await fetch(
+  const product: Product = await fetch(
     `${process.env.API_HOST}/product/slug/${productSlug}`
   ).then((res) => res.json());
 
@@ -116,23 +114,16 @@ export default async function Page({
                         key={rating}
                         aria-hidden="true"
                         className={classNames(
-                          product.ratings.value > rating
-                            ? "text-yellow-300"
-                            : "text-gray-300",
+                          product.ratings.value > rating ? "text-yellow-300" : "text-gray-300",
                           "h-5 w-5 flex-shrink-0"
                         )}
                       />
                     ))}
                   </div>
-                  <Link
-                    href="#reviews"
-                    className="text-green dark:text-light-green mt-1"
-                  >
+                  <Link href="#reviews" className="text-green dark:text-light-green mt-1">
                     {product.ratings.amount} avis
                   </Link>
-                  <p className="sr-only">
-                    {product.ratings.value} out of 5 stars
-                  </p>
+                  <p className="sr-only">{product.ratings.value} out of 5 stars</p>
                 </div>
               </div>
             )}
@@ -194,20 +185,17 @@ export default async function Page({
                       className="prose prose-sm pb-6 origin-top transition duration-300 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
                     >
                       <ul role="list">
-                        {Object.entries(product.analyses).map(
-                          ([key, value]) => (
-                            <li key={key}>
-                              <Link
-                                href={value}
-                                target="_blank"
-                                className="underline flex gap-1 capitalize text-neutral-900 dark:text-neutral-100"
-                              >
-                                {key}{" "}
-                                <ArrowUpRightIcon className="w-3 h-3 mt-1 text-green" />
-                              </Link>
-                            </li>
-                          )
-                        )}
+                        {Object.entries(product.analyses).map(([key, value]) => (
+                          <li key={key}>
+                            <Link
+                              href={value}
+                              target="_blank"
+                              className="underline flex gap-1 capitalize text-neutral-900 dark:text-neutral-100"
+                            >
+                              {key} <ArrowUpRightIcon className="w-3 h-3 mt-1 text-green" />
+                            </Link>
+                          </li>
+                        ))}
                       </ul>
                     </DisclosurePanel>
                   </Disclosure>
@@ -292,22 +280,17 @@ export default async function Page({
                       className="prose prose-sm pb-6 transition duration-300 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
                     >
                       <ul role="list">
-                        {Object.entries(product.cannabinoids).map(
-                          ([key, value]) => (
-                            <li
-                              key={key}
-                              className="flex items-end gap-3 h-[45px]"
-                            >
-                              {key}: {value} %
-                              <Image
-                                src={`/${key.toLocaleLowerCase()}.png`}
-                                alt={`molecul of ${key}`}
-                                width={75}
-                                height={75}
-                              />
-                            </li>
-                          )
-                        )}
+                        {Object.entries(product.cannabinoids).map(([key, value]) => (
+                          <li key={key} className="flex items-end gap-3 h-[45px]">
+                            {key}: {value} %
+                            <Image
+                              src={`/${key.toLocaleLowerCase()}.png`}
+                              alt={`molecul of ${key}`}
+                              width={75}
+                              height={75}
+                            />
+                          </li>
+                        ))}
                       </ul>
                     </DisclosurePanel>
                   </Disclosure>
@@ -340,33 +323,31 @@ export default async function Page({
                       className="prose prose-sm pb-6 transition duration-300 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
                     >
                       <ul role="list">
-                        {Object.entries(product.terpenes).map(
-                          ([key, value]) => (
-                            <>
-                              <li
-                                key={key}
-                                className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100 capitalize"
-                              >
-                                {key}: {value}
-                                <Image
-                                  src={`/${key.toLocaleLowerCase()}.png`}
-                                  alt={key}
-                                  width={40}
-                                  height={40}
-                                />
-                              </li>
-                              <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-neutral-400">
-                                <div
-                                  className={`${
-                                    //@ts-ignore
-                                    terpenesToColor[key.toLocaleLowerCase()]
-                                  } h-1.5 rounded-full`}
-                                  style={{ width: `${parseInt(value) * 20}%` }}
-                                ></div>
-                              </div>
-                            </>
-                          )
-                        )}
+                        {Object.entries(product.terpenes).map(([key, value]) => (
+                          <>
+                            <li
+                              key={key}
+                              className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100 capitalize"
+                            >
+                              {key}: {value}
+                              <Image
+                                src={`/${key.toLocaleLowerCase()}.png`}
+                                alt={key}
+                                width={40}
+                                height={40}
+                              />
+                            </li>
+                            <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-neutral-400">
+                              <div
+                                className={`${
+                                  //@ts-ignore
+                                  terpenesToColor[key.toLocaleLowerCase()]
+                                } h-1.5 rounded-full`}
+                                style={{ width: `${parseInt(value) * 20}%` }}
+                              ></div>
+                            </div>
+                          </>
+                        ))}
                       </ul>
                     </DisclosurePanel>
                   </Disclosure>
@@ -375,10 +356,7 @@ export default async function Page({
             </section>
           </div>
         </div>
-        <div
-          className="pt-16"
-          dangerouslySetInnerHTML={{ __html: product.longDescription }}
-        />
+        <div className="pt-16" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
         {/* REVIEWS */}
         {!!product.ratings.reviews.length && (
           <div>
@@ -470,9 +448,7 @@ export default async function Page({
                       className="flex justify-between items-center"
                     >
                       <span aria-hidden="true" className="absolute inset-0" />
-                      <p className="text-lg text-green">
-                        {relatedProduct.name}
-                      </p>
+                      <p className="text-lg text-green">{relatedProduct.name}</p>
                       {!!relatedProduct.ratings.amount && (
                         <div className="flex items-start">
                           {[0, 1, 2, 3, 4].map((rating) => (
@@ -493,8 +469,7 @@ export default async function Page({
                   </div>
                   {
                     <p className="text-neutral-600 dark:text-neutral-400 p-1 text-md sm:text-xs">
-                      À partir de{" "}
-                      {findHighestOption(relatedProduct.prices).price}€/
+                      À partir de {findHighestOption(relatedProduct.prices).price}€/
                       {relatedProduct.pricesPer}
                     </p>
                   }
