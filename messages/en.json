@@ -130,7 +130,8 @@
     "quantity": "Quantity",
     "unit": "Unit",
     "details": "Details",
-    "reviews": "reviews"
+    "reviews": "reviews",
+    "addToCart": "Add to cart"
   },
   "singleProduct": {
     "analyzes": "analyzes",

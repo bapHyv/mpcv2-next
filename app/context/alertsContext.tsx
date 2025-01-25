@@ -1,13 +1,7 @@
 "use client";
 
 import { createContext, ReactNode, useState, useContext, useEffect } from "react";
-import {
-  ExclamationTriangleIcon,
-  XCircleIcon,
-  CheckCircleIcon,
-  InformationCircleIcon,
-  XMarkIcon,
-} from "@heroicons/react/20/solid";
+import { ExclamationTriangleIcon, XCircleIcon, CheckCircleIcon, InformationCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 
 import clsx from "clsx";
 
@@ -65,11 +59,7 @@ function AlertElement({ alertId, color, description, title, closeAlert }: IAlert
     <div
       id={alertId}
       className={clsx(
-        isFingerClosing
-          ? "animate-fingerslideoutright"
-          : isClosing
-          ? "animate-slideoutright"
-          : "animate-slideinright",
+        isFingerClosing ? "animate-fingerslideoutright" : isClosing ? "animate-slideoutright" : "animate-slideinright",
         `relative rounded-r-md bg${color}50 border-l-4 border${color}400 p-4 border-y border-r shadow-xl`
       )}
       onMouseEnter={() => setCloseTime(60000)} // when the mouse enters the element
@@ -104,10 +94,7 @@ function AlertElement({ alertId, color, description, title, closeAlert }: IAlert
         }}
       >
         <span className="sr-only">Dismiss</span>
-        <XMarkIcon
-          aria-hidden="true"
-          className={`absolute h-5 w-5 text${color}800 top-2 right-2 cursor-pointer rounded-md hover:bg${color}}100`}
-        />
+        <XMarkIcon aria-hidden="true" className={`absolute h-5 w-5 text${color}800 top-2 right-2 cursor-pointer rounded-md hover:bg${color}}100`} />
       </div>
       <div className="flex">
         <div className="flex-shrink-0">{icon[color]}</div>
@@ -130,16 +117,7 @@ export function AlertsProvider({ children }: { children: ReactNode }): JSX.Eleme
   };
 
   const addAlert = (alertId: string, description: string, title: string, color: color) => {
-    const element = (
-      <AlertElement
-        key={alertId}
-        alertId={alertId}
-        description={description}
-        title={title}
-        color={color}
-        closeAlert={closeAlert}
-      />
-    );
+    const element = <AlertElement key={alertId} alertId={alertId} description={description} title={title} color={color} closeAlert={closeAlert} />;
     setAlerts((prevState) => [...prevState, element]);
   };
 
@@ -151,9 +129,7 @@ export function AlertsProvider({ children }: { children: ReactNode }): JSX.Eleme
     >
       <>
         {children}
-        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-5 bottom-4 flex flex-col gap-5 z-[9999]">
-          {alerts}
-        </div>
+        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-5 top-4 flex flex-col gap-5 z-[9999]">{alerts}</div>
       </>
     </alertsContext.Provider>
   );
