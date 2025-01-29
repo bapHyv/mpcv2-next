@@ -91,13 +91,11 @@ export default async function Page({ params: { locale, category } }: Params) {
         ))}
       </div>
 
-      <div className="grid grid-cols-12 gap-4 px-2">
+      <div className="flex flex-wrap px-2 justify-center gap-2 my-8">
         {/* PRODUCT CARDS */}
         {!currentProducts
           ? new Array(8).fill(0).map((e) => <ProductCardSkeleton key={Math.random()} />)
-          : formatedProducts.map((prod) => (
-              <ProductCard key={prod.name} locale={locale} {...prod} />
-            ))}
+          : formatedProducts.map((prod) => <ProductCard key={prod.name} locale={locale} {...prod} />)}
       </div>
     </div>
   );

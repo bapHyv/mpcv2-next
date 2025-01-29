@@ -1,5 +1,3 @@
-import { useTranslations } from "next-intl";
-import products from "@/app/fakeData/products.json";
 import Carousel from "@/app/components/Carousel";
 import ProductCard from "@/app/components/products/ProductCard";
 import Title from "@/app/components/Title";
@@ -10,35 +8,45 @@ import { Flower, Hash, Oil } from "@/app/types/productsTypes";
 import { v4 as uuid } from "uuid";
 import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 import { getTranslations } from "next-intl/server";
+import clsx from "clsx";
 
 interface Params {
   locale: string;
 }
 
-async function getFlowers() {
-  const res: Flower[] = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`).then((res) => res.json());
+interface APIResponse<k> {
+  [productId: string]: k;
+}
 
-  return Object.values(res);
+async function getFlowers() {
+  const response = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`);
+  const data: APIResponse<Flower> = await response.json();
+  //TODO: REMOVE FILTER ON STOCK
+  const formatedFlowers = Object.values(data).filter((e) => !!parseInt(e.stock));
+
+  return formatedFlowers;
 }
 
 async function getHashs() {
-  const res: Hash[] = await fetch(`${process.env.API_HOST}/products/pollens-resines-hash-cbd`).then((res) => res.json());
+  const response = await fetch(`${process.env.API_HOST}/products/pollens-resines-hash-cbd`);
+  const data: APIResponse<Hash> = await response.json();
+  //TODO: REMOVE FILTER ON STOCK
+  const formatedHashs = Object.values(data).filter((e) => !!parseInt(e.stock));
 
-  return Object.values(res);
+  return formatedHashs;
 }
 
 async function getOils() {
-  const res: Oil[] = await fetch(`${process.env.API_HOST}/products/huiles-cbd`).then((res) => res.json());
+  const response = await fetch(`${process.env.API_HOST}/products/huiles-cbd`);
+  const data: APIResponse<Oil> = await response.json();
+  //TODO: REMOVE FILTER ON STOCK
+  const formatedOils = Object.values(data).filter((e) => !!parseInt(e.stock));
 
-  return Object.values(res);
+  return formatedOils;
 }
 
 export default async function Page({ locale }: Params) {
   const t = await getTranslations({ locale, namespace: "HomePage" });
-
-  const promo = Object.entries(products)
-    .map(([key, value]) => value.filter((product) => product.isPromo))
-    .flatMap((e) => e);
 
   const flowersData = getFlowers();
   const hashsData = getHashs();
@@ -80,47 +88,22 @@ export default async function Page({ locale }: Params) {
     <>
       <section>
         <Title
-          title={t("discountProducts")}
-          type="h2"
-          classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
-          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
-          dark:after:bg-white`}
-          firstLetterClassname="text-4xl"
-        />
-        {/* <Carousel>
-          {promo.map((product) => (
-            <ProductCard
-              key={product.id}
-              {...product}
-              locale={locale}
-              category="Promo"
-              mainDivClassname="sm:w-96 m-0 rounded-md"
-              secondeDivClassname="w-[22rem]"
-            />
-          ))}
-        </Carousel> */}
-      </section>
-      <section>
-        <Title
           title={t("flowers")}
           type="h2"
-          classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
-          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
-          dark:after:bg-white`}
+          classname={clsx(
+            "relative mt-4 mb-6 uppercase text-xl text-green font-bold tracking-widest",
+            "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black",
+            "sm:mt-8 ",
+            "2xl:pl-2 ",
+            "dark:after:bg-white"
+          )}
           firstLetterClassname="text-4xl"
         />
-        <Carousel>
+        <Carousel length={flowers ? flowers.length : 0}>
           {!flowers
             ? productCardsSkeleton
             : flowers.map((flower) => (
-                <ProductCard
-                  key={flower.id}
-                  {...flower}
-                  locale={locale}
-                  category={"fleurs-cbd"}
-                  mainDivClassname="sm:w-96 m-0 rounded-md"
-                  secondeDivClassname="w-[22rem]"
-                />
+                <ProductCard key={flower.id} {...flower} locale={locale} category={"fleurs-cbd"} mainDivClassname="rounded-md" />
               ))}
         </Carousel>
       </section>
@@ -128,23 +111,20 @@ export default async function Page({ locale }: Params) {
         <Title
           title={t("hashs")}
           type="h2"
-          classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
-          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
-          dark:after:bg-white`}
+          classname={clsx(
+            "relative mt-4 mb-6 uppercase text-xl text-green font-bold tracking-widest",
+            "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black",
+            "sm:mt-8 ",
+            "2xl:pl-2 ",
+            "dark:after:bg-white"
+          )}
           firstLetterClassname="text-4xl"
         />
-        <Carousel>
+        <Carousel length={hashs ? hashs.length : 0}>
           {!hashs
             ? productCardsSkeleton
             : hashs.map((hash) => (
-                <ProductCard
-                  key={hash.id}
-                  {...hash}
-                  locale={locale}
-                  category={"pollens-resines-hash-cbd"}
-                  mainDivClassname="sm:w-96 m-0 rounded-md"
-                  secondeDivClassname="w-[22rem]"
-                />
+                <ProductCard key={hash.id} {...hash} locale={locale} category={"pollens-resines-hash-cbd"} mainDivClassname="rounded-md" />
               ))}
         </Carousel>
       </section>
@@ -152,24 +132,19 @@ export default async function Page({ locale }: Params) {
         <Title
           title={t("oils")}
           type="h2"
-          classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
-          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
-          dark:after:bg-white`}
+          classname={clsx(
+            "relative mt-4 mb-6 uppercase text-xl text-green font-bold tracking-widest",
+            "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black",
+            "sm:mt-8 ",
+            "2xl:pl-2 ",
+            "dark:after:bg-white"
+          )}
           firstLetterClassname="text-4xl"
         />
-        <Carousel>
+        <Carousel length={oils ? oils.length : 0}>
           {!oils
             ? productCardsSkeleton
-            : oils.map((oil) => (
-                <ProductCard
-                  key={oil.id}
-                  {...oil}
-                  locale={locale}
-                  category={"huiles-cbd"}
-                  mainDivClassname="sm:w-96 m-0 rounded-md"
-                  secondeDivClassname="w-[22rem]"
-                />
-              ))}
+            : oils.map((oil) => <ProductCard key={oil.id} {...oil} locale={locale} category={"huiles-cbd"} mainDivClassname="rounded-md" />)}
         </Carousel>
       </section>
       <section className="relative mt-4 sm:mt-8">
