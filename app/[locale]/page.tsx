@@ -1,9 +1,16 @@
 import { useTranslations } from "next-intl";
 import products from "@/app/fakeData/products.json";
 import Carousel from "@/app/components/Carousel";
+import HeroCarousel from '@/app/components/HeroCarousel'
 import ProductCard from "@/app/components/products/ProductCard";
 import Title from "@/app/components/Title";
-import { CreditCardIcon, GiftIcon, StarIcon, TruckIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
+import {
+  CreditCardIcon,
+  GiftIcon,
+  StarIcon,
+  TruckIcon,
+  ShoppingBagIcon,
+} from "@heroicons/react/20/solid";
 import ServiceCard from "@/app/components/homepage/ServiceCard";
 import Image from "next/image";
 import { Flower, Hash, Oil } from "@/app/types/productsTypes";
@@ -11,24 +18,33 @@ import { v4 as uuid } from "uuid";
 import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 import { getTranslations } from "next-intl/server";
 
+
+
+
 interface Params {
   locale: string;
 }
 
 async function getFlowers() {
-  const res: Flower[] = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`).then((res) => res.json());
+  const res: Flower[] = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`).then(
+    (res) => res.json()
+  );
 
   return Object.values(res);
 }
 
 async function getHashs() {
-  const res: Hash[] = await fetch(`${process.env.API_HOST}/products/pollens-resines-hash-cbd`).then((res) => res.json());
+  const res: Hash[] = await fetch(
+    `${process.env.API_HOST}/products/pollens-resines-hash-cbd`
+  ).then((res) => res.json());
 
   return Object.values(res);
 }
 
 async function getOils() {
-  const res: Oil[] = await fetch(`${process.env.API_HOST}/products/huiles-cbd`).then((res) => res.json());
+  const res: Oil[] = await fetch(`${process.env.API_HOST}/products/huiles-cbd`).then((res) =>
+    res.json()
+  );
 
   return Object.values(res);
 }
@@ -46,7 +62,9 @@ export default async function Page({ locale }: Params) {
 
   const [flowers, hashs, oils] = await Promise.all([flowersData, hashsData, oilsData]);
 
-  const productCardsSkeleton: JSX.Element[] = new Array(8).fill(0).map(() => <ProductCardSkeleton key={uuid()} />);
+  const productCardsSkeleton: JSX.Element[] = new Array(8)
+    .fill(0)
+    .map(() => <ProductCardSkeleton key={uuid()} />);
 
   const services = [
     {
@@ -87,18 +105,7 @@ export default async function Page({ locale }: Params) {
           dark:after:bg-white`}
           firstLetterClassname="text-4xl"
         />
-        {/* <Carousel>
-          {promo.map((product) => (
-            <ProductCard
-              key={product.id}
-              {...product}
-              locale={locale}
-              category="Promo"
-              mainDivClassname="sm:w-96 m-0 rounded-md"
-              secondeDivClassname="w-[22rem]"
-            />
-          ))}
-        </Carousel> */}
+       <HeroCarousel />
       </section>
       <section>
         <Title
@@ -119,7 +126,7 @@ export default async function Page({ locale }: Params) {
                   locale={locale}
                   category={"fleurs-cbd"}
                   mainDivClassname="sm:w-96 m-0 rounded-md"
-                  secondeDivClassname="w-[22rem]"
+                  secondeDivClassname="w-96"
                 />
               ))}
         </Carousel>
@@ -143,7 +150,7 @@ export default async function Page({ locale }: Params) {
                   locale={locale}
                   category={"pollens-resines-hash-cbd"}
                   mainDivClassname="sm:w-96 m-0 rounded-md"
-                  secondeDivClassname="w-[22rem]"
+                  secondeDivClassname="w-96"
                 />
               ))}
         </Carousel>
@@ -167,7 +174,7 @@ export default async function Page({ locale }: Params) {
                   locale={locale}
                   category={"huiles-cbd"}
                   mainDivClassname="sm:w-96 m-0 rounded-md"
-                  secondeDivClassname="w-[22rem]"
+                  secondeDivClassname="w-96"
                 />
               ))}
         </Carousel>
@@ -216,14 +223,24 @@ export default async function Page({ locale }: Params) {
         </div>
         <div className="w-full lg:w-4/5 m-auto px-2 flex flex-col sm:flex-row justify-center gap-5 sm:flex-wrap">
           {services.map((service) => (
-            <ServiceCard key={service.title} icon={service.icon} title={service.title} text={service.text} />
+            <ServiceCard
+              key={service.title}
+              icon={service.icon}
+              title={service.title}
+              text={service.text}
+            />
           ))}
         </div>
         <div className="h-10" />
       </section>
       <section className="mt-10">
         <div className="flex flex-col md:items-center lg:flex-row lg:gap-x-5 lg:items-start">
-          <Image src="/section_cbd.jpg" alt={t("cbdSection.imgAlt")} width={550} height={367} />
+          <Image
+            src="/section_cbd.jpg"
+            alt={t("cbdSection.imgAlt")}
+            width={550}
+            height={367}
+          />
           <div>
             <Title
               title={t("cbdSection.title")}
@@ -239,7 +256,12 @@ export default async function Page({ locale }: Params) {
       </section>
       <section className="mt-10">
         <div className="flex flex-col md:items-center lg:flex-row-reverse lg:gap-x-5 lg:items-start">
-          <Image src="/service_bg_hp.jpeg" alt={t("cbdPassion.imgAlt")} width={550} height={367} />
+          <Image
+            src="/service_bg_hp.jpeg"
+            alt={t("cbdPassion.imgAlt")}
+            width={550}
+            height={367}
+          />
           <div>
             <Title
               title={t("cbdPassion.title")}

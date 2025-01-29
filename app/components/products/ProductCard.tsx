@@ -31,6 +31,7 @@ export default async function ProductCard({
   mainDivClassname,
   secondeDivClassname,
   slug,
+  
 }: (BaseProduct | Oil | Hash | Moonrock | Flower) & {
   locale: string;
   category: string;
