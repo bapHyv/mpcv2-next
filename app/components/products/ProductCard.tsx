@@ -59,17 +59,17 @@ export default async function ProductCard({
   };
 
   return (
-    <div className={twMerge(clsx("w-full transform text-left text-base transition my-4"), mainDivClassname)}>
-      <div className="flex w-full overflow-hidden bg-neutral-100 dark:bg-light-black px-2 py-2 shadow-lg rounded-md">
+    <div className={twMerge(clsx("transform text-left text-base transition w-[336px] sm:w-[306px] lg:w-[25rem]"), mainDivClassname)}>
+      <div className="flex overflow-hidden bg-neutral-100 dark:bg-light-black px-2 py-2 rounded-md">
         <div className={twMerge(clsx(secondeDivClassname))}>
           {/* IMAGE */}
           <div className="relative m-auto rounded-lg h-min">
             {!!images.main && (
-              <div className={clsx(!parseInt(stock) ? "opacity-60" : "")}>
+              <div className={clsx(!parseInt(stock) ? "opacity-60" : "", "w-[320px] h-56 sm:w-[290px] sm:h-[200px] lg:w-96 lg:h-72")}>
                 <Image
                   alt={images.main.alt}
                   src={`${process.env.MAIN_URL}${process.env.IMG_HOST}${images.main.url}`}
-                  className="rounded-md w-[368px] h-[245px] object-cover"
+                  className="rounded-md object-cover w-[320px] h-56 sm:w-[290px] sm:h-[200px] lg:w-96 lg:h-72"
                   width={1080}
                   height={1920}
                 />
@@ -84,7 +84,14 @@ export default async function ProductCard({
 
           <div>
             {/* PRODUCT NAME */}
-            <h2 className="text-base sm:text-xl font-medium text-neutral-900 dark:text-neutral-100 text-ellipsis overflow-hidden text-nowrap mt-3">
+            <h2
+              className={clsx(
+                "text-base max-w-[320px] font-medium text-neutral-900 text-ellipsis overflow-hidden text-nowrap mt-3",
+                "sm:text-xl sm:max-w-[290px]",
+                "lg:max-w-96",
+                "dark:text-neutral-100"
+              )}
+            >
               {name}
               {cannabinoidRating && (
                 <span className="text-dark-green dark:text-light-green">{` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}</span>
@@ -147,29 +154,25 @@ export default async function ProductCard({
               )}
 
               {/* TERPENES & ORIGIN */}
-              {highestTerpene && (
-                <section aria-labelledby="information-body" className="">
+              {
+                <section aria-labelledby="information-body" className="w-full">
                   <h3 id="information-body" className="sr-only">
                     Product details
                   </h3>
-                  <div className="hidden sm:flex sm:items-center">
-                    <p className="capitalize text-neutral-700 dark:text-neutral-200">
-                      {/* @ts-ignore: Unreachable code error */}
-                      {terpenesFlavor[highestTerpene?.name.toLocaleLowerCase()]}
-                    </p>
-                    <Image
-                      src={`/${highestTerpene.name.toLocaleLowerCase()}.png`}
-                      alt={highestTerpene?.name || "terpene alt"}
-                      width={40}
-                      height={40}
-                    />
-                  </div>
-                  <div className="flex items-end sm:items-center gap-2">
-                    <p className="mb-1 sm:mb-0 capitize text-neutral-700 dark:text-neutral-200">{t("origin")}</p>
-                    <Image src={`/${grower}.png`} alt={highestTerpene?.name || "terpene alt"} width={30} height={30} />
+                  <div className="flex justify-between">
+                    <div className="flex items-end sm:items-center gap-2 mt-2">
+                      <p className="mb-1 sm:mb-0 capitize text-neutral-700 dark:text-neutral-200">{t("origin")}</p>
+                      {/* <Image src={`/${grower}.png`} alt={highestTerpene?.name || "terpene alt"} width={30} height={30} /> */}
+                      <Image src={`/fr.png`} alt={highestTerpene?.name || "terpene alt"} width={30} height={30} />
+                    </div>
+                    <div className="flex items-end sm:items-center gap-2 mt-2">
+                      <p className="mb-1 sm:mb-0 capitize text-neutral-700 dark:text-neutral-200">Methode culture</p>
+                      {/* <Image src={`/${grower}.png`} alt={highestTerpene?.name || "terpene alt"} width={30} height={30} /> */}
+                      <Image src={`/interieur.png`} alt={highestTerpene?.name || "terpene alt"} width={30} height={30} />
+                    </div>
                   </div>
                 </section>
-              )}
+              }
             </div>
 
             {/* PRODUCT OPTIONS */}

@@ -1,11 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}", "./app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
@@ -75,19 +71,18 @@ const config: Config = {
         slideoutright: "slideoutright 0.5s ease-out forwards",
         fingerslideoutright: "fingerslideoutright 0.5s ease-out forwards",
         slightpulse: "slightpulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        backgroundOpacitySlightPulse:
-          "backgroundOpacitySlightPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        backgroundOpacitySlightPulseDark:
-          "backgroundOpacitySlightPulseDark 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        backgroundOpacitySlightPulse: "backgroundOpacitySlightPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        backgroundOpacitySlightPulseDark: "backgroundOpacitySlightPulseDark 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       boxShadow: {
         carousel: "inset 0px 0px 10px #000000",
         "carousel-dark": "inset 0px 0px 10px #525252",
         "category-nav": "inset 0px 0px 5px #737373",
+        "product-cards": "0px 0px 10px #1E8571",
       },
     },
   },
   darkMode: "class",
-  plugins: [require("@tailwindcss/aspect-ratio"), require('@tailwindcss/forms')],
+  plugins: [require("@tailwindcss/aspect-ratio"), require("@tailwindcss/forms")],
 };
 export default config;
