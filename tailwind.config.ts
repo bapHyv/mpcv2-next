@@ -78,7 +78,7 @@ const config: Config = {
         carousel: "inset 0px 0px 10px #000000",
         "carousel-dark": "inset 0px 0px 10px #525252",
         "category-nav": "inset 0px 0px 5px #737373",
-        "product-cards": "0px 0px 10px #1E8571",
+        "product-cards": "0px 0px 2px #1E8571",
       },
     },
   },
