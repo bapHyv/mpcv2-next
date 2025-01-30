@@ -46,6 +46,8 @@ async function getOils() {
   return formatedOils;
 }
 
+// TODO: ADD PHONE NUMBER AND TRUSTPILOT
+
 export default async function Page({ locale }: Params) {
   const t = await getTranslations({ locale, namespace: "HomePage" });
 
@@ -85,13 +87,20 @@ export default async function Page({ locale }: Params) {
     },
   ];
 
+  const titleClassname = clsx(
+    "relative mt-4 mb-6 text-xl text-white font-bold",
+    "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1 after:w-8 after:bg-white",
+    "sm:mt-8 ",
+    "2xl:pl-2 "
+  );
+
   return (
     <>
       <section>
         <Title
           title={t("discountProducts")}
           type="h2"
-          classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
+          classname={`hidden relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
           after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
           dark:after:bg-white`}
           firstLetterClassname="text-4xl"
@@ -99,18 +108,7 @@ export default async function Page({ locale }: Params) {
         <HeroCarousel />
       </section>
       <section>
-        <Title
-          title={t("flowers")}
-          type="h2"
-          classname={clsx(
-            "relative mt-4 mb-6 uppercase text-xl text-green font-bold tracking-widest",
-            "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black",
-            "sm:mt-8 ",
-            "2xl:pl-2 ",
-            "dark:after:bg-white"
-          )}
-          firstLetterClassname="text-4xl"
-        />
+        <Title title={t("flowers")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
         <Carousel length={flowers ? flowers.length : 0}>
           {!flowers
             ? productCardsSkeleton
@@ -120,18 +118,7 @@ export default async function Page({ locale }: Params) {
         </Carousel>
       </section>
       <section>
-        <Title
-          title={t("hashs")}
-          type="h2"
-          classname={clsx(
-            "relative mt-4 mb-6 uppercase text-xl text-green font-bold tracking-widest",
-            "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black",
-            "sm:mt-8 ",
-            "2xl:pl-2 ",
-            "dark:after:bg-white"
-          )}
-          firstLetterClassname="text-4xl"
-        />
+        <Title title={t("hashs")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
         <Carousel length={hashs ? hashs.length : 0}>
           {!hashs
             ? productCardsSkeleton
@@ -141,18 +128,7 @@ export default async function Page({ locale }: Params) {
         </Carousel>
       </section>
       <section>
-        <Title
-          title={t("oils")}
-          type="h2"
-          classname={clsx(
-            "relative mt-4 mb-6 uppercase text-xl text-green font-bold tracking-widest",
-            "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black",
-            "sm:mt-8 ",
-            "2xl:pl-2 ",
-            "dark:after:bg-white"
-          )}
-          firstLetterClassname="text-4xl"
-        />
+        <Title title={t("oils")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
         <Carousel length={oils ? oils.length : 0}>
           {!oils
             ? productCardsSkeleton

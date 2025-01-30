@@ -97,32 +97,36 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
   };
 
   return !!products[id] ? (
-    <div>
+    <div className="mt-2 xl:mt-6">
       {/* Option picker */}
-      <fieldset aria-label="Choose a size" className="mt-2 sm:mt-6 pr-3 sm:pr-0">
-        <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{pricesPer === "g" ? t("quantity") : t("unit")}</div>
-
-        <RadioGroup value={products[id].option} onChange={handleSelectOption} className="mt-2 flex gap-1 sm:gap-2 sm:flex-wrap">
+      <fieldset aria-label="Choose a size" className="">
+        {/* pricesPer === "g" ? t("quantity") : t("unit") */}
+        <RadioGroup value={products[id].option} onChange={handleSelectOption} className="grid grid-cols-3 gap-1 w-5/6 m-auto">
           {products[id].formatedOptions.map(
             (option) =>
               option && (
                 <Field key={option.option} disabled={parseInt(products[id].stock) < parseInt(option.option)}>
                   <Radio as={Fragment} value={option.option}>
                     {({ checked, disabled, focus, hover }) => (
-                      <span
+                      <div
                         className={twMerge(
                           clsx(
-                            "relative p-1 w-8 h-8 text-xs cursor-pointer flex items-center justify-center rounded-md border border-gray-200 bg-white uppercase text-neutral-900",
-                            "sm:p-2 sm:w-10 sm:h-10 sm:font-medium",
-                            { "border-transparent bg-green text-white hover:bg-dark-green": checked },
+                            "col-span-1 p-1 cursor-pointer flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white text-neutral-700",
+                            { "border-transparent text-neutral-900 border-green shadow-product-cards": checked },
                             { "ring-2 ring-green ring-offset-2 outline-none": focus },
                             { "bg-neutral-200": hover },
-                            { "cursor-not-allowed bg-neutral-400 text-neutral-900": disabled }
+                            { "cursor-not-allowed bg-neutral-400 text-neutral-900 opacity-50": disabled }
                           )
                         )}
                       >
-                        {option.option}
-                      </span>
+                        <span>
+                          {option.option}
+                          {pricesPer === "g" ? "g" : "u"}
+                        </span>
+                        <span className="text-xs">
+                          ({(parseFloat(option.price) / parseInt(option.option)).toFixed(2)}€/{pricesPer})
+                        </span>
+                      </div>
                     )}
                   </Radio>
                 </Field>
@@ -130,49 +134,20 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
           )}
         </RadioGroup>
       </fieldset>
-
-      {/* ADD CART BUTTON TABLET AND BIGGER SCREEN */}
-      <div className="hidden sm:flex sm:flex-col sm:items-center sm:justify-center">
+      {/* ADD CART BUTTON*/}
+      <div className="w-5/6 mx-auto my-6 flex flex-col items-center justify-center">
         <button
           onClick={addProductToCart}
           disabled={parseInt(products[id].stock) <= 0}
           className={twMerge(
             clsx(
-              "mt-8 px-8 py-3 text-base font-medium flex w-full items-center justify-center rounded-md border border-transparent 2xl:w-2/3 text-white",
+              "px-3 py-2 text-base font-medium flex w-full items-center justify-center rounded-md border border-transparent text-white",
               { "bg-green hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2": hasStockAvailable },
               { "cursor-not-allowed bg-neutral-400": !hasStockAvailable }
             )
           )}
         >
-          {t("addToCart")}
-        </button>
-        {/* This condition is here to remove the "details" when on the single product page */}
-        {!("productSlug" in params) && (
-          <p className="text-center my-4">
-            <Link href={`/${category}/${slug}`} className="font-medium text-green hover:text-light-green underline">
-              {t("details")}
-            </Link>
-          </p>
-        )}
-      </div>
-
-      {/* ADD CART BUTTON SMARTPHONE */}
-      <div className="mt-4 flex justify-between items-center pr-3 sm:hidden">
-        {/* This condition is here to remove the "details" when on the single product page */}
-        {!("productSlug" in params) ? (
-          <p className="text-center my-4">
-            <Link href={`/${category}/${slug}`} className="font-medium text-green hover:text-light-green underline pl-1">
-              {t("details")}
-            </Link>
-          </p>
-        ) : (
-          <div></div>
-        )}
-        <button onClick={addProductToCart} className="relative" disabled={!hasStockAvailable}>
-          {hasStockAvailable && <PlusIcon className="absolute top-0 -right-0.5 w-4 h-4 text-white z-[2]" />}
-          <ShoppingBagIcon
-            className={twMerge(clsx("w-10 h-10 p-1 rounded-md text-white bg-green z-[1]", { "bg-neutral-400": !hasStockAvailable }))}
-          />
+          {t("addToCart")} | {parseFloat(products[id].price).toFixed(2)} €
         </button>
       </div>
     </div>
