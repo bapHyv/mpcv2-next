@@ -182,5 +182,119 @@
     "quantity": "quantity",
     "priceOneArticle": "price per item",
     "subtotal": "subtotal"
+  },
+  "addresses" : {
+    "title" : "My Addresses",
+    "firstName" : "First name",
+    "lastName" : "Last name",
+    "address1" : "Address 1",
+    "address2": "Address 2 (Optional)",
+    "city" : "City",
+    "postalCode" : "Postal Code",
+    "country" : "Country",
+    "phone" : "Phone",
+    "email" : "Email",
+    "billing" : "Use as a billing address",
+    "shipping" : "Use as a shipping address",
+    "addAddress" : "Add a new address",
+    "modal" : {
+      "title" : "Edit Address",
+      "update" : "Update",
+      "delete" : "Delete",
+      "cancel" : "Cancel",
+      "save" : "Save",
+      "addressType" : {
+        "title" : "Address Type",
+        "billing" : "Billing",
+        "shipping" : "Shipping",
+        "both" : "both"
+      }
+    },
+    "updatedAddress" : "Address updated successfully",
+    "failUpdatedAddress" : "Failed to update the address"
+  },
+  "profile": {
+    "title": "Personal Information",
+    "form": {
+      "titleSection": {
+        "label": "Title",
+        "options": {
+          "madame": "Madame",
+          "monsieur": "Monsieur"
+        }
+      },
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "displayName": "Display Name",
+      "displayNameHint": "This will be how your name will be displayed in the account section and in reviews",
+      "email": "E-mail",
+      "communicationPreferences": {
+        "label": "My Options",
+        "promotions": {
+          "label": "Product updates and promotions",
+          "hint": "Receive marketing communications that we think will interest you."
+        },
+        "orders": {
+          "label": "Account and order information",
+          "hint": "Receive important information about your orders and account."
+        }
+      },
+      "saveButton": "Save"
+    }
+  },
+  "orders": {
+    "title": "My Orders",
+    "order": {
+      "date": "Date",
+      "orderNumber": "Order Number",
+      "total": "Total",
+      "status": {
+        "delivered": "Delivered",
+        "onHold": "In Progress",
+        "failed": "Failed"
+      },
+      "product": "Product",
+      "price": "Price"
+    }
+  },
+  "loyalty": {
+    "title": "Your Current Balance",
+    "points": "points",
+    "howToEarn": "How to Earn Points",
+    "boxes": {
+      "box1": {
+        "title": "Earn 1 point for every € spent in our store!",
+        "description": "Points earned: 1 POINT / 1.00 €"
+      },
+      "box2": {
+        "title": "Review a product and receive 10 points!",
+        "description": "Points earned: 10 POINTS"
+      },
+      "box3": {
+        "title": "Referral Registration",
+        "description": "Points earned: 50 POINTS"
+      },
+      "box4": {
+        "title": "Referred Orders (amount over 30.00 euros) (first order only)",
+        "description": "Points earned: 1 POINT"
+      },
+      "box5": {
+        "title": "Referred Orders (first order only)",
+        "description": "Points earned: 1 POINT"
+      }
+    },
+    "cartPoints": "CART POINTS: Each point you use is worth 0.1 €",
+    "referral": {
+      "title": "Your Referral Link",
+      "description": "Copy and share your referral link with your friends to earn points!",
+      "copyButton": "Copy",
+      "footerText": "Invite your friends to join us to earn even more points!"
+    }
+  },
+  "tabs": {
+    "profile": "Personal Information",
+    "addresses": "Addresses",
+    "orders": "Orders",
+    "loyalty": "Loyalty Points & Referral"
   }
 }

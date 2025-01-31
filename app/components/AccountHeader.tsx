@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useTranslations } from "next-intl";
 
 export interface Tab {
   name: string;
@@ -10,13 +11,15 @@ export interface Tab {
 }
 
 const AccountHeader = ({ locale }: { locale: string }) => {
+  const t = useTranslations("tabs");
+
   const router = useRouter();
   const pathname = usePathname(); // Get the current path
   const [tabs, setTabs] = useState<Tab[]>([
-    { name: 'Informations personnelles', href: '/mon_compte/profile', current: false },
-    { name: 'Adresses', href: '/mon_compte/adresses', current: false },
-    { name: 'Commandes', href: '/mon_compte/commandes', current: false },
-    { name: 'Point de fidelite & parrainage', href: '/mon_compte/fidelite', current: false },
+    { name: t("profile"), href: '/mon_compte/profile', current: false },
+    { name: t("addresses"), href: '/mon_compte/adresses', current: false },
+    { name: t("orders"), href: '/mon_compte/commandes', current: false },
+    { name: t("loyalty"), href: '/mon_compte/fidelite', current: false },
   ]);
 
   useEffect(() => {
@@ -54,7 +57,7 @@ const AccountHeader = ({ locale }: { locale: string }) => {
             const selectedTab = tabs.find(tab => tab.name === e.target.value);
             if (selectedTab) handleTabClick(selectedTab);
           }}
-          className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+          className="block w-full rounded-md border-gray-300 focus:border-green focus:ring-green"
         >
           {tabs.map((tab: Tab) => (
             <option key={tab.name}>{tab.name}</option>
@@ -79,7 +82,7 @@ const AccountHeader = ({ locale }: { locale: string }) => {
               <span
                 aria-hidden="true"
                 className={classNames(
-                  tab.current ? 'bg-indigo-500' : 'bg-transparent',
+                  tab.current ? 'bg-green' : 'bg-transparent',
                   'absolute inset-x-0 bottom-0 h-0.5',
                 )}
               />

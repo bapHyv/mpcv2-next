@@ -22,7 +22,7 @@ const HeroCarousel = () => {
   // Set banners based on screen size
   const banners = isMobile
     ? [mandarinMobileBanner]
-    : [mandarinBanner];
+    : [mandarinBanner, mandarinBanner];
 
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);

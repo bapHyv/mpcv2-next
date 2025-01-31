@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/app/context/authContext';
-import { UpdatedUserData, UserData } from '@/app/types/profileTypes';
+import { useTranslations } from "next-intl";
 
 
 
 const PointsSection: React.FC = () => {
+  const t = useTranslations("loyalty");
 
   // State to hold addresses
   const [userData, setUserData] = useState<any>(() => {
@@ -29,61 +29,68 @@ const PointsSection: React.FC = () => {
 
   return (
     <>
-      <section className="bg-light-green text-white py-10 px-5 text-center ">
+      {/* Loyalty Points Section */}
+      <section className="bg-light-green text-white py-10 px-5 text-center">
         {/* Header */}
         <div className="mb-8">
           <h2 className="text-2xl mb-2">
-            Votre solde actuel <span className="font-bold text-3xl">{userData.loyaltyPoints} points</span>
+            {t("title")}{" "}
+            <span className="font-bold text-3xl">
+              {userData.loyaltyPoints} {t("points")}
+            </span>
           </h2>
-          <h3 className="text-xl">Comment gagner des points</h3>
+          <h3 className="text-xl">{t("howToEarn")}</h3>
         </div>
-
+  
         {/* Boxes */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-6 text-center align-center">
           {/* Box 1 */}
           <div className="border-white border-2 rounded-lg w-72 h-64 flex flex-col justify-center items-center p-5">
-            <h4 className="text-lg text-center mb-3">Gagnez 1 point pour chaque € dépensé dans notre boutique !</h4>
+            <h4 className="text-lg text-center mb-3">
+              {t("boxes.box1.title")}
+            </h4>
             <p className="text-sm text-center">
-              <strong>Points acquis</strong>
-              <br />1 POINT / 1,00 €
+              <strong>{t("boxes.box1.description")}</strong>
             </p>
           </div>
-
+  
           {/* Box 2 */}
           <div className="border-white border-2 rounded-lg w-72 h-64 flex flex-col justify-center items-center p-5">
-            <h4 className="text-lg text-center mb-9">Noter un produit et recevez 10 points !</h4>
+            <h4 className="text-lg text-center mb-9">
+              {t("boxes.box2.title")}
+            </h4>
             <p className="text-sm text-center">
-              <strong>Points acquis</strong>
-              <br />10 POINTS
+              <strong>{t("boxes.box2.description")}</strong>
             </p>
           </div>
-
+  
           {/* Box 3 */}
           <div className="border-white border-2 rounded-lg w-72 h-64 flex flex-col justify-center items-center p-5">
-            <h4 className="text-lg text-center mb-16">Enregistrement du parrainé</h4>
+            <h4 className="text-lg text-center mb-16">
+              {t("boxes.box3.title")}
+            </h4>
             <p className="text-sm text-center">
-              <strong>Points acquis</strong>
-              <br />50 POINTS
+              <strong>{t("boxes.box3.description")}</strong>
             </p>
           </div>
         </div>
-
+  
         {/* Footer */}
         <p className="mt-8 text-sm">
-          <strong>POINTS DU PANIER :</strong> À chaque Point que vous utilisez vaut 0,1 €
+          <strong>{t("cartPoints")}</strong>
         </p>
       </section>
-
+  
+      {/* Referral Section */}
       <section className="bg-white text-teal-600 py-10 px-5 text-center">
         {/* Header */}
         <div className="mb-8">
-          <h3 className="text-2xl font-bold mb-2">Votre lien de parrainage</h3>
-          <p className="text-sm">
-            Copiez et partagez votre lien de parrainage avec vos amis pour gagner
-            des points !
-          </p>
+          <h3 className="text-2xl font-bold mb-2">
+            {t("referral.title")}
+          </h3>
+          <p className="text-sm">{t("referral.description")}</p>
         </div>
-
+  
         {/* Referral Link */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-4">
           {/* Input Box */}
@@ -93,45 +100,45 @@ const PointsSection: React.FC = () => {
             value={`https://www.monplancbd.fr/mon-compte-mon-plan-cbd/?referral=${userData.referralToken}`}
             className="w-full md:w-2/3 border border-teal-600 rounded-lg p-3 text-sm text-teal-600 focus:outline-none focus:ring focus:ring-teal-300"
           />
-
+  
           {/* Copy Button */}
-          <button onClick={handleCopy}
-            className="bg-light-green text-white px-6 py-3 rounded-lg hover:bg-teal-700">
-            Copier
+          <button
+            onClick={handleCopy}
+            className="bg-light-green text-white px-6 py-3 rounded-lg hover:bg-teal-700"
+          >
+            {t("referral.copyButton")}
           </button>
         </div>
-
+  
         {/* Footer Text */}
         <p className="mt-6 text-sm text-teal-700">
-          Invitez vos amis à nous rejoindre pour gagner encore plus de points !
+          {t("referral.footerText")}
         </p>
-
-
-
+  
+        {/* Additional Boxes */}
         <div className="flex flex-col md:flex-row justify-center items-start gap-6 m-5">
-          {/* Box 1 */}
+          {/* Box 4 */}
           <div className="border-light-green border-2 rounded-lg w-72 h-64 flex flex-col justify-center items-center p-4">
-            <h4 className="text-lg text-center mb-3">Commandes du parrainé (montant superieur a 30,00 euros) (premiere commande seulement)</h4>
+            <h4 className="text-lg text-center mb-3">
+              {t("boxes.box4.title")}
+            </h4>
             <p className="text-sm text-center">
-              
-              <br />1 POINT
+              <strong>{t("boxes.box4.description")}</strong>
             </p>
           </div>
-
-          {/* Box 2 */}
+  
+          {/* Box 5 */}
           <div className="border-light-green border-2 rounded-lg w-72 h-64 flex flex-col justify-center items-center p-4">
-            <h4 className="text-lg text-center mb-10">Commandes du parrainé (premiere commande seulement)</h4>
+            <h4 className="text-lg text-center mb-10">
+              {t("boxes.box5.title")}
+            </h4>
             <p className="text-sm text-center">
-              <br />1 POINTS
+              <strong>{t("boxes.box5.description")}</strong>
             </p>
           </div>
-          </div>
-
+        </div>
       </section>
-
-
     </>
-
   );
 };
 

@@ -1,77 +1,76 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
+import { useTranslations } from "next-intl";
+
 
 const Commandes = () => {
+  const t = useTranslations("orders");
 
-  // State to hold addresses
   const [orders, setOrders] = useState<any[]>(() => {
-    const storedUserData = localStorage.getItem('userData')
-    const parsedUserData = storedUserData ? JSON.parse(storedUserData) : null
+    const storedUserData = localStorage.getItem('userData');
+    const parsedUserData = storedUserData ? JSON.parse(storedUserData) : null;
     return parsedUserData?.orders || [];
   });
 
   return (
-    <section className="bg-teal-50 text-light-green py-10 px-5">
-      {/* Commandes en cours */}
-      <div className="mb-10">
-        <h3 className="text-xl font-bold mb-5">Commandes</h3>
-        <div className="space-y-8">
-          {/* Dynamic Orders List */}
+    <section className="text-gray-800 mt-8 py-12 px-6 max-w-4xl mx-auto rounded-lg shadow-md">
+      <div className="mb-12">
+        <h3 className="text-2xl font-bold text-teal-800 mb-6">
+          {t("title")}
+        </h3>
+        <div className="space-y-10">
           {orders.map((order) => (
             <div
               key={order.id}
-              className="border-b border-dark-green pb-4"
+              className="border border-gray-300 rounded-lg p-6 bg-white shadow-sm"
             >
-              {/* Header Section */}
-              <div className="flex justify-between items-center">
-                {/* Left Section: Date and Order Details */}
+              <div className="flex justify-between items-center mb-4">
                 <div>
-                  <p className="text-sm">{new Date(order.date).toLocaleDateString()}</p>
-                  <p className="font-bold text-teal-800">NUMÉRO DE COMMANDE: {order.id}</p>
+                  <p className="text-sm text-gray-600">
+                    {new Date(order.date).toLocaleDateString()}
+                  </p>
+                  <p className="text-lg font-semibold text-green">
+                    {t("order.orderNumber")}: {order.id}
+                  </p>
                 </div>
-
-                {/* Right Section: Total Price and Status */}
                 <div className="text-right">
-                  <p className="font-bold text-lg">
+                  <p className="font-bold text-xl text-gray-900">
                     {parseFloat(order.total).toFixed(2)} {order.currency}
                   </p>
                   <p
                     className={`text-sm font-medium ${
                       order.status === "Delivered"
                         ? "text-green-600"
-
-                        : order.status === 'wc-on-hold' ? "text-yellow-600" : 'text-red-600'
+                        : order.status === "wc-on-hold"
+                        ? "text-yellow-600"
+                        : "text-red-600"
                     }`}
                   >
-                    {order.status === 'wc-on-hold' ?  'In progress' :  order.status === 'wc-failed' ? 'Failed' : 'Delivered' }
+                    {order.status === "wc-on-hold"
+                      ? t("order.status.onHold")
+                      : order.status === "wc-failed"
+                      ? t("order.status.failed")
+                      : t("order.status.delivered")}
                   </p>
                 </div>
               </div>
-
-              {/* Products Table */}
-              <table className="mt-4 w-full text-gray-500 sm:mt-6">
-                <thead className="sr-only text-left text-sm text-gray-500 sm:not-sr-only">
-                  <tr>
-                    <th scope="col" className="py-3 pr-8 font-normal sm:w-2/5 lg:w-1/3">
-                      Product
-                    </th>
-                    <th scope="col" className="hidden w-1/5 py-3 pr-8 font-normal sm:table-cell">
-                      Price
+              <table className="mt-6 w-full text-gray-700">
+                <thead>
+                  <tr className="border-b text-left text-sm font-medium text-gray-600">
+                    <th className="py-3 pr-8">{t("order.product")}</th>
+                    <th className="py-3 pr-8 hidden sm:table-cell">
+                      {t("order.price")}
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 border-b border-gray-200 text-sm sm:border-t">
-                  {order.products.map((product : any) => (
-                    <tr key={`${order.id}`}>
-                      <td className="py-6 pr-8">
-                        <div className="flex items-center">
-                          <div>
-                            <div className="font-medium text-teal-800">{product.name}</div>
-                          </div>
-                        </div>
+                <tbody className="divide-y divide-gray-200">
+                  {order.products.map((product: any) => (
+                    <tr key={product.name} className="text-sm">
+                      <td className="py-4 pr-8 text-teal-900 font-medium">
+                        {product.name}
                       </td>
-                      <td className="hidden py-6 pr-8 sm:table-cell">
+                      <td className="py-4 pr-8 hidden sm:table-cell">
                         {parseFloat(product.price).toFixed(2)} {order.currency}
                       </td>
                     </tr>
