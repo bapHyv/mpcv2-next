@@ -9,28 +9,26 @@ import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 import { useProducts } from "@/app/context/productsContext";
+import useProductStockManager from "@/app/hooks/useProductStockManager";
 
-export default function CartProductCard({
-  cartItemId,
-  id,
-  name,
-  quantity,
-  option,
-  totalPrice,
-  unitPrice,
-  image,
-  per,
-}: ProductCart) {
+export default function CartProductCard({ cartItemId, id, name, quantity, option, totalPrice, unitPrice, image, per }: ProductCart) {
   const { addAlert } = useAlerts();
   const { cart, setCart } = useCart();
   const { products, setProducts, updateProduct } = useProducts();
   const t = useTranslations("productCardCart");
+  const handleUpdateProduct = useProductStockManager();
 
   // When removing a product from the cart, the cart total and the product's stock must be recomputed
   const removeProduct = () => {
-    const updatedCartProducts = cart.products.filter(
-      (product) => product.cartItemId !== cartItemId
-    );
+    const productStock = parseInt(products[id].stock);
+    const quantityInCart = cart.products
+      .filter((product) => product.cartItemId === cartItemId)
+      .reduce((acc, val) => acc + parseInt(val.option) * val.quantity, 0);
+    const computedStock = (quantityInCart + productStock).toString();
+
+    updateProduct(id, { stock: computedStock });
+
+    const updatedCartProducts = cart.products.filter((product) => product.cartItemId !== cartItemId);
 
     setCart((prevCart) => ({ ...prevCart, products: updatedCartProducts }));
   };
@@ -51,6 +49,9 @@ export default function CartProductCard({
 
         return { ...prevCart, products: updatedCartProducts };
       });
+
+      handleUpdateProduct(id, parseInt(option));
+
       const alertAddQuantityDescription = `Vous avez bien ajouté ${option} ${per} du produit: ${name}`;
       addAlert(uuid(), alertAddQuantityDescription, "Ajout de produit", "emerald");
     }
@@ -73,6 +74,13 @@ export default function CartProductCard({
         return { ...prevCart, products: updatedCartProducts };
       });
 
+      // When removing a product quantity from the cart, the cart total and the product's stock must be recomputed
+      const productStock = parseInt(products[id].stock);
+      const quantityInCart = cart.products.filter((product) => product.cartItemId === cartItemId).reduce((acc, val) => acc + parseInt(val.option), 0);
+      const computedStock = (quantityInCart + productStock).toString();
+
+      updateProduct(id, { stock: computedStock });
+
       const alertRemoveQuantityDescription = `Vous avez retiré ${option} ${per} du produit: ${name}`;
       addAlert(uuid(), alertRemoveQuantityDescription, "Ajout de produit", "yellow");
     }
@@ -84,12 +92,7 @@ export default function CartProductCard({
         <XMarkIcon
           onClick={() => {
             removeProduct();
-            addAlert(
-              uuid(),
-              `Le produit ${name} a bien été retiré du panier`,
-              "Suppression de produit",
-              "yellow"
-            );
+            addAlert(uuid(), `Le produit ${name} a bien été retiré du panier`, "Suppression de produit", "yellow");
           }}
           className="absolute h-[22px] w-[22px] top-0.5 right-0.5 text-neutral-500 cursor-pointer rounded-md hover:bg-neutral-100"
         />
@@ -116,12 +119,7 @@ export default function CartProductCard({
               <MinusIcon
                 onClick={decrementQuantity}
                 className={twMerge(
-                  clsx(
-                    quantity === 1
-                      ? "cursor-not-allowed bg-neutral-400"
-                      : "cursor-pointer bg-green",
-                    "text-white rounded-full h-5 w-5"
-                  )
+                  clsx(quantity === 1 ? "cursor-not-allowed bg-neutral-400" : "cursor-pointer bg-green", "text-white rounded-full h-5 w-5")
                 )}
               />
               <span className="text-sm">{quantity}</span>
@@ -129,9 +127,7 @@ export default function CartProductCard({
                 onClick={incrementQuantity}
                 className={twMerge(
                   clsx(
-                    parseInt(products[id]?.stock) < parseInt(option)
-                      ? "cursor-not-allowed bg-neutral-400"
-                      : "cursor-pointer bg-green",
+                    parseInt(products[id]?.stock) < parseInt(option) ? "cursor-not-allowed bg-neutral-400" : "cursor-pointer bg-green",
                     "text-white rounded-full h-5 w-5"
                   )
                 )}

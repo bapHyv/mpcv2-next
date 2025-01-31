@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useState, useContext, Dispatch, SetStateAction, useEffect } from "react";
 
 import { Prices, Product } from "@/app/types/productsTypes";
-import { formatOptions } from "@/app/utils/productFunctions";
 import { useSse } from "@/app/context/sseContext";
 import { useCart } from "@/app/context/cartContext";
 import { useAlerts } from "@/app/context/alertsContext";
@@ -20,11 +19,7 @@ export interface FormatedProduct {
   relatedProducts: Product[];
   stock: string;
   option: string; // Selected option (see ProductOptions.tsx)
-  price: string; // Displayed price (see ProductPrice.tsx)
-  formatedOptions: ({
-    option: string;
-    price: string;
-  } | null)[]; // Available options related to stock (see productFunction.ts => formatOptions)
+  price: string; // Displayed price (see ProductPrice.tsx);
 }
 
 interface ProductsAPIResponse {
@@ -91,7 +86,6 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
             relatedProducts: product.relatedProducts,
             option: Object.entries(product.prices)[0][0],
             price: Object.entries(product.prices)[0][1],
-            formatedOptions: formatOptions(product.prices, product.stock),
             stock: product.stock,
           };
 
@@ -110,95 +104,82 @@ export function ProductsProvider({ children }: { children: ReactNode }): JSX.Ele
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const _productsCartStock: { [productId: string | number]: number } = {};
+  /**
+   * The purpose of this useEffect is to:
+   *  - Remove products that still exist in the cart but are not available anymore
+   *  => (It can happen when the customer comes back after a few weeks and his cart still exists in the local storage)
+   *  - Remove quantity from a specific product if there is not enough stock available
+   *  => (It can happen in the following case: CUSTOMER-A has 100g of FLOWER-A in his cart. CUSTOMER-B buys 50g of FLOWER-A,
+   *      it means only 50g of FLOWER-A are available. 50g of FLOWER-A must be removed from CUSTOMER-A's cart)
+   *  => (It can also happen in the following case: CUSTOMER-A comes back after a few days and his cart still exists in the local storage.
+   *      He still has 100g of FLOWER-A in his cart but there is only 50g available of FLOWER-A. 50 g of FLOWER-A must me removed)
+   */
+  // useEffect(() => {
+  //   // This object holds the ids of the product in the cart with its total quantity.
+  //   const _productsCartStock: { [productId: string | number]: number } = {};
 
-    cart.products.forEach((cartProduct) => {
-      // if the productId exists in product stock, increment the quantity instead of adding a new key.
-      // It is necessary because it has to compute the quantity (in g or unit) inside the cart
-      // for example, the cart could contain trim 2x10g and trim 1x50g. The result is { [trimId]: 70 }
-      if (cartProduct.id in _productsCartStock) {
-        _productsCartStock[cartProduct.id] = _productsCartStock[cartProduct.id] + cartProduct.quantity * parseInt(cartProduct.option);
-      } else {
-        _productsCartStock[cartProduct.id] = cartProduct.quantity * parseInt(cartProduct.option);
-      }
-    });
+  //   cart.products.forEach((cartProduct) => {
+  //     // if the productId exists in product stock, increment the quantity instead of adding a new key.
+  //     // Ex: the cart could contain trim 2x10g and trim 1x50g. The result is { [trimId]: 70 }
+  //     if (cartProduct.id in _productsCartStock) {
+  //       _productsCartStock[cartProduct.id] = _productsCartStock[cartProduct.id] + cartProduct.quantity * parseInt(cartProduct.option);
+  //     } else {
+  //       _productsCartStock[cartProduct.id] = cartProduct.quantity * parseInt(cartProduct.option);
+  //     }
+  //   });
 
-    // Check if products in cart still exists in products from sse
-    // If the product does not exist in the db (from sse), it removes it from the cart
-    Object.keys(_productsCartStock).forEach((productId) => {
-      if (sseData && !(productId in sseData.stocks)) {
-        const description = `Il n'y a plus de stock pour le produit ${productId}. Il a ete enleve de votre panier`;
-        addAlert(uuid(), description, "Produit n'est plus disponible", "red");
+  //   // Check if products in cart still exists in products from sse
+  //   // If the product does not exist in the db (from sse), it removes it from the cart
+  //   Object.keys(_productsCartStock).forEach((productId) => {
+  //     if (sseData && !(productId in sseData.stocks)) {
+  //       const description = `Il n'y a plus de stock pour le produit ${productId}. Il a ete enleve de votre panier`;
+  //       addAlert(uuid(), description, "Produit n'est plus disponible", "red");
 
-        setCart((prevCart) => ({
-          ...prevCart,
-          products: prevCart.products.filter((product) => product.id != productId),
-        }));
+  //       setCart((prevCart) => ({
+  //         ...prevCart,
+  //         products: prevCart.products.filter((product) => product.id != productId),
+  //       }));
 
-        delete _productsCartStock[productId];
-      }
-    });
+  //       delete _productsCartStock[productId];
+  //     }
+  //   });
 
-    // Check for each product in the cart if the quantity (in g or unit) is still available in the db (from sse)
-    if (sseData && !!Object.keys(_productsCartStock).length && !!Object.keys(sseData.stocks) && !!cart.products.length) {
-      Object.entries(_productsCartStock).forEach(([productId, stock]) => {
-        if (sseData.stocks[productId] < stock) {
-          let delta = stock - sseData.stocks[productId];
-          const products = cart.products.filter((product) => product.id == productId).toSorted((a, b) => parseInt(a.option) + parseInt(b.option));
-          // const cartItemIdToRemove: string[] = [];
-          const cartItemIdToRemove: { [cartItemId: string]: string } = {};
+  //   // Check for each product in the cart if the quantity (in g or unit) is still available in the db (from sse)
+  //   // If it is not, remove product variation starting from the biggest variation.
+  //   if (sseData && !!Object.keys(_productsCartStock).length && !!Object.keys(sseData.stocks).length && !!cart.products.length) {
+  //     Object.entries(_productsCartStock).forEach(([productId, stock]) => {
+  //       if (productId in sseData.stocks && sseData.stocks[productId] < stock) {
+  //         // The quantity to remove
+  //         let delta = stock - sseData.stocks[productId];
 
-          products.forEach((product) => {
-            if (delta > 0) {
-              cartItemIdToRemove[product.cartItemId] = product.cartItemId;
-              delta -= product.quantity * parseInt(product.option);
-            }
-          });
+  //         // Store all the variation of the product in an array, sorted in descending order
+  //         const products = cart.products.filter((product) => product.id == productId).toSorted((a, b) => parseInt(b.option) - parseInt(a.option));
 
-          products.forEach((product) => {
-            if (product.cartItemId in cartItemIdToRemove) {
-              const description = `${product.option} ${product.per} du produit ${product.name} retiré du panier`;
-              addAlert(uuid(), description, "Retrait de produit du panier", "red");
-            }
-          });
+  //         const cartItemIdToRemove: { [cartItemId: string]: string } = {};
 
-          setCart((prevCart) => ({
-            ...prevCart,
-            products: prevCart.products.filter((product) => !(product.cartItemId in cartItemIdToRemove)),
-          }));
-        }
-      });
-    }
+  //         products.forEach((product) => {
+  //           if (delta > 0) {
+  //             cartItemIdToRemove[product.cartItemId] = product.cartItemId;
+  //             delta -= product.quantity * parseInt(product.option);
+  //           }
+  //         });
 
-    // Every time the cart changes, the product's stock, formatedOptions, price (displayed price in the ui) and option (selected option)
-    // has to be recomputed. The "isProductInCart" variable is here to check if a specific product is in the cart to compute the stock.
-    if (sseData && !!Object.keys(products).length) {
-      Object.entries(sseData.stocks).forEach(([productId, stockFromSse]) => {
-        if (productId in products) {
-          const isProductInCart = productId in _productsCartStock;
-          const computedStock = isProductInCart ? stockFromSse - _productsCartStock[productId] : stockFromSse;
+  //         products.forEach((product) => {
+  //           if (product.cartItemId in cartItemIdToRemove) {
+  //             const description = `${product.option} ${product.per} du produit ${product.name} retiré du panier`;
+  //             addAlert(uuid(), description, "Retrait de produit du panier", "red");
+  //           }
+  //         });
 
-          const formatedOptions = formatOptions(products[productId].productOptions, computedStock.toString());
-
-          const l = formatedOptions.length;
-          const doesFormatedOptionsHasPrice = formatedOptions.some((formatedOption) => formatedOption?.price === products[productId].price);
-          const doesFormatedOptionHasOption = formatedOptions.some((formatedOption) => formatedOption?.option === products[productId].option);
-
-          setProducts((prevProducts) => ({
-            ...prevProducts,
-            [productId]: {
-              ...prevProducts[productId],
-              price: !doesFormatedOptionsHasPrice ? formatedOptions[l - 1].price : prevProducts[productId].price,
-              option: !doesFormatedOptionHasOption ? formatedOptions[l - 1].option : prevProducts[productId].option,
-              stock: computedStock.toString(),
-            },
-          }));
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cart.products, areProductsReady, sseData?.stocks]);
+  //         setCart((prevCart) => ({
+  //           ...prevCart,
+  //           products: prevCart.products.filter((product) => !(product.cartItemId in cartItemIdToRemove)),
+  //         }));
+  //       }
+  //     });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [cart.products, areProductsReady, sseData?.stocks]);
 
   return (
     <productsContext.Provider

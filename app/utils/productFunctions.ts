@@ -39,18 +39,6 @@ export function findHighestOption(prices: Prices) {
   return highestOption;
 }
 
-export function formatOptions(
-  prices: Prices,
-  stock: string
-): {
-  option: string;
-  price: string;
-}[] {
-  return Object.entries(prices)
-    .map(([key, value]) => ({ option: key, price: value }))
-    .filter((entry) => !!entry);
-}
-
 export function doesCategoryExists(categories: categories, category: string) {
   return categories.find((e) => e.slug === category);
 }

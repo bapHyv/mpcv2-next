@@ -3,6 +3,8 @@
 import { useAlerts } from "@/app/context/alertsContext";
 import { ProductCart, useCart } from "@/app/context/cartContext";
 import { useProducts } from "@/app/context/productsContext";
+import { useSse } from "@/app/context/sseContext";
+import useProductStockManager from "@/app/hooks/useProductStockManager";
 import { Image, Prices } from "@/app/types/productsTypes";
 import { Field, Radio, RadioGroup } from "@headlessui/react";
 import { PlusIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
@@ -27,12 +29,13 @@ interface Params {
 
 // This Component is used to display the product's option but is also used as a gateway into client features like contexts.
 export default function ProductOptions({ prices, pricesPer, name, id, image, stock, slug, category }: Params) {
+  const { sseData } = useSse();
   const { products, updateProduct } = useProducts();
-
-  const t = useTranslations("category");
-  const { setCart } = useCart();
+  const { cart, setCart } = useCart();
   const { addAlert } = useAlerts();
+  const t = useTranslations("category");
   const params = useParams();
+  const handleUpdateProduct = useProductStockManager();
 
   const hasStockAvailable = useMemo(() => {
     return !!products[id] ? parseInt(products[id].stock) > 0 : false;
@@ -58,7 +61,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
     // to be added to the cart.
     setCart((prevCart) => {
       // Check if the same product and option is already in the cart
-      const isSameProductAndOptionInCart = prevCart.products?.some(
+      const isSameProductAndOptionInCart = prevCart.products.some(
         (product) => product.id === id && product.option === productBeingAddedToCart.option
       );
 
@@ -87,6 +90,8 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
       }
     });
 
+    handleUpdateProduct(id, parseInt(productBeingAddedToCart.option));
+
     // Triggers an alert to give feedback to the user when he adds a product in the cart
     const alertDescription = `${products[id].option} ${pricesPer} du produit ${name} a bien ete ajoute`;
     addAlert(uuid(), alertDescription, "Ajout de produit", "emerald");
@@ -102,36 +107,33 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
       <fieldset aria-label="Choose a size" className="">
         {/* pricesPer === "g" ? t("quantity") : t("unit") */}
         <RadioGroup value={products[id].option} onChange={handleSelectOption} className="grid grid-cols-3 gap-1 w-5/6 m-auto">
-          {products[id].formatedOptions.map(
-            (option) =>
-              option && (
-                <Field key={option.option} disabled={parseInt(products[id].stock) < parseInt(option.option)}>
-                  <Radio as={Fragment} value={option.option}>
-                    {({ checked, disabled, focus, hover }) => (
-                      <div
-                        className={twMerge(
-                          clsx(
-                            "col-span-1 p-1 cursor-pointer flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white text-neutral-700",
-                            { "border-transparent text-neutral-900 border-green shadow-product-cards": checked },
-                            { "ring-2 ring-green ring-offset-2 outline-none": focus },
-                            { "bg-neutral-200": hover },
-                            { "cursor-not-allowed bg-neutral-400 text-neutral-900 opacity-50": disabled }
-                          )
-                        )}
-                      >
-                        <span>
-                          {option.option}
-                          {pricesPer === "g" ? "g" : "u"}
-                        </span>
-                        <span className="text-xs">
-                          ({(parseFloat(option.price) / parseInt(option.option)).toFixed(2)}€/{pricesPer})
-                        </span>
-                      </div>
+          {Object.entries(products[id].productOptions).map(([option, price]) => (
+            <Field key={option} disabled={parseInt(products[id].stock) < parseInt(option)}>
+              <Radio as={Fragment} value={option}>
+                {({ checked, disabled, focus, hover }) => (
+                  <div
+                    className={twMerge(
+                      clsx(
+                        "col-span-1 p-1 cursor-pointer flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white text-neutral-700",
+                        { "border-transparent text-neutral-900 border-green shadow-product-cards": checked },
+                        { "ring-2 ring-green ring-offset-2 outline-none": focus },
+                        { "bg-neutral-200": hover },
+                        { "cursor-not-allowed bg-neutral-400 text-neutral-900 opacity-50": disabled }
+                      )
                     )}
-                  </Radio>
-                </Field>
-              )
-          )}
+                  >
+                    <span>
+                      {option}
+                      {pricesPer === "g" ? "g" : "u"}
+                    </span>
+                    <span className="text-xs">
+                      ({(parseFloat(price) / parseInt(option)).toFixed(2)}€/{pricesPer})
+                    </span>
+                  </div>
+                )}
+              </Radio>
+            </Field>
+          ))}
         </RadioGroup>
       </fieldset>
       {/* ADD CART BUTTON*/}
