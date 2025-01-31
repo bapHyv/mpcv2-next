@@ -10,19 +10,6 @@ import BurgerMenuHeader from "@/app/components/header/BurgerMenuHeader";
 import LanguageSelector from "@/app/components/header/LanguageSelector";
 
 export default async function NavBar({ locale }: { locale: string }) {
-  /**
-   * Nav: burger profile logo produit cart
-   * dropdown: blog language theme
-   *
-   * TODO:
-   * Refaire la navbar sur tablet et desktop
-   * Add card-shine-effect to nav element
-   *
-   * DONE:
-   * Remplacer menu burger disclosure par un menu burger perso (voir menu user)
-   * Ajouter un effet brillant sur la navbar pour attirer l'oeil
-   */
-
   return (
     <nav className="bg-black fixed bottom-0 sm:top-0 sm:bottom-auto w-full max-w-[1920px] z-50 flex">
       <div className="relative w-full px-3 sm:px-2 lg:px-8 my-1">
@@ -36,12 +23,7 @@ export default async function NavBar({ locale }: { locale: string }) {
 
           {/* LOGO PHONE */}
           <Link href={`/${locale}`}>
-            <Image
-              alt="Monplancbd"
-              src="/logo_fleur_verte_souligne_blanc.png"
-              width={50}
-              height={50}
-            />
+            <Image alt="Monplancbd" src="/logo_fleur_verte_souligne_blanc.png" width={50} height={50} />
           </Link>
 
           {/* PRODUCTS LINK PHONE */}
@@ -65,22 +47,16 @@ export default async function NavBar({ locale }: { locale: string }) {
           {/* PRODUCTS BUTTON TABLET AND DESKTOP */}
           <Link
             href={`/${locale}/fleurs-cbd`}
-            className="bg-green px-3 py-2 text-white uppercase rounded-md font-semibold text-sm flex items-center"
+            className="bg-green px-3 py-2 text-white uppercase rounded-md font-semibold text-sm flex items-center hover:bg-dark-green"
           >
-            <Image
-              src="/canna-blanc.png"
-              alt="logo CBD blanc"
-              height={20}
-              width={20}
-              className="mr-2"
-            />
+            <Image src="/canna-blanc.png" alt="logo CBD blanc" height={20} width={20} className="mr-2" />
             <span className="block mt-1">produits</span>
           </Link>
 
           {/* BLOG LINK TABLET AND DESKTOP */}
           <Link
             href={`/${locale}/blog`}
-            className="bg-green px-3 py-2 text-white uppercase rounded-md font-semibold text-sm flex items-center"
+            className="bg-green px-3 py-2 text-white uppercase rounded-md font-semibold text-sm flex items-center hover:bg-dark-green"
           >
             <NewspaperIcon className="w-5 h-5 text-white mr-2" />
             <span className="block mt-1">blog</span>

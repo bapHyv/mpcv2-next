@@ -1,60 +1,55 @@
-import { useTranslations } from "next-intl";
-import products from "@/app/fakeData/products.json";
 import Carousel from "@/app/components/Carousel";
-import HeroCarousel from '@/app/components/HeroCarousel'
+import HeroCarousel from "@/app/components/HeroCarousel";
 import ProductCard from "@/app/components/products/ProductCard";
 import Title from "@/app/components/Title";
-import {
-  CreditCardIcon,
-  GiftIcon,
-  StarIcon,
-  TruckIcon,
-  ShoppingBagIcon,
-} from "@heroicons/react/20/solid";
+import { CreditCardIcon, GiftIcon, StarIcon, TruckIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
 import ServiceCard from "@/app/components/homepage/ServiceCard";
 import Image from "next/image";
 import { Flower, Hash, Oil } from "@/app/types/productsTypes";
 import { v4 as uuid } from "uuid";
 import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 import { getTranslations } from "next-intl/server";
-
-
-
+import clsx from "clsx";
 
 interface Params {
   locale: string;
 }
 
-async function getFlowers() {
-  const res: Flower[] = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`).then(
-    (res) => res.json()
-  );
+interface APIResponse<k> {
+  [productId: string]: k;
+}
 
-  return Object.values(res);
+async function getFlowers() {
+  const response = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`);
+  const data: APIResponse<Flower> = await response.json();
+  //TODO: REMOVE FILTER ON STOCK
+  const formatedFlowers = Object.values(data).filter((e) => !!parseInt(e.stock));
+
+  return formatedFlowers;
 }
 
 async function getHashs() {
-  const res: Hash[] = await fetch(
-    `${process.env.API_HOST}/products/pollens-resines-hash-cbd`
-  ).then((res) => res.json());
+  const response = await fetch(`${process.env.API_HOST}/products/pollens-resines-hash-cbd`);
+  const data: APIResponse<Hash> = await response.json();
+  //TODO: REMOVE FILTER ON STOCK
+  const formatedHashs = Object.values(data).filter((e) => !!parseInt(e.stock));
 
-  return Object.values(res);
+  return formatedHashs;
 }
 
 async function getOils() {
-  const res: Oil[] = await fetch(`${process.env.API_HOST}/products/huiles-cbd`).then((res) =>
-    res.json()
-  );
+  const response = await fetch(`${process.env.API_HOST}/products/huiles-cbd`);
+  const data: APIResponse<Oil> = await response.json();
+  //TODO: REMOVE FILTER ON STOCK
+  const formatedOils = Object.values(data).filter((e) => !!parseInt(e.stock));
 
-  return Object.values(res);
+  return formatedOils;
 }
+
+// TODO: ADD PHONE NUMBER AND TRUSTPILOT
 
 export default async function Page({ locale }: Params) {
   const t = await getTranslations({ locale, namespace: "HomePage" });
-
-  const promo = Object.entries(products)
-    .map(([key, value]) => value.filter((product) => product.isPromo))
-    .flatMap((e) => e);
 
   const flowersData = getFlowers();
   const hashsData = getHashs();
@@ -62,9 +57,7 @@ export default async function Page({ locale }: Params) {
 
   const [flowers, hashs, oils] = await Promise.all([flowersData, hashsData, oilsData]);
 
-  const productCardsSkeleton: JSX.Element[] = new Array(8)
-    .fill(0)
-    .map(() => <ProductCardSkeleton key={uuid()} />);
+  const productCardsSkeleton: JSX.Element[] = new Array(8).fill(0).map(() => <ProductCardSkeleton key={uuid()} />);
 
   const services = [
     {
@@ -94,89 +87,44 @@ export default async function Page({ locale }: Params) {
     },
   ];
 
+  const titleClassname = clsx(
+    "relative mt-4 mb-6 text-xl text-white font-bold",
+    "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1 after:w-8 after:bg-white",
+    "sm:mt-8 ",
+    "2xl:pl-2 "
+  );
+
   return (
     <>
       <section className="">
-        {/* <Title
-          title={t("discountProducts")}
-          type="h2"
-          classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
-          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
-          dark:after:bg-white`}
-          firstLetterClassname="text-4xl"
-        /> */}
-       <HeroCarousel />
+        <HeroCarousel />
       </section>
       <section>
-        <Title
-          title={t("flowers")}
-          type="h2"
-          classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
-          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
-          dark:after:bg-white`}
-          firstLetterClassname="text-4xl"
-        />
-        <Carousel>
+        <Title title={t("flowers")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
+        <Carousel length={flowers ? flowers.length : 0}>
           {!flowers
             ? productCardsSkeleton
             : flowers.map((flower) => (
-                <ProductCard
-                  key={flower.id}
-                  {...flower}
-                  locale={locale}
-                  category={"fleurs-cbd"}
-                  mainDivClassname="sm:w-96 m-0 rounded-md"
-                  secondeDivClassname="w-96"
-                />
+                <ProductCard key={flower.id} {...flower} locale={locale} category={"fleurs-cbd"} mainDivClassname="rounded-md" />
               ))}
         </Carousel>
       </section>
       <section>
-        <Title
-          title={t("hashs")}
-          type="h2"
-          classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
-          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
-          dark:after:bg-white`}
-          firstLetterClassname="text-4xl"
-        />
-        <Carousel>
+        <Title title={t("hashs")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
+        <Carousel length={hashs ? hashs.length : 0}>
           {!hashs
             ? productCardsSkeleton
             : hashs.map((hash) => (
-                <ProductCard
-                  key={hash.id}
-                  {...hash}
-                  locale={locale}
-                  category={"pollens-resines-hash-cbd"}
-                  mainDivClassname="sm:w-96 m-0 rounded-md"
-                  secondeDivClassname="w-96"
-                />
+                <ProductCard key={hash.id} {...hash} locale={locale} category={"pollens-resines-hash-cbd"} mainDivClassname="rounded-md" />
               ))}
         </Carousel>
       </section>
       <section>
-        <Title
-          title={t("oils")}
-          type="h2"
-          classname={`relative mt-4 sm:mt-8 mb-6 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest
-          after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1.5 after:w-16 after:bg-black
-          dark:after:bg-white`}
-          firstLetterClassname="text-4xl"
-        />
-        <Carousel>
+        <Title title={t("oils")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
+        <Carousel length={oils ? oils.length : 0}>
           {!oils
             ? productCardsSkeleton
-            : oils.map((oil) => (
-                <ProductCard
-                  key={oil.id}
-                  {...oil}
-                  locale={locale}
-                  category={"huiles-cbd"}
-                  mainDivClassname="sm:w-96 m-0 rounded-md"
-                  secondeDivClassname="w-96"
-                />
-              ))}
+            : oils.map((oil) => <ProductCard key={oil.id} {...oil} locale={locale} category={"huiles-cbd"} mainDivClassname="rounded-md" />)}
         </Carousel>
       </section>
       <section className="relative mt-4 sm:mt-8">
@@ -223,24 +171,14 @@ export default async function Page({ locale }: Params) {
         </div>
         <div className="w-full lg:w-4/5 m-auto px-2 flex flex-col sm:flex-row justify-center gap-5 sm:flex-wrap">
           {services.map((service) => (
-            <ServiceCard
-              key={service.title}
-              icon={service.icon}
-              title={service.title}
-              text={service.text}
-            />
+            <ServiceCard key={service.title} icon={service.icon} title={service.title} text={service.text} />
           ))}
         </div>
         <div className="h-10" />
       </section>
       <section className="mt-10">
         <div className="flex flex-col md:items-center lg:flex-row lg:gap-x-5 lg:items-start">
-          <Image
-            src="/section_cbd.jpg"
-            alt={t("cbdSection.imgAlt")}
-            width={550}
-            height={367}
-          />
+          <Image src="/section_cbd.jpg" alt={t("cbdSection.imgAlt")} width={550} height={367} />
           <div>
             <Title
               title={t("cbdSection.title")}
@@ -256,12 +194,7 @@ export default async function Page({ locale }: Params) {
       </section>
       <section className="mt-10">
         <div className="flex flex-col md:items-center lg:flex-row-reverse lg:gap-x-5 lg:items-start">
-          <Image
-            src="/service_bg_hp.jpeg"
-            alt={t("cbdPassion.imgAlt")}
-            width={550}
-            height={367}
-          />
+          <Image src="/service_bg_hp.jpeg" alt={t("cbdPassion.imgAlt")} width={550} height={367} />
           <div>
             <Title
               title={t("cbdPassion.title")}
