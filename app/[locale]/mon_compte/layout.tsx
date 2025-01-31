@@ -8,7 +8,9 @@ const AccountLayout = ({ children, params: { locale }, }: Readonly<{ children: R
   
   return (
     <div className=''>
-      <AccountHeader locale={locale} />
+      <div className="hidden sm:block">
+        <AccountHeader locale={locale} />
+      </div>
       <main className="min-h-screen">{children}</main>
 
     </div>

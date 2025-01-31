@@ -2,6 +2,8 @@
 import { useState, FormEvent, useEffect } from "react";
 import { useAuth } from "@/app/context/authContext";
 import axios from "axios";
+import { useTranslations } from "next-intl";
+
 
 interface AddressPayload {
   id?: number;
@@ -19,7 +21,13 @@ interface AddressPayload {
   address2?: string;
 }
 
-export default function Addresses() {
+interface Params {
+  locale: string;
+}
+
+export default function Addresses({ locale }: Params) {
+  const t = useTranslations("addresses");
+
   const { userData, loading }: any = useAuth();
   const [editingAddress, setEditingAddress] = useState<AddressPayload | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -163,270 +171,287 @@ export default function Addresses() {
 
   return (
     <>
-      <ul role="list">
-        {addresses.length > 0 && <p className="text-teal-600 items-center text-center font-medium text-lg mt-8">My addresses</p>}
+      <ul role="list" className="max-w-4xl mx-auto p-6">
+        {addresses.length > 0 && (
+          <p className="text-green text-center font-medium text-2xl mt-8 mb-6">
+            {t("title")}
+          </p>
+        )}
         {addresses.map((address: any) => (
-          <div className="px-12 mt-4 mb-4">
-          <li key={address.id} className="py-4">
+          <li
+            key={address.id}
+            className="bg-white shadow-md rounded-lg p-6 mb-4 hover:shadow-lg transition-shadow"
+          >
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="text-sm font-semibold text-teal-600">{address.address1}</h3>
+                <h3 className="text-lg font-semibold text-green">{address.address1}</h3>
                 <p className="text-sm text-gray-600">{`${address.country}, ${address.city} ${address.postalCode}`}</p>
               </div>
               <div className="text-sm text-gray-500 flex gap-4">
                 <button
-                  className="text-teal-600 hover:text-teal-800"
+                  className="text-green hover:text-teal-800 font-medium"
                   onClick={() => {
                     setEditingAddress(address);
                     setIsModalOpen(true);
                   }}
                 >
-                  Modify
+                  {t("modal.update")}
                 </button>
                 <button
-                  className="text-red-600 hover:text-red-800"
+                  className="text-red-600 hover:text-red-800 font-medium"
                   onClick={() => handleDelete(address.id)}
                 >
-                  Delete
+                  {t("modal.delete")}
                 </button>
               </div>
             </div>
           </li>
-        </div>
-        
         ))}
-
-        {isModalOpen && editingAddress && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-            onClick={() => setIsModalOpen(false)} // Close modal on background click
-          >
-            <div
-              className="bg-white rounded-lg p-6 shadow-lg max-w-lg w-full relative"
-              onClick={(e) => e.stopPropagation()} // Prevent background click from closing modal
-            >
-              <h2 className="text-lg font-semibold mb-4">Modify Address</h2>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleUpdateAddress(editingAddress);
-                }}
-              >
-                <div className="grid grid-cols-1 gap-y-4">
-                  {/* Firstname */}
-                  <div>
-                    <label
-                      htmlFor="firstname"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Firstname
-                    </label>
-                    <input
-                      type="text"
-                      id="firstname"
-                      name="firstname"
-                      value={editingAddress.firstname}
-                      onChange={(e) =>
-                        setEditingAddress((prev) => ({ ...prev!, firstname: e.target.value }))
-                      }
-                      placeholder="Firstname"
-                      className="block w-full border border-gray-300 rounded px-3 py-2  focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  {/* Lastname */}
-                  <div>
-                    <label
-                      htmlFor="lastname"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Lastname
-                    </label>
-                    <input
-                      type="text"
-                      id="lastname"
-                      name="lastname"
-                      value={editingAddress.lastname}
-                      onChange={(e) =>
-                        setEditingAddress((prev) => ({ ...prev!, lastname: e.target.value }))
-                      }
-                      placeholder="Lastname"
-                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  {/* Address Line 1 */}
-                  <div>
-                    <label
-                      htmlFor="address1"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Address Line 1
-                    </label>
-                    <input
-                      type="text"
-                      id="address1"
-                      name="address1"
-                      value={editingAddress.address1}
-                      onChange={(e) =>
-                        setEditingAddress((prev) => ({ ...prev!, address1: e.target.value }))
-                      }
-                      placeholder="Address Line 1"
-                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  {/* Address Line 2 */}
-                  <div>
-                    <label
-                      htmlFor="address2"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Address Line 2 (Optional)
-                    </label>
-                    <input
-                      type="text"
-                      id="address2"
-                      name="address2"
-                      value={editingAddress.address2 || ""}
-                      onChange={(e) =>
-                        setEditingAddress((prev) => ({ ...prev!, address2: e.target.value }))
-                      }
-                      placeholder="Address Line 2"
-                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  {/* City */}
-                  <div>
-                    <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                      City
-                    </label>
-                    <input
-                      type="text"
-                      id="city"
-                      name="city"
-                      value={editingAddress.city}
-                      onChange={(e) =>
-                        setEditingAddress((prev) => ({ ...prev!, city: e.target.value }))
-                      }
-                      placeholder="City"
-                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  {/* Postal Code */}
-                  <div>
-                    <label
-                      htmlFor="postalCode"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Postal Code
-                    </label>
-                    <input
-                      type="number"
-                      id="postalCode"
-                      name="postalCode"
-                      value={editingAddress.postalCode}
-                      onChange={(e) =>
-                        setEditingAddress((prev) => ({ ...prev!, postalCode: e.target.value }))
-                      }
-                      placeholder="Postal Code"
-                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  {/* Country */}
-                  <div>
-                    <label
-                      htmlFor="country"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Country
-                    </label>
-                    <input
-                      type="text"
-                      id="country"
-                      name="country"
-                      value={editingAddress.country}
-                      onChange={(e) =>
-                        setEditingAddress((prev) => ({ ...prev!, country: e.target.value }))
-                      }
-                      placeholder="Country"
-                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  {/* Phone */}
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                      Phone (Optional)
-                    </label>
-                    <input
-                      type="text"
-                      id="phone"
-                      name="phone"
-                      value={editingAddress.phone || ""}
-                      onChange={(e) =>
-                        setEditingAddress((prev) => ({ ...prev!, phone: e.target.value }))
-                      }
-                      placeholder="Phone"
-                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  {/* Address Type */}
-                  <div>
-                    <label
-                      htmlFor="addressType"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Address Type
-                    </label>
-                    <select
-                      id="addressType"
-                      name="addressType"
-                      value={
-                        editingAddress.billing && editingAddress.shipping
-                          ? "both"
-                          : editingAddress.billing
-                          ? "billing"
-                          : "shipping"
-                      }
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        setEditingAddress((prev) => ({
-                          ...prev!,
-                          billing: value === "billing" || value === "both",
-                          shipping: value === "shipping" || value === "both",
-                        }));
-                      }}
-                      className="block w-full border border-gray-300 rounded px-3 py-2 focus:border-teal-500 focus:ring-teal-500"
-                    >
-                      <option value="billing">Billing</option>
-                      <option value="shipping">Shipping</option>
-                      <option value="both">Both</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="mt-6 flex justify-end gap-4">
-                  <button
-                    type="button"
-                    className="text-gray-700"
-                    onClick={() => setIsModalOpen(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button type="submit" className="bg-teal-600 text-white px-4 py-2 rounded">
-                    Save
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
       </ul>
+
+      {/* Modal for Editing Address */}
+      {isModalOpen && editingAddress && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+    onClick={() => setIsModalOpen(false)} // Close modal on background click
+  >
+    <div
+      className="bg-white rounded-lg p-6 md:p-8 shadow-lg w-11/12 md:max-w-lg mx-auto relative transform transition-all duration-300 ease-in-out overflow-y-auto max-h-[90vh]"
+      onClick={(e) => e.stopPropagation()} // Prevent background click from closing modal
+    >
+      <h2 className="text-2xl font-semibold mb-6 text-green">{t("modal.title")}</h2>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleUpdateAddress(editingAddress);
+        }}
+      >
+        <div className="grid grid-cols-1 gap-y-4 md:gap-y-6">
+          {/* Firstname */}
+          <div>
+            <label
+              htmlFor="firstname"
+              className="block text-sm font-medium text-gray-700"
+            >
+              {t("firstName")}
+            </label>
+            <input
+              type="text"
+              id="firstname"
+              name="firstname"
+              required
+              value={editingAddress.firstname}
+              onChange={(e) =>
+                setEditingAddress((prev) => ({ ...prev!, firstname: e.target.value }))
+              }
+              placeholder={t("firstName")}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            />
+          </div>
+
+          {/* Lastname */}
+          <div>
+            <label
+              htmlFor="lastname"
+              className="block text-sm font-medium text-gray-700"
+            >
+              {t("lastName")}
+            </label>
+            <input
+              required
+              type="text"
+              id="lastname"
+              name="lastname"
+              value={editingAddress.lastname}
+              onChange={(e) =>
+                setEditingAddress((prev) => ({ ...prev!, lastname: e.target.value }))
+              }
+              placeholder={t("lastName")}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            />
+          </div>
+
+          {/* Address Line 1 */}
+          <div>
+            <label
+              htmlFor="address1"
+              className="block text-sm font-medium text-gray-700"
+            >
+              {t("address1")}
+            </label>
+            <input
+              type="text"
+              id="address1"
+              name="address1"
+              required
+              value={editingAddress.address1}
+              onChange={(e) =>
+                setEditingAddress((prev) => ({ ...prev!, address1: e.target.value }))
+              }
+              placeholder={t("address1")}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            />
+          </div>
+
+          {/* Address Line 2 */}
+          <div>
+            <label
+              htmlFor="address2"
+              className="block text-sm font-medium text-gray-700"
+            >
+              {t("address2")}
+            </label>
+            <input
+              type="text"
+              id="address2"
+              name="address2"
+              value={editingAddress.address2 || ""}
+              onChange={(e) =>
+                setEditingAddress((prev) => ({ ...prev!, address2: e.target.value }))
+              }
+              placeholder={t("address2")}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            />
+          </div>
+
+          {/* City */}
+          <div>
+            <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+              {t("city")}
+            </label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              required
+              value={editingAddress.city}
+              onChange={(e) =>
+                setEditingAddress((prev) => ({ ...prev!, city: e.target.value }))
+              }
+              placeholder={t("city")}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            />
+          </div>
+
+          {/* Postal Code */}
+          <div>
+            <label
+              htmlFor="postalCode"
+              className="block text-sm font-medium text-gray-700"
+            >
+              {t("postalCode")}
+            </label>
+            <input
+              type="number"
+              id="postalCode"
+              name="postalCode"
+              required
+              value={editingAddress.postalCode}
+              onChange={(e) =>
+                setEditingAddress((prev) => ({ ...prev!, postalCode: e.target.value }))
+              }
+              placeholder={t("postalCode")}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            />
+          </div>
+
+          {/* Country */}
+          <div>
+            <label
+              htmlFor="country"
+              className="block text-sm font-medium text-gray-700"
+            >
+              {t("country")}
+            </label>
+            <input
+              type="text"
+              id="country"
+              name="country"
+              required
+              value={editingAddress.country}
+              onChange={(e) =>
+                setEditingAddress((prev) => ({ ...prev!, country: e.target.value }))
+              }
+              placeholder={t("country")}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            />
+          </div>
+
+          {/* Phone */}
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+              {t("phone")}
+            </label>
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              required
+              value={editingAddress.phone || ""}
+              onChange={(e) =>
+                setEditingAddress((prev) => ({ ...prev!, phone: e.target.value }))
+              }
+              placeholder={t("phone")}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            />
+          </div>
+
+          {/* Address Type */}
+          <div>
+            <label
+              htmlFor="addressType"
+              className="block text-sm font-medium text-gray-700"
+            >
+              {t("modal.addressType.title")}
+            </label>
+            <select
+              id="addressType"
+              name="addressType"
+              value={
+                editingAddress.billing && editingAddress.shipping
+                  ? "both"
+                  : editingAddress.billing
+                    ? "billing"
+                    : "shipping"
+              }
+              onChange={(e) => {
+                const value = e.target.value;
+                setEditingAddress((prev) => ({
+                  ...prev!,
+                  billing: value === "billing" || value === "both",
+                  shipping: value === "shipping" || value === "both",
+                }));
+              }}
+              className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            >
+              <option value="billing">{t("modal.addressType.billing")}</option>
+              <option value="shipping">{t("modal.addressType.shipping")}</option>
+              <option value="both">{t("modal.addressType.both")}</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="mt-6 flex justify-end gap-4">
+          <button
+            type="button"
+            className="text-gray-700 hover:text-gray-900 font-medium"
+            onClick={() => setIsModalOpen(false)}
+          >
+            {t("modal.cancel")}
+          </button>
+          <button
+            type="submit"
+            className="bg-green text-white px-6 py-2 rounded-md hover:bg-teal-700 transition-colors"
+          >
+            {t("modal.save")}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
+      {/* Form for Adding New Address */}
       <form
         onSubmit={handleSubmit}
         className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg"
@@ -437,44 +462,47 @@ export default function Addresses() {
               {/* Firstname */}
               <div className="sm:col-span-3">
                 <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
-                  Firstname
+                  {t("firstName")}
                 </label>
                 <input
                   id="firstname"
                   name="firstname"
                   type="text"
+                  required
                   value={formData.firstname}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
+                  className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
                 />
               </div>
 
               {/* Lastname */}
               <div className="sm:col-span-3">
                 <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">
-                  Lastname
+                  {t("lastName")}
                 </label>
                 <input
                   id="lastname"
                   name="lastname"
                   type="text"
+                  required
                   value={formData.lastname}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
+                  className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
                 />
               </div>
 
               {/* Country Selector */}
               <div className="sm:col-span-3">
                 <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                  Country
+                  {t("country")}
                 </label>
                 <select
                   id="country"
                   name="country"
+                  required
                   value={formData.country}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
+                  className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
                 >
                   <option>France</option>
                   <option>Belgium</option>
@@ -484,22 +512,23 @@ export default function Addresses() {
               {/* Street Address */}
               <div className="col-span-full">
                 <label htmlFor="address1" className="block text-sm font-medium text-gray-700">
-                  Street Address
+                  {t("address1")}
                 </label>
                 <input
                   id="address1"
                   name="address1"
                   type="text"
+                  required
                   value={formData.address1}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
+                  className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
                 />
               </div>
 
               {/* Address Line 2 */}
               <div className="col-span-full">
                 <label htmlFor="address2" className="block text-sm font-medium text-gray-700">
-                  Address Line 2 (Optional)
+                  {t("address2")}
                 </label>
                 <input
                   id="address2"
@@ -507,22 +536,23 @@ export default function Addresses() {
                   type="text"
                   value={formData.address2 || ""}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
+                  className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
                 />
               </div>
 
               {/* City */}
               <div className="sm:col-span-2 sm:col-start-1">
                 <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                  City
+                  {t("city")}
                 </label>
                 <input
                   id="city"
                   name="city"
                   type="text"
                   value={formData.city}
+                  required
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
+                  className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
                 />
               </div>
 
@@ -532,45 +562,48 @@ export default function Addresses() {
                   htmlFor="postalCode"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  ZIP / Postal Code
+                  {t("postalCode")}
                 </label>
                 <input
                   id="postalCode"
                   name="postalCode"
                   type="text"
+                  required
                   value={formData.postalCode}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
+                  className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
                 />
               </div>
 
               {/* Phone */}
               <div className="sm:col-span-3">
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                  Phone
+                  {t("phone")}
                 </label>
                 <input
                   id="phone"
                   name="phone"
                   type="text"
+                  required
                   value={formData.phone}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
+                  className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
                 />
               </div>
 
               {/* Email */}
               <div className="sm:col-span-3">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
+                  {t("email")}
                 </label>
                 <input
                   id="email"
                   name="email"
                   type="email"
+                  required
                   value={formData.email}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm"
+                  className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
                 />
               </div>
 
@@ -580,12 +613,14 @@ export default function Addresses() {
                   id="billing"
                   name="billing"
                   type="checkbox"
+                  defaultChecked={true} 
                   checked={formData.billing}
                   onChange={handleChange}
-                  className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+
+                  className="h-4 w-4 rounded border-gray-300 text-green focus:ring-green"
                 />
                 <label htmlFor="billing" className="text-sm font-medium text-gray-700">
-                  Use as billing address
+                  {t("billing")}
                 </label>
               </div>
 
@@ -595,12 +630,13 @@ export default function Addresses() {
                   id="shipping"
                   name="shipping"
                   type="checkbox"
+                  defaultChecked={true} 
                   checked={formData.shipping}
                   onChange={handleChange}
-                  className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                  className="h-4 w-4 rounded border-gray-300 text-green focus:ring-green"
                 />
                 <label htmlFor="shipping" className="text-sm font-medium text-gray-700">
-                  Use as shipping address
+                  {t("shipping")}
                 </label>
               </div>
             </div>
@@ -610,9 +646,9 @@ export default function Addresses() {
           <div className="mt-6 flex justify-end gap-4">
             <button
               type="submit"
-              className="rounded-md bg-teal-600 px-4 py-2 text-sm text-white hover:bg-teal-500 focus:ring-2 focus:ring-teal-500"
+              className="rounded-md bg-green px-6 py-2 text-sm text-white hover:bg-teal-700 focus:ring-2 focus:ring-green transition-colors"
             >
-              Add a new address
+              {t("addAddress")}
             </button>
           </div>
         </div>

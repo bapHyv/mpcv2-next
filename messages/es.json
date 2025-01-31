@@ -182,5 +182,119 @@
     "quantity": "cantidad",
     "priceOneArticle": "precio de un artículo",
     "subtotal": "subtotal"
+  },
+  "addresses": {
+    "title": "Mis Direcciones",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "address1": "Dirección 1",
+    "address2": "Dirección 2 (Opcional)",
+    "city": "Ciudad",
+    "postalCode": "Código Postal",
+    "country": "País",
+    "phone": "Teléfono",
+    "email": "Correo electrónico",
+    "billing": "Usar como dirección de facturación",
+    "shipping": "Usar como dirección de envío",
+    "addAddress": "Agregar una nueva dirección",
+    "modal": {
+      "title": "Editar dirección",
+      "update": "Actualizar",
+      "delete": "Eliminar",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "addressType": {
+        "title": "Tipo de dirección",
+        "billing": "Facturación",
+        "shipping": "Envío",
+        "both": "Ambos"
+      }
+    },
+    "updatedAddress": "Dirección actualizada con éxito.",
+    "failUpdatedAddress": "No se pudo actualizar la dirección."
+  },
+  "profile": {
+    "title": "Información personal",
+    "form": {
+      "titleSection": {
+        "label": "Título",
+        "options": {
+          "madame": "Señora",
+          "monsieur": "Señor"
+        }
+      },
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "displayName": "Nombre mostrado",
+      "displayNameHint": "Así es como se mostrará su nombre en la sección de la cuenta y en las reseñas",
+      "email": "Correo electrónico",
+      "communicationPreferences": {
+        "label": "Mis opciones",
+        "promotions": {
+          "label": "Actualizaciones de productos y promociones",
+          "hint": "Reciba comunicaciones de marketing que creemos que le interesarán."
+        },
+        "orders": {
+          "label": "Información de la cuenta y pedidos",
+          "hint": "Reciba información importante sobre sus pedidos y su cuenta."
+        }
+      },
+      "saveButton": "Guardar"
+    }
+  },
+  "orders": {
+    "title": "Mis pedidos",
+    "order": {
+      "date": "Fecha",
+      "orderNumber": "Número de pedido",
+      "total": "Total",
+      "status": {
+        "delivered": "Entregado",
+        "onHold": "En progreso",
+        "failed": "Fallido"
+      },
+      "product": "Producto",
+      "price": "Precio"
+    }
+  },
+  "loyalty": {
+    "title": "Tu saldo actual",
+    "points": "puntos",
+    "howToEarn": "Cómo ganar puntos",
+    "boxes": {
+      "box1": {
+        "title": "¡Gana 1 punto por cada € gastado en nuestra tienda!",
+        "description": "Puntos obtenidos: 1 PUNTO / 1,00 €"
+      },
+      "box2": {
+        "title": "¡Reseña un producto y recibe 10 puntos!",
+        "description": "Puntos obtenidos: 10 PUNTOS"
+      },
+      "box3": {
+        "title": "Registro de referido",
+        "description": "Puntos obtenidos: 50 PUNTOS"
+      },
+      "box4": {
+        "title": "Pedidos de referidos (monto superior a 30,00 euros) (solo primer pedido)",
+        "description": "Puntos obtenidos: 1 PUNTO"
+      },
+      "box5": {
+        "title": "Pedidos de referidos (solo primer pedido)",
+        "description": "Puntos obtenidos: 1 PUNTO"
+      }
+    },
+    "cartPoints": "PUNTOS DEL CARRITO: Cada punto que usas vale 0,1 €",
+    "referral": {
+      "title": "Tu enlace de referido",
+      "description": "¡Copia y comparte tu enlace de referido con tus amigos para ganar puntos!",
+      "copyButton": "Copiar",
+      "footerText": "¡Invita a tus amigos a unirse para ganar aún más puntos!"
+    }
+  },
+  "tabs": {
+    "profile": "Información personal",
+    "addresses": "Direcciones",
+    "orders": "Pedidos",
+    "loyalty": "Puntos de fidelidad y referidos"
   }
 }

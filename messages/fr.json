@@ -182,5 +182,120 @@
     "quantity": "quantité",
     "priceOneArticle": "prix d'un article",
     "subtotal": "sous-total"
-  }
+  },
+  "addresses": {
+    "title": "Mes Adresses",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "address1": "Adresse 1",
+    "address2": "Adresse 2 (Optionnel)",
+    "city": "Ville",
+    "postalCode": "Code Postal",
+    "country": "Pays",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "billing": "Utiliser comme adresse de facturation",
+    "shipping": "Utiliser comme adresse de livraison",
+    "addAddress": "Ajouter une nouvelle adresse",
+    "modal": {
+      "title": "Modifier l'adresse",
+      "update": "Mettre à jour",
+      "delete": "Supprimer",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "addressType": {
+        "title": "Type d'adresse",
+        "billing": "Facturation",
+        "shipping": "Livraison",
+        "both": "Les deux"
+      }
+    },
+    "updatedAddress": "Adresse mise à jour avec succès.",
+    "failUpdatedAddress": "Échec de la mise à jour de l'adresse."
+  },
+    "profile": {
+      "title": "Informations personnelles",
+      "form": {
+        "titleSection": {
+          "label": "Titre",
+          "options": {
+            "madame": "Madame",
+            "monsieur": "Monsieur"
+          }
+        },
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "displayName": "Nom affiché",
+        "displayNameHint": "Indique comment votre nom apparaîtra dans la section relative au compte et dans les avis",
+        "email": "E-mail",
+        "communicationPreferences": {
+          "label": "Mes options",
+          "promotions": {
+            "label": "Mises à jour sur les produits et les promotions",
+            "hint": "Recevez des communications marketing qui, selon nous, vous intéresseront."
+          },
+          "orders": {
+            "label": "Informations sur le compte et les commandes",
+            "hint": "Recevez des informations importantes au sujet de vos commandes et de votre compte."
+          }
+        },
+        "saveButton": "Enregistrer"
+      }
+    },
+    "orders": {
+      "title": "Mes commandes",
+      "order": {
+        "date": "Date",
+        "orderNumber": "Numéro de Commande",
+        "total": "Total",
+        "status": {
+          "delivered": "Délivré",
+          "onHold": "En cours",
+          "failed": "Échoué"
+        },
+        "product": "Produit",
+        "price": "Prix"
+      }
+    },
+    "loyalty": {
+      "title": "Votre solde actuel",
+      "points": "points",
+      "howToEarn": "Comment gagner des points",
+      "boxes": {
+        "box1": {
+          "title": "Gagnez 1 point pour chaque € dépensé dans notre boutique !",
+          "description": "Points acquis : 1 POINT / 1,00 €"
+        },
+        "box2": {
+          "title": "Noter un produit et recevez 10 points !",
+          "description": "Points acquis : 10 POINTS"
+        },
+        "box3": {
+          "title": "Enregistrement du parrainé",
+          "description": "Points acquis : 50 POINTS"
+        },
+        "box4": {
+          "title": "Commandes du parrainé (montant supérieur à 30,00 euros) (première commande seulement)",
+          "description": "Points acquis : 1 POINT"
+        },
+        "box5": {
+          "title": "Commandes du parrainé (première commande seulement)",
+          "description": "Points acquis : 1 POINT"
+        }
+      },
+      "cartPoints": "POINTS DU PANIER : À chaque Point que vous utilisez vaut 0,1 €",
+      "referral": {
+        "title": "Votre lien de parrainage",
+        "description": "Copiez et partagez votre lien de parrainage avec vos amis pour gagner des points !",
+        "copyButton": "Copier",
+        "footerText": "Invitez vos amis à nous rejoindre pour gagner encore plus de points !"
+      }
+    },
+    "tabs": {
+      "profile": "Informations personnelles",
+      "addresses": "Adresses",
+      "orders": "Commandes",
+      "loyalty": "Points de fidélité & parrainage"
+    }
+  
 }
