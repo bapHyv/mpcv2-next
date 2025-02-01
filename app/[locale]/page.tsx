@@ -48,7 +48,8 @@ async function getOils() {
 
 // TODO: ADD PHONE NUMBER AND TRUSTPILOT
 
-export default async function Page({ locale }: Params) {
+export default async function Page({ params }: { params: Params }) {
+  const { locale } = params;
   const t = await getTranslations({ locale, namespace: "HomePage" });
 
   const flowersData = getFlowers();

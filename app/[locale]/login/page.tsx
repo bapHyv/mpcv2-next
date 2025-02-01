@@ -3,9 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/app/context/authContext";
 
-export default function Login({ locale }: { locale: string }) {
-  // const t = await getTranslations({ locale, namespace: "signIn" });
-
+export default function Login() {
   const { login } = useAuth();
   const [user, setUser] = useState({
     username: "",
@@ -36,10 +34,7 @@ export default function Login({ locale }: { locale: string }) {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form onSubmit={handleSubmit} action="#" method="POST" className="space-y-6">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100"
-              >
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
                 Email address
               </label>
               <div className="mt-2">
@@ -57,17 +52,11 @@ export default function Login({ locale }: { locale: string }) {
 
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100"
-                >
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
                   Password
                 </label>
                 <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-light-green hover:text-light-green"
-                  >
+                  <a href="#" className="font-semibold text-light-green hover:text-light-green">
                     Forgot password?
                   </a>
                 </div>

@@ -1,13 +1,4 @@
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Tab,
-  TabGroup,
-  TabList,
-  TabPanel,
-  TabPanels,
-} from "@headlessui/react";
+import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { ArrowUpRightIcon, StarIcon } from "@heroicons/react/20/solid";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { Product } from "@/app/types/productsTypes";
@@ -34,12 +25,9 @@ function classNames(...classes: any) {
 export default async function Page({ params: { category, locale, productSlug } }: Params) {
   const t = await getTranslations({ locale });
 
-  const product: Product = await fetch(
-    `${process.env.API_HOST}/product/slug/${productSlug}`
-  ).then((res) => res.json());
+  const product: Product = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`).then((res) => res.json());
 
-  const cannabinoidRating =
-    "cannabinoids" in product ? findHighest(product.cannabinoids) : null;
+  const cannabinoidRating = "cannabinoids" in product ? findHighest(product.cannabinoids) : null;
 
   return (
     <div className="bg-white dark:bg-light-black">
@@ -94,9 +82,7 @@ export default async function Page({ params: { category, locale, productSlug } }
             <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
               {product.name}
               {cannabinoidRating && (
-                <span className="text-green dark:text-light-green">
-                  {` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}
-                </span>
+                <span className="text-green dark:text-light-green">{` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}</span>
               )}
             </h1>
 
@@ -113,10 +99,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                       <StarIcon
                         key={rating}
                         aria-hidden="true"
-                        className={classNames(
-                          product.ratings.value > rating ? "text-yellow-300" : "text-gray-300",
-                          "h-5 w-5 flex-shrink-0"
-                        )}
+                        className={classNames(product.ratings.value > rating ? "text-yellow-300" : "text-gray-300", "h-5 w-5 flex-shrink-0")}
                       />
                     ))}
                   </div>
@@ -187,11 +170,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                       <ul role="list">
                         {Object.entries(product.analyses).map(([key, value]) => (
                           <li key={key}>
-                            <Link
-                              href={value}
-                              target="_blank"
-                              className="underline flex gap-1 capitalize text-neutral-900 dark:text-neutral-100"
-                            >
+                            <Link href={value} target="_blank" className="underline flex gap-1 capitalize text-neutral-900 dark:text-neutral-100">
                               {key} <ArrowUpRightIcon className="w-3 h-3 mt-1 text-green" />
                             </Link>
                           </li>
@@ -230,22 +209,12 @@ export default async function Page({ params: { category, locale, productSlug } }
                       <ul role="list">
                         <li className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100">
                           Pays:
-                          <Image
-                            src={`/${product.grower}.png`}
-                            alt={`${product.grower} flag`}
-                            width={30}
-                            height={30}
-                          />
+                          <Image src={`/${product.grower}.png`} alt={`${product.grower} flag`} width={30} height={30} />
                         </li>
                         {"growingMethod" in product && (
                           <li className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100">
                             {product.growingMethod}
-                            <Image
-                              src={`/${product.growingMethod.toLocaleLowerCase()}.png`}
-                              alt={product.growingMethod}
-                              width={30}
-                              height={30}
-                            />
+                            <Image src={`/${product.growingMethod.toLocaleLowerCase()}.png`} alt={product.growingMethod} width={30} height={30} />
                           </li>
                         )}
                       </ul>
@@ -283,12 +252,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                         {Object.entries(product.cannabinoids).map(([key, value]) => (
                           <li key={key} className="flex items-end gap-3 h-[45px]">
                             {key}: {value} %
-                            <Image
-                              src={`/${key.toLocaleLowerCase()}.png`}
-                              alt={`molecul of ${key}`}
-                              width={75}
-                              height={75}
-                            />
+                            <Image src={`/${key.toLocaleLowerCase()}.png`} alt={`molecul of ${key}`} width={75} height={75} />
                           </li>
                         ))}
                       </ul>
@@ -322,25 +286,16 @@ export default async function Page({ params: { category, locale, productSlug } }
                       transition
                       className="prose prose-sm pb-6 transition duration-300 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
                     >
-                      <ul role="list">
+                      {/* <ul role="list">
                         {Object.entries(product.terpenes).map(([key, value]) => (
                           <>
-                            <li
-                              key={key}
-                              className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100 capitalize"
-                            >
+                            <li key={key} className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100 capitalize">
                               {key}: {value}
-                              <Image
-                                src={`/${key.toLocaleLowerCase()}.png`}
-                                alt={key}
-                                width={40}
-                                height={40}
-                              />
+                              <Image src={`/${key.toLocaleLowerCase()}.png`} alt={key} width={40} height={40} />
                             </li>
                             <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-neutral-400">
                               <div
                                 className={`${
-                                  //@ts-ignore
                                   terpenesToColor[key.toLocaleLowerCase()]
                                 } h-1.5 rounded-full`}
                                 style={{ width: `${parseInt(value) * 20}%` }}
@@ -348,7 +303,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                             </div>
                           </>
                         ))}
-                      </ul>
+                      </ul> */}
                     </DisclosurePanel>
                   </Disclosure>
                 </div>
@@ -361,18 +316,12 @@ export default async function Page({ params: { category, locale, productSlug } }
         {!!product.ratings.reviews.length && (
           <div>
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-              <h2
-                className="text-lg font-medium text-neutral-900 dark:text-neutral-100 capitalize"
-                id="reviews"
-              >
+              <h2 className="text-lg font-medium text-neutral-900 dark:text-neutral-100 capitalize" id="reviews">
                 {t("singleProduct.reviews")}
               </h2>
               <div className="mt-6 space-y-10 divide-y divide-gray-200 border-b border-t border-gray-200 pb-10">
                 {product.ratings.reviews.map((review) => (
-                  <div
-                    key={Math.random()}
-                    className="pt-10 lg:grid lg:grid-cols-12 lg:gap-x-8"
-                  >
+                  <div key={Math.random()} className="pt-10 lg:grid lg:grid-cols-12 lg:gap-x-8">
                     <div className="lg:col-span-8 lg:col-start-5 xl:col-span-9 xl:col-start-4 xl:grid xl:grid-cols-3 xl:items-start xl:gap-x-8">
                       <div className="flex items-center xl:col-span-1">
                         <div className="flex items-center">
@@ -380,12 +329,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                             <StarIcon
                               key={rating}
                               aria-hidden="true"
-                              className={classNames(
-                                parseInt(review.rating) > rating
-                                  ? "text-yellow-400"
-                                  : "text-gray-200",
-                                "h-5 w-5 flex-shrink-0"
-                              )}
+                              className={classNames(parseInt(review.rating) > rating ? "text-yellow-400" : "text-gray-200", "h-5 w-5 flex-shrink-0")}
                             />
                           ))}
                         </div>
@@ -400,9 +344,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                     </div>
 
                     <div className="mt-6 flex items-center text-sm lg:col-span-4 lg:col-start-1 lg:row-start-1 lg:mt-0 lg:flex-col lg:items-start xl:col-span-3">
-                      <p className="font-medium text-neutral-900 dark:text-neutral-100">
-                        {review.author}
-                      </p>
+                      <p className="font-medium text-neutral-900 dark:text-neutral-100">{review.author}</p>
                       <time
                         dateTime={new Date(review.date).toLocaleString()}
                         className="ml-4 border-l border-gray-200 pl-4 text-neutral-600 dark:text-neutral-400 lg:ml-0 lg:mt-2 lg:border-0 lg:pl-0"
@@ -420,19 +362,13 @@ export default async function Page({ params: { category, locale, productSlug } }
         {/* RELATED PRODUCTS */}
         {!!product.relatedProducts.length && (
           <section aria-labelledby="related-heading">
-            <h2
-              id="related-heading"
-              className="text-lg font-medium text-neutral-900 dark:text-neutral-100"
-            >
+            <h2 id="related-heading" className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
               {t("singleProduct.relatedProducts")}
             </h2>
 
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-9 xl:gap-x-8 ">
               {product.relatedProducts.map((relatedProduct) => (
-                <div
-                  key={relatedProduct.name}
-                  className="group relative border border-green rounded-md shadow-lg bg-neutral-50 lg:col-span-3"
-                >
+                <div key={relatedProduct.name} className="group relative border border-green rounded-md shadow-lg bg-neutral-50 lg:col-span-3">
                   <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-t-md lg:aspect-none group-hover:opacity-75 lg:h-80">
                     <Image
                       alt={relatedProduct.images.main.alt}
@@ -443,10 +379,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                     />
                   </div>
                   <div className="p-1 w-full rounded-b-md">
-                    <Link
-                      href={`/${locale}/${category}${relatedProduct.productUrl}`}
-                      className="flex justify-between items-center"
-                    >
+                    <Link href={`/${locale}/${category}${relatedProduct.productUrl}`} className="flex justify-between items-center">
                       <span aria-hidden="true" className="absolute inset-0" />
                       <p className="text-lg text-green">{relatedProduct.name}</p>
                       {!!relatedProduct.ratings.amount && (
@@ -456,9 +389,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                               key={rating}
                               aria-hidden="true"
                               className={classNames(
-                                relatedProduct.ratings.value > rating
-                                  ? "text-yellow-400"
-                                  : "text-gray-200",
+                                relatedProduct.ratings.value > rating ? "text-yellow-400" : "text-gray-200",
                                 "h-5 w-5 flex-shrink-0"
                               )}
                             />
