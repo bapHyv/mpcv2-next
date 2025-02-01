@@ -155,8 +155,8 @@ export default function Addresses() {
     <>
       <ul role="list" className="max-w-4xl mx-auto p-6">
         {addresses.length > 0 && <p className="text-green text-center font-medium text-2xl mt-8 mb-6">{t("title")}</p>}
-        {addresses.map((address: any) => (
-          <li key={address.id} className="bg-white shadow-md rounded-lg p-6 mb-4 hover:shadow-lg transition-shadow">
+        {addresses.map((address: any, i) => (
+          <li key={`${address.id}-${i}`} className="bg-white shadow-md rounded-lg p-6 mb-4 hover:shadow-lg transition-shadow">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-lg font-semibold text-green">{address.address1}</h3>
