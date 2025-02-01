@@ -1,35 +1,26 @@
-"use client"
+"use client";
 // import { getTranslations } from "next-intl/server";
 import { useState } from "react";
-import { useAuth } from '../../context/authContext';
+import { useAuth } from "../../context/authContext";
 
-export default  function Login({ locale }: { locale: string }) {
-  // const t = await getTranslations({ locale, namespace: "register" });
-
+export default function Login() {
   const { register } = useAuth();
   const [user, setUser] = useState({
-    username: '',
-    password: ''
-  })
+    username: "",
+    password: "",
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await register(user);
   };
 
-
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            alt="Your Company"
-            src={`/canna-vert.png`}
-            className="mx-auto h-10 w-auto"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-neutral-100">
-            Sign up
-          </h2>
+          <img alt="Your Company" src={`/canna-vert.png`} className="mx-auto h-10 w-auto" />
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-neutral-100">Sign up</h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -46,20 +37,18 @@ export default  function Login({ locale }: { locale: string }) {
                   required
                   autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-light-green   sm:text-sm sm:leading-6"
-                  onChange={e => setUser({...user, username : e.target.value})}
-
+                  onChange={(e) => setUser({ ...user, username: e.target.value })}
                 />
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100" >
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
                   Password
                 </label>
-
               </div>
-              <div className="mt-2">  
+              <div className="mt-2">
                 <input
                   id="password"
                   name="password"
@@ -67,8 +56,8 @@ export default  function Login({ locale }: { locale: string }) {
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-light-green sm:text-sm sm:leading-6"
-                  onChange={e => setUser({...user, password : e.target.value})}
-             />
+                  onChange={(e) => setUser({ ...user, password: e.target.value })}
+                />
               </div>
             </div>
 
@@ -84,5 +73,5 @@ export default  function Login({ locale }: { locale: string }) {
         </div>
       </div>
     </>
-  )
-} 
+  );
+}
