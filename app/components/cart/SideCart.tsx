@@ -1,6 +1,6 @@
 "use client";
 
-import { useCart } from "@/app/context/cartContext";
+import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { useEffect, useState } from "react";
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -30,7 +30,7 @@ interface Commande {
 export default function Cart() {
   const [open, setOpen] = useState(false);
 
-  const { cart } = useCart();
+  const { cart } = useProductsAndCart();
   const t = useTranslations("cart");
   const { locale } = useParams();
   const pathname = usePathname();
@@ -49,9 +49,7 @@ export default function Cart() {
           />
           <span className="sr-only">Items in shopping cart</span>
           {!!cart?.products?.length && (
-            <span className="absolute -top-1 -right-1 text-white bg-red-600 rounded-full text-xs px-1">
-              {cart?.products?.length}
-            </span>
+            <span className="absolute -top-1 -right-1 text-white bg-red-600 rounded-full text-xs px-1">{cart?.products?.length}</span>
           )}
         </div>
       </div>
@@ -91,10 +89,7 @@ export default function Cart() {
               {!!cart?.products?.length && (
                 <div className="mt-6 flex-1 px-2">
                   {cart?.products?.map((product) => (
-                    <CartProductCard
-                      key={`${product.id}-${product.option}-${product.name}-${product.cartItemId}`}
-                      {...product}
-                    />
+                    <CartProductCard key={`${product.id}-${product.option}-${product.name}-${product.cartItemId}`} {...product} />
                   ))}
                 </div>
               )}
@@ -102,10 +97,7 @@ export default function Cart() {
               {/* TOTAL + "PLACE ORDER" BUTTON */}
               <div className="fixed bottom-0 flex justify-between items-center w-full px-2 bg-white py-3">
                 <p className="font-semibold text-sm">
-                  TOTAL:{" "}
-                  <span className="text-blue-600 dark:text-blue-400">
-                    {cart?.total?.toFixed(2)}€
-                  </span>
+                  TOTAL: <span className="text-blue-600 dark:text-blue-400">{cart?.total?.toFixed(2)}€</span>
                 </p>
                 <Link href={`/${locale}/panier`}>
                   <button

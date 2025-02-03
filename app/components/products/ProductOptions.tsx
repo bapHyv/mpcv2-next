@@ -1,8 +1,8 @@
 "use client";
 
 import { useAlerts } from "@/app/context/alertsContext";
-import { ProductCart, useCart } from "@/app/context/cartContext";
-import { useProducts } from "@/app/context/productsContext";
+import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
+
 import { useSse } from "@/app/context/sseContext";
 import useProductStockManager from "@/app/hooks/useProductStockManager";
 import { Image, Prices } from "@/app/types/productsTypes";
@@ -30,8 +30,7 @@ interface Params {
 // This Component is used to display the product's option but is also used as a gateway into client features like contexts.
 export default function ProductOptions({ prices, pricesPer, name, id, image, stock, slug, category }: Params) {
   const { sseData } = useSse();
-  const { products, updateProduct } = useProducts();
-  const { cart, setCart } = useCart();
+  const { products, updateProduct, cart, setCart } = useProductsAndCart();
   const { addAlert } = useAlerts();
   const t = useTranslations("category");
   const params = useParams();

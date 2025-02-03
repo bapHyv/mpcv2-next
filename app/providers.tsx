@@ -1,11 +1,10 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { ProductsProvider } from "@/app/context/productsContext";
-import { CartProvider } from "@/app/context/cartContext";
 import { AlertsProvider } from "@/app/context/alertsContext";
 import { AuthProvider } from "@/app/context/authContext";
 import { SseProvider } from "@/app/context/sseContext";
+import { ProductsAndCartProvider } from "@/app/context/productsAndCartContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -13,9 +12,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <AlertsProvider>
         <SseProvider>
           <AuthProvider>
-            <CartProvider>
-              <ProductsProvider>{children}</ProductsProvider>
-            </CartProvider>
+            <ProductsAndCartProvider>{children}</ProductsAndCartProvider>
           </AuthProvider>
         </SseProvider>
       </AlertsProvider>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductCart, useCart } from "@/app/context/cartContext";
+import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { XMarkIcon, PlusIcon, MinusIcon } from "@heroicons/react/20/solid";
@@ -8,13 +8,12 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
-import { useProducts } from "@/app/context/productsContext";
+
 import useProductStockManager from "@/app/hooks/useProductStockManager";
 
 export default function CartProductCard({ cartItemId, id, name, quantity, option, totalPrice, unitPrice, image, per }: ProductCart) {
   const { addAlert } = useAlerts();
-  const { cart, setCart } = useCart();
-  const { products, setProducts, updateProduct } = useProducts();
+  const { cart, setCart, products, setProducts, updateProduct } = useProductsAndCart();
   const t = useTranslations("productCardCart");
   const handleUpdateProduct = useProductStockManager();
 

@@ -129,7 +129,7 @@ export function AlertsProvider({ children }: { children: ReactNode }): JSX.Eleme
     >
       <>
         {children}
-        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-5 top-4 flex flex-col gap-5 z-[9999]">{alerts}</div>
+        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-5 bottom-4 flex flex-col gap-5 z-[9999]">{alerts}</div>
       </>
     </alertsContext.Provider>
   );
