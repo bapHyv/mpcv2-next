@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  ReactNode,
-  useState,
-  useContext,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-} from "react";
+import { createContext, ReactNode, useState, useContext, Dispatch, SetStateAction, useEffect } from "react";
 import { Image } from "../types/productsTypes";
 
 export interface ProductCart {
@@ -59,10 +51,7 @@ export function CartProvider({ children }: { children: ReactNode }): JSX.Element
         total: newTotal,
       }));
 
-      localStorage.setItem(
-        "cart",
-        JSON.stringify({ total: newTotal, products: cart.products })
-      );
+      localStorage.setItem("cart", JSON.stringify({ total: newTotal, products: cart.products }));
     }
   }, [cart]);
 

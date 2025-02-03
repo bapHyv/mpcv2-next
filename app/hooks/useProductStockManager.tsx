@@ -1,6 +1,6 @@
 import { useSse } from "@/app/context/sseContext";
-import { useProducts } from "@/app/context/productsContext";
-import { useCart } from "@/app/context/cartContext";
+
+import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 
 /**
  * This code updates the available stock of a product based on the quantity already in the cart
@@ -11,8 +11,7 @@ import { useCart } from "@/app/context/cartContext";
 
 const useProductStockManager = () => {
   const { sseData } = useSse();
-  const { products, updateProduct } = useProducts();
-  const { cart } = useCart();
+  const { products, updateProduct, cart } = useProductsAndCart();
 
   const handleAddToCart = (id: string, quantityBeingAdded: number) => {
     if (sseData && id in sseData.stocks) {

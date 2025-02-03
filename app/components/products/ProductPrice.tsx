@@ -1,10 +1,10 @@
 "use client";
 
-import { useProducts } from "@/app/context/productsContext";
+import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import clsx from "clsx";
 
 export default function ProductPrice({ id }: { id: string }) {
-  const { products } = useProducts();
+  const { products } = useProductsAndCart();
 
   return (
     <>
