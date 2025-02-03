@@ -108,7 +108,9 @@ export default function CartProductCard({ cartItemId, id, name, quantity, option
         {/*Huile, soins, vapo titre \n nb unit - prix/unit*/}
 
         <div className="w-3/4 text-neutral-900 dark:text-neutral-50 p-3 md:text-lg">
-          <p className="text-md md:text-lg text-dark-green dark:text-light-green">{name}</p>
+          <div className="w-full">
+            <p className="text-md text-ellipsis overflow-hidden text-nowrap md:text-lg text-dark-green dark:text-light-green">{name}</p>
+          </div>
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm">
               {option} {per} - {unitPrice}€/{per}

@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
 import { Prices, Product, Image } from "@/app/types/productsTypes";
 import { useAlerts } from "@/app/context/alertsContext";
 import { useSse } from "@/app/context/sseContext";
@@ -143,33 +143,95 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
   }, [cart]);
 
   useEffect(() => {
-    if (areProductsReady && sseData) {
-      const cartProductsQuantity = cart.products.reduce((acc, val) => {
-        if (val.id in acc) {
-          acc[val.id] += parseInt(val.option) * val.quantity;
-        } else {
-          acc[val.id] = parseInt(val.option) * val.quantity;
+    if (!cart.products.length || !sseData) return;
+
+    const cartProductsQuantity = cart.products.reduce((acc, val) => {
+      if (val.id in acc) {
+        acc[val.id] += parseInt(val.option) * val.quantity;
+      } else {
+        acc[val.id] = parseInt(val.option) * val.quantity;
+      }
+      return acc;
+    }, {} as { [key: string]: number });
+
+    setCart((prevCart) => {
+      const idsToRemove = new Set<string>();
+
+      const updatedProducts = prevCart.products.filter((product) => {
+        const stockAvailable = sseData.stocks[product.id] ?? 0;
+        const totalCartQuantity = cartProductsQuantity[product.id] ?? 0;
+        const computedStock = stockAvailable - totalCartQuantity;
+        const isOverStocked = computedStock < 0;
+
+        if (isOverStocked) {
+          let delta = Math.abs(computedStock);
+
+          const prods = prevCart.products.filter((prod) => prod.id === product.id).sort((a, b) => parseInt(b.option) - parseInt(a.option));
+
+          for (const prod of prods) {
+            if (delta <= 0) break;
+            idsToRemove.add(prod.cartItemId);
+            delta -= parseInt(prod.option) * prod.quantity;
+          }
         }
-        return acc;
-      }, {} as { [key: string]: number });
 
-      const productsDeepCopy = JSON.parse(JSON.stringify(products));
+        return product.id in sseData.stocks && !idsToRemove.has(product.cartItemId);
+      });
 
-      const productsWithUpdatedStock = Object.entries(cartProductsQuantity).reduce((acc, val) => {
-        const productId = val[0];
-        const quantity = val[1];
-        const stockFromSSE = sseData.stocks[productId];
-
-        acc[productId].stock = (stockFromSSE - quantity).toString();
-
-        return acc;
-      }, productsDeepCopy);
-
-      setProducts(productsWithUpdatedStock);
-    }
+      return { ...prevCart, products: updatedProducts };
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [areProductsReady]);
+  }, [areProductsReady, sseData]);
+
+  useEffect(() => {
+    if (!sseData) return;
+
+    const cartProductsQuantity = cart.products.reduce((acc, val) => {
+      if (val.id in acc) {
+        acc[val.id] += parseInt(val.option) * val.quantity;
+      } else {
+        acc[val.id] = parseInt(val.option) * val.quantity;
+      }
+      return acc;
+    }, {} as { [key: string]: number });
+
+    setProducts((prevProducts) => {
+      return Object.fromEntries(
+        Object.entries(prevProducts).map(([productId, product]) => {
+          const stockFromSSE = sseData.stocks[productId] ?? 0;
+          const quantity = cartProductsQuantity[productId] ?? 0;
+          const computedStock = stockFromSSE - quantity;
+          const partialUpdate = {
+            stock: (computedStock < 0 ? 0 : computedStock).toString(),
+            option: product.option,
+            price: product.price,
+          };
+
+          if (computedStock < parseInt(product.option)) {
+            const options = Object.keys(product.productOptions)
+              .map((e) => parseInt(e))
+              .sort((a, b) => a - b);
+
+            const closestOption = options.reduce((acc, val) => (val <= computedStock ? val : acc), options[0]);
+            const price = product.productOptions[closestOption];
+
+            partialUpdate.option = closestOption.toString();
+            partialUpdate.price = price;
+          }
+
+          return [
+            productId,
+            {
+              ...product,
+              ...partialUpdate,
+            },
+          ];
+        })
+      );
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [areProductsReady, cart.products, sseData]);
 
   return (
     <productsAndCartContext.Provider

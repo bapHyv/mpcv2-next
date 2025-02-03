@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState, useContext, Dispatch, SetStateAction, useEffect } from "react";
+import { createContext, ReactNode, useState, useContext, Dispatch, SetStateAction, useEffect, ChangeEvent } from "react";
 import { useAlerts } from "@/app/context/alertsContext";
 
 interface SSEDataAPIResponse {
@@ -62,9 +62,6 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
 
   const { addAlert } = useAlerts();
 
-  //TODO: REMOVE THIS
-  const pid = "20274";
-
   useEffect(() => {
     const fetchSSEData = async () => {
       const response = await fetch(baseUrl);
@@ -88,30 +85,6 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
 
     fetchSSEData();
   }, []);
-
-  const removeStockPeach = () => {
-    setSseData((prevSSEData: any) => {
-      return {
-        ...prevSSEData,
-        stocks: {
-          ...prevSSEData?.stocks,
-          "20274": 0,
-        },
-      };
-    });
-  };
-
-  const addStockPeach = () => {
-    setSseData((prevSSEData: any) => {
-      return {
-        ...prevSSEData,
-        stocks: {
-          ...prevSSEData?.stocks,
-          "20274": 100,
-        },
-      };
-    });
-  };
 
   // useEffect(() => {
   //   const eventSource = new EventSource("https://api.monplancbd.fr/new-sse-client");
@@ -140,13 +113,6 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
         setSseData,
       }}
     >
-      {/* TODO: REMOVE THIS */}
-      {/* <button onClick={() => removeStockPeach()} className="absolute bottom-10 left-10 bg-red-600 py-2 px-3 z-[9999]">
-        Remove stock peach
-      </button>
-      <button onClick={() => addStockPeach()} className="absolute bottom-10 left-72 bg-teal-700 py-2 px-3 z-[9999]">
-        Add stock to peach
-      </button> */}
       {children}
     </sseContext.Provider>
   );
