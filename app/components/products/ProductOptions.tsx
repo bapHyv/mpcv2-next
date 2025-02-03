@@ -42,7 +42,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
   }, [products[id]?.stock]);
 
   const addProductToCart = () => {
-    const productBeingAddedToCart: ProductCart = {
+    const newProduct: ProductCart = {
       cartItemId: uuid(),
       id: id,
       name: products[id].name,
@@ -60,15 +60,13 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
     // to be added to the cart.
     setCart((prevCart) => {
       // Check if the same product and option is already in the cart
-      const isSameProductAndOptionInCart = prevCart.products.some(
-        (product) => product.id === id && product.option === productBeingAddedToCart.option
-      );
+      const isSameProductAndOptionInCart = prevCart.products.some((product) => product.id === id && product.option === newProduct.option);
 
       if (isSameProductAndOptionInCart) {
         // If the same product with the same option is in the cart, increment the quantity
         // and compute de price
         const updatedCartProducts = prevCart.products.map((product) => {
-          if (product.id === id && product.option === productBeingAddedToCart.option) {
+          if (product.id === id && product.option === newProduct.option) {
             return {
               ...product,
               quantity: product.quantity + 1,
@@ -80,16 +78,16 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
 
         return { ...prevCart, products: updatedCartProducts };
       } else {
-        productBeingAddedToCart.totalPrice = productBeingAddedToCart.unitPrice * productBeingAddedToCart.quantity;
+        newProduct.totalPrice = newProduct.unitPrice * newProduct.quantity;
 
         return {
           ...prevCart,
-          products: [...prevCart.products, productBeingAddedToCart],
+          products: [...prevCart.products, newProduct],
         };
       }
     });
 
-    handleUpdateProduct(id, parseInt(productBeingAddedToCart.option));
+    handleUpdateProduct(id, parseInt(newProduct.option));
 
     // Triggers an alert to give feedback to the user when he adds a product in the cart
     const alertDescription = `${products[id].option} ${pricesPer} du produit ${name} a bien ete ajoute`;

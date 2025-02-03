@@ -41,6 +41,7 @@ export default function Cart() {
 
   return (
     <>
+      {/* ICON NAVBAR */}
       <div className="flex items-center">
         <div className="relative">
           <ShoppingCartIcon
@@ -53,6 +54,8 @@ export default function Cart() {
           )}
         </div>
       </div>
+
+      {/* SIDE CART */}
       <Dialog open={open} onClose={setOpen} className="relative z-10">
         <DialogBackdrop
           transition
@@ -65,7 +68,7 @@ export default function Cart() {
             transition
             className="pointer-events-auto w-screen max-w-xs sm:max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700"
           >
-            <div className="relative flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 shadow-xl pt-28 pb-16">
+            <div className="relative flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 shadow-xl pt-3 pb-28 sm:pt-28 sm:pb-16">
               <div className="px-4 sm:px-6">
                 <div className="flex items-start justify-between">
                   <DialogTitle className="text-base font-semibold leading-6 text-neutral-900 dark:text-neutral-200 capitalize">
@@ -95,7 +98,7 @@ export default function Cart() {
               )}
 
               {/* TOTAL + "PLACE ORDER" BUTTON */}
-              <div className="fixed bottom-0 flex justify-between items-center w-full px-2 bg-white py-3">
+              <div className="fixed bottom-14 sm:bottom-0 flex justify-between items-center w-full px-2 bg-white py-3">
                 <p className="font-semibold text-sm">
                   TOTAL: <span className="text-blue-600 dark:text-blue-400">{cart?.total?.toFixed(2)}€</span>
                 </p>
