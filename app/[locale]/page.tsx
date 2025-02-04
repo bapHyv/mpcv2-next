@@ -31,7 +31,6 @@ async function getFlowers() {
 async function getHashs() {
   const response = await fetch(`${process.env.API_HOST}/products/pollens-resines-hash-cbd`);
   const data: APIResponse<Hash> = await response.json();
-  //TODO: REMOVE FILTER ON STOCK
   const formatedHashs = Object.values(data).filter((e) => !!parseInt(e.stock));
 
   return formatedHashs;
@@ -40,7 +39,6 @@ async function getHashs() {
 async function getOils() {
   const response = await fetch(`${process.env.API_HOST}/products/huiles-cbd`);
   const data: APIResponse<Oil> = await response.json();
-  //TODO: REMOVE FILTER ON STOCK
   const formatedOils = Object.values(data).filter((e) => !!parseInt(e.stock));
 
   return formatedOils;
