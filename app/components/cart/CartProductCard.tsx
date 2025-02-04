@@ -1,32 +1,22 @@
 "use client";
 
 import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
+import { useAlerts } from "@/app/context/alertsContext";
+
+import { XMarkIcon, PlusIcon, MinusIcon } from "@heroicons/react/20/solid";
+
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { XMarkIcon, PlusIcon, MinusIcon } from "@heroicons/react/20/solid";
-import { useAlerts } from "@/app/context/alertsContext";
 import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 
-import useProductStockManager from "@/app/hooks/useProductStockManager";
-
 export default function CartProductCard({ cartItemId, id, name, quantity, option, totalPrice, unitPrice, image, per }: ProductCart) {
   const { addAlert } = useAlerts();
-  const { cart, setCart, products, setProducts, updateProduct } = useProductsAndCart();
+  const { cart, setCart, products } = useProductsAndCart();
   const t = useTranslations("productCardCart");
-  const handleUpdateProduct = useProductStockManager();
 
-  // When removing a product from the cart, the cart total and the product's stock must be recomputed
   const removeProduct = () => {
-    const productStock = parseInt(products[id].stock);
-    const quantityInCart = cart.products
-      .filter((product) => product.cartItemId === cartItemId)
-      .reduce((acc, val) => acc + parseInt(val.option) * val.quantity, 0);
-    const computedStock = (quantityInCart + productStock).toString();
-
-    updateProduct(id, { stock: computedStock });
-
     const updatedCartProducts = cart.products.filter((product) => product.cartItemId !== cartItemId);
 
     setCart((prevCart) => ({ ...prevCart, products: updatedCartProducts }));
@@ -49,8 +39,6 @@ export default function CartProductCard({ cartItemId, id, name, quantity, option
         return { ...prevCart, products: updatedCartProducts };
       });
 
-      handleUpdateProduct(id, parseInt(option));
-
       const alertAddQuantityDescription = `Vous avez bien ajouté ${option} ${per} du produit: ${name}`;
       addAlert(uuid(), alertAddQuantityDescription, "Ajout de produit", "emerald");
     }
@@ -72,13 +60,6 @@ export default function CartProductCard({ cartItemId, id, name, quantity, option
 
         return { ...prevCart, products: updatedCartProducts };
       });
-
-      // When removing a product quantity from the cart, the cart total and the product's stock must be recomputed
-      const productStock = parseInt(products[id].stock);
-      const quantityInCart = cart.products.filter((product) => product.cartItemId === cartItemId).reduce((acc, val) => acc + parseInt(val.option), 0);
-      const computedStock = (quantityInCart + productStock).toString();
-
-      updateProduct(id, { stock: computedStock });
 
       const alertRemoveQuantityDescription = `Vous avez retiré ${option} ${per} du produit: ${name}`;
       addAlert(uuid(), alertRemoveQuantityDescription, "Ajout de produit", "yellow");

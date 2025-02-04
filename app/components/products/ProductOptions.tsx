@@ -4,10 +4,9 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
 
 import { useSse } from "@/app/context/sseContext";
-import useProductStockManager from "@/app/hooks/useProductStockManager";
 import { Image, Prices } from "@/app/types/productsTypes";
 import { Field, Radio, RadioGroup } from "@headlessui/react";
-import { PlusIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
+import { ShoppingBagIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -34,7 +33,6 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
   const { addAlert } = useAlerts();
   const t = useTranslations("category");
   const params = useParams();
-  const handleUpdateProduct = useProductStockManager();
 
   const hasStockAvailable = useMemo(() => {
     return !!products[id] ? parseInt(products[id].stock) > 0 : false;
@@ -86,8 +84,6 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
         };
       }
     });
-
-    handleUpdateProduct(id, parseInt(newProduct.option));
 
     // Triggers an alert to give feedback to the user when he adds a product in the cart
     const alertDescription = `${products[id].option} ${pricesPer} du produit ${name} a bien ete ajoute`;
