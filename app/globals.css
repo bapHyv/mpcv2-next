@@ -241,31 +241,36 @@ article {
 
 article h1,
 article h2,
-article h3 {
+article h3,
+article h4 {
   font-weight: 800;
   --tw-text-opacity: 1;
   color: rgb(30 133 113 / var(--tw-text-opacity)) /* #1e8571 */;
   text-transform: uppercase;
+  margin-bottom: 1rem /* 16px */;
 }
 
 article h1 {
   text-align: center;
   font-size: 2.25rem /* 36px */;
   line-height: 2.5rem /* 40px */;
-  margin-bottom: 1rem /* 16px */;
 }
 
 article h2 {
   margin-top: 1rem /* 16px */;
-  margin-bottom: 1rem /* 16px */;
   font-size: 1.5rem /* 24px */;
   line-height: 2rem /* 32px */;
 }
 
 article h3 {
   margin-top: 1rem /* 16px */;
-  margin-bottom: 1rem /* 16px */;
   font-size: 1.25rem /* 20px */;
+  line-height: 1.75rem /* 28px */;
+}
+
+article h4 {
+  margin-top: 1rem /* 16px */;
+  font-size: 1rem /* 16px */;
   line-height: 1.75rem /* 28px */;
 }
 
