@@ -229,3 +229,89 @@
   --tw-text-opacity: 1;
   color: rgb(185 28 28 / var(--tw-text-opacity)) /* #b91c1c */;
 }
+
+article {
+  padding-top: 1.25rem /* 20px */;
+  padding-bottom: 1.25rem /* 20px */;
+  width: 66.666667%;
+  font-size: 1.125rem /* 18px */;
+  line-height: 1.75rem /* 28px */;
+  margin: auto;
+}
+
+article h1,
+article h2,
+article h3 {
+  font-weight: 800;
+  --tw-text-opacity: 1;
+  color: rgb(30 133 113 / var(--tw-text-opacity)) /* #1e8571 */;
+  text-transform: uppercase;
+}
+
+article h1 {
+  text-align: center;
+  font-size: 2.25rem /* 36px */;
+  line-height: 2.5rem /* 40px */;
+  margin-bottom: 1rem /* 16px */;
+}
+
+article h2 {
+  margin-top: 1rem /* 16px */;
+  margin-bottom: 1rem /* 16px */;
+  font-size: 1.5rem /* 24px */;
+  line-height: 2rem /* 32px */;
+}
+
+article h3 {
+  margin-top: 1rem /* 16px */;
+  margin-bottom: 1rem /* 16px */;
+  font-size: 1.25rem /* 20px */;
+  line-height: 1.75rem /* 28px */;
+}
+
+article p {
+  margin-top: 1rem /* 16px */;
+  margin-bottom: 1rem /* 16px */;
+}
+
+article strong {
+  font-weight: 500;
+}
+
+article a {
+  text-decoration-line: underline;
+  --tw-text-opacity: 1;
+  color: rgb(30 133 113 / var(--tw-text-opacity)) /* #1e8571 */;
+  font-style: italic;
+}
+
+article ul {
+  padding-left: 1.25rem /* 20px */;
+}
+
+article ul li {
+  padding-inline-start: 0.5rem;
+}
+
+article ul li::marker {
+  content: url(/canna-green.svg);
+}
+
+article figcaption {
+  font-style: italic;
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+  --tw-text-opacity: 1;
+  color: rgb(163 163 163 / var(--tw-text-opacity)) /* #a3a3a3 */;
+}
+
+article img {
+  margin-bottom: 0.5rem /* 8px */;
+}
+
+article aside {
+  --tw-text-opacity: 1;
+  color: rgb(163 163 163 / var(--tw-text-opacity)) /* #a3a3a3 */;
+  font-style: italic;
+  font-weight: 100;
+}
