@@ -13,8 +13,10 @@ export default function Page() {
         montagneuses. C’est une plante extrêmement polyvalente qui, bien que illégale dans la majeure partie du monde aujourd’hui, a servi de culture
         importante tout au long de l’histoire humaine.
       </p>
-      <Image src="https://www.monplancbd.fr/wp-content/uploads/2020/09/8960257.jpeg" alt="Cbd chanvre" width="800" height="418" />
-      <figcaption>Une plantation de chanvre en Suisse. [Gian Ehrenzeller - Keystone]</figcaption>
+      <figure>
+        <Image src="https://www.monplancbd.fr/wp-content/uploads/2020/09/8960257.jpeg" alt="Cbd chanvre" width="800" height="418" />
+        <figcaption>Une plantation de chanvre en Suisse. [Gian Ehrenzeller - Keystone]</figcaption>
+      </figure>
       <p>
         Les premières mentions de l’usage du chanvre remontent à environ 2 700 avant Jésus-Christ. dans un classique de la littérature chinoise écrit
         par l’empereur Shen Nong. Les chinois utilisaient le cannabis pour produire des fibres solides et résistantes utilisées dans la fabrication de
@@ -27,26 +29,30 @@ export default function Page() {
         notre ère, ce qui montre clairement que le cannabis et le chanvre sont depuis longtemps d’importantes cultures industrielles, malgré la
         prohibition récente. Son usage s’est répandu très tôt dans le monde entier.
       </p>
-      <Image
-        src="https://www.monplancbd.fr/wp-content/uploads/2020/09/cannabis-chine-utilisation-medicinale-fhf-2019-2.jpg"
-        alt="Cbd chanvre"
-        width="900"
-        height="350"
-      />
-      <figcaption>Illustration chinoise - effet du Cannabis Sativa L sur le corps humain</figcaption>
+      <figure>
+        <Image
+          src="https://www.monplancbd.fr/wp-content/uploads/2020/09/cannabis-chine-utilisation-medicinale-fhf-2019-2.jpg"
+          alt="Cbd chanvre"
+          width="900"
+          height="350"
+        />
+        <figcaption>Illustration chinoise - effet du Cannabis Sativa L sur le corps humain</figcaption>
+      </figure>
       <p>
         En Europe du Nord, les premières indications sur l’usage du cannabis à des fins thérapeutiques datent de plus de 1000 ans. Elles se rapportent
         surtout aux graines de chanvre (ou chènevis) et à des préparations prescrites en usage externe (fumigation ou cataplasme). Les herboristes du
         Moyen Âge faisaient la différence entre le chanvre engraissé (cultivé ou sativa), utilisé par exemple contre la toux et la jaunisse, et le
         chanvre bâtard (naturel ou Ruderalis), appliqué empiriquement contre les nodosités et les tumeurs.
       </p>
-      <Image
-        src="https://www.monplancbd.fr/wp-content/uploads/2020/09/marijuana_leaf_4-424x500-1-254x300.png"
-        alt="Cbd chanvre"
-        width="254"
-        height="300"
-      />
-      <figcaption>Illustration de Vienne datant du VIème Siècle du Cannabis sativa L</figcaption>
+      <figure>
+        <Image
+          src="https://www.monplancbd.fr/wp-content/uploads/2020/09/marijuana_leaf_4-424x500-1-254x300.png"
+          alt="Cbd chanvre"
+          width="254"
+          height="300"
+        />
+        <figcaption>Illustration de Vienne datant du VIème Siècle du Cannabis sativa L</figcaption>
+      </figure>
       <p>
         Massilia, l’actuelle Marseille, exportait dès le septième siècle avant notre ère des cordages de chanvre. Le nom de Cannebière qui a la même
         racine que cannabis rappelle l’importance de cette plante dans l’économie locale.
