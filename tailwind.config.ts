@@ -11,6 +11,7 @@ const config: Config = {
         green: "#1E8571",
         "dark-green": "#186a5a",
         "light-green": "#35917f",
+        "extra-light-green": "#d2e7e3",
         white: "#FFFFFF",
       },
       gridTemplateColumns: {

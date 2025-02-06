@@ -236,6 +236,7 @@ article {
   width: 66.666667%;
   font-size: 1.125rem /* 18px */;
   line-height: 1.75rem /* 28px */;
+  text-align: justify;
   margin: auto;
 }
 
@@ -319,4 +320,55 @@ article aside {
   color: rgb(163 163 163 / var(--tw-text-opacity)) /* #a3a3a3 */;
   font-style: italic;
   font-weight: 100;
+}
+
+article mark {
+  --tw-bg-opacity: 1;
+  background-color: #a5cec6;
+  padding: 0.125rem /* 2px */;
+}
+
+article details {
+  padding-left: 1.25rem /* 20px */;
+  padding-right: 1.25rem /* 20px */;
+  padding-top: 0.75rem /* 12px */;
+  padding-bottom: 0.75rem /* 12px */;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(30 133 113 / var(--tw-border-opacity)) /* #1e8571 */;
+  border-radius: 0.375rem /* 6px */;
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 250 229 / var(--tw-bg-opacity)) /* #d1fae5 */;
+}
+
+article details summary {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-align: center;
+  animation: summaryAnimation 3s infinite linear;
+  cursor: pointer;
+}
+
+@keyframes summaryAnimation {
+  0% {
+    color: black;
+  }
+
+  50% {
+    color: #1e8571;
+  }
+
+  100% {
+    color: black;
+  }
+}
+
+article details p {
+  margin: 0px;
+  margin-top: 0.375rem /* 6px */;
+}
+
+article dfn {
+  font-weight: 700;
 }

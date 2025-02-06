@@ -55,14 +55,14 @@ export default function Page() {
         .
       </p>
       <p>
-        À ce jour, l’extraction du CBD grâce au CO2 supercritique se présente comme la{" "}
+        À ce jour, l’extraction du CBD grâce au CO<sub>2</sub> supercritique se présente comme la{" "}
         <strong>manière la plus sûre, la plus précise et la plus efficace</strong>. Les cannabinoïdes extraits sont particulièrement bien préservés et
         l’<strong>huile de CBD ainsi obtenue est de très bonne qualité</strong>. En revanche, du fait de sa technologie complexe et des compétences
         requises pour sa bonne réalisation, ce procédé d’extraction est particulièrement coûteux.
       </p>
       <p>
         Chez MonPlanCBD, <a href="https://www.monplancbd.fr/huiles-cbd/">nos huiles de CBD</a> sont exclusivement obtenues grâce à un procédé
-        d’extraction par CO2. De cette manière, nous vous garantissons des <strong>huiles de CBD de très bonne qualité</strong>.
+        d’extraction par CO<sub>2</sub>. De cette manière, nous vous garantissons des <strong>huiles de CBD de très bonne qualité</strong>.
       </p>
 
       <h4>Extraction par solvants liquides</h4>
