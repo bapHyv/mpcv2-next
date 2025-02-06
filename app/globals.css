@@ -240,6 +240,20 @@ article {
   margin: auto;
 }
 
+@media screen and (max-width: 640px) {
+  article {
+    padding-top: 1.25rem /* 20px */;
+    padding-bottom: 1.25rem /* 20px */;
+    padding-left: 1rem /* 16px */;
+    padding-right: 1rem /* 16px */;
+    width: 100%;
+    font-size: 1.125rem /* 18px */;
+    line-height: 1.75rem /* 28px */;
+    text-align: left;
+    margin: auto;
+  }
+}
+
 article h1,
 article h2,
 article h3,
@@ -323,9 +337,7 @@ article aside {
 }
 
 article mark {
-  --tw-bg-opacity: 1;
-  background-color: #a5cec6;
-  padding: 0.125rem /* 2px */;
+  background-color: transparent;
 }
 
 article details {
