@@ -35,40 +35,27 @@ export default async function Footer({ locale }: { locale: string }) {
   ];
 
   const navigation = [
-    { name: t("legalNotices"), href: "mentions_legales" },
-    { name: t("conditionsOfUse"), href: "conditions_d_utilisation" },
+    { name: t("legalNotices"), href: "mentions-legales" },
+    { name: t("conditionsOfUse"), href: "conditions-dutilisation" },
     { name: t("FAQ"), href: "FAQ" },
-    { name: t("GCS"), href: "conditions_generales_de_vente" },
-    { name: t("privacyPolicies"), href: "politiques_de_confidentialite" },
-    { name: t("about"), href: "a_propos" },
+    { name: t("GCS"), href: "conditions-generales-de-vente" },
+    { name: t("privacyPolicies"), href: "politiques-de-confidentialites" },
+    { name: t("about"), href: "a-propos-de-monplancbd" },
   ];
 
   return (
-    <footer
-      aria-labelledby="footer-heading"
-      className="bg-black dark:bg-black p-10"
-    >
+    <footer aria-labelledby="footer-heading" className="bg-black dark:bg-black p-10">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
       <div className="flex space-x-10">
         <div>
           <Link href="/">
-            <Image
-              alt="Monplancbd"
-              src="/logo-blanc.png"
-              width={150}
-              height={150}
-            />
+            <Image alt="Monplancbd" src="/logo-blanc.png" width={150} height={150} />
           </Link>
           <div className="flex space-x-6">
             {social.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-neutral-100 hover:bg-neutral-700 p-2 rounded-full"
-                target="_blank"
-              >
+              <a key={item.name} href={item.href} className="text-neutral-100 hover:bg-neutral-700 p-2 rounded-full" target="_blank">
                 <span className="sr-only">{item.name}</span>
                 <item.icon aria-hidden="true" className="h-6 w-6" />
               </a>
@@ -76,16 +63,11 @@ export default async function Footer({ locale }: { locale: string }) {
           </div>
         </div>
         <div>
-          <h3 className="text-sm font-semibold leading-6 text-white">
-            Navigations
-          </h3>
+          <h3 className="text-sm font-semibold leading-6 text-white">Navigations</h3>
           <ul role="list" className="mt-6 space-y-4">
             {navigation.map((item) => (
               <li key={item.name}>
-                <Link
-                  href={`/${locale}/${item.href}`}
-                  className="text-sm leading-6 text-gray-300 hover:text-white"
-                >
+                <Link href={`/${locale}/${item.href}`} className="text-sm leading-6 text-gray-300 hover:text-white">
                   {item.name}
                 </Link>
               </li>
@@ -95,9 +77,7 @@ export default async function Footer({ locale }: { locale: string }) {
       </div>
       <div className="">
         <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-          <p className="text-xs leading-5 text-neutral-100">
-            &copy; 2024 Monplancbd tout droits réservés.
-          </p>
+          <p className="text-xs leading-5 text-neutral-100">&copy; 2024 Monplancbd tout droits réservés.</p>
         </div>
       </div>
     </footer>
