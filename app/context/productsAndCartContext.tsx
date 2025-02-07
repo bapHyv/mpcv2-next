@@ -175,6 +175,10 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
           }
         }
 
+        const removedProducts = prevCart.products.filter((product) => idsToRemove.has(product.cartItemId));
+
+        console.log({ removedProducts });
+
         return product.id in sseData.stocks && !idsToRemove.has(product.cartItemId);
       });
 
