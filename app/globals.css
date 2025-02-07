@@ -231,7 +231,8 @@
 }
 
 article,
-.utility-page {
+.utility-page,
+.city-page {
   padding-top: 1.25rem /* 20px */;
   padding-bottom: 1.25rem /* 20px */;
   width: 66.666667%;
@@ -243,7 +244,8 @@ article,
 
 @media screen and (max-width: 640px) {
   article,
-  .utility-page {
+  .utility-page,
+  .city-page {
     padding-top: 1.25rem /* 20px */;
     padding-bottom: 1.25rem /* 20px */;
     padding-left: 1rem /* 16px */;
@@ -263,7 +265,11 @@ article h4,
 .utility-page h1,
 .utility-page h2,
 .utility-page h3,
-.utility-page h4 {
+.utility-page h4,
+.city-page h1,
+.city-page h2,
+.city-page h3,
+.city-page h4 {
   font-weight: 800;
   --tw-text-opacity: 1;
   color: rgb(30 133 113 / var(--tw-text-opacity)) /* #1e8571 */;
@@ -272,46 +278,53 @@ article h4,
 }
 
 article h1,
-.utility-page h1 {
+.utility-page h1,
+.city-page h1 {
   text-align: center;
   font-size: 2.25rem /* 36px */;
   line-height: 2.5rem /* 40px */;
 }
 
 article h2,
-.utility-page h2 {
+.utility-page h2,
+.city-page h2 {
   margin-top: 1rem /* 16px */;
   font-size: 1.5rem /* 24px */;
   line-height: 2rem /* 32px */;
 }
 
 article h3,
-.utility-page h3 {
+.utility-page h3,
+.city-page h3 {
   margin-top: 1rem /* 16px */;
   font-size: 1.25rem /* 20px */;
   line-height: 1.75rem /* 28px */;
 }
 
 article h4,
-.utility-page h4 {
+.utility-page h4,
+.city-page h4 {
   margin-top: 1rem /* 16px */;
   font-size: 1rem /* 16px */;
   line-height: 1.75rem /* 28px */;
 }
 
 article p,
-.utility-page p {
+.utility-page p,
+.city-page p {
   margin-top: 1rem /* 16px */;
   margin-bottom: 1rem /* 16px */;
 }
 
 article strong,
-.utility-page strong {
+.utility-page strong,
+.city-page strong {
   font-weight: 500;
 }
 
 article a,
-.utility-page a {
+.utility-page a,
+.city-page a {
   text-decoration-line: underline;
   --tw-text-opacity: 1;
   color: rgb(30 133 113 / var(--tw-text-opacity)) /* #1e8571 */;
@@ -319,22 +332,26 @@ article a,
 }
 
 article ul,
-.utility-page ul {
+.utility-page ul,
+.city-page ul {
   padding-left: 1.25rem /* 20px */;
 }
 
 article ul li,
-.utility-page ul li {
+.utility-page ul li,
+.city-page ul li {
   padding-inline-start: 0.5rem;
 }
 
 article ul li::marker,
-.utility-page ul li::marker {
+.utility-page ul li::marker,
+.city-page ul li::marker {
   content: url(/canna-green.svg);
 }
 
 article figcaption,
-.utility-page figcaption {
+.utility-page figcaption,
+.city-page figcaption {
   font-style: italic;
   font-size: 0.875rem /* 14px */;
   line-height: 1.25rem /* 20px */;
@@ -342,7 +359,9 @@ article figcaption,
   color: rgb(163 163 163 / var(--tw-text-opacity)) /* #a3a3a3 */;
 }
 
-article img {
+article img,
+.utility-page img,
+.city-page img {
   margin-bottom: 0.5rem /* 8px */;
 }
 
