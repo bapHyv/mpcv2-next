@@ -24,10 +24,11 @@ interface Params {
   stock: string;
   slug: string;
   category: string;
+  isInModale: boolean;
 }
 
 // This Component is used to display the product's option but is also used as a gateway into client features like contexts.
-export default function ProductOptions({ prices, pricesPer, name, id, image, stock, slug, category }: Params) {
+export default function ProductOptions({ prices, pricesPer, name, id, image, stock, slug, category, isInModale }: Params) {
   const { sseData } = useSse();
   const { products, updateProduct, cart, setCart } = useProductsAndCart();
   const { addAlert } = useAlerts();
@@ -50,6 +51,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
       unitPrice: parseFloat(products[id].productOptions[products[id].option]),
       totalPrice: 0,
       image,
+      category,
     };
 
     // Two posibilities here, either the same product with the same option already exists
@@ -95,7 +97,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
   };
 
   return !!products[id] ? (
-    <div className="mt-2 xl:mt-6">
+    <div className={twMerge(clsx("mt-2 xl:mt-6", { "mt-1": isInModale }))}>
       {/* Option picker */}
       <fieldset aria-label="Choose a size" className="">
         {/* pricesPer === "g" ? t("quantity") : t("unit") */}
@@ -107,7 +109,8 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
                   <div
                     className={twMerge(
                       clsx(
-                        "col-span-1 p-1 cursor-pointer flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white text-neutral-700",
+                        "text-base col-span-1 p-1 cursor-pointer flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white text-neutral-700",
+                        { "text-xs": isInModale },
                         { "border-transparent text-neutral-900 border-green shadow-product-cards": checked },
                         { "ring-2 ring-green ring-offset-2 outline-none": focus },
                         { "bg-neutral-200": hover },
@@ -119,24 +122,29 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
                       {option}
                       {pricesPer === "g" ? "g" : "u"}
                     </span>
-                    <span className="text-xs">
-                      ({(parseFloat(price) / parseInt(option)).toFixed(2)}€/{pricesPer})
-                    </span>
+                    {!isInModale && (
+                      <span className="text-xs">
+                        ({(parseFloat(price) / parseInt(option)).toFixed(2)}€/{pricesPer})
+                      </span>
+                    )}
                   </div>
                 )}
               </Radio>
             </Field>
           ))}
+          {/* This line is here to add a transparent row to make the cards the same height */}
+          {Object.entries(products[id].productOptions).length <= 3 && <div className="col-span-3 h-[26px]"></div>}
         </RadioGroup>
       </fieldset>
       {/* ADD CART BUTTON*/}
-      <div className="w-5/6 mx-auto my-6 flex flex-col items-center justify-center">
+      <div className={twMerge(clsx("w-5/6 mx-auto my-6 flex flex-col items-center justify-center", { "mt-3 mb-1": isInModale }))}>
         <button
           onClick={addProductToCart}
           disabled={parseInt(products[id].stock) <= 0}
           className={twMerge(
             clsx(
               "px-3 py-2 text-base font-medium flex w-full items-center justify-center rounded-md border border-transparent text-white",
+              { "text-xs": isInModale },
               { "bg-green hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2": hasStockAvailable },
               { "cursor-not-allowed bg-neutral-400": !hasStockAvailable }
             )

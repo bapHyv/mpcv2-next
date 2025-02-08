@@ -11,7 +11,18 @@ import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 
-export default function CartProductCard({ cartItemId, id, name, quantity, option, totalPrice, unitPrice, image, per }: ProductCart) {
+export default function CartProductCard({
+  cartItemId,
+  id,
+  name,
+  quantity,
+  option,
+  totalPrice,
+  unitPrice,
+  image,
+  per,
+  isInModale,
+}: ProductCart & { isInModale: boolean }) {
   const { addAlert } = useAlerts();
   const { cart, setCart, products } = useProductsAndCart();
   const t = useTranslations("productCardCart");
@@ -68,14 +79,24 @@ export default function CartProductCard({ cartItemId, id, name, quantity, option
 
   return (
     <>
-      <div className="relative flex border border-neutral-400 rounded-md shadow-xl dark:shadow-neutral-700 dark:shadow-lg bg-neutral-50 dark:bg-black mb-2 max-h-[140px]">
-        <XMarkIcon
-          onClick={() => {
-            removeProduct();
-            addAlert(uuid(), `Le produit ${name} a bien été retiré du panier`, "Suppression de produit", "yellow");
-          }}
-          className="absolute h-[22px] w-[22px] top-0.5 right-0.5 text-neutral-500 cursor-pointer rounded-md hover:bg-neutral-100"
-        />
+      <div
+        className={twMerge(
+          clsx(
+            "relative flex border border-neutral-400 rounded-md shadow-xl bg-neutral-50 mb-2 max-h-[140px]",
+            "dark:shadow-neutral-700 dark:shadow-lg dark:bg-black",
+            { "mb-0": isInModale }
+          )
+        )}
+      >
+        {!isInModale && (
+          <XMarkIcon
+            onClick={() => {
+              removeProduct();
+              addAlert(uuid(), `Le produit ${name} a bien été retiré du panier`, "Suppression de produit", "yellow");
+            }}
+            className="absolute h-[22px] w-[22px] top-0.5 right-0.5 text-neutral-700 cursor-pointer rounded-md hover:bg-neutral-100"
+          />
+        )}
         <div className="relative w-1/4 flex items-center justify-center aspect-w-1">
           <Image
             src={`https://www.monplancbd.fr/wp-content/uploads/${image.url}`}
@@ -97,24 +118,26 @@ export default function CartProductCard({ cartItemId, id, name, quantity, option
               {option} {per} - {unitPrice}€/{per}
             </p>
 
-            <div className="flex items-center gap-x-3 border border-neutral-300 bg-neutral-200 rounded-full">
-              <MinusIcon
-                onClick={decrementQuantity}
-                className={twMerge(
-                  clsx(quantity === 1 ? "cursor-not-allowed bg-neutral-400" : "cursor-pointer bg-green", "text-white rounded-full h-5 w-5")
-                )}
-              />
-              <span className="text-sm">{quantity}</span>
-              <PlusIcon
-                onClick={incrementQuantity}
-                className={twMerge(
-                  clsx(
-                    parseInt(products[id]?.stock) < parseInt(option) ? "cursor-not-allowed bg-neutral-400" : "cursor-pointer bg-green",
-                    "text-white rounded-full h-5 w-5"
-                  )
-                )}
-              />
-            </div>
+            {!isInModale && (
+              <div className="flex items-center gap-x-3 border border-neutral-300 bg-neutral-200 rounded-full">
+                <MinusIcon
+                  onClick={decrementQuantity}
+                  className={twMerge(
+                    clsx(quantity === 1 ? "cursor-not-allowed bg-neutral-400" : "cursor-pointer bg-green", "text-white rounded-full h-5 w-5")
+                  )}
+                />
+                <span className="text-sm">{quantity}</span>
+                <PlusIcon
+                  onClick={incrementQuantity}
+                  className={twMerge(
+                    clsx(
+                      parseInt(products[id]?.stock) < parseInt(option) ? "cursor-not-allowed bg-neutral-400" : "cursor-pointer bg-green",
+                      "text-white rounded-full h-5 w-5"
+                    )
+                  )}
+                />
+              </div>
+            )}
           </div>
 
           <p className="text-sm text-right">

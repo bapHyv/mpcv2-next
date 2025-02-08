@@ -2,6 +2,9 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffe
 import { Prices, Product, Image } from "@/app/types/productsTypes";
 import { useAlerts } from "@/app/context/alertsContext";
 import { useSse } from "@/app/context/sseContext";
+import Modale from "@/app/components/Modale";
+import CartProductCard from "@/app/components/cart/CartProductCard";
+import ClientProductCard from "@/app/components/products/ClientProductCard";
 
 export interface FormatedProduct {
   id: string;
@@ -11,12 +14,15 @@ export interface FormatedProduct {
   pricesPer: string;
   productOptions: Prices;
   image: { url: string; alt: string };
+  isPromo: boolean;
+  prices: Prices;
   productUrl: string;
   ratings: { amount: number; value: number };
   relatedProducts: Product[];
   stock: string;
   option: string; // Selected option (see ProductOptions.tsx)
   price: string; // Displayed price (see ProductPrice.tsx);
+  VATRate: number;
 }
 
 export interface ProductCart {
@@ -28,6 +34,7 @@ export interface ProductCart {
   per: string; // Will be either "g" or "unit"
   totalPrice: number;
   unitPrice: number;
+  category: string; // Product category, used in Modale when product is removed from cart on SSE updates
   image: Image;
 }
 
@@ -60,6 +67,9 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
   const [products, setProducts] = useState<ProductsFromContext>({});
   const [areProductsReady, setAreProductsReady] = useState(false);
   const [cart, setCart] = useState({ total: 0, products: [] as ProductCart[] });
+  const [isModaleVisible, setIsModaleVisible] = useState(false);
+  const [removedProducts, setRemovedProducts] = useState<ProductCart[]>([]);
+
   const { sseData } = useSse();
   const { addAlert } = useAlerts();
 
@@ -75,34 +85,31 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
     });
   };
 
+  const handleCloseModale = () => {
+    setIsModaleVisible(false);
+    setRemovedProducts([]);
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(baseUrl);
         const data: ProductsAPIResponse = await response.json();
 
-        const transformedProducts = Object.values(data).reduce((acc: ProductsFromContext, product: Product) => {
+        const formatedProducts = Object.values(data).reduce((acc: ProductsFromContext, product: Product) => {
           if (Array.isArray(product) || !Object.entries(product.prices).length) {
             return acc;
           }
 
           acc[product.id] = {
-            id: product.id,
-            name: product.name,
-            slug: product.slug,
-            category: product.category,
-            pricesPer: product.pricesPer,
-            productOptions: product.prices,
+            ...product,
             image: {
               url: product.images?.main?.url || "",
               alt: product.images?.main?.alt || "",
             },
-            productUrl: product.productUrl,
-            ratings: { amount: product.ratings.amount, value: product.ratings.value },
-            relatedProducts: product.relatedProducts,
+            productOptions: product.prices,
             option: Object.entries(product.prices)[0][0],
             price: Object.entries(product.prices)[0][1],
-            stock: product.stock,
           };
 
           return acc;
@@ -112,7 +119,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
           setCart(JSON.parse(localStorage.getItem("cart") as string));
         }
 
-        setProducts(transformedProducts);
+        setProducts(formatedProducts);
         setAreProductsReady(true);
       } catch (error) {
         setAreProductsReady(false);
@@ -179,6 +186,8 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
 
         console.log({ removedProducts });
 
+        setRemovedProducts(removedProducts);
+
         return product.id in sseData.stocks && !idsToRemove.has(product.cartItemId);
       });
 
@@ -237,6 +246,12 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areProductsReady, cart.products, sseData]);
 
+  useEffect(() => {
+    if (removedProducts.length) {
+      setIsModaleVisible(true);
+    }
+  }, [removedProducts]);
+
   return (
     <productsAndCartContext.Provider
       value={{
@@ -247,6 +262,36 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
         setCart,
       }}
     >
+      {isModaleVisible && (
+        <Modale
+          handleCloseModale={handleCloseModale}
+          removedProducts={removedProducts.map((product) => (
+            <div key={product.cartItemId} className="col-span-6 md:col-span-3 xl:col-span-2">
+              <CartProductCard {...product} isInModale />
+            </div>
+          ))}
+          // relatedProducts={Object.values(products).map((product) => (
+          //   // @ts-ignore
+          //   <ClientProductCard key={product.id} {...product} />
+          // ))}
+          relatedProducts={(() => {
+            const categories = new Set<string>();
+
+            removedProducts.forEach((product) => {
+              if (!categories.has(product.category)) {
+                categories.add(product.category);
+              }
+            });
+
+            const filteredProducts = Object.values(products).filter((product) => categories.has(product.category) && parseInt(product.stock));
+            console.log(filteredProducts);
+            // @ts-ignore
+            const relatedProducts = filteredProducts.map((product) => <ClientProductCard key={product.id} {...product} />);
+
+            return relatedProducts;
+          })()}
+        />
+      )}
       {children}
     </productsAndCartContext.Provider>
   );

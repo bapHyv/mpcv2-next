@@ -7,6 +7,6 @@ import CartProductCard from "./CartProductCard";
 export default function DisplayProductsCartPage() {
   const { cart } = useProductsAndCart();
   return cart.products.map((product) => (
-    <CartProductCard key={`${product.id}-${product.option}-${product.name}-${product.cartItemId}`} {...product} />
+    <CartProductCard key={`${product.id}-${product.option}-${product.name}-${product.cartItemId}`} {...product} isInModale={false} />
   ));
 }

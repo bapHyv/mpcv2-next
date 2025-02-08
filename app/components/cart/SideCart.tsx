@@ -114,7 +114,7 @@ export default function Cart() {
               {!!cart?.products?.length && (
                 <div className="mt-6 flex-1 px-2">
                   {cart?.products?.map((product) => (
-                    <CartProductCard key={`${product.id}-${product.option}-${product.name}-${product.cartItemId}`} {...product} />
+                    <CartProductCard key={`${product.id}-${product.option}-${product.name}-${product.cartItemId}`} {...product} isInModale={false} />
                   ))}
                 </div>
               )}
