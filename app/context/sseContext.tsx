@@ -59,6 +59,7 @@ const baseUrl = "https://api.monplancbd.fr/test-sse";
 
 export function SseProvider({ children }: { children: ReactNode }): JSX.Element {
   const [sseData, setSseData] = useState<null | SSEData>(null);
+  const [value, setValue] = useState(100);
 
   const { addAlert } = useAlerts();
 
@@ -106,6 +107,42 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(parseInt(e.target.value));
+  };
+
+  const handleSetStock = () => {
+    setSseData((prevSSEData) => {
+      if (prevSSEData) {
+        return {
+          ...prevSSEData,
+          stocks: {
+            ...prevSSEData.stocks,
+            4658: value,
+          },
+        };
+      } else {
+        return null;
+      }
+    });
+  };
+
+  const handleRemoveStock = () => {
+    setSseData((prevSSEData) => {
+      if (prevSSEData) {
+        return {
+          ...prevSSEData,
+          stocks: {
+            ...prevSSEData.stocks,
+            4658: 0,
+          },
+        };
+      } else {
+        return null;
+      }
+    });
+  };
+
   return (
     <sseContext.Provider
       value={{
@@ -113,6 +150,15 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
         setSseData,
       }}
     >
+      {/* <div className="fixed bottom-14 bg-black w-full h-20 z-[8999] flex items-start gap-5 p-3">
+        <input value={value} type="number" onChange={handleChange} />
+        <button onClick={handleSetStock} className="text-xs px-3 py-2 bg-blue-600 uppercase text-white rounded-md hover:bg-blue-500">
+          Set stock
+        </button>
+        <button onClick={handleRemoveStock} className="text-xs px-3 py-2 bg-red-600 uppercase text-white rounded-md hover:bg-red-500">
+          Remove stock
+        </button>
+      </div> */}
       {children}
     </sseContext.Provider>
   );

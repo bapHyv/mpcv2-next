@@ -1,7 +1,4 @@
-import Paragraph from "@/app/components/Paragraph";
-import Title from "@/app/components/Title";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 
 interface Params {
   params: {

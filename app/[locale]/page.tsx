@@ -10,6 +10,7 @@ import { v4 as uuid } from "uuid";
 import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 import { getTranslations } from "next-intl/server";
 import clsx from "clsx";
+import Modale from "@/app/components/Modale";
 
 interface Params {
   locale: string;

@@ -135,6 +135,7 @@ export default async function Page({ params: { category, locale, productSlug } }
               stock={product.stock}
               slug={productSlug}
               category={category}
+              isInModale={false}
             />
 
             <section aria-labelledby="details-heading" className="mt-12">

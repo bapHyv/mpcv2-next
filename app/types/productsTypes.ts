@@ -1,11 +1,4 @@
-export type CurrentCategory =
-  | "fleurs"
-  | "hashs"
-  | "moonrocks"
-  | "huiles"
-  | "infusions"
-  | "soins"
-  | "vaporisateurs";
+export type CurrentCategory = "fleurs" | "hashs" | "moonrocks" | "huiles" | "infusions" | "soins" | "vaporisateurs";
 
 export type slugCategories =
   | "fleurs-cbd"
@@ -77,6 +70,7 @@ export interface BaseProduct {
   shortDescription: string;
   slug: string;
   stock: string;
+  VATRate: number;
 }
 
 export interface NaturalProduct extends BaseProduct {
@@ -99,7 +93,7 @@ export interface Flower extends EndProduct {
   growingMethod: string;
 }
 
-export type Product = BaseProduct | Oil | Moonrock | Hash | Flower;
+export type Product = BaseProduct | Oil | Hash | Moonrock | Flower;
 
 export interface Products {
   fleurs: Flower[];
