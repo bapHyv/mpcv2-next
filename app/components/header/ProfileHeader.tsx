@@ -9,15 +9,14 @@ import {
   ArrowLeftEndOnRectangleIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
-import { useAuth } from "../../context/authContext";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import Separator from "../Separator";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import React from "react";
 
+import { useAuth } from "@/app/context/authContext";
 interface Base {
   text: string;
   key: string;
@@ -71,18 +70,9 @@ export default function ProfileHeader({ locale }: { locale: string }) {
       }}
     >
       <span className="sr-only">Open user menu</span>
-      <UserCircleIcon
-        className="h-10 w-10 sm:w-6 sm:h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-white"
-        role="button"
-      />
+      <UserCircleIcon className="h-10 w-10 sm:w-6 sm:h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-white" role="button" />
       {isVisible && (
-        <UserMenu
-          locale={locale}
-          onClickOutside={() => handleIsClosing()}
-          iconRef={iconRef}
-          isVisible={isVisible}
-          isClosing={isClosing}
-        />
+        <UserMenu locale={locale} onClickOutside={() => handleIsClosing()} iconRef={iconRef} isVisible={isVisible} isClosing={isClosing} />
       )}
     </div>
   );
@@ -104,7 +94,7 @@ function UserMenu({
   const ref = useRef<HTMLDivElement | null>(null);
 
   const t = useTranslations("navbar");
-  const { isSignedIn, logout } = useAuth();
+  const { userData, cleanUpLocalStorageUserRelated, logout } = useAuth();
 
   const iconClassname = "w-6 h-6 text-white ml-2";
 
@@ -129,31 +119,34 @@ function UserMenu({
   const itemsProfile: ItemsProfile[] = [
     {
       text: t("info"),
-      href: `/mon_compte/profile`,
+      href: `/mon-compte/profile`,
       key: "info",
       icon: <UserIcon className={iconClassname} />,
     },
     {
       text: t("addresses"),
-      href: `/mon_compte/adresses`,
+      href: `/mon-compte/adresses`,
       key: "addresses",
       icon: <HomeModernIcon className={iconClassname} />,
     },
     {
       text: t("orders"),
-      href: `/mon_compte/commandes`,
+      href: `/mon-compte/commandes`,
       key: "orders",
       icon: <TruckIcon className={iconClassname} />,
     },
     {
       text: t("fidelity"),
-      href: `/mon_compte/fidelite`,
+      href: `/mon-compte/fidelite`,
       key: "fidelity",
       icon: <ChatBubbleLeftRightIcon className={iconClassname} />,
     },
     {
       text: t("logout"),
-      onClick: () => logout(),
+      onClick: () => {
+        cleanUpLocalStorageUserRelated();
+        logout();
+      },
       key: "logout",
       icon: <ArrowRightStartOnRectangleIcon className={iconClassname} />,
     },
@@ -162,13 +155,13 @@ function UserMenu({
   const itemsAuth: WithHref[] = [
     {
       text: t("login"),
-      href: `/login`,
+      href: `/connexion`,
       key: "login",
       icon: <ArrowLeftEndOnRectangleIcon className={iconClassname} />,
     },
     {
       text: t("register"),
-      href: `/register`,
+      href: `/inscription`,
       key: "register",
       icon: <PencilSquareIcon className={iconClassname} />,
     },
@@ -176,11 +169,7 @@ function UserMenu({
 
   const loggedInItems = itemsProfile.map((e) => {
     return "href" in e ? (
-      <Link
-        key={e.key}
-        href={`/${locale}${e.href}`}
-        className="flex items-center hover:bg-light-black"
-      >
+      <Link key={e.key} href={`/${locale}${e.href}`} className="flex items-center hover:bg-light-black">
         {e.icon}
         <span className="p-2">{e.text}</span>
       </Link>
@@ -195,11 +184,7 @@ function UserMenu({
   });
 
   const loggedOutItems = itemsAuth.map((e, i, a) => (
-    <Link
-      key={e.key}
-      href={`/${locale}/${e.href}`}
-      className={clsx("hover:bg-light-black", { "sm:rounded-b-md": i === a.length - 1 })}
-    >
+    <Link key={e.key} href={`/${locale}/${e.href}`} className={clsx("hover:bg-light-black", { "sm:rounded-b-md": i === a.length - 1 })}>
       <div className="flex items-center">
         {e.icon}
         <span className="p-2 text-nowrap">{e.text}</span>
@@ -218,12 +203,12 @@ function UserMenu({
         {
           "open-menu-item": isVisible,
           "close-menu-item": isClosing,
-          "-top-52": isSignedIn,
-          "-top-[5.5rem]": !isSignedIn,
+          "-top-52": userData,
+          "-top-[5.5rem]": !userData,
         }
       )}
     >
-      {isSignedIn ? loggedInItems : loggedOutItems}
+      {userData ? loggedInItems : loggedOutItems}
     </div>
   );
 }

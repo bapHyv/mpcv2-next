@@ -6,6 +6,28 @@ import Modale from "@/app/components/Modale";
 import CartProductCard from "@/app/components/cart/CartProductCard";
 import ClientProductCard from "@/app/components/products/ClientProductCard";
 
+// {
+//     products: {
+//         ID_PRODUCT: [
+//             {label: 'XXXX', amount: '50', quantity: '1'},
+//             ...
+//         ],
+//         ...
+//     },
+//     discounts: [
+//         {type: 'coupon', value: 'toto4000'},
+//         {type: 'loyaltyPoints', value: '4000'},
+//         ...
+//     ],
+//     shippingMethodId: SHIPPING_METHOD_ID,
+//     shippingAddress: {},
+//     billingAddress: {},
+//     total: XXXX,
+//     customerIp: '',
+//     customerUserAgent: '',
+//     deviceType: Desktop || Mobile
+// }
+
 export interface FormatedProduct {
   id: string;
   name: string;
@@ -184,8 +206,6 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
 
         const removedProducts = prevCart.products.filter((product) => idsToRemove.has(product.cartItemId));
 
-        console.log({ removedProducts });
-
         setRemovedProducts(removedProducts);
 
         return product.id in sseData.stocks && !idsToRemove.has(product.cartItemId);
@@ -270,10 +290,6 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
               <CartProductCard {...product} isInModale />
             </div>
           ))}
-          // relatedProducts={Object.values(products).map((product) => (
-          //   // @ts-ignore
-          //   <ClientProductCard key={product.id} {...product} />
-          // ))}
           relatedProducts={(() => {
             const categories = new Set<string>();
 
@@ -284,7 +300,6 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
             });
 
             const filteredProducts = Object.values(products).filter((product) => categories.has(product.category) && parseInt(product.stock));
-            console.log(filteredProducts);
             // @ts-ignore
             const relatedProducts = filteredProducts.map((product) => <ClientProductCard key={product.id} {...product} />);
 
