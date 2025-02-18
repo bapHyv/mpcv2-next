@@ -119,7 +119,7 @@ function UserMenu({
   const itemsProfile: ItemsProfile[] = [
     {
       text: t("info"),
-      href: `/mon-compte/profile`,
+      href: `/mon-compte/profil`,
       key: "info",
       icon: <UserIcon className={iconClassname} />,
     },

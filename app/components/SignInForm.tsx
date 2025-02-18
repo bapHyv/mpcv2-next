@@ -12,7 +12,7 @@ import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 
 const initialState = {
-  username: "",
+  email: "",
   password: "",
 };
 
@@ -56,18 +56,16 @@ export default function SignInForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  console.log(state);
-
   return (
     <form action={formAction} className="space-y-6">
       <div>
-        <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
+        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
           Email address
         </label>
         <div className="mt-2">
           <input
-            id="username"
-            name="username"
+            id="email"
+            name="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -84,7 +82,7 @@ export default function SignInForm() {
             Password
           </label>
           <div className="text-sm">
-            <a href="#" className="font-semibold text-light-green hover:text-light-green">
+            <a href="#" className="font-semibold text-light-green">
               Forgot password?
             </a>
           </div>
@@ -110,7 +108,7 @@ export default function SignInForm() {
         </div>
       </div>
       <div>
-        <SubmitButton text="Sign in" />
+        <SubmitButton isDisabled={!email || !password} text="Sign in" />
       </div>
     </form>
   );

@@ -118,24 +118,23 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
         const response = await fetch(baseUrl);
         const data: ProductsAPIResponse = await response.json();
 
-        const formatedProducts = Object.values(data).reduce((acc: ProductsFromContext, product: Product) => {
-          if (Array.isArray(product) || !Object.entries(product.prices).length) {
+        const formatedProducts = Object.values(data)
+          .filter((product) => !Array.isArray(product))
+          .filter((product) => Object.entries(product.prices).length)
+          .reduce((acc: ProductsFromContext, product: Product) => {
+            acc[product.id] = {
+              ...product,
+              image: {
+                url: product.images?.main?.url || "",
+                alt: product.images?.main?.alt || "",
+              },
+              productOptions: product.prices,
+              option: Object.entries(product.prices)[0][0],
+              price: Object.entries(product.prices)[0][1],
+            };
+
             return acc;
-          }
-
-          acc[product.id] = {
-            ...product,
-            image: {
-              url: product.images?.main?.url || "",
-              alt: product.images?.main?.alt || "",
-            },
-            productOptions: product.prices,
-            option: Object.entries(product.prices)[0][0],
-            price: Object.entries(product.prices)[0][1],
-          };
-
-          return acc;
-        }, {} as ProductsFromContext);
+          }, {} as ProductsFromContext);
 
         if (!!localStorage.getItem("cart")) {
           setCart(JSON.parse(localStorage.getItem("cart") as string));

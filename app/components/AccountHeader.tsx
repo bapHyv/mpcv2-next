@@ -16,7 +16,7 @@ const AccountHeader = ({ locale }: { locale: string }) => {
   const router = useRouter();
   const pathname = usePathname(); // Get the current path
   const [tabs, setTabs] = useState<Tab[]>([
-    { name: t("profile"), href: "/mon-compte/profile", current: false },
+    { name: t("profile"), href: "/mon-compte/profil", current: false },
     { name: t("addresses"), href: "/mon-compte/adresses", current: false },
     { name: t("orders"), href: "/mon-compte/commandes", current: false },
     { name: t("loyalty"), href: "/mon-compte/fidelite", current: false },

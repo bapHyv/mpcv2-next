@@ -1,24 +1,22 @@
 "use client";
 
 import clsx from "clsx";
-import { useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import { twMerge } from "tailwind-merge";
 
-export default function SubmitButton({ text, buttonClassName }: { text: string; buttonClassName?: string }) {
-  const { pending, data } = useFormStatus();
+interface Params {
+  text: string;
+  isDisabled: boolean;
+  buttonClassName?: string;
+}
 
-  useEffect(() => {
-    if (data && data.get("password") && data.get("repeat-password")) {
-      console.log(data.get("password"));
-      console.log(data.get("repeat-password"));
-    }
-  }, [data]);
+export default function SubmitButton({ text, isDisabled, buttonClassName }: Params) {
+  const { pending } = useFormStatus();
 
   return (
     <button
       type="submit"
-      disabled={pending}
+      disabled={pending || isDisabled}
       className={twMerge(
         clsx(
           "flex w-full justify-center rounded-md bg-light-green px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:ring-1",

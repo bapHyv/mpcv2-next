@@ -29,18 +29,17 @@ export default function SignUpForm() {
   const [email, setEmail] = useState(searchParams.get("email") || "");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [doesPasswordsMatch, setDoesPasswordMatch] = useState<boolean>(true);
+  const [doesPasswordsMatch, setDoesPasswordMatch] = useState(true);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [optInMarketing, setOptInMarketing] = useState(false);
 
   // @ts-ignore
-  const [state, formAction, isPending] = useFormState(register, initialState);
+  const [state, formAction] = useFormState(register, initialState);
 
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
 
-  // 409
   useEffect(() => {
     if (state.isSuccess && state.data) {
       const redirect = searchParams.get("redirect");
@@ -65,8 +64,6 @@ export default function SignUpForm() {
       setDoesPasswordMatch(false);
     }
   }, [password, repeatPassword]);
-
-  console.log(doesPasswordsMatch);
 
   return (
     <form action={formAction} className="space-y-6">
@@ -116,8 +113,8 @@ export default function SignUpForm() {
             required
             autoComplete="current-password"
             className={clsx(
-              "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1",
-              "ring-inset ring-gray-300",
+              "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm",
+              "ring-1 ring-inset ring-gray-300",
               "placeholder:text-gray-400",
               "focus:ring-2 focus:ring-inset focus:ring-light-green",
               "sm:text-sm sm:leading-6"
@@ -157,7 +154,7 @@ export default function SignUpForm() {
                 "placeholder:text-gray-400",
                 "focus:ring-2 focus:ring-inset focus:ring-light-green",
                 "sm:text-sm sm:leading-6",
-                { "ring-red-600": !doesPasswordsMatch }
+                { "ring-red-600 focus:ring-red-600": !doesPasswordsMatch }
               )
             )}
           />
@@ -242,7 +239,7 @@ export default function SignUpForm() {
         </label>
       </div>
       <div>
-        <SubmitButton text="Sign in" />
+        <SubmitButton isDisabled={!email || !password || !firstname || !lastname} text="Sign in" />
       </div>
     </form>
   );

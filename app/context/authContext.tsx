@@ -50,32 +50,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const register = async (user: User) => {
-    try {
-      await axios.post("https://api.monplancbd.fr/register", { user });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const updateUser = async (updatedUserData: Partial<UserData>) => {
-    try {
-      // Make an API call to update user info (adjust endpoint as needed)
-      const { data } = await axiosInstance.put("https://api.monplancbd.fr/user", updatedUserData);
-
-      // Update the local state with new user data
-      setUserData((prevData) => ({
-        ...prevData,
-        ...data, // Merge updated data (be careful with how you handle merging)
-      }));
-
-      // Optionally show success message or handle redirect
-    } catch (err) {
-      console.error("Failed to update user data:", err);
-    } finally {
-    }
-  };
-
   return <AuthContext.Provider value={{ userData, setUserData, cleanUpLocalStorageUserRelated, logout }}>{children}</AuthContext.Provider>;
 };
 
