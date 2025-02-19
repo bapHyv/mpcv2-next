@@ -29,6 +29,7 @@ export interface UpdatedUserData {
 }
 
 export interface Address {
+  id: number;
   address1: string;
   address2: string;
   billing: boolean;
@@ -37,10 +38,9 @@ export interface Address {
   country: string;
   email: string;
   firstname: string;
-  id: number;
   lastname: string;
   phone: string;
-  postalCode: number;
+  postalCode: string;
   shipping: boolean;
 }
 
@@ -51,7 +51,7 @@ export interface AuthContextType {
   logout: () => void;
 }
 
-interface UserMetadata {
+export interface UserMetadata {
   nickname: string;
   first_name: string;
   last_name: string;
@@ -93,17 +93,17 @@ interface UserMetadata {
   itsec_password_strength: string;
 }
 
-interface Product {
+export interface Product {
   name: string;
   price: string;
 }
 
-interface Shipping {
+export interface Shipping {
   method: string;
   cost: string;
 }
 
-interface Order {
+export interface Order {
   id: number;
   date: string;
   status: string;
@@ -129,14 +129,8 @@ export interface UserDataAPIResponse {
   user_activation_key: string;
   user_status: number;
   display_name: string;
-  accessToken: string;
-  refreshToken: string;
-  umeta_id: number;
-  user_id: number;
-  meta_key: string;
-  meta_value: string;
   mail: string;
-  metadata: UserMetadata;
+  addresses?: Address[];
   firstname: string;
   lastname: string;
   nickname: string;
@@ -145,5 +139,11 @@ export interface UserDataAPIResponse {
   optInMarketing: number;
   discounts: string[];
   orders: Order[];
-  addresses?: Address[];
+  accessToken: string;
+  refreshToken: string;
+  // umeta_id: number;
+  // user_id: number;
+  // meta_key: string;
+  // meta_value: string;
+  // metadata: UserMetadata;
 }

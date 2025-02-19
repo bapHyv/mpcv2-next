@@ -1,15 +1,20 @@
 "use client";
 
 import { useState, useEffect, FormEvent } from "react";
-import { useAuth } from "@/app/context/authContext";
-import { UpdatedUserData, UserData } from "@/app/types/profileTypes";
-import { useTranslations } from "next-intl";
 import { useFormState } from "react-dom";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { update } from "@/app/actions";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
+import { v4 as uuid } from "uuid";
+
+import { useAuth } from "@/app/context/authContext";
+import { update } from "@/app/actions";
 import SubmitButton from "@/app/components/SubmitButton";
+import { useAlerts } from "@/app/context/alertsContext";
+import { UserDataAPIResponse } from "@/app/types/profileTypes";
+import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 
 const initialState = {
   firstname: "",
@@ -40,6 +45,8 @@ export default function Profile() {
   const [state, formAction, isPending] = useFormState(update, initialState);
   const t = useTranslations("profile");
   const { userData, setUserData } = useAuth();
+  const { addAlert } = useAlerts();
+  const router = useRouter();
 
   useEffect(() => {
     if (userData) {
@@ -54,10 +61,21 @@ export default function Profile() {
   }, [userData]);
 
   useEffect(() => {
-    if (state.isSuccess && state.data) {
+    if (state.isSuccess && isUserDataAPIResponse(state.data) && state.data && state.statusCode === 200) {
       setIsUpdating(false);
       setUserData(state.data);
-      localStorage.setItem("userData", JSON.stringify(state.data));
+      addAlert(uuid(), "You have successfully updated your infos", "Update successful", "emerald");
+    } else if (!state.isSuccess && !state.data) {
+      switch (state.statusCode) {
+        case 400:
+          addAlert(uuid(), "One of the infos you've provided is missing", "Warning", "yellow");
+          break;
+        case 422:
+          addAlert(uuid(), "There is a semantic error in the infos you've provided", "Warning", "yellow");
+          break;
+        default:
+          break;
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
@@ -278,22 +296,32 @@ export default function Profile() {
 
           {/* Submit Buttons Section */}
           <div className="md:flex md:justify-end">
-            <div className="mt-10 w-full md:w-1/4">
+            <div className="mt-10 w-full md:w-1/4 flex gap-x-2">
               {isUpdating ? (
-                <SubmitButton text="Save" isDisabled={!doesPasswordsMatch} />
+                <>
+                  <SubmitButton text="Save" isDisabled={!doesPasswordsMatch} />
+                  <button
+                    onClick={() => setIsUpdating(false)}
+                    className={clsx(
+                      "flex w-full justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:ring-1",
+                      "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500",
+                      "disabled:bg-neutral-400 disabled:cursor-not-allowed"
+                    )}
+                  >
+                    Cancel
+                  </button>
+                </>
               ) : (
                 <button
                   type="button"
                   onClick={() => setIsUpdating(true)}
-                  className={twMerge(
-                    clsx(
-                      "flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:ring-1",
-                      "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green",
-                      "disabled:bg-neutral-400 disabled:cursor-not-allowed"
-                    )
+                  className={clsx(
+                    "flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:ring-1",
+                    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500",
+                    "disabled:bg-neutral-400 disabled:cursor-not-allowed"
                   )}
                 >
-                  Change your infos
+                  Update your infos
                 </button>
               )}
             </div>

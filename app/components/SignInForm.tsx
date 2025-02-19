@@ -10,6 +10,7 @@ import SubmitButton from "@/app/components/SubmitButton";
 import { login } from "@/app/actions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
+import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 
 const initialState = {
   email: "",
@@ -31,16 +32,15 @@ export default function SignInForm() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    console.log(isUserDataAPIResponse(state.data));
     // Deal with 200 status
-    if (state.isSuccess && state.data) {
+    if (state.isSuccess && isUserDataAPIResponse(state.data) && state.data && state.statusCode === 200) {
+      console.log("In here");
       const redirect = searchParams.get("redirect");
 
       setUserData(state.data);
-
       localStorage.setItem("accessToken", state.data.accessToken);
       localStorage.setItem("refreshToken", state.data.refreshToken);
-      localStorage.setItem("userData", JSON.stringify(state.data));
-
       addAlert(uuid(), "You've successfully logged in", "Login successful", "emerald");
 
       router.push(redirect ? redirect : "/");
@@ -50,7 +50,7 @@ export default function SignInForm() {
       setPassword("");
       // deal with status 204 (user does not exist)
     } else if (state.isSuccess && state.statusCode === 204) {
-      addAlert(uuid(), "User does not exist, you will get redirected", "No user found", "blue");
+      addAlert(uuid(), state.message, "No user found", "blue");
       router.push(`/inscription/?email=${email}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

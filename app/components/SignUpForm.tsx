@@ -2,7 +2,7 @@
 
 import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
 
@@ -12,6 +12,7 @@ import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
+import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 
 const initialState = {
   email: "",
@@ -41,18 +42,29 @@ export default function SignUpForm() {
   const { addAlert } = useAlerts();
 
   useEffect(() => {
-    if (state.isSuccess && state.data) {
+    if (state.isSuccess && isUserDataAPIResponse(state.data) && state.data && state.statusCode === 200) {
       const redirect = searchParams.get("redirect");
 
       setUserData(state.data);
 
       localStorage.setItem("accessToken", state.data.accessToken);
       localStorage.setItem("refreshToken", state.data.refreshToken);
-      localStorage.setItem("userData", JSON.stringify(state.data));
 
       addAlert(uuid(), "You've successfully signed up", "Sign up successful", "emerald");
 
       router.push(redirect ? redirect : "/");
+    } else if (!state.isSuccess && !state.data) {
+      switch (state.statusCode) {
+        case 409:
+          addAlert(uuid(), "User already exists, you'll get redirected", "User already exists", "blue");
+          redirect("/connexion");
+        case 500:
+          addAlert(uuid(), "Error, try again later", "Error server", "red");
+          break;
+        default:
+          addAlert(uuid(), "Try again later", "Something went wrong", "red");
+          break;
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);

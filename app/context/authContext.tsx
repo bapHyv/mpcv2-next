@@ -34,6 +34,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (userData) {
+      localStorage.setItem("userData", JSON.stringify(userData));
+    }
+  }, [userData]);
+
   const logout = async () => {
     try {
       const result = await logoutAction();
