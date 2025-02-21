@@ -10,7 +10,6 @@ import { addAddress } from "@/app/actions";
 import { isAddress } from "@/app/utils/typeGuardsFunctions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
-import { useRouter } from "next/navigation";
 
 interface Params {
   setIsAddModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -19,18 +18,18 @@ interface Params {
 type addAddressForm = Omit<Address, "id">;
 
 export default function AddAddressModale({ setIsAddModalOpen }: Params) {
-  const t = useTranslations("addresses");
+  const t = useTranslations();
   const [formData, setFormData] = useState<addAddressForm>({
     firstname: "",
     lastname: "",
     address1: "",
     postalCode: "",
     city: "",
-    country: "France",
+    country: "",
     phone: "",
     email: "",
-    billing: true,
-    shipping: true,
+    billing: false,
+    shipping: false,
     company: "",
     address2: "",
   });
@@ -41,35 +40,35 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
 
-  /**
-   * add address:
-   *  [-] get response
-   *  [-] add address with setUserData
-   *  [-] alert different cases
-   */
-
   useEffect(() => {
+    console.log(state.data);
     if (state.isSuccess && state.data && state.statusCode === 200) {
       setUserData((prevState) => {
         if (prevState && isAddress(state.data)) {
           return {
             ...prevState,
-            addresses: prevState?.addresses ? [...prevState?.addresses, state.data] : [state.data],
+            addresses: [...prevState.addresses, state.data],
           };
         } else {
           return null;
         }
       });
 
-      addAlert(uuid(), "You've successfully added your address up", "Address added successfully", "emerald");
+      addAlert(uuid(), t("alerts.profile.addresses.add.200.text"), t("alerts.profile.addresses.add.200.title"), "emerald");
       setIsAddModalOpen(false);
     } else if (!state.isSuccess && !state.data) {
       switch (state.statusCode) {
         case 400:
-          addAlert(uuid(), "One of the infos you've provided is missing", "Warning", "yellow");
+          addAlert(uuid(), t("alerts.profile.addresses.add.400.text"), t("alerts.profile.addresses.add.400.title"), "yellow");
+          setIsAddModalOpen(false);
+          break;
+        case 409:
+          addAlert(uuid(), t("alerts.profile.addresses.add.409.text"), t("alerts.profile.addresses.add.409.title"), "yellow");
+          setIsAddModalOpen(false);
           break;
         case 422:
-          addAlert(uuid(), "There is a semantic error in the infos you've provided", "Warning", "yellow");
+          addAlert(uuid(), t("alerts.profile.addresses.add.422.text"), t("alerts.profile.addresses.add.422.title"), "yellow");
+          setIsAddModalOpen(false);
           break;
         default:
           break;
@@ -91,17 +90,20 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-      onClick={() => setIsAddModalOpen(false)} // Close modal on background click
+      // onClick={() => setIsAddModalOpen(false)}
+      onMouseDown={() => setIsAddModalOpen(false)}
     >
       <div
         className="bg-white rounded-lg p-6 md:p-8 shadow-lg w-11/12 md:max-w-lg mx-auto relative transform transition-all duration-300 ease-in-out overflow-y-auto max-h-[80vh]"
-        onClick={(e) => e.stopPropagation()} // Prevent background click from closing modal
+        onMouseDown={(e) => e.stopPropagation()} // Prevent background click from closing modal
       >
-        <form action={formAction} className="max-w-4xl mx-auto flex flex-col gap-y-5 pb-12">
+        <h2 className="text-2xl font-semibold mb-6 text-green">{t("addresses.addAddress")}</h2>
+
+        <form action={formAction} className="max-w-4xl mx-auto flex flex-col gap-y-5">
           {/* Firstname */}
           <div>
             <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
-              {t("firstName")}
+              {t("addresses.firstName")}
             </label>
             <input
               id="firstname"
@@ -117,7 +119,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
           {/* Lastname */}
           <div>
             <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">
-              {t("lastName")}
+              {t("addresses.lastName")}
             </label>
             <input
               id="lastname"
@@ -133,7 +135,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
           {/* Country Selector */}
           <div>
             <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-              {t("country")}
+              {t("addresses.country")}
             </label>
             <select
               id="country"
@@ -151,7 +153,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
           {/* Street Address */}
           <div>
             <label htmlFor="address1" className="block text-sm font-medium text-gray-700">
-              {t("address1")}
+              {t("addresses.address1")}
             </label>
             <input
               id="address1"
@@ -167,13 +169,28 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
           {/* Address Line 2 */}
           <div>
             <label htmlFor="address2" className="block text-sm font-medium text-gray-700">
-              {t("address2")}
+              {t("addresses.address2")}
             </label>
             <input
               id="address2"
               name="address2"
               type="text"
-              value={formData.address2 || ""}
+              value={formData.address2}
+              onChange={handleChange}
+              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+            />
+          </div>
+
+          {/* Company */}
+          <div>
+            <label htmlFor="company" className="block text-sm font-medium text-gray-700">
+              {t("addresses.modal.company")}
+            </label>
+            <input
+              id="company"
+              name="company"
+              type="text"
+              value={formData.company}
               onChange={handleChange}
               className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
             />
@@ -182,7 +199,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
           {/* City */}
           <div>
             <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-              {t("city")}
+              {t("addresses.city")}
             </label>
             <input
               id="city"
@@ -198,7 +215,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
           {/* Postal Code */}
           <div>
             <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
-              {t("postalCode")}
+              {t("addresses.postalCode")}
             </label>
             <input
               id="postalCode"
@@ -214,7 +231,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
           {/* Phone */}
           <div>
             <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-              {t("phone")}
+              {t("addresses.phone")}
             </label>
             <input
               id="phone"
@@ -230,7 +247,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
           {/* Email */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              {t("email")}
+              {t("addresses.email")}
             </label>
             <input
               id="email"
@@ -255,7 +272,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
                 className="h-4 w-4 rounded border-gray-300 text-green focus:ring-green"
               />
               <label htmlFor="billing" className="text-sm font-medium text-gray-700 ml-2">
-                {t("billing")}
+                {t("addresses.billing")}
               </label>
             </div>
             <div>
@@ -268,21 +285,21 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
                 className="h-4 w-4 rounded border-gray-300 text-green focus:ring-green"
               />
               <label htmlFor="shipping" className="text-sm font-medium text-gray-700 ml-2">
-                {t("shipping")}
+                {t("addresses.shipping")}
               </label>
             </div>
           </div>
 
-          {/* Shipping Checkbox */}
-          <div></div>
-
           {/* Form Buttons */}
-          <div className="mt-6 flex justify-end gap-4">
+          <div className="mt-2 flex justify-end gap-4">
+            <button type="button" className="px-3 py-2 bg-red-600 text-white rounded-md" onClick={() => setIsAddModalOpen(false)}>
+              {t("addresses.modal.cancel")}
+            </button>
             <button
               type="submit"
-              className="rounded-md bg-green px-6 py-2 text-sm text-white hover:bg-teal-700 focus:ring-2 focus:ring-green transition-colors"
+              className="rounded-md bg-green px-3 py-2 text-white hover:bg-teal-700 focus:ring-2 focus:ring-green transition-colors"
             >
-              {t("addAddress")}
+              {t("addresses.addAddress")}
             </button>
           </div>
         </form>

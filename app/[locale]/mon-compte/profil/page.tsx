@@ -3,18 +3,16 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useFormState } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuid } from "uuid";
 
 import { useAuth } from "@/app/context/authContext";
-import { update } from "@/app/actions";
 import SubmitButton from "@/app/components/SubmitButton";
 import { useAlerts } from "@/app/context/alertsContext";
-import { UserDataAPIResponse } from "@/app/types/profileTypes";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
+import { update } from "@/app/actions";
 
 const initialState = {
   firstname: "",
@@ -41,12 +39,11 @@ export default function Profile() {
     optInMarketing: 0,
   });
 
+  const t = useTranslations();
   // @ts-ignore
-  const [state, formAction, isPending] = useFormState(update, initialState);
-  const t = useTranslations("profile");
+  const [state, formAction] = useFormState(update, initialState);
   const { userData, setUserData } = useAuth();
   const { addAlert } = useAlerts();
-  const router = useRouter();
 
   useEffect(() => {
     if (userData) {
@@ -63,15 +60,21 @@ export default function Profile() {
   useEffect(() => {
     if (state.isSuccess && isUserDataAPIResponse(state.data) && state.data && state.statusCode === 200) {
       setIsUpdating(false);
-      setUserData(state.data);
-      addAlert(uuid(), "You have successfully updated your infos", "Update successful", "emerald");
+      setUserData((prevState) => {
+        if (prevState) {
+          return Object.assign(prevState, state.data);
+        } else {
+          return null;
+        }
+      });
+      addAlert(uuid(), t("alerts.profile.infos.200.text"), t("alerts.profile.infos.200.title"), "emerald");
     } else if (!state.isSuccess && !state.data) {
       switch (state.statusCode) {
         case 400:
-          addAlert(uuid(), "One of the infos you've provided is missing", "Warning", "yellow");
+          addAlert(uuid(), t("alerts.profile.infos.400.text"), t("alerts.profile.infos.400.title"), "yellow");
           break;
         case 422:
-          addAlert(uuid(), "There is a semantic error in the infos you've provided", "Warning", "yellow");
+          addAlert(uuid(), t("alerts.profile.infos.422.text"), t("alerts.profile.infos.422.title"), "yellow");
           break;
         default:
           break;
@@ -102,14 +105,14 @@ export default function Profile() {
       {/* Header */}
       <div className="max-w-5xl mx-auto">
         {/* Form */}
-        <h2 className="text-green text-xl font-bold mb-4">{t("title")}</h2>
+        <h2 className="text-green text-xl font-bold mb-4">{t("profile.title")}</h2>
         <form className="" action={formAction} onChange={handleChangeForm}>
           {/* Personal Information Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* First Name */}
             <div>
               <label htmlFor="firstname" className="block text-sm font-bold">
-                {t("form.firstName")}
+                {t("profile.form.firstName")}
               </label>
               <input
                 type="text"
@@ -131,7 +134,7 @@ export default function Profile() {
             {/* Last Name */}
             <div>
               <label htmlFor="lastname" className="block text-sm font-bold">
-                {t("form.lastName")}
+                {t("profile.form.lastName")}
               </label>
               <input
                 type="text"
@@ -153,7 +156,7 @@ export default function Profile() {
             {/* Email */}
             <div className="md:col-span-2">
               <label htmlFor="email" className="block text-sm font-bold">
-                {t("form.email")}
+                {t("profile.form.email")}
               </label>
               <input
                 type="email"
@@ -175,11 +178,11 @@ export default function Profile() {
 
           {/* Passwords Section */}
           <div>
-            <h3 className="text-green text-lg font-bold mb-4 mt-8">Password</h3>
+            <h3 className="text-green text-lg font-bold mb-4 mt-8">{t("profile.form.password")}</h3>
             <fieldset className="space-y-6">
               <div className="md:col-span-2">
                 <label htmlFor="oldPassword" className="block text-sm font-bold">
-                  Current password
+                  {t("profile.form.currentPassword")}
                 </label>
                 <div className="relative">
                   <input
@@ -203,13 +206,11 @@ export default function Profile() {
                     )}
                   </div>
                 </div>
-                <span className="text-sm italic text-neutral-500">
-                  If you want to change your password, fill up the &quot;Current password&quot; field.
-                </span>
+                <span className="text-sm italic text-neutral-500">{t("profile.form.currentPasswordMessage")}</span>
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="newPassword" className="block text-sm font-bold">
-                  New password
+                  {t("profile.form.newPassword")}
                 </label>
                 <div className="relative">
                   <input
@@ -238,7 +239,7 @@ export default function Profile() {
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="confirmNewPassword" className={twMerge(clsx("block text-sm font-bold", { "text-red-600": !doesPasswordsMatch }))}>
-                  Confirm new password
+                  {t("profile.form.confirmNewPassword")}
                 </label>
                 <div className="relative">
                   <input
@@ -276,7 +277,7 @@ export default function Profile() {
 
           {/* Communication Preferences Section */}
           <div>
-            <h3 className="text-green text-lg font-bold mb-4 mt-8">{t("form.communicationPreferences.label")}</h3>
+            <h3 className="text-green text-lg font-bold mb-4 mt-8">{t("profile.form.communicationPreferences.label")}</h3>
             <fieldset className="space-y-4">
               <label className="flex items-start space-x-3 cursor-pointer w-full md:w-1/2">
                 <input
@@ -287,8 +288,8 @@ export default function Profile() {
                   className="mt-1 focus:ring-green"
                 />
                 <span>
-                  {t("form.communicationPreferences.promotions.label")}
-                  <p className="text-sm text-gray-500">{t("form.communicationPreferences.promotions.hint")}</p>
+                  {t("profile.form.communicationPreferences.promotions.label")}
+                  <p className="text-sm text-gray-500">{t("profile.form.communicationPreferences.promotions.hint")}</p>
                 </span>
               </label>
             </fieldset>

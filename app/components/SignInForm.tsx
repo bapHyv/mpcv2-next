@@ -32,10 +32,8 @@ export default function SignInForm() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log(isUserDataAPIResponse(state.data));
     // Deal with 200 status
     if (state.isSuccess && isUserDataAPIResponse(state.data) && state.data && state.statusCode === 200) {
-      console.log("In here");
       const redirect = searchParams.get("redirect");
 
       setUserData(state.data);
@@ -44,14 +42,20 @@ export default function SignInForm() {
       addAlert(uuid(), "You've successfully logged in", "Login successful", "emerald");
 
       router.push(redirect ? redirect : "/");
-      // deal with status 401 (wrong password)
-    } else if (!state.isSuccess && !state.data && state.statusCode === 401) {
-      addAlert(uuid(), "Wrong email or password", "Error Login", "yellow");
-      setPassword("");
-      // deal with status 204 (user does not exist)
-    } else if (state.isSuccess && state.statusCode === 204) {
-      addAlert(uuid(), state.message, "No user found", "blue");
-      router.push(`/inscription/?email=${email}`);
+    } else if (!state.isSuccess && !state.data) {
+      switch (state.statusCode) {
+        // deal with status 401 (wrong password)
+        case 401:
+          addAlert(uuid(), "Wrong email or password", "Error Login", "yellow");
+          setPassword("");
+          break;
+        // deal with status 204 (user does not exist)
+        case 204:
+          addAlert(uuid(), state.message, "No user found", "blue");
+          router.push(`/inscription/?email=${email}`);
+        default:
+          break;
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);

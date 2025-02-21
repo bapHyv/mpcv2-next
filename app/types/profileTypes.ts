@@ -11,21 +11,10 @@ export interface UserData {
   lastname: string;
   mail: string;
   nickname?: string;
-  addresses?: Address[];
+  addresses: Address[];
   optInMarketing?: boolean;
   oldPassword?: string;
   newPassword?: string;
-}
-
-export interface UpdatedUserData {
-  mail: string;
-  firstname: string;
-  lastname: string;
-  optInMarketing?: boolean;
-  nickname?: string;
-  display_name?: string;
-  oldPassword?: string;
-  addresses: Address[];
 }
 
 export interface Address {
@@ -130,7 +119,7 @@ export interface UserDataAPIResponse {
   user_status: number;
   display_name: string;
   mail: string;
-  addresses?: Address[];
+  addresses: Address[];
   firstname: string;
   lastname: string;
   nickname: string;

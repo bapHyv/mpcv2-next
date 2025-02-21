@@ -196,13 +196,13 @@
     "email": "E-mail",
     "billing": "Utiliser comme adresse de facturation",
     "shipping": "Utiliser comme adresse de livraison",
-    "addAddress": "Ajouter une nouvelle adresse",
     "modal": {
       "title": "Modifier l'adresse",
       "update": "Mettre à jour",
       "delete": "Supprimer",
       "cancel": "Annuler",
       "save": "Enregistrer",
+      "company": "Entreprise (Optionel)",
       "addressType": {
         "title": "Type d'adresse",
         "billing": "Facturation",
@@ -210,92 +210,166 @@
         "both": "Les deux"
       }
     },
+    "text": "Aucune adresse enregistrée pour le moment. Cliquez sur le texte ou sur le bouton ci-dessous pour en ajouter une, vous pourrez les choisir lors d'un achat",
+    "button": "Ajouter une adresse",
+    "addAddress": "Ajouter une adresse",
     "updatedAddress": "Adresse mise à jour avec succès.",
     "failUpdatedAddress": "Échec de la mise à jour de l'adresse."
   },
-    "profile": {
-      "title": "Informations personnelles",
-      "form": {
-        "titleSection": {
-          "label": "Titre",
-          "options": {
-            "madame": "Madame",
-            "monsieur": "Monsieur"
-          }
-        },
-        "firstName": "Prénom",
-        "lastName": "Nom",
-        "displayName": "Nom affiché",
-        "displayNameHint": "Indique comment votre nom apparaîtra dans la section relative au compte et dans les avis",
-        "email": "E-mail",
-        "communicationPreferences": {
-          "label": "Mes options",
-          "promotions": {
-            "label": "Mises à jour sur les produits et les promotions",
-            "hint": "Recevez des communications marketing qui, selon nous, vous intéresseront."
-          },
-          "orders": {
-            "label": "Informations sur le compte et les commandes",
-            "hint": "Recevez des informations importantes au sujet de vos commandes et de votre compte."
-          }
-        },
-        "saveButton": "Enregistrer"
-      }
-    },
-    "orders": {
-      "title": "Mes commandes",
-      "order": {
-        "date": "Date",
-        "orderNumber": "Numéro de Commande",
-        "total": "Total",
-        "status": {
-          "delivered": "Délivré",
-          "onHold": "En cours",
-          "failed": "Échoué"
-        },
-        "product": "Produit",
-        "price": "Prix"
-      }
-    },
-    "loyalty": {
-      "title": "Votre solde actuel",
-      "points": "points",
-      "howToEarn": "Comment gagner des points",
-      "boxes": {
-        "box1": {
-          "title": "Gagnez 1 point pour chaque € dépensé dans notre boutique !",
-          "description": "Points acquis : 1 POINT / 1,00 €"
-        },
-        "box2": {
-          "title": "Noter un produit et recevez 10 points !",
-          "description": "Points acquis : 10 POINTS"
-        },
-        "box3": {
-          "title": "Enregistrement du parrainé",
-          "description": "Points acquis : 50 POINTS"
-        },
-        "box4": {
-          "title": "Commandes du parrainé (montant supérieur à 30,00 euros) (première commande seulement)",
-          "description": "Points acquis : 1 POINT"
-        },
-        "box5": {
-          "title": "Commandes du parrainé (première commande seulement)",
-          "description": "Points acquis : 1 POINT"
+  "profile": {
+    "title": "Informations Personnelles",
+    "form": {
+      "titleSection": {
+        "label": "Titre",
+        "options": {
+          "madame": "Mademoiselle",
+          "monsieur": "Monsieur"
         }
       },
-      "cartPoints": "POINTS DU PANIER : À chaque Point que vous utilisez vaut 0,1 €",
-      "referral": {
-        "title": "Votre lien de parrainage",
-        "description": "Copiez et partagez votre lien de parrainage avec vos amis pour gagner des points !",
-        "copyButton": "Copier",
-        "footerText": "Invitez vos amis à nous rejoindre pour gagner encore plus de points !"
+      "firstName": "Prénom",
+      "lastName": "Nom de famille",
+      "displayName": "Nom d'affichage",
+      "displayNameHint": "C'est ainsi que votre nom sera affiché dans la section du compte et dans les avis",
+      "email": "E-mail",
+      "communicationPreferences": {
+        "label": "Mes Options",
+        "promotions": {
+          "label": "Mises à jour de produits et promotions",
+          "hint": "Recevez des communications marketing qui pourraient vous intéresser."
+        },
+        "orders": {
+          "label": "Informations sur le compte et les commandes",
+          "hint": "Recevez des informations importantes concernant vos commandes et votre compte."
+        }
+      },
+      "password": "Mot de passe",
+      "currentPassword": "Mot de passe actuel",
+      "currentPasswordMessage": "Si vous souhaitez changer votre mot de passe, remplissez le champ \"Mot de passe actuel\".",
+      "newPassword": "Nouveau mot de passe",
+      "confirmNewPassword": "Confirmer le nouveau mot de passe",
+      "updateButton": "mettre à jour vos informations",
+      "saveButton": "Enregistrer"
+    }
+  },
+  "orders": {
+    "title": "Mes commandes",
+    "order": {
+      "date": "Date",
+      "orderNumber": "Numéro de Commande",
+      "total": "Total",
+      "status": {
+        "delivered": "Délivré",
+        "onHold": "En cours",
+        "failed": "Échoué"
+      },
+      "product": "Produit",
+      "price": "Prix"
+    }
+  },
+  "loyalty": {
+    "title": "Votre solde actuel",
+    "points": "points",
+    "howToEarn": "Comment gagner des points",
+    "boxes": {
+      "box1": {
+        "title": "Gagnez 1 point pour chaque € dépensé dans notre boutique !",
+        "description": "Points acquis : 1 POINT / 1,00 €"
+      },
+      "box2": {
+        "title": "Noter un produit et recevez 10 points !",
+        "description": "Points acquis : 10 POINTS"
+      },
+      "box3": {
+        "title": "Enregistrement du parrainé",
+        "description": "Points acquis : 50 POINTS"
+      },
+      "box4": {
+        "title": "Commandes du parrainé (montant supérieur à 30,00 euros) (première commande seulement)",
+        "description": "Points acquis : 1 POINT"
+      },
+      "box5": {
+        "title": "Commandes du parrainé (première commande seulement)",
+        "description": "Points acquis : 1 POINT"
       }
     },
-    "tabs": {
-      "profile": "Informations personnelles",
-      "addresses": "Adresses",
-      "orders": "Commandes",
-      "loyalty": "Points de fidélité & parrainage"
+    "cartPoints": "POINTS DU PANIER : À chaque Point que vous utilisez vaut 0,1 €",
+    "referral": {
+      "title": "Votre lien de parrainage",
+      "description": "Copiez et partagez votre lien de parrainage avec vos amis pour gagner des points !",
+      "copyButton": "Copier",
+      "footerText": "Invitez vos amis à nous rejoindre pour gagner encore plus de points !"
     }
-  
+  },
+  "tabs": {
+    "profile": "Informations personnelles",
+    "addresses": "Adresses",
+    "orders": "Commandes",
+    "loyalty": "Points de fidélité & parrainage"
+  },
+  "alerts": {
+    "profile": {
+      "infos": {
+        "200": {
+          "text": "Vous avez mis à jour vos informations avec succès",
+          "title": "Mise à jour réussie"
+        },
+        "400": {
+          "text": "Une des informations que vous avez fournies est manquante",
+          "title": "Avertissement"
+        },
+        "422": {
+          "text": "Il y a une erreur sémantique dans les informations que vous avez fournies",
+          "title": "Avertissement"
+        }
+      },
+      "addresses": {
+        "delete": {
+          "200": {
+            "text": "Vous avez supprimé votre adresse avec succès",
+            "title": "Adresse supprimée"
+          },
+          "400": {
+            "text": "L'identifiant de l'adresse est requis",
+            "title": "Identifiant manquant"
+          },
+          "500": {
+            "text": "Erreur lors de la suppression de l'adresse",
+            "title": "Erreur"
+          }
+        },
+        "add": {
+          "200": {
+            "text": "Vous avez ajouté votre adresse avec succès",
+            "title": "Adresse ajoutée"
+          },
+          "400": {
+            "text": "Une des informations que vous avez fournies est manquante",
+            "title": "Avertissement"
+          },
+          "409": {
+            "text": "Quelque chose s'est mal passé",
+            "title": "Avertissement"
+          },
+          "422": {
+            "text": "Il y a une erreur sémantique dans les informations que vous avez fournies",
+            "title": "Avertissement"
+          }
+        },
+        "update": {
+          "200": {
+            "text": "Vous avez mis à jour votre adresse avec succès",
+            "title": "Adresse mise à jour"
+          },
+          "400": {
+            "text": "Une des informations que vous avez fournies est manquante",
+            "title": "Avertissement"
+          },
+          "422": {
+            "text": "Il y a une erreur sémantique dans les informations que vous avez fournies",
+            "title": "Avertissement"
+          }
+        }
+      }
+    }
+  }
 }

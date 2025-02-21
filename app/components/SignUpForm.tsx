@@ -62,7 +62,6 @@ export default function SignUpForm() {
           addAlert(uuid(), "Error, try again later", "Error server", "red");
           break;
         default:
-          addAlert(uuid(), "Try again later", "Something went wrong", "red");
           break;
       }
     }

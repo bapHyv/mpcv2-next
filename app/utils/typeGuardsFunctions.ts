@@ -1,33 +1,41 @@
 import { UserDataAPIResponse, UserMetadata, Address, Order, Product, Shipping } from "@/app/types/profileTypes";
 
+export function isId(data: any): data is { id: string } {
+  if (!data || typeof data.id !== "string") {
+    return false;
+  }
+
+  return true;
+}
+
 export function isUserDataAPIResponse(data: any): data is UserDataAPIResponse {
   // Check basic properties of UserDataAPIResponse
   if (
     !data ||
     typeof data.ID !== "number" ||
-    typeof data.user_login !== "string" ||
-    typeof data.user_nicename !== "string" ||
-    typeof data.user_email !== "string" ||
-    typeof data.user_url !== "string" ||
-    typeof data.user_registered !== "string" ||
-    typeof data.user_activation_key !== "string" ||
-    typeof data.user_status !== "number" ||
     typeof data.display_name !== "string" ||
-    typeof data.accessToken !== "string" ||
-    typeof data.refreshToken !== "string" ||
-    // typeof data.umeta_id !== "number" ||
-    // typeof data.user_id !== "number" ||
-    // typeof data.meta_key !== "string" ||
-    // typeof data.meta_value !== "string" ||
-    typeof data.mail !== "string" ||
     typeof data.firstname !== "string" ||
     typeof data.lastname !== "string" ||
-    typeof data.nickname !== "string" ||
     typeof data.loyaltyPoints !== "number" ||
+    typeof data.mail !== "string" ||
     typeof data.referralToken !== "string" ||
     typeof data.optInMarketing !== "number" ||
     !Array.isArray(data.discounts) ||
     !Array.isArray(data.orders)
+    // typeof data.user_login !== "string" ||
+    // typeof data.user_nicename !== "string" ||
+    // typeof data.user_email !== "string" ||
+    // typeof data.user_url !== "string" ||
+    // typeof data.user_registered !== "string" ||
+    // typeof data.user_activation_key !== "string" ||
+    // typeof data.user_status !== "number" ||
+    // typeof data.accessToken !== "string" ||
+    // typeof data.refreshToken !== "string" ||
+    // typeof data.umeta_id !== "number" ||
+    // typeof data.user_id !== "number" ||
+    // typeof data.meta_key !== "string" ||
+    // typeof data.meta_value !== "string" ||
+    // typeof data.nickname !== "string" ||
   ) {
     return false;
   }
@@ -104,19 +112,19 @@ export function isUserMetadata(metadata: any): metadata is UserMetadata {
 export function isAddress(address: any): address is Address {
   return (
     address &&
+    typeof address.firstname === "string" &&
+    typeof address.lastname === "string" &&
     typeof address.address1 === "string" &&
     typeof address.address2 === "string" &&
-    typeof address.billing === "boolean" &&
+    // typeof address.postalCode === "number" &&
     typeof address.city === "string" &&
-    typeof address.company === "string" &&
     typeof address.country === "string" &&
-    typeof address.email === "string" &&
-    typeof address.firstname === "string" &&
-    typeof address.id === "number" &&
-    typeof address.lastname === "string" &&
     typeof address.phone === "string" &&
-    typeof address.postalCode === "number" &&
-    typeof address.shipping === "boolean"
+    typeof address.email === "string" &&
+    typeof address.billing === "boolean" &&
+    typeof address.shipping === "boolean" &&
+    typeof address.company === "string"
+    // typeof address.id === "number"
   );
 }
 

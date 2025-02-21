@@ -1,0 +1,47 @@
+Produits:
+    Accéder aux produits
+    Consulter la page d'un produit
+    Consulter les options d'un produit
+
+Panier:
+    Ajouter un produit dans le panier
+    Consulter le panier
+    Supprimer un produit depuis le panier
+    Ajouter une quantité depuis le panier
+
+Achats:
+    Vérifier mes Achats
+    Avoir un récapitulatif de la commande
+    Pouvoir utiliser mes points de fidélités
+    Pouvoir utiliser un ou plusieurs code promotion
+    Pouvoir choisir entre paiement par carte ou par virement bancaire
+    Pouvoir choisir un mode de livraison
+
+Utilisateur:
+    Se connecter
+    S'enregistrer
+    Changer mes informations personnel
+    Changer mon mot de passe (pas encore testé)
+    Adresses:
+        Ajouter une addresse
+        Modifier une adresse
+        Supprimer une adresse
+    Commandes:
+        Vérifier mes anciennes commandes (Status, détails, n° suivi commande)
+        Télécharger facture pour chaque commande
+
+
+Si je suis logger, la page connexion et inscription ne doivent pas être accessible 
+
+
+Action: Se connecter
+État initial: Les champs sont vide et le bouton est désactiver
+Parcours utilisateur: Je vais sur la page /connexion, je remplis les champs email et mot de passe, j'appuis sur le bouton, je suis connecté et redirigé vers la page d'accueil
+État intermédiaire: Le bouton du formulaire est utilisable
+État final: Je suis sur la page d'accueil
+
+Différent cas possible:
+    Je me suis trompé de mot de passe:
+        Une alerte est affiché, le mot de passe est retiré, l'utilisateur doit de nouveau renseigner son mot de passe.
+    Je ne suis pas encore inscrit:
+        Un alerte est affiché disant à l'utilisateur qu'il n'est pas inscrit et va être redirigé. L'utilisateur est redirigé vers /inscription. Son email doit être préremplis.

@@ -2,6 +2,7 @@
 
 import { Address, UserDataAPIResponse } from "@/app/types/profileTypes";
 import { cookies } from "next/headers";
+import { fetchWrapper } from "@/app/utils/fetchWrapper";
 
 interface Login {
   email: string;
@@ -30,8 +31,9 @@ interface ErrorReponse {
 }
 
 type statusCode = 200 | 204 | 400 | 401 | 409 | 422 | 500;
+type data = null | UserDataAPIResponse | Address | { id: string };
 
-function responseAPI(message: string, data: null | UserDataAPIResponse | Address, isSuccess: boolean, statusCode: statusCode) {
+function responseAPI(message: string, data: data, isSuccess: boolean, statusCode: statusCode) {
   return { message, data, isSuccess, statusCode };
 }
 
@@ -70,16 +72,10 @@ export async function login(prevState: Login, formData: FormData) {
     const userData: UserDataAPIResponse = await response.json();
 
     const domain = process.env.NODE_ENV === "development" ? "localhost" : process.env.MAIN_DOMAIN;
+    const cookieOptions = { httpOnly: true, secure: true, sameSite: "strict" as const, path: "/", domain };
 
-    cookies().set("accessToken", userData.accessToken, { httpOnly: true, secure: true, sameSite: "strict", maxAge: 24 * 60 * 60, path: "/", domain });
-    cookies().set("refreshToken", userData.refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      maxAge: 24 * 60 * 60,
-      path: "/",
-      domain,
-    });
+    cookies().set("accessToken", userData.accessToken, cookieOptions);
+    cookies().set("refreshToken", userData.refreshToken, cookieOptions);
 
     return responseAPI("User successfully logged in", userData, true, response.status as 200);
   } catch (error: any | ErrorReponse) {
@@ -125,6 +121,7 @@ export async function register(prevState: Register, formData: FormData) {
       lastname: formData.get("lastname"),
       optInMarketing: formData.get("optInMarketing") ? true : false,
     };
+
     const fetchOptions = {
       method: "POST",
       body: JSON.stringify(user),
@@ -147,16 +144,10 @@ export async function register(prevState: Register, formData: FormData) {
     const userData: UserDataAPIResponse = await response.json();
 
     const domain = process.env.NODE_ENV === "development" ? "localhost" : process.env.MAIN_DOMAIN;
+    const cookieOptions = { httpOnly: true, secure: true, sameSite: "strict" as const, path: "/", domain };
 
-    cookies().set("accessToken", userData.accessToken, { httpOnly: true, secure: true, sameSite: "strict", maxAge: 24 * 60 * 60, path: "/", domain });
-    cookies().set("refreshToken", userData.refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      maxAge: 300 * 24 * 60 * 60, // keep the refreshToken for 300 days
-      path: "/",
-      domain,
-    });
+    cookies().set("accessToken", userData.accessToken, cookieOptions);
+    cookies().set("refreshToken", userData.refreshToken, cookieOptions);
 
     return responseAPI("User successfully signed up", userData, true, response.status as 200);
   } catch (error: any | ErrorReponse) {
@@ -188,27 +179,15 @@ export async function update(prevState: Update, formData: FormData) {
       newPassword: formData.get("newPassword"),
     };
 
-    const accessToken = cookies().get("accessToken")?.value;
-
-    if (!accessToken) {
-      const errorData = null;
-      throw {
-        message: "No access token found, you'll get redirected to login",
-        statusCode: 401,
-        errorData,
-      };
-    }
-
     const fetchOptions = {
       method: "PUT",
       body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
     };
 
-    const response = await fetch(`${process.env.API_HOST}/user`, fetchOptions);
+    const response = await fetchWrapper(`${process.env.API_HOST}/user`, fetchOptions);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
@@ -223,7 +202,7 @@ export async function update(prevState: Update, formData: FormData) {
 
     return responseAPI("User successfully updated", userData, true, response.status as 200);
   } catch (error: any | ErrorReponse) {
-    console.error("Sign up error:", error);
+    console.error("Update error:", error);
 
     const statusCode = error.statusCode || 500;
     const errorMessage = error.message || "Error while logging in";
@@ -246,38 +225,28 @@ export async function addAddress(prevState: Address, formData: FormData) {
       firstname: formData.get("firstname"),
       lastname: formData.get("lastname"),
       address1: formData.get("address1"),
-      address2: formData.get("address2") ? formData.get("address2") : "",
+      address2: formData.get("address2"),
       postalCode: formData.get("postalCode"),
       city: formData.get("city"),
       country: formData.get("country"),
       phone: formData.get("phone"),
       email: formData.get("email"),
-      billing: formData.get("billing"),
-      shipping: formData.get("shipping"),
+      billing: formData.get("billing") ? true : false,
+      shipping: formData.get("shipping") ? true : false,
       company: formData.get("company"),
     };
-
-    const accessToken = cookies().get("accessToken")?.value;
-
-    if (!accessToken) {
-      const errorData = null;
-      throw {
-        message: "No access token found, you'll get redirected to login",
-        statusCode: 401,
-        errorData,
-      };
-    }
 
     const fetchOptions = {
       method: "POST",
       body: JSON.stringify(address),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
     };
 
-    const response = await fetch(`${process.env.API_HOST}/user/addresses/add`, fetchOptions);
+    console.log(address);
+
+    const response = await fetchWrapper(`${process.env.API_HOST}/user/addresses/add`, fetchOptions);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
@@ -292,7 +261,7 @@ export async function addAddress(prevState: Address, formData: FormData) {
 
     return responseAPI("Address successfully added", addressResponse, true, response.status as 200);
   } catch (error: any | ErrorReponse) {
-    console.error("Sign up error:", error);
+    console.error("Add address error:", error);
 
     const statusCode = error.statusCode || 500;
     const errorMessage = error.message || "Error while logging in";
@@ -311,7 +280,7 @@ export async function addAddress(prevState: Address, formData: FormData) {
 export async function deleteAddress(prevState: any, formData: FormData) {
   try {
     const { id } = {
-      id: formData.get("id"),
+      id: formData.get("addressId"),
     };
 
     if (!id) {
@@ -323,33 +292,21 @@ export async function deleteAddress(prevState: any, formData: FormData) {
       };
     }
 
-    const accessToken = cookies().get("accessToken")?.value;
-
-    if (!accessToken) {
-      const errorData = null;
-      throw {
-        message: "No access token found, you'll get redirected to login",
-        statusCode: 401,
-        errorData,
-      };
-    }
-
     const fetchOptions = {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
     };
 
-    const response = await fetch(`${process.env.API_HOST}/user/addresses/${id}`, fetchOptions);
+    const response = await fetchWrapper(`${process.env.API_HOST}/user/addresses/${id}`, fetchOptions);
 
-    return responseAPI("Address successfully deleted", null, true, response.status as 200);
+    return responseAPI("Address successfully deleted", { id: id.toString() }, true, response.status as 200);
   } catch (error: any | ErrorReponse) {
-    console.error("Sign up error:", error);
+    console.error("Delete address error:", error);
 
     const statusCode = error.statusCode || 500;
-    const errorMessage = error.message || "Error while logging in";
+    const errorMessage = error.message || "Error while deleting address";
 
     return responseAPI(errorMessage, null, false, statusCode);
   }
@@ -367,13 +324,13 @@ export async function updateAddress(prevState: Address & { id: string }, formDat
       country: formData.get("country"),
       phone: formData.get("phone"),
       email: formData.get("email"),
-      billing: formData.get("billing"),
-      shipping: formData.get("shipping"),
+      billing: formData.get("billing") ? true : false,
+      shipping: formData.get("shipping") ? true : false,
       company: formData.get("company"),
     };
 
     const { id } = {
-      id: formData.get("id"),
+      id: formData.get("addressId"),
     };
 
     if (!id) {
@@ -385,27 +342,15 @@ export async function updateAddress(prevState: Address & { id: string }, formDat
       };
     }
 
-    const accessToken = cookies().get("accessToken")?.value;
-
-    if (!accessToken) {
-      const errorData = null;
-      throw {
-        message: "No access token found, you'll get redirected to login",
-        statusCode: 401,
-        errorData,
-      };
-    }
-
     const fetchOptions = {
       method: "PUT",
       body: JSON.stringify(address),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
     };
 
-    const response = await fetch(`${process.env.API_HOST}/user/addresses/${id}`, fetchOptions);
+    const response = await fetchWrapper(`${process.env.API_HOST}/user/addresses/${id}`, fetchOptions);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
@@ -420,10 +365,10 @@ export async function updateAddress(prevState: Address & { id: string }, formDat
 
     return responseAPI("Address successfully updated", addressResponse, true, response.status as 200);
   } catch (error: any | ErrorReponse) {
-    console.error("Sign up error:", error);
+    console.error("Update address error:", error);
 
     const statusCode = error.statusCode || 500;
-    const errorMessage = error.message || "Error while logging in";
+    const errorMessage = error.message || "Error while updating address";
 
     return responseAPI(errorMessage, null, false, statusCode);
   }
