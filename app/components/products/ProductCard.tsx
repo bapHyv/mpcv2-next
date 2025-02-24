@@ -145,9 +145,17 @@ export default async function ProductCard({
                 </div>
               </div>
             ) : (
-              <div className="h-[24px] sm:h-[40px]">
+              <div className="flex justify-center">
                 <h4 className="sr-only">Reviews</h4>
-                <div className="flex items-center"></div>
+                <div className="flex items-center">
+                  {/*  */}
+                  <div className="flex items-center">
+                    {[0, 1, 2, 3, 4].map((ratingStar) => (
+                      <StarIcon key={ratingStar} aria-hidden="true" className={clsx("text-gray-200", "h-5 w-5 flex-shrink-0 mb-1")} />
+                    ))}
+                  </div>
+                  <span className="ml-2 text-sm font-medium text-neutral-700 dark:text-neutral-200">(0 {t("reviews")})</span>
+                </div>
               </div>
             )}
           </section>

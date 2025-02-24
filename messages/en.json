@@ -183,35 +183,38 @@
     "priceOneArticle": "price per item",
     "subtotal": "subtotal"
   },
-  "addresses" : {
-    "title" : "My Addresses",
-    "firstName" : "First name",
-    "lastName" : "Last name",
-    "address1" : "Address 1",
+  "addresses": {
+    "title": "My Addresses",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "address1": "Address 1",
     "address2": "Address 2 (Optional)",
-    "city" : "City",
-    "postalCode" : "Postal Code",
-    "country" : "Country",
-    "phone" : "Phone",
-    "email" : "Email",
-    "billing" : "Use as a billing address",
-    "shipping" : "Use as a shipping address",
-    "addAddress" : "Add a new address",
-    "modal" : {
-      "title" : "Edit Address",
-      "update" : "Update",
-      "delete" : "Delete",
-      "cancel" : "Cancel",
-      "save" : "Save",
-      "addressType" : {
-        "title" : "Address Type",
-        "billing" : "Billing",
-        "shipping" : "Shipping",
-        "both" : "both"
+    "city": "City",
+    "postalCode": "Postal Code",
+    "country": "Country",
+    "phone": "Phone",
+    "email": "Email",
+    "billing": "Use as a billing address",
+    "shipping": "Use as a shipping address",
+    "modal": {
+      "title": "Edit Address",
+      "update": "Update",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "save": "Save",
+      "company": "Company (Optionel)",
+      "addressType": {
+        "title": "Address Type",
+        "billing": "Billing",
+        "shipping": "Shipping",
+        "both": "both"
       }
     },
-    "updatedAddress" : "Address updated successfully",
-    "failUpdatedAddress" : "Failed to update the address"
+    "text": "No address registered yet. Press on the text or the button below to add one, you will be able to choose them when purchasing something",
+    "button": "Add address",
+    "addAddress": "Add address",
+    "updatedAddress": "Address updated successfully",
+    "failUpdatedAddress": "Failed to update the address"
   },
   "profile": {
     "title": "Personal Information",
@@ -219,8 +222,8 @@
       "titleSection": {
         "label": "Title",
         "options": {
-          "madame": "Madame",
-          "monsieur": "Monsieur"
+          "madame": "Miss",
+          "monsieur": "Mister"
         }
       },
       "firstName": "First Name",
@@ -239,6 +242,12 @@
           "hint": "Receive important information about your orders and account."
         }
       },
+      "password": "Password",
+      "currentPassword": "Current password",
+      "currentPasswordMessage": "If you want to change your password, fill up the \"Current password\" field.",
+      "newPassword": "New password",
+      "confirmNewPassword": "Confirm new password",
+      "updateButton": "update your infos",
       "saveButton": "Save"
     }
   },
@@ -296,5 +305,71 @@
     "addresses": "Addresses",
     "orders": "Orders",
     "loyalty": "Loyalty Points & Referral"
+  },
+  "alerts": {
+    "profile": {
+      "infos": {
+        "200": {
+          "text": "You have successfully updated your infos",
+          "title": "Update successful"
+        },
+        "400": {
+          "text": "One of the infos you've provided is missing",
+          "title": "Warning"
+        },
+        "422": {
+          "text": "There is a semantic error in the infos you've provided",
+          "title": "Warning"
+        }
+      },
+      "addresses": {
+        "delete": {
+          "200": {
+            "text": "You have successfully deleted your address",
+            "title": "Delete address"
+          },
+          "400": {
+            "text": "The address id is required",
+            "title": "No id"
+          },
+          "500": {
+            "text": "Error while deleting address",
+            "title": "Error"
+          }
+        },
+        "add": {
+          "200": {
+            "text": "You've successfully added your address up",
+            "title": "Address added"
+          },
+          "400": {
+            "text": "One of the infos you've provided is missing",
+            "title": "Warning"
+          },
+          "409": {
+            "text": "Something went wrong",
+            "title": "Warning"
+          },
+          "422": {
+            "text": "There is a semantic error in the infos you've provided",
+            "title": "Warning"
+          }
+        },
+        "update": {
+          "200": {
+            "text": "You've successfully updated your address",
+            "title": "Address updated"
+          },
+          "400": {
+            "text": "One of the infos you've provided is missing",
+            "title": "Warning"
+          },
+          "422": {
+            "text": "There is a semantic error in the infos you've provided",
+            "title": "Warning"
+          }
+        }
+      }
+    }
   }
 }

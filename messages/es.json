@@ -196,13 +196,13 @@
     "email": "Correo electrónico",
     "billing": "Usar como dirección de facturación",
     "shipping": "Usar como dirección de envío",
-    "addAddress": "Agregar una nueva dirección",
     "modal": {
       "title": "Editar dirección",
       "update": "Actualizar",
       "delete": "Eliminar",
       "cancel": "Cancelar",
       "save": "Guardar",
+      "company": "Company es (Optionel)",
       "addressType": {
         "title": "Tipo de dirección",
         "billing": "Facturación",
@@ -210,35 +210,44 @@
         "both": "Ambos"
       }
     },
+    "text": "No hay ninguna dirección registrada todavía. Haz clic en el texto o en el botón de abajo para agregar una, podrás elegirlas al realizar una compra",
+    "button": "Añadir dirección",
+    "addAddress": "Añadir dirección",
     "updatedAddress": "Dirección actualizada con éxito.",
     "failUpdatedAddress": "No se pudo actualizar la dirección."
   },
   "profile": {
-    "title": "Información personal",
+    "title": "Información Personal",
     "form": {
       "titleSection": {
         "label": "Título",
         "options": {
-          "madame": "Señora",
+          "madame": "Señorita",
           "monsieur": "Señor"
         }
       },
       "firstName": "Nombre",
       "lastName": "Apellido",
-      "displayName": "Nombre mostrado",
-      "displayNameHint": "Así es como se mostrará su nombre en la sección de la cuenta y en las reseñas",
+      "displayName": "Nombre para mostrar",
+      "displayNameHint": "Así es como se mostrará tu nombre en la sección de la cuenta y en las reseñas",
       "email": "Correo electrónico",
       "communicationPreferences": {
-        "label": "Mis opciones",
+        "label": "Mis Opciones",
         "promotions": {
           "label": "Actualizaciones de productos y promociones",
-          "hint": "Reciba comunicaciones de marketing que creemos que le interesarán."
+          "hint": "Recibe comunicaciones de marketing que creemos que te interesarán."
         },
         "orders": {
           "label": "Información de la cuenta y pedidos",
-          "hint": "Reciba información importante sobre sus pedidos y su cuenta."
+          "hint": "Recibe información importante sobre tus pedidos y tu cuenta."
         }
       },
+      "password": "Contraseña",
+      "currentPassword": "Contraseña actual",
+      "currentPasswordMessage": "Si deseas cambiar tu contraseña, completa el campo \"Contraseña actual\".",
+      "newPassword": "Nueva contraseña",
+      "confirmNewPassword": "Confirmar nueva contraseña",
+      "updateButton": "actualizar tus informaciones",
       "saveButton": "Guardar"
     }
   },
@@ -296,5 +305,71 @@
     "addresses": "Direcciones",
     "orders": "Pedidos",
     "loyalty": "Puntos de fidelidad y referidos"
+  },
+  "alerts": {
+    "profile": {
+      "infos": {
+        "200": {
+          "text": "Has actualizado tu información correctamente",
+          "title": "Actualización exitosa"
+        },
+        "400": {
+          "text": "Falta una de las informaciones que has proporcionado",
+          "title": "Advertencia"
+        },
+        "422": {
+          "text": "Hay un error semántico en la información que has proporcionado",
+          "title": "Advertencia"
+        }
+      },
+      "addresses": {
+        "delete": {
+          "200": {
+            "text": "Has eliminado tu dirección correctamente",
+            "title": "Dirección eliminada"
+          },
+          "400": {
+            "text": "Se requiere el ID de la dirección",
+            "title": "ID faltante"
+          },
+          "500": {
+            "text": "Error al eliminar la dirección",
+            "title": "Error"
+          }
+        },
+        "add": {
+          "200": {
+            "text": "Has añadido tu dirección correctamente",
+            "title": "Dirección añadida"
+          },
+          "400": {
+            "text": "Falta una de las informaciones que has proporcionado",
+            "title": "Advertencia"
+          },
+          "409": {
+            "text": "Algo salió mal",
+            "title": "Advertencia"
+          },
+          "422": {
+            "text": "Hay un error semántico en la información que has proporcionado",
+            "title": "Advertencia"
+          }
+        },
+        "update": {
+          "200": {
+            "text": "Has actualizado tu dirección correctamente",
+            "title": "Dirección actualizada"
+          },
+          "400": {
+            "text": "Falta una de las informaciones que has proporcionado",
+            "title": "Advertencia"
+          },
+          "422": {
+            "text": "Hay un error semántico en la información que has proporcionado",
+            "title": "Advertencia"
+          }
+        }
+      }
+    }
   }
 }
