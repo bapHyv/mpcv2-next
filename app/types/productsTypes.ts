@@ -56,12 +56,13 @@ export interface Analyse {
 }
 
 export interface BaseProduct {
+  id: number;
+  name: string;
   category: string;
-  id: string;
+  categoryId: number;
   images: { main: Image; others: Image[] };
   isPromo: boolean;
   longDescription: string;
-  name: string;
   prices: Prices;
   pricesPer: string;
   productUrl: string;

@@ -20,7 +20,7 @@ interface Params {
   pricesPer: string;
   prices: Prices;
   name: string;
-  id: string;
+  id: number;
   stock: string;
   slug: string;
   category: string;
@@ -52,6 +52,9 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
       totalPrice: 0,
       image,
       category,
+      VATRate: products[id].VATRate,
+      isPromo: products[id].isPromo,
+      categoryId: products[id].categoryId,
     };
 
     // Two posibilities here, either the same product with the same option already exists

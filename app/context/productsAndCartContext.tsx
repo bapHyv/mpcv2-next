@@ -6,33 +6,12 @@ import Modale from "@/app/components/Modale";
 import CartProductCard from "@/app/components/cart/CartProductCard";
 import ClientProductCard from "@/app/components/products/ClientProductCard";
 
-// {
-//     products: {
-//         ID_PRODUCT: [
-//             {label: 'XXXX', amount: '50', quantity: '1'},
-//             ...
-//         ],
-//         ...
-//     },
-//     discounts: [
-//         {type: 'coupon', value: 'toto4000'},
-//         {type: 'loyaltyPoints', value: '4000'},
-//         ...
-//     ],
-//     shippingMethodId: SHIPPING_METHOD_ID,
-//     shippingAddress: {},
-//     billingAddress: {},
-//     total: XXXX,
-//     customerIp: '',
-//     customerUserAgent: '',
-//     deviceType: Desktop || Mobile
-// }
-
 export interface FormatedProduct {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   category: string;
+  categoryId: number;
   pricesPer: string;
   productOptions: Prices;
   image: { url: string; alt: string };
@@ -49,7 +28,7 @@ export interface FormatedProduct {
 
 export interface ProductCart {
   cartItemId: string; // uuid generated when adding a product in the cart. It is used to delete it
-  id: string; // This is the productId
+  id: number; // This is the productId
   name: string;
   quantity: number;
   option: string; // Will be the number of "g" or "unit" choosed.
@@ -57,21 +36,24 @@ export interface ProductCart {
   totalPrice: number;
   unitPrice: number;
   category: string; // Product category, used in Modale when product is removed from cart on SSE updates
+  VATRate: number;
   image: Image;
+  isPromo: boolean;
+  categoryId: number;
 }
 
 interface ProductsAPIResponse {
-  [productId: string | number]: Product;
+  [productId: string]: Product;
 }
 
 interface ProductsFromContext {
-  [productId: string | number]: FormatedProduct;
+  [productId: number]: FormatedProduct;
 }
 
 interface ProductsAndCartContext {
   products: ProductsFromContext;
   setProducts: Dispatch<SetStateAction<ProductsFromContext>>;
-  updateProduct: (productId: string | number, updates: Partial<FormatedProduct>) => void;
+  updateProduct: (productId: number, updates: Partial<FormatedProduct>) => void;
   cart: { total: number; products: ProductCart[] };
   setCart: Dispatch<
     SetStateAction<{
@@ -95,7 +77,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
   const { sseData } = useSse();
   const { addAlert } = useAlerts();
 
-  const updateProduct = (productId: string | number, updates: Partial<FormatedProduct>) => {
+  const updateProduct = (productId: number, updates: Partial<FormatedProduct>) => {
     setProducts((prevProducts) => {
       return {
         ...prevProducts,
