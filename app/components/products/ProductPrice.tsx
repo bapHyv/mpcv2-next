@@ -3,7 +3,7 @@
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import clsx from "clsx";
 
-export default function ProductPrice({ id }: { id: string }) {
+export default function ProductPrice({ id }: { id: number }) {
   const { products } = useProductsAndCart();
 
   return (

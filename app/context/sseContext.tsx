@@ -1,52 +1,6 @@
 import { createContext, ReactNode, useState, useContext, Dispatch, SetStateAction, useEffect, ChangeEvent } from "react";
 import { useAlerts } from "@/app/context/alertsContext";
-
-interface SSEDataAPIResponse {
-  stocks: Record<string, string | null>;
-  coupons: Record<string, Coupon>;
-  shippingMethods: ShippingMethods;
-}
-
-interface SSEData {
-  stocks: Record<string, number>;
-  coupons: Record<string, Coupon>;
-  shippingMethods: ShippingMethods;
-}
-
-interface Coupon {
-  linkedToUser: boolean;
-  individualUse: boolean;
-  discountType: "percent" | "fixed_cart" | "fixed_product";
-  discountValue: string;
-  freeShipping: boolean;
-  excludePromoProduct?: boolean;
-  maxUsage: number;
-  maxUsageByUser: number;
-  nbItemsLimit?: number;
-  requiredProducts: string[];
-  requiredCategories: number[];
-  excludedProducts: string[];
-  excludedCategories: number[];
-  totalUsage: number;
-  maxCartAmount?: string;
-  minCartAmount?: string;
-}
-
-interface ShippingMethods {
-  byShippingZones: Record<string, ShippingZone>;
-  byId: Record<string, ShippingMethod>;
-}
-
-interface ShippingZone {
-  zone_id: number;
-  name: string;
-  methods: ShippingMethod[];
-}
-
-interface ShippingMethod {
-  instanceId: number;
-  id: string;
-}
+import { SSEData, SSEDataAPIResponse } from "@/app/types/sseTypes";
 
 interface ISseContext {
   sseData: null | SSEData;
