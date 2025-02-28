@@ -7,7 +7,7 @@ import { QuestionMarkCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { useMemo } from "react";
 import { useOrder } from "@/app/context/orderContext";
-import { computePercent } from "@/app/utils/orderFunctions";
+import { computePercentDiscount } from "@/app/utils/orderFunctions";
 
 // TTC / (1 + (VATRate/100)) = HT
 // ttc - ht = tva
@@ -49,10 +49,10 @@ export default function CartSummary() {
             <div className="flex gap-x-2 justify-center">
               <div>
                 <span className="text-sm font-medium text-gray-900">
-                  {d.type === "percent"
-                    ? `-${computePercent(cart.total, parseInt(d.value)).toFixed(2)}€`
-                    : d.type === "fixed_cart"
-                    ? `-${d.value}€`
+                  {d.discountType === "percent"
+                    ? `-${computePercentDiscount(d, cart.products).toFixed(2)}€`
+                    : d.discountType === "fixed_cart"
+                    ? `-${d.discountValue}€`
                     : ""}
                 </span>
               </div>

@@ -21,7 +21,7 @@
 // }
 
 import { Address } from "@/app/types/profileTypes";
-import { discountType } from "@/app/types/sseTypes";
+import { DiscountCode, discountType } from "@/app/types/sseTypes";
 
 export interface OrderProduct {
   label: string;
@@ -50,8 +50,6 @@ export interface Order {
   deviceType: "desktop" | "mobile";
 }
 
-export interface DiscountApplied {
-  type: discountType;
-  value: string;
+export interface DiscountApplied extends DiscountCode {
   name: string;
 }

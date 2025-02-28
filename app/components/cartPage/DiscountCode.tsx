@@ -6,7 +6,7 @@ import { twMerge } from "tailwind-merge";
 import Title from "@/app/components/Title";
 import { buttonClassname, inputClassname, sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import { useOrder } from "@/app/context/orderContext";
-import { discountType } from "@/app/types/sseTypes";
+import { DiscountCode as IDiscountCode } from "@/app/types/sseTypes";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { isDiscountCodeUsable } from "@/app/utils/orderFunctions";
 import { useEffect, useState } from "react";
@@ -18,16 +18,9 @@ export default function DiscountCode() {
   const { setDiscountApplied, discountApplied, userDiscountCode } = useOrder();
   const { cart } = useProductsAndCart();
 
-  const handleUseDiscountCode = (type: discountType, value: string, name: string) => {
-    setDiscountApplied((prevState) => [...prevState, { type, value, name }]);
+  const handleUseDiscountCode = (discount: IDiscountCode, name: string) => {
+    setDiscountApplied((prevState) => [...prevState, { ...discount, name }]);
   };
-
-  //
-
-  /* individualUse 2 cases:
-      -The discount code holding individualUse: true is being used => All discount codes must be disabled
-      -One discount code is used => the discount code holding individualUse must be disabled
-  */
 
   useEffect(() => {
     setIsIndividualUse(discountApplied.some((discount) => userDiscountCode[discount.name].individualUse));
@@ -49,24 +42,28 @@ export default function DiscountCode() {
         </label>
         <div className="flex flex-col gap-y-3">
           {Object.entries(userDiscountCode).map(([name, discount]) => (
-            <div className="flex items-center justify-between gap-x-3" key={name}>
-              <span className="w-1/3 text-ellipsis overflow-hidden text-nowrap">{name}</span>
-              <span className="w-1/3 text-ellipsis overflow-hidden text-nowrap">
-                {discount.discountValue}
-                {discount.discountType === "percent" ? "%" : "€"}
-              </span>
-              <button
-                disabled={
-                  !isDiscountCodeUsable(discount, cart, name) || isIndividualUse || (discount.individualUse && !!discountApplied.length)
-                    ? true
-                    : false || !cart.products.length || !!discountApplied.filter((d) => d.name === name).length
-                }
-                className={twMerge(buttonClassname)}
-                onClick={() => handleUseDiscountCode(discount.discountType, discount.discountValue, name)}
-              >
-                Utiliser
-              </button>
-            </div>
+            <>
+              <div className="flex items-center justify-between gap-x-3" key={name}>
+                <span className="w-1/3 text-ellipsis overflow-hidden text-nowrap">{name}</span>
+                <span className="w-1/3 text-ellipsis overflow-hidden text-nowrap">
+                  {discount.discountValue}
+                  {discount.discountType === "percent" ? "%" : "€"}
+                </span>
+                <button
+                  disabled={
+                    !isDiscountCodeUsable(discount, cart, discountApplied.length) ||
+                    isIndividualUse ||
+                    !cart.products.length ||
+                    !!discountApplied.filter((d) => d.name === name).length
+                  }
+                  className={twMerge(buttonClassname)}
+                  onClick={() => handleUseDiscountCode(discount, name)}
+                >
+                  Utiliser
+                </button>
+              </div>
+              <div className="h-[1px] w-full bg-black"></div>
+            </>
           ))}
         </div>
       </div>

@@ -4,7 +4,7 @@ import { createContext, useContext, ReactNode, useState, useEffect, Dispatch, Se
 import { Address } from "@/app/types/profileTypes";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { Order, DiscountApplied, OrderProducts } from "@/app/types/orderTypes";
-import { computePercent } from "@/app/utils/orderFunctions";
+import { computePercentDiscount } from "@/app/utils/orderFunctions";
 import { DiscountCode } from "@/app/types/sseTypes";
 import { useSse } from "@/app/context/sseContext";
 import { useAuth } from "@/app/context/authContext";
@@ -43,11 +43,11 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setOrder((prevState) => {
       const computedDiscounts = discountApplied.reduce((acc, cur) => {
-        switch (cur.type) {
+        switch (cur.discountType) {
           case "fixed_cart":
-            return acc + parseInt(cur.value);
+            return acc + parseInt(cur.discountValue);
           case "percent":
-            return acc + computePercent(cart.total, parseInt(cur.value));
+            return acc + computePercentDiscount(cur, cart.products);
           default:
             return acc;
         }
