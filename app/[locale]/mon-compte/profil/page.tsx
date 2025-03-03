@@ -300,7 +300,7 @@ export default function Profile() {
             <div className="mt-10 w-full md:w-1/4 flex gap-x-2">
               {isUpdating ? (
                 <>
-                  <SubmitButton text="Save" isDisabled={!doesPasswordsMatch} />
+                  <SubmitButton text={t("profile.form.saveButton")} isDisabled={!doesPasswordsMatch} />
                   <button
                     onClick={() => setIsUpdating(false)}
                     className={clsx(
@@ -309,7 +309,7 @@ export default function Profile() {
                       "disabled:bg-neutral-400 disabled:cursor-not-allowed"
                     )}
                   >
-                    Cancel
+                    {t("profile.form.cancel")}
                   </button>
                 </>
               ) : (
@@ -322,7 +322,7 @@ export default function Profile() {
                     "disabled:bg-neutral-400 disabled:cursor-not-allowed"
                   )}
                 >
-                  Update your infos
+                  {t("profile.form.updateButton")}
                 </button>
               )}
             </div>

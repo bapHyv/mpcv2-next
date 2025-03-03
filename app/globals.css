@@ -425,3 +425,15 @@ article details p {
 article dfn {
   font-weight: 700;
 }
+
+.has-tooltip {
+  @apply relative;
+}
+
+.tooltip {
+  @apply invisible absolute rounded-md bottom-5 right-2.5 p-2 bg-green text-white w-96;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible;
+}

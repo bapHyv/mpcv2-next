@@ -2,12 +2,16 @@
 
 import { twMerge } from "tailwind-merge";
 import Title from "../Title";
-import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
-import { QuestionMarkCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { useProductsAndCart } from "@/app/context/productsAndCartContext";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useMemo } from "react";
+import { v4 as uuid } from "uuid";
+
+import { useAlerts } from "@/app/context/alertsContext";
 import { useOrder } from "@/app/context/orderContext";
-import { computePercentDiscount } from "@/app/utils/orderFunctions";
+import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
+import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
+import { DiscountApplied } from "@/app/types/orderTypes";
+import { computeFixedProductDiscount, computePercentDiscount, computeVAT } from "@/app/utils/orderFunctions";
 
 // TTC / (1 + (VATRate/100)) = HT
 // ttc - ht = tva
@@ -16,6 +20,7 @@ import { computePercentDiscount } from "@/app/utils/orderFunctions";
 export default function CartSummary() {
   const { cart } = useProductsAndCart();
   const { order, fidelityPointsUsed, setFidelityPointsUsed, discountApplied, setDiscountApplied } = useOrder();
+  const { addAlert } = useAlerts();
 
   const subtotal = useMemo(() => {
     return cart.products.reduce((acc, val) => {
@@ -23,14 +28,22 @@ export default function CartSummary() {
     }, 0);
   }, [cart]);
 
-  const vat = useMemo(() => {
-    return cart.products.reduce((acc, val) => {
-      return (val.VATRate / 100) * val.totalPrice;
-    }, 0);
-  }, [cart]);
-
   const handleRemoveDiscount = (name: string) => {
     setDiscountApplied((prevState) => prevState.filter((e) => e.name !== name));
+    addAlert(uuid(), `Discount code ${name} has been removed`, "Discount code removed", "yellow");
+  };
+
+  const displayDiscountValue = (d: DiscountApplied, products: ProductCart[]) => {
+    switch (d.discountType) {
+      case "fixed_cart":
+        return `-${d.discountValue}€`;
+      case "percent":
+        return `-${computePercentDiscount(d, products).toFixed(2)}€`;
+      case "fixed_product":
+        return `-${computeFixedProductDiscount(d, products).toFixed(2)}€`;
+      default:
+        return "";
+    }
   };
 
   return (
@@ -48,13 +61,7 @@ export default function CartSummary() {
             <dt className="text-sm text-gray-600">{d.name}</dt>
             <div className="flex gap-x-2 justify-center">
               <div>
-                <span className="text-sm font-medium text-gray-900">
-                  {d.discountType === "percent"
-                    ? `-${computePercentDiscount(d, cart.products).toFixed(2)}€`
-                    : d.discountType === "fixed_cart"
-                    ? `-${d.discountValue}€`
-                    : ""}
-                </span>
+                <span className="text-sm font-medium text-gray-900">{displayDiscountValue(d, cart.products)}</span>
               </div>
               <XMarkIcon onClick={() => handleRemoveDiscount(d.name)} type="button" className="w-5 h-5 text-red-600 cursor-pointer" />
             </div>
@@ -78,7 +85,7 @@ export default function CartSummary() {
           <dt className="text-base font-medium text-gray-900">Total panier</dt>
           <dd className="text-base font-medium text-gray-900">
             {order.total.toFixed(2)}€{/* VAT */}
-            <span className="text-neutral-500 text-xs italic">(dont {(cart.total - subtotal).toFixed(2)}€ TVA)</span>
+            <span className="text-neutral-500 text-xs italic">(dont {computeVAT(cart, cart.total - order.total).toFixed(2)}€ TVA)</span>
           </dd>
         </div>
       </dl>

@@ -248,7 +248,8 @@
       "newPassword": "New password",
       "confirmNewPassword": "Confirm new password",
       "updateButton": "update your infos",
-      "saveButton": "Save"
+      "saveButton": "Save",
+      "cancel": "Cancel"
     }
   },
   "orders": {

@@ -1,5 +1,5 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
-import { Prices, Product, Image } from "@/app/types/productsTypes";
+import { Prices, Product, Image, VariationTable, APIResponse } from "@/app/types/productsTypes";
 import { useAlerts } from "@/app/context/alertsContext";
 import { useSse } from "@/app/context/sseContext";
 import Modale from "@/app/components/Modale";
@@ -26,6 +26,18 @@ export interface FormatedProduct {
   VATRate: number;
 }
 
+const variationTable = {
+  "286": 284,
+  "287": 284,
+  "288": 284,
+  "289": 284,
+  "290": 284,
+  "927": 284,
+  "20510": 341,
+  "20511": 341,
+  "20512": 341,
+};
+
 export interface ProductCart {
   cartItemId: string; // uuid generated when adding a product in the cart. It is used to delete it
   id: number; // This is the productId
@@ -40,10 +52,6 @@ export interface ProductCart {
   image: Image;
   isPromo: boolean;
   categoryId: number;
-}
-
-interface ProductsAPIResponse {
-  [productId: string]: Product;
 }
 
 interface ProductsFromContext {
@@ -61,6 +69,7 @@ interface ProductsAndCartContext {
       products: ProductCart[];
     }>
   >;
+  variationTable: VariationTable | null;
 }
 
 const productsAndCartContext = createContext({} as ProductsAndCartContext);
@@ -73,6 +82,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
   const [cart, setCart] = useState({ total: 0, products: [] as ProductCart[] });
   const [isModaleVisible, setIsModaleVisible] = useState(false);
   const [removedProducts, setRemovedProducts] = useState<ProductCart[]>([]);
+  const [variationTable, setVariationTable] = useState<null | VariationTable>(null);
 
   const { sseData } = useSse();
   const { addAlert } = useAlerts();
@@ -98,9 +108,11 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
     const fetchProducts = async () => {
       try {
         const response = await fetch(baseUrl);
-        const data: ProductsAPIResponse = await response.json();
+        const data: APIResponse<Product> = await response.json();
 
-        const formatedProducts = Object.values(data)
+        const variationTable: VariationTable = JSON.parse(JSON.stringify(data.variationTable));
+
+        const formatedProducts = Object.values(data.products)
           .filter((product) => !Array.isArray(product))
           .filter((product) => Object.entries(product.prices).length)
           .reduce((acc: ProductsFromContext, product: Product) => {
@@ -112,7 +124,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
               },
               productOptions: product.prices,
               option: Object.entries(product.prices)[0][0],
-              price: Object.entries(product.prices)[0][1],
+              price: Object.entries(product.prices)[0][1].price,
             };
 
             return acc;
@@ -123,6 +135,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
         }
 
         setProducts(formatedProducts);
+        setVariationTable(variationTable);
         setAreProductsReady(true);
       } catch (error) {
         setAreProductsReady(false);
@@ -261,6 +274,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
         updateProduct,
         cart,
         setCart,
+        variationTable,
       }}
     >
       {isModaleVisible && (

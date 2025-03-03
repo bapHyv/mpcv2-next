@@ -5,26 +5,21 @@ import Title from "@/app/components/Title";
 import { CreditCardIcon, GiftIcon, StarIcon, TruckIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
 import ServiceCard from "@/app/components/homepage/ServiceCard";
 import Image from "next/image";
-import { Flower, Hash, Oil } from "@/app/types/productsTypes";
+import { APIResponse, Flower, Hash, Oil } from "@/app/types/productsTypes";
 import { v4 as uuid } from "uuid";
 import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 import { getTranslations } from "next-intl/server";
 import clsx from "clsx";
-import Modale from "@/app/components/Modale";
 
 interface Params {
   locale: string;
-}
-
-interface APIResponse<k> {
-  [productId: string]: k;
 }
 
 async function getFlowers() {
   const response = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`);
   const data: APIResponse<Flower> = await response.json();
   //TODO: REMOVE FILTER ON STOCK
-  const formatedFlowers = Object.values(data).filter((e) => !!parseInt(e.stock));
+  const formatedFlowers = Object.values(data.products).filter((e) => !!parseInt(e.stock));
 
   return formatedFlowers;
 }
@@ -32,7 +27,7 @@ async function getFlowers() {
 async function getHashs() {
   const response = await fetch(`${process.env.API_HOST}/products/pollens-resines-hash-cbd`);
   const data: APIResponse<Hash> = await response.json();
-  const formatedHashs = Object.values(data).filter((e) => !!parseInt(e.stock));
+  const formatedHashs = Object.values(data.products).filter((e) => !!parseInt(e.stock));
 
   return formatedHashs;
 }
@@ -40,7 +35,7 @@ async function getHashs() {
 async function getOils() {
   const response = await fetch(`${process.env.API_HOST}/products/huiles-cbd`);
   const data: APIResponse<Oil> = await response.json();
-  const formatedOils = Object.values(data).filter((e) => !!parseInt(e.stock));
+  const formatedOils = Object.values(data.products).filter((e) => !!parseInt(e.stock));
 
   return formatedOils;
 }

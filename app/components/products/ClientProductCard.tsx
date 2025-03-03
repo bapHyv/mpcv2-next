@@ -26,7 +26,6 @@ export default function ProductCard({
   stock,
   terpenes,
 }: Product & {
-  locale: string;
   category: string;
   mainDivClassname?: string;
   secondeDivClassname?: string;

@@ -1,80 +1,73 @@
-"use client";
-
-import { useAuth } from "@/app/context/authContext";
-import { useSse } from "@/app/context/sseContext";
-import { twMerge } from "tailwind-merge";
-import Title from "@/app/components/Title";
-import { buttonClassname, inputClassname, sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
-import { useOrder } from "@/app/context/orderContext";
-import { DiscountCode as IDiscountCode } from "@/app/types/sseTypes";
-import { useProductsAndCart } from "@/app/context/productsAndCartContext";
-import { isDiscountCodeUsable } from "@/app/utils/orderFunctions";
 import { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
+import { twMerge } from "tailwind-merge";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
-export default function DiscountCode() {
+import { useAlerts } from "@/app/context/alertsContext";
+import { useOrder } from "@/app/context/orderContext";
+import { useProductsAndCart } from "@/app/context/productsAndCartContext";
+import { useSse } from "@/app/context/sseContext";
+import { buttonClassname } from "@/app/staticData/cartPageClasses";
+import { DiscountCode as IDiscountCode } from "@/app/types/sseTypes";
+import useDiscountCodeUsable from "@/app/hooks/useDiscountCodeUsable";
+interface Props {
+  name: string;
+  d: IDiscountCode;
+}
+
+export default function DiscountCode({ name, d }: Props) {
   const [isIndividualUse, setIsIndividualUse] = useState(false);
-  const { userData } = useAuth();
+  const [isMessageVisible, setIsMessageVisible] = useState(false);
+
   const { sseData } = useSse();
-  const { setDiscountApplied, discountApplied, userDiscountCode } = useOrder();
+  const { setDiscountApplied, discountApplied } = useOrder();
   const { cart } = useProductsAndCart();
+  const { addAlert } = useAlerts();
+  const { message, status } = useDiscountCodeUsable(d);
 
   const handleUseDiscountCode = (discount: IDiscountCode, name: string) => {
     setDiscountApplied((prevState) => [...prevState, { ...discount, name }]);
+    addAlert(uuid(), `Discount code ${name} has been applied`, "Discount code applied successfully", "emerald");
   };
 
   useEffect(() => {
-    setIsIndividualUse(discountApplied.some((discount) => userDiscountCode[discount.name].individualUse));
-  }, [discountApplied, userDiscountCode]);
+    if (sseData) {
+      setIsIndividualUse(discountApplied.some((discount) => sseData.coupons[discount.name].individualUse));
+    }
+  }, [discountApplied, sseData]);
 
-  return userData && sseData ? (
-    <section aria-labelledby="discount-code" className={twMerge(sectionClassname, "flex flex-col gap-y-6")}>
-      {/* LINKED DISCOUNT CODE */}
-      <div>
-        <Title
-          title="Codes liés au compte"
-          type="h2"
-          classname={twMerge(titleClassname, "mb-1")}
-          firstLetterClassname="text-2xl"
-          id="linked-account-discount-code"
-        />
-        <label htmlFor="discount-code" className="sr-only">
-          discount-code
-        </label>
-        <div className="flex flex-col gap-y-3">
-          {Object.entries(userDiscountCode).map(([name, discount]) => (
+  return (
+    <>
+      <div className="flex items-center justify-between gap-x-3">
+        <span className="text-ellipsis overflow-hidden text-nowrap">{name}</span>
+        <span className="text-ellipsis overflow-hidden text-nowrap">
+          {d.discountValue}
+          {d.discountType === "percent" ? "%" : "€"}
+        </span>
+
+        <div className="flex items-center gap-x-2">
+          {!!message && (
             <>
-              <div className="flex items-center justify-between gap-x-3" key={name}>
-                <span className="w-1/3 text-ellipsis overflow-hidden text-nowrap">{name}</span>
-                <span className="w-1/3 text-ellipsis overflow-hidden text-nowrap">
-                  {discount.discountValue}
-                  {discount.discountType === "percent" ? "%" : "€"}
-                </span>
-                <button
-                  disabled={
-                    !isDiscountCodeUsable(discount, cart, discountApplied.length) ||
-                    isIndividualUse ||
-                    !cart.products.length ||
-                    !!discountApplied.filter((d) => d.name === name).length
-                  }
-                  className={twMerge(buttonClassname)}
-                  onClick={() => handleUseDiscountCode(discount, name)}
-                >
-                  Utiliser
-                </button>
+              <div className="has-tooltip">
+                <QuestionMarkCircleIcon
+                  type="button"
+                  onClick={() => setIsMessageVisible(!isMessageVisible)}
+                  className="w-5 h-5 text-black rounded-full cursor-help"
+                />
+                <span className="tooltip">{message}</span>
               </div>
-              <div className="h-[1px] w-full bg-black"></div>
             </>
-          ))}
+          )}
+          <button
+            disabled={!status || isIndividualUse || !cart.products.length || !!discountApplied.filter((d) => d.name === name).length}
+            className={twMerge(buttonClassname)}
+            onClick={() => handleUseDiscountCode(d, name)}
+          >
+            Utiliser
+          </button>
         </div>
       </div>
-      {/* DISCOUNT CODE */}
-      <div>
-        <Title title="Codes promo" type="h2" classname={twMerge(titleClassname, "mb-1")} firstLetterClassname="text-2xl" id="discount-code" />
-        <div className="flex items-center justify-between gap-x-3">
-          <input id="discount-code" name="discount-code" type="text" className={twMerge(inputClassname)} />
-          <button className={twMerge(buttonClassname)}>Appliquer</button>
-        </div>
-      </div>
-    </section>
-  ) : null;
+      <div className="h-[1px] w-full bg-black"></div>
+    </>
+  );
 }

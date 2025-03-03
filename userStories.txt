@@ -45,3 +45,149 @@ Différent cas possible:
         Une alerte est affiché, le mot de passe est retiré, l'utilisateur doit de nouveau renseigner son mot de passe.
     Je ne suis pas encore inscrit:
         Un alerte est affiché disant à l'utilisateur qu'il n'est pas inscrit et va être redirigé. L'utilisateur est redirigé vers /inscription. Son email doit être préremplis.
+
+
+Code promo
+
+ * fixed_cart:
+ * S'il n'y a rien dans requiredProducts, requiredCategories, excludedProducts et excludedCategories la remise s'applique sur tout le panier.
+ * S'il y a quelque chose dans requiredProducts, le code est applicable s'il y a ce ou ces produits dans le panier.
+ * S'il y a quelque chose dans requiredCategories, ce code est applicable s'il y a cette ou ces categories dans le panier.
+ * S'il y a quelque chose dans excludedProducts, ce code n'est PAS applicable s'il y a ce ou ces produits dans le panier.
+ * S'il y a quelque chose dans excludedCategories, ce code n'est PAS applicable s'il y a un produit qui appartient a ce ou ces catégories.
+ * PRENDRE EN COMPTE excludePromoProduct.
+ *
+ *
+ * Faire un code fixed_cart:
+ *
+ *  Sans rien:
+ *    [x] Tester sans condition => Doit être utilisable
+ *
+ *  Avec individualUse:
+ *    [-] Utiliser => Tous les codes ne doivent pas etre utilisable
+ *    [-] Si un autre est utisé => Celui là doit être désactivé
+ *
+ *  Avec excludePromo:
+ *    [x] Tester avec un produit en promo => Ne doit pas être utilisable
+ *    [x] Tester un produit hors promo => Doit être utilisable
+ *    [x] Tester avec un produit en promo et un produit hors promo => Ne doit pas etre utilisable
+ *
+ *  Avec un requiredProduct: MIX SMALL BUDS 25g
+ *    [x] Tester sans le requiredProduct => Ne doit PAS être utilisable
+ *    [-] Tester avec le requiredProduct => Doit être utilisable
+ *    [-] Tester avec le requiredProduct et d'autre produits => Doit être utilisable
+ *
+ *  Avec un requiredCategories: fleurs-cbd
+ *    [x] Tester sans un produit de requiredCategories => Ne doit PAS être utilisable
+ *    [x] Tester avec un produit de requiredCategories => Doit être utilisable
+ *    [x] Tester avec un produit de requiredCategories et un produit pas dans la categorie => Doit être utilisable
+ *
+ *  Avec un excludedProduct: MIX SMALL BUDS 25g
+ *    [x] Tester sans le excludedProduct => Doit être utilisable
+ *    [-] Tester avec le excludedProduct => Ne doit PAS être utilisable
+ *    [-] Tester avec le excludedProduct et d'autre produit => Ne doit PAS être utilisable
+ *
+ *  Avec un excludedCategories: fleurs-cbd
+ *    [-] Tester sans un produit de excludedCategories => Doit être utilisable
+ *    [x] Tester avec un produit de excludedCategories => Ne doit PAS être utilisable
+ *    [x] Tester avec un produit de excludedCategories et d'autres produits de différentes catégories => Ne doit PAS être utilisable
+ * 
+ * percent:
+ *
+ * Définitions:
+ * produit = une fleur, huile, hash etc...
+ * article = 1 quantité d'un produit. Ex: 2 * MIX SMALL BUD 25g. Le produit c'est MIX SMALL BUD 25g et j'ai 2 article de ce produit.
+ * quantité = le nombre d'article d'un produit. 2 * MIX SMALL BUD 25g. La quantité est 2.
+ *
+ * Fonctionnement nbItemsLimit:
+ *   -S'applique toujours sur le ou les articles les plus cher.
+ *
+ * S'il n'y a rien dans requiredProducts, requiredCategories, excludedProducts et excludedCategories, le code s'applique sur:
+ *  [x] Si nbItemsLimit = 0 -> Tout le panier
+ *  [x] Si nbItemsLimit = X -> Sur X articles (toujours sur les plus cher)
+ *
+ * S'il y a quelque chose dans requiredProducts: MIX SMALL BUD
+ *  [x] Si nbItemsLimit = 0 -> Appliquer sur le ou les articles requiredProducts
+ *  [x] Si nbItemsLimit = X -> Appliquer sur X articles requiredProducts (toujours sur les plus cher)
+ *      nbItemsLimit: 3;
+ *      PANIER ==> MIX SMALL BUD * 5
+ *      RÉSULTAT ==> Doit s'appliquer sur les 3 articles les plus cher
+ *
+ * S'il y a quelque chose dans requiredCategories: fleurs-cbd
+ *  [x] Si nbItemsLimit = 0 -> Appliquer sur tous les articles de la ou les catégories; Doit s'appliquer sur toutes les fleurs de CBD
+ *  [x] Si nbItemsLimit = X -> Appliquer sur X artcles de la ou les catégories (toujours sur les plus cher);
+ *        nbItemsLimit: 3;
+ *        PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%
+ *        RÉSULTAT ==> Doit s'appliquer sur les 3 articles fleurs-cbd les plus cher
+ *
+ * S'il y a quelque chose dans excludedProducts: CANNATONIC
+ *  [x] Si nbItemsLimit = 0 -> Appliquer sur tous les articles hormis ceux présent dans excludedProducts
+ *      nbItemsLimit: 0;
+ *      PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%
+ *      RÉSULTAT ==> Doit s'appliquer sur les articles différent de CANNATONIC
+ *  [x] Si nbItemsLimit = X -> Appliquer sur X articles hormis ceux présent dans excludedProducts (toujours sur les plus cher)
+ *      nbItemsLimit: 3;
+ *      PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%, MIX SMALL BUD 1*25g
+ *      RÉSULTAT ==> Doit s'appliquer sur les 3 articles les plus cher différent de CANNATONIC
+ *
+ * S'il y a quelque chose dans excludedCategories: fleurs-cbd
+ *  [x] Si nbItemsLimit = 0 -> Appliquer sur tous les articles hormis ceux de la ou les excludedCategories
+ *      nbItemsLimit: 0;
+ *      PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%, MIX SMALL BUD 1*25g
+ *      RÉSULTAT ==> Doit s'appliquer sur les articles qui n'appartiennent pas à la catégorie fleurs-cbd (rosin et huile)
+ *  [x] Si nbItemsLimit = X -> Appliquer sur X articles hormis ceux qui appartiennent à la ou les excludedCategories
+ *      nbItemsLimit: 3;
+ *      PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%, MIX SMALL BUD 1*25g, DRY SIFT 1*25g, DRY SIFT 1*50g
+ *      RÉSULTAT ==> Doit s'appliquer sur les 3 articles les plus cher qui n'appartiennent pas à la catégorie fleurs-cbd (rosin, huile, dry sift 50g)
+ *
+ * MIN:50
+ * MAX:150
+ *
+ * "fixed_product":
+ *
+ * Définitions:
+ * produit = une fleur, huile, hash etc...
+ * article = 1 quantité d'un produit. Ex: 2 * MIX SMALL BUD 25g. Le produit c'est MIX SMALL BUD 25g et j'ai 2 article de ce produit.
+ * quantité = le nombre d'article d'un produit. 2 * MIX SMALL BUD 25g. La quantité est 2.
+ *
+ * Fonctionnement nbItemsLimit:
+ *  -S'applique sur les articles en fonction du NIL sans distinction de prix.
+ *
+ * S'il n'y a rien dans requiredProducts, requiredCategories, excludedProducts et excludedCategories, le code s'applique sur:
+ *  [x] Si nbItemsLimit = 0 -> S'applique sur chaque article
+ *  [x] Si nbItemsLimit = X -> Sur X articles
+ *
+ * S'il y a quelque chose dans requiredProducts: MIX SMALL BUD
+ *  [x] Si nbItemsLimit = 0 -> Appliquer sur le ou les articles requiredProducts
+ *  [x] Si nbItemsLimit = X -> Appliquer sur X articles requiredProducts
+ *      nbItemsLimit: 3;
+ *      PANIER ==> MIX SMALL BUD * 5
+ *      RÉSULTAT ==> Doit s'appliquer sur 3 articles
+ *
+ * S'il y a quelque chose dans requiredCategories: fleurs-cbd
+ *  [x] Si nbItemsLimit = 0 -> Appliquer sur tous les articles de la ou les catégories; Doit s'appliquer sur toutes les fleurs de CBD
+ *  [x] Si nbItemsLimit = X -> Appliquer sur X artcles de la ou les catégories
+ *        nbItemsLimit: 3;
+ *        PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%
+ *        RÉSULTAT ==> Doit s'appliquer sur 3 articles maximum qui appartiennent à la catégorie
+ *
+ * S'il y a quelque chose dans excludedProducts: CANNATONIC
+ *  [x] Si nbItemsLimit = 0 -> Appliquer sur tous les articles hormis ceux présent dans excludedProducts
+ *      nbItemsLimit: 0;
+ *      PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%
+ *      RÉSULTAT ==> Doit s'appliquer sur les articles différent de CANNATONIC
+ *  [x] Si nbItemsLimit = X -> Appliquer sur X articles hormis ceux présent dans excludedProducts
+ *      nbItemsLimit: 3;
+ *      PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%, MIX SMALL BUD 1*25g
+ *      RÉSULTAT ==> Doit s'appliquer sur 3 articles maximum différent de CANNATONIC
+ *
+ * S'il y a quelque chose dans excludedCategories: fleurs-cbd
+ *  [x] Si nbItemsLimit = 0 -> Appliquer sur tous les articles hormis ceux de la ou les excludedCategories
+ *      nbItemsLimit: 0;
+ *      PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%, MIX SMALL BUD 1*25g
+ *      RÉSULTAT ==> Doit s'appliquer sur les articles qui n'appartiennent pas à la catégorie fleurs-cbd (rosin et huile)
+ *  [x] Si nbItemsLimit = X -> Appliquer sur X articles hormis ceux qui appartiennent à la ou les excludedCategories
+ *      nbItemsLimit: 3;
+ *      PANIER ==> CANNATONIC 1*3g, CANNATONIC 1*5g, CANNATONIC 1*10g, CANNATONIC 1*25g, ROSIN 1*10g, HUILE 1*30%, MIX SMALL BUD 1*25g, DRY SIFT 1*25g, DRY SIFT 1*50g
+ *      RÉSULTAT ==> Doit s'appliquer sur 3 articles maximum qui n'appartiennent pas à la catégorie fleurs-cbd (rosin, huile, dry sift 50g)
+ *

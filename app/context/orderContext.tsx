@@ -4,10 +4,7 @@ import { createContext, useContext, ReactNode, useState, useEffect, Dispatch, Se
 import { Address } from "@/app/types/profileTypes";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { Order, DiscountApplied, OrderProducts } from "@/app/types/orderTypes";
-import { computePercentDiscount } from "@/app/utils/orderFunctions";
-import { DiscountCode } from "@/app/types/sseTypes";
-import { useSse } from "@/app/context/sseContext";
-import { useAuth } from "@/app/context/authContext";
+import { computeFixedProductDiscount, computePercentDiscount } from "@/app/utils/orderFunctions";
 
 interface OrderContext {
   order: Order;
@@ -15,7 +12,6 @@ interface OrderContext {
   setDiscountApplied: Dispatch<SetStateAction<DiscountApplied[]>>;
   fidelityPointsUsed: number;
   setFidelityPointsUsed: Dispatch<SetStateAction<number>>;
-  userDiscountCode: Record<string, DiscountCode>;
 }
 
 export const orderContext = createContext({} as OrderContext);
@@ -34,25 +30,26 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   });
   const [discountApplied, setDiscountApplied] = useState<DiscountApplied[]>([]);
   const [fidelityPointsUsed, setFidelityPointsUsed] = useState(0);
-  const [userDiscountCode, setUserDiscountCode] = useState<Record<string, DiscountCode>>({});
 
   const { cart } = useProductsAndCart();
-  const { sseData } = useSse();
-  const { userData } = useAuth();
 
   useEffect(() => {
     setOrder((prevState) => {
-      const computedDiscounts = discountApplied.reduce((acc, cur) => {
-        switch (cur.discountType) {
+      // Compute the price reduction obtained by applying discount code
+      const computedDiscounts = discountApplied.reduce((discountValue, discountCode) => {
+        switch (discountCode.discountType) {
           case "fixed_cart":
-            return acc + parseInt(cur.discountValue);
+            return discountValue + parseInt(discountCode.discountValue);
           case "percent":
-            return acc + computePercentDiscount(cur, cart.products);
+            return discountValue + computePercentDiscount(discountCode, cart.products);
+          case "fixed_product":
+            return discountValue + computeFixedProductDiscount(discountCode, cart.products);
           default:
-            return acc;
+            return discountValue;
         }
       }, 0);
 
+      // Compute the price reduction obtained by using fidelityPoints
       const computedFidelityPoints = fidelityPointsUsed * 0.1;
 
       const updatedProducts: OrderProducts = cart.products.reduce((acc, cur) => {
@@ -69,27 +66,17 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       const computedTotal = cart.total - computedDiscounts - computedFidelityPoints;
       const updatedTotal = computedTotal > 0 ? computedTotal : 0;
 
-      return { ...prevState, total: updatedTotal, products: updatedProducts };
+      const updatedDiscounts: Order["discounts"] = [
+        ...JSON.parse(JSON.stringify(discountApplied)),
+        { type: "loyaltyPoints", value: fidelityPointsUsed },
+      ];
+
+      return { ...prevState, total: updatedTotal, products: updatedProducts, discounts: updatedDiscounts };
     });
   }, [cart, discountApplied, fidelityPointsUsed]);
 
-  useEffect(() => {
-    if (sseData && userData) {
-      const userDiscounts = userData.discounts.reduce((acc, val) => {
-        if (val in sseData.coupons) {
-          acc[val] = JSON.parse(JSON.stringify(sseData.coupons[val]));
-          return acc;
-        }
-        return acc;
-      }, {} as Record<string, DiscountCode>);
-
-      setUserDiscountCode(userDiscounts);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sseData?.coupons]);
-
   return (
-    <orderContext.Provider value={{ order, discountApplied, setDiscountApplied, fidelityPointsUsed, setFidelityPointsUsed, userDiscountCode }}>
+    <orderContext.Provider value={{ order, discountApplied, setDiscountApplied, fidelityPointsUsed, setFidelityPointsUsed }}>
       {children}
     </orderContext.Provider>
   );
