@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { categories, Product } from "@/app/types/productsTypes";
+import { APIResponse, categories, Product } from "@/app/types/productsTypes";
 import Title from "@/app/components/Title";
 import Link from "next/link";
 import clsx from "clsx";
@@ -60,9 +60,9 @@ export default async function Page({ params: { locale, category } }: Params) {
 
   const currentSlug = findSlug(categories, category);
 
-  const currentProducts = await fetch(`${process.env.API_HOST}/products/${currentSlug}`);
-  const jsonProducts = await currentProducts.json();
-  const formatedProducts: Product[] = Object.values(jsonProducts);
+  const response = await fetch(`${process.env.API_HOST}/products/${currentSlug}`);
+  const data: APIResponse<Product> = await response.json();
+  const formatedProducts: Product[] = Object.values(data.products);
 
   return (
     <div>
@@ -93,7 +93,7 @@ export default async function Page({ params: { locale, category } }: Params) {
 
       <div className="flex flex-wrap px-2 justify-center gap-2 my-8">
         {/* PRODUCT CARDS */}
-        {!currentProducts
+        {!response.ok
           ? new Array(8).fill(0).map((e) => <ProductCardSkeleton key={Math.random()} />)
           : formatedProducts.map((prod) => <ProductCard key={prod.name} locale={locale} {...prod} />)}
       </div>

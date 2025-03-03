@@ -1,36 +1,39 @@
-import DisplayProductsCartPage from "@/app/components/cart/DisplayProductsCartPage";
-import AreYouCustomer from "@/app/components/cartPage/AreYouCustomer";
-import CartSummary from "@/app/components/cartPage/CartSummary";
-import DiscountCode from "@/app/components/cartPage/DiscountCode";
-import Fidelity from "@/app/components/cartPage/Fidelity";
+import DisplayComponents from "@/app/components/cartPage/DisplayComponents";
 import Title from "@/app/components/Title";
 
 /**
  * TODO:
- * [-] How to set up user coupons on SSE update?
- *
- * [-] If no products, no display
  *
  * DiscountCode:
  *  [x] Disable discount code button if conditions are not fulfilled
- *  [-] Create function to apply public discount code
- *  [-] in isDiscountCodeUsable, return a message to be used in the tooltip
- *  [-] Rename DiscountCode into DisplayDiscountCodes
- *  [-] Create DiscountCode component to isolate each discount codes
- *  [-] Add a message in isDiscountCodeUsable to be displayed on hover when button disabled.
+ *  [x] Create function to apply public discount code
+ *  [x] in isDiscountCodeUsable, return a message to be used in the tooltip
+ *      [x] When required products, use products from context instead of cart
+ *      [x] When required categories, display the categories in the message
+ *  [x] Rename DiscountCode into DisplayDiscountCodes
+ *  [x] Create DiscountCode component to isolate each discount codes
+ *  [x] Add a message in isDiscountCodeUsable to be displayed on hover when button disabled.
  *
  * Fidelity:
  *  [x] Create function to use fidelity points
- *  [-] Bug when typing in input (it can go higher than available points)
+ *  [x] Bug when typing in input (it can go higher than available points)
  *
  * CartSummary:
  *  [x] Add a component applied discountCode with button to remove it (red); (data stored in an array in orderContext)
- *  [-] Create function to compute VAT (https://chat.deepseek.com/a/chat/s/492372ef-be19-4249-af8c-cca65767d30d)
+ *  [x] Create function to compute VAT (https://chat.deepseek.com/a/chat/s/492372ef-be19-4249-af8c-cca65767d30d)
  *
  * orderContext:
  *  [x] Add array appliedDiscountCode
  *  [x] Add order object (structure in productsAndCartContext) (useEffect on cart to add the products in order object)
  *
+ * useDiscountCodeUsable:
+ *  [x] Create a generateExcludedCategoriesString to display the excluded categories
+ *  [x] Update the function generateRequiredProductsString to check in variationTable instead of products[parseInt(id).name]
+ *
+ * [x] fix error in DisplayComponents
+ * [-] How to set up user coupons on SSE update?
+ *
+ * [-] If no products, no display
  */
 
 export default async function Page() {
@@ -42,27 +45,7 @@ export default async function Page() {
         classname={`relative mt-4 sm:mt-8 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest`}
         firstLetterClassname="text-4xl"
       />
-      {/* <DisplayUserData /> */}
-      {/* WRAP ALL */}
-      <div className="flex flex-col md:flex-row gap-x-5 p-2">
-        {/* WRAP CONNECTED AND PRODUCTS */}
-        <div className="w-full md:w-1/2">
-          {/* IS CONNECTED */}
-          <AreYouCustomer />
-          {/* PRODUCTS */}
-          <DisplayProductsCartPage />
-        </div>
-
-        {/* WRAP REST */}
-        <div className="w-full md:w-1/2">
-          {/* DISCOUNT CODE */}
-          <DiscountCode />
-          {/* FIDELITY POINTS */}
-          <Fidelity />
-          {/* CART SUMMARY */}
-          <CartSummary />
-        </div>
-      </div>
+      <DisplayComponents />
     </>
   );
 }

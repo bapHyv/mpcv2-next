@@ -16,8 +16,13 @@ export interface Category {
   slug: slugCategories;
 }
 
+export interface Price {
+  id: number;
+  price: "string";
+}
+
 export interface Prices {
-  [key: string]: string;
+  [option: string]: Price;
 }
 
 export interface Cannabinoids {
@@ -107,3 +112,12 @@ export interface Products {
 }
 
 export type categories = Category[];
+
+export interface VariationTable {
+  [variationId: string]: number;
+}
+
+export interface APIResponse<k> {
+  products: { [productId: string]: k };
+  variationTable: VariationTable;
+}

@@ -247,8 +247,9 @@
       "currentPasswordMessage": "Si vous souhaitez changer votre mot de passe, remplissez le champ \"Mot de passe actuel\".",
       "newPassword": "Nouveau mot de passe",
       "confirmNewPassword": "Confirmer le nouveau mot de passe",
-      "updateButton": "mettre à jour vos informations",
-      "saveButton": "Enregistrer"
+      "updateButton": "Mettre à jour vos informations",
+      "saveButton": "Enregistrer",
+      "cancel": "Annuler"
     }
   },
   "orders": {

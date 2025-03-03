@@ -24,7 +24,7 @@ export function findHighestOption(prices: Prices) {
     .map(([key, value]) => {
       return {
         quantity: parseInt(key),
-        price: parseFloat(value || "0"),
+        price: parseFloat(value.price || "0"),
       };
     })
     .filter(Boolean)

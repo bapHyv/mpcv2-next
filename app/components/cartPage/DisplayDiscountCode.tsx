@@ -1,0 +1,83 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
+import DiscountCode from "@/app/components/cartPage/DiscountCode";
+import Title from "@/app/components/Title";
+import { useAuth } from "@/app/context/authContext";
+import { useSse } from "@/app/context/sseContext";
+import { useOrder } from "@/app/context/orderContext";
+import { buttonClassname, inputClassname, sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
+
+export default function DisplayDiscountCode() {
+  const [publicDiscountCode, setPublicDiscountCode] = useState("");
+  const [isPublicDiscountCodeValid, setIsPublicDiscountCodeValid] = useState(false);
+
+  const { userData } = useAuth();
+  const { sseData } = useSse();
+  const { setDiscountApplied, discountApplied } = useOrder();
+
+  const isPublicDiscountCodeUsable = () => (sseData?.coupons[publicDiscountCode].individualUse && discountApplied.length ? false : true);
+
+  const handleUsePublicDiscountCode = () => {
+    if (sseData && !!publicDiscountCode && publicDiscountCode in sseData.coupons) {
+      setDiscountApplied((prevState) => [...prevState, { ...sseData.coupons[publicDiscountCode], name: publicDiscountCode }]);
+      setPublicDiscountCode("");
+    }
+  };
+
+  useEffect(() => {
+    if (
+      sseData &&
+      !!publicDiscountCode &&
+      publicDiscountCode in sseData.coupons &&
+      !sseData.coupons[publicDiscountCode].linkedToUser &&
+      isPublicDiscountCodeUsable()
+    ) {
+      setIsPublicDiscountCodeValid(true);
+    } else {
+      setIsPublicDiscountCodeValid(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [publicDiscountCode, sseData, discountApplied]);
+
+  return userData && sseData ? (
+    <section aria-labelledby="discount-code" className={twMerge(sectionClassname, "flex flex-col gap-y-6")}>
+      {/* LINKED DISCOUNT CODE */}
+      <div>
+        <Title
+          title="Codes liés au compte"
+          type="h2"
+          classname={twMerge(titleClassname, "mb-1")}
+          firstLetterClassname="text-2xl"
+          id="linked-account-discount-code"
+        />
+        <label htmlFor="discount-code" className="sr-only">
+          discount-code
+        </label>
+        <div className="flex flex-col gap-y-3">
+          {sseData && userData && userData.discounts.map((name, i) => <DiscountCode key={`${name}-${i}`} name={name} d={sseData.coupons[name]} />)}
+        </div>
+      </div>
+      {/* PUBLIC DISCOUNT CODE */}
+      <div>
+        <Title title="Codes promo" type="h2" classname={twMerge(titleClassname, "mb-1")} firstLetterClassname="text-2xl" id="discount-code-title" />
+        <div className="flex items-center justify-between gap-x-3">
+          <input
+            id="public-discount-code"
+            name="public-discount-code"
+            type="text"
+            value={publicDiscountCode}
+            placeholder="Type discount here"
+            onChange={(e) => setPublicDiscountCode(e.target.value)}
+            className={twMerge(inputClassname)}
+          />
+          <button disabled={!isPublicDiscountCodeValid} className={twMerge(buttonClassname)} onClick={handleUsePublicDiscountCode}>
+            Appliquer
+          </button>
+        </div>
+      </div>
+    </section>
+  ) : null;
+}

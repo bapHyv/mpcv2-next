@@ -248,7 +248,8 @@
       "newPassword": "Nueva contraseña",
       "confirmNewPassword": "Confirmar nueva contraseña",
       "updateButton": "actualizar tus informaciones",
-      "saveButton": "Guardar"
+      "saveButton": "Guardar",
+      "cancel": "Cancelar"
     }
   },
   "orders": {

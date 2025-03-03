@@ -48,7 +48,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
       quantity: 1,
       option: products[id].option,
       per: products[id].pricesPer,
-      unitPrice: parseFloat(products[id].productOptions[products[id].option]),
+      unitPrice: parseFloat(products[id].productOptions[products[id].option].price),
       totalPrice: 0,
       image,
       category,
@@ -96,7 +96,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
   };
 
   const handleSelectOption = (value: string) => {
-    updateProduct(id, { option: value, price: products[id].productOptions[value] });
+    updateProduct(id, { option: value, price: products[id].productOptions[value].price });
   };
 
   return !!products[id] ? (
@@ -127,7 +127,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
                     </span>
                     {!isInModale && (
                       <span className="text-xs">
-                        ({(parseFloat(price) / parseInt(option)).toFixed(2)}€/{pricesPer})
+                        ({(parseFloat(price.price) / parseInt(option)).toFixed(2)}€/{pricesPer})
                       </span>
                     )}
                   </div>

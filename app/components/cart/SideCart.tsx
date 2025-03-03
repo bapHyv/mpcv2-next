@@ -43,11 +43,8 @@ export default function Cart() {
     <>
       {/* ICON NAVBAR */}
       <div className="flex items-center">
-        <div className="relative">
-          <ShoppingCartIcon
-            onClick={() => setOpen(true)}
-            className="w-10 h-10 sm:w-6 sm:h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-white cursor-pointer"
-          />
+        <div className="relative cursor-pointer" onClick={() => setOpen(true)}>
+          <ShoppingCartIcon className="w-10 h-10 sm:w-6 sm:h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-white" />
           <span className="sr-only">Items in shopping cart</span>
           {!!cart?.products?.length && (
             <span className="absolute -top-1 -right-1 text-white bg-red-600 rounded-full text-xs px-1">{cart?.products?.length}</span>

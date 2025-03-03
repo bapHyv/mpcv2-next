@@ -33,14 +33,22 @@ export interface OrderProducts {
   [ID_PRODUCT: string]: OrderProduct[];
 }
 
+export interface FidelityApplied {
+  type: "loyaltyPoints";
+  value: number;
+}
+
 export interface Discount {
   type: string;
   value: string;
 }
 
+export interface DiscountApplied extends DiscountCode {
+  name: string;
+}
 export interface Order {
   products: OrderProducts;
-  discounts: Discount[];
+  discounts: (DiscountApplied | FidelityApplied)[];
   shippingMethodId: number; // not sure type
   shippingAddress: Address;
   billingAddress: Address;
@@ -48,8 +56,4 @@ export interface Order {
   customerIp: string;
   customerUserAgent: string;
   deviceType: "desktop" | "mobile";
-}
-
-export interface DiscountApplied extends DiscountCode {
-  name: string;
 }

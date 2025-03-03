@@ -1,6 +1,6 @@
 "use client";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
-import CartProductCard from "./CartProductCard";
+import CartProductCard from "../cart/CartProductCard";
 import Title from "@/app/components/Title";
 import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";
