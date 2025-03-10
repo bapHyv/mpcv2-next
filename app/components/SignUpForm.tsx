@@ -13,6 +13,9 @@ import { useAlerts } from "@/app/context/alertsContext";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
+import { useTranslations } from "next-intl";
+import Star from "@/app/components/Star";
+import Link from "next/link";
 
 const initialState = {
   email: "",
@@ -23,6 +26,7 @@ const initialState = {
 };
 
 export default function SignUpForm() {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -34,6 +38,7 @@ export default function SignUpForm() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [optInMarketing, setOptInMarketing] = useState(false);
+  const [optInSell, setOptInSell] = useState(false);
 
   // @ts-ignore
   const [state, formAction] = useFormState(register, initialState);
@@ -80,7 +85,7 @@ export default function SignUpForm() {
     <form action={formAction} className="space-y-6">
       <div>
         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
-          Email address
+          Email address <Star />
         </label>
         <div className="mt-2">
           <input
@@ -105,7 +110,7 @@ export default function SignUpForm() {
       <div>
         <div className="flex items-center justify-between">
           <label htmlFor="password" className={twMerge(clsx("block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100"))}>
-            Password
+            Password <Star />
           </label>
           <div className="text-sm">
             <span>Already signed up? </span>
@@ -147,7 +152,7 @@ export default function SignUpForm() {
             clsx("block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100", { "text-red-600": !doesPasswordsMatch })
           )}
         >
-          Repeat Password
+          Repeat Password <Star />
         </label>
         <div className="mt-2 relative">
           <input
@@ -186,7 +191,7 @@ export default function SignUpForm() {
 
       <div>
         <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
-          First name
+          First name <Star />
         </label>
         <div className="mt-2 relative">
           <input
@@ -209,7 +214,7 @@ export default function SignUpForm() {
 
       <div>
         <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
-          Last name
+          Last name <Star />
         </label>
         <div className="mt-2 relative">
           <input
@@ -231,7 +236,7 @@ export default function SignUpForm() {
       </div>
 
       <div>
-        <label htmlFor="optInMarketing" className="text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100 flex cursor-pointer">
+        <div className="flex items-start">
           <input
             id="optInMarketing"
             name="optInMarketing"
@@ -246,11 +251,38 @@ export default function SignUpForm() {
               "sm:text-sm sm:leading-6"
             )}
           />
-          Do you want to receive information about products?
-        </label>
+          <label htmlFor="optInMarketing" className="text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100 cursor-pointer">
+            Do you want to receive information about products?
+          </label>
+        </div>
+
+        <div className="flex items-start">
+          <input
+            id="condition-generales"
+            name="condition-generales"
+            type="checkbox"
+            checked={optInSell}
+            onChange={(e) => setOptInSell(e.target.checked)}
+            required
+            className={clsx(
+              "mr-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1",
+              "ring-inset ring-gray-300",
+              "placeholder:text-gray-400",
+              "focus:ring-2 focus:ring-inset focus:ring-light-green",
+              "sm:text-sm sm:leading-6"
+            )}
+          />
+          <label htmlFor="condition-generales" className="text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100 cursor-pointer">
+            J’ai lu et j’accepte les{" "}
+            <Link href="/conditions-generales-de-vente" target="_blank" className="text-green underline">
+              conditions générales
+            </Link>{" "}
+            <Star />
+          </label>
+        </div>
       </div>
       <div>
-        <SubmitButton isDisabled={!email || !password || !firstname || !lastname} text="Sign in" />
+        <SubmitButton isDisabled={!email || !password || !firstname || !lastname || !optInSell} text="Sign in" />
       </div>
     </form>
   );
