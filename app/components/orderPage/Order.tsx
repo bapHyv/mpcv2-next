@@ -4,6 +4,7 @@ import Title from "@/app/components/Title";
 import { useOrder } from "@/app/context/orderContext";
 import Link from "next/link";
 import { useAuth } from "@/app/context/authContext";
+import Star from "@/app/components/Star";
 
 interface Props {
   payment: "secure-3d-card" | "bank-transfer" | null;
@@ -43,7 +44,7 @@ export default function Order({ payment, formData }: Props) {
               <Link href="/conditions-generales-de-vente" target="_blank" className="text-green underline">
                 conditions générales
               </Link>{" "}
-              *
+              <Star />
             </label>
           </div>
           <div className="flex gap-x-2 items-center">
