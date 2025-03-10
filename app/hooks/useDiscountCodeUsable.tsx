@@ -1,13 +1,10 @@
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { DiscountCode } from "@/app/types/sseTypes";
 import { useMemo } from "react";
-import { useOrder } from "../context/orderContext";
 
-const useDiscountCodeUsable = (d: DiscountCode) => {
+const useDiscountCodeUsable = (d: DiscountCode, l: number) => {
   const { cart: c, products, variationTable } = useProductsAndCart();
-  const { discountApplied } = useOrder();
 
-  const l = useMemo(() => discountApplied.length, [discountApplied.length]);
   const min = useMemo(() => parseInt(d.minCartAmount), [d.minCartAmount]);
   const max = useMemo(() => parseInt(d.maxCartAmount), [d.maxCartAmount]);
   const hasMin = useMemo(() => !!min, [min]);

@@ -42,7 +42,39 @@ export interface ShippingZone {
   methods: ShippingMethod[];
 }
 
-export interface ShippingMethod {
+export interface IShippingMethod {
   instanceId: number;
-  id: string;
+  type: string;
+  title: string;
 }
+
+// Extended interfaces with specific fields
+export interface BoxtalConnectMethod extends IShippingMethod {
+  type: "boxtal_connect";
+  rates: string; // Specific to Boxtal Connect
+  priceThreshold: number;
+  cost: number;
+}
+
+export interface LocalPickupMethod extends IShippingMethod {
+  type: "local_pickup";
+  tax_status: string; // Specific to Local Pickup
+  cost: string; // Specific to Local Pickup
+}
+
+export interface FreeShippingMethod extends IShippingMethod {
+  type: "free_shipping";
+  requires: string; // Specific to Free Shipping
+  min_amount: string; // Specific to Free Shipping
+  ignore_discounts: "yes" | "no"; // Specific to Free Shipping
+  bw_parcel_point_networks?: string; // Optional, specific to Free Shipping
+}
+
+export interface FlatRateMethod extends IShippingMethod {
+  type: "flat_rate";
+  tax_status: string; // Specific to Flat Rate
+  cost: string; // Specific to Flat Rate
+  bw_parcel_point_networks?: string; // Optional, specific to Flat Rate
+}
+
+export type ShippingMethod = BoxtalConnectMethod | LocalPickupMethod | FreeShippingMethod | FlatRateMethod;

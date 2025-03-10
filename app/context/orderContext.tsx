@@ -1,13 +1,15 @@
 "use client";
 import { createContext, useContext, ReactNode, useState, useEffect, Dispatch, SetStateAction } from "react";
 
-import { Address } from "@/app/types/profileTypes";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
-import { Order, DiscountApplied, OrderProducts } from "@/app/types/orderTypes";
+import { Order, DiscountApplied, OrderProducts, shippingAddress, billingAddress } from "@/app/types/orderTypes";
 import { computeFixedProductDiscount, computePercentDiscount } from "@/app/utils/orderFunctions";
+import { useAuth } from "./authContext";
+import { UAParser } from "ua-parser-js";
 
 interface OrderContext {
   order: Order;
+  setOrder: Dispatch<SetStateAction<Order>>;
   discountApplied: DiscountApplied[];
   setDiscountApplied: Dispatch<SetStateAction<DiscountApplied[]>>;
   fidelityPointsUsed: number;
@@ -21,17 +23,20 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     products: {},
     discounts: [],
     shippingMethodId: 0,
-    shippingAddress: {} as Address,
-    billingAddress: {} as Address,
+    shippingAddress: {} as shippingAddress,
+    billingAddress: {} as billingAddress,
     total: 0,
+    shippingCost: 0,
+    totalOrder: 0,
     customerIp: "",
     customerUserAgent: "",
-    deviceType: "desktop",
+    deviceType: {} as UAParser.IResult,
   });
   const [discountApplied, setDiscountApplied] = useState<DiscountApplied[]>([]);
   const [fidelityPointsUsed, setFidelityPointsUsed] = useState(0);
 
   const { cart } = useProductsAndCart();
+  const { userData } = useAuth();
 
   useEffect(() => {
     setOrder((prevState) => {
@@ -53,30 +58,76 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       const computedFidelityPoints = fidelityPointsUsed * 0.1;
 
       const updatedProducts: OrderProducts = cart.products.reduce((acc, cur) => {
-        return {
-          ...acc,
-          [cur.id]: {
-            label: cur.name,
-            amount: cur.option,
-            quantity: cur.quantity.toString(),
-          },
-        };
-      }, {});
+        return cur.id in acc
+          ? {
+              ...acc,
+              [cur.id]: [
+                ...acc[cur.id],
+                {
+                  label: cur.name,
+                  amount: cur.option,
+                  quantity: cur.quantity.toString(),
+                  option: cur.option,
+                  per: cur.per,
+                  unitPrice: cur.unitPrice,
+                  totalPrice: cur.totalPrice,
+                },
+              ],
+            }
+          : {
+              ...acc,
+              [cur.id]: [
+                {
+                  label: cur.name,
+                  amount: cur.option,
+                  quantity: cur.quantity.toString(),
+                  option: cur.option,
+                  per: cur.per,
+                  unitPrice: cur.unitPrice,
+                  totalPrice: cur.totalPrice,
+                },
+              ],
+            };
+      }, {} as OrderProducts);
 
       const computedTotal = cart.total - computedDiscounts - computedFidelityPoints;
       const updatedTotal = computedTotal > 0 ? computedTotal : 0;
+      const updatedOrderTotal = updatedTotal + prevState.shippingCost;
 
       const updatedDiscounts: Order["discounts"] = [
         ...JSON.parse(JSON.stringify(discountApplied)),
         { type: "loyaltyPoints", value: fidelityPointsUsed },
       ];
 
-      return { ...prevState, total: updatedTotal, products: updatedProducts, discounts: updatedDiscounts };
+      return { ...prevState, total: updatedTotal, totalOrder: updatedOrderTotal, products: updatedProducts, discounts: updatedDiscounts };
     });
   }, [cart, discountApplied, fidelityPointsUsed]);
 
+  useEffect(() => {
+    if (!userData) {
+      setDiscountApplied([]);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    const getClientInfo = async () => {
+      const response = await fetch("https://api.ipify.org/?format=json");
+      const data: { ip: string } = await response.json();
+      const parser = UAParser();
+
+      setOrder((prevState) => ({
+        ...prevState,
+        customerIp: data.ip,
+        customerUserAgent: parser.ua,
+        deviceType: parser,
+      }));
+    };
+
+    getClientInfo();
+  }, []);
+
   return (
-    <orderContext.Provider value={{ order, discountApplied, setDiscountApplied, fidelityPointsUsed, setFidelityPointsUsed }}>
+    <orderContext.Provider value={{ order, setOrder, discountApplied, setDiscountApplied, fidelityPointsUsed, setFidelityPointsUsed }}>
       {children}
     </orderContext.Provider>
   );

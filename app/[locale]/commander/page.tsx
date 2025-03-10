@@ -1,8 +1,16 @@
-/**
- *
- * [-] Check in discountApplied if freeShipping is true
- */
+import DisplayComponents from "@/app/components/orderPage/DisplayComponents";
+import Title from "@/app/components/Title";
 
 export default function Page() {
-  return <h1>Commander</h1>;
+  return (
+    <>
+      <Title
+        title="Validation de la commande"
+        type="h1"
+        classname={`relative mt-4 sm:mt-8 2xl:pl-2 uppercase text-xl text-green font-bold tracking-widest`}
+        firstLetterClassname="text-4xl"
+      />
+      <DisplayComponents />
+    </>
+  );
 }

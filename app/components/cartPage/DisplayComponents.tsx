@@ -37,7 +37,7 @@ export default function DisplayComponents() {
   return !!cart.products.length ? (
     <div className="flex flex-col md:flex-row gap-x-5 p-2">
       <div className="w-full md:w-1/2">
-        <AreYouCustomer />
+        <AreYouCustomer redirect="panier" />
         <DisplayProducts />
       </div>
 

@@ -1,6 +1,18 @@
-import { DiscountCode } from "@/app/types/sseTypes";
 import { ProductCart } from "@/app/context/productsAndCartContext";
 import { DiscountApplied } from "@/app/types/orderTypes";
+
+export const displayDiscountValue = (d: DiscountApplied, products: ProductCart[]) => {
+  switch (d.discountType) {
+    case "fixed_cart":
+      return `-${d.discountValue}€`;
+    case "percent":
+      return `-${computePercentDiscount(d, products).toFixed(2)}€`;
+    case "fixed_product":
+      return `-${computeFixedProductDiscount(d, products).toFixed(2)}€`;
+    default:
+      return "";
+  }
+};
 
 export const computePercentDiscount = (d: DiscountApplied, products: ProductCart[]) => {
   const { discountValue, nbItemsLimit, requiredProducts, requiredCategories, excludedProducts, excludedCategories } = d;
@@ -115,12 +127,15 @@ export const computeFixedProductDiscount = (d: DiscountApplied, products: Produc
  *
  */
 
+export const computeAverageVATRate = (products: ProductCart[]) => {
+  return products.reduce((VAT, prod) => VAT + prod.VATRate, 0) / products.length;
+};
+
 export const computeVAT = (c: { total: number; products: ProductCart[] }, discount: number) => {
   const tot = c.total;
   const VAT = c.products.reduce((VAT, prod) => VAT + (prod.totalPrice - prod.totalPrice / (1 + prod.VATRate / 100)), 0);
   const adjustedTot = tot - discount;
   const VATPropotion = VAT / tot;
   const adjustedVAT = adjustedTot * VATPropotion;
-
   return adjustedVAT;
 };
