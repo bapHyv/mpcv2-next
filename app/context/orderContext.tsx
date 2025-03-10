@@ -6,6 +6,7 @@ import { Order, DiscountApplied, OrderProducts, shippingAddress, billingAddress 
 import { computeFixedProductDiscount, computePercentDiscount } from "@/app/utils/orderFunctions";
 import { useAuth } from "./authContext";
 import { UAParser } from "ua-parser-js";
+import useDiscountCodeUsable from "@/app/hooks/useDiscountCodeUsable";
 
 interface OrderContext {
   order: Order;
@@ -17,6 +18,12 @@ interface OrderContext {
 }
 
 export const orderContext = createContext({} as OrderContext);
+
+/**
+ *
+ * Mettre un useEffect avec cart.products en dépendance.
+ * À chaque fois que product change, il faut faire un filter sur discoutApplied pour vérifier que chaque discount est toujours applicable.
+ */
 
 export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const [order, setOrder] = useState<Order>({
@@ -37,6 +44,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
 
   const { cart } = useProductsAndCart();
   const { userData } = useAuth();
+  const isDiscountCodeUsable = useDiscountCodeUsable();
 
   useEffect(() => {
     setOrder((prevState) => {
@@ -108,6 +116,13 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       setDiscountApplied([]);
     }
   }, [userData]);
+
+  useEffect(() => {
+    setDiscountApplied((prevState) => {
+      const filteredDiscounts = prevState.filter((d) => isDiscountCodeUsable(d, prevState.length).status);
+      return filteredDiscounts;
+    });
+  }, [cart.products]);
 
   useEffect(() => {
     const getClientInfo = async () => {

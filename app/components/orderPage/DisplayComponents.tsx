@@ -12,7 +12,7 @@ import AreYouCustomer from "@/app/components/cartPage/AreYouCustomer";
 /**
  * [x] FREE SHIPPING
  *
- * [-] Ajouter condition générales à /inscription
+ * [x] Ajouter condition générales à /inscription
  * [-] Gérer cas particulier code promos (Enlever code promo avec restriction)
  * [-] Gérer utilisation refresh Token (voir réponse Grok)
  *

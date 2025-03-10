@@ -23,7 +23,8 @@ export default function DiscountCode({ name, d }: Props) {
   const { setDiscountApplied, discountApplied } = useOrder();
   const { cart } = useProductsAndCart();
   const { addAlert } = useAlerts();
-  const { message, status } = useDiscountCodeUsable(d, discountApplied.length);
+  const isDiscountCodeUsable = useDiscountCodeUsable();
+  const { message, status } = isDiscountCodeUsable(d, discountApplied.length);
 
   const handleUseDiscountCode = (discount: IDiscountCode, name: string) => {
     setDiscountApplied((prevState) => [...prevState, { ...discount, name }]);

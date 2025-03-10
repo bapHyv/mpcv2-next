@@ -42,24 +42,26 @@ export default function DisplayDiscountCode() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicDiscountCode, sseData, discountApplied]);
 
-  return userData && sseData ? (
+  return (
     <section aria-labelledby="discount-code" className={twMerge(sectionClassname, "flex flex-col gap-y-6")}>
       {/* LINKED DISCOUNT CODE */}
-      <div>
-        <Title
-          title="Codes liés au compte"
-          type="h2"
-          classname={twMerge(titleClassname, "mb-1")}
-          firstLetterClassname="text-2xl"
-          id="linked-account-discount-code"
-        />
-        <label htmlFor="discount-code" className="sr-only">
-          discount-code
-        </label>
-        <div className="flex flex-col gap-y-3">
-          {sseData && userData && userData.discounts.map((name, i) => <DiscountCode key={`${name}-${i}`} name={name} d={sseData.coupons[name]} />)}
+      {userData && sseData ? (
+        <div>
+          <Title
+            title="Codes liés au compte"
+            type="h2"
+            classname={twMerge(titleClassname, "mb-1")}
+            firstLetterClassname="text-2xl"
+            id="linked-account-discount-code"
+          />
+          <label htmlFor="discount-code" className="sr-only">
+            discount-code
+          </label>
+          <div className="flex flex-col gap-y-3">
+            {sseData && userData && userData.discounts.map((name, i) => <DiscountCode key={`${name}-${i}`} name={name} d={sseData.coupons[name]} />)}
+          </div>
         </div>
-      </div>
+      ) : null}
       {/* PUBLIC DISCOUNT CODE */}
       <div>
         <Title title="Codes promo" type="h2" classname={twMerge(titleClassname, "mb-1")} firstLetterClassname="text-2xl" id="discount-code-title" />
@@ -79,5 +81,5 @@ export default function DisplayDiscountCode() {
         </div>
       </div>
     </section>
-  ) : null;
+  );
 }
