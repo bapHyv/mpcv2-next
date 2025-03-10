@@ -10,6 +10,7 @@ import { useAuth } from "@/app/context/authContext";
 import { Address } from "@/app/types/profileTypes";
 import { updateAddress } from "@/app/actions";
 import { isAddress } from "@/app/utils/typeGuardsFunctions";
+import { useSse } from "@/app/context/sseContext";
 
 interface Params {
   editingAddress: Address;
@@ -25,6 +26,7 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
 
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
+  const { sseData } = useSse();
 
   useEffect(() => {
     if (state.isSuccess && isAddress(state.data) && state.data && state.statusCode === 200) {
@@ -110,16 +112,21 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
               <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                 {t("addresses.country")}
               </label>
-              <input
-                type="text"
-                id="country"
+              <select
                 name="country"
-                required
+                id="country"
                 value={editingAddress.country}
                 onChange={(e) => setEditingAddress((prev) => ({ ...prev!, country: e.target.value }))}
-                placeholder={t("addresses.country")}
+                required
                 className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              />
+              >
+                {sseData &&
+                  Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
+                    <option key={s + i} value={s}>
+                      {s}
+                    </option>
+                  ))}
+              </select>
             </div>
 
             {/* Address Line 1 */}

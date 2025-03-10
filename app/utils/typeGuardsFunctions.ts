@@ -1,4 +1,5 @@
 import { UserDataAPIResponse, UserMetadata, Address, Order, Product, Shipping } from "@/app/types/profileTypes";
+import { BoxtalConnectMethod, FlatRateMethod, FreeShippingMethod, IShippingMethod, LocalPickupMethod } from "@/app/types/sseTypes";
 
 export function isId(data: any): data is { id: string } {
   if (!data || typeof data.id !== "string") {
@@ -157,4 +158,20 @@ export function isProduct(product: any): product is Product {
 // Helper function to check if an object is of type Shipping
 export function isShipping(shipping: any): shipping is Shipping {
   return shipping && typeof shipping.method === "string" && typeof shipping.cost === "string";
+}
+
+export function isBoxtalConnectMethod(method: IShippingMethod): method is BoxtalConnectMethod {
+  return method.type === "boxtal_connect" && "rates" in method && "cost" in method;
+}
+
+export function isLocalPickupMethod(method: IShippingMethod): method is LocalPickupMethod {
+  return method.type === "local_pickup" && "tax_status" in method && "cost" in method;
+}
+
+export function isFreeShippingMethod(method: IShippingMethod): method is FreeShippingMethod {
+  return method.type === "free_shipping" && "requires" in method && "min_amount" in method && "ignore_discounts" in method;
+}
+
+export function isFlatRateMethod(method: IShippingMethod): method is FlatRateMethod {
+  return method.type === "flat_rate" && "tax_status" in method && "cost" in method;
 }

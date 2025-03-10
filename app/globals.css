@@ -437,3 +437,7 @@ article dfn {
 .has-tooltip:hover .tooltip {
   @apply visible;
 }
+
+.input-radio-order:checked {
+  background-image: url(/canna-green.svg);
+}

@@ -10,6 +10,7 @@ import { addAddress } from "@/app/actions";
 import { isAddress } from "@/app/utils/typeGuardsFunctions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
+import { useSse } from "@/app/context/sseContext";
 
 interface Params {
   setIsAddModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -19,26 +20,27 @@ type addAddressForm = Omit<Address, "id">;
 
 export default function AddAddressModale({ setIsAddModalOpen }: Params) {
   const t = useTranslations();
+  const { setUserData } = useAuth();
+  const { addAlert } = useAlerts();
+  const { sseData } = useSse();
+
   const [formData, setFormData] = useState<addAddressForm>({
     firstname: "",
     lastname: "",
+    company: "",
+    country: sseData ? Object.keys(sseData?.shippingMethods.byShippingZones)[0] : "",
     address1: "",
+    address2: "",
     postalCode: "",
     city: "",
-    country: "",
     phone: "",
     email: "",
     billing: false,
     shipping: false,
-    company: "",
-    address2: "",
   });
 
   //@ts-ignore
   const [state, formAction] = useFormState(addAddress, formData);
-
-  const { setUserData } = useAuth();
-  const { addAlert } = useAlerts();
 
   useEffect(() => {
     console.log(state.data);
@@ -145,8 +147,12 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
               onChange={handleChange}
               className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
             >
-              <option>France</option>
-              <option>Belgium</option>
+              {sseData &&
+                Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
+                  <option key={s + i} value={s}>
+                    {s}
+                  </option>
+                ))}
             </select>
           </div>
 

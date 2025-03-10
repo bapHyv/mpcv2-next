@@ -27,6 +27,10 @@ export interface OrderProduct {
   label: string;
   amount: string;
   quantity: string;
+  option: string;
+  per: "g" | "unit";
+  unitPrice: number;
+  totalPrice: number;
 }
 
 export interface OrderProducts {
@@ -46,14 +50,19 @@ export interface Discount {
 export interface DiscountApplied extends DiscountCode {
   name: string;
 }
+
+export type shippingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string; password: string };
+export type billingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string };
 export interface Order {
   products: OrderProducts;
   discounts: (DiscountApplied | FidelityApplied)[];
-  shippingMethodId: number; // not sure type
-  shippingAddress: Address;
-  billingAddress: Address;
-  total: number;
+  shippingMethodId: number;
+  shippingAddress: shippingAddress;
+  billingAddress: billingAddress;
+  total: number; // This is the total after discouts
+  shippingCost: number;
+  totalOrder: number; // This is the total + shippingCost
   customerIp: string;
   customerUserAgent: string;
-  deviceType: "desktop" | "mobile";
+  deviceType: UAParser.IResult;
 }
