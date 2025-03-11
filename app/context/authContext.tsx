@@ -1,14 +1,12 @@
 "use client";
-import { createContext, useContext, useState, useEffect, ReactNode, use } from "react";
-import axios from "axios";
+
 import { jwtDecode } from "jwt-decode";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { v4 as uuid } from "uuid";
 
-import axiosInstance from "@/app/utils/apiClient";
-import { User, UserData, AuthContextType, UserDataAPIResponse } from "@/app/types/profileTypes";
-import { useAlerts } from "@/app/context/alertsContext";
 import { logout as logoutAction } from "@/app/actions";
+import { useAlerts } from "@/app/context/alertsContext";
+import { AuthContextType, UserDataAPIResponse } from "@/app/types/profileTypes";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
