@@ -11,6 +11,7 @@ import { login } from "@/app/actions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
+import Link from "next/link";
 
 const initialState = {
   email: "",
@@ -86,9 +87,9 @@ export default function SignInForm() {
             Password
           </label>
           <div className="text-sm">
-            <a href="#" className="font-semibold text-light-green">
+            <Link href="/mot-de-passe-oublie?redirect=connexion" className="font-semibold text-light-green">
               Forgot password?
-            </a>
+            </Link>
           </div>
         </div>
         <div className="mt-2 relative">

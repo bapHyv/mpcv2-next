@@ -7,6 +7,7 @@ import { getMessages } from "next-intl/server";
 import { Providers } from "@/app/providers";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
+import AgeVerificationOverlay from "@/app/components/AgeVerificationOverlay";
 
 export const metadata: Metadata = {
   title: "Monplancbd",
@@ -196,6 +197,7 @@ export default async function RootLayout({
     <html className="scroll-smooth" lang={locale} suppressHydrationWarning>
       <body className={`${myFont.className} max-w-[1920px] m-auto`}>
         <NextIntlClientProvider messages={messages}>
+          <AgeVerificationOverlay />
           <Providers>
             <NavBar locale={locale} />
             <main className="min-h-screen 2xl:px-0 sm:pt-20">{children}</main>
