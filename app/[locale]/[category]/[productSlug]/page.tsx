@@ -9,6 +9,7 @@ import { terpenesToColor } from "@/app/utils/terpenesToColor";
 import { findHighest, findHighestOption } from "@/app/utils/productFunctions";
 import ProductOptions from "@/app/components/products/ProductOptions";
 import ProductPrice from "@/app/components/products/ProductPrice";
+import ReviewForm from "@/app/components/productPage/ReviewForm";
 
 interface Params {
   params: {
@@ -313,10 +314,13 @@ export default async function Page({ params: { category, locale, productSlug } }
           </div>
         </div>
         <div className="pt-16" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
+
+        <ReviewForm id={product.id} />
+
         {/* REVIEWS */}
         {!!product.ratings.reviews.length && (
           <div>
-            <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+            <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6 lg:max-w-7xl lg:px-8">
               <h2 className="text-lg font-medium text-neutral-900 dark:text-neutral-100 capitalize" id="reviews">
                 {t("singleProduct.reviews")}
               </h2>

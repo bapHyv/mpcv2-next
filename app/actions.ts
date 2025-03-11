@@ -30,6 +30,11 @@ interface ErrorReponse {
   errorData: any;
 }
 
+interface IComment {
+  review: string;
+  rating: number;
+}
+
 type statusCode = 200 | 204 | 400 | 401 | 409 | 422 | 500;
 type data = null | UserDataAPIResponse | Address | { id: string };
 
@@ -369,6 +374,104 @@ export async function updateAddress(prevState: Address & { id: string }, formDat
 
     const statusCode = error.statusCode || 500;
     const errorMessage = error.message || "Error while updating address";
+
+    return responseAPI(errorMessage, null, false, statusCode);
+  }
+}
+
+/**
+ * status code:
+ *  204: success, send {message, null, isSuccess, status code: 204}
+ *  400: invalid data {message, null, !isSuccess, statusCode: 400}
+ *  401: unauthorized {message, null, !isSuccess, statusCode: 401}
+ *  500: error server {message, null, !isSuccess, statusCode: 500}
+ */
+
+export async function comment(prevState: IComment, formData: FormData) {
+  try {
+    const comment = {
+      review: formData.get("comment"),
+      rating: parseInt((formData.get("rating") as string) || "0"),
+    };
+
+    const { id } = {
+      id: formData.get("id"),
+    };
+
+    if (!id) {
+      const errorData = null;
+      throw {
+        message: "The product id is required",
+        statusCode: 400,
+        errorData,
+      };
+    }
+
+    const fetchOptions = {
+      method: "POST",
+      body: JSON.stringify(comment),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetchWrapper(`${process.env.API_HOST}/product/${id}/add-comment`, fetchOptions);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      throw {
+        message: `Error while adding comment. Status code: ${response.status}`,
+        statusCode: response.status,
+        errorData,
+      };
+    }
+
+    return responseAPI("Comment added successfully", null, true, response.status as 204);
+  } catch (error: any | ErrorReponse) {
+    console.error("Add comment error:", error);
+
+    const statusCode = error.statusCode || 500;
+    const errorMessage = error.message || "Error while adding comment";
+
+    return responseAPI(errorMessage, null, false, statusCode);
+  }
+}
+
+/**
+ * 204: success no content {message, null, isSuccess, status code: 204}
+ * 409: password recovery failed {message, null, !isSuccess, statusCode: 409}
+ */
+export async function forgottenPassword(prevState: { email: string }, formData: FormData) {
+  try {
+    const email = {
+      mail: formData.get("email"),
+    };
+
+    const fetchOptions = {
+      method: "POST",
+      body: JSON.stringify(email),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch(`${process.env.API_HOST}/forgotten-password`, fetchOptions);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      throw {
+        message: `Error recovering password. Status code: ${response.status}`,
+        statusCode: response.status,
+        errorData,
+      };
+    }
+
+    return responseAPI("Recover password successful", null, true, response.status as 204);
+  } catch (error: any | ErrorReponse) {
+    console.error("Recover password error:", error);
+
+    const statusCode = error.statusCode || 500;
+    const errorMessage = error.message || "Error while recovering password";
 
     return responseAPI(errorMessage, null, false, statusCode);
   }
