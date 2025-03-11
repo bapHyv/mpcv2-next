@@ -127,10 +127,6 @@ export const computeFixedProductDiscount = (d: DiscountApplied, products: Produc
  *
  */
 
-export const computeAverageVATRate = (products: ProductCart[]) => {
-  return products.reduce((VAT, prod) => VAT + prod.VATRate, 0) / products.length;
-};
-
 export const computeVAT = (c: { total: number; products: ProductCart[] }, discount: number) => {
   const tot = c.total;
   const VAT = c.products.reduce((VAT, prod) => VAT + (prod.totalPrice - prod.totalPrice / (1 + prod.VATRate / 100)), 0);
@@ -139,3 +135,5 @@ export const computeVAT = (c: { total: number; products: ProductCart[] }, discou
   const adjustedVAT = adjustedTot * VATPropotion;
   return adjustedVAT;
 };
+
+export const findLowestVATRate = (products: ProductCart[]): number => Math.max(...products.map((prod) => prod.VATRate));

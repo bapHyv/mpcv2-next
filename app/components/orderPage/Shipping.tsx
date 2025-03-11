@@ -12,7 +12,7 @@ import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClass
 import { inputCN } from "@/app/staticData/orderPageClasses";
 import { isBoxtalConnectMethod, isFlatRateMethod, isFreeShippingMethod, isLocalPickupMethod } from "@/app/utils/typeGuardsFunctions";
 import { ShippingMethod } from "@/app/types/sseTypes";
-import { computeAverageVATRate, computeVAT } from "@/app/utils/orderFunctions";
+import { findLowestVATRate } from "@/app/utils/orderFunctions";
 
 interface Props {
   formData: {
@@ -20,29 +20,6 @@ interface Props {
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
-
-/**
- *
- * Le problème:
- *
- * Si l'utilisateur à un code free shipping mais qu'il n'atteint pas le montant, je ne lui renvoie aucune méthode.
- *
- *
- * Faire un filter sur les méthodes:
- *  RETOURNER systématiquement "boxtal_connect" et "local_pickup".
- *  Pour RETOURNER free_shipping il faut soit:
- *    - m.ignore_discounts === "yes" && cart.total >= parseInt(m.min_amount)
- *                              OU
- *    - m.ignore_discounts === "no" && order.total >= parseInt(m.min_amount)
- *                              OU
- *    - hasFreeShipping
- * Pour NE PAS RETOURNER flat_rate il faut:
- *    - hasFreeShipping
- *
- *
- * [x] Envoie en point relais gratuit si Math.round(priceThreshold * 1.055)
- * [x] Envoie en point relais gratuit si hasFreeShipping
- */
 
 export default function Shipping({ formData, handleChange }: Props) {
   const { sseData } = useSse();
@@ -108,8 +85,9 @@ export default function Shipping({ formData, handleChange }: Props) {
           </div>
         );
       } else if (isBoxtalConnectMethod(m)) {
-        const averageVAT = computeAverageVATRate(cart.products);
-        const isFree = cart.total > Math.round(m.priceThreshold * (1 + averageVAT / 100)) || hasFreeShipping;
+        const lowestVATRate = findLowestVATRate(cart.products);
+        const isFree = cart.total > Math.round(m.priceThreshold * (1 + lowestVATRate / 100)) || hasFreeShipping;
+        console.log(Math.round(m.priceThreshold * (1 + lowestVATRate / 100)));
         return (
           <div key={m.type + m.instanceId} className="flex gap-x-2 items-center">
             <input
