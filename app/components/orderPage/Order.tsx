@@ -5,13 +5,19 @@ import { useOrder } from "@/app/context/orderContext";
 import Link from "next/link";
 import { useAuth } from "@/app/context/authContext";
 import Star from "@/app/components/Star";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 interface Props {
   payment: "secure-3d-card" | "bank-transfer" | null;
   formData: { [x: string]: string };
+  setFormData: Dispatch<
+    SetStateAction<{
+      [x: string]: string;
+    }>
+  >;
 }
 
-export default function Order({ payment, formData }: Props) {
+export default function Order({ payment, formData, setFormData }: Props) {
   const { order } = useOrder();
   const { userData } = useAuth();
 
@@ -24,7 +30,7 @@ export default function Order({ payment, formData }: Props) {
   return (
     <section aria-labelledby="Commander" className={twMerge(sectionClassname)}>
       <Title title="Commander" type="h2" classname={twMerge(titleClassname)} firstLetterClassname="text-2xl" id="linked-account-discount-code" />
-      <span>{order.totalOrder}€</span>
+      <span>{order.totalOrder.toFixed(2)}€</span>
       {!!order.shippingCost && <span className="text-neutral-500 text-xs italic"> (dont {order.shippingCost.toFixed(2)}€ de frais de port)</span>}
       <p className="mt-2">
         Vos données personnelles seront utilisées pour le traitement de votre commande, vous accompagner au cours de votre visite du site web, et pour

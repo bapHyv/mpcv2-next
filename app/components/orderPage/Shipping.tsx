@@ -87,7 +87,6 @@ export default function Shipping({ formData, handleChange }: Props) {
       } else if (isBoxtalConnectMethod(m)) {
         const lowestVATRate = findLowestVATRate(cart.products);
         const isFree = cart.total > Math.round(m.priceThreshold * (1 + lowestVATRate / 100)) || hasFreeShipping;
-        console.log(Math.round(m.priceThreshold * (1 + lowestVATRate / 100)));
         return (
           <div key={m.type + m.instanceId} className="flex gap-x-2 items-center">
             <input

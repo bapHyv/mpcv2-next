@@ -14,7 +14,7 @@ import { billingAddress } from "@/app/types/orderTypes";
 import clsx from "clsx";
 
 interface Props {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
   formData: {
     [x: string]: string;
   };
@@ -68,7 +68,7 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
       "billing-email": billingAddress ? billingAddress.email : "",
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shippingAddress, billingAddress]);
+  }, [shippingAddress, billingAddress, sseData]);
 
   useEffect(() => {
     if (formData.province) {
@@ -322,10 +322,22 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
               />
             </div>
           )}
+          <div className="mt-2 flex flex-col">
+            <label htmlFor="shipping-order-notes">Notes de commande (facultatif)</label>
+            <textarea
+              onChange={handleChange}
+              rows={5}
+              name="shipping-order-notes"
+              id="shipping-order-notes"
+              value={formData[`shipping-order-notes`]}
+              aria-label="Note de commande"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+            ></textarea>
+          </div>
         </fieldset>
       </div>
 
-      {/* DIFFERENT BILLING ADDRESS */}
+      {/* CHECKBOX DIFFERENT BILLING ADDRESS */}
       <div aria-labelledby="differeng billing address checkbox" className={twMerge(sectionClassname)}>
         <div className="flex gap-x-2 items-center">
           <input
@@ -338,7 +350,7 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             className="focus:ring-1 focus:ring-black checked:bg-green focus:checked:bg-light-green"
           />
           <label htmlFor="different-billing" className="cursor-pointer">
-            Expédier à une adresse différente ?
+            Facturer à une adresse différente ?
           </label>
         </div>
       </div>
