@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Form from "@/app/components/orderPage/Form";
 import Order from "@/app/components/orderPage/Order";
@@ -8,39 +8,19 @@ import OrderSummary from "@/app/components/orderPage/OrderSummary";
 import PaymentMethods from "@/app/components/orderPage/PaymentMethods";
 import Shipping from "@/app/components/orderPage/Shipping";
 import AreYouCustomer from "@/app/components/cartPage/AreYouCustomer";
+import { useFormState } from "react-dom";
+import { payment as paymentAction } from "@/app/actions";
+import { useOrder } from "@/app/context/orderContext";
 
 export default function DisplayComponents() {
   const [payment, setPayment] = useState<null | "secure-3d-card" | "bank-transfer">(null);
-  const [formData, setFormData] = useState<{ [x: string]: string }>({
-    "shipping-firstname": "",
-    "shipping-lastname": "",
-    "shipping-company": "",
-    "shipping-country": "",
-    "shipping-address1": "",
-    "shipping-address2": "",
-    "shipping-postalCode": "",
-    "shipping-city": "",
-    "shipping-province": "",
-    "shipping-phone": "",
-    "shipping-email": "",
-    "shipping-password": "",
-    "different-billing": "false",
-    "billing-firstname": "",
-    "billing-lastname": "",
-    "billing-company": "",
-    "billing-country": "",
-    "billing-address1": "",
-    "billing-address2": "",
-    "billing-postalCode": "",
-    "billing-city": "",
-    "billing-province": "",
-    "billing-phone": "",
-    "billing-email": "",
-    paymentMethod: "",
-    shippingMethod: "",
-  });
+  const { order } = useOrder();
+  const [formData, setFormData] = useState<{ [x: string]: string }>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  // @ts-ignore
+  const [state, formAction] = useFormState(paymentAction, formData);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type, id, checked } = e.target as HTMLInputElement;
     if (type === "checkbox" && id.startsWith("different-")) {
       setFormData((prevState) => ({
@@ -50,12 +30,12 @@ export default function DisplayComponents() {
     } else if (type === "radio" && id.startsWith("payment-")) {
       setFormData((prevState) => ({
         ...prevState,
-        paymentMethod: value,
+        [name]: value,
       }));
     } else if (type === "radio" && id.startsWith("shipping-")) {
       setFormData((prevState) => ({
         ...prevState,
-        shippingMethodId: value,
+        [name]: value,
       }));
     } else {
       setFormData((prevState) => ({
@@ -65,9 +45,22 @@ export default function DisplayComponents() {
     }
   };
 
+  const handleSubmit = (e: FormData) => {
+    // e.append("products", JSON.stringify(order.products));
+    // e.append("discounts", JSON.stringify(order.discounts));
+    // e.append("total", order.totalOrder.toFixed(2));
+    // e.append("customerIp", order.customerIp);
+    // e.append("customerUserAgent", order.customerUserAgent);
+    // e.append("deviceType", JSON.stringify(order.deviceType));
+    e.append("order-complete", JSON.stringify(order));
+
+    // @ts-ignore
+    formAction(e);
+  };
+
   return (
     <>
-      <form className="flex flex-col md:flex-row gap-x-5 p-2">
+      <form action={(e) => handleSubmit(e)} className="flex flex-col md:flex-row gap-x-5 p-2">
         <div>
           <AreYouCustomer redirect="commander" />
           <Form handleChange={handleChange} formData={formData} setFormData={setFormData} />
@@ -76,7 +69,7 @@ export default function DisplayComponents() {
           <OrderSummary />
           <Shipping handleChange={handleChange} formData={formData} />
           <PaymentMethods payment={payment} setPayment={setPayment} handleChange={handleChange} formData={formData} />
-          <Order payment={payment} formData={formData} />
+          <Order payment={payment} formData={formData} setFormData={setFormData} />
         </div>
       </form>
     </>

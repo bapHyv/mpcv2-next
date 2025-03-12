@@ -35,6 +35,36 @@ interface IComment {
   rating: number;
 }
 
+interface IPayment {
+  "shipping-firstname": string;
+  "shipping-lastname": string;
+  "shipping-company": string;
+  "shipping-country": string;
+  "shipping-address1": string;
+  "shipping-address2": string;
+  "shipping-postalCode": string;
+  "shipping-city": string;
+  "shipping-province": string;
+  "shipping-phone": string;
+  "shipping-email": string;
+  "shipping-password": string;
+  "shipping-order-notes": string;
+  "different-billing": "false" | "true";
+  "billing-firstname": string;
+  "billing-lastname": string;
+  "billing-company": string;
+  "billing-country": string;
+  "billing-address1": string;
+  "billing-address2": string;
+  "billing-postalCode": string;
+  "billing-city": string;
+  "billing-province": string;
+  "billing-phone": string;
+  "billing-email": string;
+  "payment-method": string;
+  "shipping-method": string;
+}
+
 type statusCode = 200 | 204 | 400 | 401 | 409 | 422 | 500;
 type data = null | UserDataAPIResponse | Address | { id: string };
 
@@ -475,4 +505,10 @@ export async function forgottenPassword(prevState: { email: string }, formData: 
 
     return responseAPI(errorMessage, null, false, statusCode);
   }
+}
+
+export async function payment(prevState: IPayment, formData: FormData) {
+  // console.log({ prevState });
+  // console.log(formData);
+  console.log(JSON.parse(formData.get("order-complete") as string));
 }
