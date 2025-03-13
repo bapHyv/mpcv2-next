@@ -16,13 +16,18 @@ export default function DisplayDiscountCode() {
 
   const { userData } = useAuth();
   const { sseData } = useSse();
-  const { setDiscountApplied, discountApplied } = useOrder();
+  const { order, setOrder } = useOrder();
 
-  const isPublicDiscountCodeUsable = () => (sseData?.coupons[publicDiscountCode].individualUse && discountApplied.length ? false : true);
+  const isPublicDiscountCodeUsable = () => (sseData?.coupons[publicDiscountCode].individualUse && order.discounts.length ? false : true);
 
   const handleUsePublicDiscountCode = () => {
     if (sseData && !!publicDiscountCode && publicDiscountCode in sseData.coupons) {
-      setDiscountApplied((prevState) => [...prevState, { ...sseData.coupons[publicDiscountCode], name: publicDiscountCode }]);
+      setOrder((prevState) => {
+        return {
+          ...prevState,
+          discounts: [...prevState.discounts, { ...sseData.coupons[publicDiscountCode], name: publicDiscountCode }],
+        };
+      });
       setPublicDiscountCode("");
     }
   };
@@ -40,7 +45,7 @@ export default function DisplayDiscountCode() {
       setIsPublicDiscountCodeValid(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publicDiscountCode, sseData, discountApplied]);
+  }, [publicDiscountCode, sseData, order.discounts]);
 
   return (
     <section aria-labelledby="discount-code" className={twMerge(sectionClassname, "flex flex-col gap-y-6")}>

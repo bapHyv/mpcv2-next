@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import Title from "../Title";
 import { twMerge } from "tailwind-merge";
 
@@ -10,123 +10,36 @@ import { useAuth } from "@/app/context/authContext";
 import { province } from "@/app/staticData/provinces";
 import { useOrder } from "@/app/context/orderContext";
 import Star from "@/app/components/Star";
-import { billingAddress } from "@/app/types/orderTypes";
 import clsx from "clsx";
 
-interface Props {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
-  formData: {
-    [x: string]: string;
-  };
-  setFormData: React.Dispatch<
-    React.SetStateAction<{
-      [x: string]: string;
-    }>
-  >;
-}
-
-export default function Form({ handleChange, formData, setFormData }: Props) {
+export default function Form() {
   const { sseData } = useSse();
   const { userData } = useAuth();
-  const { setOrder } = useOrder();
+  const { setOrder, order, handleChange } = useOrder();
 
-  const shippingAddress = useMemo(() => {
-    if (userData) return userData.addresses.find((address) => address.shipping);
-    return undefined;
-  }, [userData]);
-
-  const billingAddress = useMemo(() => {
-    if (userData) return userData.addresses.find((address) => address.billing);
-    return undefined;
-  }, [userData]);
-
+  /**
+   * Those two useEffect make sure the province is reset everytime the country changes.
+   * It avoids setting the province to the wrong country
+   */
   useEffect(() => {
-    setFormData((prevState) => ({
-      ...prevState,
-      "shipping-firstname": shippingAddress ? shippingAddress.firstname : "",
-      "shipping-lastname": shippingAddress ? shippingAddress.lastname : "",
-      "shipping-company": shippingAddress ? shippingAddress.company : "",
-      "shipping-country": shippingAddress ? shippingAddress.country : sseData ? Object.keys(sseData?.shippingMethods.byShippingZones)[0] : "",
-      "shipping-address1": shippingAddress ? shippingAddress.address1 : "",
-      "shipping-address2": shippingAddress ? shippingAddress.address2 : "",
-      "shipping-postalCode": shippingAddress ? shippingAddress.postalCode : "",
-      "shipping-city": shippingAddress ? shippingAddress.city : "",
-      "shipping-province": "",
-      "shipping-phone": shippingAddress ? shippingAddress.phone : "",
-      "shipping-email": shippingAddress ? shippingAddress.email : "",
-      "shipping-password": "",
-      "billing-firstname": billingAddress ? billingAddress.firstname : "",
-      "billing-lastname": billingAddress ? billingAddress.lastname : "",
-      "billing-company": billingAddress ? billingAddress.company : "",
-      "billing-country": billingAddress ? billingAddress.country : sseData ? Object.keys(sseData?.shippingMethods.byShippingZones)[0] : "",
-      "billing-address1": billingAddress ? billingAddress.address1 : "",
-      "billing-address2": billingAddress ? billingAddress.address2 : "",
-      "billing-postalCode": billingAddress ? billingAddress.postalCode : "",
-      "billing-city": billingAddress ? billingAddress.city : "",
-      "billing-province": "",
-      "billing-phone": billingAddress ? billingAddress.phone : "",
-      "billing-email": billingAddress ? billingAddress.email : "",
-    }));
+    setOrder((prevState) => {
+      return {
+        ...prevState,
+        shippingAddress: { ...prevState.shippingAddress, province: "" },
+      };
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shippingAddress, billingAddress, sseData]);
-
-  useEffect(() => {
-    if (formData.province) {
-      setFormData((prevState) => ({ ...prevState, province: "" }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData.country]);
+  }, [order.shippingAddress.country]);
 
   useEffect(() => {
     setOrder((prevState) => {
       return {
         ...prevState,
-        shippingAddress: {
-          firstname: formData["shipping-firstname"],
-          lastname: formData["shipping-lastname"],
-          company: formData["shipping-company"],
-          country: formData["shipping-country"],
-          address1: formData["shipping-address1"],
-          address2: formData["shipping-address2"],
-          postalCode: formData["shipping-postalCode"],
-          city: formData["shipping-city"],
-          province: formData["shipping-province"],
-          phone: formData["shipping-phone"],
-          email: formData["shipping-email"],
-          password: "",
-        },
-        billingAddress: {
-          firstname: formData["billing-firstname"],
-          lastname: formData["billing-lastname"],
-          company: formData["billing-company"],
-          country: formData["billing-country"],
-          address1: formData["billing-address1"],
-          address2: formData["billing-address2"],
-          postalCode: formData["billing-postalCode"],
-          city: formData["billing-city"],
-          province: formData["billing-province"],
-          phone: formData["billing-phone"],
-          email: formData["billing-email"],
-        },
+        billingAddress: { ...prevState.billingAddress, province: "" },
       };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData]);
-
-  /**
-   * Deals with the following edge case:
-   * The user click on differentBilling, fills up the form then changes his mind.
-   * The billingAddress must be empty to avoir billing it to the wrong address.
-   */
-  useEffect(() => {
-    if (formData["different-billing"] === "false") {
-      setOrder((prevState) => ({
-        ...prevState,
-        billingAddress: {} as billingAddress,
-      }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData["different-billing"]]);
+  }, [order.billingAddress.country]);
 
   return (
     <>
@@ -145,8 +58,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="shipping-firstname"
-              name="shipping-firstname"
-              value={formData[`shipping-firstname`]}
+              name="firstname"
+              value={order.shippingAddress.firstname}
               onChange={handleChange}
               required
               autoComplete="shipping given-name"
@@ -159,8 +72,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="shipping-lastname"
-              name="shipping-lastname"
-              value={formData[`shipping-lastname`]}
+              name="lastname"
+              value={order.shippingAddress.lastname}
               onChange={handleChange}
               required
               autoComplete="shipping family-name"
@@ -173,8 +86,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="shipping-company"
-              name="shipping-company"
-              value={formData[`shipping-company`]}
+              name="company"
+              value={order.shippingAddress.company}
               onChange={handleChange}
               aria-label="company"
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
@@ -186,9 +99,9 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
           <div className="mt-2 flex flex-col">
             <label htmlFor="shipping-country">Pays/régions {<Star />}</label>
             <select
-              name="shipping-country"
               id="shipping-country"
-              value={formData[`shipping-country`]}
+              name="country"
+              value={order.shippingAddress.country}
               onChange={handleChange}
               required
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
@@ -206,8 +119,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="shipping-address1"
-              name="shipping-address1"
-              value={formData[`shipping-address1`]}
+              name="address1"
+              value={order.shippingAddress.address1}
               onChange={handleChange}
               required
               placeholder="Numéro de voie et nom de la rue"
@@ -220,8 +133,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="shipping-address2"
-              name="shipping-address2"
-              value={formData[`shipping-address2`]}
+              name="address2"
+              value={order.shippingAddress.address2}
               onChange={handleChange}
               placeholder="Bâtiment, appartement, lot, etc (facultatif)"
               autoComplete="shipping address-line2"
@@ -234,8 +147,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="shipping-postal-code"
-              name="shipping-postalCode"
-              value={formData[`shipping-postalCode`]}
+              name="postalCode"
+              value={order.shippingAddress.postalCode}
               onChange={handleChange}
               required
               autoComplete="shipping postal-code"
@@ -248,8 +161,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="shipping-city"
-              name="shipping-city"
-              value={formData[`shipping-city`]}
+              name="city"
+              value={order.shippingAddress.city}
               onChange={handleChange}
               required
               autoComplete="shipping address-level2"
@@ -257,21 +170,22 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
             />
           </div>
-          {formData.country in province && (
+          {order.shippingAddress.country in province && (
             <div className="mt-2 flex flex-col">
               <label htmlFor="shipping-province">
-                {province[formData.country as keyof typeof province].name} {province[formData.country as keyof typeof province].required && <Star />}
+                {province[order.shippingAddress.country as keyof typeof province].name}{" "}
+                {province[order.shippingAddress.country as keyof typeof province].required && <Star />}
               </label>
               <select
-                name="shipping-province"
                 id="shipping-province"
-                value={formData[`shipping-province`]}
+                name="province"
+                value={order.shippingAddress.province}
                 onChange={handleChange}
-                required={province[formData.country as keyof typeof province].required}
+                required={province[order.shippingAddress.country as keyof typeof province].required}
                 className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
               >
                 <option value="">Veuillez selectionner une option...</option>
-                {province[formData.country as keyof typeof province].options.map((s, i) => (
+                {province[order.shippingAddress.country as keyof typeof province].options.map((s, i) => (
                   <option key={s.key} value={s.value}>
                     {s.key}
                   </option>
@@ -284,8 +198,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="tel"
               id="shipping-phone"
-              name="shipping-phone"
-              value={formData[`shipping-phone`]}
+              name="phone"
+              value={order.shippingAddress.phone}
               onChange={handleChange}
               required
               autoComplete="shipping tel"
@@ -298,8 +212,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="email"
               id="shipping-email"
-              name="shipping-email"
-              value={formData[`shipping-email`]}
+              name="email"
+              value={order.shippingAddress.email}
               onChange={handleChange}
               required
               autoComplete="shipping email"
@@ -313,8 +227,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
               <input
                 type="password"
                 id="shipping-password"
-                name="shipping-password"
-                value={formData[`shipping-password`]}
+                name="password"
+                value={order.shippingAddress.password}
                 onChange={handleChange}
                 required
                 aria-label="password"
@@ -325,11 +239,11 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
           <div className="mt-2 flex flex-col">
             <label htmlFor="shipping-order-notes">Notes de commande (facultatif)</label>
             <textarea
-              onChange={handleChange}
               rows={5}
-              name="shipping-order-notes"
               id="shipping-order-notes"
-              value={formData[`shipping-order-notes`]}
+              name="order-notes"
+              value={order.shippingAddress["order-notes"]}
+              onChange={handleChange}
               aria-label="Note de commande"
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
             ></textarea>
@@ -342,10 +256,10 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
         <div className="flex gap-x-2 items-center">
           <input
             type="checkbox"
-            name="different-billing"
             id="different-billing"
-            checked={formData["different-billing"] === "true"}
-            onChange={(e) => handleChange(e)}
+            name="different-billing"
+            checked={order["different-billing"]}
+            onChange={handleChange}
             aria-label="different billing"
             className="focus:ring-1 focus:ring-black checked:bg-green focus:checked:bg-light-green"
           />
@@ -356,7 +270,7 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
       </div>
 
       {/* BILLING ADDRESS */}
-      <div className={clsx({ hidden: formData["different-billing"] === "false" })}>
+      <div className={clsx({ hidden: !order["different-billing"] })}>
         <Title
           title="Adresse de facturation"
           type="h2"
@@ -371,8 +285,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="billing-firstname"
-              name="billing-firstname"
-              value={formData[`billing-firstname`]}
+              name="firstname"
+              value={order.billingAddress.firstname}
               onChange={handleChange}
               required
               autoComplete="billing given-name"
@@ -385,8 +299,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="billing-lastname"
-              name="billing-lastname"
-              value={formData[`billing-lastname`]}
+              name="lastname"
+              value={order.billingAddress.lastname}
               onChange={handleChange}
               required
               autoComplete="billing family-name"
@@ -399,8 +313,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="billing-company"
-              name="billing-company"
-              value={formData[`billing-company`]}
+              name="company"
+              value={order.billingAddress.company}
               onChange={handleChange}
               aria-label="company"
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
@@ -412,9 +326,9 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
           <div className="mt-2 flex flex-col">
             <label htmlFor="billing-country">Pays/régions {<Star />}</label>
             <select
-              name="billing-country"
               id="billing-country"
-              value={formData[`billing-country`]}
+              name="country"
+              value={order.billingAddress.country}
               onChange={handleChange}
               required
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
@@ -432,8 +346,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="billing-address1"
-              name="billing-address1"
-              value={formData[`billing-address1`]}
+              name="address1"
+              value={order.billingAddress.address1}
               onChange={handleChange}
               required
               placeholder="Numéro de voie et nom de la rue"
@@ -446,8 +360,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="billing-address2"
-              name="billing-address2"
-              value={formData[`billing-address2`]}
+              name="address2"
+              value={order.billingAddress.address2}
               onChange={handleChange}
               placeholder="Bâtiment, appartement, lot, etc (facultatif)"
               autoComplete="billing address-line2"
@@ -460,8 +374,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="billing-postal-code"
-              name="billing-postalCode"
-              value={formData[`billing-postalCode`]}
+              name="postalCode"
+              value={order.billingAddress.postalCode}
               onChange={handleChange}
               required
               autoComplete="billing postal-code"
@@ -474,8 +388,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="text"
               id="billing-city"
-              name="billing-city"
-              value={formData[`billing-city`]}
+              name="city"
+              value={order.billingAddress.city}
               onChange={handleChange}
               required
               autoComplete="billing address-level2"
@@ -483,21 +397,22 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
             />
           </div>
-          {formData.country in province && (
+          {order.billingAddress.country in province && (
             <div className="mt-2 flex flex-col">
               <label htmlFor="billing-province">
-                {province[formData.country as keyof typeof province].name} {province[formData.country as keyof typeof province].required && <Star />}
+                {province[order.billingAddress.country as keyof typeof province].name}{" "}
+                {province[order.billingAddress.country as keyof typeof province].required && <Star />}
               </label>
               <select
-                name="billing-province"
                 id="billing-province"
-                value={formData[`billing-province`]}
+                name="province"
+                value={order.billingAddress.province}
                 onChange={handleChange}
-                required={province[formData.country as keyof typeof province].required}
+                required={province[order.billingAddress.country as keyof typeof province].required}
                 className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
               >
                 <option value="">Veuillez selectionner une option...</option>
-                {province[formData.country as keyof typeof province].options.map((s, i) => (
+                {province[order.billingAddress.country as keyof typeof province].options.map((s, i) => (
                   <option key={s.key} value={s.value}>
                     {s.key}
                   </option>
@@ -510,8 +425,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="tel"
               id="billing-phone"
-              name="billing-phone"
-              value={formData[`billing-phone`]}
+              name="phone"
+              value={order.billingAddress.phone}
               onChange={handleChange}
               required
               autoComplete="billing tel"
@@ -524,8 +439,8 @@ export default function Form({ handleChange, formData, setFormData }: Props) {
             <input
               type="email"
               id="billing-email"
-              name="billing-email"
-              value={formData[`billing-email`]}
+              name="email"
+              value={order.billingAddress.email}
               onChange={handleChange}
               required
               autoComplete="billing email"

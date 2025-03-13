@@ -20,22 +20,27 @@ export default function DiscountCode({ name, d }: Props) {
   const [isMessageVisible, setIsMessageVisible] = useState(false);
 
   const { sseData } = useSse();
-  const { setDiscountApplied, discountApplied } = useOrder();
+  const { order, setOrder } = useOrder();
   const { cart } = useProductsAndCart();
   const { addAlert } = useAlerts();
   const isDiscountCodeUsable = useDiscountCodeUsable();
-  const { message, status } = isDiscountCodeUsable(d, discountApplied.length);
+  const { message, status } = isDiscountCodeUsable(d, order.discounts.length);
 
   const handleUseDiscountCode = (discount: IDiscountCode, name: string) => {
-    setDiscountApplied((prevState) => [...prevState, { ...discount, name }]);
+    setOrder((prevState) => {
+      return {
+        ...prevState,
+        discounts: [...prevState.discounts, { ...discount, name }],
+      };
+    });
     addAlert(uuid(), `Discount code ${name} has been applied`, "Discount code applied successfully", "emerald");
   };
 
   useEffect(() => {
     if (sseData) {
-      setIsIndividualUse(discountApplied.some((discount) => sseData.coupons[discount.name].individualUse));
+      setIsIndividualUse(order.discounts.some((discount) => sseData.coupons[discount.name].individualUse));
     }
-  }, [discountApplied, sseData]);
+  }, [order.discounts, sseData]);
 
   return (
     <>
@@ -60,7 +65,7 @@ export default function DiscountCode({ name, d }: Props) {
             </>
           )}
           <button
-            disabled={!status || isIndividualUse || !cart.products.length || !!discountApplied.filter((d) => d.name === name).length}
+            disabled={!status || isIndividualUse || !cart.products.length || !!order.discounts.filter((d) => d.name === name).length}
             className={twMerge(buttonClassname)}
             onClick={() => handleUseDiscountCode(d, name)}
           >

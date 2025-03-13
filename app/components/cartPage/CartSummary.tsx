@@ -14,11 +14,16 @@ import Link from "next/link";
 
 export default function CartSummary() {
   const { cart } = useProductsAndCart();
-  const { order, fidelityPointsUsed, setFidelityPointsUsed, discountApplied, setDiscountApplied } = useOrder();
+  const { order, setOrder } = useOrder();
   const { addAlert } = useAlerts();
 
   const handleRemoveDiscount = (name: string) => {
-    setDiscountApplied((prevState) => prevState.filter((e) => e.name !== name));
+    setOrder((prevState) => {
+      return {
+        ...prevState,
+        discounts: prevState.discounts.filter((e) => e.name !== name),
+      };
+    });
     addAlert(uuid(), `Discount code ${name} has been removed`, "Discount code removed", "yellow");
   };
 
@@ -32,7 +37,7 @@ export default function CartSummary() {
           <dt className="text-sm text-gray-600">Sous-total</dt>
           <dd className="text-sm font-medium text-gray-900">{cart.total.toFixed(2)}€</dd>
         </div>
-        {discountApplied.map((d) => (
+        {order.discounts.map((d) => (
           <div key={d.name} className="flex items-center justify-between">
             <dt className="text-sm text-gray-600">{d.name}</dt>
             <div className="flex gap-x-2 justify-center">
@@ -44,14 +49,18 @@ export default function CartSummary() {
           </div>
         ))}
 
-        {fidelityPointsUsed ? (
+        {order.fidelity ? (
           <div className="flex items-center justify-between">
             <dt className="text-sm text-gray-600">Points de fidélité</dt>
             <div className="flex gap-x-2 justify-center">
               <div>
-                <span className="text-sm font-medium text-gray-900">{(fidelityPointsUsed / 10).toFixed(2)}€</span>
+                <span className="text-sm font-medium text-gray-900">{(order.fidelity / 10).toFixed(2)}€</span>
               </div>
-              <XMarkIcon onClick={() => setFidelityPointsUsed(0)} type="button" className="w-5 h-5 text-red-600 cursor-pointer" />
+              <XMarkIcon
+                onClick={() => setOrder((prevState) => ({ ...prevState, fidelity: 0 }))}
+                type="button"
+                className="w-5 h-5 text-red-600 cursor-pointer"
+              />
             </div>
           </div>
         ) : null}

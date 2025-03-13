@@ -5,27 +5,10 @@ import { useOrder } from "@/app/context/orderContext";
 import Link from "next/link";
 import { useAuth } from "@/app/context/authContext";
 import Star from "@/app/components/Star";
-import { Dispatch, SetStateAction, useEffect } from "react";
 
-interface Props {
-  payment: "secure-3d-card" | "bank-transfer" | null;
-  formData: { [x: string]: string };
-  setFormData: Dispatch<
-    SetStateAction<{
-      [x: string]: string;
-    }>
-  >;
-}
-
-export default function Order({ payment, formData, setFormData }: Props) {
+export default function Order() {
   const { order } = useOrder();
   const { userData } = useAuth();
-
-  const handleCardPayment = () => {
-    // const response = fetch()
-  };
-
-  const handleBandTransfer = () => {};
 
   return (
     <section aria-labelledby="Commander" className={twMerge(sectionClassname)}>
@@ -60,7 +43,7 @@ export default function Order({ payment, formData, setFormData }: Props) {
         </fieldset>
       )}
       <button type="submit" className="mt-6 w-full py-2 bg-green text-white rounded-md cursor-pointer">
-        {payment === "secure-3d-card" ? "Payer par carte bancaire" : "Commander"}
+        {order["payment-method"] === "secure-3d-card" ? "Payer par carte bancaire" : "Commander"}
       </button>
     </section>
   );
