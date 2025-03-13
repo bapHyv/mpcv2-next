@@ -507,8 +507,16 @@ export async function forgottenPassword(prevState: { email: string }, formData: 
   }
 }
 
+/**
+ *
+ * S'il y a different-billing
+ * S'il y a un password
+ * Prendre en compte:
+ *  - shipping-method
+ *  - payment-method
+ */
+
 export async function payment(prevState: IPayment, formData: FormData) {
-  // console.log({ prevState });
-  // console.log(formData);
+  console.log({ prevState });
   console.log(JSON.parse(formData.get("order-complete") as string));
 }

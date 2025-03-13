@@ -51,14 +51,17 @@ export interface DiscountApplied extends DiscountCode {
   name: string;
 }
 
-export type shippingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string; password: string };
+export type shippingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string; password: string; "order-notes": string };
 export type billingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string };
 export interface Order {
   products: OrderProducts;
-  discounts: (DiscountApplied | FidelityApplied)[];
+  discounts: DiscountApplied[];
+  fidelity: number;
   shippingMethodId: number;
   shippingAddress: shippingAddress;
   billingAddress: billingAddress;
+  "different-billing": boolean;
+  "payment-method": "secure-3d-card" | "bank-transfer" | null;
   total: number; // This is the total after discouts
   shippingCost: number;
   totalOrder: number; // This is the total + shippingCost

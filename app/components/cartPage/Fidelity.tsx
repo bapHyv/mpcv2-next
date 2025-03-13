@@ -9,7 +9,7 @@ import { ChangeEvent } from "react";
 
 export default function Fidelity() {
   const { userData } = useAuth();
-  const { setFidelityPointsUsed, fidelityPointsUsed } = useOrder();
+  const { order, setOrder } = useOrder();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.value;
@@ -28,25 +28,17 @@ export default function Fidelity() {
       e.target.value = userData.loyaltyPoints.toString();
     }
 
-    if (fidelityPointsUsed === 0 && e.target.value !== "0") {
+    if (order.fidelity === 0 && e.target.value !== "0") {
       e.target.value = e.target.value.toString().replace(/^0+/, "");
     }
 
-    setFidelityPointsUsed(parseInt(e.target.value));
+    setOrder((prevState) => {
+      return {
+        ...prevState,
+        fidelity: parseInt(e.target.value),
+      };
+    });
   };
-
-  /**
-   * Ne doit jamais être vide
-   * Lorsque je commence à écrire, si ça commence par un 0, le 0 doit s'effacer
-   * 
-   write handleChange function for an input type number.
-   set fidelityPointsUsed with e.target.value
-   fidelityPointsUsed is type of number
-   fidelityPointsUsed cannot be empty
-   when e.target.value equal 0 and the user starts typing, the 0 must disappear.
-   ex: 0 => user types 4, it must equal 4 and not 04.
-   e.target.value cannot exceed userData.loyalityPoints
-   */
 
   return userData ? (
     <section aria-labelledby="fidelity-points" className={twMerge(sectionClassname)}>
@@ -61,7 +53,7 @@ export default function Fidelity() {
             id="fidelity-points"
             name="fidelity-points"
             type="number"
-            value={fidelityPointsUsed}
+            value={order.fidelity}
             min={0}
             max={userData.loyaltyPoints}
             className={twMerge(inputClassname)}

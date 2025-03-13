@@ -14,19 +14,10 @@ import { isBoxtalConnectMethod, isFlatRateMethod, isFreeShippingMethod, isLocalP
 import { ShippingMethod } from "@/app/types/sseTypes";
 import { findLowestVATRate } from "@/app/utils/orderFunctions";
 
-interface Props {
-  formData: {
-    [x: string]: string;
-  };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-}
-
-export default function Shipping({ formData, handleChange }: Props) {
+export default function Shipping() {
   const { sseData } = useSse();
-  const { order, setOrder } = useOrder();
+  const { order, handleChange } = useOrder();
   const { cart } = useProductsAndCart();
-  const [selectedInstanceId, setSelectedInstanceId] = useState<null | number>(null);
-  const [selectedCost, setSelectedCost] = useState<null | number>(null);
 
   const hasFreeShipping = useMemo(() => {
     return order.discounts.some((d) => ("freeShipping" in d ? d.freeShipping : false));
@@ -67,19 +58,15 @@ export default function Shipping({ formData, handleChange }: Props) {
           <div key={m.type + m.instanceId} className="flex gap-x-2 items-center">
             <input
               type="radio"
+              id={`shipping-method-${m.type}`}
               name="shipping-method"
-              id={`shipping-${m.type}`}
               value={m.instanceId}
-              checked={selectedInstanceId === m.instanceId}
+              checked={order.shippingMethodId === m.instanceId}
               required
-              onChange={(e) => {
-                setSelectedInstanceId(parseInt(e.target.value));
-                setSelectedCost(0);
-                handleChange(e);
-              }}
+              onChange={(e) => handleChange(e, 0)}
               className={inputCN}
             />
-            <label className="cursor-pointer" htmlFor={`shipping-${m.type}`}>
+            <label className="cursor-pointer" htmlFor={`shipping-method-${m.type}`}>
               {m.title}
             </label>
           </div>
@@ -91,19 +78,15 @@ export default function Shipping({ formData, handleChange }: Props) {
           <div key={m.type + m.instanceId} className="flex gap-x-2 items-center">
             <input
               type="radio"
+              id={`shipping-method-${m.type}`}
               name="shipping-method"
-              id={`shipping-${m.type}`}
               value={m.instanceId}
-              checked={selectedInstanceId === m.instanceId}
+              checked={order.shippingMethodId === m.instanceId}
               required
-              onChange={(e) => {
-                setSelectedInstanceId(parseInt(e.target.value));
-                setSelectedCost(isFree ? 0 : Math.ceil(m.cost));
-                handleChange(e);
-              }}
+              onChange={(e) => handleChange(e, isFree ? 0 : Math.ceil(m.cost))}
               className={inputCN}
             />
-            <label className="cursor-pointer" htmlFor={`shipping-${m.type}`}>
+            <label className="cursor-pointer" htmlFor={`shipping-method-${m.type}`}>
               {m.title}
               {isFree ? "" : `: ${Math.ceil(m.cost).toFixed(2)}€`}
             </label>
@@ -114,19 +97,15 @@ export default function Shipping({ formData, handleChange }: Props) {
           <div key={m.type + m.instanceId} className="flex gap-x-2 items-center">
             <input
               type="radio"
+              id={`shipping-method-${m.type}`}
               name="shipping-method"
-              id={`shipping-${m.type}`}
               value={m.instanceId}
-              checked={selectedInstanceId === m.instanceId}
+              checked={order.shippingMethodId === m.instanceId}
               required
-              onChange={(e) => {
-                setSelectedInstanceId(parseInt(e.target.value));
-                setSelectedCost(0);
-                handleChange(e);
-              }}
+              onChange={(e) => handleChange(e, 0)}
               className={inputCN}
             />
-            <label className="cursor-pointer" htmlFor={`shipping-${m.type}`}>
+            <label className="cursor-pointer" htmlFor={`shipping-method-${m.type}`}>
               {m.title}
             </label>
           </div>
@@ -136,19 +115,15 @@ export default function Shipping({ formData, handleChange }: Props) {
           <div key={m.type + m.instanceId} className="flex gap-x-2 items-center">
             <input
               type="radio"
+              id={`shipping-method-${m.type}`}
               name="shipping-method"
-              id={`shipping-${m.type}`}
               value={m.instanceId}
-              checked={selectedInstanceId === m.instanceId}
+              checked={order.shippingMethodId === m.instanceId}
               required
-              onChange={(e) => {
-                setSelectedInstanceId(parseInt(e.target.value));
-                setSelectedCost(Math.ceil(parseFloat(m.cost)));
-                handleChange(e);
-              }}
+              onChange={(e) => handleChange(e, Math.ceil(parseFloat(m.cost)))}
               className={inputCN}
             />
-            <label className="cursor-pointer" htmlFor={`shipping-${m.type}`}>
+            <label className="cursor-pointer" htmlFor={`shipping-method-${m.type}`}>
               {m.title}: {Math.ceil(parseFloat(m.cost)).toFixed(2)}€
             </label>
           </div>
@@ -157,29 +132,7 @@ export default function Shipping({ formData, handleChange }: Props) {
         return <></>;
       }
     });
-  }, [cart.products, cart.total, filteredMethods, handleChange, hasFreeShipping, selectedInstanceId]);
-
-  /**
-   * Has to reset instance when changing country.
-   * It prevents the shippingCost and the instanceId from staying set to the previous country.
-   * Example: user set country to France, selects flat_rate (instanceId: X, cost: Y)
-   * user then set country to Guadeloupe. The instanceId and the cost are still respectively set to X and Y
-   * This use effect prevents this behavior.
-   */
-  useEffect(() => {
-    setSelectedInstanceId(null);
-    setSelectedCost(null);
-  }, [order.shippingAddress.country, cart.products, cart.total, order.discounts]);
-
-  useEffect(() => {
-    setOrder((prevState) => ({
-      ...prevState,
-      shippingMethodId: selectedInstanceId || 0,
-      shippingCost: selectedCost || 0,
-      totalOrder: prevState.total + (selectedCost || 0),
-    }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData, selectedCost, selectedInstanceId]);
+  }, [cart.products, cart.total, filteredMethods, handleChange, hasFreeShipping, order.shippingMethodId]);
 
   return (
     <div aria-labelledby="expedition" className={twMerge(sectionClassname)}>
