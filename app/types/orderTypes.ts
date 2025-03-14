@@ -22,6 +22,7 @@
 
 import { Address } from "@/app/types/profileTypes";
 import { DiscountCode, discountType } from "@/app/types/sseTypes";
+import { ParcelPoint } from "@/app/types/mapTypes";
 
 export interface OrderProduct {
   label: string;
@@ -58,6 +59,8 @@ export interface Order {
   discounts: DiscountApplied[];
   fidelity: number;
   shippingMethodId: number;
+  "shipping-method": "boxtal_connect" | "local_pickup" | "free_shipping" | "flat_rate" | string;
+  "parcel-point": ParcelPoint;
   shippingAddress: shippingAddress;
   billingAddress: billingAddress;
   "different-billing": boolean;

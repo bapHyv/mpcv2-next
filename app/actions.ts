@@ -279,8 +279,6 @@ export async function addAddress(prevState: Address, formData: FormData) {
       },
     };
 
-    console.log(address);
-
     const response = await fetchWrapper(`${process.env.API_HOST}/user/addresses/add`, fetchOptions);
 
     if (!response.ok) {
@@ -516,7 +514,4 @@ export async function forgottenPassword(prevState: { email: string }, formData: 
  *  - payment-method
  */
 
-export async function payment(prevState: IPayment, formData: FormData) {
-  console.log({ prevState });
-  console.log(JSON.parse(formData.get("order-complete") as string));
-}
+export async function payment(prevState: IPayment, formData: FormData) {}

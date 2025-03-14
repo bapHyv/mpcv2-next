@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";

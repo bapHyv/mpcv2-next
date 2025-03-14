@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@boxtal/parcel-point-map": "^0.0.7",
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "@tailwindcss/aspect-ratio": "^0.4.2",

@@ -1,13 +1,15 @@
 "use client";
 
+import Script from "next/script";
+import { useFormState } from "react-dom";
+
+import { payment as paymentAction } from "@/app/actions";
 import Form from "@/app/components/orderPage/Form";
 import Order from "@/app/components/orderPage/Order";
 import OrderSummary from "@/app/components/orderPage/OrderSummary";
 import PaymentMethods from "@/app/components/orderPage/PaymentMethods";
 import Shipping from "@/app/components/orderPage/Shipping";
 import AreYouCustomer from "@/app/components/cartPage/AreYouCustomer";
-import { useFormState } from "react-dom";
-import { payment as paymentAction } from "@/app/actions";
 import { useOrder } from "@/app/context/orderContext";
 
 export default function DisplayComponents() {
@@ -16,6 +18,7 @@ export default function DisplayComponents() {
   // @ts-ignore
   const [state, formAction] = useFormState(paymentAction, order);
 
+  // TODO: FIX ERROR HERE !!!! THE FORM IS VALIDATED !!!
   const handleSubmit = (e: FormData) => {
     e.append("order-complete", JSON.stringify(order));
 

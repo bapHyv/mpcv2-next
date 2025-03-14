@@ -7,11 +7,18 @@ import { computeFixedProductDiscount, computePercentDiscount } from "@/app/utils
 import { useAuth } from "./authContext";
 import { UAParser } from "ua-parser-js";
 import useDiscountCodeUsable from "@/app/hooks/useDiscountCodeUsable";
+import { ParcelPoint } from "@/app/types/mapTypes";
 
 interface OrderContext {
   order: Order;
   setOrder: Dispatch<SetStateAction<Order>>;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, shippingCost?: number) => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    shipping?: {
+      shippingCost: number;
+      shippingMethod: string;
+    }
+  ) => void;
 }
 
 export const orderContext = createContext({} as OrderContext);
@@ -22,8 +29,36 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     discounts: [],
     fidelity: 0,
     shippingMethodId: 0,
-    shippingAddress: {} as shippingAddress,
-    billingAddress: {} as billingAddress,
+    "shipping-method": "",
+    "parcel-point": {} as ParcelPoint,
+    shippingAddress: {
+      address1: "",
+      address2: "",
+      city: "",
+      company: "",
+      country: "",
+      email: "",
+      firstname: "",
+      lastname: "",
+      phone: "",
+      postalCode: "",
+      password: "",
+      province: "",
+      "order-notes": "",
+    },
+    billingAddress: {
+      address1: "",
+      address2: "",
+      city: "",
+      company: "",
+      country: "",
+      email: "",
+      firstname: "",
+      lastname: "",
+      phone: "",
+      postalCode: "",
+      province: "",
+    },
     "different-billing": false,
     "payment-method": null,
     total: 0,
@@ -48,7 +83,13 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     return undefined;
   }, [userData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, shippingCost?: number) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    shipping?: {
+      shippingCost: number;
+      shippingMethod: string;
+    }
+  ) => {
     const { name, value, type, id, checked } = e.target as HTMLInputElement;
 
     const isAddressType = type === "text" || type === "select-one" || type === "textarea" || type === "email" || type === "tel";
@@ -85,7 +126,8 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         return {
           ...prevState,
           shippingMethodId: parseInt(value),
-          shippingCost: shippingCost ?? 0,
+          shippingCost: shipping?.shippingCost ?? 0,
+          "shipping-method": shipping?.shippingMethod as string,
         };
       });
     } else if (type === "radio" && id.startsWith("payment-method-")) {

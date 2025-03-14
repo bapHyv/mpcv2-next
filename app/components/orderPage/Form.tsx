@@ -47,14 +47,16 @@ export default function Form() {
         <Title
           title="Adresse de livraison"
           type="h2"
-          classname={twMerge(titleClassname)}
-          firstLetterClassname="text-2xl"
+          classname={twMerge(titleClassname, "text-lg")}
+          firstLetterClassname="text-3xl"
           id="linked-account-discount-code"
         />
         <fieldset aria-label="informations personnelles adresse de livraison">
           <legend className="font-bold">Informations personnelles</legend>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-firstname">Prénom {<Star />}</label>
+            <label className="text-sm" htmlFor="shipping-firstname">
+              Prénom {<Star />}
+            </label>
             <input
               type="text"
               id="shipping-firstname"
@@ -64,11 +66,13 @@ export default function Form() {
               required
               autoComplete="shipping given-name"
               aria-label="first name"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-lastname">Nom {<Star />}</label>
+            <label className="text-sm" htmlFor="shipping-lastname">
+              Nom {<Star />}
+            </label>
             <input
               type="text"
               id="shipping-lastname"
@@ -78,11 +82,13 @@ export default function Form() {
               required
               autoComplete="shipping family-name"
               aria-label="last name"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-company">Nom de l&apos;entreprise (facultatif)</label>
+            <label className="text-sm" htmlFor="shipping-company">
+              Nom de l&apos;entreprise (facultatif)
+            </label>
             <input
               type="text"
               id="shipping-company"
@@ -90,21 +96,23 @@ export default function Form() {
               value={order.shippingAddress.company}
               onChange={handleChange}
               aria-label="company"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
         </fieldset>
         <fieldset className="mt-6" aria-label="informations adresse de livraison">
           <legend className="font-bold">Informations d&apos;adresse</legend>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-country">Pays/régions {<Star />}</label>
+            <label className="text-sm" htmlFor="shipping-country">
+              Pays/régions {<Star />}
+            </label>
             <select
               id="shipping-country"
               name="country"
               value={order.shippingAddress.country}
               onChange={handleChange}
               required
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             >
               {sseData &&
                 Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
@@ -115,7 +123,9 @@ export default function Form() {
             </select>
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-address1">Numéro et nom de rue {<Star />}</label>
+            <label className="text-sm" htmlFor="shipping-address1">
+              Numéro et nom de rue {<Star />}
+            </label>
             <input
               type="text"
               id="shipping-address1"
@@ -126,7 +136,7 @@ export default function Form() {
               placeholder="Numéro de voie et nom de la rue"
               autoComplete="shipping address-line1"
               aria-label="Numéro et nom de rue"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
@@ -139,11 +149,13 @@ export default function Form() {
               placeholder="Bâtiment, appartement, lot, etc (facultatif)"
               autoComplete="shipping address-line2"
               aria-label="Adresse ligne 2"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-postal-code">Code postal {<Star />}</label>
+            <label className="text-sm" htmlFor="shipping-postal-code">
+              Code postal {<Star />}
+            </label>
             <input
               type="text"
               id="shipping-postal-code"
@@ -153,11 +165,13 @@ export default function Form() {
               required
               autoComplete="shipping postal-code"
               aria-label="Code postal"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-city">Ville {<Star />}</label>
+            <label className="text-sm" htmlFor="shipping-city">
+              Ville {<Star />}
+            </label>
             <input
               type="text"
               id="shipping-city"
@@ -167,12 +181,12 @@ export default function Form() {
               required
               autoComplete="shipping address-level2"
               aria-label="Ville"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           {order.shippingAddress.country in province && (
             <div className="mt-2 flex flex-col">
-              <label htmlFor="shipping-province">
+              <label className="text-sm" htmlFor="shipping-province">
                 {province[order.shippingAddress.country as keyof typeof province].name}{" "}
                 {province[order.shippingAddress.country as keyof typeof province].required && <Star />}
               </label>
@@ -182,7 +196,7 @@ export default function Form() {
                 value={order.shippingAddress.province}
                 onChange={handleChange}
                 required={province[order.shippingAddress.country as keyof typeof province].required}
-                className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+                className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
               >
                 <option value="">Veuillez selectionner une option...</option>
                 {province[order.shippingAddress.country as keyof typeof province].options.map((s, i) => (
@@ -194,7 +208,9 @@ export default function Form() {
             </div>
           )}
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-phone">Téléphone {<Star />}</label>
+            <label className="text-sm" htmlFor="shipping-phone">
+              Téléphone {<Star />}
+            </label>
             <input
               type="tel"
               id="shipping-phone"
@@ -204,11 +220,13 @@ export default function Form() {
               required
               autoComplete="shipping tel"
               aria-label="Téléphone"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-email">Adresse e-mail {<Star />}</label>
+            <label className="text-sm" htmlFor="shipping-email">
+              Adresse e-mail {<Star />}
+            </label>
             <input
               type="email"
               id="shipping-email"
@@ -218,12 +236,14 @@ export default function Form() {
               required
               autoComplete="shipping email"
               aria-label="Adresse e-mail"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           {!userData && (
             <div className="mt-2 flex flex-col">
-              <label htmlFor="shipping-password">Mot de passe {<Star />}</label>
+              <label className="text-sm" htmlFor="shipping-password">
+                Mot de passe {<Star />}
+              </label>
               <input
                 type="password"
                 id="shipping-password"
@@ -232,12 +252,14 @@ export default function Form() {
                 onChange={handleChange}
                 required
                 aria-label="password"
-                className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+                className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
               />
             </div>
           )}
           <div className="mt-2 flex flex-col">
-            <label htmlFor="shipping-order-notes">Notes de commande (facultatif)</label>
+            <label className="text-sm" htmlFor="shipping-order-notes">
+              Notes de commande (facultatif)
+            </label>
             <textarea
               rows={5}
               id="shipping-order-notes"
@@ -245,7 +267,7 @@ export default function Form() {
               value={order.shippingAddress["order-notes"]}
               onChange={handleChange}
               aria-label="Note de commande"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             ></textarea>
           </div>
         </fieldset>
@@ -263,14 +285,14 @@ export default function Form() {
             aria-label="different billing"
             className="focus:ring-1 focus:ring-black checked:bg-green focus:checked:bg-light-green"
           />
-          <label htmlFor="different-billing" className="cursor-pointer">
+          <label className="text-sm cursor-pointer" htmlFor="different-billing">
             Facturer à une adresse différente ?
           </label>
         </div>
       </div>
 
       {/* BILLING ADDRESS */}
-      <div className={clsx({ hidden: !order["different-billing"] })}>
+      <div aria-labelledby="billing address" className={twMerge(sectionClassname, "bg-white", clsx({ hidden: !order["different-billing"] }))}>
         <Title
           title="Adresse de facturation"
           type="h2"
@@ -281,7 +303,9 @@ export default function Form() {
         <fieldset aria-label="informations personnelles adresse de facturation">
           <legend className="font-bold">Informations personnelles</legend>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="billing-firstname">Prénom {<Star />}</label>
+            <label className="text-sm" htmlFor="billing-firstname">
+              Prénom {<Star />}
+            </label>
             <input
               type="text"
               id="billing-firstname"
@@ -291,11 +315,13 @@ export default function Form() {
               required
               autoComplete="billing given-name"
               aria-label="first name"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="billing-lastname">Nom {<Star />}</label>
+            <label className="text-sm" htmlFor="billing-lastname">
+              Nom {<Star />}
+            </label>
             <input
               type="text"
               id="billing-lastname"
@@ -305,11 +331,13 @@ export default function Form() {
               required
               autoComplete="billing family-name"
               aria-label="last name"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="billing-company">Nom de l&apos;entreprise (facultatif)</label>
+            <label className="text-sm" htmlFor="billing-company">
+              Nom de l&apos;entreprise (facultatif)
+            </label>
             <input
               type="text"
               id="billing-company"
@@ -317,21 +345,23 @@ export default function Form() {
               value={order.billingAddress.company}
               onChange={handleChange}
               aria-label="company"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
         </fieldset>
         <fieldset className="mt-6" aria-label="information adresse de facturation">
           <legend className="font-bold">Informations d&apos;adresse</legend>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="billing-country">Pays/régions {<Star />}</label>
+            <label className="text-sm" htmlFor="billing-country">
+              Pays/régions {<Star />}
+            </label>
             <select
               id="billing-country"
               name="country"
               value={order.billingAddress.country}
               onChange={handleChange}
               required
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             >
               {sseData &&
                 Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
@@ -342,7 +372,9 @@ export default function Form() {
             </select>
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="billing-address1">Numéro et nom de rue {<Star />}</label>
+            <label className="text-sm" htmlFor="billing-address1">
+              Numéro et nom de rue {<Star />}
+            </label>
             <input
               type="text"
               id="billing-address1"
@@ -353,7 +385,7 @@ export default function Form() {
               placeholder="Numéro de voie et nom de la rue"
               autoComplete="billing address-line1"
               aria-label="Numéro et nom de rue"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
@@ -366,11 +398,13 @@ export default function Form() {
               placeholder="Bâtiment, appartement, lot, etc (facultatif)"
               autoComplete="billing address-line2"
               aria-label="Adresse ligne 2"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="billing-postal-code">Code postal {<Star />}</label>
+            <label className="text-sm" htmlFor="billing-postal-code">
+              Code postal {<Star />}
+            </label>
             <input
               type="text"
               id="billing-postal-code"
@@ -380,11 +414,13 @@ export default function Form() {
               required
               autoComplete="billing postal-code"
               aria-label="Code postal"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="billing-city">Ville {<Star />}</label>
+            <label className="text-sm" htmlFor="billing-city">
+              Ville {<Star />}
+            </label>
             <input
               type="text"
               id="billing-city"
@@ -394,12 +430,12 @@ export default function Form() {
               required
               autoComplete="billing address-level2"
               aria-label="Ville"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           {order.billingAddress.country in province && (
             <div className="mt-2 flex flex-col">
-              <label htmlFor="billing-province">
+              <label className="text-sm" htmlFor="billing-province">
                 {province[order.billingAddress.country as keyof typeof province].name}{" "}
                 {province[order.billingAddress.country as keyof typeof province].required && <Star />}
               </label>
@@ -409,7 +445,7 @@ export default function Form() {
                 value={order.billingAddress.province}
                 onChange={handleChange}
                 required={province[order.billingAddress.country as keyof typeof province].required}
-                className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+                className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
               >
                 <option value="">Veuillez selectionner une option...</option>
                 {province[order.billingAddress.country as keyof typeof province].options.map((s, i) => (
@@ -421,7 +457,9 @@ export default function Form() {
             </div>
           )}
           <div className="mt-2 flex flex-col">
-            <label htmlFor="billing-phone">Téléphone {<Star />}</label>
+            <label className="text-sm" htmlFor="billing-phone">
+              Téléphone {<Star />}
+            </label>
             <input
               type="tel"
               id="billing-phone"
@@ -431,11 +469,13 @@ export default function Form() {
               required
               autoComplete="billing tel"
               aria-label="Téléphone"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
           <div className="mt-2 flex flex-col">
-            <label htmlFor="billing-email">Adresse e-mail {<Star />}</label>
+            <label className="text-sm" htmlFor="billing-email">
+              Adresse e-mail {<Star />}
+            </label>
             <input
               type="email"
               id="billing-email"
@@ -445,7 +485,7 @@ export default function Form() {
               required
               autoComplete="billing email"
               aria-label="Adresse e-mail"
-              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black"
+              className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             />
           </div>
         </fieldset>

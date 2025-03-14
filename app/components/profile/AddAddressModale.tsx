@@ -43,7 +43,6 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
   const [state, formAction] = useFormState(addAddress, formData);
 
   useEffect(() => {
-    console.log(state.data);
     if (state.isSuccess && state.data && state.statusCode === 200) {
       setUserData((prevState) => {
         if (prevState && isAddress(state.data)) {
