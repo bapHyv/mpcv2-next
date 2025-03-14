@@ -43,7 +43,6 @@ export function isUserDataAPIResponse(data: any): data is UserDataAPIResponse {
 
   // Check metadata
   // if (!isUserMetadata(data.metadata)) {
-  //   console.log(2);
   //   return false;
   // }
 

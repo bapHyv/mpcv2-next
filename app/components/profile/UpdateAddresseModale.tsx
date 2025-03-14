@@ -268,12 +268,7 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
                   name="shipping"
                   type="checkbox"
                   checked={editingAddress.shipping}
-                  onChange={(e) =>
-                    setEditingAddress((prev) => {
-                      console.log(e.target.checked);
-                      return { ...prev!, shipping: e.target.checked };
-                    })
-                  }
+                  onChange={(e) => setEditingAddress((prev) => ({ ...prev!, shipping: e.target.checked }))}
                   className="h-4 w-4 rounded border-gray-300 text-green focus:ring-green"
                 />
                 <label htmlFor="shipping" className="text-sm font-medium text-gray-700 ml-2">

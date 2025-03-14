@@ -50,7 +50,6 @@ export default function useCookies() {
       });
     }
 
-    console.log(cookieString); // For debugging
     document.cookie = cookieString; // Set the cookie
   };
 

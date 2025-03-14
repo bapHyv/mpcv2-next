@@ -40,6 +40,7 @@ export interface ShippingZone {
   zone_id: number;
   name: string;
   methods: ShippingMethod[];
+  priceThreshold?: number;
 }
 
 export interface IShippingMethod {

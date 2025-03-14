@@ -1,3 +1,5 @@
+"use client";
+
 import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";
 import Title from "@/app/components/Title";
@@ -11,7 +13,7 @@ export default function Order() {
   const { userData } = useAuth();
 
   return (
-    <section aria-labelledby="Commander" className={twMerge(sectionClassname)}>
+    <div aria-labelledby="Commander" className={twMerge(sectionClassname)}>
       <Title title="Commander" type="h2" classname={twMerge(titleClassname)} firstLetterClassname="text-2xl" id="linked-account-discount-code" />
       <span>{order.totalOrder.toFixed(2)}€</span>
       {!!order.shippingCost && <span className="text-neutral-500 text-xs italic"> (dont {order.shippingCost.toFixed(2)}€ de frais de port)</span>}
@@ -45,6 +47,6 @@ export default function Order() {
       <button type="submit" className="mt-6 w-full py-2 bg-green text-white rounded-md cursor-pointer">
         {order["payment-method"] === "secure-3d-card" ? "Payer par carte bancaire" : "Commander"}
       </button>
-    </section>
+    </div>
   );
 }

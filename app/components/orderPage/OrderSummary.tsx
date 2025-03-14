@@ -1,3 +1,5 @@
+"use client";
+
 import Title from "@/app/components/Title";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useOrder } from "@/app/context/orderContext";
@@ -24,7 +26,7 @@ export default function OrderSummary() {
   };
 
   return (
-    <section aria-labelledby="commande" className={twMerge(sectionClassname)}>
+    <div aria-labelledby="commande" className={twMerge(sectionClassname)}>
       <Title title="Votre commande" type="h2" classname={twMerge(titleClassname)} firstLetterClassname="text-2xl" id="linked-account-discount-code" />
       <div className="flex items-center justify-between">
         <span>Produits</span>
@@ -90,7 +92,7 @@ export default function OrderSummary() {
         <span>Sous-total</span>
         <span>{order.total.toFixed(2)}€</span>
       </div>
-    </section>
+    </div>
   );
 }
 

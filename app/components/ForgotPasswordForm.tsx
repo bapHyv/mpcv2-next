@@ -49,8 +49,6 @@ export default function ForgotPasswordForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  console.log("In here");
-
   return (
     <form action={formAction}>
       <div>
