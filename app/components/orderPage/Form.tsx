@@ -254,6 +254,10 @@ export default function Form() {
                 aria-label="password"
                 className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
               />
+              <span className="mt-2 text-xs italic text-neutral-500">
+                (Un compte sera crée pour vous lors de la validation de la commande. Vous pourrez vous connecter lors de votre prochain achat avec
+                votre email et ce mot de passe)
+              </span>
             </div>
           )}
           <div className="mt-2 flex flex-col">
@@ -312,7 +316,7 @@ export default function Form() {
               name="firstname"
               value={order.billingAddress.firstname}
               onChange={handleChange}
-              required
+              required={order["different-billing"]}
               autoComplete="billing given-name"
               aria-label="first name"
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
@@ -328,7 +332,7 @@ export default function Form() {
               name="lastname"
               value={order.billingAddress.lastname}
               onChange={handleChange}
-              required
+              required={order["different-billing"]}
               autoComplete="billing family-name"
               aria-label="last name"
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
@@ -360,7 +364,7 @@ export default function Form() {
               name="country"
               value={order.billingAddress.country}
               onChange={handleChange}
-              required
+              required={order["different-billing"]}
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
             >
               {sseData &&
@@ -381,7 +385,7 @@ export default function Form() {
               name="address1"
               value={order.billingAddress.address1}
               onChange={handleChange}
-              required
+              required={order["different-billing"]}
               placeholder="Numéro de voie et nom de la rue"
               autoComplete="billing address-line1"
               aria-label="Numéro et nom de rue"
@@ -411,7 +415,7 @@ export default function Form() {
               name="postalCode"
               value={order.billingAddress.postalCode}
               onChange={handleChange}
-              required
+              required={order["different-billing"]}
               autoComplete="billing postal-code"
               aria-label="Code postal"
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
@@ -427,7 +431,7 @@ export default function Form() {
               name="city"
               value={order.billingAddress.city}
               onChange={handleChange}
-              required
+              required={order["different-billing"]}
               autoComplete="billing address-level2"
               aria-label="Ville"
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
@@ -466,7 +470,7 @@ export default function Form() {
               name="phone"
               value={order.billingAddress.phone}
               onChange={handleChange}
-              required
+              required={order["different-billing"]}
               autoComplete="billing tel"
               aria-label="Téléphone"
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
@@ -482,7 +486,7 @@ export default function Form() {
               name="email"
               value={order.billingAddress.email}
               onChange={handleChange}
-              required
+              required={order["different-billing"]}
               autoComplete="billing email"
               aria-label="Adresse e-mail"
               className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
