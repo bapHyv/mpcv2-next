@@ -69,8 +69,8 @@ export default function CartSummary() {
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
           <dt className="text-base font-medium text-gray-900">Total panier</dt>
           <dd className="text-base font-medium text-gray-900">
-            {order.total.toFixed(2)}€
-            <span className="text-neutral-500 text-xs italic">(dont {computeVAT(cart, cart.total - order.total).toFixed(2)}€ TVA)</span>
+            {order["sub-total"].toFixed(2)}€
+            <span className="text-neutral-500 text-xs italic">(dont {computeVAT(cart, cart.total - order["sub-total"]).toFixed(2)}€ TVA)</span>
           </dd>
         </div>
       </dl>

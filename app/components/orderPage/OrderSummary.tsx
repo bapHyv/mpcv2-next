@@ -90,7 +90,7 @@ export default function OrderSummary() {
       )}
       <div className="flex items-center justify-between mt-3">
         <span>Sous-total</span>
-        <span>{order.total.toFixed(2)}€</span>
+        <span>{order["sub-total"].toFixed(2)}€</span>
       </div>
     </div>
   );

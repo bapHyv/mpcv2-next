@@ -33,7 +33,7 @@ export default function Shipping() {
           return true;
         } else if (isFreeShippingMethod(m)) {
           const cond1 = m.ignore_discounts === "yes" && cart.total >= parseInt(m.min_amount);
-          const cond2 = m.ignore_discounts === "no" && order.total >= parseInt(m.min_amount);
+          const cond2 = m.ignore_discounts === "no" && order["sub-total"] >= parseInt(m.min_amount);
           if (cond1 || cond2 || hasFreeShipping) {
             return true;
           } else {
@@ -56,7 +56,7 @@ export default function Shipping() {
     } else {
       return [];
     }
-  }, [cart.products, cart.total, hasFreeShipping, order.shippingAddress.country, order.total, sseData]);
+  }, [cart.products, cart.total, hasFreeShipping, order.shippingAddress.country, order["sub-total"], sseData]);
 
   const methods: JSX.Element[] = useMemo(() => {
     const VATRate = 1 + findLowestVATRate(cart.products) / 100;

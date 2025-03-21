@@ -3,7 +3,7 @@
 import { Address, UserDataAPIResponse } from "@/app/types/profileTypes";
 import { cookies } from "next/headers";
 import { fetchWrapper } from "@/app/utils/fetchWrapper";
-
+import { billingAddress, Order, shippingAddress } from "@/app/types/orderTypes";
 interface Login {
   email: string;
   password: string;
@@ -65,8 +65,8 @@ interface IPayment {
   "shipping-method": string;
 }
 
-type statusCode = 200 | 204 | 400 | 401 | 409 | 422 | 500;
-type data = null | UserDataAPIResponse | Address | { id: string };
+export type statusCode = 200 | 204 | 400 | 401 | 409 | 422 | 500;
+export type data = null | UserDataAPIResponse | Address | { id: string } | {};
 
 function responseAPI(message: string, data: data, isSuccess: boolean, statusCode: statusCode) {
   return { message, data, isSuccess, statusCode };
@@ -506,12 +506,202 @@ export async function forgottenPassword(prevState: { email: string }, formData: 
 }
 
 /**
+ * Si utilisateur connecté, envoyer init payment au chargement de la page "commander"
  *
- * S'il y a different-billing
- * S'il y a un password
+ * [x] S'il y a different-billing
+ * [x] S'il y a parcel-point et "boxtal_connect"
+ * [x] shippingMethodId === null renvoyer une erreur
+ * [-] S'il y a un password
+ * [-] modifier l'url selon payment-method ("secure-3d-card" | "bank-transfer")
+ *
  * Prendre en compte:
  *  - shipping-method
  *  - payment-method
+ *
+ *
+ *
+ * Demander a Victor:
+ *  - Comment faire la page analyse
+ *  - Comment faire pour utiliser la route transfer-payment
+ *
+ * Lorsque l'utilisateur est nouveau et que je lui crée un compte
+ * en même temps que sa commande, il faut soit:
+ *  - Que je set les cookies access et refresh et que je log dans l'ui (userData dans le local storage)
+ *  - Que je garde le cookies access dans une variable et que je l'utilise pour valider la commande.
+ *
+ * Je pense que la première option est la bonne car, lors du logout, le access token est nécessaire.
+ * Je peux également le utiliser logout à la fin de la commande pour rendre le access token périmé
+ *
+ *
+ * SCÉNARION COMMANDE NOUVEL UTILISATEUR:
+ * - Doit remplir le formulaire
+ * - Peut choisir de facturer à une adresse différente. Si c'est le cas, un nouveau formulaire doit apparaître
+ * - Doit choisir un mode d'expédition
+ * - Doit choisir un mode de paiement.
+ * - Doit accepter les conditions générales de vente
+ *
+ *  Lorsqu'il appuie sur le bouton Payer:
+ *    - Vérifier si il y a quelque chose dans formData.get("order"). Si ce n'est PAS le cas, envoyer une erreur
+ *    - Parser formData.get("order")
+ *    - Vérifier qu'il y a bien une shippingMethodId. Si ce n'est PAS le cas, envoyer une erreur
+ *    - Vérifier si l'adresse de facturation est différente de l'adresse d'expédition. Si ce n'est PAS le cas, transformer l'adresse de facturation en adresse de livraison
+ *    - Vérifier s'il y a quelque chose dans order.shippingAddresse.password
+ *        ↳ Si c'est le cas. Essayer de créer un utilisateur
+ *                            ↳ Si c'est un succès:
+ *                                - Enregistrer le accessToken dans une variable pour l'utiliser à la fin de commande afin d'appeler logout pour périmer l'accessToken
+ *                            ↳ Si l'utilisateur existe déjà: Throw error avec le status et le message de la réponse
+ *    - Vérifier la méthode de paiement.
+ *        ↳ Si c'est "secure-3d-card" appeler la route `${process.env.API_HOST}/order`
+ *        ↳ Si c'est "bank-transfer" appeler la route `${process.env.API_HOST}/order/transfer-payment`
  */
 
-export async function payment(prevState: IPayment, formData: FormData) {}
+export async function payment(prevState: null, formData: FormData) {
+  try {
+    let accessToken = null;
+    const rawOrderData = formData.get("order");
+
+    if (!rawOrderData) {
+      const errorData = null;
+      throw {
+        message: "No data found in the form",
+        statusCode: 400,
+        errorData,
+      };
+    }
+
+    const order: Order = JSON.parse(rawOrderData as string);
+
+    if (!order.shippingMethodId) {
+      const errorData = null;
+      throw {
+        message: "Shipping method id is required",
+        statusCode: 400,
+        errorData,
+      };
+    }
+
+    // // If the customer did not chose a different billing address,
+    // // copy all the values from shipping address into the billing address
+    if (!order["different-billing"]) {
+      for (const key in order.shippingAddress) {
+        if (key !== "password" && key !== "order-notes") {
+          order.billingAddress[key as keyof billingAddress] = order.shippingAddress[key as keyof shippingAddress];
+        }
+      }
+    }
+
+    // For a UX purpose, if the user is new, create an account on the fly to
+    // avoid asking him to create a new account before ordering
+    const isNewUser = !!order.shippingAddress.password;
+
+    if (isNewUser) {
+      const user = {
+        mail: order.shippingAddress.email,
+        password: order.shippingAddress.password,
+        firstname: order.shippingAddress.firstname,
+        lastname: order.shippingAddress.lastname,
+        optInMarketing: formData.get("actualite-produits") ? true : false,
+      };
+
+      const fetchOptions = {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const response = await fetch(`${process.env.API_HOST}/register`, fetchOptions);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw {
+          message: `Error while signing up. Status code: ${response.status}`,
+          statusCode: response.status,
+          errorData,
+        };
+      }
+
+      const userData: UserDataAPIResponse = await response.json();
+
+      const domain = process.env.NODE_ENV === "development" ? "localhost" : process.env.MAIN_DOMAIN;
+      const cookieOptions = { httpOnly: true, secure: true, sameSite: "strict" as const, path: "/", domain };
+
+      cookies().set("accessToken", userData.accessToken, cookieOptions);
+      cookies().set("refreshToken", userData.refreshToken, cookieOptions);
+
+      // TODO: DON'T RETURN
+      return responseAPI("User successfully signed up", userData, true, response.status as 200);
+    }
+
+    return responseAPI("Nothing for now", {}, true, 200);
+
+    // const url = `${process.env.API_HOST}/order`;
+
+    // console.log(isNewUser);
+
+    // console.log(data);
+
+    // if (!data) {
+    //   const errorData = null;
+    //   throw {
+    //     message: "The form is required",
+    //     statusCode: 400,
+    //     errorData,
+    //   };
+    // }
+
+    // console.log(0);
+
+    // const fetchOptions = {
+    //   method: "POST",
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
+
+    // const response = await fetchWrapper(`${process.env.API_HOST}/order/init-payment`, fetchOptions);
+
+    // console.log(response);
+
+    // if (!response.ok) {
+    //   const errorData = await response.json().catch(() => null);
+    //   throw {
+    //     message: `Error payment. Status code: ${response.status}`,
+    //     statusCode: response.status,
+    //     errorData,
+    //   };
+    // }
+
+    // console.log(2);
+
+    // const initPaymentData = await response.json();
+
+    // console.log(3);
+
+    // console.log(initPaymentData);
+  } catch (error: any | ErrorReponse) {
+    console.error("payment error:", error);
+
+    const statusCode = error.statusCode || 500;
+    const errorMessage = error.message || "Error in payment";
+
+    return responseAPI(errorMessage, null, false, statusCode);
+  }
+}
+
+const truc = {
+  redirectionData: "GIANT_TOKEN",
+  redirectionStatusCode: "00",
+  redirectionStatusMessage: "INITIALISATION REQUEST ACCEPTED",
+  redirectionUrl: "https://sherlocks-paiement.secure.lcl.fr/payment",
+  redirectionVersion: "IR_WS_2.0",
+  seal: "778f0f4deb045e32adf11ebab2b75c9883e06d9fe15099a182d6c7243ddd6026",
+};
+
+const autre = {
+  redirectionStatusCode: "34",
+  redirectionVersion: "IR_WS_2.0",
+  seal: "7e369be3cac72b376ef58c688d3d9141ca8a3070b5442afdc657bc65d46613d0",
+};

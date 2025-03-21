@@ -116,7 +116,7 @@ export default function BoxtalMap() {
     <>
       <div id="parcel-point-map" className="h-[500px] w-full" />
       <div className="flex my-3 items-center justify-end">
-        {"code" in order["parcel-point"] ? (
+        {order["parcel-point"] && "code" in order["parcel-point"] ? (
           <div className="flex items-center justify-center w-full">
             <span className="italic font-bold text-md">Utiliser la map pour choisir le point relais</span>
           </div>

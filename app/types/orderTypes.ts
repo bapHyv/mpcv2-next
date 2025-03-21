@@ -58,16 +58,16 @@ export interface Order {
   products: OrderProducts;
   discounts: DiscountApplied[];
   fidelity: number;
-  shippingMethodId: number;
+  shippingMethodId: null | number;
   "shipping-method": "boxtal_connect" | "local_pickup" | "free_shipping" | "flat_rate" | string;
-  "parcel-point": ParcelPoint;
+  "parcel-point": null | ParcelPoint;
   shippingAddress: shippingAddress;
   billingAddress: billingAddress;
   "different-billing": boolean;
   "payment-method": "secure-3d-card" | "bank-transfer" | null;
-  total: number; // This is the total after discouts
+  "sub-total": number; // This is the total after discouts
   shippingCost: number;
-  totalOrder: number; // This is the total + shippingCost
+  total: number; // This is the total + shippingCost
   customerIp: string;
   customerUserAgent: string;
   deviceType: UAParser.IResult;
