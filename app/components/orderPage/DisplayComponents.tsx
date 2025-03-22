@@ -13,7 +13,7 @@ import PaymentMethods from "@/app/components/orderPage/PaymentMethods";
 import Shipping from "@/app/components/orderPage/Shipping";
 import AreYouCustomer from "@/app/components/cartPage/AreYouCustomer";
 import { useOrder } from "@/app/context/orderContext";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAlerts } from "@/app/context/alertsContext";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 import { useAuth } from "@/app/context/authContext";

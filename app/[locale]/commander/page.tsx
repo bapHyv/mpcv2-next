@@ -1,5 +1,4 @@
 import DisplayComponents from "@/app/components/orderPage/DisplayComponents";
-import ParcelPointMapComponent from "@/app/components/orderPage/ParcelPointMapComponent";
 import Title from "@/app/components/Title";
 
 export default function Page() {

@@ -5,17 +5,46 @@ import { Product } from "@/app/types/productsTypes";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata, ResolvingMetadata } from "next";
+
 import { terpenesToColor } from "@/app/utils/terpenesToColor";
 import { findHighest, findHighestOption } from "@/app/utils/productFunctions";
 import ProductOptions from "@/app/components/products/ProductOptions";
 import ProductPrice from "@/app/components/products/ProductPrice";
 import ReviewForm from "@/app/components/productPage/ReviewForm";
+import ShippingCalendar from "@/app/components/ShippingCalendar";
+import ShareSocialMedia from "@/app/components/ShareSocialMedia";
 
 interface Params {
   params: {
     locale: string;
     category: string;
     productSlug: string;
+  };
+}
+
+export async function generateMetadata({ params: { category, locale, productSlug } }: Params, parent: ResolvingMetadata): Promise<Metadata> {
+  const response = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`);
+  const product: Product = await response.json();
+  const domain = process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.MAIN_DOMAIN;
+  const imgHost = `${process.env.MAIN_URL}${process.env.IMG_HOST}`;
+  const images = product.images.others.reduce(
+    (acc, img) => {
+      return [...acc, { url: `${imgHost}${img.url}`, alt: img.url }];
+    },
+    [{ url: `${imgHost}${product.images.main.url}`, alt: product.images.main.alt }]
+  );
+
+  return {
+    title: product.name,
+    description: product.shortDescription,
+    metadataBase: new URL(`${domain}/${category}/${productSlug}`),
+    openGraph: {
+      images,
+      type: "article",
+      locale: "fr-FR",
+      alternateLocale: ["en-US", "es-ES"],
+    },
   };
 }
 
@@ -26,9 +55,17 @@ function classNames(...classes: any) {
 export default async function Page({ params: { category, locale, productSlug } }: Params) {
   const t = await getTranslations({ locale });
 
-  const product: Product = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`).then((res) => res.json());
+  const response = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`);
+  const product: Product = await response.json();
 
   const cannabinoidRating = "cannabinoids" in product ? findHighest(product.cannabinoids) : null;
+
+  const counts = product.ratings.reviews.reduce(
+    (acc, rating) => {
+      return { ...acc, [rating.rating]: acc[rating.rating] + 1 };
+    },
+    { "5": 0, "4": 0, "3": 0, "2": 0, "1": 0 } as { [key: string]: number }
+  );
 
   return (
     <div className="bg-white dark:bg-light-black">
@@ -80,7 +117,7 @@ export default async function Page({ params: { category, locale, productSlug } }
           </TabGroup>
 
           <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-            <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+            <h1 className="text-center md:text-left text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
               {product.name}
               {cannabinoidRating && (
                 <span className="text-green dark:text-light-green">{` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}</span>
@@ -313,6 +350,12 @@ export default async function Page({ params: { category, locale, productSlug } }
             </section>
           </div>
         </div>
+
+        <div className="flex flex-col xl:flex-row">
+          <ShippingCalendar />
+
+          <ShareSocialMedia shortDescription={product.shortDescription} />
+        </div>
         <div className="pt-16" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
 
         <ReviewForm id={product.id} />
@@ -320,6 +363,40 @@ export default async function Page({ params: { category, locale, productSlug } }
         {/* REVIEWS */}
         {!!product.ratings.reviews.length && (
           <div>
+            <div className="mt-6">
+              <h3 className="sr-only">Review data</h3>
+
+              <dl className="space-y-3">
+                {Object.entries(counts)
+                  .reverse()
+                  .map(([rating, count]) => (
+                    <div key={rating} className="flex items-center text-sm">
+                      <dt className="flex flex-1 items-center">
+                        <p className="w-3 font-medium text-gray-900">
+                          {rating}
+                          <span className="sr-only"> star reviews</span>
+                        </p>
+                        <div aria-hidden="true" className="ml-1 flex flex-1 items-center">
+                          <StarIcon aria-hidden="true" className={classNames(count > 0 ? "text-yellow-400" : "text-gray-300", "size-5 shrink-0")} />
+
+                          <div className="relative ml-3 flex-1">
+                            <div className="h-3 rounded-full border border-gray-200 bg-gray-100" />
+                            {count > 0 ? (
+                              <div
+                                style={{ width: `calc(${count} / ${product.ratings.reviews.length} * 100%)` }}
+                                className="absolute inset-y-0 rounded-full border border-yellow-400 bg-yellow-400"
+                              />
+                            ) : null}
+                          </div>
+                        </div>
+                      </dt>
+                      <dd className="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">
+                        {Math.round((count / product.ratings.reviews.length) * 100)}%
+                      </dd>
+                    </div>
+                  ))}
+              </dl>
+            </div>
             <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6 lg:max-w-7xl lg:px-8">
               <h2 className="text-lg font-medium text-neutral-900 dark:text-neutral-100 capitalize" id="reviews">
                 {t("singleProduct.reviews")}
