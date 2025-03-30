@@ -1,6 +1,13 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import Title from "@/app/components/Title";
+import CleanUpAfterPayment from "@/app/components/CleanUpAfterPayment";
 
 export default async function Page() {
+  const hasCookies = cookies().get("allow_bank_transfer_access");
+
+  if (!hasCookies || hasCookies.value !== "true") redirect("/");
+
   return (
     <>
       <Title
@@ -130,6 +137,7 @@ export default async function Page() {
         <span>0651525354</span>
         <span>dbalzary@gmail.com</span>
       </div>
+      <CleanUpAfterPayment />
     </>
   );
 }

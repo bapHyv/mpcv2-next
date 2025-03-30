@@ -1,10 +1,11 @@
 "use client";
 
 import { twMerge } from "tailwind-merge";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 import Star from "@/app/components/Star";
 import Title from "@/app/components/Title";
+import ParcelPointMapComponent from "@/app/components/shippingPage/ParcelPointMapComponent";
 
 import { useSse } from "@/app/context/sseContext";
 import { useOrder } from "@/app/context/orderContext";
@@ -15,7 +16,6 @@ import { inputCN } from "@/app/staticData/orderPageClasses";
 import { isBoxtalConnectMethod, isFlatRateMethod, isFreeShippingMethod, isLocalPickupMethod } from "@/app/utils/typeGuardsFunctions";
 import { ShippingMethod } from "@/app/types/sseTypes";
 import { findLowestVATRate } from "@/app/utils/orderFunctions";
-import ParcelPointMapComponent from "@/app/components/orderPage/ParcelPointMapComponent";
 
 export default function Shipping() {
   const { sseData } = useSse();
@@ -56,6 +56,7 @@ export default function Shipping() {
     } else {
       return [];
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart.products, cart.total, hasFreeShipping, order.shippingAddress.country, order["sub-total"], sseData]);
 
   const methods: JSX.Element[] = useMemo(() => {

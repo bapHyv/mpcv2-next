@@ -1,10 +1,10 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
-import { Prices, Product, Image, VariationTable, APIResponse } from "@/app/types/productsTypes";
-import { useAlerts } from "@/app/context/alertsContext";
-import { useSse } from "@/app/context/sseContext";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+
 import Modale from "@/app/components/Modale";
 import CartProductCard from "@/app/components/cart/CartProductCard";
 import ClientProductCard from "@/app/components/products/ClientProductCard";
+import { useSse } from "@/app/context/sseContext";
+import { Prices, Product, Image, VariationTable, APIResponse } from "@/app/types/productsTypes";
 
 export interface FormatedProduct {
   id: number;
@@ -85,7 +85,6 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
   const [variationTable, setVariationTable] = useState<null | VariationTable>(null);
 
   const { sseData } = useSse();
-  const { addAlert } = useAlerts();
 
   const updateProduct = (productId: number, updates: Partial<FormatedProduct>) => {
     setProducts((prevProducts) => {

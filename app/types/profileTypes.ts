@@ -130,9 +130,4 @@ export interface UserDataAPIResponse {
   orders: Order[];
   accessToken: string;
   refreshToken: string;
-  // umeta_id: number;
-  // user_id: number;
-  // meta_key: string;
-  // meta_value: string;
-  // metadata: UserMetadata;
 }

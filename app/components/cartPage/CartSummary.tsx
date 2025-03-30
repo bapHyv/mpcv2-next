@@ -77,11 +77,11 @@ export default function CartSummary() {
 
       <div className="mt-6 w-full flex justify-end">
         <Link
-          href="/commander"
+          href="/expedition"
           className={`w-full mt-6 rounded-md border border-transparent bg-green text-center px-4 py-3 text-base font-medium text-white shadow-sm 
           hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-50`}
         >
-          Commander
+          Choisir la méthode d&apos;expedition
         </Link>
       </div>
     </section>
