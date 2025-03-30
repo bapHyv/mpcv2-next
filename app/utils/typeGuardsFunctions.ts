@@ -1,5 +1,6 @@
 import { UserDataAPIResponse, UserMetadata, Address, Order, Product, Shipping } from "@/app/types/profileTypes";
 import { BoxtalConnectMethod, FlatRateMethod, FreeShippingMethod, IShippingMethod, LocalPickupMethod } from "@/app/types/sseTypes";
+import { InitPaymentResponse, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
 
 export function isId(data: any): data is { id: string } {
   if (!data || typeof data.id !== "string") {
@@ -14,29 +15,9 @@ export function isUserDataAPIResponse(data: any): data is UserDataAPIResponse {
   if (
     !data ||
     typeof data.ID !== "number" ||
-    typeof data.display_name !== "string" ||
     typeof data.firstname !== "string" ||
     typeof data.lastname !== "string" ||
-    typeof data.loyaltyPoints !== "number" ||
-    typeof data.mail !== "string" ||
-    typeof data.referralToken !== "string" ||
-    typeof data.optInMarketing !== "number" ||
-    !Array.isArray(data.discounts) ||
-    !Array.isArray(data.orders)
-    // typeof data.user_login !== "string" ||
-    // typeof data.user_nicename !== "string" ||
-    // typeof data.user_email !== "string" ||
-    // typeof data.user_url !== "string" ||
-    // typeof data.user_registered !== "string" ||
-    // typeof data.user_activation_key !== "string" ||
-    // typeof data.user_status !== "number" ||
-    // typeof data.accessToken !== "string" ||
-    // typeof data.refreshToken !== "string" ||
-    // typeof data.umeta_id !== "number" ||
-    // typeof data.user_id !== "number" ||
-    // typeof data.meta_key !== "string" ||
-    // typeof data.meta_value !== "string" ||
-    // typeof data.nickname !== "string" ||
+    typeof data.mail !== "string"
   ) {
     return false;
   }
@@ -173,4 +154,31 @@ export function isFreeShippingMethod(method: IShippingMethod): method is FreeShi
 
 export function isFlatRateMethod(method: IShippingMethod): method is FlatRateMethod {
   return method.type === "flat_rate" && "tax_status" in method && "cost" in method;
+}
+
+export function isSipsSuccessResponse(response: any): response is SipsSuccessResponse {
+  return (
+    typeof response === "object" &&
+    typeof response.redirectionData === "string" &&
+    ["00", "03", "12", "30", "34", "94", "99"].includes(response.redirectionStatusCode) &&
+    typeof response.redirectionStatusMessage === "string" &&
+    typeof response.redirectionUrl === "string" &&
+    typeof response.redirectionVersion === "string" &&
+    typeof response.seal === "string"
+  );
+}
+
+export function isSipsFailResponse(response: any): response is SipsFailResponse {
+  return (
+    typeof response === "object" &&
+    typeof response.redirectionStatusCode === "string" &&
+    typeof response.redirectionVersion === "string" &&
+    typeof response.seal === "string" &&
+    // Additional check to ensure it's not a success response
+    !isSipsSuccessResponse(response)
+  );
+}
+
+export function isSuccessResponse(response: InitPaymentResponse["data"]): response is { orderId: number } & SipsSuccessResponse {
+  return "redirectionUrl" in response;
 }

@@ -7,6 +7,7 @@ import { v4 as uuid } from "uuid";
 import { logout as logoutAction } from "@/app/actions";
 import { useAlerts } from "@/app/context/alertsContext";
 import { AuthContextType, UserDataAPIResponse } from "@/app/types/profileTypes";
+import { usePathname } from "next/navigation";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -19,6 +20,8 @@ const isTokenExpired = (token: string): boolean => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserDataAPIResponse | null>(null);
   const { addAlert } = useAlerts();
+  const pathname = usePathname();
+  console.log(pathname);
 
   const cleanUpLocalStorageUserRelated = () => {
     localStorage.removeItem("refreshToken");

@@ -52,7 +52,7 @@ export interface DiscountApplied extends DiscountCode {
   name: string;
 }
 
-export type shippingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string; password: string; "order-notes": string };
+export type shippingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string; "order-notes": string };
 export type billingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string };
 export interface Order {
   products: OrderProducts;
@@ -63,6 +63,7 @@ export interface Order {
   "parcel-point": null | ParcelPoint;
   shippingAddress: shippingAddress;
   billingAddress: billingAddress;
+  password: string;
   "different-billing": boolean;
   "payment-method": "secure-3d-card" | "bank-transfer" | null;
   "sub-total": number; // This is the total after discouts
@@ -71,4 +72,25 @@ export interface Order {
   customerIp: string;
   customerUserAgent: string;
   deviceType: UAParser.IResult;
+}
+
+export interface SipsSuccessResponse {
+  redirectionData: string;
+  redirectionStatusCode: "00" | "03" | "12" | "30" | "34" | "94" | "99";
+  redirectionStatusMessage: string;
+  redirectionUrl: string;
+  redirectionVersion: string;
+  seal: string;
+}
+
+export interface SipsFailResponse {
+  redirectionStatusCode: "00" | "03" | "12" | "30" | "34" | "94" | "99";
+  redirectionVersion: string;
+  seal: string;
+}
+
+export interface InitPaymentResponse {
+  data: {
+    orderId: number;
+  } & (SipsSuccessResponse | SipsFailResponse);
 }

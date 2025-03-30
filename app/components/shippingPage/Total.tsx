@@ -1,13 +1,15 @@
 "use client";
 
-import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";
-import Title from "@/app/components/Title";
-import { useOrder } from "@/app/context/orderContext";
 import Link from "next/link";
-import { useAuth } from "@/app/context/authContext";
-import Star from "@/app/components/Star";
 import { useMemo } from "react";
+
+import Star from "@/app/components/Star";
+import Title from "@/app/components/Title";
+
+import { useAuth } from "@/app/context/authContext";
+import { useOrder } from "@/app/context/orderContext";
+import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 
 export default function Order({ isPending }: { isPending: boolean }) {
   const { order } = useOrder();
@@ -15,12 +17,13 @@ export default function Order({ isPending }: { isPending: boolean }) {
 
   const isDisabled = useMemo(
     () => order["shipping-method"] === "boxtal_connect" && !order["parcel-point"],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [order["shipping-method"], order["parcel-point"]]
   );
 
   return (
-    <div aria-labelledby="Commander" className={twMerge(sectionClassname)}>
-      <Title title="Commander" type="h2" classname={twMerge(titleClassname)} firstLetterClassname="text-2xl" id="linked-account-discount-code" />
+    <div aria-labelledby="Total" className={twMerge(sectionClassname)}>
+      <Title title="Total" type="h2" classname={twMerge(titleClassname)} firstLetterClassname="text-2xl" id="linked-account-discount-code" />
       <span>{order.total.toFixed(2)}€</span>
       {!!order.shippingCost && <span className="text-neutral-500 text-xs italic"> (dont {order.shippingCost.toFixed(2)}€ de frais de port)</span>}
       <p className="mt-2">
@@ -45,19 +48,17 @@ export default function Order({ isPending }: { isPending: boolean }) {
             </label>
           </div>
           <div className="flex gap-x-2 items-center">
-            <input type="checkbox" name="actualite-produits" id="actualite-produits" />
-            <label htmlFor="actualite-produits">Je souhaite recevoir les actualités concernant les produits et promotions.</label>
+            <input type="checkbox" name="optInMarketing" id="optInMarketing" />
+            <label htmlFor="optInMarketing">Je souhaite recevoir les actualités concernant les produits et promotions.</label>
           </div>
         </fieldset>
       )}
       <button
         type="submit"
-        disabled={isDisabled || isPending}
+        disabled={isDisabled}
         className="mt-6 w-full py-2 bg-green text-white rounded-md shadow-md cursor-pointer disabled:bg-neutral-500 disabled:cursor-not-allowed"
       >
-        {order["payment-method"] === "secure-3d-card" ? "Payer par carte bancaire" : "Commander"}
-
-        {isDisabled ? <span className="text-sm italic"> (Veuillez choisir un point relais)</span> : ""}
+        {isDisabled ? <span className="text-sm italic"> (Veuillez choisir un point relais)</span> : "Choisir la méthode de paiement"}
       </button>
     </div>
   );

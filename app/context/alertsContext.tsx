@@ -24,7 +24,7 @@ interface IAlertElement {
 function AlertElement({ alertId, color, description, title, closeAlert }: IAlertElement) {
   const [isClosing, setIsClosing] = useState(false);
   const [isFingerClosing, setIsFingerClosing] = useState(false);
-  const [closeTime, setCloseTime] = useState(3500);
+  const [closeTime, setCloseTime] = useState(3000);
 
   const iconProps = {
     "aria-hidden": true,
@@ -59,8 +59,9 @@ function AlertElement({ alertId, color, description, title, closeAlert }: IAlert
     <div
       id={alertId}
       className={clsx(
+        "text-xs",
         isFingerClosing ? "animate-fingerslideoutright" : isClosing ? "animate-slideoutright" : "animate-slideinright",
-        `relative rounded-r-md bg${color}50 border-l-4 border${color}400 p-4 border-y border-r shadow-xl`
+        `relative rounded-r-md bg${color}50 border-l-4 border${color}400 p-2 border-y border-r shadow-xl`
       )}
       onMouseEnter={() => setCloseTime(60000)} // when the mouse enters the element
       onTouchStart={() => setCloseTime(60000)} // when the user stay pressed
@@ -94,14 +95,14 @@ function AlertElement({ alertId, color, description, title, closeAlert }: IAlert
         }}
       >
         <span className="sr-only">Dismiss</span>
-        <XMarkIcon aria-hidden="true" className={`absolute h-5 w-5 text${color}800 top-2 right-2 cursor-pointer rounded-md hover:bg${color}}100`} />
+        <XMarkIcon aria-hidden="true" className={`absolute h-5 w-5 text${color}800 top-1 right-1 cursor-pointer rounded-md hover:bg${color}}100`} />
       </div>
       <div className="flex">
         <div className="flex-shrink-0">{icon[color]}</div>
         <div className="ml-3">
-          <h3 className={`text-sm font-medium text${color}800`}>{title}</h3>
-          <div className={`mt-2 text-sm text${color}700`}>
-            <p>{description}</p>
+          <h3 className={`font-medium text${color}800`}>{title}</h3>
+          <div className={`mt-2 text${color}700`}>
+            <p className="pr-2">{description}</p>
           </div>
         </div>
       </div>
@@ -129,7 +130,7 @@ export function AlertsProvider({ children }: { children: ReactNode }): JSX.Eleme
     >
       <>
         {children}
-        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-5 bottom-4 flex flex-col gap-5 z-[9999]">{alerts}</div>
+        <div className="w-4/5 sm:w-3/5 xl:w-2/5 fixed right-1 bottom-16 flex flex-col gap-5 z-[9999]">{alerts}</div>
       </>
     </alertsContext.Provider>
   );

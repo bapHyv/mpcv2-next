@@ -1,16 +1,17 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Title from "../Title";
 import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
+import Star from "@/app/components/Star";
+import Title from "@/app/components/Title";
+
+import { useAuth } from "@/app/context/authContext";
+import { useOrder } from "@/app/context/orderContext";
 import { useSse } from "@/app/context/sseContext";
 import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
-import { useAuth } from "@/app/context/authContext";
 import { province } from "@/app/staticData/provinces";
-import { useOrder } from "@/app/context/orderContext";
-import Star from "@/app/components/Star";
-import clsx from "clsx";
 
 export default function Form() {
   const { sseData } = useSse();
@@ -242,22 +243,22 @@ export default function Form() {
           {!userData && (
             <div className="mt-2 flex flex-col">
               <label className="text-sm" htmlFor="shipping-password">
-                Mot de passe {<Star />}
+                Mot de passe {<Star />}{" "}
+                <span className="text-xs italic text-neutral-500">
+                  (Votre compte va être crée avec l&apos;email ci dessus et ce mot de passe. Si vous êtes déjà client chez nous vous serez
+                  automatiquement redirigé vers la page de connexion)
+                </span>
               </label>
               <input
                 type="password"
                 id="shipping-password"
                 name="password"
-                value={order.shippingAddress.password}
+                value={order.password}
                 onChange={handleChange}
                 required
                 aria-label="password"
                 className="border-1 border-neutral-300 shadow-md rounded-md focus:ring-1 focus:ring-black text-xs md:text-sm"
               />
-              <span className="mt-2 text-xs italic text-neutral-500">
-                (Un compte sera crée pour vous lors de la validation de la commande. Vous pourrez vous connecter lors de votre prochain achat avec
-                votre email et ce mot de passe)
-              </span>
             </div>
           )}
           <div className="mt-2 flex flex-col">

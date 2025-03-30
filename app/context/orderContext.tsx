@@ -43,7 +43,6 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       lastname: "",
       phone: "",
       postalCode: "",
-      password: "",
       province: "",
       "order-notes": "",
     },
@@ -60,6 +59,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       postalCode: "",
       province: "",
     },
+    password: "",
     "different-billing": false,
     "payment-method": null,
     "sub-total": 0,
@@ -94,10 +94,16 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   ) => {
     const { name, value, type, id, checked } = e.target as HTMLInputElement;
 
-    const isAddressType =
-      type === "text" || type === "select-one" || type === "textarea" || type === "email" || type === "tel" || type === "password";
+    const isAddressType = type === "text" || type === "select-one" || type === "textarea" || type === "email" || type === "tel";
 
-    if (isAddressType && id.startsWith("shipping-")) {
+    if (type === "password") {
+      setOrder((prevState) => {
+        return {
+          ...prevState,
+          password: value,
+        };
+      });
+    } else if (isAddressType && id.startsWith("shipping-")) {
       setOrder((prevState) => {
         return {
           ...prevState,
@@ -216,7 +222,6 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         lastname: prevState.shippingAddress.lastname ? prevState.shippingAddress.lastname : userShippingAddress?.lastname || "",
         phone: prevState.shippingAddress.phone ? prevState.shippingAddress.phone : userShippingAddress?.phone || "",
         postalCode: prevState.shippingAddress.postalCode ? prevState.shippingAddress.postalCode : userShippingAddress?.postalCode || "",
-        password: prevState.shippingAddress.password ? prevState.shippingAddress.password : "",
         province: prevState.shippingAddress.province ? prevState.shippingAddress.province : "",
         "order-notes": prevState.shippingAddress["order-notes"] ? prevState.shippingAddress["order-notes"] : "",
       };
@@ -250,7 +255,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         billingAddress,
       };
     });
-  }, [cart, order.discounts, order.fidelity, userShippingAddress, userBillingAddress, order.shippingMethodId]);
+  }, [cart, order.discounts, order.fidelity, userShippingAddress, userBillingAddress, order.shippingMethodId, sseData]);
 
   /**
    * Has to reset shippingMethodId and shippingCost when changing country.
@@ -276,6 +281,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
 
   /**
    * Remove all the discounts when the user log out
+   * Remove the value of the password input when the user is connected
    */
   useEffect(() => {
     if (!userData) {
@@ -289,10 +295,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       setOrder((prevState) => {
         return {
           ...prevState,
-          shippingAddress: {
-            ...prevState.shippingAddress,
-            password: "",
-          },
+          password: "",
         };
       });
     }
