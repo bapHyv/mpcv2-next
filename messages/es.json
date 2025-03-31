@@ -256,7 +256,7 @@
     "title": "Mis pedidos",
     "order": {
       "date": "Fecha",
-      "orderNumber": "Número de pedido",
+      "orderNumber": "Pedido n°",
       "total": "Total",
       "status": {
         "delivered": "Entregado",
@@ -302,7 +302,7 @@
     }
   },
   "tabs": {
-    "profile": "Información personal",
+    "profile": "Mis Datos Personales",
     "addresses": "Direcciones",
     "orders": "Pedidos",
     "loyalty": "Puntos de fidelidad y referidos"

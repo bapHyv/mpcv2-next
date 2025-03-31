@@ -6,7 +6,7 @@ export default function LoadingSpinner({
   className = "",
 }: {
   size?: "sm" | "md" | "lg";
-  color?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "white";
+  color?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "white" | "green" | "black";
   className?: string;
 }) {
   const sizeClasses = {
@@ -23,6 +23,8 @@ export default function LoadingSpinner({
     warning: "border-yellow-500",
     info: "border-cyan-500",
     white: "border-white",
+    green: "border-green",
+    black: "border-black",
   };
 
   return (

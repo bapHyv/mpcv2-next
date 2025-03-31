@@ -7,7 +7,7 @@ import { v4 as uuid } from "uuid";
 import { logout as logoutAction } from "@/app/actions";
 import { useAlerts } from "@/app/context/alertsContext";
 import { AuthContextType, UserDataAPIResponse } from "@/app/types/profileTypes";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -20,8 +20,8 @@ const isTokenExpired = (token: string): boolean => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserDataAPIResponse | null>(null);
   const { addAlert } = useAlerts();
+  const router = useRouter();
   const pathname = usePathname();
-  console.log(pathname);
 
   const cleanUpLocalStorageUserRelated = () => {
     localStorage.removeItem("refreshToken");
@@ -41,6 +41,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userData]);
 
+  useEffect(() => {
+    if (!userData && pathname.split("/").includes("mon-compte")) {
+      router.push("/connexion");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   const logout = async () => {
     try {
       const result = await logoutAction();
@@ -48,6 +55,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         cleanUpLocalStorageUserRelated();
         setUserData(null);
         addAlert(uuid(), "You've successfully logged out", "Logout successful", "emerald");
+        if (pathname.split("/").includes("mon-compte")) {
+          router.push("/");
+        }
       } else {
         throw new Error("Error while logging out");
       }

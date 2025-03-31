@@ -56,12 +56,12 @@ export default function Addresses({ addresses, setEditingAddress, setIsModalOpen
   }, [state]);
 
   return (
-    <ul role="list" className="max-w-2xl mx-auto p-6">
+    <ul role="list" className="max-w-2xl mx-auto px-6 pb-3 xl:p-6">
       {addresses.map((address: Address, i) => (
         <li key={`${address.id}-${i}`} className="bg-white border border-neutral-100 shadow-md rounded-lg p-6 mb-4 hover:shadow-lg transition-shadow">
           <div className="flex flex-col md:flex-row gap-y-3 justify-between items-start">
             <div>
-              <h3 className="text-lg font-semibold text-green">{address.address1}</h3>
+              <h3 className="text-lg font-semibold">{address.address1}</h3>
               <p className="text-sm text-gray-600">{`${address.country}, ${address.city} ${address.postalCode}`}</p>
             </div>
             <div className="text-sm text-gray-500 w-full md:w-fit flex justify-end gap-x-3">

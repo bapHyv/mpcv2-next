@@ -392,7 +392,7 @@ export default function ShareSocialMedia({ shortDescription }: Props) {
       <div className="relative mt-12 xl:w-1/2">
         <div
           className={clsx(
-            "absolute z-10 -translate-y-1/2 left-1/2 -translate-x-1/2 px-3 m-auto",
+            "w-3/4 absolute z-10 -translate-y-1/2 left-1/2 -translate-x-1/2 px-3 m-auto",
             "flex items-center justify-center gap-x-2",
             "bg-green text-white border border-black rounded-full"
           )}

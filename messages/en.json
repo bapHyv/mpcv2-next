@@ -217,7 +217,7 @@
     "failUpdatedAddress": "Failed to update the address"
   },
   "profile": {
-    "title": "Personal Information",
+    "title": "My Personal Information",
     "form": {
       "titleSection": {
         "label": "Title",
@@ -256,7 +256,7 @@
     "title": "My Orders",
     "order": {
       "date": "Date",
-      "orderNumber": "Order Number",
+      "orderNumber": "Order n°",
       "total": "Total",
       "status": {
         "delivered": "Delivered",

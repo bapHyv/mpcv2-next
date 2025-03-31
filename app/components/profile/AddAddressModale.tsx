@@ -11,6 +11,7 @@ import { isAddress } from "@/app/utils/typeGuardsFunctions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { useSse } from "@/app/context/sseContext";
+import { disableBodyScroll, enableBodyScroll } from "@/app/utils/bodyScroll";
 
 interface Params {
   setIsAddModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -41,6 +42,21 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
 
   //@ts-ignore
   const [state, formAction] = useFormState(addAddress, formData);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const target = e.target as HTMLInputElement;
+    const isChecked = target.checked;
+    const { name, value, type } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? isChecked : value,
+    }));
+  };
+
+  useEffect(() => {
+    disableBodyScroll();
+    return () => enableBodyScroll();
+  }, []);
 
   useEffect(() => {
     if (state.isSuccess && state.data && state.statusCode === 200) {
@@ -77,16 +93,6 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const target = e.target as HTMLInputElement;
-    const isChecked = target.checked;
-    const { name, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? isChecked : value,
-    }));
-  };
 
   return (
     <div
