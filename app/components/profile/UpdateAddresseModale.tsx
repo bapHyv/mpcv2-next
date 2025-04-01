@@ -11,6 +11,7 @@ import { Address } from "@/app/types/profileTypes";
 import { updateAddress } from "@/app/actions";
 import { isAddress } from "@/app/utils/typeGuardsFunctions";
 import { useSse } from "@/app/context/sseContext";
+import { disableBodyScroll, enableBodyScroll } from "@/app/utils/bodyScroll";
 
 interface Params {
   editingAddress: Address;
@@ -27,6 +28,11 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
   const { sseData } = useSse();
+
+  useEffect(() => {
+    disableBodyScroll();
+    return () => enableBodyScroll();
+  }, []);
 
   useEffect(() => {
     if (state.isSuccess && isAddress(state.data) && state.data && state.statusCode === 200) {

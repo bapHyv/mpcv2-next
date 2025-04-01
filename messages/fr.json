@@ -217,7 +217,7 @@
     "failUpdatedAddress": "Échec de la mise à jour de l'adresse."
   },
   "profile": {
-    "title": "Informations Personnelles",
+    "title": "Mes Informations Personnelles",
     "form": {
       "titleSection": {
         "label": "Titre",
@@ -256,7 +256,7 @@
     "title": "Mes commandes",
     "order": {
       "date": "Date",
-      "orderNumber": "Numéro de Commande",
+      "orderNumber": "Commande n°",
       "total": "Total",
       "status": {
         "delivered": "Délivré",
@@ -295,7 +295,7 @@
     },
     "cartPoints": "POINTS DU PANIER : À chaque Point que vous utilisez vaut 0,1 €",
     "referral": {
-      "title": "Votre lien de parrainage",
+      "title": "Cliquez sur le bouton pour copier votre lien de parrainage",
       "description": "Copiez et partagez votre lien de parrainage avec vos amis pour gagner des points !",
       "copyButton": "Copier",
       "footerText": "Invitez vos amis à nous rejoindre pour gagner encore plus de points !"

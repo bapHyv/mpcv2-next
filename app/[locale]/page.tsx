@@ -171,7 +171,7 @@ export default async function Page({ params }: { params: Params }) {
         </div>
         <div className="h-10" />
       </section>
-      <section className="mt-10">
+      <section className="mt-10 p-2">
         <div className="flex flex-col md:items-center lg:flex-row lg:gap-x-5 lg:items-start">
           <Image src="/section_cbd.jpg" alt={t("cbdSection.imgAlt")} width={550} height={367} />
           <div>
@@ -187,7 +187,7 @@ export default async function Page({ params }: { params: Params }) {
           </div>
         </div>
       </section>
-      <section className="mt-10">
+      <section className="mt-10 p-2">
         <div className="flex flex-col md:items-center lg:flex-row-reverse lg:gap-x-5 lg:items-start">
           <Image src="/service_bg_hp.jpeg" alt={t("cbdPassion.imgAlt")} width={550} height={367} />
           <div>

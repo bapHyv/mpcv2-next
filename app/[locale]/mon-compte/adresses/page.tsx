@@ -3,11 +3,11 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { useAuth } from "@/app/context/authContext";
-import { addAddress, deleteAddress, updateAddress } from "@/app/actions";
 import { Address } from "@/app/types/profileTypes";
 import DisplayAddresses from "@/app/components/profile/DisplayAddresses";
 import UpdateAddresseModale from "@/app/components/profile/UpdateAddresseModale";
 import AddAddressModale from "@/app/components/profile/AddAddressModale";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 export default function Page() {
   const t = useTranslations("addresses");
@@ -18,9 +18,13 @@ export default function Page() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   return (
-    <>
-      <p className="text-green text-center font-medium text-2xl my-8">{t("title")}</p>
-      {!userData ? null : !!userData.addresses.length ? (
+    <section>
+      <h2 className="text-green text-center font-medium text-2xl my-4">{t("title")}</h2>
+      {!userData ? (
+        <div className="flex items-center justify-center">
+          <LoadingSpinner size="lg" color="black" className="my-10" />
+        </div>
+      ) : !!userData.addresses.length ? (
         <DisplayAddresses addresses={userData.addresses} setEditingAddress={setEditingAddress} setIsModalOpen={setIsModalOpen} />
       ) : (
         <p
@@ -42,6 +46,6 @@ export default function Page() {
       {isModalOpen && editingAddress && (
         <UpdateAddresseModale editingAddress={editingAddress} setEditingAddress={setEditingAddress} setIsModalOpen={setIsModalOpen} />
       )}
-    </>
+    </section>
   );
 }
