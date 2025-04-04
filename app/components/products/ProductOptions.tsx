@@ -1,19 +1,18 @@
 "use client";
 
-import { useAlerts } from "@/app/context/alertsContext";
-import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
-
-import { useSse } from "@/app/context/sseContext";
-import { Image, Prices } from "@/app/types/productsTypes";
-import { Field, Radio, RadioGroup } from "@headlessui/react";
-import { ShoppingBagIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
+import { v4 as uuid } from "uuid";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Fragment, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
-import { v4 as uuid } from "uuid";
+import { Field, Radio, RadioGroup } from "@headlessui/react";
+
+import FidelityPointsEarned from "@/app/components/products/FidelityPointsEarned";
+import { useAlerts } from "@/app/context/alertsContext";
+import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
+import { useSse } from "@/app/context/sseContext";
+import { Image, Prices } from "@/app/types/productsTypes";
 
 interface Params {
   image: Image;
@@ -34,6 +33,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
   const { addAlert } = useAlerts();
   const t = useTranslations("category");
   const params = useParams();
+  const price = !!products[id] ? parseFloat(products[id].price) : 0;
 
   const hasStockAvailable = useMemo(() => {
     return !!products[id] ? parseInt(products[id].stock) > 0 : false;
@@ -102,7 +102,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
   return !!products[id] ? (
     <div className={twMerge(clsx("mt-2 xl:mt-6", { "mt-1": isInModale }))}>
       {/* Option picker */}
-      <fieldset aria-label="Choose a size" className="">
+      <fieldset aria-label="Choose an option">
         {/* pricesPer === "g" ? t("quantity") : t("unit") */}
         <RadioGroup value={products[id].option} onChange={handleSelectOption} className="grid grid-cols-3 gap-1 w-5/6 m-auto">
           {Object.entries(products[id].productOptions).map(([option, price]) => (
@@ -140,6 +140,7 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
         </RadioGroup>
       </fieldset>
       {/* ADD CART BUTTON*/}
+      {!isInModale && <FidelityPointsEarned price={price} />}
       <div className={twMerge(clsx("w-5/6 mx-auto my-6 flex flex-col items-center justify-center", { "mt-3 mb-1": isInModale }))}>
         <button
           onClick={addProductToCart}
@@ -158,56 +159,23 @@ export default function ProductOptions({ prices, pricesPer, name, id, image, sto
       </div>
     </div>
   ) : (
-    <div className="mt-2 sm:mt-6 pr-3 sm:pr-0">
-      <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{pricesPer === "g" ? t("quantity") : t("unit")}</div>
-      <div className="mt-2 flex gap-1 sm:gap-2 sm:flex-wrap">
-        {new Array(1).fill(0).map((_, i) => (
-          <div
-            key={`${i}-key`}
-            className={clsx(
-              "relative p-1 w-8 h-8 text-xs cursor-pointer flex items-center justify-center rounded-md border border-gray-200 bg-white uppercase text-neutral-900 animate-pulse",
-              "sm:p-2 sm:w-10 sm:h-10 sm:font-medium"
-            )}
-          ></div>
-        ))}
+    <div className={twMerge(clsx("mt-2 xl:mt-6 animate-pulse", { "mt-1": isInModale }))}>
+      <div>
+        <div className="grid grid-cols-3 gap-1 w-5/6 m-auto">
+          {new Array(6).fill(0).map((_, i) => (
+            <div
+              key={i}
+              className={clsx(
+                "col-span-1 w-[86.22px] h-[50px] rounded-md border border-neutral-200 bg-neutral-300",
+                "md:w-[77.88px]",
+                "lg:w-[104px]"
+              )}
+            />
+          ))}
+        </div>
       </div>
-      <div className="hidden sm:flex sm:flex-col sm:items-center sm:justify-center">
-        <button
-          onClick={addProductToCart}
-          disabled
-          className={twMerge(
-            clsx(
-              "mt-8 px-8 py-3 text-base font-medium flex w-full items-center justify-center rounded-md border border-transparent 2xl:w-2/3 text-neutral-400 animate-pulse",
-              { "bg-green hover:bg-dark-green focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2": hasStockAvailable },
-              { "cursor-not-allowed bg-neutral-400": !hasStockAvailable }
-            )
-          )}
-        >
-          {t("addToCart")}
-        </button>
-        {/* This condition is here to remove the "details" when on the single product page */}
-        {!("productSlug" in params) && (
-          <p className="text-center my-4">
-            <Link href={`/${category}/${slug}`} className="font-medium text-green hover:text-light-green underline">
-              {t("details")}
-            </Link>
-          </p>
-        )}
-      </div>
-      <div className="mt-4 flex justify-between items-center sm:hidden">
-        {/* This condition is here to remove the "details" when on the single product page */}
-        {!("productSlug" in params) ? (
-          <p className="text-center my-4">
-            <Link href={`/${category}/${slug}`} className="font-medium text-green hover:text-light-green underline pl-1">
-              {t("details")}
-            </Link>
-          </p>
-        ) : (
-          <div></div>
-        )}
-        <button onClick={addProductToCart} className="relative animate-pulse" disabled={!hasStockAvailable}>
-          <ShoppingBagIcon className={twMerge(clsx("w-10 h-10 p-1 rounded-md text-white bg-neutral-400 z-[1]"))} />
-        </button>
+      <div className={twMerge(clsx("w-5/6 mx-auto my-6", { "mt-3 mb-1": isInModale }))}>
+        <div className={twMerge(clsx("w-full h-[42px] rounded-md bg-neutral-300"))} />
       </div>
     </div>
   );

@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+.section-services-container {
+  position: absolute;
+  background-attachment: local;
+  background-clip: padding-box;
+  background-image: url(/service_bg_hp.jpeg);
+  background-origin: padding-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.section-services {
+  position: absolute;
+  background-attachment: local;
+  background-clip: padding-box;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-origin: padding-box;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+
 .open-menu-item {
   animation-name: openMenuItem;
   animation-duration: 0.2s;
@@ -274,17 +304,19 @@ article h4,
 .city-page h1,
 .city-page h2,
 .city-page h3,
-.city-page h4 {
-  font-weight: 800;
-  --tw-text-opacity: 1;
-  color: rgb(30 133 113 / var(--tw-text-opacity)) /* #1e8571 */;
+.city-page h4,
+.product-page-long-description h1,
+.product-page-long-description h2,
+.product-page-long-description h3,
+.product-page-long-description h4 {
   text-transform: uppercase;
   margin-bottom: 1rem /* 16px */;
 }
 
 article h1,
 .utility-page h1,
-.city-page h1 {
+.city-page h1,
+.product-page-long-description h1 {
   text-align: center;
   font-size: 2.25rem /* 36px */;
   line-height: 2.5rem /* 40px */;
@@ -292,7 +324,12 @@ article h1,
 
 article h2,
 .utility-page h2,
-.city-page h2 {
+.city-page h2,
+.product-page-long-description h2 {
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(30 133 113 / var(--tw-text-opacity)) /* #1e8571 */;
+  text-align: center;
   margin-top: 1rem /* 16px */;
   font-size: 1.5rem /* 24px */;
   line-height: 2rem /* 32px */;
@@ -300,7 +337,9 @@ article h2,
 
 article h3,
 .utility-page h3,
-.city-page h3 {
+.city-page h3,
+.product-page-long-description h3 {
+  font-weight: 500;
   margin-top: 1rem /* 16px */;
   font-size: 1.25rem /* 20px */;
   line-height: 1.75rem /* 28px */;
@@ -308,7 +347,9 @@ article h3,
 
 article h4,
 .utility-page h4,
-.city-page h4 {
+.city-page h4,
+.product-page-long-description h4 {
+  text-align: center;
   margin-top: 1rem /* 16px */;
   font-size: 1rem /* 16px */;
   line-height: 1.75rem /* 28px */;
@@ -316,20 +357,23 @@ article h4,
 
 article p,
 .utility-page p,
-.city-page p {
+.city-page p,
+.product-page-long-description p {
   margin-top: 1rem /* 16px */;
   margin-bottom: 1rem /* 16px */;
 }
 
 article strong,
 .utility-page strong,
-.city-page strong {
+.city-page strong,
+.product-page-long-description strong {
   font-weight: 500;
 }
 
 article a,
 .utility-page a,
-.city-page a {
+.city-page a,
+.product-page-long-description a {
   text-decoration-line: underline;
   --tw-text-opacity: 1;
   color: rgb(30 133 113 / var(--tw-text-opacity)) /* #1e8571 */;
@@ -338,19 +382,23 @@ article a,
 
 article ul,
 .utility-page ul,
-.city-page ul {
+.city-page ul,
+.product-page-long-description ul {
+  margin-top: 1rem;
   padding-left: 1.25rem /* 20px */;
 }
 
 article ul li,
 .utility-page ul li,
-.city-page ul li {
+.city-page ul li,
+.product-page-long-description ul li {
   padding-inline-start: 0.5rem;
 }
 
 article ul li::marker,
 .utility-page ul li::marker,
-.city-page ul li::marker {
+.city-page ul li::marker,
+.product-page-long-description ul li::marker {
   content: url(/canna-green.svg);
 }
 

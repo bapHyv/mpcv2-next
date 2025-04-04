@@ -27,9 +27,9 @@ const PointsSection: React.FC = () => {
   };
 
   return (
-    <section>
+    <section className="mb-4">
       <h2 className="text-green text-center font-medium text-2xl my-4">Mon programme fidélité</h2>
-      <div className="flex flex-col gap-y-10 xl:gap-y-16">
+      <div className="flex flex-col gap-y-10 xl:gap-y-12 mt-8">
         {/* Loyalty Points Section */}
         <section>
           {/* Header */}

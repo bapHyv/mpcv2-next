@@ -4,6 +4,9 @@ const config: Config = {
   content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}", "./app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
+      screens: {
+        "3xl": "1920px",
+      },
       colors: {
         black: "#1E1E1C",
         "dark-black": "#181816",
@@ -36,15 +39,29 @@ const config: Config = {
             transform: "scale3d(1, 1, 1)",
           },
         },
+        slideinleft: {
+          "0%": { transform: "translateX(-100%)" },
+          "50%": { transform: "translateX(5%)" },
+          "100%": { transform: "translateX(0)" },
+        },
         slideinright: {
           "0%": { transform: "translateX(100%)" },
           "50%": { transform: "translateX(-10%)" },
           "100%": { transform: "translateX(0)" },
         },
+        slideoutleft: {
+          "0%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(5%)" },
+          "100%": { transform: "translateX(-110%)" },
+        },
         slideoutright: {
           "0%": { transform: "translateX(0)" },
           "50%": { transform: "translateX(-10%)" },
           "100%": { transform: "translateX(110%)" },
+        },
+        fingerslideoutleft: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-110%)" },
         },
         fingerslideoutright: {
           "0%": { transform: "translateX(0)" },
@@ -68,8 +85,11 @@ const config: Config = {
       },
       animation: {
         tada: "tada 1s ease-in-out 0.25s infinite",
+        slideinleft: "slideinleft 0.5s ease-out forwards",
         slideinright: "slideinright 0.5s ease-out forwards",
+        slideoutleft: "slideoutleft 0.5s ease-out forwards",
         slideoutright: "slideoutright 0.5s ease-out forwards",
+        fingerslideoutleft: "fingerslideoutleft 0.5s ease-out forwards",
         fingerslideoutright: "fingerslideoutright 0.5s ease-out forwards",
         slightpulse: "slightpulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         backgroundOpacitySlightPulse: "backgroundOpacitySlightPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",

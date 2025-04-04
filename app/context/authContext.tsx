@@ -41,13 +41,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userData]);
 
-  useEffect(() => {
-    if (!userData && pathname.split("/").includes("mon-compte")) {
-      router.push("/connexion");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
-
   const logout = async () => {
     try {
       const result = await logoutAction();

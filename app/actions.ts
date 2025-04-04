@@ -179,8 +179,6 @@ export async function register(prevState: any, formData: FormData) {
     cookies().set("accessToken", userData.accessToken, cookieOptions);
     cookies().set("refreshToken", userData.refreshToken, cookieOptions);
 
-    console.log(responseAPI("User successfully signed up", userData, true, response.status as 200));
-
     return responseAPI("User successfully signed up", userData, true, response.status as 200);
   } catch (error: any | ErrorReponse) {
     console.error("Sign up error:", error);

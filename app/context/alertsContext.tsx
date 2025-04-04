@@ -59,8 +59,9 @@ function AlertElement({ alertId, color, description, title, closeAlert }: IAlert
     <div
       id={alertId}
       className={clsx(
-        "text-xs xl:text-base",
-        isFingerClosing ? "animate-fingerslideoutright" : isClosing ? "animate-slideoutright" : "animate-slideinright",
+        "text-xs",
+        "md:text-sm",
+        isFingerClosing ? "animate-fingerslideoutleft" : isClosing ? "animate-slideoutleft" : "animate-slideinleft",
         `relative rounded-r-md bg${color}50 border-l-4 border${color}400 p-2 border-y border-r shadow-xl`
       )}
       onMouseEnter={() => setCloseTime(60000)} // when the mouse enters the element
@@ -101,7 +102,7 @@ function AlertElement({ alertId, color, description, title, closeAlert }: IAlert
         <div className="flex-shrink-0">{icon[color]}</div>
         <div className="ml-3">
           <h3 className={`font-medium text${color}800`}>{title}</h3>
-          <div className={`mt-2 text${color}700`}>
+          <div className={`mt-1 text${color}700`}>
             <p className="pr-2">{description}</p>
           </div>
         </div>
@@ -130,7 +131,7 @@ export function AlertsProvider({ children }: { children: ReactNode }): JSX.Eleme
     >
       <>
         {children}
-        <div className="w-[95%] sm:w-3/5 xl:w-2/5 fixed right-1 bottom-16 xl:bottom-5 flex flex-col gap-5 z-[9999]">{alerts}</div>
+        <div className={clsx("w-[95%] fixed left-1 bottom-16 flex flex-col gap-5 z-[9999]", "md:w-3/5", "md:bottom-2", "xl:w-2/5")}>{alerts}</div>
       </>
     </alertsContext.Provider>
   );

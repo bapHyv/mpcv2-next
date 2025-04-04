@@ -1,55 +1,91 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-const detectDeviceType = () => {
-  const userAgent = navigator.userAgent.toLowerCase();
-  const screenWidth = typeof window !== undefined ? window.innerWidth : 0;
-  const isTouchSupported = "maxTouchPoints" in navigator && navigator.maxTouchPoints > 0;
-
-  // User agent patterns
-  const isMobileUA = /iphone|android|blackberry|windows phone|webos/i.test(userAgent);
-  const isTabletUA = /ipad|android(?!.*mobile)|tablet|kindle|silk/i.test(userAgent);
-  const isDesktopUA = !isMobileUA && !isTabletUA;
-
-  // Screen size breakpoints
-  const isSmallScreen = screenWidth <= 767;
-  const isMediumScreen = screenWidth > 767 && screenWidth <= 1024;
-  const isLargeScreen = screenWidth > 1024;
-
-  // Decision logic
-  if (isMobileUA && isSmallScreen && isTouchSupported) {
-    return "smartphone";
-  } else if (isTabletUA && isMediumScreen && isTouchSupported) {
-    return "tablet";
-  } else if (isDesktopUA && isLargeScreen && !isTouchSupported) {
-    return "desktop";
-  } else {
-    if (isTouchSupported) {
-      if (screenWidth <= 767) return "smartphone";
-      if (screenWidth <= 1024) return "tablet";
-    }
-    if (isLargeScreen) return "desktop";
-    return "unknown";
-  }
+// Define breakpoints (adjust as needed)
+const BREAKPOINTS = {
+  SMARTPHONE: 767, // Max width for smartphones
+  TABLET: 1024, // Max width for tablets
 };
 
-const useDeviceType = () => {
-  const [deviceType, setDeviceType] = useState<"smartphone" | "tablet" | "desktop" | "unknown">(detectDeviceType());
+type DeviceType = "smartphone" | "tablet" | "desktop" | "unknown";
+
+const useDeviceType = (): DeviceType => {
+  const [screenWidth, setScreenWidth] = useState(0);
+  const [userAgent, setUserAgent] = useState<string | null>(null);
+  const [isTouchSupported, setIsTouchSupported] = useState<boolean | null>(null);
+  const [deviceType, setDeviceType] = useState<DeviceType>("unknown");
+
+  // --- Step 1: Gather Raw Data ---
 
   useEffect(() => {
-    // Update device type on window resize
     const handleResize = () => {
-      setDeviceType(detectDeviceType());
+      setScreenWidth(window.innerWidth);
     };
+
+    handleResize();
 
     window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-    // Cleanup event listener on unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []); // Empty dependency array means it only runs on mount/unmount
+  useEffect(() => {
+    if (typeof navigator !== "undefined") {
+      setUserAgent(navigator.userAgent.toLowerCase());
+      const touch = "maxTouchPoints" in navigator && navigator.maxTouchPoints > 0;
+      setIsTouchSupported(touch);
+    }
+  }, []);
+
+  // --- Step 2: Calculate Device Type based on gathered data ---
+
+  useEffect(() => {
+    // Wait until we have all necessary information
+    if (screenWidth === 0 || userAgent === null || isTouchSupported === null) {
+      // Keep initial "unknown" or previous state until data is ready
+      // Setting explicitly to unknown might cause flicker if data arrives fast
+      // If you prefer stability until calculation:
+      // if (deviceType !== "unknown") setDeviceType("unknown"); // Set only if not already unknown
+      // Or simply return and wait for next render cycle:
+      return;
+    }
+
+    // User agent checks (using useMemo could optimize if UA string was frequently changing, but it doesn't)
+    const isMobileUA = /iphone|android.*mobile|blackberry|windows phone|webos/i.test(userAgent);
+    const isTabletUA = /ipad|android(?!.*mobile)|tablet|kindle|silk|playbook/i.test(userAgent);
+
+    let calculatedType: DeviceType = "unknown";
+
+    // Decision Logic (Example - Prioritize screen size, refine with touch/UA)
+    if (screenWidth <= BREAKPOINTS.SMARTPHONE) {
+      // Small screens are almost always smartphones
+      calculatedType = "smartphone";
+    } else if (screenWidth <= BREAKPOINTS.TABLET) {
+      // Medium screens: Could be tablet or small laptop
+      // Prioritize tablet if touch is supported or UA indicates tablet
+      if (isTouchSupported || isTabletUA) {
+        calculatedType = "tablet";
+      } else {
+        // Otherwise, likely a small non-touch laptop
+        calculatedType = "desktop";
+      }
+    } else {
+      // Large screens: Could be desktop, large tablet, or touch laptop
+      // Prioritize desktop unless touch AND tablet UA are present
+      if (isTouchSupported && isTabletUA) {
+        // Could be a large tablet (e.g., iPad Pro)
+        calculatedType = "tablet";
+      } else {
+        // Default to desktop for large screens (includes touch laptops)
+        calculatedType = "desktop";
+      }
+    }
+
+    // Update the state only if the calculated type is different
+    if (calculatedType !== deviceType) {
+      setDeviceType(calculatedType);
+    }
+  }, [screenWidth, userAgent, isTouchSupported, deviceType]);
 
   return deviceType;
 };

@@ -101,7 +101,9 @@ export default function ProductCard({
             </div>
             <div className="absolute w-full bottom-2 flex items-center justify-center">
               <div className="text-xs text-center px-1 py-0.5 rounded-full bg-emerald-100 border border-emerald-700 text-emerald-700">
-                <span>CBD: 12%</span>
+                <span>
+                  {cannabinoidRating?.name}: {cannabinoidRating?.value}%
+                </span>
               </div>
             </div>
           </div>

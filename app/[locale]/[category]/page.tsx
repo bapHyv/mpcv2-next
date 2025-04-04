@@ -62,6 +62,7 @@ export default async function Page({ params: { locale, category } }: Params) {
 
   const response = await fetch(`${process.env.API_HOST}/products/${currentSlug}`);
   const data: APIResponse<Product> = await response.json();
+  console.log(data);
   const formatedProducts: Product[] = Object.values(data.products);
 
   return (

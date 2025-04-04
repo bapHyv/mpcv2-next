@@ -1,12 +1,13 @@
 import { StarIcon } from "@heroicons/react/20/solid";
+import { getTranslations } from "next-intl/server";
+import { twMerge } from "tailwind-merge";
 import Image from "next/image";
-import { BaseProduct, Hash, Moonrock, Oil, Flower } from "@/app/types/productsTypes";
 import Link from "next/link";
 import clsx from "clsx";
-import { findHighest, findHighestOption } from "@/app/utils/productFunctions";
-import { getTranslations } from "next-intl/server";
-import ProductOptions from "./ProductOptions";
-import { twMerge } from "tailwind-merge";
+
+import ProductOptions from "@/app/components/products/ProductOptions";
+import { BaseProduct, Hash, Moonrock, Oil, Flower, Cannabinoids, Terpenes } from "@/app/types/productsTypes";
+import { findHighest, findHighestOption, returnRenamedGrowingMethod } from "@/app/utils/productFunctions";
 
 export default async function ProductCard({
   id,
@@ -15,25 +16,26 @@ export default async function ProductCard({
   isPromo,
   name,
   prices,
-  productUrl,
   stock,
   ratings,
-  // @ts-ignore
   cannabinoids,
-  // @ts-ignore
-  grower,
-  // @ts-ignore
-  terpenes,
   locale,
   category,
   mainDivClassname,
   secondeDivClassname,
   slug,
+  growingMethod,
+  country,
 }: (BaseProduct | Oil | Hash | Moonrock | Flower) & {
   locale: string;
   category: string;
+  cannabinoids?: Cannabinoids;
+  grower?: string;
+  terpenes?: Terpenes;
   mainDivClassname?: string;
   secondeDivClassname?: string;
+  growingMethod?: "Extérieur" | "Sous-serre" | "Intérieur";
+  country?: "af" | "ch" | "en" | "es" | "fr" | "it" | "lb" | "ma" | "np" | "usa";
 }) {
   const t = await getTranslations({ locale, namespace: "category" });
 
@@ -41,19 +43,7 @@ export default async function ProductCard({
 
   const highestOption = findHighestOption(prices);
 
-  const highestTerpene = findHighest(terpenes);
-
-  const terpenesFlavor = {
-    caryophyllene: t("caryophyllene"),
-    limonene: t("limonene"),
-    myrcene: t("myrcene"),
-    linalol: t("linalol"),
-    terpinolene: t("terpinolene"),
-    piperine: t("piperine"),
-    caryophyllenePeper: t("caryophyllenePeper"),
-    pinene: t("pinene"),
-    humulene: t("humulene"),
-  };
+  const renamedGrowindMethod = returnRenamedGrowingMethod(growingMethod);
 
   return (
     <div className={twMerge(clsx("transform text-left text-base transition w-[336px] sm:w-[306px] lg:w-[25rem]"), mainDivClassname)}>
@@ -74,26 +64,37 @@ export default async function ProductCard({
                 </div>
               </Link>
             )}
+
+            {/* PROMO or OUT OF STOCK CHIP */}
             {!parseInt(stock) ? (
               <div className="absolute right-5 top-5 p-1 text-sm rounded-md text-white bg-red-600">{t("outOfStock")}</div>
             ) : isPromo ? (
               <div className="absolute right-5 top-5 p-1 text-sm rounded-md animate-tada text-white bg-green">{t("promo")}</div>
             ) : null}
-            {/* TODO: ADD grower ET highestTerpene */}
-            {/* GROWER AND TERPENES */}
+
+            {/* COUNTRY and GROWING METHOD */}
             <div className="absolute top-2 left-2 flex items-center gap-1">
-              <div className="w-6">
-                <Image src={`/fr.png`} alt={highestTerpene?.name || "terpene alt"} width={20} height={20} />
-              </div>
-              <div className="w-6">
-                <Image src={`/interieur.png`} alt={highestTerpene?.name || "terpene alt"} width={30} height={30} />
-              </div>
+              {country && (
+                <div className="w-6">
+                  <Image src={`/${country}.png`} alt={`Drapeau ${country}`} width={20} height={20} />
+                </div>
+              )}
+              {renamedGrowindMethod && (
+                <div className="w-6">
+                  <Image src={`/${renamedGrowindMethod}.png`} alt={`Méthode de culture: ${growingMethod}`} width={30} height={30} />
+                </div>
+              )}
             </div>
-            <div className="absolute w-full bottom-2 flex items-center justify-center">
-              <div className="text-xs text-center px-1 py-0.5 rounded-full bg-emerald-100 border border-emerald-700 text-emerald-700">
-                <span>CBD: 12%</span>
+
+            {cannabinoidRating && (
+              <div className="absolute w-full bottom-2 flex items-center justify-center">
+                <div className="text-xs text-center px-1 py-0.5 rounded-full bg-emerald-100 border border-emerald-700 text-emerald-700">
+                  <span>
+                    {cannabinoidRating.name}: {cannabinoidRating.value}%
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <section aria-labelledby="information-heading" className="text-center mt-2 flex flex-col gap-1 xl:mt-6">
@@ -166,8 +167,6 @@ export default async function ProductCard({
               Product options
             </h3>
 
-            {/* The image props is necessary to pass it in the cartContext in order to display it
-              in the ProductCartCard */}
             <ProductOptions
               pricesPer={pricesPer}
               image={images.main}
@@ -179,12 +178,6 @@ export default async function ProductCard({
               category={category}
               isInModale={false}
             />
-            {/* 
-              <p className="text-center my-4">
-                <Link href={`/${category}/${slug}`} className="font-medium text-green hover:text-light-green underline">
-                  {t("details")}
-                </Link>
-              </p> */}
           </section>
         </div>
       </div>

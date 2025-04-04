@@ -5,13 +5,15 @@ import { useAlerts } from "../context/alertsContext";
 import { v4 as uuid } from "uuid";
 import clsx from "clsx";
 import useDeviceType from "@/app/hooks/useDeviceType";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface Props {
   shortDescription: string;
 }
 
 export default function ShareSocialMedia({ shortDescription }: Props) {
+  const [url, setUrl] = useState<null | string>(null);
+
   const { addAlert } = useAlerts();
   const deviceType = useDeviceType();
 
@@ -19,7 +21,6 @@ export default function ShareSocialMedia({ shortDescription }: Props) {
     return deviceType === "desktop" || deviceType === "unknown";
   }, [deviceType]);
 
-  const url = typeof window !== "undefined" ? window.location.href : null;
   const encodedUrl = useMemo(() => (url ? encodeURIComponent(url) : ""), [url]);
   const encodedDescription = useMemo(() => encodeURIComponent(shortDescription), [shortDescription]);
 
@@ -386,7 +387,12 @@ export default function ShareSocialMedia({ shortDescription }: Props) {
     ]
   );
 
-  console.log(deviceType);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUrl(window.location.href);
+    }
+  }, []);
+
   return (
     url && (
       <div className="relative mt-12 xl:w-1/2">

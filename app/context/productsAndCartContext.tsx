@@ -112,6 +112,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
         const variationTable: VariationTable = JSON.parse(JSON.stringify(data.variationTable));
 
         const formatedProducts = Object.values(data.products)
+          .filter(Boolean)
           .filter((product) => !Array.isArray(product))
           .filter((product) => Object.entries(product.prices).length)
           .reduce((acc: ProductsFromContext, product: Product) => {
@@ -224,7 +225,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
 
     setProducts((prevProducts) => {
       return Object.fromEntries(
-        Object.entries(prevProducts).map(([productId, product]) => {
+        Object.entries(prevProducts).map(([productId, product]: [string, FormatedProduct]) => {
           const stockFromSSE = sseData.stocks[productId] ?? 0;
           const quantity = cartProductsQuantity[productId] ?? 0;
           const computedStock = stockFromSSE - quantity;
@@ -243,7 +244,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
             const price = product.productOptions[closestOption];
 
             partialUpdate.option = closestOption.toString();
-            partialUpdate.price = price;
+            partialUpdate.price = price.price;
           }
 
           return [

@@ -32,10 +32,14 @@ export interface Cannabinoids {
 }
 
 export interface Terpenes {
-  Linalol?: string;
-  Myrcene?: string;
-  Pinene?: string;
-  Limonen?: string;
+  caryophyllene?: string; // bois
+  limonene?: string; // agrumes
+  myrcene?: string; // sylvestre
+  linalol?: string; // floral
+  terpinolene?: string; // terrestre
+  piperine?: string; // piment
+  pinene?: string; // sapin
+  humulene?: string; // terrestre
 }
 
 export interface Image {
@@ -81,7 +85,8 @@ export interface BaseProduct {
 
 export interface NaturalProduct extends BaseProduct {
   cannabinoids: Cannabinoids;
-  analyses: Analyse;
+  analyzes: Analyse;
+  country: "af" | "ch" | "en" | "es" | "fr" | "it" | "lb" | "ma" | "np" | "usa";
 }
 
 export interface EndProduct extends NaturalProduct {
@@ -96,7 +101,7 @@ export interface Hash extends EndProduct {}
 export interface Moonrock extends EndProduct {}
 
 export interface Flower extends EndProduct {
-  growingMethod: string;
+  growingMethod: "Extérieur" | "Sous-serre" | "Intérieur";
 }
 
 export type Product = BaseProduct | Oil | Hash | Moonrock | Flower;

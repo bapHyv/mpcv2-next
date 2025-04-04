@@ -5,15 +5,21 @@ import { useTranslations } from "next-intl";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import { useAuth } from "@/app/context/authContext";
 import React from "react";
+import Link from "next/link";
 
 const Commandes = () => {
   const t = useTranslations("orders");
 
   const { userData } = useAuth();
   return (
-    <section>
+    <section className="mb-4">
       <h2 className="text-green text-center font-medium text-2xl my-4">{t("title")}</h2>
       <div className="flex flex-col items-center justify-center md:flex-row md:flex-wrap gap-3 px-3 pb-3">
+        {!userData?.orders.length && (
+          <Link href="/fleurs-cbd" className="p-4 border border-neutral-300 rounded-md text-neutral-500 italic text-center cursor-pointer">
+            Vous n&apos;avez aucune commandes passées. Cliquez ici pour consulter notre catalogue de produits!
+          </Link>
+        )}
         {userData?.orders ? (
           [...userData.orders, ...userData.orders, ...userData.orders, ...userData.orders, ...userData.orders].map((order) => (
             <div key={order.id} className="space-y-5 md:space-y-3 w-[360px] 2xl:w-[720px] border border-neutral-500 rounded-lg p-3 shadow-md">
