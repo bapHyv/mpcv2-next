@@ -37,60 +37,25 @@ type ItemsProfile = WithHref | WithOnClick;
 
 export default function ProfileHeader({ locale }: { locale: string }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
 
   const iconRef = useRef<HTMLDivElement | null>(null);
 
   const pathName = usePathname();
-
-  const handleIsClosing = () => {
-    setIsClosing(true);
-    // This setTimeout is here to let the animation trigger before removing the component
-    // The time must be equal to animation-duration property in .close-menu-item class (see globals.css)
-    setTimeout(() => {
-      setIsVisible(false);
-      setIsClosing(false);
-    }, 150);
-  };
 
   useEffect(() => {
     setIsVisible(false);
   }, [pathName]);
 
   return (
-    <div
-      ref={iconRef}
-      className="relative"
-      onClick={() => {
-        if (isVisible) {
-          handleIsClosing();
-        } else {
-          setIsVisible(true);
-        }
-      }}
-    >
+    <div ref={iconRef} className="relative" onClick={() => setIsVisible(!isVisible)}>
       <span className="sr-only">Open user menu</span>
       <UserCircleIcon className="h-10 w-10 sm:w-6 sm:h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-white" role="button" />
-      {isVisible && (
-        <UserMenu locale={locale} onClickOutside={() => handleIsClosing()} iconRef={iconRef} isVisible={isVisible} isClosing={isClosing} />
-      )}
+      {isVisible && <UserMenu locale={locale} onClickOutside={() => setIsVisible(false)} iconRef={iconRef} />}
     </div>
   );
 }
 
-function UserMenu({
-  locale,
-  onClickOutside,
-  iconRef,
-  isVisible,
-  isClosing,
-}: {
-  locale: string;
-  onClickOutside: any;
-  iconRef: MutableRefObject<HTMLDivElement | null>;
-  isVisible: boolean;
-  isClosing: boolean;
-}) {
+function UserMenu({ locale, onClickOutside, iconRef }: { locale: string; onClickOutside: any; iconRef: MutableRefObject<HTMLDivElement | null> }) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   const t = useTranslations("navbar");
@@ -201,8 +166,6 @@ function UserMenu({
         "lg:-translate-x-[calc(50%-16px)]",
         "xl:top-16 xl:-translate-x-[calc(50%-20px)]",
         {
-          "open-menu-item": isVisible,
-          "close-menu-item": isClosing,
           "-top-52": userData,
           "-top-[5.5rem]": !userData,
         }
