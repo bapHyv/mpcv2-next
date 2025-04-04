@@ -55,19 +55,3 @@ export default function useCookies() {
 
   return { addCookie };
 }
-
-/**
- *
- * "name1=value; name2=value;"
- *
- * options:
- *  -name
- *  -value
- *  -domain=example.com or subdomain.example.com
- *  -expires=date-in-UTCString-format
- *  -max-age=max-age-in-seconds
- *  -partitioned
- *  -path=/ (by default) test in other routes if cookie still here
- *  -samesite=lax, strict, none
- *  -secure
- */

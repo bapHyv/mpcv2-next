@@ -78,7 +78,6 @@ export default function Page() {
           setIsPending(false);
         };
         bankTransferPayment();
-        console.log("bank-transfer");
       }
     }
   };
@@ -95,25 +94,6 @@ export default function Page() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldReturn, order]);
-
-  /**
-   * Vider cart
-   * Vider ls cart
-   * Vider order
-   *
-   * n commande
-   * date
-   * email
-   * total
-   *
-   * Détail de la commande: produit, option, quantité, prix
-   * sous total
-   * méthode d'expédition
-   * total
-   *
-   * Adresse de facturation
-   * Adresse de livraison
-   */
 
   useEffect(() => {
     if (initPaymentResponse && actionResponse && actionResponse.isSuccess && actionResponse.statusCode === 204) {

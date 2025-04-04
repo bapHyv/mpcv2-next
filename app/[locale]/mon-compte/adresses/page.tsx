@@ -18,7 +18,7 @@ export default function Page() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   return (
-    <section>
+    <section className="mb-4">
       <h2 className="text-green text-center font-medium text-2xl my-4">{t("title")}</h2>
       {!userData ? (
         <div className="flex items-center justify-center">

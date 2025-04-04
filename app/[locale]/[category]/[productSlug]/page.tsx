@@ -1,19 +1,20 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { ArrowUpRightIcon, StarIcon } from "@heroicons/react/20/solid";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { Product } from "@/app/types/productsTypes";
 import { getTranslations } from "next-intl/server";
+import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Metadata, ResolvingMetadata } from "next";
 
-import { terpenesToColor } from "@/app/utils/terpenesToColor";
-import { findHighest, findHighestOption } from "@/app/utils/productFunctions";
 import ProductOptions from "@/app/components/products/ProductOptions";
 import ProductPrice from "@/app/components/products/ProductPrice";
 import ReviewForm from "@/app/components/productPage/ReviewForm";
 import ShippingCalendar from "@/app/components/ShippingCalendar";
 import ShareSocialMedia from "@/app/components/ShareSocialMedia";
+
+import { Analyse, Cannabinoids, Product, Terpenes } from "@/app/types/productsTypes";
+import { terpenesToColor } from "@/app/utils/terpenesToColor";
+import { findHighest, findHighestOption, returnRenamedGrowingMethod } from "@/app/utils/productFunctions";
 
 interface Params {
   params: {
@@ -58,6 +59,8 @@ export default async function Page({ params: { category, locale, productSlug } }
   const response = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`);
   const product: Product = await response.json();
 
+  console.log(product);
+
   const cannabinoidRating = "cannabinoids" in product ? findHighest(product.cannabinoids) : null;
 
   const counts = product.ratings.reviews.reduce(
@@ -66,6 +69,33 @@ export default async function Page({ params: { category, locale, productSlug } }
     },
     { "5": 0, "4": 0, "3": 0, "2": 0, "1": 0 } as { [key: string]: number }
   );
+
+  const terpenesFlavor = {
+    caryophyllene: t("category.caryophyllene"),
+    limonene: t("category.limonene"),
+    myrcene: t("category.myrcene"),
+    linalol: t("category.linalol"),
+    terpinolene: t("category.terpinolene"),
+    piperine: t("category.piperine"),
+    caryophyllenePeper: t("category.caryophyllenePeper"),
+    pinene: t("category.pinene"),
+    humulene: t("category.humulene"),
+  };
+
+  const countries = {
+    af: "afghanistan",
+    ch: "Suisse",
+    en: "Royaume-unis",
+    es: "Espagne",
+    fr: "France",
+    it: "Italie",
+    lb: "Liban",
+    ma: "Maroc",
+    np: "Nepal",
+    usa: "Etats-unis",
+  };
+
+  const renamedGrowindMethod = returnRenamedGrowingMethod("growingMethod" in product ? product.growingMethod : undefined);
 
   return (
     <div className="bg-white dark:bg-light-black">
@@ -117,12 +147,12 @@ export default async function Page({ params: { category, locale, productSlug } }
           </TabGroup>
 
           <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-            <h1 className="text-center md:text-left text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+            <h2 className="text-center md:text-left text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
               {product.name}
               {cannabinoidRating && (
                 <span className="text-green dark:text-light-green">{` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}</span>
               )}
-            </h1>
+            </h2>
 
             {/* PRODUCT PRICE */}
             <ProductPrice id={product.id} />
@@ -181,14 +211,17 @@ export default async function Page({ params: { category, locale, productSlug } }
                 Additional details
               </h2>
 
-              {/* ANALYSES */}
-              {"analyses" in product && (
+              {(!!renamedGrowindMethod ||
+                "country" in product ||
+                ("analyzes" in product && !!Object.values(product.analyzes as Analyse)) ||
+                ("cannabinoids" in product && !!Object.values(product.cannabinoids as Cannabinoids).length) ||
+                ("terpenes" in product && !!Object.values(product.terpenes as Terpenes).length)) && (
                 <div className="divide-y divide-gray-200 border-t">
                   <Disclosure as="div">
                     <h3>
                       <DisclosureButton className="group relative flex w-full items-center justify-between py-6 text-left">
                         <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100 group-data-[open]:text-green capitalize">
-                          {t("singleProduct.analyzes")}
+                          Informations
                         </span>
                         <span className="ml-6 flex items-center">
                           <PlusIcon
@@ -206,143 +239,61 @@ export default async function Page({ params: { category, locale, productSlug } }
                       transition
                       className="prose prose-sm pb-6 origin-top transition duration-300 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
                     >
-                      <ul role="list">
-                        {Object.entries(product.analyses).map(([key, value]) => (
-                          <li key={key}>
-                            <Link href={value} target="_blank" className="underline flex gap-1 capitalize text-neutral-900 dark:text-neutral-100">
-                              {key} <ArrowUpRightIcon className="w-3 h-3 mt-1 text-green" />
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </DisclosurePanel>
-                  </Disclosure>
-                </div>
-              )}
-
-              {/* ORIGIN AND GROWING METHOD */}
-              {"grower" in product && (
-                <div className="divide-y divide-gray-200 border-t">
-                  <Disclosure as="div">
-                    <h3>
-                      <DisclosureButton className="group relative flex w-full items-center justify-between py-6 text-left">
-                        <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100 group-data-[open]:text-green capitalize">
-                          {t("singleProduct.origin")}
-                        </span>
-                        <span className="ml-6 flex items-center">
-                          <PlusIcon
-                            aria-hidden="true"
-                            className="block h-6 w-6 text-neutral-600 group-hover:text-neutral-500 dark:text-neutral-300 dark:group-hover:text-neutral-200 group-data-[open]:hidden"
-                          />
-                          <MinusIcon
-                            aria-hidden="true"
-                            className="hidden h-6 w-6 text-neutral-600 group-hover:text-neutral-500 dark:text-neutral-300 dark:group-hover:text-neutral-200 group-data-[open]:block"
-                          />
-                        </span>
-                      </DisclosureButton>
-                    </h3>
-                    <DisclosurePanel
-                      transition
-                      className="prose prose-sm pb-6 transition duration-300 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
-                    >
-                      <ul role="list">
-                        <li className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100">
-                          Pays:
-                          <Image src={`/${product.grower}.png`} alt={`${product.grower} flag`} width={30} height={30} />
-                        </li>
-                        {"growingMethod" in product && (
-                          <li className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100">
-                            {product.growingMethod}
-                            <Image src={`/${product.growingMethod.toLocaleLowerCase()}.png`} alt={product.growingMethod} width={30} height={30} />
-                          </li>
-                        )}
-                      </ul>
-                    </DisclosurePanel>
-                  </Disclosure>
-                </div>
-              )}
-
-              {/* ORIGIN AND GROWING METHOD */}
-              {"cannabinoids" in product && (
-                <div className="divide-y divide-gray-200 border-t">
-                  <Disclosure as="div">
-                    <h3>
-                      <DisclosureButton className="group relative flex w-full items-center justify-between py-6 text-left">
-                        <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100 group-data-[open]:text-green capitalize">
-                          {t("singleProduct.cannabinoids")}
-                        </span>
-                        <span className="ml-6 flex items-center">
-                          <PlusIcon
-                            aria-hidden="true"
-                            className="block h-6 w-6 text-neutral-600 group-hover:text-neutral-500 dark:text-neutral-300 dark:group-hover:text-neutral-200 group-data-[open]:hidden"
-                          />
-                          <MinusIcon
-                            aria-hidden="true"
-                            className="hidden h-6 w-6 text-neutral-600 group-hover:text-neutral-500 dark:text-neutral-300 dark:group-hover:text-neutral-200 group-data-[open]:block"
-                          />
-                        </span>
-                      </DisclosureButton>
-                    </h3>
-                    <DisclosurePanel
-                      transition
-                      className="prose prose-sm pb-6 transition duration-300 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
-                    >
-                      <ul role="list">
-                        {Object.entries(product.cannabinoids).map(([key, value]) => (
-                          <li key={key} className="flex items-end gap-3 h-[45px]">
-                            {key}: {value} %
-                            <Image src={`/${key.toLocaleLowerCase()}.png`} alt={`molecul of ${key}`} width={75} height={75} />
-                          </li>
-                        ))}
-                      </ul>
-                    </DisclosurePanel>
-                  </Disclosure>
-                </div>
-              )}
-
-              {/* TERPENES */}
-              {"terpenes" in product && (
-                <div className="divide-y divide-gray-200 border-t">
-                  <Disclosure as="div">
-                    <h3>
-                      <DisclosureButton className="group relative flex w-full items-center justify-between py-6 text-left">
-                        <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100 group-data-[open]:text-green capitalize">
-                          {t("singleProduct.terpenes")}
-                        </span>
-                        <span className="ml-6 flex items-center">
-                          <PlusIcon
-                            aria-hidden="true"
-                            className="block h-6 w-6 text-neutral-600 group-hover:text-neutral-500 dark:text-neutral-300 dark:group-hover:text-neutral-200 group-data-[open]:hidden"
-                          />
-                          <MinusIcon
-                            aria-hidden="true"
-                            className="hidden h-6 w-6 text-neutral-600 group-hover:text-neutral-500 dark:text-neutral-300 dark:group-hover:text-neutral-200 group-data-[open]:block"
-                          />
-                        </span>
-                      </DisclosureButton>
-                    </h3>
-                    <DisclosurePanel
-                      transition
-                      className="prose prose-sm pb-6 transition duration-300 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
-                    >
-                      {/* <ul role="list">
-                        {Object.entries(product.terpenes).map(([key, value]) => (
-                          <>
-                            <li key={key} className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100 capitalize">
-                              {key}: {value}
-                              <Image src={`/${key.toLocaleLowerCase()}.png`} alt={key} width={40} height={40} />
+                      {"growingMethod" in product && (
+                        <div className="flex items-center gap-x-4">
+                          <Image src={`/${renamedGrowindMethod}.png`} alt={`Méthode de culture: ${product.growingMethod}`} width={30} height={30} />
+                          <span>{product.growingMethod}</span>
+                        </div>
+                      )}
+                      {"country" in product && (
+                        <div className="flex items-center gap-x-4">
+                          <Image src={`/${product.country}.png`} alt={`Drapeau ${product.country}`} width={30} height={30} />
+                          <span>{countries[product.country]}</span>
+                        </div>
+                      )}
+                      {"analyzes" in product && !!Object.values(product.analyzes as Analyse) && (
+                        <ul role="list">
+                          {Object.entries(product.analyzes as Analyse).map(([key, value]) => (
+                            <li key={key}>
+                              <Link
+                                href={`https://www.monplancbd.fr/analyses/${value}`}
+                                target="_blank"
+                                className="underline flex gap-1 capitalize text-neutral-900 dark:text-neutral-100"
+                              >
+                                {key} <ArrowUpRightIcon className="w-3 h-3 mt-1 text-green" />
+                              </Link>
                             </li>
-                            <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-neutral-400">
-                              <div
-                                className={`${
-                                  terpenesToColor[key.toLocaleLowerCase()]
-                                } h-1.5 rounded-full`}
-                                style={{ width: `${parseInt(value) * 20}%` }}
-                              ></div>
-                            </div>
-                          </>
-                        ))}
-                      </ul> */}
+                          ))}
+                        </ul>
+                      )}
+                      {"cannabinoids" in product && !!Object.values(product.cannabinoids as Cannabinoids).length && (
+                        <ul role="list">
+                          {Object.entries(product.cannabinoids as Cannabinoids).map(([key, value]) => (
+                            <li key={key} className="flex items-end gap-3 h-[45px]">
+                              {key}: {value} %
+                              <Image src={`/${key.toLocaleLowerCase()}.png`} alt={`molecul of ${key}`} width={75} height={75} />
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {"terpenes" in product && !!Object.values(product.terpenes as Terpenes).length && (
+                        <ul role="list">
+                          {Object.entries(product.terpenes).map(([key, value]) => (
+                            <>
+                              <li key={key} className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100 capitalize">
+                                {key}: {value}
+                                <Image src={`/${key.toLocaleLowerCase()}.png`} alt={key} width={40} height={40} />
+                              </li>
+                              <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-neutral-400">
+                                <div
+                                  className={`${terpenesToColor[key.toLocaleLowerCase() as keyof typeof terpenesToColor]} h-1.5 rounded-full`}
+                                  style={{ width: `${parseInt(value) * 20}%` }}
+                                ></div>
+                              </div>
+                            </>
+                          ))}
+                        </ul>
+                      )}
                     </DisclosurePanel>
                   </Disclosure>
                 </div>
@@ -356,7 +307,7 @@ export default async function Page({ params: { category, locale, productSlug } }
 
           <ShareSocialMedia shortDescription={product.shortDescription} />
         </div>
-        <div className="pt-16" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
+        <div className="pt-16 product-page-long-description" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
 
         <ReviewForm id={product.id} />
 
@@ -398,7 +349,7 @@ export default async function Page({ params: { category, locale, productSlug } }
               </dl>
             </div>
             <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6 lg:max-w-7xl lg:px-8">
-              <h2 className="text-lg font-medium text-neutral-900 dark:text-neutral-100 capitalize" id="reviews">
+              <h2 className="text-green text-xl text-center font-medium dark:text-neutral-100 capitalize" id="reviews">
                 {t("singleProduct.reviews")}
               </h2>
               <div className="mt-6 space-y-10 divide-y divide-gray-200 border-b border-t border-gray-200 pb-10">

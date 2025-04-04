@@ -69,7 +69,6 @@ export default function BoxtalMap() {
 
   useEffect(() => {
     if (accessToken) {
-      console.log("I've been recreated");
       const _map: BoxtalParcelPointMap = new BoxtalMaps.BoxtalParcelPointMap({
         domToLoadMap: "#parcel-point-map",
         accessToken,

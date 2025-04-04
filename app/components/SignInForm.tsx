@@ -10,8 +10,8 @@ import SubmitButton from "@/app/components/SubmitButton";
 import { login } from "@/app/actions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
-import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 import Link from "next/link";
+import { UserDataAPIResponse } from "@/app/types/profileTypes";
 
 const initialState = {
   email: "",
@@ -34,12 +34,14 @@ export default function SignInForm() {
 
   useEffect(() => {
     // Deal with 200 status
-    if (state.isSuccess && isUserDataAPIResponse(state.data) && state.data && state.statusCode === 200) {
+    console.log(state);
+    if (state.isSuccess && state.data && state.statusCode === 200) {
+      console.log("in here");
       const redirect = searchParams.get("redirect");
 
-      setUserData(state.data);
-      localStorage.setItem("accessToken", state.data.accessToken);
-      localStorage.setItem("refreshToken", state.data.refreshToken);
+      setUserData(state.data as UserDataAPIResponse);
+      localStorage.setItem("accessToken", (state.data as UserDataAPIResponse).accessToken);
+      localStorage.setItem("refreshToken", (state.data as UserDataAPIResponse).refreshToken);
       addAlert(uuid(), "You've successfully logged in", "Login successful", "emerald");
 
       router.push(redirect ? redirect : "/");

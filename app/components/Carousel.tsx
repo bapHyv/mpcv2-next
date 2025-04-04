@@ -13,8 +13,28 @@ interface Props {
 
 export default function Carousel({ children, length }: Props) {
   const divRef = useRef<HTMLDivElement | null>(null);
+  const [isClient, setIsClient] = useState(false);
+  const [isPhone, setIsPhone] = useState(false); // Default value for server render
 
-  const isPhone = useMemo(() => window.innerWidth < 640, []);
+  useEffect(() => {
+    // This effect runs only on the client
+    setIsClient(true); // Mark that we are now on the client
+
+    const checkIsPhone = () => {
+      // Check window existence just in case, although useEffect guarantees client-side
+      if (typeof window !== "undefined") {
+        setIsPhone(window.innerWidth < 640);
+      }
+    };
+
+    checkIsPhone(); // Initial check
+
+    // Add resize listener to update isPhone state
+    window.addEventListener("resize", checkIsPhone);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener("resize", checkIsPhone);
+  }, []); // Empty dependency array ensures this runs once on mount and cleans up on unmount
 
   const scrollRight = () => {
     if (divRef.current) {
@@ -66,10 +86,16 @@ export default function Carousel({ children, length }: Props) {
 
   return (
     <>
-      <div className="lg:px-2 xl:px-16 mb-12 lg:mb-0">
+      <div className="lg:px-2 xl:px-[31px] mb-12 lg:mb-0">
         <div
           ref={divRef}
-          className={clsx("flex gap-1 p-1 overflow-x-scroll w-[344px] m-auto rounded-md no-scrollbar", "sm:w-[624px]", "lg:w-[1620px]")}
+          className={clsx(
+            "flex gap-1 p-1 overflow-x-scroll w-[344px] m-auto rounded-md no-scrollbar",
+            "sm:w-[624px]",
+            "lg:w-[812px]",
+            "xl:w-[1218px]",
+            "3xl:w-[1624px]"
+          )}
         >
           {children}
         </div>
@@ -109,43 +135,60 @@ interface PropsBullets {
 function Bullets({ length, divRef }: PropsBullets) {
   const [bullets, setBullets] = useState(0);
   const [index, setIndex] = useState(0);
-
-  const isTablet = useMemo(() => window.innerWidth >= 640 && window.innerWidth < 1280, []);
-  const isDesktop = useMemo(() => window.innerWidth >= 1280, []);
+  const [isClient, setIsClient] = useState(false);
+  const [cardsPerPage, setCardsPerPage] = useState(4);
 
   useEffect(() => {
-    if (isTablet) {
-      setBullets(Math.ceil(length / 2));
-    } else if (isDesktop) {
-      setBullets(Math.ceil(length / 4));
-    }
-  }, [isTablet, isDesktop, length]);
+    setIsClient(true);
 
-  const handleClick = (index: number) => {
-    if (divRef.current) {
-      const isTablet = window.innerWidth >= 640 && window.innerWidth < 1280;
-      const isDesktop = window.innerWidth >= 1280;
-
-      let left = 0;
-
-      if (isTablet) {
-        // On tablet, 2 cards are displayed in the carrousel. 620 is the width of 2 cards + 2 gaps
-        // card width = 306px; gap width = 4px; 306*2 + 4*2 = 620
-        left = 620 * index;
-      } else if (isDesktop) {
-        // On desktop, 4 cards are displayed in the carrousel. 1616 is the width of 4 cards + 4 gaps
-        // card width = 400px; gap width = 4px; 400*4 + 4*4 = 1616
-        left = 1616 * index;
+    const updateLayout = () => {
+      if (typeof window !== "undefined") {
+        const width = window.innerWidth;
+        let newCardsPerPage = 4;
+        if (width >= 640 && width < 1280) {
+          newCardsPerPage = 2;
+        } else if (width >= 1280 && width < 1920) {
+          newCardsPerPage = 3;
+        } else if (width < 640) {
+          newCardsPerPage = 1;
+        }
+        setCardsPerPage(newCardsPerPage);
+        setBullets(Math.ceil(length / newCardsPerPage));
       }
+    };
 
-      setIndex(index);
+    updateLayout();
+    window.addEventListener("resize", updateLayout);
+
+    setIndex(0);
+    if (divRef.current) {
+      divRef.current.scrollTo({ left: 0, behavior: "auto" });
+    }
+
+    return () => window.removeEventListener("resize", updateLayout);
+  }, [length, divRef]);
+
+  const handleClick = (bulletIndex: number) => {
+    if (divRef.current?.childNodes[0]) {
+      const cardElement = divRef.current.childNodes[0] as HTMLElement;
+      const style = window.getComputedStyle(cardElement.parentElement!);
+      const gap = parseFloat(style.gap) || 4;
+      const cardWidthWithGap = cardElement.offsetWidth + gap;
+
+      const scrollAmount = cardWidthWithGap * cardsPerPage * bulletIndex;
+
+      setIndex(bulletIndex);
 
       divRef.current?.scrollTo({
-        left,
+        left: scrollAmount,
         behavior: "smooth",
       });
     }
   };
+
+  if (!isClient || bullets <= 1) {
+    return null;
+  }
 
   return (
     <div className="my-5">

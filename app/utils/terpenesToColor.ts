@@ -27,7 +27,6 @@ export interface ITerpeneToColor {
     "linalol": "floral",
     "terpinolene": "terrestre",
     "piperine": "pimente",
-    "caryophyllenePeper": "poivre",
     "pinene": "sapin",
     "humulene": "terrestre"
  */

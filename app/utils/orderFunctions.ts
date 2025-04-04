@@ -99,34 +99,6 @@ export const computeFixedProductDiscount = (d: DiscountApplied, products: Produc
   return limitedProducts.length * discount;
 };
 
-/**
- * HT = TTC / (1 + (VATRate/100))
- * TVA = TTC - HT
- *
- * netPrice = prix hors taxe
- * VATRate = taux de TVA
- * VAT = TVA
- *
- * Calcul TVA après application réduction code promotion
- *
- * etape 1:
- *
- * Prix TTC ajusté = total panier - réduction
- *
- * étape 2:
- *
- * Proportion TVA = TVA / total panier
- *
- * étape 3:
- *
- * TVA ajustée = Prix TTC ajusté * proportion TVA
- *
- * étape 4:
- *
- * Net Total ajusté = prix TTC ajusté - TVA ajustée
- *
- */
-
 export const computeVAT = (c: { total: number; products: ProductCart[] }, discount: number) => {
   const tot = c.total;
   const VAT = c.products.reduce((VAT, prod) => VAT + (prod.totalPrice - prod.totalPrice / (1 + prod.VATRate / 100)), 0);

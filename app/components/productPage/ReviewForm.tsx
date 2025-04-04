@@ -1,15 +1,16 @@
 "use client";
 
-import { useFormState } from "react-dom";
-import Title from "../Title";
-import { comment } from "@/app/actions";
-import { StarIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/app/context/authContext";
-import Link from "next/link";
+import { useFormState } from "react-dom";
 import { usePathname } from "next/navigation";
-import { useAlerts } from "@/app/context/alertsContext";
+import Link from "next/link";
+import { StarIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
+
+import Title from "@/app/components/Title";
+import { comment } from "@/app/actions";
+import { useAuth } from "@/app/context/authContext";
+import { useAlerts } from "@/app/context/alertsContext";
 
 const initialState = {
   comment: "",
@@ -64,6 +65,7 @@ export default function ReviewForm({ id }: Props) {
           break;
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   return !userData ? (
@@ -77,35 +79,15 @@ export default function ReviewForm({ id }: Props) {
       </p>
     </div>
   ) : (
-    <div className="mt-2">
-      <Title title="Ajouter un commentaire" type="h2" classname="text-green text-xl" />
+    <div className="mt-5">
+      <Title title="Ajouter un commentaire" type="h2" classname="text-green text-xl text-center font-medium" />
       <form action={formAction}>
         {/* Hidden input to store the rating value */}
         <input type="hidden" name="rating" value={rating} />
         <input type="hidden" name="id" value={id} />
 
-        {/* Textarea for the comment */}
-        <div className="mb-4">
-          <label htmlFor="comment" className="block text-sm font-medium text-gray-700">
-            Votre commentaire
-          </label>
-          <textarea
-            name="comment"
-            id="comment"
-            rows={7}
-            value={commentValue}
-            onChange={(e) => setCommentValue(e.target.value)}
-            className="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-light-green sm:text-sm sm:leading-6"
-            aria-describedby="comment-description"
-            required
-          ></textarea>
-          <p id="comment-description" className="text-sm text-gray-500">
-            Veuillez écrire votre commentaire ici.
-          </p>
-        </div>
-
         {/* Star rating input */}
-        <div className="mb-4">
+        <div className="mb-2 mt-4">
           <label htmlFor="rating" className="block text-sm font-medium text-gray-700">
             Note
           </label>
@@ -127,6 +109,26 @@ export default function ReviewForm({ id }: Props) {
           <p className="text-sm text-gray-500">Veuillez sélectionner une note entre 1 et 5 étoiles.</p>
         </div>
 
+        {/* Textarea for the comment */}
+        <div className="mb-4">
+          <label htmlFor="comment" className="block text-sm font-medium text-gray-700">
+            Votre commentaire
+          </label>
+          <textarea
+            name="comment"
+            id="comment"
+            rows={7}
+            value={commentValue}
+            onChange={(e) => setCommentValue(e.target.value)}
+            className="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-light-green sm:text-sm sm:leading-6"
+            aria-describedby="comment-description"
+            required
+          ></textarea>
+          <p id="comment-description" className="text-sm text-gray-500">
+            Veuillez écrire votre commentaire ici.
+          </p>
+        </div>
+
         {/* Submit button */}
         <div className="flex items-center justify-end mt-2">
           <button
@@ -140,8 +142,3 @@ export default function ReviewForm({ id }: Props) {
     </div>
   );
 }
-
-/**
- I want to create a form to add a review to a product. The review has a comment (text area) and a rating (the StarIcon) rated from 1 (worst) to 5 (best)
- Using this code, I want to you to create the form, using react latest features, respect accessibility and use the tags usually found in an form
- */

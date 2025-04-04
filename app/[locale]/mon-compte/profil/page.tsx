@@ -101,7 +101,7 @@ export default function Profile() {
   };
 
   return (
-    <section>
+    <section className="mb-4">
       <h2 className="text-green text-center font-medium text-2xl my-4">{t("profile.title")}</h2>
       <div className="bg-white px-5">
         {/* Header */}

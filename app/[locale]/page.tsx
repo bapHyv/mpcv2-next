@@ -123,37 +123,8 @@ export default async function Page({ params }: { params: Params }) {
         </Carousel>
       </section>
       <section className="relative mt-4 sm:mt-8">
-        <div
-          style={{
-            position: "absolute",
-            backgroundAttachment: "local",
-            backgroundClip: "padding-box",
-            backgroundImage: "url(/service_bg_hp.jpeg)",
-            backgroundOrigin: "padding-box",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            height: "100%",
-            width: "100%",
-            zIndex: 1,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            backgroundAttachment: "local",
-            backgroundClip: "padding-box",
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
-            backgroundOrigin: "padding-box",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backdropFilter: "blur(5px)",
-            height: "100%",
-            width: "100%",
-            zIndex: 2,
-          }}
-        />
+        <div className="section-services-container" />
+        <div className="section-services" />
         <div className="flex justify-center">
           <Title
             title={t("services.title")}

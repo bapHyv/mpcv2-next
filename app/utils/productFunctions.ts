@@ -54,3 +54,6 @@ export function findSlug(categories: categories, category: string) {
 export function findTitle(categories: categories, category: string) {
   return categories.filter((cat) => cat.slug === category)[0].title;
 }
+
+export const returnRenamedGrowingMethod = (growingMethod: "Extérieur" | "Sous-serre" | "Intérieur" | undefined) =>
+  !growingMethod ? null : growingMethod === "Extérieur" ? "exterieur" : growingMethod === "Intérieur" ? "interieur" : "greenhouse";
