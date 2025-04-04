@@ -4,27 +4,27 @@ import Image from "next/image";
 import { Cannabinoids, Product, Terpenes } from "@/app/types/productsTypes";
 import Link from "next/link";
 import clsx from "clsx";
-import { findHighest, findHighestOption } from "@/app/utils/productFunctions";
+import { findHighest, findHighestOption, returnRenamedGrowingMethod } from "@/app/utils/productFunctions";
 import ProductOptions from "./ProductOptions";
 import { twMerge } from "tailwind-merge";
 import { useTranslations } from "next-intl";
 
 export default function ProductCard({
-  cannabinoids,
-  category,
-  grower,
   id,
   images,
-  isPromo,
-  mainDivClassname,
-  name,
   pricesPer,
+  isPromo,
+  name,
   prices,
+  stock,
   ratings,
+  cannabinoids,
+  category,
+  mainDivClassname,
   secondeDivClassname,
   slug,
-  stock,
-  terpenes,
+  growingMethod,
+  country,
 }: Product & {
   category: string;
   mainDivClassname?: string;
@@ -32,26 +32,25 @@ export default function ProductCard({
   cannabinoids?: Cannabinoids;
   grower?: string;
   terpenes?: Terpenes;
+  growingMethod?: "Extérieur" | "Sous-serre" | "Intérieur";
+  country?: "af" | "ch" | "en" | "es" | "fr" | "it" | "lb" | "ma" | "np" | "usa";
 }) {
   const t = useTranslations("category");
 
   const cannabinoidRating = findHighest(cannabinoids);
+  const cannabinoidColor = !cannabinoidRating
+    ? null
+    : cannabinoidRating.name === "CBD"
+    ? "emerald"
+    : cannabinoidRating.name === "CBG"
+    ? "purple"
+    : cannabinoidRating.name === "CBN"
+    ? "yellow"
+    : "neutral";
 
   const highestOption = findHighestOption(prices);
 
-  const highestTerpene = findHighest(terpenes);
-
-  const terpenesFlavor = {
-    caryophyllene: t("caryophyllene"),
-    limonene: t("limonene"),
-    myrcene: t("myrcene"),
-    linalol: t("linalol"),
-    terpinolene: t("terpinolene"),
-    piperine: t("piperine"),
-    caryophyllenePeper: t("caryophyllenePeper"),
-    pinene: t("pinene"),
-    humulene: t("humulene"),
-  };
+  const renamedGrowindMethod = returnRenamedGrowingMethod(growingMethod);
 
   return (
     <div
@@ -89,23 +88,31 @@ export default function ProductCard({
             ) : isPromo ? (
               <div className="absolute right-5 top-5 p-1 text-sm rounded-md animate-tada text-white bg-green">{t("promo")}</div>
             ) : null}
-            {/* TODO: ADD grower ET highestTerpene */}
-            {/* GROWER AND TERPENES */}
+            {/* COUNTRY and GROWING METHOD */}
             <div className="absolute top-2 left-2 flex items-center gap-1">
-              <div className="w-6">
-                <Image src={`/fr.png`} alt={highestTerpene?.name || "terpene alt"} width={20} height={20} />
-              </div>
-              <div className="w-6">
-                <Image src={`/interieur.png`} alt={highestTerpene?.name || "terpene alt"} width={30} height={30} />
-              </div>
+              {country && (
+                <div className="w-6">
+                  <Image src={`/${country}.png`} alt={`Drapeau ${country}`} width={20} height={20} />
+                </div>
+              )}
+              {renamedGrowindMethod && (
+                <div className="w-6">
+                  <Image src={`/${renamedGrowindMethod}.png`} alt={`Méthode de culture: ${growingMethod}`} width={30} height={30} />
+                </div>
+              )}
             </div>
-            <div className="absolute w-full bottom-2 flex items-center justify-center">
-              <div className="text-xs text-center px-1 py-0.5 rounded-full bg-emerald-100 border border-emerald-700 text-emerald-700">
-                <span>
-                  {cannabinoidRating?.name}: {cannabinoidRating?.value}%
-                </span>
+
+            {cannabinoidRating && (
+              <div className="absolute w-full bottom-2 flex items-center justify-center">
+                <div
+                  className={`text-xs text-center px-1 py-0.5 rounded-full bg-${cannabinoidColor}-100 border border-${cannabinoidColor}-700 text-${cannabinoidColor}-700`}
+                >
+                  <span>
+                    {cannabinoidRating.name}: {cannabinoidRating.value}%
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <section aria-labelledby="information-heading" className="text-center mt-2 flex flex-col gap-0.5 xl:mt-6">

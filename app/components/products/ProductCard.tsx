@@ -40,6 +40,15 @@ export default async function ProductCard({
   const t = await getTranslations({ locale, namespace: "category" });
 
   const cannabinoidRating = findHighest(cannabinoids);
+  const cannabinoidColor = !cannabinoidRating
+    ? null
+    : cannabinoidRating.name === "CBD"
+    ? "emerald"
+    : cannabinoidRating.name === "CBG"
+    ? "purple"
+    : cannabinoidRating.name === "CBN"
+    ? "yellow"
+    : "neutral";
 
   const highestOption = findHighestOption(prices);
 
@@ -47,7 +56,7 @@ export default async function ProductCard({
 
   return (
     <div className={twMerge(clsx("transform text-left text-base transition w-[336px] sm:w-[306px] lg:w-[25rem]"), mainDivClassname)}>
-      <div className="flex overflow-hidden px-2 py-2 rounded-md shadow-product-cards">
+      <div className="flex overflow-hidden px-2 py-2 rounded-md shadow-product-cards bg-purl">
         <div className={twMerge(clsx(secondeDivClassname))}>
           {/* IMAGE */}
           <div className="relative m-auto rounded-lg h-min">
@@ -88,7 +97,9 @@ export default async function ProductCard({
 
             {cannabinoidRating && (
               <div className="absolute w-full bottom-2 flex items-center justify-center">
-                <div className="text-xs text-center px-1 py-0.5 rounded-full bg-emerald-100 border border-emerald-700 text-emerald-700">
+                <div
+                  className={`text-xs text-center px-1 py-0.5 rounded-full bg-${cannabinoidColor}-100 border border-${cannabinoidColor}-700 text-${cannabinoidColor}-700`}
+                >
                   <span>
                     {cannabinoidRating.name}: {cannabinoidRating.value}%
                   </span>
@@ -109,9 +120,6 @@ export default async function ProductCard({
               )}
             >
               {name}
-              {cannabinoidRating && (
-                <span className="text-dark-green dark:text-light-green">{` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}</span>
-              )}
             </h2>
 
             {/* PRODUCT PRICE FROM & PRODUCT PRICE */}
