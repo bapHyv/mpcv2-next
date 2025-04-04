@@ -32,49 +32,9 @@
   z-index: 2;
 }
 
-.open-menu-item {
-  animation-name: openMenuItem;
-  animation-duration: 0.2s;
-  animation-timing-function: ease-in;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
 .bg-modale {
   --tw-bg-opacity: 0.8;
   background-color: rgb(30 30 28 / 0.8) /* #1e1e1c */;
-}
-
-@keyframes openMenuItem {
-  from {
-    max-height: 0px;
-    opacity: 0;
-  }
-
-  to {
-    max-height: fit-content;
-    opacity: 1;
-  }
-}
-
-.close-menu-item {
-  animation-name: closeMenuItem;
-  animation-duration: 0.15s;
-  animation-timing-function: ease-in;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes closeMenuItem {
-  from {
-    max-height: fit-content;
-    opacity: 1;
-  }
-
-  to {
-    max-height: 0px;
-    opacity: 0;
-  }
 }
 
 .animate-pulse-effect {
@@ -145,6 +105,16 @@
   }
 }
 
+.bgyellow100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 249 195 / var(--tw-bg-opacity, 1)) /* #fef9c3 */;
+}
+
+.bgpurple100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 232 255 / var(--tw-bg-opacity, 1)) /* #f3e8ff */;
+}
+
 .bgyellow50 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 252 232 / var(--tw-bg-opacity)) /* #fefce8 */;
@@ -185,9 +155,34 @@
   background-color: rgb(209 250 229 / var(--tw-bg-opacity)) /* #d1fae5 */;
 }
 
+.borderyellow700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(161 98 7 / var(--tw-border-opacity, 1)) /* #a16207 */;
+}
+
+.borderpurple700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(126 34 206 / var(--tw-border-opacity, 1)) /* #7e22ce */;
+}
+
 .borderemerald400 {
   --tw-border-opacity: 1;
   border-color: rgb(52 211 153 / var(--tw-border-opacity)) /* #34d399 */;
+}
+
+.borderemerald700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(4 120 87 / var(--tw-border-opacity, 1)) /* #047857 */;
+}
+
+.textyellow700 {
+  --tw-text-opacity: 1;
+  color: rgb(161 98 7 / var(--tw-text-opacity, 1)) /* #a16207 */;
+}
+
+.textpurple700 {
+  --tw-text-opacity: 1;
+  color: rgb(126 34 206 / var(--tw-text-opacity, 1)) /* #7e22ce */;
 }
 
 .textemerald400 {

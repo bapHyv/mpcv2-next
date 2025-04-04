@@ -98,7 +98,7 @@ export default async function ProductCard({
             {cannabinoidRating && (
               <div className="absolute w-full bottom-2 flex items-center justify-center">
                 <div
-                  className={`text-xs text-center px-1 py-0.5 rounded-full bg-${cannabinoidColor}-100 border border-${cannabinoidColor}-700 text-${cannabinoidColor}-700`}
+                  className={`text-xs text-center px-1 py-0.5 rounded-full bg${cannabinoidColor}100 border border${cannabinoidColor}700 text${cannabinoidColor}700`}
                 >
                   <span>
                     {cannabinoidRating.name}: {cannabinoidRating.value}%

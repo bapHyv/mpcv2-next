@@ -22,19 +22,8 @@ function generatePathWithLocale(pathname: string, locale: string) {
 
 export default function BurgerMenuHeader({ locale }: { locale: string }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
   const pathName = usePathname();
   const iconRef = useRef<SVGSVGElement | null>(null);
-
-  const handleIsClosing = () => {
-    setIsClosing(true);
-    // This setTimeout is here to let the animation trigger before removing the component
-    // The time must be equal to animation-duration property in .close-menu-item class (see globals.css)
-    setTimeout(() => {
-      setIsVisible(false);
-      setIsClosing(false);
-    }, 150);
-  };
 
   useEffect(() => {
     setIsVisible(false);
@@ -44,45 +33,16 @@ export default function BurgerMenuHeader({ locale }: { locale: string }) {
     <div className="relavite">
       <span className="sr-only">Open main menu</span>
       {isVisible ? (
-        <XMarkIcon
-          ref={iconRef}
-          role="button"
-          className={iconClassname}
-          onClick={() => handleIsClosing()}
-        />
+        <XMarkIcon ref={iconRef} role="button" className={iconClassname} onClick={() => setIsVisible(false)} />
       ) : (
-        <Bars3Icon
-          role="button"
-          className={iconClassname}
-          onClick={() => setIsVisible(true)}
-        />
+        <Bars3Icon role="button" className={iconClassname} onClick={() => setIsVisible(true)} />
       )}
-      {isVisible && (
-        <BurgerMenu
-          locale={locale}
-          onClickOutside={() => handleIsClosing()}
-          iconRef={iconRef}
-          isVisible={isVisible}
-          isClosing={isClosing}
-        />
-      )}
+      {isVisible && <BurgerMenu locale={locale} onClickOutside={() => setIsVisible(false)} iconRef={iconRef} />}
     </div>
   );
 }
 
-function BurgerMenu({
-  locale,
-  onClickOutside,
-  iconRef,
-  isVisible,
-  isClosing,
-}: {
-  locale: string;
-  onClickOutside: any;
-  iconRef: MutableRefObject<SVGSVGElement | null>;
-  isVisible: boolean;
-  isClosing: boolean;
-}) {
+function BurgerMenu({ locale, onClickOutside, iconRef }: { locale: string; onClickOutside: any; iconRef: MutableRefObject<SVGSVGElement | null> }) {
   const urlLocale = useLocale();
   const pathname = usePathname();
   const ref = useRef<HTMLDivElement | null>(null);
@@ -138,13 +98,7 @@ function BurgerMenu({
   ];
 
   return (
-    <div
-      ref={ref}
-      className={clsx(
-        "absolute -top-52 bg-black text-white flex flex-col rounded-t-md w-[45dvw]",
-        { "open-menu-item": isVisible, "close-menu-item": isClosing }
-      )}
-    >
+    <div ref={ref} className={clsx("absolute -top-52 bg-black text-white flex flex-col rounded-t-md w-[45dvw]")}>
       {/* BLOG */}
       <Link href={`/${locale}/blog`} className="flex items-center ml-2">
         <NewspaperIcon className="w-6 h-6 text-white" />
@@ -161,9 +115,7 @@ function BurgerMenu({
           <Link href={generatePathWithLocale(pathname, e.locale)}>
             <div className="flex items-center ml-2">
               <Image alt={e.alt} src={e.src} height={e.h} width={e.w} />
-              <span className={clsx("p-2", { "text-light-green": urlLocale === e.locale })}>
-                {e.text}
-              </span>
+              <span className={clsx("p-2", { "text-light-green": urlLocale === e.locale })}>{e.text}</span>
             </div>
             {i !== a.length - 1 && <Separator classname="m-0" />}
           </Link>
