@@ -64,7 +64,7 @@ export default function SignInForm() {
   return (
     <form action={formAction} className="space-y-6">
       <div>
-        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
+        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
           Email address
         </label>
         <div className="mt-2">
@@ -83,7 +83,7 @@ export default function SignInForm() {
 
       <div>
         <div className="flex items-center justify-between">
-          <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
+          <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
             Password
           </label>
           <div className="text-sm">

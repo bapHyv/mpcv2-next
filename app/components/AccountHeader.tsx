@@ -47,7 +47,7 @@ const AccountHeader = ({ locale }: { locale: string }) => {
   }
 
   return (
-    <div className="dark:bg-black">
+    <div>
       <div className="sm:hidden">
         <label htmlFor="tabs" className="sr-only">
           Select a tab

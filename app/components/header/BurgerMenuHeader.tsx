@@ -1,10 +1,7 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { Bars3Icon, XMarkIcon, NewspaperIcon } from "@heroicons/react/24/outline";
-import ThemeSwitch from "@/app/components/ThemeSwitch";
-import Separator from "../Separator";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import clsx from "clsx";
 import { useLocale, useTranslations } from "next-intl";

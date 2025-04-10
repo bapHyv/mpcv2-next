@@ -4,13 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect } from "react";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   const t = useTranslations("error");
   const locale = useLocale();
 
@@ -22,9 +16,7 @@ export default function Error({
     <div>
       <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking- dark:text-white text-black sm:text-4xl">
-            {t("message")}
-          </h2>
+          <h2 className="text-3xl font-bold text-black sm:text-4xl">{t("message")}</h2>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link href={`/${locale}`}>
               <button

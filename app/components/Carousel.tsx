@@ -104,17 +104,11 @@ export default function Carousel({ children, length }: Props) {
             <div className="relative">
               <ChevronLeftIcon
                 onClick={scrollLeft}
-                className={clsx(
-                  "absolute left-0 top-1 z-10 h-6 w-6 text-neutral-700 border border-neutral-400 bg-neutral-100 rounded-full",
-                  "dark:bg-white dark:text-light-white"
-                )}
+                className={clsx("absolute left-0 top-1 z-10 h-6 w-6 text-neutral-700 border border-neutral-400 bg-neutral-100 rounded-full")}
               />
               <ChevronRightIcon
                 onClick={scrollRight}
-                className={clsx(
-                  "absolute right-0 top-1 z-10 h-6 w-6 text-neutral-700 border border-neutral-400 bg-neutral-100 rounded-full",
-                  "dark:bg-white dark:text-light-white"
-                )}
+                className={clsx("absolute right-0 top-1 z-10 h-6 w-6 text-neutral-700 border border-neutral-400 bg-neutral-100 rounded-full")}
               />
             </div>
           </div>

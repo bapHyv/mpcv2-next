@@ -84,7 +84,7 @@ export default function SignUpForm() {
   return (
     <form action={formAction} className="space-y-6">
       <div>
-        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
+        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
           Email address <Star />
         </label>
         <div className="mt-2">
@@ -109,7 +109,7 @@ export default function SignUpForm() {
 
       <div>
         <div className="flex items-center justify-between">
-          <label htmlFor="password" className={twMerge(clsx("block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100"))}>
+          <label htmlFor="password" className={twMerge(clsx("block text-sm font-medium leading-6 text-gray-900"))}>
             Password <Star />
           </label>
           <div className="text-sm">
@@ -148,9 +148,7 @@ export default function SignUpForm() {
       <div>
         <label
           htmlFor="repeat-password"
-          className={twMerge(
-            clsx("block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100", { "text-red-600": !doesPasswordsMatch })
-          )}
+          className={twMerge(clsx("block text-sm font-medium leading-6 text-gray-900", { "text-red-600": !doesPasswordsMatch }))}
         >
           Repeat Password <Star />
         </label>
@@ -190,7 +188,7 @@ export default function SignUpForm() {
       </div>
 
       <div>
-        <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
+        <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-gray-900">
           First name <Star />
         </label>
         <div className="mt-2 relative">
@@ -213,7 +211,7 @@ export default function SignUpForm() {
       </div>
 
       <div>
-        <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100">
+        <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-gray-900">
           Last name <Star />
         </label>
         <div className="mt-2 relative">
@@ -251,7 +249,7 @@ export default function SignUpForm() {
               "sm:text-sm sm:leading-6"
             )}
           />
-          <label htmlFor="optInMarketing" className="text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100 cursor-pointer">
+          <label htmlFor="optInMarketing" className="text-sm font-medium leading-6 text-gray-900 cursor-pointer">
             Do you want to receive information about products?
           </label>
         </div>
@@ -272,7 +270,7 @@ export default function SignUpForm() {
               "sm:text-sm sm:leading-6"
             )}
           />
-          <label htmlFor="condition-generales" className="text-sm font-medium leading-6 text-gray-900 dark:text-neutral-100 cursor-pointer">
+          <label htmlFor="condition-generales" className="text-sm font-medium leading-6 text-gray-900 cursor-pointer">
             J’ai lu et j’accepte les{" "}
             <Link href="/conditions-generales-de-vente" target="_blank" className="text-green underline">
               conditions générales

@@ -13,7 +13,7 @@ export default function ProductPrice({ id }: { id: number }) {
         <div className="mt-3 text-center md:text-left">
           <h2 className="sr-only">product information</h2>
           <p
-            className={clsx("text-2xl tracking-tight text-neutral-900 dark:text-neutral-100", {
+            className={clsx("text-2xl tracking-tight text-neutral-900", {
               "line-through": products[id].stock === "0",
             })}
           >
@@ -23,7 +23,7 @@ export default function ProductPrice({ id }: { id: number }) {
       ) : (
         <div className="sm:mt-3">
           <h2 className="sr-only">product information</h2>
-          <p className="text-xl sm:text-3xl tracking-tight text-neutral-100 dark:text-light-black">0.00 €</p>
+          <p className="text-xl sm:text-3xl tracking-tight text-neutral-100">0.00 €</p>
         </div>
       )}
     </>

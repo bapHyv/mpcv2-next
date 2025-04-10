@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { ShoppingBagIcon, NewspaperIcon } from "@heroicons/react/24/outline";
 
-import ThemeSwitch from "@/app/components/ThemeSwitch";
 import ProfileHeader from "@/app/components/header/ProfileHeader";
 import SideCart from "@/app/components/cart/SideCart";
 import BurgerMenuHeader from "@/app/components/header/BurgerMenuHeader";
@@ -63,9 +62,6 @@ export default async function NavBar({ locale }: { locale: string }) {
           </Link>
 
           <div className="flex justify-between w-[15%] sm:w-[25%]">
-            {/* THEME SWITCH TABLET AND DESKTOP */}
-            <ThemeSwitch />
-
             {/* LANGUAGE SELECTOR TABLET AND DESKTOP */}
             <LanguageSelector locale={locale} />
 

@@ -1,12 +1,15 @@
+import clsx from "clsx";
 import Separator from "../Separator";
 
 export default function ProductCardSkeleton() {
   return (
     <div
-      className={`col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3 w-full
-    transform text-left text-base transition my-4 p-2 pt-3 rounded-md 
-    bg-neutral-100 dark:bg-light-black animate-pulse
-    `}
+      className={clsx(
+        "w-full col-span-12 transform text-left text-base transition my-4 p-2 pt-3 rounded-md bg-neutral-100 animate-pulse",
+        "md:col-span-6",
+        "xl:col-span-4",
+        "2xl:col-span-3"
+      )}
     >
       {/* img */}
       <div className="w-[312px] h-[208px] bg-neutral-400 rounded-sm m-auto"></div>
