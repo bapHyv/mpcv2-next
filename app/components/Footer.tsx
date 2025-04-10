@@ -44,7 +44,7 @@ export default async function Footer({ locale }: { locale: string }) {
   ];
 
   return (
-    <footer aria-labelledby="footer-heading" className="bg-black dark:bg-black p-10">
+    <footer aria-labelledby="footer-heading" className="bg-black p-10">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>

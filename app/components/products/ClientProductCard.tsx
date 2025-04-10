@@ -122,8 +122,7 @@ export default function ProductCard({
                 "text-sm text-center max-w-[calc((95dvw-8px)*(3/4)-8px)] font-medium text-neutral-900 text-ellipsis overflow-hidden text-nowrap",
                 "sm:max-w-[290px]",
                 "lg:max-w-96",
-                "xl:text-xl",
-                "dark:text-neutral-100"
+                "xl:text-xl"
               )}
             >
               {name}
@@ -135,7 +134,7 @@ export default function ProductCard({
             </h3>
 
             {/* PRICE / UNIT */}
-            <p className="text-xs sm:text-base text-neutral-600 dark:text-neutral-400">
+            <p className="text-xs sm:text-base text-neutral-600">
               {t("fromPrice")} {(highestOption.price / highestOption.quantity).toFixed(2)}
               €/{pricesPer}
             </p>
@@ -155,7 +154,7 @@ export default function ProductCard({
                       />
                     ))}
                   </div>
-                  <span className="ml-2 text-xs font-medium text-neutral-700 dark:text-neutral-200">
+                  <span className="ml-2 text-xs font-medium text-neutral-700">
                     ({ratings.amount} {t("reviews")})
                   </span>
                 </div>
@@ -170,7 +169,7 @@ export default function ProductCard({
                       <StarIcon key={ratingStar} aria-hidden="true" className={clsx("text-gray-200", "h-4 w-4 flex-shrink-0 mb-1")} />
                     ))}
                   </div>
-                  <span className="ml-2 text-xs font-medium text-neutral-700 dark:text-neutral-200">(0 {t("reviews")})</span>
+                  <span className="ml-2 text-xs font-medium text-neutral-700">(0 {t("reviews")})</span>
                 </div>
               </div>
             )}

@@ -81,11 +81,7 @@ export default function CartProductCard({
     <>
       <div
         className={twMerge(
-          clsx(
-            "relative flex border border-neutral-400 rounded-md shadow-xl bg-neutral-50 mb-2 max-h-[140px]",
-            "dark:shadow-neutral-700 dark:shadow-lg dark:bg-black",
-            { "mb-0": isInModale }
-          )
+          clsx("relative flex border border-neutral-400 rounded-md shadow-xl bg-neutral-50 mb-2 max-h-[140px]", { "mb-0": isInModale })
         )}
       >
         {!isInModale && (
@@ -109,9 +105,9 @@ export default function CartProductCard({
         {/*Fleurs, hash, moonrock, infusion: titre \n nb gramme - prix/g*/}
         {/*Huile, soins, vapo titre \n nb unit - prix/unit*/}
 
-        <div className="w-3/4 text-neutral-900 dark:text-neutral-50 p-3 md:text-lg">
+        <div className="w-3/4 text-neutral-900 p-3 md:text-lg">
           <div className="w-full">
-            <p className="text-md text-ellipsis overflow-hidden text-nowrap md:text-lg text-dark-green dark:text-light-green">{name}</p>
+            <p className="text-md text-ellipsis overflow-hidden text-nowrap md:text-lg text-dark-green">{name}</p>
           </div>
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm">
@@ -146,7 +142,7 @@ export default function CartProductCard({
 
           <p className="font-medium italic text-right text-sm">
             {/* <span className="capitalize">{t("subtotal")}</span>:{" "} */}
-            <span className="text-blue-600 dark:text-blue-400">{totalPrice.toFixed(2)}€</span>
+            <span className="text-blue-600">{totalPrice.toFixed(2)}€</span>
           </p>
         </div>
       </div>

@@ -71,7 +71,7 @@ export default function Cart() {
           >
             <div
               className={twMerge(
-                clsx("relative flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 shadow-xl pt-3 pb-28 md:pt-28 md:pb-16", {
+                clsx("relative flex h-full flex-col overflow-y-scroll bg-white shadow-xl pt-3 pb-28 md:pt-28 md:pb-16", {
                   "pb-[150px]": isInCategoryPage,
                   "md:pt-[160px]": isInCategoryPage,
                 })
@@ -79,14 +79,12 @@ export default function Cart() {
             >
               <div className="px-4 sm:px-6">
                 <div className="flex items-start justify-between">
-                  <DialogTitle className="text-base font-semibold leading-6 text-neutral-900 dark:text-neutral-200 capitalize">
-                    {t("cart")}
-                  </DialogTitle>
+                  <DialogTitle className="text-base font-semibold leading-6 text-neutral-900 capitalize">{t("cart")}</DialogTitle>
                   <div className="ml-3 flex h-7 items-center">
                     <button
                       type="button"
                       onClick={() => setOpen(false)}
-                      className="relative rounded-md bg-white text-neutral-400 hover:text-neutral-500 dark:text-neutral-700 dark:hover:text-neutral-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="relative rounded-md bg-white text-neutral-400 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       <span className="absolute -inset-2.5" />
                       <span className="sr-only">Close panel</span>
@@ -114,7 +112,7 @@ export default function Cart() {
                 )}
               >
                 <p className="font-semibold text-sm">
-                  TOTAL: <span className="text-blue-600 dark:text-blue-400">{cart?.total?.toFixed(2)}€</span>
+                  TOTAL: <span className="text-blue-600">{cart?.total?.toFixed(2)}€</span>
                 </p>
                 <Link href={`/${locale}/panier`}>
                   <button

@@ -117,7 +117,7 @@ export default async function Page({ params: { category, locale, productSlug } }
   }
 
   return (
-    <div className="bg-white dark:bg-light-black">
+    <div className="bg-white">
       <div className="mx-auto max-w-2xl px-2 py-6 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
           {/* Image gallery */}
@@ -166,7 +166,7 @@ export default async function Page({ params: { category, locale, productSlug } }
           </TabGroup>
 
           <div className="mt-5">
-            <h2 className="text-center text-xl md:text-2xl font-bold tracking-tight text-black dark:text-neutral-100">{product.name}</h2>
+            <h2 className="text-center text-xl md:text-2xl font-bold tracking-tight text-black">{product.name}</h2>
 
             {/* PRODUCT PRICE */}
             <ProductPrice id={product.id} />
@@ -185,7 +185,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                       />
                     ))}
                   </div>
-                  <Link href="#reviews" className="text-green dark:text-light-green text-sm sm:text-base mt-1">
+                  <Link href="#reviews" className="text-green text-sm sm:text-base mt-1">
                     {product.ratings.amount} avis
                   </Link>
                   <p className="sr-only">{product.ratings.value} out of 5 stars</p>
@@ -200,7 +200,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                 dangerouslySetInnerHTML={{
                   __html: product.shortDescription,
                 }}
-                className="text-sm md:text-base text-neutral-900 dark:text-neutral-100"
+                className="text-sm md:text-base text-neutral-900"
               />
             </div>
 
@@ -236,17 +236,15 @@ export default async function Page({ params: { category, locale, productSlug } }
                   <Disclosure as="div">
                     <h3>
                       <DisclosureButton className="group relative flex w-full items-center justify-between py-6 text-left">
-                        <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100 group-data-[open]:text-green capitalize">
-                          Informations
-                        </span>
+                        <span className="text-sm font-medium text-neutral-900 group-data-[open]:text-green capitalize">Informations</span>
                         <span className="ml-6 flex items-center">
                           <PlusIcon
                             aria-hidden="true"
-                            className="block h-6 w-6 text-neutral-600 group-hover:text-neutral-500 dark:text-neutral-300 dark:group-hover:text-neutral-200 group-data-[open]:hidden"
+                            className="block h-6 w-6 text-neutral-600 group-hover:text-neutral-500 group-data-[open]:hidden"
                           />
                           <MinusIcon
                             aria-hidden="true"
-                            className="hidden h-6 w-6 text-neutral-600 group-hover:text-neutral-500 dark:text-neutral-300 dark:group-hover:text-neutral-200 group-data-[open]:block"
+                            className="hidden h-6 w-6 text-neutral-600 group-hover:text-neutral-500 group-data-[open]:block"
                           />
                         </span>
                       </DisclosureButton>
@@ -294,7 +292,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                                   <Link
                                     href={`https://www.monplancbd.fr/analyses/${value}`}
                                     target="_blank"
-                                    className="underline flex gap-1 capitalize text-neutral-900 dark:text-neutral-100"
+                                    className="underline flex gap-1 capitalize text-neutral-900"
                                   >
                                     {key} <ArrowUpRightIcon className="w-3 h-3 mt-1 text-green" />
                                   </Link>
@@ -332,11 +330,11 @@ export default async function Page({ params: { category, locale, productSlug } }
                           <ul role="list">
                             {Object.entries(product.terpenes).map(([key, value]) => (
                               <>
-                                <li key={key} className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100 capitalize">
+                                <li key={key} className="flex items-center gap-3 text-neutral-900 capitalize">
                                   {key}: {value}
                                   <Image src={`/${key.toLocaleLowerCase()}.png`} alt={key} width={40} height={40} />
                                 </li>
-                                <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-neutral-400">
+                                <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4">
                                   <div
                                     className={`${terpenesToColor[key.toLocaleLowerCase() as keyof typeof terpenesToColor]} h-1.5 rounded-full`}
                                     style={{ width: `${parseInt(value) * 20}%` }}
@@ -396,7 +394,7 @@ export default async function Page({ params: { category, locale, productSlug } }
               </dl>
             </div>
             <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6 lg:max-w-7xl lg:px-8">
-              <h2 className="text-green text-xl text-center font-medium dark:text-neutral-100 capitalize" id="reviews">
+              <h2 className="text-green text-xl text-center font-medium capitalize" id="reviews">
                 {t("singleProduct.reviews")}
               </h2>
               <div className="mt-6 space-y-10 divide-y divide-gray-200 border-b border-t border-gray-200 pb-10">
@@ -416,18 +414,15 @@ export default async function Page({ params: { category, locale, productSlug } }
                       </div>
 
                       <div className="mt-4 lg:mt-6 xl:col-span-2 xl:mt-0">
-                        <div
-                          dangerouslySetInnerHTML={{ __html: review.content }}
-                          className="mt-3 space-y-6 text-sm text-neutral-900 dark:text-neutral-100"
-                        />
+                        <div dangerouslySetInnerHTML={{ __html: review.content }} className="mt-3 space-y-6 text-sm text-neutral-900" />
                       </div>
                     </div>
 
                     <div className="mt-6 flex items-center text-sm lg:col-span-4 lg:col-start-1 lg:row-start-1 lg:mt-0 lg:flex-col lg:items-start xl:col-span-3">
-                      <p className="font-medium text-neutral-900 dark:text-neutral-100">{review.author}</p>
+                      <p className="font-medium text-neutral-900 ">{review.author}</p>
                       <time
                         dateTime={new Date(review.date).toLocaleString()}
-                        className="ml-4 border-l border-gray-200 pl-4 text-neutral-600 dark:text-neutral-400 lg:ml-0 lg:mt-2 lg:border-0 lg:pl-0"
+                        className="ml-4 border-l border-gray-200 pl-4 text-neutral-600  lg:ml-0 lg:mt-2 lg:border-0 lg:pl-0"
                       >
                         {new Date(review.date).toLocaleString()}
                       </time>
@@ -442,7 +437,7 @@ export default async function Page({ params: { category, locale, productSlug } }
         {/* RELATED PRODUCTS */}
         {!!product.relatedProducts.length && (
           <section aria-labelledby="related-heading">
-            <h2 id="related-heading" className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+            <h2 id="related-heading" className="text-lg font-medium text-neutral-900">
               {t("singleProduct.relatedProducts")}
             </h2>
 
@@ -479,7 +474,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                     </Link>
                   </div>
                   {
-                    <p className="text-neutral-600 dark:text-neutral-400 p-1 text-md sm:text-xs">
+                    <p className="text-neutral-600 p-1 text-md sm:text-xs">
                       À partir de {findHighestOption(relatedProduct.prices).price}€/
                       {relatedProduct.pricesPer}
                     </p>

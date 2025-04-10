@@ -23,7 +23,7 @@ export default async function Page({ params: { locale } }: Params) {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image alt="Logo monplancbd" width={40} height={40} src={`/canna-vert.png`} className="mx-auto h-10 w-auto" />
-          <h1 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-neutral-100">Mot de passe oublie</h1>
+          <h1 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Mot de passe oublie</h1>
         </div>
         <p className="my-5 max-w-xl mx-auto italic text-neutral-500 text-center">
           Mot de passe perdu ? Veuillez saisir votre identifiant ou votre adresse e-mail. Vous recevrez un lien par e-mail pour créer un nouveau mot

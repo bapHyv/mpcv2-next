@@ -129,9 +129,10 @@ export default async function Page({ params }: { params: Params }) {
           <Title
             title={t("services.title")}
             type="h2"
-            classname={`relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest
-            after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green
-            dark:after:bg-white z-10`}
+            classname={clsx(
+              "relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest",
+              "after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green"
+            )}
             firstLetterClassname="text-4xl"
           />
         </div>
@@ -149,9 +150,10 @@ export default async function Page({ params }: { params: Params }) {
             <Title
               title={t("cbdSection.title")}
               type="h2"
-              classname={`relative mt-4 mb-6 uppercase text-xl text-black dark:text-white font-bold tracking-widest
-              after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green
-              dark:after:bg-white z-10`}
+              classname={clsx(
+                "relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest",
+                "after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green"
+              )}
               firstLetterClassname="text-4xl"
             />
             <p className="lg:pr-4 text-justify">{t("cbdSection.text")}</p>
@@ -165,9 +167,10 @@ export default async function Page({ params }: { params: Params }) {
             <Title
               title={t("cbdPassion.title")}
               type="h2"
-              classname={`relative mt-4 mb-6 uppercase text-xl text-black dark:text-white font-bold tracking-widest
-              after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green
-              dark:after:bg-white z-10`}
+              classname={clsx(
+                "relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest",
+                "after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green"
+              )}
               firstLetterClassname="text-4xl"
             />
             <p className="text-justify">{t("cbdPassion.text")}</p>
