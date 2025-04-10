@@ -60,19 +60,19 @@ export default async function ProductCard({
         <div className={twMerge(clsx(secondeDivClassname))}>
           {/* IMAGE */}
           <div className="relative m-auto rounded-lg h-min">
-            {!!images.main && (
+            {
               <Link href={`/${category}/${slug}`}>
                 <div className={clsx(!parseInt(stock) ? "opacity-60" : "", "w-[320px] h-56 sm:w-[290px] sm:h-[200px] lg:w-96 lg:h-72")}>
                   <Image
-                    alt={images.main.alt}
-                    src={`${process.env.MAIN_URL}${process.env.IMG_HOST}${images.main.url}`}
+                    alt={!!images.main ? images.main.alt : "image placeholder"}
+                    src={!!images.main ? `${process.env.MAIN_URL}${process.env.IMG_HOST}${images.main.url}` : "/logo-noir.png"}
                     className="rounded-md object-cover w-[320px] h-56 sm:w-[290px] sm:h-[200px] lg:w-96 lg:h-72"
                     width={1080}
                     height={1920}
                   />
                 </div>
               </Link>
-            )}
+            }
 
             {/* PROMO or OUT OF STOCK CHIP */}
             {!parseInt(stock) ? (

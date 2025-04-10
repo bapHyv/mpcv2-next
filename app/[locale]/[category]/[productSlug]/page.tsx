@@ -5,16 +5,18 @@ import { getTranslations } from "next-intl/server";
 import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import geoip from "geoip-lite";
 
 import ProductOptions from "@/app/components/products/ProductOptions";
 import ProductPrice from "@/app/components/products/ProductPrice";
 import ReviewForm from "@/app/components/productPage/ReviewForm";
 import ShippingCalendar from "@/app/components/ShippingCalendar";
-import ShareSocialMedia from "@/app/components/ShareSocialMedia";
+import Timer from "@/app/components/Timer";
 
 import { Analyse, Cannabinoids, Product, Terpenes } from "@/app/types/productsTypes";
 import { terpenesToColor } from "@/app/utils/terpenesToColor";
-import { findHighest, findHighestOption, returnRenamedGrowingMethod } from "@/app/utils/productFunctions";
+import { findHighestOption, returnRenamedGrowingMethod } from "@/app/utils/productFunctions";
+import getClientIp from "@/app/components/getClientIp";
 
 interface Params {
   params: {
@@ -28,12 +30,14 @@ export async function generateMetadata({ params: { category, locale, productSlug
   const response = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`);
   const product: Product = await response.json();
   const domain = process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.MAIN_DOMAIN;
+  const img = !!product.images.main ? product.images.main.url : "/logo-noir.png";
+  const alt = !!product.images.main ? product.images.main.alt : product.name;
   const imgHost = `${process.env.MAIN_URL}${process.env.IMG_HOST}`;
   const images = product.images.others.reduce(
     (acc, img) => {
       return [...acc, { url: `${imgHost}${img.url}`, alt: img.url }];
     },
-    [{ url: `${imgHost}${product.images.main.url}`, alt: product.images.main.alt }]
+    [{ url: `${imgHost}${img}`, alt }]
   );
 
   return {
@@ -58,10 +62,6 @@ export default async function Page({ params: { category, locale, productSlug } }
 
   const response = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`);
   const product: Product = await response.json();
-
-  console.log(product);
-
-  const cannabinoidRating = "cannabinoids" in product ? findHighest(product.cannabinoids) : null;
 
   const counts = product.ratings.reviews.reduce(
     (acc, rating) => {
@@ -97,9 +97,28 @@ export default async function Page({ params: { category, locale, productSlug } }
 
   const renamedGrowindMethod = returnRenamedGrowingMethod("growingMethod" in product ? product.growingMethod : undefined);
 
+  let isFrance = false;
+  const clientIp = getClientIp();
+
+  if (clientIp && clientIp !== "127.0.0.1" && clientIp !== "::1") {
+    try {
+      const geo = geoip.lookup(clientIp);
+      if (geo && geo.country === "FR") {
+        isFrance = true;
+      }
+    } catch (error) {
+      console.error(`Error performing GeoIP lookup for ${clientIp}:`, error);
+      isFrance = false;
+    }
+  } else {
+    if (process.env.NODE_ENV === "development") {
+      isFrance = true;
+    }
+  }
+
   return (
     <div className="bg-white dark:bg-light-black">
-      <div className="mx-auto max-w-2xl px-2 py-6 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto max-w-2xl px-2 py-6 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
           {/* Image gallery */}
           <TabGroup className="flex flex-col-reverse">
@@ -146,22 +165,17 @@ export default async function Page({ params: { category, locale, productSlug } }
             </TabPanels>
           </TabGroup>
 
-          <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-            <h2 className="text-center md:text-left text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-              {product.name}
-              {cannabinoidRating && (
-                <span className="text-green dark:text-light-green">{` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}</span>
-              )}
-            </h2>
+          <div className="mt-5">
+            <h2 className="text-center text-xl md:text-2xl font-bold tracking-tight text-black dark:text-neutral-100">{product.name}</h2>
 
             {/* PRODUCT PRICE */}
             <ProductPrice id={product.id} />
 
             {/* STARS REVIEW */}
             {!!product.ratings.amount && (
-              <div className="mt-3">
+              <div className="sm:my-2">
                 <h3 className="sr-only">Reviews</h3>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-x-1 sm:gap-x-2">
                   <div className="flex items-center">
                     {[0, 1, 2, 3, 4].map((rating) => (
                       <StarIcon
@@ -171,7 +185,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                       />
                     ))}
                   </div>
-                  <Link href="#reviews" className="text-green dark:text-light-green mt-1">
+                  <Link href="#reviews" className="text-green dark:text-light-green text-sm sm:text-base mt-1">
                     {product.ratings.amount} avis
                   </Link>
                   <p className="sr-only">{product.ratings.value} out of 5 stars</p>
@@ -180,15 +194,17 @@ export default async function Page({ params: { category, locale, productSlug } }
             )}
 
             {/* SHORT DESCRIPTION */}
-            <div className="mt-6">
+            <div className="my-3">
               <h3 className="sr-only">Description</h3>
               <div
                 dangerouslySetInnerHTML={{
                   __html: product.shortDescription,
                 }}
-                className="space-y-6 text-base text-neutral-900 dark:text-neutral-100"
+                className="text-sm md:text-base text-neutral-900 dark:text-neutral-100"
               />
             </div>
+
+            {isFrance && <Timer />}
 
             {/* OPTION PICKER */}
             <ProductOptions
@@ -197,8 +213,8 @@ export default async function Page({ params: { category, locale, productSlug } }
               name={product.name}
               id={product.id}
               image={{
-                url: product.images.main.url,
-                alt: product.images.main.alt,
+                url: !!product.images.main ? product.images.main.url : "/logo-noir.png",
+                alt: !!product.images.main ? product.images.main.alt : product.name,
               }}
               stock={product.stock}
               slug={productSlug}
@@ -206,14 +222,14 @@ export default async function Page({ params: { category, locale, productSlug } }
               isInModale={false}
             />
 
-            <section aria-labelledby="details-heading" className="mt-12">
+            <section aria-labelledby="details-heading" className="mt-2">
               <h2 id="details-heading" className="sr-only">
                 Additional details
               </h2>
 
               {(!!renamedGrowindMethod ||
-                "country" in product ||
-                ("analyzes" in product && !!Object.values(product.analyzes as Analyse)) ||
+                ("country" in product && !!product.country.length) ||
+                ("analyzes" in product && !!Object.values(product.analyzes as Analyse).length) ||
                 ("cannabinoids" in product && !!Object.values(product.cannabinoids as Cannabinoids).length) ||
                 ("terpenes" in product && !!Object.values(product.terpenes as Terpenes).length)) && (
                 <div className="divide-y divide-gray-200 border-t">
@@ -240,59 +256,96 @@ export default async function Page({ params: { category, locale, productSlug } }
                       className="prose prose-sm pb-6 origin-top transition duration-300 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
                     >
                       {"growingMethod" in product && (
-                        <div className="flex items-center gap-x-4">
-                          <Image src={`/${renamedGrowindMethod}.png`} alt={`Méthode de culture: ${product.growingMethod}`} width={30} height={30} />
-                          <span>{product.growingMethod}</span>
-                        </div>
+                        <>
+                          <div className="mb-2 flex items-center gap-x-2">
+                            <p>Growing Method:</p>
+                            <div className="flex items-center gap-x-2">
+                              <span>{product.growingMethod}</span>
+                              <Image
+                                src={`/${renamedGrowindMethod}.png`}
+                                alt={`Méthode de culture: ${product.growingMethod}`}
+                                width={25}
+                                height={25}
+                              />
+                            </div>
+                          </div>
+                          <div className="h-[1px] mt-2 bg-neutral-100" />
+                        </>
                       )}
-                      {"country" in product && (
-                        <div className="flex items-center gap-x-4">
-                          <Image src={`/${product.country}.png`} alt={`Drapeau ${product.country}`} width={30} height={30} />
-                          <span>{countries[product.country]}</span>
-                        </div>
+                      {"country" in product && !!product.country.length && (
+                        <>
+                          <div className="my-2 flex items-center gap-x-2">
+                            <p>Provenance:</p>
+                            <div className="flex items-center gap-x-2">
+                              <span>{countries[product.country]}</span>
+                              <Image src={`/${product.country}.png`} alt={`Drapeau ${product.country}`} width={30} height={30} />
+                            </div>
+                          </div>
+                          <div className="h-[1px] mt-2 bg-neutral-100" />
+                        </>
                       )}
-                      {"analyzes" in product && !!Object.values(product.analyzes as Analyse) && (
-                        <ul role="list">
-                          {Object.entries(product.analyzes as Analyse).map(([key, value]) => (
-                            <li key={key}>
-                              <Link
-                                href={`https://www.monplancbd.fr/analyses/${value}`}
-                                target="_blank"
-                                className="underline flex gap-1 capitalize text-neutral-900 dark:text-neutral-100"
-                              >
-                                {key} <ArrowUpRightIcon className="w-3 h-3 mt-1 text-green" />
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
+                      {"analyzes" in product && !!Object.values(product.analyzes).length && !!Object.values(product.analyzes as Analyse) && (
+                        <>
+                          <div className="my-2 flex items-center gap-x-2">
+                            <p>Analyses:</p>
+                            <ul role="list">
+                              {Object.entries(product.analyzes as Analyse).map(([key, value]) => (
+                                <li key={key}>
+                                  <Link
+                                    href={`https://www.monplancbd.fr/analyses/${value}`}
+                                    target="_blank"
+                                    className="underline flex gap-1 capitalize text-neutral-900 dark:text-neutral-100"
+                                  >
+                                    {key} <ArrowUpRightIcon className="w-3 h-3 mt-1 text-green" />
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="h-[1px] mt-2 bg-neutral-100" />
+                        </>
                       )}
                       {"cannabinoids" in product && !!Object.values(product.cannabinoids as Cannabinoids).length && (
-                        <ul role="list">
-                          {Object.entries(product.cannabinoids as Cannabinoids).map(([key, value]) => (
-                            <li key={key} className="flex items-end gap-3 h-[45px]">
-                              {key}: {value} %
-                              <Image src={`/${key.toLocaleLowerCase()}.png`} alt={`molecul of ${key}`} width={75} height={75} />
-                            </li>
-                          ))}
-                        </ul>
+                        <>
+                          <div className="my-2 flex items-center gap-x-2">
+                            <p>Cannabinoids:</p>
+                            <ul className="flex flex-col gap-y-2" role="list">
+                              {Object.entries(product.cannabinoids as Cannabinoids).map(([key, value]: [string, string]) => {
+                                const cannabinoidColor = key === "CBD" ? "emerald" : key === "CBG" ? "purple" : key === "CBN" ? "yellow" : "neutral";
+                                return (
+                                  <li
+                                    key={key}
+                                    className={`flex items-end gap-3 text-xs text-center px-1 py-0.5 rounded-full bg${cannabinoidColor}100 border border${cannabinoidColor}700 text${cannabinoidColor}700`}
+                                  >
+                                    {key}: {parseFloat(value).toFixed(2)} %
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                          <div className="h-[1px] mt-2 bg-neutral-100" />
+                        </>
                       )}
                       {"terpenes" in product && !!Object.values(product.terpenes as Terpenes).length && (
-                        <ul role="list">
-                          {Object.entries(product.terpenes).map(([key, value]) => (
-                            <>
-                              <li key={key} className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100 capitalize">
-                                {key}: {value}
-                                <Image src={`/${key.toLocaleLowerCase()}.png`} alt={key} width={40} height={40} />
-                              </li>
-                              <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-neutral-400">
-                                <div
-                                  className={`${terpenesToColor[key.toLocaleLowerCase() as keyof typeof terpenesToColor]} h-1.5 rounded-full`}
-                                  style={{ width: `${parseInt(value) * 20}%` }}
-                                ></div>
-                              </div>
-                            </>
-                          ))}
-                        </ul>
+                        <div className="my-2">
+                          <p className="text-center">Terpenes/Aromes</p>
+                          <ul role="list">
+                            {Object.entries(product.terpenes).map(([key, value]) => (
+                              <>
+                                <li key={key} className="flex items-center gap-3 text-neutral-900 dark:text-neutral-100 capitalize">
+                                  {key}: {value}
+                                  <Image src={`/${key.toLocaleLowerCase()}.png`} alt={key} width={40} height={40} />
+                                </li>
+                                <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-neutral-400">
+                                  <div
+                                    className={`${terpenesToColor[key.toLocaleLowerCase() as keyof typeof terpenesToColor]} h-1.5 rounded-full`}
+                                    style={{ width: `${parseInt(value) * 20}%` }}
+                                  ></div>
+                                </div>
+                              </>
+                            ))}
+                          </ul>
+                        </div>
                       )}
                     </DisclosurePanel>
                   </Disclosure>
@@ -300,12 +353,6 @@ export default async function Page({ params: { category, locale, productSlug } }
               )}
             </section>
           </div>
-        </div>
-
-        <div className="flex flex-col xl:flex-row">
-          <ShippingCalendar />
-
-          <ShareSocialMedia shortDescription={product.shortDescription} />
         </div>
         <div className="pt-16 product-page-long-description" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
 

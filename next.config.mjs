@@ -4,6 +4,9 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: ["geoip-lite"],
+  },
   reactStrictMode: false,
   images: {
     remotePatterns: [

@@ -34,9 +34,7 @@ export default function SignInForm() {
 
   useEffect(() => {
     // Deal with 200 status
-    console.log(state);
     if (state.isSuccess && state.data && state.statusCode === 200) {
-      console.log("in here");
       const redirect = searchParams.get("redirect");
 
       setUserData(state.data as UserDataAPIResponse);

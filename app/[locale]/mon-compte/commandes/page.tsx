@@ -21,7 +21,7 @@ const Commandes = () => {
           </Link>
         )}
         {userData?.orders ? (
-          [...userData.orders, ...userData.orders, ...userData.orders, ...userData.orders, ...userData.orders].map((order) => (
+          userData.orders.map((order) => (
             <div key={order.id} className="space-y-5 md:space-y-3 w-[360px] 2xl:w-[720px] border border-neutral-500 rounded-lg p-3 shadow-md">
               <p className="text-lg text-center font-semibold text-green">
                 {t("order.orderNumber")}: {order.id}

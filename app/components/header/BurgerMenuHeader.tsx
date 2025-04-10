@@ -66,58 +66,43 @@ function BurgerMenu({ locale, onClickOutside, iconRef }: { locale: string; onCli
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClickOutside]);
 
-  const hw = { h: 24, w: 24 };
   const languageSelector = [
     {
       key: "Français",
-      alt: t("french"),
       text: "Français",
-      src: "/fr.png",
+      src: "🇫🇷",
       locale: "fr",
-      h: hw.h,
-      w: hw.w,
     },
     {
       key: "Espagnol",
-      alt: t("spanish"),
       text: "Español",
-      src: "/es.png",
+      src: "🇪🇸",
       locale: "es",
-      h: hw.h,
-      w: hw.w,
     },
     {
       key: "Anglais",
-      alt: t("english"),
       text: "English",
-      src: "/en.png",
+      src: "🇬🇧",
       locale: "en",
-      h: hw.h,
-      w: hw.w,
     },
   ];
 
   return (
-    <div ref={ref} className={clsx("absolute -top-52 bg-black text-white flex flex-col rounded-t-md w-[45dvw]")}>
+    <div ref={ref} className={clsx("absolute bottom-[54px] bg-black text-white flex flex-col rounded-t-md w-[45dvw]")}>
       {/* BLOG */}
       <Link href={`/${locale}/blog`} className="flex items-center ml-2">
-        <NewspaperIcon className="w-6 h-6 text-white" />
+        <span>📰</span>
         <span className="p-2">Blog</span>
       </Link>
-      <Separator classname="m-0" />
 
-      {/* THEME */}
-      <ThemeSwitch />
-      <Separator classname="m-0" />
       {/* LANGUAGE SELECTOR */}
-      {languageSelector.map((e, i, a) => (
+      {languageSelector.map((e) => (
         <React.Fragment key={e.key}>
           <Link href={generatePathWithLocale(pathname, e.locale)}>
             <div className="flex items-center ml-2">
-              <Image alt={e.alt} src={e.src} height={e.h} width={e.w} />
-              <span className={clsx("p-2", { "text-light-green": urlLocale === e.locale })}>{e.text}</span>
+              <span>{e.src}</span>
+              <span className={clsx("p-2", { "text-green": urlLocale === e.locale })}>{e.text}</span>
             </div>
-            {i !== a.length - 1 && <Separator classname="m-0" />}
           </Link>
         </React.Fragment>
       ))}

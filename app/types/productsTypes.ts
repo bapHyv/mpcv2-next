@@ -11,6 +11,7 @@ export type slugCategories =
 
 export interface Category {
   url: string;
+  urlTitle: string;
   category: keyof Products;
   title: string;
   slug: slugCategories;

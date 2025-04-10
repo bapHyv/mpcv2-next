@@ -63,7 +63,7 @@ export default function ProductCard({
         <div className={twMerge(clsx(secondeDivClassname))}>
           {/* IMAGE */}
           <div className="relative m-auto rounded-lg h-min">
-            {!!images.main && (
+            {
               <Link href={`/${category}/${slug}`}>
                 <div
                   className={clsx(
@@ -74,15 +74,15 @@ export default function ProductCard({
                   )}
                 >
                   <Image
-                    alt={images.main.alt}
-                    src={`https://www.monplancbd.fr/wp-content/uploads/${images.main.url}`}
+                    alt={!!images.main ? images.main.alt : "Image placeholder"}
+                    src={!!images.main ? `https://www.monplancbd.fr/wp-content/uploads/${images.main.url}` : "/logo-noir.png"}
                     className={clsx("rounded-md object-cover w-[calc((95dvw-8px)*(3/4)-8px)] h-40", "sm:w-[290px] sm:h-[200px]", "lg:w-96 lg:h-72")}
-                    width={1080}
-                    height={1920}
+                    width={1920}
+                    height={1080}
                   />
                 </div>
               </Link>
-            )}
+            }
             {!parseInt(stock) ? (
               <div className="absolute right-5 top-5 p-1 text-sm rounded-md text-white bg-red-600">{t("outOfStock")}</div>
             ) : isPromo ? (
@@ -105,7 +105,7 @@ export default function ProductCard({
             {cannabinoidRating && (
               <div className="absolute w-full bottom-2 flex items-center justify-center">
                 <div
-                  className={`text-xs text-center px-1 py-0.5 rounded-full bg-${cannabinoidColor}-100 border border-${cannabinoidColor}-700 text-${cannabinoidColor}-700`}
+                  className={`text-xs text-center px-1 py-0.5 rounded-full bg${cannabinoidColor}100 border border${cannabinoidColor}700 text${cannabinoidColor}700`}
                 >
                   <span>
                     {cannabinoidRating.name}: {cannabinoidRating.value}%
@@ -127,9 +127,6 @@ export default function ProductCard({
               )}
             >
               {name}
-              {cannabinoidRating && (
-                <span className="text-dark-green dark:text-light-green">{` - ${cannabinoidRating?.name}: ${cannabinoidRating?.value}%`}</span>
-              )}
             </h2>
 
             {/* PRODUCT PRICE FROM & PRODUCT PRICE */}
