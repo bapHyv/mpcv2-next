@@ -53,13 +53,7 @@ export default function LanguageSelector({ locale }: { locale: string }) {
         }}
       />
       {isVisible && (
-        <LanguageSelectorMenu
-          locale={locale}
-          onClickOutside={handleIsClosing}
-          iconRef={iconRef}
-          isVisible={isVisible}
-          isClosing={isClosing}
-        />
+        <LanguageSelectorMenu locale={locale} onClickOutside={handleIsClosing} iconRef={iconRef} isVisible={isVisible} isClosing={isClosing} />
       )}
     </div>
   );
@@ -102,34 +96,24 @@ function LanguageSelectorMenu({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClickOutside]);
 
-  const hw = { h: 24, w: 24 };
   const languageSelector = [
     {
       key: "Français",
-      alt: t("french"),
       text: "Français",
-      src: "/fr.png",
+      src: "🇫🇷",
       locale: "fr",
-      h: hw.h,
-      w: hw.w,
     },
     {
       key: "Espagnol",
-      alt: t("spanish"),
       text: "Español",
-      src: "/es.png",
+      src: "🇪🇸",
       locale: "es",
-      h: hw.h,
-      w: hw.w,
     },
     {
       key: "Anglais",
-      alt: t("english"),
       text: "English",
-      src: "/en.png",
+      src: "🇬🇧",
       locale: "en",
-      h: hw.h,
-      w: hw.w,
     },
   ];
   return (
@@ -152,8 +136,8 @@ function LanguageSelectorMenu({
           href={generatePathWithLocale(pathname, e.locale)}
           className={clsx("hover:bg-light-black", { "rounded-b-md": i === a.length - 1 })}
         >
-          <div className="flex items-center w-full">
-            <Image alt={e.alt} src={e.src} height={e.h} width={e.w} className="ml-2" />
+          <div className="flex items-center w-full ml-2">
+            <span>{e.src}</span>
             <span
               className={clsx("p-2", {
                 "text-green": urlLocale === e.locale,

@@ -99,8 +99,8 @@ export default function CartProductCard({
         )}
         <div className="relative w-1/4 flex items-center justify-center aspect-w-1">
           <Image
-            src={`https://www.monplancbd.fr/wp-content/uploads/${image.url}`}
-            alt={image.alt}
+            src={!!image?.url ? `https://www.monplancbd.fr/wp-content/uploads/${image.url}` : "/canna-vert.png"}
+            alt={!!image?.url ? image.alt : "logo monplancbd"}
             width={1920}
             height={1080}
             className="rounded-l-md w-full h-full top-0 left-0 object-cover"

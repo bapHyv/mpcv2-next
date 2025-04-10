@@ -8,7 +8,9 @@ import CartProductCard from "./CartProductCard";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-
+import { categories } from "@/app/staticData/categories";
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 interface CartProduct {
   id: string;
   quantity: number;
@@ -39,6 +41,8 @@ export default function Cart() {
     setOpen(false);
   }, [pathname]);
 
+  const isInCategoryPage = categories.has(pathname.split("/")[2]);
+
   return (
     <>
       {/* ICON NAVBAR */}
@@ -65,7 +69,14 @@ export default function Cart() {
             transition
             className="pointer-events-auto w-screen max-w-xs sm:max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700"
           >
-            <div className="relative flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 shadow-xl pt-3 pb-28 sm:pt-28 sm:pb-16">
+            <div
+              className={twMerge(
+                clsx("relative flex h-full flex-col overflow-y-scroll bg-white dark:bg-neutral-800 shadow-xl pt-3 pb-28 md:pt-28 md:pb-16", {
+                  "pb-[150px]": isInCategoryPage,
+                  "md:pt-[160px]": isInCategoryPage,
+                })
+              )}
+            >
               <div className="px-4 sm:px-6">
                 <div className="flex items-start justify-between">
                   <DialogTitle className="text-base font-semibold leading-6 text-neutral-900 dark:text-neutral-200 capitalize">
@@ -87,7 +98,7 @@ export default function Cart() {
 
               {/* PRODUCT CARDS CART */}
               {!!cart?.products?.length && (
-                <div className="mt-6 flex-1 px-2">
+                <div className="mt-6 md:mt-2 flex-1 px-2">
                   {cart?.products?.map((product) => (
                     <CartProductCard key={`${product.id}-${product.option}-${product.name}-${product.cartItemId}`} {...product} isInModale={false} />
                   ))}
@@ -95,7 +106,13 @@ export default function Cart() {
               )}
 
               {/* TOTAL + "PLACE ORDER" BUTTON */}
-              <div className="fixed bottom-14 sm:bottom-0 flex justify-between items-center w-full px-2 bg-white py-3">
+              <div
+                className={twMerge(
+                  clsx("fixed bottom-14 sm:bottom-0 flex justify-between items-center w-full px-2 bg-white py-3", {
+                    "bottom-[98px]": isInCategoryPage,
+                  })
+                )}
+              >
                 <p className="font-semibold text-sm">
                   TOTAL: <span className="text-blue-600 dark:text-blue-400">{cart?.total?.toFixed(2)}€</span>
                 </p>

@@ -39,6 +39,14 @@ const config: Config = {
             transform: "scale3d(1, 1, 1)",
           },
         },
+        slideInFromBottom: {
+          "0%": { transform: "translateY(100%)", opacity: "0.6" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        slideInFromTop: {
+          "0%": { transform: "translateY(-100%)", opacity: "0.6" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
         slideinleft: {
           "0%": { transform: "translateX(-100%)" },
           "50%": { transform: "translateX(5%)" },
@@ -85,6 +93,8 @@ const config: Config = {
       },
       animation: {
         tada: "tada 1s ease-in-out 0.25s infinite",
+        "slide-in-bottom": "slideInFromBottom 0.25s ease-out forwards",
+        "slide-in-top": "slideInFromTop 0.25s ease-out forwards",
         slideinleft: "slideinleft 0.5s ease-out forwards",
         slideinright: "slideinright 0.5s ease-out forwards",
         slideoutleft: "slideoutleft 0.5s ease-out forwards",

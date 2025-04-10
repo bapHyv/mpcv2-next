@@ -86,25 +86,25 @@ function UserMenu({ locale, onClickOutside, iconRef }: { locale: string; onClick
       text: t("info"),
       href: `/mon-compte/profil`,
       key: "info",
-      icon: <UserIcon className={iconClassname} />,
+      icon: "👤",
     },
     {
       text: t("addresses"),
       href: `/mon-compte/adresses`,
       key: "addresses",
-      icon: <HomeModernIcon className={iconClassname} />,
+      icon: "🏠",
     },
     {
       text: t("orders"),
       href: `/mon-compte/commandes`,
       key: "orders",
-      icon: <TruckIcon className={iconClassname} />,
+      icon: "🌿",
     },
     {
       text: t("fidelity"),
       href: `/mon-compte/fidelite`,
       key: "fidelity",
-      icon: <ChatBubbleLeftRightIcon className={iconClassname} />,
+      icon: "💖",
     },
     {
       text: t("logout"),
@@ -113,7 +113,7 @@ function UserMenu({ locale, onClickOutside, iconRef }: { locale: string; onClick
         logout();
       },
       key: "logout",
-      icon: <ArrowRightStartOnRectangleIcon className={iconClassname} />,
+      icon: "🚪",
     },
   ];
 
@@ -134,12 +134,12 @@ function UserMenu({ locale, onClickOutside, iconRef }: { locale: string; onClick
 
   const loggedInItems = itemsProfile.map((e) => {
     return "href" in e ? (
-      <Link key={e.key} href={`/${locale}${e.href}`} className="flex items-center hover:bg-light-black">
+      <Link key={e.key} href={`/${locale}${e.href}`} className="flex items-center hover:bg-light-black pl-2">
         {e.icon}
         <span className="p-2">{e.text}</span>
       </Link>
     ) : (
-      <div key={e.key} className="flex items-center hover:bg-light-black sm:rounded-b-md">
+      <div key={e.key} className="flex items-center hover:bg-light-black sm:rounded-b-md pl-2">
         {e.icon}
         <button onClick={e.onClick} className="p-2 text-left">
           {e.text}
@@ -161,7 +161,7 @@ function UserMenu({ locale, onClickOutside, iconRef }: { locale: string; onClick
     <div
       ref={ref}
       className={clsx(
-        "absolute bg-black text-white flex flex-col rounded-t-md w-[45dvw]",
+        "absolute z-[5000] bg-black text-white flex flex-col rounded-t-md w-[45dvw]",
         "sm:top-14 sm:w-fit sm:-translate-x-[calc(50%-12px)] sm:rounded-t-none sm:rounded-b-md",
         "lg:-translate-x-[calc(50%-16px)]",
         "xl:top-16 xl:-translate-x-[calc(50%-20px)]",

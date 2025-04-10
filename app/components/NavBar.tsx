@@ -11,7 +11,7 @@ import LanguageSelector from "@/app/components/header/LanguageSelector";
 
 export default async function NavBar({ locale }: { locale: string }) {
   return (
-    <nav className="bg-black fixed bottom-0 sm:top-0 sm:bottom-auto w-full max-w-[1920px] z-50 flex">
+    <nav className="fixed bottom-0 bg-black sm:top-0 sm:bottom-auto w-full max-w-[1920px] z-[5000] flex">
       <div className="relative w-full px-3 sm:px-2 lg:px-8 my-1">
         {/* PHONE ITEMS */}
         <div className="flex items-center justify-around sm:hidden">
