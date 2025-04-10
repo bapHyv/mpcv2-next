@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { v4 as uuid } from "uuid";
 
 import DiscountCode from "@/app/components/cartPage/DiscountCode";
 import Title from "@/app/components/Title";
@@ -9,11 +10,13 @@ import { useAuth } from "@/app/context/authContext";
 import { useSse } from "@/app/context/sseContext";
 import { useOrder } from "@/app/context/orderContext";
 import { buttonClassname, inputClassname, sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
+import { useAlerts } from "@/app/context/alertsContext";
 
 export default function DisplayDiscountCode() {
   const [publicDiscountCode, setPublicDiscountCode] = useState("");
   const [isPublicDiscountCodeValid, setIsPublicDiscountCodeValid] = useState(false);
 
+  const { addAlert } = useAlerts();
   const { userData } = useAuth();
   const { sseData } = useSse();
   const { order, setOrder } = useOrder();
@@ -29,6 +32,9 @@ export default function DisplayDiscountCode() {
         };
       });
       setPublicDiscountCode("");
+      addAlert(uuid(), "Le code promo a été appliqué avec succès", "Application code promo", "emerald");
+    } else {
+      addAlert(uuid(), "Erreur lors de l'application du code promotion", "Erreur", "red");
     }
   };
 
