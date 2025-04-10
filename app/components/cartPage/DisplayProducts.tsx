@@ -1,9 +1,10 @@
 "use client";
-import { useProductsAndCart } from "@/app/context/productsAndCartContext";
-import CartProductCard from "../cart/CartProductCard";
-import Title from "@/app/components/Title";
-import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";
+
+import { useProductsAndCart } from "@/app/context/productsAndCartContext";
+import Title from "@/app/components/Title";
+import CartProductCard from "@/app/components/cart/CartProductCard";
+import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 
 // This component exists to use the useProductsAndCart hook. It has to be a client component
 // It prevents to turn the whole cart page into a client component

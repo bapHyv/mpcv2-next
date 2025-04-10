@@ -1,16 +1,16 @@
 "use client";
 
 import { twMerge } from "tailwind-merge";
-import Title from "../Title";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
+import Link from "next/link";
 
 import { useAlerts } from "@/app/context/alertsContext";
 import { useOrder } from "@/app/context/orderContext";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import { computeVAT, displayDiscountValue } from "@/app/utils/orderFunctions";
-import Link from "next/link";
+import Title from "@/app/components/Title";
 
 export default function CartSummary() {
   const { cart } = useProductsAndCart();

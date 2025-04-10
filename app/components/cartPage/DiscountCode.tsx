@@ -17,7 +17,6 @@ interface Props {
 
 export default function DiscountCode({ name, d }: Props) {
   const [isIndividualUse, setIsIndividualUse] = useState(false);
-  const [isMessageVisible, setIsMessageVisible] = useState(false);
 
   const { sseData } = useSse();
   const { order, setOrder } = useOrder();
@@ -42,38 +41,35 @@ export default function DiscountCode({ name, d }: Props) {
     }
   }, [order.discounts, sseData]);
 
+  const isAlreadyApplied = order.discounts.some((discount) => discount.name === name);
+
   return (
     <>
-      <div className="flex items-center justify-between gap-x-3">
-        <span className="text-ellipsis overflow-hidden text-nowrap">{name}</span>
-        <span className="text-ellipsis overflow-hidden text-nowrap">
+      <div className="flex items-center">
+        <div className="text-ellipsis overflow-hidden text-nowrap w-[60%]">{name}</div>
+        <div className="text-ellipsis overflow-hidden text-nowrap w-[10%]">
           {d.discountValue}
           {d.discountType === "percent" ? "%" : "€"}
-        </span>
+        </div>
 
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center justify-end gap-x-2 w-[30%]">
           {!!message && (
             <>
-              <div className="has-tooltip">
-                <QuestionMarkCircleIcon
-                  type="button"
-                  onClick={() => setIsMessageVisible(!isMessageVisible)}
-                  className="w-5 h-5 text-black rounded-full cursor-help"
-                />
+              <div className="has-tooltip group">
+                <QuestionMarkCircleIcon type="button" tabIndex={0} className="w-5 h-5 text-blue-600 rounded-full tooltip-trigger" />
                 <span className="tooltip">{message}</span>
               </div>
             </>
           )}
           <button
-            disabled={!status || isIndividualUse || !cart.products.length || !!order.discounts.filter((d) => d.name === name).length}
+            disabled={!status || isIndividualUse || !cart.products.length || isAlreadyApplied}
             className={twMerge(buttonClassname)}
             onClick={() => handleUseDiscountCode(d, name)}
           >
-            Utiliser
+            {isAlreadyApplied ? "Appliqué" : "Utiliser"}
           </button>
         </div>
       </div>
-      <div className="h-[1px] w-full bg-black"></div>
     </>
   );
 }

@@ -1,11 +1,11 @@
 "use client";
-
-import { buttonClassname, inputClassname, sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
+import { ChangeEvent } from "react";
 import { twMerge } from "tailwind-merge";
+
+import { inputClassname, sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import Title from "@/app/components/Title";
 import { useAuth } from "@/app/context/authContext";
 import { useOrder } from "@/app/context/orderContext";
-import { ChangeEvent } from "react";
 
 export default function Fidelity() {
   const { userData } = useAuth();
