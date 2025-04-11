@@ -1,29 +1,54 @@
+// SignUpForm.tsx
 "use client";
 
 import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, redirect as nextRedirect } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
+import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 import SubmitButton from "@/app/components/SubmitButton";
 import { register } from "@/app/actions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
-import clsx from "clsx";
-import { twMerge } from "tailwind-merge";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 import { useTranslations } from "next-intl";
 import Star from "@/app/components/Star";
-import Link from "next/link";
+import { inputClassname, labelClassname, buttonClassname, checkRadioClassname, linkClassname } from "@/app/staticData/cartPageClasses"; // Adjust path
 
+// Initial state for the form hook
 const initialState = {
-  email: "",
-  password: "",
-  firstname: "",
-  lastname: "",
-  optInMarketing: false,
+  message: "",
+  data: null,
+  isSuccess: false,
+  statusCode: 0,
 };
+
+const FormField = ({
+  id,
+  label,
+  required,
+  children,
+  helpText,
+  className,
+}: {
+  id: string;
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+  helpText?: string;
+  className?: string;
+}) => (
+  <div className={twMerge("mb-4", className)}>
+    <label htmlFor={id} className={labelClassname}>
+      {label} {required && <Star />}
+    </label>
+    <div className="mt-1">{children}</div>
+    {helpText && <p className="mt-1 text-xs text-gray-500">{helpText}</p>}
+  </div>
+);
 
 export default function SignUpForm() {
   const t = useTranslations();
@@ -31,256 +56,171 @@ export default function SignUpForm() {
   const searchParams = useSearchParams();
 
   const [inputType, setInputType] = useState<"password" | "text">("password");
-  const [email, setEmail] = useState(searchParams.get("email") || "");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [doesPasswordsMatch, setDoesPasswordMatch] = useState(true);
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [optInMarketing, setOptInMarketing] = useState(false);
-  const [optInSell, setOptInSell] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  // @ts-ignore
-  const [state, formAction] = useFormState(register, initialState);
+  const initialEmail = searchParams.get("email") || "";
+
+  const [state, formAction] = useFormState(register, { ...initialState, email: initialEmail } as any);
 
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
 
   useEffect(() => {
-    if (state.isSuccess && isUserDataAPIResponse(state.data) && state.data && state.statusCode === 200) {
-      const redirect = searchParams.get("redirect");
+    if (state.statusCode !== 0) {
+      if (state.isSuccess && isUserDataAPIResponse(state.data) && state.statusCode === 200) {
+        const redirectPath = searchParams.get("redirect");
+        setUserData(state.data);
+        console.log(state.data);
+        localStorage.setItem("accessToken", state.data.accessToken);
+        localStorage.setItem("refreshToken", state.data.refreshToken);
+        addAlert(uuid(), t("alerts.signUp.success.text"), t("alerts.signUp.success.title"), "emerald");
+        router.push(redirectPath ? `/${redirectPath}` : "/");
+        router.refresh();
+      } else {
+        let alertTitle = t("alerts.genericError.title");
+        let alertText = state.message || t("alerts.genericError.text");
+        let alertType: "yellow" | "red" | "blue" = "red";
 
-      setUserData(state.data);
-
-      localStorage.setItem("accessToken", state.data.accessToken);
-      localStorage.setItem("refreshToken", state.data.refreshToken);
-
-      addAlert(uuid(), "You've successfully signed up", "Sign up successful", "emerald");
-
-      router.push(redirect ? redirect : "/");
-    } else if (!state.isSuccess && !state.data) {
-      switch (state.statusCode) {
-        case 409:
-          addAlert(uuid(), "User already exists, you'll get redirected", "User already exists", "blue");
-          redirect("/connexion");
-        case 500:
-          addAlert(uuid(), "Error, try again later", "Error server", "red");
-          break;
-        default:
-          break;
+        switch (state.statusCode) {
+          case 409:
+            alertTitle = t("alerts.signUp.409.title");
+            alertText = state.message || t("alerts.signUp.409.text");
+            alertType = "blue";
+            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent((state.data as string) || initialEmail)}`), 500);
+            break;
+          case 400: // Bad Request / Invalid input
+            alertTitle = t("alerts.signUp.400.title");
+            alertText = state.message || t("alerts.signUp.400.text");
+            alertType = "yellow";
+            break;
+          case 422: // Server-side validation error
+            alertTitle = t("alerts.signUp.422.title");
+            alertText = state.message || t("alerts.signUp.422.text");
+            alertType = "yellow";
+            break;
+          case 500: // Server Error
+            alertTitle = t("alerts.signUp.500.title");
+            alertText = state.message || t("alerts.signUp.500.text");
+            alertType = "red";
+            break;
+        }
+        addAlert(uuid(), alertText, alertTitle, alertType);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   useEffect(() => {
-    if ((password === "" && repeatPassword === "") || password === repeatPassword) {
-      setDoesPasswordMatch(true);
+    if (repeatPassword) {
+      setDoesPasswordMatch(password === repeatPassword);
     } else {
-      setDoesPasswordMatch(false);
+      setDoesPasswordMatch(true);
     }
   }, [password, repeatPassword]);
 
   return (
-    <form action={formAction} className="space-y-6">
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-          Email address <Star />
-        </label>
-        <div className="mt-2">
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoComplete="email"
-            className={clsx(
-              "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1",
-              "ring-inset ring-gray-300",
-              "placeholder:text-gray-400",
-              "focus:ring-2 focus:ring-inset focus:ring-light-green",
-              "sm:text-sm sm:leading-6"
-            )}
-          />
-        </div>
+    <form action={formAction} className="space-y-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+        <FormField id="firstname" label="Prénom" required>
+          <input type="text" name="firstname" required className={inputClassname} />
+        </FormField>
+        <FormField id="lastname" label="Nom" required>
+          <input type="text" name="lastname" required className={inputClassname} />
+        </FormField>
       </div>
-
-      <div>
-        <div className="flex items-center justify-between">
-          <label htmlFor="password" className={twMerge(clsx("block text-sm font-medium leading-6 text-gray-900"))}>
-            Password <Star />
-          </label>
-          <div className="text-sm">
-            <span>Already signed up? </span>
-            <a href="/connexion" className="underline font-semibold text-light-green hover:text-light-green">
-              Click here
-            </a>
-          </div>
-        </div>
-        <div className="mt-2 relative">
+      <FormField id="email" label="Adresse e-mail" required>
+        <input type="email" name="email" required defaultValue={initialEmail} className={inputClassname} />
+      </FormField>
+      <FormField id="password" label="Mot de passe" required>
+        <div className="relative">
           <input
-            id="password"
-            name="password"
             type={inputType}
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            autoComplete="current-password"
-            className={clsx(
-              "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm",
-              "ring-1 ring-inset ring-gray-300",
-              "placeholder:text-gray-400",
-              "focus:ring-2 focus:ring-inset focus:ring-light-green",
-              "sm:text-sm sm:leading-6"
-            )}
+            autoComplete="new-password"
+            className={inputClassname}
           />
-          <div className="absolute h-full top-0 right-2 flex items-center">
-            {inputType === "password" ? (
-              <EyeIcon className="w-6 h-6 text-neutral-700 cursor-pointer" onClick={() => setInputType("text")} />
-            ) : (
-              <EyeSlashIcon className="w-6 h-6 text-neutral-700 cursor-pointer" onClick={() => setInputType("password")} />
-            )}
-          </div>
+          <button
+            type="button"
+            onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+            aria-label={inputType === "password" ? "Show password" : "Hide password"}
+          >
+            {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
+          </button>
         </div>
-      </div>
-      <div>
-        <label
-          htmlFor="repeat-password"
-          className={twMerge(clsx("block text-sm font-medium leading-6 text-gray-900", { "text-red-600": !doesPasswordsMatch }))}
-        >
-          Repeat Password <Star />
-        </label>
-        <div className="mt-2 relative">
+      </FormField>
+      <FormField id="repeat-password" label="Confirmer le mot de passe" required>
+        <div className="relative">
           <input
-            id="repeat-password"
-            name="repeat-password"
             type={inputType}
+            name="repeat-password"
             value={repeatPassword}
             onChange={(e) => setRepeatPassword(e.target.value)}
             required
-            autoComplete="current-password"
-            className={twMerge(
-              clsx(
-                "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1",
-                "ring-inset ring-gray-300",
-                "placeholder:text-gray-400",
-                "focus:ring-2 focus:ring-inset focus:ring-light-green",
-                "sm:text-sm sm:leading-6",
-                { "ring-red-600 focus:ring-red-600": !doesPasswordsMatch }
-              )
-            )}
+            autoComplete="new-password"
+            className={twMerge(inputClassname, !doesPasswordsMatch && "ring-red-500 focus:ring-red-500 border-red-500")}
+            aria-invalid={!doesPasswordsMatch}
+            aria-describedby={!doesPasswordsMatch ? "passwords-dont-match" : undefined}
           />
-          <div className="absolute h-full top-0 right-2 flex items-center">
-            {inputType === "password" ? (
-              <EyeIcon className="w-6 h-6 text-neutral-700 cursor-pointer" onClick={() => setInputType("text")} />
-            ) : (
-              <EyeSlashIcon className="w-6 h-6 text-neutral-700 cursor-pointer" onClick={() => setInputType("password")} />
-            )}
-          </div>
+          <button
+            type="button"
+            onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+            aria-label={inputType === "password" ? "Show password" : "Hide password"}
+          >
+            {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
+          </button>
         </div>
+        {/* Password Mismatch Error Message */}
         {!doesPasswordsMatch ? (
-          <p id="passwords-dont-match" role="alert" aria-live="polite" className="text-red-600 text-xs text-right">
-            Password must match
+          <p id="passwords-dont-match" role="alert" className="mt-1 text-xs text-red-600">
+            Les mots de passe doivent correspondre.
           </p>
         ) : null}
-      </div>
-
-      <div>
-        <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-gray-900">
-          First name <Star />
-        </label>
-        <div className="mt-2 relative">
-          <input
-            id="firstname"
-            name="firstname"
-            type="text"
-            value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
-            required
-            className={clsx(
-              "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1",
-              "ring-inset ring-gray-300",
-              "placeholder:text-gray-400",
-              "focus:ring-2 focus:ring-inset focus:ring-light-green",
-              "sm:text-sm sm:leading-6"
-            )}
-          />
+      </FormField>
+      <fieldset className="space-y-4 pt-2">
+        <legend className="sr-only">Préférences et conditions</legend>
+        <div className="relative flex items-start">
+          <div className="flex h-6 items-center">
+            <input id="optInMarketing" name="optInMarketing" type="checkbox" className={checkRadioClassname} />
+          </div>
+          <div className="ml-3 text-sm leading-6">
+            <label htmlFor="optInMarketing" className="font-medium text-gray-900 cursor-pointer">
+              Je souhaite recevoir les actualités produits et promotions.
+            </label>
+          </div>
         </div>
-      </div>
-
-      <div>
-        <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-gray-900">
-          Last name <Star />
-        </label>
-        <div className="mt-2 relative">
-          <input
-            id="lastname"
-            name="lastname"
-            type="text"
-            value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
-            required
-            className={clsx(
-              "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1",
-              "ring-inset ring-gray-300",
-              "placeholder:text-gray-400",
-              "focus:ring-2 focus:ring-inset focus:ring-light-green",
-              "sm:text-sm sm:leading-6"
-            )}
-          />
+        <div className="relative flex items-start">
+          <div className="flex h-6 items-center">
+            <input
+              id="condition-generales"
+              name="condition-generales"
+              type="checkbox"
+              checked={agreedToTerms}
+              onChange={(e) => setAgreedToTerms(e.target.checked)}
+              required
+              className={checkRadioClassname}
+            />
+          </div>
+          <div className="ml-3 text-sm leading-6">
+            <label htmlFor="condition-generales" className="text-gray-700 cursor-pointer">
+              J&apos;ai lu et j&apos;accepte les{" "}
+              <Link href="/conditions-generales-de-vente" target="_blank" className={linkClassname}>
+                conditions générales
+              </Link>{" "}
+              <Star />
+            </label>
+          </div>
         </div>
-      </div>
-
+      </fieldset>
       <div>
-        <div className="flex items-start">
-          <input
-            id="optInMarketing"
-            name="optInMarketing"
-            type="checkbox"
-            checked={optInMarketing}
-            onChange={(e) => setOptInMarketing(e.target.checked)}
-            className={clsx(
-              "mr-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1",
-              "ring-inset ring-gray-300",
-              "placeholder:text-gray-400",
-              "focus:ring-2 focus:ring-inset focus:ring-light-green",
-              "sm:text-sm sm:leading-6"
-            )}
-          />
-          <label htmlFor="optInMarketing" className="text-sm font-medium leading-6 text-gray-900 cursor-pointer">
-            Do you want to receive information about products?
-          </label>
-        </div>
-
-        <div className="flex items-start">
-          <input
-            id="condition-generales"
-            name="condition-generales"
-            type="checkbox"
-            checked={optInSell}
-            onChange={(e) => setOptInSell(e.target.checked)}
-            required
-            className={clsx(
-              "mr-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1",
-              "ring-inset ring-gray-300",
-              "placeholder:text-gray-400",
-              "focus:ring-2 focus:ring-inset focus:ring-light-green",
-              "sm:text-sm sm:leading-6"
-            )}
-          />
-          <label htmlFor="condition-generales" className="text-sm font-medium leading-6 text-gray-900 cursor-pointer">
-            J’ai lu et j’accepte les{" "}
-            <Link href="/conditions-generales-de-vente" target="_blank" className="text-green underline">
-              conditions générales
-            </Link>{" "}
-            <Star />
-          </label>
-        </div>
-      </div>
-      <div>
-        <SubmitButton isDisabled={!email || !password || !firstname || !lastname || !optInSell} text="Sign in" />
+        <SubmitButton text="Créer mon compte" isDisabled={!doesPasswordsMatch || !agreedToTerms} className="w-full mt-4" />
       </div>
     </form>
   );

@@ -79,11 +79,7 @@ export default function CartProductCard({
 
   return (
     <>
-      <div
-        className={twMerge(
-          clsx("relative flex border border-neutral-400 rounded-md shadow-xl bg-neutral-50 mb-2 max-h-[140px]", { "mb-0": isInModale })
-        )}
-      >
+      <div className={twMerge(clsx("relative flex border border-neutral-400 rounded-md shadow-md mb-2 max-h-[140px]", { "mb-0": isInModale }))}>
         {!isInModale && (
           <XMarkIcon
             onClick={() => {
@@ -102,8 +98,6 @@ export default function CartProductCard({
             className="rounded-l-md w-full h-full top-0 left-0 object-cover"
           />
         </div>
-        {/*Fleurs, hash, moonrock, infusion: titre \n nb gramme - prix/g*/}
-        {/*Huile, soins, vapo titre \n nb unit - prix/unit*/}
 
         <div className="w-3/4 text-neutral-900 p-3 md:text-lg">
           <div className="w-full">

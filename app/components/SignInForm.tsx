@@ -1,3 +1,4 @@
+// SignInForm.tsx
 "use client";
 
 import { useFormState } from "react-dom";
@@ -5,57 +6,74 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
+import Link from "next/link";
 
 import SubmitButton from "@/app/components/SubmitButton";
 import { login } from "@/app/actions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
-import Link from "next/link";
 import { UserDataAPIResponse } from "@/app/types/profileTypes";
+import { inputClassname, labelClassname, linkClassname } from "@/app/staticData/cartPageClasses";
 
 const initialState = {
+  message: "",
+  data: null,
+  isSuccess: false,
+  statusCode: 0,
   email: "",
   password: "",
 };
 
 export default function SignInForm() {
   const [inputType, setInputType] = useState<"password" | "text">("password");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  // @ts-ignore
-  const [state, formAction, isPending] = useFormState(login, initialState);
+  const [state, formAction] = useFormState(login, initialState as any);
 
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
-
   const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Deal with 200 status
-    if (state.isSuccess && state.data && state.statusCode === 200) {
-      const redirect = searchParams.get("redirect");
+    if (state.statusCode !== 0) {
+      if (state.isSuccess && state.data && state.statusCode === 200) {
+        const redirect = searchParams.get("redirect");
+        const userData = state.data as UserDataAPIResponse;
 
-      setUserData(state.data as UserDataAPIResponse);
-      localStorage.setItem("accessToken", (state.data as UserDataAPIResponse).accessToken);
-      localStorage.setItem("refreshToken", (state.data as UserDataAPIResponse).refreshToken);
-      addAlert(uuid(), "You've successfully logged in", "Login successful", "emerald");
+        setUserData(userData);
+        localStorage.setItem("accessToken", userData.accessToken);
+        localStorage.setItem("refreshToken", userData.refreshToken);
+        addAlert(uuid(), "Connexion réussie!", "Succès", "emerald");
 
-      router.push(redirect ? redirect : "/");
-    } else if (!state.isSuccess && !state.data) {
-      switch (state.statusCode) {
-        // deal with status 401 (wrong password)
-        case 401:
-          addAlert(uuid(), "Wrong email or password", "Error Login", "yellow");
-          setPassword("");
-          break;
-        // deal with status 204 (user does not exist)
-        case 204:
-          addAlert(uuid(), state.message, "No user found", "blue");
-          router.push(`/inscription/?email=${email}`);
-        default:
-          break;
+        router.push(redirect ? `/${redirect}` : "/");
+        router.refresh();
+      } else {
+        let alertTitle = "Erreur";
+        let alertText = state.message || "Une erreur est survenue.";
+        let alertType: "yellow" | "red" | "blue" = "red";
+
+        switch (state.statusCode) {
+          case 401:
+            alertTitle = "Erreur Connexion";
+            alertText = "Email ou mot de passe incorrect.";
+            alertType = "yellow";
+            break;
+          case 204:
+            alertTitle = "Compte non trouvé";
+            alertText = state.message || "Aucun compte trouvé avec cet email.";
+            alertType = "blue";
+            break;
+          case 500:
+            alertTitle = "Erreur Serveur";
+            alertText = "Problème technique, veuillez réessayer plus tard.";
+            alertType = "red";
+            break;
+        }
+        addAlert(uuid(), alertText, alertTitle, alertType);
+
+        if (state.statusCode === 204 && state.data) {
+          router.push(`/inscription/?email=${encodeURIComponent(state.data as string)}`);
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,56 +82,40 @@ export default function SignInForm() {
   return (
     <form action={formAction} className="space-y-6">
       <div>
-        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-          Email address
+        <label htmlFor="email" className={labelClassname}>
+          Adresse e-mail
         </label>
         <div className="mt-2">
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoComplete="email"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-light-green sm:text-sm sm:leading-6"
-          />
+          <input id="email" name="email" type="email" required autoComplete="email" className={inputClassname} />
         </div>
       </div>
 
       <div>
         <div className="flex items-center justify-between">
-          <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-            Password
+          <label htmlFor="password" className={labelClassname}>
+            Mot de passe
           </label>
           <div className="text-sm">
-            <Link href="/mot-de-passe-oublie?redirect=connexion" className="font-semibold text-light-green">
-              Forgot password?
+            <Link href="/mot-de-passe-oublie" className={linkClassname}>
+              Mot de passe oublié?
             </Link>
           </div>
         </div>
         <div className="mt-2 relative">
-          <input
-            id="password"
-            name="password"
-            type={inputType}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="current-password"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-light-green sm:text-sm sm:leading-6"
-          />
-          <div className="absolute h-full top-0 right-2 flex items-center">
-            {inputType === "password" ? (
-              <EyeIcon className="w-6 h-6 text-neutral-700 cursor-pointer" onClick={() => setInputType("text")} />
-            ) : (
-              <EyeSlashIcon className="w-6 h-6 text-neutral-700 cursor-pointer" onClick={() => setInputType("password")} />
-            )}
-          </div>
+          <input id="password" name="password" type={inputType} required autoComplete="current-password" className={inputClassname} />
+          <button
+            type="button"
+            onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+            aria-label={inputType === "password" ? "Show password" : "Hide password"}
+          >
+            {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
+          </button>
         </div>
       </div>
+
       <div>
-        <SubmitButton isDisabled={!email || !password} text="Sign in" />
+        <SubmitButton text="Se connecter" className="w-full" />
       </div>
     </form>
   );

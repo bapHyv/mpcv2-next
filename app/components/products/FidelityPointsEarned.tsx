@@ -1,17 +1,24 @@
+import { useTranslations } from "next-intl";
+
 interface Props {
   price: number;
 }
 
 export default function FidelityPointsEarned({ price }: Props) {
-  const points = !!price ? Math.floor(price) : 0;
+  const t = useTranslations("loyalty");
+  const points = !isNaN(price) && price > 0 ? Math.floor(price) : 0;
+
+  if (points <= 0) {
+    return null;
+  }
 
   return (
-    <p className="text-center my-6">
-      ✨ Vous gagnerez{" "}
-      <span className="text-green">
-        {points.toFixed(0)} point{points > 1 && "s"}
+    <p className="text-center text-sm text-gray-600 my-4">
+      ✨ {t("earnPrefix")}{" "}
+      <span className="font-semibold text-green">
+        {new Intl.NumberFormat().format(points)} {t(points > 1 ? "pointsPlural" : "pointsSingular")}
       </span>{" "}
-      de fidélité ✨
+      {t("earnSuffix")} ✨
     </p>
   );
 }

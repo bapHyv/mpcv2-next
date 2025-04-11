@@ -1,87 +1,161 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
-import LoadingSpinner from "@/app/components/LoadingSpinner";
-import { useAuth } from "@/app/context/authContext";
 import React from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
+
+import LoadingSpinner from "@/app/components/LoadingSpinner";
+import Title from "@/app/components/Title";
+import { useAuth } from "@/app/context/authContext";
+import {
+  sectionWrapperClassname,
+  subtleSectionWrapperClassname,
+  statusBadgeCompleted,
+  statusBadgeOnHold,
+  statusBadgeFailed,
+  statusBadgeProcessing,
+  statusBadgeCancelled,
+  statusBadgeBase,
+  statusBadgePending,
+  statusBadgeRefunded,
+} from "@/app/staticData/cartPageClasses";
+import { Order } from "@/app/types/profileTypes";
+/**
+ * wc-pending – Payment pending (order received but not paid)
+ * wc-processing – Payment received and order is being prepared.
+ * wc-on-hold – Awaiting payment or requires manual review.
+ * wc-completed – Order fulfilled and completed (for downloadable/virtual products, this means access is granted).
+ * wc-cancelled – Order cancelled by admin or customer (no refund).
+ * wc-refunded – Payment refunded (fully or partially).
+ * wc-failed – Payment failed or was declined.
+ */
 
 const Commandes = () => {
   const t = useTranslations("orders");
-
   const { userData } = useAuth();
+
+  // Helper function to get status badge class
+  const getStatusClass = (status: Order["status"]): string => {
+    switch (status) {
+      case "wc-pending":
+        return statusBadgePending;
+      case "wc-processing":
+        return statusBadgeProcessing;
+      case "wc-on-hold":
+        return statusBadgeOnHold;
+      case "wc-completed":
+        return statusBadgeCompleted;
+      case "wc-cancelled":
+        return statusBadgeCancelled;
+      case "wc-refunded":
+        return statusBadgeRefunded;
+      case "wc-failed":
+        return statusBadgeFailed;
+      default:
+        return twMerge(statusBadgeBase, "bg-gray-100 text-gray-800");
+    }
+  };
+
+  // Helper function to get translated status text
+  const getStatusText = (status: Order["status"]): string => {
+    switch (status) {
+      case "wc-pending":
+        return t("order.status.pending");
+      case "wc-processing":
+        return t("order.status.processing");
+      case "wc-on-hold":
+        return t("order.status.onHold");
+      case "wc-completed":
+        return t("order.status.completed");
+      case "wc-cancelled":
+        return t("order.status.cancelled");
+      case "wc-refunded":
+        return t("order.status.refunded");
+      case "wc-failed":
+        return t("order.status.failed");
+      default:
+        return status;
+    }
+  };
+
   return (
-    <section className="mb-4">
-      <h2 className="text-green text-center font-medium text-2xl my-4">{t("title")}</h2>
-      <div className="flex flex-col items-center justify-center md:flex-row md:flex-wrap gap-3 px-3 pb-3">
-        {!userData?.orders.length && (
-          <Link href="/fleurs-cbd" className="p-4 border border-neutral-300 rounded-md text-neutral-500 italic text-center cursor-pointer">
-            Vous n&apos;avez aucune commandes passées. Cliquez ici pour consulter notre catalogue de produits!
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <Title
+        title={t("title")}
+        type="h1"
+        classname={`relative mb-8 text-center uppercase text-xl text-green font-bold tracking-widest`}
+        firstLetterClassname="text-4xl"
+      />
+
+      {!userData ? (
+        <div className="flex items-center justify-center min-h-[200px]">
+          <LoadingSpinner size="lg" color="green" />
+        </div>
+      ) : !userData.orders || userData.orders.length === 0 ? (
+        <div className={twMerge(subtleSectionWrapperClassname, "text-center")}>
+          <p className="text-gray-600 mb-4">Vous n&apos;avez aucune commande passée.</p>
+          <Link
+            href="/fleurs-cbd"
+            className="inline-flex items-center rounded-md border border-transparent bg-green px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
+          >
+            Consulter notre catalogue
           </Link>
-        )}
-        {userData?.orders ? (
-          userData.orders.map((order) => (
-            <div key={order.id} className="space-y-5 md:space-y-3 w-[360px] 2xl:w-[720px] border border-neutral-500 rounded-lg p-3 shadow-md">
-              <p className="text-lg text-center font-semibold text-green">
-                {t("order.orderNumber")}: {order.id}
-              </p>
-
-              <div className="w-full space-y-1">
-                <div className="flex justify-between text-left text-sm lg:text-base font-bold text-black">
-                  <div className="w-3/4">{t("order.product")}</div>
-                  <div className="w-1/4">{t("order.price")}</div>
-                </div>
-                <div>
-                  {order.products.map((product: any) => (
-                    <React.Fragment key={product.name}>
-                      <div className="flex justify-between text-xs lg:text-sm">
-                        <div className="text-teal-900 pr-2 font-medium w-3/4 text-ellipsis overflow-hidden text-nowrap">{product.name}</div>
-                        <div className="w-1/4">
-                          {parseFloat(product.price).toFixed(2)} {order.currency}
-                        </div>
-                      </div>
-                    </React.Fragment>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
+          {userData.orders.map((order) => (
+            <div key={order.id} className={twMerge(sectionWrapperClassname, "!my-0")}>
+              <div className="pb-3 mb-4 border-b border-gray-200">
+                <p className="text-sm font-semibold text-green">
+                  {t("order.orderNumber")}: #{order.id}
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {t("order.dateLabel")}: {new Date(order.date).toLocaleDateString()}
+                </p>
+              </div>
+              {/* Product List */}
+              <div className="mb-4">
+                <h4 className="sr-only">{t("order.product")}</h4>
+                <ul className="space-y-2 text-sm">
+                  {order.products.map((product) => (
+                    <li key={product.name} className="flex justify-between items-start gap-2">
+                      <span className="flex-grow text-gray-800 truncate pr-2">{product.name}</span>
+                      <span className="flex-shrink-0 font-medium text-gray-900 whitespace-nowrap">
+                        {parseFloat(product.price).toFixed(2)} {order.currency}
+                      </span>
+                    </li>
                   ))}
-                </div>
-                <div>
-                  <div className="flex justify-between text-sm lg:text-base font-bold text-black">
-                    <div className="w-3/4">Total</div>
-                    <div className="w-1/4 text-xs lg:text-sm">
-                      {order.total.toFixed(2)} {order.currency}
-                    </div>
-                  </div>
-                </div>
+                </ul>
               </div>
-
-              <div className="text-sm lg:text-base">
-                <p className="text-black">
-                  <span className="font-bold">Date:</span> {new Date(order.date).toLocaleDateString()}
-                </p>
-                <p>
-                  <span className="font-bold">Status: </span>
-                  <span
-                    className={`font-medium ${
-                      order.status === "wc-completed" ? "text-emerald-500" : order.status === "wc-on-hold" ? "text-yellow-600" : "text-red-600"
-                    }`}
-                  >
-                    {order.status === "wc-on-hold"
-                      ? t("order.status.onHold")
-                      : order.status === "wc-failed"
-                      ? t("order.status.failed")
-                      : t("order.status.delivered")}
-                  </span>
+              {/* Order Total */}
+              <div className="pt-3 mt-4 border-t border-gray-200">
+                <dl className="flex justify-between text-sm font-semibold text-gray-900">
+                  <dt>{t("order.totalLabel")}</dt>
+                  <dd>
+                    {order.total.toFixed(2)} {order.currency}
+                  </dd>
+                </dl>
+              </div>
+              {/* Order Status */}
+              <div className="mt-4 text-sm">
+                <p className="flex items-center gap-x-2">
+                  <span className="font-medium text-gray-700">{t("order.statusLabel")}:</span>
+                  {/* Styled status badge */}
+                  <span className={twMerge(getStatusClass(order.status))}>{getStatusText(order.status)}</span>
                 </p>
               </div>
+              {/* Optional: Add a link/button to view order details */}
+              {/* <div className="mt-4 text-right">
+                         <Link href={`/mon-compte/commandes/${order.id}`} className="text-sm font-medium text-green hover:text-dark-green">
+                             Voir détails →
+                         </Link>
+                     </div> */}
             </div>
-          ))
-        ) : (
-          <div className="flex items-center justify-center">
-            <LoadingSpinner size="lg" color="black" className="mt-20" />
-          </div>
-        )}
-      </div>
-    </section>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

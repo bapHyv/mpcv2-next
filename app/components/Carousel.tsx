@@ -1,60 +1,56 @@
 "use client";
 
-import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
-import Separator from "./Separator";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 
+import Separator from "@/app/components/Separator"; // Keep separator import
+import { buttonClassname } from "@/app/staticData/cartPageClasses";
+
 interface Props {
-  children: JSX.Element[];
+  children: React.ReactElement[];
   length: number;
 }
 
 export default function Carousel({ children, length }: Props) {
   const divRef = useRef<HTMLDivElement | null>(null);
-  const [isClient, setIsClient] = useState(false);
-  const [isPhone, setIsPhone] = useState(false); // Default value for server render
+  const [isPhone, setIsPhone] = useState(false);
 
   useEffect(() => {
-    // This effect runs only on the client
-    setIsClient(true); // Mark that we are now on the client
-
     const checkIsPhone = () => {
-      // Check window existence just in case, although useEffect guarantees client-side
       if (typeof window !== "undefined") {
         setIsPhone(window.innerWidth < 640);
       }
     };
-
-    checkIsPhone(); // Initial check
-
-    // Add resize listener to update isPhone state
+    checkIsPhone();
     window.addEventListener("resize", checkIsPhone);
-
-    // Cleanup listener on component unmount
     return () => window.removeEventListener("resize", checkIsPhone);
-  }, []); // Empty dependency array ensures this runs once on mount and cleans up on unmount
+  }, []);
+
+  const calculateCardWidthWithGap = (): number => {
+    if (divRef.current?.firstElementChild) {
+      // Check firstElementChild instead of childNodes
+      const cardElement = divRef.current.firstElementChild as HTMLElement;
+      const styles = window.getComputedStyle(divRef.current); // Styles of the container
+      const gap = parseFloat(styles.gap) || 0; // Get gap value, default 0 if undefined/invalid
+      return cardElement.offsetWidth + gap;
+    }
+    return 336 + 16;
+  };
 
   const scrollRight = () => {
     if (divRef.current) {
-      const scrL = divRef.current.scrollLeft;
-      // The + 4 comes from the gap-1 (4px)
-      // @ts-ignore
-      const cardWidth = divRef.current.childNodes[0].clientWidth + 4;
+      const container = divRef.current;
+      const scrL = container.scrollLeft;
+      const cardWidthWithGap = calculateCardWidthWithGap();
+      if (cardWidthWithGap <= 0) return; // Exit if calculation failed
 
-      let left = scrL + cardWidth;
+      // Calculate the target scroll position to align with the next card edge
+      const targetScrollLeft = Math.ceil((scrL + 1) / cardWidthWithGap) * cardWidthWithGap;
 
-      if (scrL % cardWidth !== 0) {
-        left = scrL + (cardWidth - (scrL % cardWidth));
-      }
-
-      if (left > divRef.current.scrollWidth) {
-        left = divRef.current.scrollWidth;
-      }
-
-      divRef.current?.scrollTo({
-        left,
+      container.scrollTo({
+        left: Math.min(targetScrollLeft, container.scrollWidth - container.clientWidth),
         behavior: "smooth",
       });
     }
@@ -62,65 +58,81 @@ export default function Carousel({ children, length }: Props) {
 
   const scrollLeft = () => {
     if (divRef.current) {
-      const scrL = divRef.current.scrollLeft;
-      // The + 4 comes from the gap-1 (4px)
-      // @ts-ignore
-      const cardWidth = divRef.current.childNodes[0].clientWidth + 4;
+      const container = divRef.current;
+      const scrL = container.scrollLeft;
+      const cardWidthWithGap = calculateCardWidthWithGap();
+      if (cardWidthWithGap <= 0) return; // Exit if calculation failed
 
-      let left = scrL - cardWidth;
+      // Calculate the target scroll position to align with the previous card edge
+      const targetScrollLeft = Math.floor((scrL - 1) / cardWidthWithGap) * cardWidthWithGap;
 
-      if (scrL % cardWidth !== 0) {
-        left = scrL - (scrL % cardWidth);
-      }
-
-      if (left < 0) {
-        left = 0;
-      }
-
-      divRef.current?.scrollTo({
-        left,
+      container.scrollTo({
+        left: Math.max(0, targetScrollLeft),
         behavior: "smooth",
       });
     }
   };
 
   return (
-    <>
-      <div className="lg:px-2 xl:px-[31px] mb-12 lg:mb-0">
+    <div className="relative w-full max-w-full overflow-hidden">
+      <div className={clsx("mx-auto", "w-[344px]", "sm:w-[624px]", "lg:w-[812px]", "xl:w-[1216px]", "3xl:w-[1620px] snap-start")}>
         <div
           ref={divRef}
-          className={clsx(
-            "flex gap-1 p-1 overflow-x-scroll w-[344px] m-auto rounded-md no-scrollbar",
-            "sm:w-[624px]",
-            "lg:w-[812px]",
-            "xl:w-[1218px]",
-            "3xl:w-[1624px]"
-          )}
+          className={clsx("flex bg-gray-50 gap-1 p-1 rounded-lg overflow-x-scroll no-scrollbar", "scroll-smooth snap-x snap-mandatory")}
         >
-          {children}
+          {/* Ensure each child has snap-align-start */}
+          {React.Children.map(children, (child) => React.cloneElement(child as React.ReactElement, { className: twMerge(child.props.className) }))}
         </div>
-        {divRef && isPhone ? (
-          <div className="p-1 w-[336px] m-auto">
-            <div className="relative">
-              <ChevronLeftIcon
-                onClick={scrollLeft}
-                className={clsx("absolute left-0 top-1 z-10 h-6 w-6 text-neutral-700 border border-neutral-400 bg-neutral-100 rounded-full")}
-              />
-              <ChevronRightIcon
-                onClick={scrollRight}
-                className={clsx("absolute right-0 top-1 z-10 h-6 w-6 text-neutral-700 border border-neutral-400 bg-neutral-100 rounded-full")}
-              />
-            </div>
+      </div>
+      {/* --- Navigation Controls --- */}
+      {length > 1 && // Only show controls if more than one item
+        (isPhone ? (
+          // Phone Arrows (Positioned below)
+          <div
+            className={clsx(
+              "relative mx-auto mt-3 h-10", // Height container for arrows
+              "w-[336px]" // Match smallest card width for alignment
+              // Adjust width to match the scroll container's mobile width if needed: "w-[344px]"
+            )}
+          >
+            {/* Left Arrow */}
+            <button
+              type="button"
+              onClick={scrollLeft}
+              aria-label="Previous slide"
+              className={twMerge(
+                buttonClassname, // Base button styles
+                "absolute left-0 top-1/2 -translate-y-1/2 rounded-full !p-1", // Override padding, ensure round
+                "bg-white/80 backdrop-blur-sm border border-gray-300 !text-gray-700 hover:!bg-white hover:!text-green focus:!ring-green" // Custom styling
+              )}
+            >
+              <ChevronLeftIcon className="h-5 w-5" />
+            </button>
+            {/* Right Arrow */}
+            <button
+              type="button"
+              onClick={scrollRight}
+              aria-label="Next slide"
+              className={twMerge(
+                buttonClassname,
+                "absolute right-0 top-1/2 -translate-y-1/2 rounded-full !p-1", // Override padding, ensure round
+                "bg-white/80 backdrop-blur-sm border border-gray-300 !text-gray-700 hover:!bg-white hover:!text-green focus:!ring-green" // Custom styling
+              )}
+            >
+              <ChevronRightIcon className="h-5 w-5" />
+            </button>
           </div>
         ) : (
+          // Desktop Bullets
           <Bullets length={length} divRef={divRef} />
-        )}
-      </div>
-      <Separator />
-    </>
+        ))}
+      {/* Separator remains outside the main logic */}
+      {/* <Separator /> */} {/* Consider if separator is needed here or outside carousel component usage */}
+    </div>
   );
 }
 
+// --- Bullets Component (Styled) ---
 interface PropsBullets {
   length: number;
   divRef: MutableRefObject<HTMLDivElement | null>;
@@ -128,49 +140,73 @@ interface PropsBullets {
 
 function Bullets({ length, divRef }: PropsBullets) {
   const [bullets, setBullets] = useState(0);
-  const [index, setIndex] = useState(0);
-  const [isClient, setIsClient] = useState(false);
-  const [cardsPerPage, setCardsPerPage] = useState(4);
+  const [index, setIndex] = useState(0); // Current page index
+  const [cardsPerPage, setCardsPerPage] = useState(3); // Default (adjust based on breakpoints)
+  // Removed isClient state
 
+  // --- Effect for calculating bullets and pages ---
   useEffect(() => {
-    setIsClient(true);
+    const calculateLayout = () => {
+      if (typeof window !== "undefined" && divRef.current?.firstElementChild) {
+        const containerWidth = divRef.current.clientWidth;
+        const cardElement = divRef.current.firstElementChild as HTMLElement;
+        const styles = window.getComputedStyle(divRef.current);
+        const gap = parseFloat(styles.gap) || 0;
+        const cardWidthWithGap = cardElement.offsetWidth + gap;
 
-    const updateLayout = () => {
-      if (typeof window !== "undefined") {
-        const width = window.innerWidth;
-        let newCardsPerPage = 4;
-        if (width >= 640 && width < 1280) {
-          newCardsPerPage = 2;
-        } else if (width >= 1280 && width < 1920) {
-          newCardsPerPage = 3;
-        } else if (width < 640) {
-          newCardsPerPage = 1;
-        }
-        setCardsPerPage(newCardsPerPage);
-        setBullets(Math.ceil(length / newCardsPerPage));
+        // Calculate how many cards fit - account for potential fractional visibility
+        const calculatedCardsPerPage = Math.max(1, Math.floor(containerWidth / cardWidthWithGap));
+        setCardsPerPage(calculatedCardsPerPage);
+        setBullets(Math.ceil(length / calculatedCardsPerPage));
+
+        // Update current index based on scroll position
+        const currentScroll = divRef.current.scrollLeft;
+        const calculatedIndex = Math.round(currentScroll / (cardWidthWithGap * calculatedCardsPerPage));
+        setIndex(calculatedIndex);
       }
     };
 
-    updateLayout();
-    window.addEventListener("resize", updateLayout);
+    calculateLayout(); // Initial calculation
+    window.addEventListener("resize", calculateLayout);
 
-    setIndex(0);
-    if (divRef.current) {
-      divRef.current.scrollTo({ left: 0, behavior: "auto" });
-    }
+    // Add scroll listener to update active bullet
+    const scrollContainer = divRef.current;
+    const handleScroll = () => {
+      if (scrollContainer?.firstElementChild) {
+        const cardElement = scrollContainer.firstElementChild as HTMLElement;
+        const styles = window.getComputedStyle(scrollContainer);
+        const gap = parseFloat(styles.gap) || 0;
+        const cardWidthWithGap = cardElement.offsetWidth + gap;
+        const calculatedCardsPerPage = Math.max(1, Math.floor(scrollContainer.clientWidth / cardWidthWithGap)); // Recalculate just in case
+        const currentScroll = scrollContainer.scrollLeft;
+        const calculatedIndex = Math.round(currentScroll / (cardWidthWithGap * calculatedCardsPerPage));
+        setIndex(calculatedIndex);
+      }
+    };
+    scrollContainer?.addEventListener("scroll", handleScroll, { passive: true });
 
-    return () => window.removeEventListener("resize", updateLayout);
-  }, [length, divRef]);
+    // Initial scroll reset (optional, might interfere with linking to specific items)
+    // setIndex(0);
+    // divRef.current?.scrollTo({ left: 0, behavior: "auto" });
 
+    return () => {
+      window.removeEventListener("resize", calculateLayout);
+      scrollContainer?.removeEventListener("scroll", handleScroll);
+    };
+  }, [length, divRef]); // Rerun if length or ref changes
+
+  // --- Click Handler for Bullets ---
   const handleClick = (bulletIndex: number) => {
-    if (divRef.current?.childNodes[0]) {
-      const cardElement = divRef.current.childNodes[0] as HTMLElement;
-      const style = window.getComputedStyle(cardElement.parentElement!);
-      const gap = parseFloat(style.gap) || 4;
+    if (divRef.current?.firstElementChild) {
+      const cardElement = divRef.current.firstElementChild as HTMLElement;
+      const styles = window.getComputedStyle(divRef.current);
+      const gap = parseFloat(styles.gap) || 0;
       const cardWidthWithGap = cardElement.offsetWidth + gap;
 
+      // Calculate scroll amount based on target page index and cards per page
       const scrollAmount = cardWidthWithGap * cardsPerPage * bulletIndex;
 
+      // Update index state immediately for visual feedback
       setIndex(bulletIndex);
 
       divRef.current?.scrollTo({
@@ -180,17 +216,30 @@ function Bullets({ length, divRef }: PropsBullets) {
     }
   };
 
-  if (!isClient || bullets <= 1) {
+  // Don't render if only one page/bullet needed
+  if (bullets <= 1) {
     return null;
   }
 
+  // --- Render Bullets ---
   return (
-    <div className="my-5">
-      <div className="flex justify-around w-full sm:w-1/3 lg:w-1/4 m-auto">
+    // Consistent vertical margin, centered horizontally
+    <div className="my-6 flex justify-center">
+      {/* Use flex with gap for spacing */}
+      <div className="flex items-center justify-center gap-2.5">
+        {" "}
+        {/* Adjusted gap */}
         {new Array(bullets).fill(0).map((_, i) => (
-          <div
+          <button // Use button for accessibility
             key={`${i}-bullet`}
-            className={twMerge(clsx("w-3 h-3 bg-neutral-300 rounded-full cursor-pointer", { "bg-green": i === index }))}
+            type="button"
+            aria-label={`Go to slide ${i + 1}`}
+            aria-current={i === index ? "true" : "false"}
+            className={twMerge(
+              "h-2.5 w-2.5 rounded-full transition-colors duration-150 ease-in-out", // Base size, shape, transition
+              i === index ? "bg-green scale-110" : "bg-gray-300 hover:bg-gray-400", // Active vs Inactive/Hover
+              "focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-green" // Focus style
+            )}
             onClick={() => handleClick(i)}
           />
         ))}

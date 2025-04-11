@@ -74,7 +74,7 @@ export default async function Page({ params: { locale, category } }: Params) {
       {/* NAV CATEGORY */}
       <div
         className={clsx(
-          "fixed z-[1000] bottom-[58px] px-5 animate-slide-in-bottom bg-gradient-to-t from-black via-black via-60% to-green flex items-center h-10 w-full overflow-y-scroll no-scrollbar ",
+          "fixed z-[1000] bottom-[58px] px-5 animate-slide-in-bottom bg-gradient-to-t from-black via-black via-60% to-green flex items-center h-10 w-full max-w-[1920px] overflow-y-scroll no-scrollbar ",
           "md:top-[88px] md:bottom-auto md:justify-between md:h-14 md:animate-slide-in-top md:bg-gradient-to-b md:via-70%"
         )}
       >

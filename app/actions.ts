@@ -45,8 +45,15 @@ interface IUser {
   billingAddress: billingAddress | null;
 }
 
-export type statusCode = 200 | 204 | 400 | 401 | 409 | 422 | 500;
+export type statusCode = 0 | 200 | 204 | 400 | 401 | 404 | 409 | 422 | 500;
 export type data = null | UserDataAPIResponse | Address | { id: string } | {};
+
+export interface IResponseAPI {
+  message: string;
+  data: data;
+  isSuccess: boolean;
+  statusCode: statusCode;
+}
 
 function responseAPI(message: string, data: data, isSuccess: boolean, statusCode: statusCode) {
   return { message, data, isSuccess, statusCode };
@@ -81,7 +88,7 @@ export async function login(prevState: Login, formData: FormData) {
         errorData,
       };
     } else if (response.ok && response.status === 204) {
-      return responseAPI("User does not exist, you will get redirected", null, true, response.status);
+      return responseAPI("User does not exist, you will get redirected", user.username, true, response.status);
     }
 
     const userData: UserDataAPIResponse = await response.json();
@@ -161,6 +168,10 @@ export async function register(prevState: any, formData: FormData) {
     };
 
     const response = await fetch(`${process.env.API_HOST}/register`, fetchOptions);
+
+    if (!response.ok && response.status === 409) {
+      return responseAPI("User successfully signed up", user.mail, false, response.status);
+    }
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
@@ -403,6 +414,7 @@ export async function updateAddress(prevState: Address & { id: string }, formDat
 }
 
 /**
+ * TODO: add 201 and 403
  * status code:
  *  204: success, send {message, null, isSuccess, status code: 204}
  *  400: invalid data {message, null, !isSuccess, statusCode: 400}

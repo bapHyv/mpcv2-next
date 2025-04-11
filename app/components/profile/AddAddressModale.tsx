@@ -1,9 +1,12 @@
+// AddAddressModale.tsx (Styled)
 "use client";
 
 import { useTranslations } from "next-intl";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { v4 as uuid } from "uuid";
+import { twMerge } from "tailwind-merge"; // Import twMerge
+import { XMarkIcon } from "@heroicons/react/24/solid"; // Icon for close button
 
 import { Address } from "@/app/types/profileTypes";
 import { addAddress } from "@/app/actions";
@@ -13,13 +16,45 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { useSse } from "@/app/context/sseContext";
 import { disableBodyScroll, enableBodyScroll } from "@/app/utils/bodyScroll";
 
+// Import styling classes and helpers
+import { inputClassname, buttonClassname, checkRadioClassname } from "@/app/staticData/cartPageClasses";
+import Star from "@/app/components/Star";
+import SubmitButton from "@/app/components/SubmitButton";
+
 interface Params {
   setIsAddModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 type addAddressForm = Omit<Address, "id">;
 
+// Reusable FormField component (same as in Update modal / Form.tsx)
+const FormField = ({
+  id,
+  label,
+  required,
+  children,
+  helpText,
+  className,
+}: {
+  id: string;
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+  helpText?: string;
+  className?: string;
+}) => (
+  <div className={twMerge("mb-4", className)}>
+    {" "}
+    <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900 mb-1">
+      {label} {required && <Star />}
+    </label>
+    {children}
+    {helpText && <p className="mt-1 text-xs text-gray-500">{helpText}</p>}
+  </div>
+);
+
 export default function AddAddressModale({ setIsAddModalOpen }: Params) {
+  // --- Keep Original State and Hooks ---
   const t = useTranslations();
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
@@ -29,7 +64,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
     firstname: "",
     lastname: "",
     company: "",
-    country: sseData ? Object.keys(sseData?.shippingMethods.byShippingZones)[0] : "",
+    country: sseData?.shippingMethods?.byShippingZones ? Object.keys(sseData.shippingMethods.byShippingZones)[0] || "" : "",
     address1: "",
     address2: "",
     postalCode: "",
@@ -40,8 +75,14 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
     shipping: false,
   });
 
-  //@ts-ignore
-  const [state, formAction] = useFormState(addAddress, formData);
+  const initialFormStateForAction = {
+    message: "",
+    data: formData,
+    isSuccess: false,
+    statusCode: 0,
+  };
+
+  const [state, formAction] = useFormState(addAddress, initialFormStateForAction as any);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target as HTMLInputElement;
@@ -59,259 +100,160 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
   }, []);
 
   useEffect(() => {
-    if (state.isSuccess && state.data && state.statusCode === 200) {
-      setUserData((prevState) => {
-        if (prevState && isAddress(state.data)) {
-          return {
-            ...prevState,
-            addresses: [...prevState.addresses, state.data],
-          };
-        } else {
+    if (state.statusCode !== 0) {
+      if (state.isSuccess && isAddress(state.data) && state.statusCode === 200) {
+        setUserData((prevState) => {
+          if (prevState) {
+            return { ...prevState, addresses: [...prevState.addresses, state.data] };
+          }
           return null;
+        });
+        addAlert(uuid(), t("alerts.profile.addresses.add.200.text"), t("alerts.profile.addresses.add.200.title"), "emerald");
+        setIsAddModalOpen(false); // Close modal on success
+      } else {
+        let alertTitle = t("alerts.genericError.title");
+        let alertText = state.message || t("alerts.genericError.text");
+        let alertType: "yellow" | "red" = "red";
+        switch (state.statusCode) {
+          case 400:
+            alertTitle = t("alerts.profile.addresses.add.400.title");
+            alertText = state.message || t("alerts.profile.addresses.add.400.text");
+            alertType = "yellow";
+            break;
+          case 409:
+            alertTitle = t("alerts.profile.addresses.add.409.title");
+            alertText = state.message || t("alerts.profile.addresses.add.409.text");
+            alertType = "yellow";
+            break;
+          case 422:
+            alertTitle = t("alerts.profile.addresses.add.422.title");
+            alertText = state.message || t("alerts.profile.addresses.add.422.text");
+            alertType = "yellow";
+            break;
         }
-      });
-
-      addAlert(uuid(), t("alerts.profile.addresses.add.200.text"), t("alerts.profile.addresses.add.200.title"), "emerald");
-      setIsAddModalOpen(false);
-    } else if (!state.isSuccess && !state.data) {
-      switch (state.statusCode) {
-        case 400:
-          addAlert(uuid(), t("alerts.profile.addresses.add.400.text"), t("alerts.profile.addresses.add.400.title"), "yellow");
-          setIsAddModalOpen(false);
-          break;
-        case 409:
-          addAlert(uuid(), t("alerts.profile.addresses.add.409.text"), t("alerts.profile.addresses.add.409.title"), "yellow");
-          setIsAddModalOpen(false);
-          break;
-        case 422:
-          addAlert(uuid(), t("alerts.profile.addresses.add.422.text"), t("alerts.profile.addresses.add.422.title"), "yellow");
-          setIsAddModalOpen(false);
-          break;
-        default:
-          break;
+        addAlert(uuid(), alertText, alertTitle, alertType);
+        setIsAddModalOpen(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-      // onClick={() => setIsAddModalOpen(false)}
-      onMouseDown={() => setIsAddModalOpen(false)}
-    >
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-60 backdrop-blur-sm p-4" onMouseDown={() => setIsAddModalOpen(false)}>
       <div
-        className="bg-white rounded-lg p-6 md:p-8 shadow-lg w-11/12 md:max-w-lg mx-auto relative transform transition-all duration-300 ease-in-out overflow-y-auto max-h-[80vh]"
-        onMouseDown={(e) => e.stopPropagation()} // Prevent background click from closing modal
+        className="bg-white rounded-lg p-6 sm:p-8 shadow-xl w-full max-w-lg mx-auto relative transform transition-all duration-300 ease-in-out overflow-y-auto max-h-[80vh]"
+        onMouseDown={(e) => e.stopPropagation()}
       >
-        <h2 className="text-2xl font-semibold mb-6 text-green">{t("addresses.addAddress")}</h2>
+        {/* Modal Header */}
+        <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+          <h2 className="text-xl font-semibold text-gray-900">{t("addresses.addAddress")}</h2>
+          <button
+            type="button"
+            onClick={() => setIsAddModalOpen(false)}
+            className="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green rounded-md"
+          >
+            <span className="sr-only">Close</span>
+            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
 
-        <form action={formAction} className="max-w-4xl mx-auto flex flex-col gap-y-5">
-          {/* Firstname */}
-          <div>
-            <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
-              {t("addresses.firstName")}
-            </label>
-            <input
-              id="firstname"
-              name="firstname"
-              type="text"
-              required
-              value={formData.firstname}
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            />
+        <form action={formAction} className="space-y-4">
+          {" "}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+            <FormField id="firstname" label={t("addresses.firstName")} required>
+              <input type="text" name="firstname" required value={formData.firstname} onChange={handleChange} className={inputClassname} />
+            </FormField>
+            <FormField id="lastname" label={t("addresses.lastName")} required>
+              <input type="text" name="lastname" required value={formData.lastname} onChange={handleChange} className={inputClassname} />
+            </FormField>
           </div>
-
-          {/* Lastname */}
-          <div>
-            <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">
-              {t("addresses.lastName")}
-            </label>
-            <input
-              id="lastname"
-              name="lastname"
-              type="text"
-              required
-              value={formData.lastname}
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            />
-          </div>
-
-          {/* Country Selector */}
-          <div>
-            <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-              {t("addresses.country")}
-            </label>
-            <select
-              id="country"
-              name="country"
-              required
-              value={formData.country}
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            >
-              {sseData &&
+          <FormField id="country" label={t("addresses.country")} required>
+            <select name="country" required value={formData.country} onChange={handleChange} className={inputClassname}>
+              {sseData?.shippingMethods?.byShippingZones && // Null check
                 Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
                   <option key={s + i} value={s}>
                     {s}
                   </option>
                 ))}
             </select>
+          </FormField>
+          <FormField id="address1" label={t("addresses.address1")} required>
+            <input type="text" name="address1" required value={formData.address1} onChange={handleChange} className={inputClassname} />
+          </FormField>
+          <FormField id="address2" label={t("addresses.address2")}>
+            <input type="text" name="address2" value={formData.address2} onChange={handleChange} className={inputClassname} />
+          </FormField>
+          <FormField id="company" label={t("addresses.modal.company")}>
+            <input type="text" name="company" value={formData.company} onChange={handleChange} className={inputClassname} />
+          </FormField>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+            <FormField id="city" label={t("addresses.city")} required>
+              <input type="text" name="city" required value={formData.city} onChange={handleChange} className={inputClassname} />
+            </FormField>
+            <FormField id="postalCode" label={t("addresses.postalCode")} required>
+              <input type="text" name="postalCode" required value={formData.postalCode} onChange={handleChange} className={inputClassname} />
+            </FormField>
           </div>
-
-          {/* Street Address */}
-          <div>
-            <label htmlFor="address1" className="block text-sm font-medium text-gray-700">
-              {t("addresses.address1")}
-            </label>
-            <input
-              id="address1"
-              name="address1"
-              type="text"
-              required
-              value={formData.address1}
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            />
-          </div>
-
-          {/* Address Line 2 */}
-          <div>
-            <label htmlFor="address2" className="block text-sm font-medium text-gray-700">
-              {t("addresses.address2")}
-            </label>
-            <input
-              id="address2"
-              name="address2"
-              type="text"
-              value={formData.address2}
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            />
-          </div>
-
-          {/* Company */}
-          <div>
-            <label htmlFor="company" className="block text-sm font-medium text-gray-700">
-              {t("addresses.modal.company")}
-            </label>
-            <input
-              id="company"
-              name="company"
-              type="text"
-              value={formData.company}
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            />
-          </div>
-
-          {/* City */}
-          <div>
-            <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-              {t("addresses.city")}
-            </label>
-            <input
-              id="city"
-              name="city"
-              type="text"
-              value={formData.city}
-              required
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            />
-          </div>
-
-          {/* Postal Code */}
-          <div>
-            <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
-              {t("addresses.postalCode")}
-            </label>
-            <input
-              id="postalCode"
-              name="postalCode"
-              type="text"
-              required
-              value={formData.postalCode}
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            />
-          </div>
-
-          {/* Phone */}
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-              {t("addresses.phone")}
-            </label>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              required
-              value={formData.phone}
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            />
-          </div>
-
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              {t("addresses.email")}
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              className=" block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-            />
-          </div>
-
-          {/* Billing Checkbox */}
-          <div className="flex flex-col">
-            <div>
-              <input
-                id="billing"
-                name="billing"
-                type="checkbox"
-                checked={formData.billing}
-                onChange={handleChange}
-                className="h-4 w-4 rounded border-gray-300 text-green focus:ring-green"
-              />
-              <label htmlFor="billing" className="text-sm font-medium text-gray-700 ml-2">
-                {t("addresses.billing")}
-              </label>
+          <FormField id="phone" label={t("addresses.phone")} required>
+            <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className={inputClassname} />
+          </FormField>
+          <FormField id="email" label={t("addresses.email")} required>
+            <input type="email" name="email" required value={formData.email} onChange={handleChange} className={inputClassname} />
+          </FormField>
+          {/* Checkboxes Section */}
+          <fieldset className="pt-4">
+            <legend className="block text-sm font-medium leading-6 text-gray-900 mb-2">Type d&apos;adresse</legend>
+            <div className="space-y-3">
+              {/* Billing Checkbox */}
+              <div className="relative flex items-start">
+                <div className="flex h-6 items-center">
+                  <input
+                    id="billing"
+                    name="billing"
+                    type="checkbox"
+                    checked={formData.billing}
+                    onChange={handleChange}
+                    className={checkRadioClassname}
+                  />
+                </div>
+                <div className="ml-3 text-sm leading-6">
+                  <label htmlFor="billing" className="font-medium text-gray-900 cursor-pointer">
+                    {t("addresses.billing")}
+                  </label>
+                </div>
+              </div>
+              {/* Shipping Checkbox */}
+              <div className="relative flex items-start">
+                <div className="flex h-6 items-center">
+                  <input
+                    id="shipping"
+                    name="shipping"
+                    type="checkbox"
+                    checked={formData.shipping}
+                    onChange={handleChange}
+                    className={checkRadioClassname}
+                  />
+                </div>
+                <div className="ml-3 text-sm leading-6">
+                  <label htmlFor="shipping" className="font-medium text-gray-900 cursor-pointer">
+                    {t("addresses.shipping")}
+                  </label>
+                </div>
+              </div>
             </div>
-            <div>
-              <input
-                id="shipping"
-                name="shipping"
-                type="checkbox"
-                checked={formData.shipping}
-                onChange={handleChange}
-                className="h-4 w-4 rounded border-gray-300 text-green focus:ring-green"
-              />
-              <label htmlFor="shipping" className="text-sm font-medium text-gray-700 ml-2">
-                {t("addresses.shipping")}
-              </label>
-            </div>
-          </div>
-
+          </fieldset>
           {/* Form Buttons */}
-          <div className="mt-2 flex justify-end gap-4">
-            <button type="button" className="px-3 py-2 bg-red-600 text-white rounded-md" onClick={() => setIsAddModalOpen(false)}>
+          <div className="mt-6 pt-5 border-t border-gray-200 flex justify-end gap-x-3">
+            {/* Cancel Button */}
+            <button
+              type="button"
+              className={twMerge(buttonClassname, "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50")}
+              onClick={() => setIsAddModalOpen(false)}
+            >
               {t("addresses.modal.cancel")}
             </button>
-            <button
-              type="submit"
-              className="rounded-md bg-green px-3 py-2 text-white hover:bg-teal-700 focus:ring-2 focus:ring-green transition-colors"
-            >
-              {t("addresses.addAddress")}
-            </button>
+            {/* Submit Button */}
+            <SubmitButton text={t("addresses.addAddress")} className="" />
           </div>
         </form>
       </div>

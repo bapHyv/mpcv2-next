@@ -1,32 +1,31 @@
-"use client";
-
-import clsx from "clsx";
-import { useFormStatus } from "react-dom";
 import { twMerge } from "tailwind-merge";
+import { ArrowPathIcon } from "@heroicons/react/20/solid";
+import { buttonClassname } from "@/app/staticData/cartPageClasses";
 
-interface Params {
+interface Props {
   text: string;
-  isDisabled: boolean;
-  buttonClassName?: string;
+  isPending?: boolean;
+  isDisabled?: boolean;
+  className?: string;
+  type?: "submit" | "button";
 }
 
-export default function SubmitButton({ text, isDisabled, buttonClassName }: Params) {
-  const { pending } = useFormStatus();
-
+export default function SubmitButton({ text, isPending = false, isDisabled = false, className, type = "submit" }: Props) {
   return (
     <button
-      type="submit"
-      disabled={pending || isDisabled}
-      className={twMerge(
-        clsx(
-          "flex w-full justify-center rounded-md bg-light-green px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:ring-1",
-          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green",
-          "disabled:bg-neutral-400 disabled:cursor-not-allowed",
-          buttonClassName
-        )
-      )}
+      type={type}
+      className={twMerge(buttonClassname, "w-full flex justify-center", className)}
+      disabled={isPending || isDisabled}
+      aria-disabled={isPending || isDisabled}
     >
-      {text}
+      {isPending ? (
+        <>
+          <ArrowPathIcon className="animate-spin h-5 w-5 mr-2" aria-hidden="true" />
+          Traitement...
+        </>
+      ) : (
+        text
+      )}
     </button>
   );
 }
