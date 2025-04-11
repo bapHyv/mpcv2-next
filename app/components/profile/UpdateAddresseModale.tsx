@@ -1,17 +1,49 @@
+// UpdateAddresseModale.tsx (Styled)
 "use client";
 
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { useTranslations } from "next-intl";
 import { v4 as uuid } from "uuid";
+import { twMerge } from "tailwind-merge";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 import { useAlerts } from "@/app/context/alertsContext";
 import { useAuth } from "@/app/context/authContext";
 import { Address } from "@/app/types/profileTypes";
 import { updateAddress } from "@/app/actions";
-import { isAddress } from "@/app/utils/typeGuardsFunctions";
+import { isAddress, isResponseApi } from "@/app/utils/typeGuardsFunctions";
 import { useSse } from "@/app/context/sseContext";
 import { disableBodyScroll, enableBodyScroll } from "@/app/utils/bodyScroll";
+
+import { inputClassname, buttonClassname, checkRadioClassname } from "@/app/staticData/cartPageClasses";
+import Star from "@/app/components/Star";
+import SubmitButton from "@/app/components/SubmitButton";
+
+const FormField = ({
+  id,
+  label,
+  required,
+  children,
+  helpText,
+  className,
+}: {
+  id: string;
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+  helpText?: string;
+  className?: string;
+}) => (
+  <div className={twMerge("mb-4", className)}>
+    {" "}
+    <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900 mb-1">
+      {label} {required && <Star />}
+    </label>
+    {children}
+    {helpText && <p className="mt-1 text-xs text-gray-500">{helpText}</p>}
+  </div>
+);
 
 interface Params {
   editingAddress: Address;
@@ -22,8 +54,7 @@ interface Params {
 export default function UpdateAddresseModale({ editingAddress, setEditingAddress, setIsModalOpen }: Params) {
   const t = useTranslations("");
 
-  // @ts-ignore
-  const [state, formAction] = useFormState(updateAddress, editingAddress);
+  const [state, formAction] = useFormState(updateAddress, editingAddress as any);
 
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
@@ -35,262 +66,183 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
   }, []);
 
   useEffect(() => {
-    if (state.isSuccess && isAddress(state.data) && state.data && state.statusCode === 200) {
-      const updatedAddress = state.data;
-      setUserData((prevState) => {
-        if (prevState) {
-          const filteredAddresses = prevState.addresses.filter((address) => address.id != updatedAddress.id);
-          return {
-            ...prevState,
-            addresses: [...filteredAddresses, updatedAddress],
-          };
-        } else {
+    if (isResponseApi(state) && state.statusCode !== 0) {
+      console.log(0);
+      if (state.isSuccess && isAddress(state.data) && state.statusCode === 200) {
+        const updatedAddress = state.data;
+        setUserData((prevState) => {
+          if (prevState) {
+            const updatedAddresses = prevState.addresses.map((addr) => (addr.id === updatedAddress.id ? updatedAddress : addr));
+            return { ...prevState, addresses: updatedAddresses };
+          }
           return null;
+        });
+        addAlert(uuid(), t("alerts.profile.addresses.update.200.text"), t("alerts.profile.addresses.update.200.title"), "emerald");
+        setIsModalOpen(false);
+      } else {
+        console.log(1);
+        let alertTitle = t("alerts.genericError.title");
+        let alertText = state.message || t("alerts.genericError.text");
+        let alertType: "yellow" | "red" = "red";
+        switch (state.statusCode) {
+          case 400:
+            alertTitle = t("alerts.profile.addresses.update.400.title");
+            alertText = state.message || t("alerts.profile.addresses.update.400.text");
+            alertType = "yellow";
+            break;
+          case 422:
+            alertTitle = t("alerts.profile.addresses.update.422.title");
+            alertText = state.message || t("alerts.profile.addresses.update.422.text");
+            alertType = "yellow";
+            break;
         }
-      });
-
-      addAlert(uuid(), t("alerts.profile.addresses.update.200.text"), t("alerts.profile.addresses.update.200.title"), "emerald");
-      setIsModalOpen(false);
-    } else if (!state.isSuccess && !state.data) {
-      switch (state.statusCode) {
-        case 400:
-          addAlert(uuid(), t("alerts.profile.addresses.update.400.text"), t("alerts.profile.addresses.update.400.title"), "yellow");
-          break;
-        case 422:
-          addAlert(uuid(), t("alerts.profile.addresses.update.422.text"), t("alerts.profile.addresses.update.422.title"), "yellow");
-          break;
-        default:
-          break;
+        addAlert(uuid(), alertText, alertTitle, alertType);
+        setIsModalOpen(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
+  const handleModalChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const target = e.target as HTMLInputElement;
+    const { name, value, type, checked } = target;
+
+    setEditingAddress((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      };
+    });
+  };
+
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-      onMouseDown={() => setIsModalOpen(false)} // Close modal on background click
-    >
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-60 backdrop-blur-sm p-4" onMouseDown={() => setIsModalOpen(false)}>
       <div
-        className="bg-white rounded-lg p-6 md:p-8 shadow-lg w-11/12 md:max-w-lg mx-auto relative transform transition-all duration-300 ease-in-out overflow-y-auto max-h-[80dvh] md:max-h-[90dvh]"
-        onMouseDown={(e) => e.stopPropagation()} // Prevent background click from closing modal
+        className="bg-white rounded-lg p-6 sm:p-8 shadow-xl w-full max-w-lg mx-auto relative transform transition-all duration-300 ease-in-out overflow-y-auto max-h-[80vh]"
+        onMouseDown={(e) => e.stopPropagation()}
       >
-        <h2 className="text-2xl font-semibold mb-6 text-green">{t("addresses.modal.title")}</h2>
-        <form action={formAction}>
-          <input type="hidden" name="addressId" id="addressId" value={editingAddress.id} />
-          <div className="grid grid-cols-1 gap-y-4 md:gap-y-6">
-            {/* Firstname */}
-            <div>
-              <label htmlFor="firstname" className="block text-sm font-medium text-gray-700">
-                {t("addresses.firstName")}
-              </label>
+        {/* Modal Header */}
+        <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+          <h2 className="text-xl font-semibold text-gray-900">{t("addresses.modal.title")}</h2>
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(false)}
+            className="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green rounded-md"
+          >
+            <span className="sr-only">Close</span>
+            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
+
+        {/* Form */}
+        <form action={formAction} className="space-y-4">
+          {" "}
+          {/* Hidden input for address ID is crucial for update action */}
+          <input type="hidden" name="id" value={editingAddress.id} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+            <FormField id="firstname" label={t("addresses.firstName")} required>
+              <input type="text" name="firstname" required value={editingAddress.firstname} onChange={handleModalChange} className={inputClassname} />
+            </FormField>
+            <FormField id="lastname" label={t("addresses.lastName")} required>
+              <input type="text" name="lastname" required value={editingAddress.lastname} onChange={handleModalChange} className={inputClassname} />
+            </FormField>
+          </div>
+          <FormField id="country" label={t("addresses.country")} required>
+            <select name="country" required value={editingAddress.country} onChange={handleModalChange} className={inputClassname}>
+              {sseData?.shippingMethods?.byShippingZones && // Null check
+                Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
+                  <option key={s + i} value={s}>
+                    {s}
+                  </option>
+                ))}
+            </select>
+          </FormField>
+          <FormField id="address1" label={t("addresses.address1")} required>
+            <input type="text" name="address1" required value={editingAddress.address1} onChange={handleModalChange} className={inputClassname} />
+          </FormField>
+          <FormField id="address2" label={t("addresses.address2")}>
+            <input type="text" name="address2" value={editingAddress.address2} onChange={handleModalChange} className={inputClassname} />
+          </FormField>
+          <FormField id="company" label={t("addresses.modal.company")}>
+            <input type="text" name="company" value={editingAddress.company} onChange={handleModalChange} className={inputClassname} />
+          </FormField>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+            <FormField id="city" label={t("addresses.city")} required>
+              <input type="text" name="city" required value={editingAddress.city} onChange={handleModalChange} className={inputClassname} />
+            </FormField>
+            <FormField id="postalCode" label={t("addresses.postalCode")} required>
               <input
                 type="text"
-                id="firstname"
-                name="firstname"
-                required
-                value={editingAddress.firstname}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, firstname: e.target.value }))}
-                placeholder={t("addresses.firstName")}
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              />
-            </div>
-
-            {/* Lastname */}
-            <div>
-              <label htmlFor="lastname" className="block text-sm font-medium text-gray-700">
-                {t("addresses.lastName")}
-              </label>
-              <input
-                required
-                type="text"
-                id="lastname"
-                name="lastname"
-                value={editingAddress.lastname}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, lastname: e.target.value }))}
-                placeholder={t("addresses.lastName")}
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              />
-            </div>
-
-            {/* Country */}
-            <div>
-              <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                {t("addresses.country")}
-              </label>
-              <select
-                name="country"
-                id="country"
-                value={editingAddress.country}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, country: e.target.value }))}
-                required
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              >
-                {sseData &&
-                  Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
-                    <option key={s + i} value={s}>
-                      {s}
-                    </option>
-                  ))}
-              </select>
-            </div>
-
-            {/* Address Line 1 */}
-            <div>
-              <label htmlFor="address1" className="block text-sm font-medium text-gray-700">
-                {t("addresses.address1")}
-              </label>
-              <input
-                type="text"
-                id="address1"
-                name="address1"
-                required
-                value={editingAddress.address1}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, address1: e.target.value }))}
-                placeholder={t("addresses.address1")}
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              />
-            </div>
-
-            {/* Address Line 2 */}
-            <div>
-              <label htmlFor="address2" className="block text-sm font-medium text-gray-700">
-                {t("addresses.address2")}
-              </label>
-              <input
-                type="text"
-                id="address2"
-                name="address2"
-                value={editingAddress.address2}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, address2: e.target.value }))}
-                placeholder={t("addresses.address2")}
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              />
-            </div>
-
-            {/* Company */}
-            <div>
-              <label htmlFor="company" className="block text-sm font-medium text-gray-700">
-                {t("addresses.modal.company")}
-              </label>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                value={editingAddress.company}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, company: e.target.value }))}
-                placeholder={t("addresses.modal.company")}
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              />
-            </div>
-
-            {/* City */}
-            <div>
-              <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                {t("addresses.city")}
-              </label>
-              <input
-                type="text"
-                id="city"
-                name="city"
-                required
-                value={editingAddress.city}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, city: e.target.value }))}
-                placeholder={t("addresses.city")}
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              />
-            </div>
-
-            {/* Postal Code */}
-            <div>
-              <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
-                {t("addresses.postalCode")}
-              </label>
-              <input
-                type="number"
-                id="postalCode"
                 name="postalCode"
                 required
                 value={editingAddress.postalCode}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, postalCode: e.target.value }))}
-                placeholder={t("addresses.postalCode")}
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
+                onChange={handleModalChange}
+                className={inputClassname}
               />
-            </div>
-
-            {/* Phone */}
-            <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                {t("addresses.phone")}
-              </label>
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                required
-                value={editingAddress.phone}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, phone: e.target.value }))}
-                placeholder={t("addresses.phone")}
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              />
-            </div>
-
-            {/* City */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                {t("addresses.email")}
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                value={editingAddress.email}
-                onChange={(e) => setEditingAddress((prev) => ({ ...prev!, email: e.target.value }))}
-                placeholder={t("addresses.email")}
-                className="block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-green focus:ring-green sm:text-sm"
-              />
-            </div>
-
-            {/* Address Type */}
-            {/* Billing Checkbox */}
-            <div className="flex flex-col">
-              <div>
-                <input
-                  id="billing"
-                  name="billing"
-                  type="checkbox"
-                  checked={editingAddress.billing}
-                  onChange={(e) => setEditingAddress((prev) => ({ ...prev!, billing: e.target.checked }))}
-                  className="h-4 w-4 rounded border-gray-300 text-green focus:ring-green"
-                />
-                <label htmlFor="billing" className="text-sm font-medium text-gray-700 ml-2">
-                  {t("addresses.billing")}
-                </label>
-              </div>
-              <div>
-                <input
-                  id="shipping"
-                  name="shipping"
-                  type="checkbox"
-                  checked={editingAddress.shipping}
-                  onChange={(e) => setEditingAddress((prev) => ({ ...prev!, shipping: e.target.checked }))}
-                  className="h-4 w-4 rounded border-gray-300 text-green focus:ring-green"
-                />
-                <label htmlFor="shipping" className="text-sm font-medium text-gray-700 ml-2">
-                  {t("addresses.shipping")}
-                </label>
-              </div>
-            </div>
+            </FormField>
           </div>
-
-          <div className="mt-6 flex justify-end gap-4">
-            <button type="button" className="px-3 py-2 bg-red-600 text-white rounded-md" onClick={() => setIsModalOpen(false)}>
+          <FormField id="phone" label={t("addresses.phone")} required>
+            <input type="tel" name="phone" required value={editingAddress.phone} onChange={handleModalChange} className={inputClassname} />
+          </FormField>
+          <FormField id="email" label={t("addresses.email")} required>
+            <input type="email" name="email" required value={editingAddress.email} onChange={handleModalChange} className={inputClassname} />
+          </FormField>
+          {/* Checkboxes Section */}
+          <fieldset className="pt-4">
+            <legend className="block text-sm font-medium leading-6 text-gray-900 mb-2">Type d&apos;adresse</legend>
+            <div className="space-y-3">
+              {/* Billing Checkbox */}
+              <div className="relative flex items-start">
+                <div className="flex h-6 items-center">
+                  <input
+                    id="billing"
+                    name="billing"
+                    type="checkbox"
+                    checked={editingAddress.billing}
+                    onChange={handleModalChange}
+                    className={checkRadioClassname}
+                  />
+                </div>
+                <div className="ml-3 text-sm leading-6">
+                  <label htmlFor="billing" className="font-medium text-gray-900 cursor-pointer">
+                    {t("addresses.billing")}
+                  </label>
+                </div>
+              </div>
+              {/* Shipping Checkbox */}
+              <div className="relative flex items-start">
+                <div className="flex h-6 items-center">
+                  <input
+                    id="shipping"
+                    name="shipping"
+                    type="checkbox"
+                    checked={editingAddress.shipping}
+                    onChange={handleModalChange}
+                    className={checkRadioClassname}
+                  />
+                </div>
+                <div className="ml-3 text-sm leading-6">
+                  <label htmlFor="shipping" className="font-medium text-gray-900 cursor-pointer">
+                    {t("addresses.shipping")}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          {/* Form Buttons */}
+          <div className="mt-6 pt-5 border-t border-gray-200 flex justify-end gap-x-3">
+            {/* Cancel Button */}
+            <button
+              type="button"
+              // Light/secondary button style
+              className={twMerge(buttonClassname, "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50")}
+              onClick={() => setIsModalOpen(false)}
+            >
               {t("addresses.modal.cancel")}
             </button>
-            <button type="submit" className="bg-green text-white px-3 py-2 rounded-md transition-colors">
-              {t("addresses.modal.save")}
-            </button>
+            {/* Save Button */}
+            <SubmitButton text={t("addresses.modal.save")} />
           </div>
         </form>
       </div>

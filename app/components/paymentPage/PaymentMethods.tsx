@@ -1,72 +1,95 @@
+// PaymentMethods.tsx
 "use client";
 
 import Image from "next/image";
-import { sectionClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
+
 import Title from "@/app/components/Title";
-import { Dispatch, SetStateAction } from "react";
-import { inputCN } from "@/app/staticData/orderPageClasses";
 import Star from "@/app/components/Star";
 import { useOrder } from "@/app/context/orderContext";
+import { sectionWrapperClassname, titleClassname, checkRadioClassname } from "@/app/staticData/cartPageClasses";
 
 export default function PaymentMethods() {
   const { order, handleChange } = useOrder();
+
+  const PaymentOption = ({
+    id,
+    value,
+    title,
+    imageSrc,
+    imageAlt,
+    description,
+  }: {
+    id: string;
+    value: string;
+    title: string;
+    imageSrc?: string;
+    imageAlt?: string;
+    description: string;
+  }) => {
+    const isChecked = order["payment-method"] === value;
+    return (
+      <div className={clsx("relative flex items-start border border-gray-200 rounded-md p-4", isChecked && "border-green ring-1 ring-green")}>
+        {/* Radio Input */}
+        <div className="flex h-6 items-center">
+          <input
+            id={id}
+            name="payment-method"
+            type="radio"
+            value={value}
+            checked={isChecked}
+            required
+            onChange={(e) => handleChange(e)}
+            className={checkRadioClassname}
+          />
+        </div>
+        {/* Label, Image, Description */}
+        <div className="ml-3 text-sm leading-6 flex-grow">
+          <label htmlFor={id} className="font-medium text-gray-900 cursor-pointer flex justify-between items-center w-full">
+            <span>{title}</span>
+            {/* Optional Image */}
+            {imageSrc && imageAlt && <Image width={100} height={20} src={imageSrc} alt={imageAlt} className="object-contain flex-shrink-0 ml-2" />}
+          </label>
+          {/* Conditional Description */}
+          {isChecked && <div className="mt-2 text-xs text-gray-600 bg-gray-50 p-2 rounded">{description}</div>}
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div aria-labelledby="paiement" className={twMerge(sectionClassname)}>
+    <section aria-labelledby="payment-method-heading" className={twMerge(sectionWrapperClassname)}>
       <fieldset>
-        <legend className="flex gap-x-1">
-          <Title title="Mode de paiement" type="h2" classname={twMerge(titleClassname)} firstLetterClassname="text-2xl" />
+        <legend className="flex items-center gap-x-1 mb-4">
+          <Title
+            title="Mode de paiement"
+            type="h3"
+            classname={twMerge(titleClassname, "!mb-0 text-base")}
+            firstLetterClassname="text-xl"
+            id="payment-method-heading"
+          />
           <Star />
         </legend>
-        <div className="flex gap-x-2 items-center">
-          <input
-            type="radio"
+
+        <div className="space-y-4">
+          <PaymentOption
             id="payment-method-secure-3d-card"
-            name="payment-method"
             value="secure-3d-card"
-            checked={order["payment-method"] === "secure-3d-card"}
-            required
-            onChange={(e) => handleChange(e)}
-            className={inputCN}
+            title="Carte Bancaire 3D Secure"
+            imageSrc="/cb-visa-mastercard.png"
+            imageAlt="CB Visa Mastercard"
+            description="En choisissant ce mode de paiement vous pourrez effectuer votre règlement sur le serveur sécurisé de notre banque."
           />
-          <label className="cursor-pointer" htmlFor="payment-method-secure-3d-card">
-            Carte Bancaire 3D Secure
-          </label>
-          <Image width={120} height={23} src={"/cb-visa-mastercard.png"} alt="cb visa mastercard" />
-        </div>
 
-        {order["payment-method"] === "secure-3d-card" && (
-          <div className="p-2 text-sm italic text-neutral-500">
-            <p>En choisissant ce mode de paiement vous pourrez effectuer votre règlement sur le serveur sécurisé de notre banque.</p>
-          </div>
-        )}
-
-        <div className="flex gap-x-2 items-center">
-          <input
-            type="radio"
+          <PaymentOption
             id="payment-method-bank-transfer"
-            name="payment-method"
             value="bank-transfer"
-            checked={order["payment-method"] === "bank-transfer"}
-            required
-            onChange={(e) => handleChange(e)}
-            className={inputCN}
+            title="Virement bancaire"
+            description="Effectuez le paiement directement depuis votre compte bancaire. Veuillez utiliser l’ID de votre commande comme référence du paiement. Votre commande ne sera pas expédiée tant que les fonds ne seront pas reçus."
           />
-
-          <label className="cursor-pointer" htmlFor="payment-method-bank-transfer">
-            Virement bancaire
-          </label>
         </div>
-
-        {order["payment-method"] === "bank-transfer" && (
-          <div className="p-2 text-sm italic text-neutral-500">
-            <p>
-              Effectuez le paiement directement depuis votre compte bancaire. Veuillez utiliser l’ID de votre commande comme référence du paiement.
-              Votre commande ne sera pas expédiée tant que les fonds ne seront pas reçus.
-            </p>
-          </div>
-        )}
       </fieldset>
-    </div>
+    </section>
   );
 }

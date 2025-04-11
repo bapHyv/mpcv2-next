@@ -1,110 +1,132 @@
+// PointsSection.tsx (Styled)
 "use client";
 
 import { useTranslations } from "next-intl";
+import { twMerge } from "tailwind-merge";
+import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
+
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { v4 as uuid } from "uuid";
+import Title from "@/app/components/Title";
+import { buttonClassname, subtleSectionWrapperClassname } from "@/app/staticData/cartPageClasses";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 const PointsSection: React.FC = () => {
   const t = useTranslations("loyalty");
-
   const { userData } = useAuth();
   const { addAlert } = useAlerts();
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(`https://www.monplancbd.fr/mon-compte-mon-plan-cbd/?referral=${userData?.referralToken}`).then(
+    if (!userData?.referralToken) return;
+
+    const referralLink = `https://www.monplancbd.fr/mon-compte-mon-plan-cbd/?referral=${userData.referralToken}`;
+    navigator.clipboard.writeText(referralLink).then(
       () => {
-        addAlert(
-          uuid(),
-          `https://www.monplancbd.fr/mon-compte-mon-plan-cbd/?referral=${userData?.referralToken} a été copié dans le presse papier`,
-          "Lien de parrainage copier",
-          "emerald"
-        );
+        addAlert(uuid(), t("alerts.referral.copy.success.text"), t("alerts.referral.copy.success.title"), "emerald");
       },
       () => {
-        addAlert(uuid(), `Quelque chose c'est mal passé`, "Erreur", "red");
+        addAlert(uuid(), t("alerts.referral.copy.error.text"), t("alerts.referral.copy.error.title"), "red");
       }
     );
   };
 
-  return (
-    <section className="mb-4">
-      <h2 className="text-green text-center font-medium text-2xl my-4">Mon programme fidélité</h2>
-      <div className="flex flex-col gap-y-10 xl:gap-y-12 mt-8">
-        {/* Loyalty Points Section */}
-        <section>
-          {/* Header */}
-          <div className="flex flex-col items-center justify-center">
-            <h2 className="text-2xl md:text-3xl font-medium text-center">{t("title")}</h2>
-            <span className="font-bold text-3xl text-green">
-              {userData?.loyaltyPoints} {t("points")}
-            </span>
-            <span className="text-xs md:text-sm italic text-neutral-500 text-center">
-              <strong> ({t("cartPoints")})</strong>
-            </span>
-          </div>
-        </section>
+  const infoBoxClassname = twMerge(
+    "border border-gray-200 bg-white rounded-lg p-4 sm:p-6 shadow-sm",
+    "flex flex-col items-center justify-center text-center",
+    "min-h-[160px] sm:min-h-[180px]"
+  );
 
-        <section className="flex flex-col gap-y-3">
-          {/* Boxes */}
-          <h2 className="text-2xl md:text-3xl font-medium text-center">{t("howToEarn")}</h2>
-          <div className="flex flex-col md:flex-row justify-center items-center gap-3 text-center align-center">
-            {/* Box 1 */}
-            <div className="border border-neutral-500 rounded-md w-72 h-40 flex flex-col justify-center items-center gap-y-3 p-2 shadow-md">
-              <h4 className="text-lg text-center">{t("boxes.box1.title")}</h4>
-              <p className="text-sm text-center">
-                <strong className="text-green">{t("boxes.box1.description")}</strong>
-              </p>
-            </div>
-
-            {/* Box 2 */}
-            <div className="border border-neutral-500 rounded-md w-72 h-40 flex flex-col justify-center items-center gap-y-3 p-2 shadow-md">
-              <h4 className="text-lg text-center">{t("boxes.box2.title")}</h4>
-              <p className="text-sm text-center">
-                <strong className="text-green">{t("boxes.box2.description")}</strong>
-              </p>
-            </div>
-
-            {/* Box 3 */}
-            <div className="border border-neutral-500 rounded-md w-72 h-40 flex flex-col justify-center items-center gap-y-3 p-2 shadow-md">
-              <h4 className="text-lg text-center">{t("boxes.box3.title")}</h4>
-              <p className="text-sm text-center">
-                <strong className="text-green">{t("boxes.box3.description")}</strong>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Referral Section */}
-        <section className="flex flex-col gap-y-3">
-          <h2 className="text-2xl md:text-3xl font-medium text-center">{t("referral.footerText")}</h2>
-          <div className="flex flex-col md:flex-row justify-center items-center gap-3">
-            {/* Box 4 */}
-            <div className="border border-neutral-500 rounded-md w-72 h-40 flex flex-col justify-center items-center gap-y-3 p-2 shadow-md">
-              <h4 className="text-lg text-center">{t("boxes.box4.title")}</h4>
-              <p className="text-sm text-center">
-                <strong className="text-green">{t("boxes.box4.description")}</strong>
-              </p>
-            </div>
-
-            {/* Box 5 */}
-            <div className="border border-neutral-500 rounded-md w-72 h-40 flex flex-col justify-center items-center gap-y-3 p-2 shadow-md">
-              <h4 className="text-lg text-center">{t("boxes.box5.title")}</h4>
-              <p className="text-sm text-center">
-                <strong className="text-green">{t("boxes.box5.description")}</strong>
-              </p>
-            </div>
-          </div>
-          <div>
-            <div className="flex gap-x-3 items-center justify-center">
-              <h2 onClick={handleCopy} className="text-xl mt-6 text-center py-2 px-3 rounded-md shadow-md bg-green text-white cursor-pointer">
-                {t("referral.title")}
-              </h2>
-              {/* Copy Button */}
-            </div>
-          </div>
-        </section>
+  if (!userData) {
+    return (
+      <div className="container mx-auto px-4 py-12 flex items-center justify-center min-h-[300px]">
+        <LoadingSpinner size="lg" color="green" />
       </div>
-    </section>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <Title
+        title={"Mon Programme Fidélité"}
+        type="h1"
+        classname={`relative mb-8 text-center uppercase text-xl text-green font-bold tracking-widest`}
+        firstLetterClassname="text-4xl"
+      />
+
+      <div className="space-y-10 xl:space-y-12">
+        <section className={twMerge(subtleSectionWrapperClassname, "text-center")}>
+          <h2 className="text-lg font-semibold text-gray-800 mb-1">{t("title")}</h2>
+          <p className="font-bold text-4xl text-green mb-1">
+            {userData.loyaltyPoints ?? 0}
+            <span className="text-2xl font-medium text-gray-600 ml-1">{t("points")}</span>
+          </p>
+          <p className="text-xs text-gray-500">{t("cartPoints")}</p>
+        </section>
+
+        {/* --- How to Earn Section --- */}
+        <section>
+          <h2 className="text-xl sm:text-2xl font-semibold text-center mb-6 text-gray-900">{t("howToEarn")}</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
+            <div className={infoBoxClassname}>
+              <h3 className="text-base font-semibold text-gray-800 mb-2">{t("boxes.box1.title")}</h3>
+              <p className="text-sm text-gray-600">{t("boxes.box1.description")}</p>
+            </div>
+            <div className={infoBoxClassname}>
+              <h3 className="text-base font-semibold text-gray-800 mb-2">{t("boxes.box2.title")}</h3>
+              <p className="text-sm text-gray-600">{t("boxes.box2.description")}</p>
+            </div>
+            <div className={infoBoxClassname}>
+              <h3 className="text-base font-semibold text-gray-800 mb-2">{t("boxes.box3.title")}</h3>
+              <p className="text-sm text-gray-600">{t("boxes.box3.description")}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* --- Referral Section --- */}
+        {userData.referralToken && (
+          <section>
+            <h2 className="text-xl sm:text-2xl font-semibold text-center mb-6 text-gray-900">{t("referral.title")}</h2>
+            <div className="grid grid-cols-1 gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-2 lg:max-w-3xl lg:mx-auto sm:gap-6">
+              <div className={infoBoxClassname}>
+                <h3 className="text-base font-semibold text-gray-800 mb-2">{t("boxes.box4.title")}</h3>
+                <p className="text-sm text-gray-600">{t("boxes.box4.description")}</p>
+              </div>
+              <div className={infoBoxClassname}>
+                <h3 className="text-base font-semibold text-gray-800 mb-2">{t("boxes.box5.title")}</h3>
+                <p className="text-sm text-gray-600">{t("boxes.box5.description")}</p>
+              </div>
+            </div>
+
+            {/* Referral Link Display and Copy */}
+            <div className={twMerge(subtleSectionWrapperClassname, "text-center")}>
+              <p className="text-sm text-gray-700 mb-3">{t("referral.footerText")}</p>
+              <div className="flex justify-center">
+                <div className="flex w-full max-w-md border border-gray-300 rounded-md shadow-sm overflow-hidden">
+                  <input
+                    type="text"
+                    readOnly
+                    value={`https://www.monplancbd.fr/mon-compte-mon-plan-cbd/?referral=${userData.referralToken}`}
+                    className="flex-grow border-0 p-2 text-sm text-gray-600 bg-gray-50 focus:ring-0"
+                    aria-label={t("referral.linkLabel")}
+                  />
+                  {/* Copy Button */}
+                  <button
+                    type="button"
+                    onClick={handleCopy}
+                    title={t("referral.copyTitle")}
+                    className={twMerge(buttonClassname, "rounded-l-none px-3 inline-flex items-center")}
+                  >
+                    <ClipboardDocumentIcon className="h-5 w-5" aria-hidden="true" />
+                    <span className="sr-only">{t("referral.copyTitle")}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+      </div>
+    </div>
   );
 };
 

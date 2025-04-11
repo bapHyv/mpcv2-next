@@ -95,7 +95,7 @@ export interface Shipping {
 export interface Order {
   id: number;
   date: string;
-  status: string;
+  status: "wc-pending" | "wc-processing" | "wc-on-hold" | "wc-completed" | "wc-cancelled" | "wc-refunded" | "wc-failed";
   subTotal: number;
   total: number;
   totalVAT: number;

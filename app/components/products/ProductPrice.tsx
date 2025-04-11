@@ -1,31 +1,29 @@
+// ProductPrice.tsx (Styled)
 "use client";
 
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export default function ProductPrice({ id }: { id: number }) {
   const { products } = useProductsAndCart();
-  const price = !!products[id] ? parseFloat(products[id].price) : 0;
+
+  const productData = products ? products[id] : null;
+  const price = productData ? parseFloat(productData.price) : null;
+  const stockStatus = productData?.stock;
+
+  const isOutOfStock = stockStatus === "0" || stockStatus === "outofstock";
 
   return (
-    <>
-      {!!products[id] ? (
-        <div className="mt-3 text-center md:text-left">
-          <h2 className="sr-only">product information</h2>
-          <p
-            className={clsx("text-2xl tracking-tight text-neutral-900", {
-              "line-through": products[id].stock === "0",
-            })}
-          >
-            {price.toFixed(2)} €
-          </p>
-        </div>
+    <div className="mt-3 text-center lg:text-left">
+      <h2 className="sr-only">Product information</h2>
+      {price !== null ? (
+        <p className={twMerge("text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl", isOutOfStock && "text-gray-400 line-through")}>
+          {new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(price)}
+        </p>
       ) : (
-        <div className="sm:mt-3">
-          <h2 className="sr-only">product information</h2>
-          <p className="text-xl sm:text-3xl tracking-tight text-neutral-100">0.00 €</p>
-        </div>
+        <div className="h-10 w-24 bg-gray-200 rounded animate-pulse mx-auto lg:mx-0"></div>
       )}
-    </>
+      {isOutOfStock && price !== null && <p className="mt-1 text-sm font-medium text-red-600">Épuisé</p>}
+    </div>
   );
 }

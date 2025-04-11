@@ -10,6 +10,7 @@ import { useSse } from "@/app/context/sseContext";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 import { DiscountCode as IDiscountCode } from "@/app/types/sseTypes";
 import useDiscountCodeUsable from "@/app/hooks/useDiscountCodeUsable";
+
 interface Props {
   name: string;
   d: IDiscountCode;
@@ -17,7 +18,6 @@ interface Props {
 
 export default function DiscountCode({ name, d }: Props) {
   const [isIndividualUse, setIsIndividualUse] = useState(false);
-
   const { sseData } = useSse();
   const { order, setOrder } = useOrder();
   const { cart } = useProductsAndCart();
@@ -26,50 +26,55 @@ export default function DiscountCode({ name, d }: Props) {
   const { message, status } = isDiscountCodeUsable(d, order.discounts.length);
 
   const handleUseDiscountCode = (discount: IDiscountCode, name: string) => {
-    setOrder((prevState) => {
-      return {
-        ...prevState,
-        discounts: [...prevState.discounts, { ...discount, name }],
-      };
-    });
-    addAlert(uuid(), `Discount code ${name} has been applied`, "Discount code applied successfully", "emerald");
+    if (order.discounts.some((applied) => applied.name === name)) return;
+
+    setOrder((prevState) => ({
+      ...prevState,
+      discounts: [...prevState.discounts, { ...discount, name }],
+    }));
+    addAlert(uuid(), `Code promo ${name} appliqué`, "Code promo appliqué", "emerald");
   };
 
   useEffect(() => {
-    if (sseData) {
-      setIsIndividualUse(order.discounts.some((discount) => sseData.coupons[discount.name].individualUse));
+    if (sseData && order.discounts.some((discount) => sseData.coupons[discount.name]?.individualUse)) {
+      setIsIndividualUse(true);
+    } else {
+      setIsIndividualUse(false);
     }
   }, [order.discounts, sseData]);
 
   const isAlreadyApplied = order.discounts.some((discount) => discount.name === name);
 
-  return (
-    <>
-      <div className="flex items-center">
-        <div className="text-ellipsis overflow-hidden text-nowrap w-[60%]">{name}</div>
-        <div className="text-ellipsis overflow-hidden text-nowrap w-[10%]">
-          {d.discountValue}
-          {d.discountType === "percent" ? "%" : "€"}
-        </div>
+  const isDisabledByIndividualUse = isIndividualUse && !isAlreadyApplied;
 
-        <div className="flex items-center justify-end gap-x-2 w-[30%]">
-          {!!message && (
-            <>
-              <div className="has-tooltip group">
-                <QuestionMarkCircleIcon type="button" tabIndex={0} className="w-5 h-5 text-blue-600 rounded-full tooltip-trigger" />
-                <span className="tooltip">{message}</span>
-              </div>
-            </>
-          )}
-          <button
-            disabled={!status || isIndividualUse || !cart.products.length || isAlreadyApplied}
-            className={twMerge(buttonClassname)}
-            onClick={() => handleUseDiscountCode(d, name)}
-          >
-            {isAlreadyApplied ? "Appliqué" : "Utiliser"}
-          </button>
-        </div>
+  return (
+    <div className="flex items-center justify-between py-2">
+      {" "}
+      <div className="flex items-baseline flex-grow min-w-0 mr-2 space-x-2">
+        <span className="font-medium text-sm truncate" title={name}>
+          {name}
+        </span>
+        <span className="text-xs text-gray-500 whitespace-nowrap">
+          ({d.discountValue}
+          {d.discountType === "percent" ? "%" : "€"})
+        </span>
       </div>
-    </>
+      <div className="flex items-center justify-end flex-shrink-0 space-x-2">
+        {!!message && (
+          <div className="has-tooltip group relative">
+            {" "}
+            <QuestionMarkCircleIcon tabIndex={0} className="w-5 h-5 text-blue-600 rounded-full tooltip-trigger cursor-help" />
+            <span className="tooltip">{message}</span>
+          </div>
+        )}
+        <button
+          disabled={!status || isDisabledByIndividualUse || !cart.products.length || isAlreadyApplied}
+          className={twMerge(buttonClassname, "px-3 py-1 text-xs")}
+          onClick={() => handleUseDiscountCode(d, name)}
+        >
+          {isAlreadyApplied ? "Appliqué" : "Utiliser"}
+        </button>
+      </div>
+    </div>
   );
 }
