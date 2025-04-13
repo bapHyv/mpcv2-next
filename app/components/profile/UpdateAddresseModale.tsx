@@ -1,4 +1,4 @@
-// UpdateAddresseModale.tsx (Styled)
+// UpdateAddresseModale.tsx (Updated with i18n)
 "use client";
 
 import { Dispatch, SetStateAction, useEffect } from "react";
@@ -36,7 +36,6 @@ const FormField = ({
   className?: string;
 }) => (
   <div className={twMerge("mb-4", className)}>
-    {" "}
     <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900 mb-1">
       {label} {required && <Star />}
     </label>
@@ -52,22 +51,32 @@ interface Params {
 }
 
 export default function UpdateAddresseModale({ editingAddress, setEditingAddress, setIsModalOpen }: Params) {
-  const t = useTranslations("");
+  // --- Hooks ---
+  const t = useTranslations(""); // Namespace for form elements
 
-  const [state, formAction] = useFormState(updateAddress, editingAddress as any);
+  // Ensure initial state for useFormState reflects the Address type accurately
+  const initialFormStateForAction = {
+    message: "",
+    data: editingAddress, // Pass current address data
+    isSuccess: false,
+    statusCode: 0,
+  };
+  const [state, formAction] = useFormState(updateAddress, initialFormStateForAction as any);
 
+  // Keep other hooks
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
   const { sseData } = useSse();
 
+  // --- Effects ---
   useEffect(() => {
     disableBodyScroll();
     return () => enableBodyScroll();
   }, []);
 
   useEffect(() => {
+    // Keep existing logic, use translated alert keys
     if (isResponseApi(state) && state.statusCode !== 0) {
-      console.log(0);
       if (state.isSuccess && isAddress(state.data) && state.statusCode === 200) {
         const updatedAddress = state.data;
         setUserData((prevState) => {
@@ -77,80 +86,84 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
           }
           return null;
         });
+        // Use translated alert key
         addAlert(uuid(), t("alerts.profile.addresses.update.200.text"), t("alerts.profile.addresses.update.200.title"), "emerald");
         setIsModalOpen(false);
       } else {
-        console.log(1);
-        let alertTitle = t("alerts.genericError.title");
-        let alertText = state.message || t("alerts.genericError.text");
+        let alertTitleKey = "alerts.genericError.title";
+        let alertTextKey = "alerts.genericError.text";
         let alertType: "yellow" | "red" = "red";
         switch (state.statusCode) {
           case 400:
-            alertTitle = t("alerts.profile.addresses.update.400.title");
-            alertText = state.message || t("alerts.profile.addresses.update.400.text");
+            alertTitleKey = "alerts.profile.addresses.update.400.title";
+            alertTextKey = "alerts.profile.addresses.update.400.text";
             alertType = "yellow";
             break;
           case 422:
-            alertTitle = t("alerts.profile.addresses.update.422.title");
-            alertText = state.message || t("alerts.profile.addresses.update.422.text");
+            alertTitleKey = "alerts.profile.addresses.update.422.title";
+            alertTextKey = "alerts.profile.addresses.update.422.text";
             alertType = "yellow";
             break;
+          // Add other cases if needed
         }
-        addAlert(uuid(), alertText, alertTitle, alertType);
-        setIsModalOpen(false);
+        const alertText = state.message || t(alertTextKey);
+        addAlert(uuid(), alertText, t(alertTitleKey), alertType);
+        // Keep modal open on error? Currently false.
+        // setIsModalOpen(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [state]); // Run only when state changes
 
+  // --- Handlers ---
   const handleModalChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    // Keep existing handler for controlled inputs
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
-
     setEditingAddress((prev) => {
       if (!prev) return null;
-      return {
-        ...prev,
-        [name]: type === "checkbox" ? checked : value,
-      };
+      return { ...prev, [name]: type === "checkbox" ? checked : value };
     });
   };
 
+  // --- Render ---
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-60 backdrop-blur-sm p-4" onMouseDown={() => setIsModalOpen(false)}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm p-4"
+      onMouseDown={() => setIsModalOpen(false)}
+    >
       <div
-        className="bg-white rounded-lg p-6 sm:p-8 shadow-xl w-full max-w-lg mx-auto relative transform transition-all duration-300 ease-in-out overflow-y-auto max-h-[80vh]"
+        className="bg-white rounded-lg p-6 sm:p-8 shadow-xl w-full max-w-lg mx-auto relative transform transition-all duration-300 ease-in-out overflow-y-auto max-h-[90vh]"
         onMouseDown={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
         <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">{t("addresses.modal.title")}</h2>
+          <h2 className="text-xl font-semibold text-gray-900">{t("addressesPage.editModalTitle")}</h2> {/* Translated Title */}
           <button
             type="button"
             onClick={() => setIsModalOpen(false)}
             className="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green rounded-md"
           >
-            <span className="sr-only">Close</span>
+            <span className="sr-only">Close</span> {/* // TODO-TRANSLATION */}
             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
 
         {/* Form */}
         <form action={formAction} className="space-y-4">
-          {" "}
-          {/* Hidden input for address ID is crucial for update action */}
           <input type="hidden" name="id" value={editingAddress.id} />
+          {/* Form Fields using FormField helper and translated labels */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
-            <FormField id="firstname" label={t("addresses.firstName")} required>
+            <FormField id="firstname" label={t("addressesPage.form.firstNameLabel")} required>
               <input type="text" name="firstname" required value={editingAddress.firstname} onChange={handleModalChange} className={inputClassname} />
             </FormField>
-            <FormField id="lastname" label={t("addresses.lastName")} required>
+            <FormField id="lastname" label={t("addressesPage.form.lastNameLabel")} required>
               <input type="text" name="lastname" required value={editingAddress.lastname} onChange={handleModalChange} className={inputClassname} />
             </FormField>
           </div>
-          <FormField id="country" label={t("addresses.country")} required>
+          <FormField id="country" label={t("addressesPage.form.countryLabel")} required>
             <select name="country" required value={editingAddress.country} onChange={handleModalChange} className={inputClassname}>
-              {sseData?.shippingMethods?.byShippingZones && // Null check
+              {sseData?.shippingMethods?.byShippingZones &&
                 Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
                   <option key={s + i} value={s}>
                     {s}
@@ -158,20 +171,20 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
                 ))}
             </select>
           </FormField>
-          <FormField id="address1" label={t("addresses.address1")} required>
+          <FormField id="address1" label={t("addressesPage.form.address1Label")} required>
             <input type="text" name="address1" required value={editingAddress.address1} onChange={handleModalChange} className={inputClassname} />
           </FormField>
-          <FormField id="address2" label={t("addresses.address2")}>
+          <FormField id="address2" label={t("addressesPage.form.address2Label")}>
             <input type="text" name="address2" value={editingAddress.address2} onChange={handleModalChange} className={inputClassname} />
           </FormField>
-          <FormField id="company" label={t("addresses.modal.company")}>
+          <FormField id="company" label={t("addressesPage.form.companyLabel")}>
             <input type="text" name="company" value={editingAddress.company} onChange={handleModalChange} className={inputClassname} />
           </FormField>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
-            <FormField id="city" label={t("addresses.city")} required>
+            <FormField id="city" label={t("addressesPage.form.cityLabel")} required>
               <input type="text" name="city" required value={editingAddress.city} onChange={handleModalChange} className={inputClassname} />
             </FormField>
-            <FormField id="postalCode" label={t("addresses.postalCode")} required>
+            <FormField id="postalCode" label={t("addressesPage.form.postalCodeLabel")} required>
               <input
                 type="text"
                 name="postalCode"
@@ -182,17 +195,16 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
               />
             </FormField>
           </div>
-          <FormField id="phone" label={t("addresses.phone")} required>
+          <FormField id="phone" label={t("addressesPage.form.phoneLabel")} required>
             <input type="tel" name="phone" required value={editingAddress.phone} onChange={handleModalChange} className={inputClassname} />
           </FormField>
-          <FormField id="email" label={t("addresses.email")} required>
+          <FormField id="email" label={t("addressesPage.form.emailLabel")} required>
             <input type="email" name="email" required value={editingAddress.email} onChange={handleModalChange} className={inputClassname} />
           </FormField>
-          {/* Checkboxes Section */}
+          {/* Checkboxes */}
           <fieldset className="pt-4">
-            <legend className="block text-sm font-medium leading-6 text-gray-900 mb-2">Type d&apos;adresse</legend>
+            <legend className="block text-sm font-medium leading-6 text-gray-900 mb-2">{t("addressesPage.form.addressTypeLegend")}</legend>
             <div className="space-y-3">
-              {/* Billing Checkbox */}
               <div className="relative flex items-start">
                 <div className="flex h-6 items-center">
                   <input
@@ -206,11 +218,10 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
                 </div>
                 <div className="ml-3 text-sm leading-6">
                   <label htmlFor="billing" className="font-medium text-gray-900 cursor-pointer">
-                    {t("addresses.billing")}
+                    {t("addressesPage.form.billingCheckboxLabel")}
                   </label>
                 </div>
               </div>
-              {/* Shipping Checkbox */}
               <div className="relative flex items-start">
                 <div className="flex h-6 items-center">
                   <input
@@ -224,25 +235,22 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
                 </div>
                 <div className="ml-3 text-sm leading-6">
                   <label htmlFor="shipping" className="font-medium text-gray-900 cursor-pointer">
-                    {t("addresses.shipping")}
+                    {t("addressesPage.form.shippingCheckboxLabel")}
                   </label>
                 </div>
               </div>
             </div>
           </fieldset>
-          {/* Form Buttons */}
+          {/* Buttons */}
           <div className="mt-6 pt-5 border-t border-gray-200 flex justify-end gap-x-3">
-            {/* Cancel Button */}
             <button
               type="button"
-              // Light/secondary button style
               className={twMerge(buttonClassname, "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50")}
               onClick={() => setIsModalOpen(false)}
             >
-              {t("addresses.modal.cancel")}
+              {t("addressesPage.form.cancelButton")}
             </button>
-            {/* Save Button */}
-            <SubmitButton text={t("addresses.modal.save")} />
+            <SubmitButton text={t("addressesPage.form.submitUpdateButton")} />
           </div>
         </form>
       </div>

@@ -181,7 +181,9 @@
     "unitPrice": "unit price",
     "quantity": "quantity",
     "priceOneArticle": "price per item",
-    "subtotal": "subtotal"
+    "subtotal": "subtotal",
+    "subtotalLabel": "Subtotal",
+    "unitPriceSuffix": "/{per}"
   },
   "addresses": {
     "title": "My Addresses",
@@ -307,7 +309,246 @@
     "orders": "Orders",
     "loyalty": "Loyalty Points & Referral"
   },
+  "forgotPasswordPage": {
+    "emailLabel": "Email address",
+    "submitButton": "Reset Password"
+  },
+  "signInPage": {
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "forgotPasswordLink": "Forgot password?",
+    "submitButton": "Sign in"
+  },
+  "signUpPage": {
+    "firstNameLabel": "First name",
+    "lastNameLabel": "Last name",
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "passwordMismatchError": "Passwords must match.",
+    "marketingOptInLabel": "I want to receive product news and promotions.",
+    "termsLabel": "I have read and agree to the",
+    "termsLink": "Terms and Conditions",
+    "submitButton": "Create my account"
+  },
+  "cartPage": {
+    "summary": {
+      "title": "Order Summary",
+      "subtotalLabel": "Subtotal",
+      "discountCodeLabel": "Code: {name}",
+      "removeDiscountAriaLabel": "Remove code {name}",
+      "fidelityPointsLabel": "Loyalty Points ({count})",
+      "removePointsAriaLabel": "Remove loyalty points",
+      "totalLabel": "Order Total",
+      "vatText": "(includes {vatAmount}€ VAT)",
+      "checkoutButton": "Proceed to Shipping",
+      "loginPromptText": "Log in to continue.",
+      "loginPromptLink": "Log in"
+    },
+    "discounts": {
+      "accountCodesTitle": "Account Discounts",
+      "promoCodeTitle": "Promo Code",
+      "inputPlaceholder": "Enter code here",
+      "applyButton": "Apply"
+    }
+  },
+  "discountCode": {
+    "applyButton": "Apply",
+    "appliedButton": "Applied"
+  },
+  "shippingPage": {
+    "orderSummary": {
+      "title": "Your Order",
+      "productsHeader": "Products",
+      "productSubtotalHeader": "Subtotal",
+      "promoCodesHeader": "Promo Codes",
+      "loyaltyHeader": "Loyalty Program",
+      "loyaltyPointsLabel": "Points",
+      "finalSubtotalLabel": "Order Subtotal",
+      "discountsHeader": "Discounts Applied",
+      "removeDiscountAriaLabel": "Remove {name}",
+      "loyaltyPointsText": "{count} points",
+      "removePointsAriaLabel": "Remove points"
+    }
+  },
+  "reviews": {
+    "loginPrompt": {
+      "text": "Want to leave a review?",
+      "link": "Log in here",
+      "suffix": "to share your thoughts (you'll be redirected back here)."
+    },
+    "addReviewTitle": "Add Your Review",
+    "ratingLabel": "Your Rating",
+    "ratingAriaLabel": "Rate {count} out of 5 stars",
+    "commentLabel": "Your Review",
+    "commentPlaceholder": "Write your review here...",
+    "commentHint": "Share your experience with this product.",
+    "submitButton": "Submit Review"
+  },
+  "productOptions": {
+    "chooseOptionLabel": "Choose an option",
+    "addToCartButton": "Add to Cart",
+    "outOfStockButton": "Out of Stock"
+  },
+  "addressesPage": {
+    "billingBadge": "Billing",
+    "shippingBadge": "Shipping",
+    "editButton": "Edit",
+    "deleteButton": "Delete",
+    "addModalTitle": "Add New Address",
+    "editModalTitle": "Edit Address",
+    "form": {
+      "firstNameLabel": "First name",
+      "lastNameLabel": "Last name",
+      "countryLabel": "Country / Region",
+      "address1Label": "Street address",
+      "address2Label": "Apartment, suite, etc. (Optional)",
+      "companyLabel": "Company (Optional)",
+      "cityLabel": "City",
+      "postalCodeLabel": "Postal Code",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email address",
+      "addressTypeLegend": "Address Type",
+      "billingCheckboxLabel": "Use as billing address",
+      "shippingCheckboxLabel": "Use as shipping address",
+      "cancelButton": "Cancel",
+      "submitAddButton": "Add Address",
+      "submitUpdateButton": "Save Changes"
+    }
+  },
   "alerts": {
+    "auth": {
+      "logoutSuccess": {
+        "title": "Logout Successful",
+        "text": "You have been successfully logged out."
+      },
+      "logoutError": {
+        "title": "Logout Error",
+        "text": "An error occurred while logging out. Please try again."
+      },
+      "logoutFailed": {
+        "title": "Logout Failed",
+        "text": "Logout failed. Please try again or contact support."
+      }
+    },
+    "addReview": {
+      "success": {
+        "title": "Review Submitted",
+        "text": "Your review has been submitted and is pending approval."
+      },
+      "error400": {
+        "title": "Submission Error",
+        "text": "Could not submit review. Please check your rating and comment."
+      },
+      "error401": {
+        "title": "Login Required",
+        "text": "Please log in to submit a review."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Could not submit review due to a server error. Please try again."
+      },
+      "defaultError": {
+        "title": "Submission Error",
+        "text": "An unknown error occurred while submitting your review."
+      },
+      "error403": { "title": "Already Reviewed", "text": "You seem to have already reviewed this product." }
+    },
+    "genericError": { "title": "Error", "text": "An unexpected error occurred." },
+    "cart": {
+      "productAdded": {
+        "title": "Added to Cart",
+        "text": "{option}{per} - {name} added to cart."
+      },
+      "insufficientStock": {
+        "title": "Insufficient Stock",
+        "text": "Insufficient stock for the {option}{per} option."
+      },
+      "quantityAdded": {
+        "title": "Quantity Updated",
+        "text": "{option}{per} of {name} added."
+      },
+      "quantityRemoved": {
+        "title": "Quantity Updated",
+        "text": "{option}{per} of {name} removed."
+      },
+      "productRemoved": {
+        "title": "Product Removed",
+        "text": "{name} removed from cart."
+      },
+      "discountRemoved": {
+        "title": "Code Removed",
+        "text": "Discount code {name} removed."
+      },
+      "pointsRemoved": {
+        "title": "Points Removed",
+        "text": "Loyalty points removed."
+      },
+      "discountApplied": {
+        "title": "Discount Applied",
+        "text": "Discount code {name} applied."
+      },
+      "promoCodeApplied": {
+        "title": "Code Applied",
+        "text": "Promo code applied successfully!"
+      },
+      "promoCodeAlreadyApplied": {
+        "title": "Already Applied",
+        "text": "This promo code is already applied."
+      },
+      "promoCodeInvalid": {
+        "title": "Invalid Code",
+        "text": "Invalid or inapplicable promo code."
+      }
+    },
+    "signUp": {
+      "success": {
+        "title": "Signup Successful",
+        "text": "Your account has been created successfully!"
+      },
+      "error409": {
+        "title": "Email Exists",
+        "text": "This email is already registered. Redirecting to login..."
+      },
+      "error400": {
+        "title": "Invalid Information",
+        "text": "Please check the information provided."
+      },
+      "error422": {
+        "title": "Validation Error",
+        "text": "Some information is invalid. Please review the form."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Could not create account due to a server error. Please try again."
+      },
+      "defaultError": {
+        "title": "Signup Error",
+        "text": "An unknown error occurred during signup."
+      }
+    },
+    "signIn": {
+      "success200": {
+        "title": "Success",
+        "text": "Login successful!"
+      },
+      "error401": {
+        "title": "Login Error",
+        "text": "Incorrect email or password."
+      },
+      "info204": {
+        "title": "Account Not Found",
+        "text": "No account found with this email."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Technical issue, please try again later."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "An error occurred."
+      }
+    },
     "profile": {
       "infos": {
         "200": {
@@ -325,51 +566,65 @@
       },
       "addresses": {
         "delete": {
-          "200": {
-            "text": "You have successfully deleted your address",
-            "title": "Delete address"
-          },
-          "400": {
-            "text": "The address id is required",
-            "title": "No id"
-          },
-          "500": {
-            "text": "Error while deleting address",
-            "title": "Error"
-          }
+          "200": { "title": "Address Deleted", "text": "Address successfully deleted." },
+          "400": { "title": "Invalid Request", "text": "Address ID is missing." },
+          "500": { "title": "Server Error", "text": "Could not delete address. Please try again." }
         },
         "add": {
-          "200": {
-            "text": "You've successfully added your address up",
-            "title": "Address added"
-          },
-          "400": {
-            "text": "One of the infos you've provided is missing",
-            "title": "Warning"
-          },
-          "409": {
-            "text": "Something went wrong",
-            "title": "Warning"
-          },
-          "422": {
-            "text": "There is a semantic error in the infos you've provided",
-            "title": "Warning"
-          }
+          "200": { "title": "Address Added", "text": "Address added successfully." },
+          "400": { "title": "Invalid Information", "text": "Please check the address details provided." },
+          "409": { "title": "Error", "text": "Could not add address. Please try again." },
+          "422": { "title": "Validation Error", "text": "Some address information is invalid." }
         },
         "update": {
-          "200": {
-            "text": "You've successfully updated your address",
-            "title": "Address updated"
-          },
-          "400": {
-            "text": "One of the infos you've provided is missing",
-            "title": "Warning"
-          },
-          "422": {
-            "text": "There is a semantic error in the infos you've provided",
-            "title": "Warning"
-          }
+          "200": { "title": "Address Updated", "text": "Address updated successfully." },
+          "400": { "title": "Invalid Information", "text": "Please check the address details provided." },
+          "422": { "title": "Validation Error", "text": "Some address information is invalid." }
         }
+      }
+    },
+    "accountCreation": {
+      "success200": {
+        "title": "Account Created",
+        "text": "Account created & logged in successfully!"
+      },
+      "error409": {
+        "title": "Email Exists",
+        "text": "This email is already registered. Redirecting you to login..."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Server error during account creation. Please try again later."
+      },
+      "genericError": {
+        "title": "Error",
+        "text": "An error occurred. Please try again."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "An unknown error occurred. Please try again."
+      }
+    },
+    "forgotPassword": {
+      "success204": {
+        "title": "Email Sent",
+        "text": "If an account exists for this email, a password reset link has been sent."
+      },
+      "error40x": {
+        "title": "Unknown Email",
+        "text": "No account found with this email address."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Error processing request. Please try again."
+      },
+      "error400": {
+        "title": "Invalid Request",
+        "text": "Please check the email address provided."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "An error occurred. Please try again."
       }
     }
   }

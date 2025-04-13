@@ -1,4 +1,4 @@
-// ProductOptions.tsx (Styled)
+// ProductOptions.tsx (Updated with i18n)
 "use client";
 
 import clsx from "clsx";
@@ -12,7 +12,6 @@ import FidelityPointsEarned from "@/app/components/products/FidelityPointsEarned
 import { useAlerts } from "@/app/context/alertsContext";
 import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { Image as ImageType, Prices } from "@/app/types/productsTypes";
-
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 
 interface Params {
@@ -28,10 +27,12 @@ interface Params {
 }
 
 export default function ProductOptions({ pricesPer, name, id, image, category, isInModale }: Params) {
+  // --- Hooks ---
+  const t = useTranslations("");
   const { products, updateProduct, setCart } = useProductsAndCart();
   const { addAlert } = useAlerts();
-  const t = useTranslations("category");
 
+  // --- Memoized Values & State ---
   const productData = products ? products[id] : null;
   const price = productData ? parseFloat(productData.price) : 0;
   const currentStock = productData ? parseInt(productData.stock, 10) : 0;
@@ -46,14 +47,20 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
 
     const selectedOption = productData.option;
     const optionPrice = parseFloat(productData.productOptions[selectedOption]?.price || "0");
+    const optionQuantity = parseInt(selectedOption, 10);
 
-    // Prevent adding if specific option quantity exceeds stock (important!)
-    const optionQuantity = parseInt(selectedOption, 10); // e.g., "3" -> 3
     if (isNaN(optionQuantity) || optionQuantity > currentStock) {
-      addAlert(uuid(), `Stock insuffisant pour l'option ${selectedOption}${pricesPer}.`, "Stock insuffisant", "yellow");
+      // Use translated alert
+      addAlert(
+        uuid(),
+        t("alerts.cart.insufficientStock.text", { option: selectedOption, per: pricesPer }),
+        t("alerts.cart.insufficientStock.title"),
+        "yellow"
+      );
       return;
     }
 
+    // Keep rest of addProductToCart logic...
     const newProduct: ProductCart = {
       cartItemId: uuid(),
       id: id,
@@ -72,40 +79,32 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
 
     setCart((prevCart) => {
       const existingCartItemIndex = prevCart.products.findIndex((product) => product.id === id && product.option === newProduct.option);
-
       let updatedCartProducts;
-
       if (existingCartItemIndex > -1) {
-        // Increment quantity if item already exists
         updatedCartProducts = prevCart.products.map((product, index) => {
           if (index === existingCartItemIndex) {
-            // TODO: Add stock check here? Prevent adding more than available?
             const newQuantity = product.quantity + 1;
-            return {
-              ...product,
-              quantity: newQuantity,
-              totalPrice: newQuantity * product.unitPrice,
-            };
+            return { ...product, quantity: newQuantity, totalPrice: newQuantity * product.unitPrice };
           }
           return product;
         });
       } else {
-        // Add new item to cart
-        newProduct.totalPrice = newProduct.unitPrice * newProduct.quantity; // Calculate initial total price
+        newProduct.totalPrice = newProduct.unitPrice * newProduct.quantity;
         updatedCartProducts = [...prevCart.products, newProduct];
       }
       return { ...prevCart, products: updatedCartProducts };
     });
 
-    // Triggers an alert
-    const alertDescription = `${selectedOption}${pricesPer} - ${name} ajouté au panier.`; // Simplified message
-    addAlert(uuid(), alertDescription, "Ajouté au panier", "emerald");
+    addAlert(
+      uuid(),
+      t("alerts.cart.productAdded.text", { option: selectedOption, per: pricesPer, name }),
+      t("alerts.cart.productAdded.title"),
+      "emerald"
+    );
   };
 
-  // Handler when a radio button option is selected
   const handleSelectOption = (value: string) => {
     if (!productData) return;
-    // Update the product context with the new selected option and its corresponding price
     updateProduct(id, { option: value, price: productData.productOptions[value]?.price || "0" });
   };
 
@@ -113,8 +112,6 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
     return (
       <div className={twMerge("animate-pulse", isInModale ? "mt-1" : "mt-4 xl:mt-6")}>
         <div className={clsx("grid grid-cols-3 gap-2", isInModale ? "w-full px-1" : "w-5/6 mx-auto")}>
-          {" "}
-          {/* Adjusted gap/width */}
           {new Array(isInModale ? 3 : 6).fill(0).map((_, i) => (
             <div key={i} className="col-span-1 h-12 sm:h-14 rounded-md bg-gray-200" />
           ))}
@@ -127,10 +124,11 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
     );
   }
 
+  // --- Main Render ---
   return (
     <div className={twMerge(isInModale ? "mt-1" : "mt-4 xl:mt-6")}>
-      <fieldset aria-label={t("chooseOptionLabel")}>
-        <legend className="sr-only">{t("chooseOptionLabel")}</legend>
+      <fieldset aria-label={t("productOptions.chooseOptionLabel")}>
+        <legend className="sr-only">{t("productOptions.chooseOptionLabel")}</legend>
         <RadioGroup
           value={productData.option}
           onChange={handleSelectOption}
@@ -145,7 +143,7 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
                 {({ checked, disabled, focus }) => (
                   <div
                     className={twMerge(
-                      "relative flex cursor-pointer flex-col items-center justify-center rounded-md border py-2 px-1 text-center text-sm font-medium shadow-sm transition-colors duration-150 ease-in-out", // Base styles
+                      "relative flex cursor-pointer flex-col items-center justify-center rounded-md border py-2 px-1 text-center text-sm font-medium shadow-sm transition-colors duration-150 ease-in-out",
                       disabled
                         ? "cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400"
                         : checked
@@ -169,9 +167,6 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
               </Radio>
             );
           })}
-          {/* TODO: Needed? */}
-          {/* Optional: Add spacer if needed, maybe only if !isInModale */}
-          {/* {Object.keys(productData.productOptions).length <= 3 && !isInModale && <div className="col-span-3 h-[1px]"></div>} */}
         </RadioGroup>
       </fieldset>
 
@@ -186,12 +181,12 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
         >
           {hasStockAvailable ? (
             <>
-              {t("addToCart")}
+              {t("productOptions.addToCartButton")}
               <span className="mx-1">|</span>
               {price.toFixed(2)} €
             </>
           ) : (
-            t("outOfStock")
+            t("productOptions.outOfStockButton")
           )}
         </button>
       </div>

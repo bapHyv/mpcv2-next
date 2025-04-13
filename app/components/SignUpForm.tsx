@@ -51,68 +51,79 @@ const FormField = ({
 );
 
 export default function SignUpForm() {
-  const t = useTranslations();
+  const tForm = useTranslations("signUpPage"); // Namespace for form elements
+  const tAlerts = useTranslations("alerts.signUp"); // Namespace for alerts
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // Keep local state for password visibility, matching, and terms agreement
   const [inputType, setInputType] = useState<"password" | "text">("password");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [doesPasswordsMatch, setDoesPasswordMatch] = useState(true);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
+  // Read initial email from search params
   const initialEmail = searchParams.get("email") || "";
 
+  // Form state hook
   const [state, formAction] = useFormState(register, { ...initialState, email: initialEmail } as any);
 
+  // Keep context hooks
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
 
+  // Keep useEffect for handling action response, using translated alerts
   useEffect(() => {
     if (state.statusCode !== 0) {
       if (state.isSuccess && isUserDataAPIResponse(state.data) && state.statusCode === 200) {
         const redirectPath = searchParams.get("redirect");
         setUserData(state.data);
-        console.log(state.data);
         localStorage.setItem("accessToken", state.data.accessToken);
         localStorage.setItem("refreshToken", state.data.refreshToken);
-        addAlert(uuid(), t("alerts.signUp.success.text"), t("alerts.signUp.success.title"), "emerald");
-        router.push(redirectPath ? `/${redirectPath}` : "/");
+        // Use translated success alert
+        addAlert(uuid(), tAlerts("success.text"), tAlerts("success.title"), "emerald");
+        router.push(redirectPath ? `/${redirectPath}` : "/mon-compte"); // Redirect to account
         router.refresh();
       } else {
-        let alertTitle = t("alerts.genericError.title");
-        let alertText = state.message || t("alerts.genericError.text");
+        // Handle errors using translated messages
+        let titleKey = "defaultError.title";
+        let textKey = "defaultError.text";
         let alertType: "yellow" | "red" | "blue" = "red";
 
         switch (state.statusCode) {
           case 409:
-            alertTitle = t("alerts.signUp.409.title");
-            alertText = state.message || t("alerts.signUp.409.text");
+            titleKey = "error409.title";
+            textKey = "error409.text";
             alertType = "blue";
-            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent((state.data as string) || initialEmail)}`), 500);
+            // Pass email back to login page after delay
+            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent(state.email || initialEmail)}`), 500);
             break;
-          case 400: // Bad Request / Invalid input
-            alertTitle = t("alerts.signUp.400.title");
-            alertText = state.message || t("alerts.signUp.400.text");
+          case 400:
+            titleKey = "error400.title";
+            textKey = "error400.text";
             alertType = "yellow";
             break;
-          case 422: // Server-side validation error
-            alertTitle = t("alerts.signUp.422.title");
-            alertText = state.message || t("alerts.signUp.422.text");
+          case 422:
+            titleKey = "error422.title";
+            textKey = "error422.text";
             alertType = "yellow";
             break;
-          case 500: // Server Error
-            alertTitle = t("alerts.signUp.500.title");
-            alertText = state.message || t("alerts.signUp.500.text");
+          case 500:
+            titleKey = "error500.title";
+            textKey = "error500.text";
             alertType = "red";
             break;
         }
-        addAlert(uuid(), alertText, alertTitle, alertType);
+        // Use server message if available, otherwise use translated fallback
+        const alertText = state.message || tAlerts(textKey);
+        addAlert(uuid(), alertText, tAlerts(titleKey), alertType);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
+  // Keep password matching effect
   useEffect(() => {
     if (repeatPassword) {
       setDoesPasswordMatch(password === repeatPassword);
@@ -123,18 +134,31 @@ export default function SignUpForm() {
 
   return (
     <form action={formAction} className="space-y-5">
+      {/* First/Last Name */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
-        <FormField id="firstname" label="Prénom" required>
+        <FormField id="firstname" label={tForm("firstNameLabel")} required>
           <input type="text" name="firstname" required className={inputClassname} />
         </FormField>
-        <FormField id="lastname" label="Nom" required>
+        <FormField id="lastname" label={tForm("lastNameLabel")} required>
           <input type="text" name="lastname" required className={inputClassname} />
         </FormField>
       </div>
-      <FormField id="email" label="Adresse e-mail" required>
-        <input type="email" name="email" required defaultValue={initialEmail} className={inputClassname} />
+
+      {/* Email */}
+      <FormField id="email" label={tForm("emailLabel")} required>
+        <input
+          type="email"
+          name="email"
+          required
+          defaultValue={initialEmail} // Use defaultValue
+          className={inputClassname}
+          aria-describedby={state?.errors?.email ? "email-error" : undefined}
+        />
+        {/* Optional: state?.errors?.email */}
       </FormField>
-      <FormField id="password" label="Mot de passe" required>
+
+      {/* Password */}
+      <FormField id="password" label={tForm("passwordLabel")} required>
         <div className="relative">
           <input
             type={inputType}
@@ -144,22 +168,27 @@ export default function SignUpForm() {
             required
             autoComplete="new-password"
             className={inputClassname}
+            aria-describedby={state?.errors?.password ? "password-error" : undefined}
           />
           <button
             type="button"
             onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+            // TODO-TRANSLATION: Add translations for aria-label
             aria-label={inputType === "password" ? "Show password" : "Hide password"}
           >
             {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
           </button>
         </div>
+        {/* Optional: state?.errors?.password */}
       </FormField>
-      <FormField id="repeat-password" label="Confirmer le mot de passe" required>
+
+      {/* Repeat Password */}
+      <FormField id="repeat-password" label={tForm("confirmPasswordLabel")} required>
         <div className="relative">
           <input
             type={inputType}
-            name="repeat-password"
+            name="repeat-password" // Not sent to server, only for validation
             value={repeatPassword}
             onChange={(e) => setRepeatPassword(e.target.value)}
             required
@@ -172,6 +201,7 @@ export default function SignUpForm() {
             type="button"
             onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+            // TODO-TRANSLATION: Add translations for aria-label
             aria-label={inputType === "password" ? "Show password" : "Hide password"}
           >
             {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
@@ -180,47 +210,53 @@ export default function SignUpForm() {
         {/* Password Mismatch Error Message */}
         {!doesPasswordsMatch ? (
           <p id="passwords-dont-match" role="alert" className="mt-1 text-xs text-red-600">
-            Les mots de passe doivent correspondre.
+            {tForm("passwordMismatchError")} {/* Translated error */}
           </p>
         ) : null}
       </FormField>
+
+      {/* Checkboxes */}
       <fieldset className="space-y-4 pt-2">
-        <legend className="sr-only">Préférences et conditions</legend>
+        <legend className="sr-only">Préférences et conditions</legend> {/* TODO-TRANSLATION */}
+        {/* Marketing Opt-in */}
         <div className="relative flex items-start">
           <div className="flex h-6 items-center">
             <input id="optInMarketing" name="optInMarketing" type="checkbox" className={checkRadioClassname} />
           </div>
           <div className="ml-3 text-sm leading-6">
             <label htmlFor="optInMarketing" className="font-medium text-gray-900 cursor-pointer">
-              Je souhaite recevoir les actualités produits et promotions.
+              {tForm("marketingOptInLabel")} {/* Translated label */}
             </label>
           </div>
         </div>
+        {/* Terms and Conditions */}
         <div className="relative flex items-start">
           <div className="flex h-6 items-center">
             <input
               id="condition-generales"
-              name="condition-generales"
+              name="condition-generales" // Ensure name matches action if needed
               type="checkbox"
-              checked={agreedToTerms}
+              checked={agreedToTerms} // Controlled state
               onChange={(e) => setAgreedToTerms(e.target.checked)}
-              required
+              required // Make agreement mandatory
               className={checkRadioClassname}
             />
           </div>
           <div className="ml-3 text-sm leading-6">
             <label htmlFor="condition-generales" className="text-gray-700 cursor-pointer">
-              J&apos;ai lu et j&apos;accepte les{" "}
+              {tForm("termsLabel")} {/* Translated label */}
               <Link href="/conditions-generales-de-vente" target="_blank" className={linkClassname}>
-                conditions générales
+                {tForm("termsLink")} {/* Translated link text */}
               </Link>{" "}
               <Star />
             </label>
           </div>
         </div>
       </fieldset>
+
+      {/* Submit Button */}
       <div>
-        <SubmitButton text="Créer mon compte" isDisabled={!doesPasswordsMatch || !agreedToTerms} className="w-full mt-4" />
+        <SubmitButton text={tForm("submitButton")} isDisabled={!doesPasswordsMatch || !agreedToTerms} className="w-full mt-4" />
       </div>
     </form>
   );

@@ -181,7 +181,9 @@
     "unitPrice": "precio por unidad",
     "quantity": "cantidad",
     "priceOneArticle": "precio de un artículo",
-    "subtotal": "subtotal"
+    "subtotal": "subtotal",
+    "subtotalLabel": "Subtotal",
+    "unitPriceSuffix": "/{per}"
   },
   "addresses": {
     "title": "Mis Direcciones",
@@ -307,7 +309,246 @@
     "orders": "Pedidos",
     "loyalty": "Puntos de fidelidad y referidos"
   },
+  "forgotPasswordPage": {
+    "emailLabel": "Dirección de correo electrónico",
+    "submitButton": "Restablecer contraseña"
+  },
+  "signInPage": {
+    "emailLabel": "Dirección de correo electrónico",
+    "passwordLabel": "Contraseña",
+    "forgotPasswordLink": "¿Olvidaste tu contraseña?",
+    "submitButton": "Iniciar sesión"
+  },
+  "signUpPage": {
+    "firstNameLabel": "Nombre",
+    "lastNameLabel": "Apellido",
+    "emailLabel": "Dirección de correo electrónico",
+    "passwordLabel": "Contraseña",
+    "confirmPasswordLabel": "Confirmar contraseña",
+    "passwordMismatchError": "Las contraseñas deben coincidir.",
+    "marketingOptInLabel": "Quiero recibir noticias y promociones de productos.",
+    "termsLabel": "He leído y acepto los",
+    "termsLink": "Términos y Condiciones Generales",
+    "submitButton": "Crear mi cuenta"
+  },
+  "cartPage": {
+    "summary": {
+      "title": "Resumen del Pedido",
+      "subtotalLabel": "Subtotal",
+      "discountCodeLabel": "Código: {name}",
+      "removeDiscountAriaLabel": "Eliminar código {name}",
+      "fidelityPointsLabel": "Puntos de fidelidad ({count})",
+      "removePointsAriaLabel": "Eliminar puntos de fidelidad",
+      "totalLabel": "Total del Pedido",
+      "vatText": "(incluye {vatAmount}€ IVA)",
+      "checkoutButton": "Proceder al Envío",
+      "loginPromptText": "Inicia sesión para continuar.",
+      "loginPromptLink": "Iniciar sesión"
+    },
+    "discounts": {
+      "accountCodesTitle": "Descuentos de la Cuenta",
+      "promoCodeTitle": "Código Promocional",
+      "inputPlaceholder": "Introduce tu código",
+      "applyButton": "Aplicar"
+    }
+  },
+  "discountCode": {
+    "applyButton": "Aplicar",
+    "appliedButton": "Aplicado"
+  },
+  "shippingPage": {
+    "orderSummary": {
+      "title": "Tu Pedido",
+      "productsHeader": "Productos",
+      "productSubtotalHeader": "Subtotal",
+      "promoCodesHeader": "Códigos Promocionales",
+      "loyaltyHeader": "Programa de Fidelidad",
+      "loyaltyPointsLabel": "Puntos",
+      "finalSubtotalLabel": "Subtotal del Pedido",
+      "discountsHeader": "Descuentos Aplicados",
+      "removeDiscountAriaLabel": "Eliminar {name}",
+      "loyaltyPointsText": "{count} puntos",
+      "removePointsAriaLabel": "Eliminar puntos"
+    }
+  },
+  "reviews": {
+    "loginPrompt": {
+      "text": "¿Quieres dejar una reseña?",
+      "link": "Inicia sesión aquí",
+      "suffix": "para compartir tu experiencia (serás redirigido aquí)."
+    },
+    "addReviewTitle": "Añadir Tu Reseña",
+    "ratingLabel": "Tu Calificación",
+    "ratingAriaLabel": "Calificar con {count} de 5 estrellas",
+    "commentLabel": "Tu Reseña",
+    "commentPlaceholder": "Escribe tu reseña aquí...",
+    "commentHint": "Comparte tu experiencia con este producto.",
+    "submitButton": "Enviar Reseña"
+  },
+  "productOptions": {
+    "chooseOptionLabel": "Elige una opción",
+    "addToCartButton": "Añadir al carrito",
+    "outOfStockButton": "Agotado"
+  },
+  "addressesPage": {
+    "billingBadge": "Facturación",
+    "shippingBadge": "Envío",
+    "editButton": "Editar",
+    "deleteButton": "Eliminar",
+    "addModalTitle": "Añadir Nueva Dirección",
+    "editModalTitle": "Editar Dirección",
+    "form": {
+      "firstNameLabel": "Nombre",
+      "lastNameLabel": "Apellido",
+      "countryLabel": "País / Región",
+      "address1Label": "Dirección (calle y número)",
+      "address2Label": "Apartamento, piso, etc. (Opcional)",
+      "companyLabel": "Empresa (Opcional)",
+      "cityLabel": "Ciudad",
+      "postalCodeLabel": "Código Postal",
+      "phoneLabel": "Teléfono",
+      "emailLabel": "Dirección de correo electrónico",
+      "addressTypeLegend": "Tipo de dirección",
+      "billingCheckboxLabel": "Usar como dirección de facturación",
+      "shippingCheckboxLabel": "Usar como dirección de envío",
+      "cancelButton": "Cancelar",
+      "submitAddButton": "Añadir Dirección",
+      "submitUpdateButton": "Guardar Cambios"
+    }
+  },
   "alerts": {
+    "auth": {
+      "logoutSuccess": {
+        "title": "Sesión Cerrada",
+        "text": "Has cerrado sesión correctamente."
+      },
+      "logoutError": {
+        "title": "Error al Cerrar Sesión",
+        "text": "Se produjo un error al cerrar la sesión. Por favor, inténtalo de nuevo."
+      },
+      "logoutFailed": {
+        "title": "Fallo al Cerrar Sesión",
+        "text": "No se pudo cerrar la sesión. Por favor, inténtalo de nuevo o contacta con soporte."
+      }
+    },
+    "addReview": {
+      "success": {
+        "title": "Reseña Enviada",
+        "text": "Tu reseña ha sido enviada y está pendiente de aprobación."
+      },
+      "error400": {
+        "title": "Error de Envío",
+        "text": "No se pudo enviar la reseña. Por favor, comprueba tu calificación y comentario."
+      },
+      "error401": {
+        "title": "Inicio de Sesión Requerido",
+        "text": "Por favor, inicia sesión para enviar una reseña."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "No se pudo enviar la reseña debido a un error del servidor. Por favor, inténtalo de nuevo."
+      },
+      "defaultError": {
+        "title": "Error de Envío",
+        "text": "Se produjo un error desconocido al enviar tu reseña."
+      },
+      "error403": { "title": "Ya Evaluado", "text": "Parece que ya has dejado una reseña para este producto." }
+    },
+    "genericError": { "title": "Error", "text": "Se produjo un error inesperado." },
+    "cart": {
+      "productAdded": {
+        "title": "Añadido al Carrito",
+        "text": "{option}{per} - {name} añadido al carrito."
+      },
+      "insufficientStock": {
+        "title": "Stock Insuficiente",
+        "text": "Stock insuficiente para la opción de {option}{per}."
+      },
+      "quantityAdded": {
+        "title": "Cantidad Actualizada",
+        "text": "{option}{per} de {name} añadido(s)."
+      },
+      "quantityRemoved": {
+        "title": "Cantidad Actualizada",
+        "text": "{option}{per} de {name} eliminado(s)."
+      },
+      "productRemoved": {
+        "title": "Producto Eliminado",
+        "text": "{name} eliminado del carrito."
+      },
+      "discountRemoved": {
+        "title": "Código Eliminado",
+        "text": "Código de descuento {name} eliminado."
+      },
+      "pointsRemoved": {
+        "title": "Puntos Eliminados",
+        "text": "Puntos de fidelidad eliminados."
+      },
+      "discountApplied": {
+        "title": "Descuento Aplicado",
+        "text": "Código de descuento {name} aplicado."
+      },
+      "promoCodeApplied": {
+        "title": "Código Aplicado",
+        "text": "¡Código promocional aplicado con éxito!"
+      },
+      "promoCodeAlreadyApplied": {
+        "title": "Ya Aplicado",
+        "text": "Este código promocional ya está aplicado."
+      },
+      "promoCodeInvalid": {
+        "title": "Código Inválido",
+        "text": "Código promocional inválido o no aplicable."
+      }
+    },
+    "signUp": {
+      "success": {
+        "title": "Registro Exitoso",
+        "text": "¡Tu cuenta ha sido creada con éxito!"
+      },
+      "error409": {
+        "title": "Email Existente",
+        "text": "Este correo electrónico ya está registrado. Redirigiendo al inicio de sesión..."
+      },
+      "error400": {
+        "title": "Información Inválida",
+        "text": "Por favor, comprueba la información proporcionada."
+      },
+      "error422": {
+        "title": "Error de Validación",
+        "text": "Alguna información no es válida. Por favor, revisa el formulario."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "No se pudo crear la cuenta debido a un error del servidor. Por favor, inténtalo de nuevo."
+      },
+      "defaultError": {
+        "title": "Error de Registro",
+        "text": "Ha ocurrido un error desconocido durante el registro."
+      }
+    },
+    "signIn": {
+      "success200": {
+        "title": "Éxito",
+        "text": "¡Inicio de sesión exitoso!"
+      },
+      "error401": {
+        "title": "Error de Inicio de Sesión",
+        "text": "Correo electrónico o contraseña incorrectos."
+      },
+      "info204": {
+        "title": "Cuenta no encontrada",
+        "text": "No se encontró ninguna cuenta con este correo electrónico."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "Problema técnico, por favor inténtalo de nuevo más tarde."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "Ha ocurrido un error."
+      }
+    },
     "profile": {
       "infos": {
         "200": {
@@ -325,51 +566,65 @@
       },
       "addresses": {
         "delete": {
-          "200": {
-            "text": "Has eliminado tu dirección correctamente",
-            "title": "Dirección eliminada"
-          },
-          "400": {
-            "text": "Se requiere el ID de la dirección",
-            "title": "ID faltante"
-          },
-          "500": {
-            "text": "Error al eliminar la dirección",
-            "title": "Error"
-          }
+          "200": { "title": "Dirección Eliminada", "text": "Dirección eliminada con éxito." },
+          "400": { "title": "Solicitud Inválida", "text": "Falta el ID de la dirección." },
+          "500": { "title": "Error del Servidor", "text": "No se pudo eliminar la dirección. Por favor, inténtalo de nuevo." }
         },
         "add": {
-          "200": {
-            "text": "Has añadido tu dirección correctamente",
-            "title": "Dirección añadida"
-          },
-          "400": {
-            "text": "Falta una de las informaciones que has proporcionado",
-            "title": "Advertencia"
-          },
-          "409": {
-            "text": "Algo salió mal",
-            "title": "Advertencia"
-          },
-          "422": {
-            "text": "Hay un error semántico en la información que has proporcionado",
-            "title": "Advertencia"
-          }
+          "200": { "title": "Dirección Añadida", "text": "Dirección añadida con éxito." },
+          "400": { "title": "Información Inválida", "text": "Por favor, comprueba los detalles de la dirección proporcionada." },
+          "409": { "title": "Error", "text": "No se pudo añadir la dirección. Por favor, inténtalo de nuevo." },
+          "422": { "title": "Error de Validación", "text": "Alguna información de la dirección no es válida." }
         },
         "update": {
-          "200": {
-            "text": "Has actualizado tu dirección correctamente",
-            "title": "Dirección actualizada"
-          },
-          "400": {
-            "text": "Falta una de las informaciones que has proporcionado",
-            "title": "Advertencia"
-          },
-          "422": {
-            "text": "Hay un error semántico en la información que has proporcionado",
-            "title": "Advertencia"
-          }
+          "200": { "title": "Dirección Actualizada", "text": "Dirección actualizada con éxito." },
+          "400": { "title": "Información Inválida", "text": "Por favor, comprueba los detalles de la dirección proporcionada." },
+          "422": { "title": "Error de Validación", "text": "Alguna información de la dirección no es válida." }
         }
+      }
+    },
+    "accountCreation": {
+      "success200": {
+        "title": "Cuenta Creada",
+        "text": "¡Cuenta creada y sesión iniciada con éxito!"
+      },
+      "error409": {
+        "title": "Email Existente",
+        "text": "Este correo electrónico ya está registrado. Redirigiendo al inicio de sesión..."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "Error del servidor durante la creación de la cuenta. Por favor, inténtalo de nuevo más tarde."
+      },
+      "genericError": {
+        "title": "Error",
+        "text": "Ha ocurrido un error. Por favor, inténtalo de nuevo."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "Ha ocurrido un error desconocido. Por favor, inténtalo de nuevo."
+      }
+    },
+    "forgotPassword": {
+      "success204": {
+        "title": "Correo Enviado",
+        "text": "Si existe una cuenta con este correo electrónico, se ha enviado un enlace para restablecer la contraseña."
+      },
+      "error40x": {
+        "title": "Email Desconocido",
+        "text": "No se encontró ninguna cuenta con esta dirección de correo electrónico."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "Error al procesar la solicitud. Por favor, inténtalo de nuevo."
+      },
+      "error400": {
+        "title": "Solicitud Inválida",
+        "text": "Por favor, comprueba la dirección de correo electrónico proporcionada."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "Ha ocurrido un error. Por favor, inténtalo de nuevo."
       }
     }
   }

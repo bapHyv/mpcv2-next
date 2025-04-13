@@ -181,7 +181,9 @@
     "unitPrice": "prix à l'unité",
     "quantity": "quantité",
     "priceOneArticle": "prix d'un article",
-    "subtotal": "sous-total"
+    "subtotal": "sous-total",
+    "subtotalLabel": "Sous-total",
+    "unitPriceSuffix": "/{per}"
   },
   "addresses": {
     "title": "Mes Adresses",
@@ -307,7 +309,246 @@
     "orders": "Commandes",
     "loyalty": "Points de fidélité & parrainage"
   },
+  "forgotPasswordPage": {
+    "emailLabel": "Adresse e-mail",
+    "submitButton": "Réinitialiser le mot de passe"
+  },
+  "signInPage": {
+    "emailLabel": "Adresse e-mail",
+    "passwordLabel": "Mot de passe",
+    "forgotPasswordLink": "Mot de passe oublié ?",
+    "submitButton": "Se connecter"
+  },
+  "signUpPage": {
+    "firstNameLabel": "Prénom",
+    "lastNameLabel": "Nom",
+    "emailLabel": "Adresse e-mail",
+    "passwordLabel": "Mot de passe",
+    "confirmPasswordLabel": "Confirmer le mot de passe",
+    "passwordMismatchError": "Les mots de passe doivent correspondre.",
+    "marketingOptInLabel": "Je souhaite recevoir les actualités produits et promotions.",
+    "termsLabel": "J'ai lu et j'accepte les",
+    "termsLink": "conditions générales",
+    "submitButton": "Créer mon compte"
+  },
+  "cartPage": {
+    "summary": {
+      "title": "Total du Panier",
+      "subtotalLabel": "Sous-total",
+      "discountCodeLabel": "Code: {name}",
+      "removeDiscountAriaLabel": "Retirer le code {name}",
+      "fidelityPointsLabel": "Points fidélité ({count})",
+      "removePointsAriaLabel": "Retirer les points de fidélité",
+      "totalLabel": "Total Panier",
+      "vatText": "(dont {vatAmount}€ TVA)",
+      "checkoutButton": "Choisir la méthode d'expédition",
+      "loginPromptText": "Connectez-vous pour continuer.",
+      "loginPromptLink": "Connectez-vous"
+    },
+    "discounts": {
+      "accountCodesTitle": "Codes liés au compte",
+      "promoCodeTitle": "Code Promo",
+      "inputPlaceholder": "Entrez votre code",
+      "applyButton": "Appliquer"
+    }
+  },
+  "discountCode": {
+    "applyButton": "Utiliser",
+    "appliedButton": "Appliqué"
+  },
+  "shippingPage": {
+    "orderSummary": {
+      "title": "Votre Commande",
+      "productsHeader": "Produits",
+      "productSubtotalHeader": "Sous-total",
+      "promoCodesHeader": "Codes Promos",
+      "loyaltyHeader": "Programme Fidélité",
+      "loyaltyPointsLabel": "Points",
+      "finalSubtotalLabel": "Sous-total Commande",
+      "discountsHeader": "Réductions Appliquées",
+      "removeDiscountAriaLabel": "Retirer {name}",
+      "loyaltyPointsText": "{count} points",
+      "removePointsAriaLabel": "Retirer les points"
+    }
+  },
+  "reviews": {
+    "loginPrompt": {
+      "text": "Vous souhaitez laisser un avis ?",
+      "link": "Connectez-vous ici",
+      "suffix": "pour partager votre expérience (vous serez redirigé ici)."
+    },
+    "addReviewTitle": "Ajouter Votre Avis",
+    "ratingLabel": "Votre Note",
+    "ratingAriaLabel": "Donner une note de {count} étoiles sur 5",
+    "commentLabel": "Votre Avis",
+    "commentPlaceholder": "Écrivez votre avis ici...",
+    "commentHint": "Partagez votre expérience avec ce produit.",
+    "submitButton": "Envoyer l'Avis"
+  },
+  "productOptions": {
+    "chooseOptionLabel": "Choisir une option",
+    "addToCartButton": "Ajouter au panier",
+    "outOfStockButton": "Épuisé"
+  },
+  "addressesPage": {
+    "billingBadge": "Facturation",
+    "shippingBadge": "Livraison",
+    "editButton": "Modifier",
+    "deleteButton": "Supprimer",
+    "addModalTitle": "Ajouter une Nouvelle Adresse",
+    "editModalTitle": "Modifier l'Adresse",
+    "form": {
+      "firstNameLabel": "Prénom",
+      "lastNameLabel": "Nom",
+      "countryLabel": "Pays / Région",
+      "address1Label": "Numéro et nom de rue",
+      "address2Label": "Appartement, bâtiment, etc. (Facultatif)",
+      "companyLabel": "Entreprise (Facultatif)",
+      "cityLabel": "Ville",
+      "postalCodeLabel": "Code Postal",
+      "phoneLabel": "Téléphone",
+      "emailLabel": "Adresse e-mail",
+      "addressTypeLegend": "Type d'adresse",
+      "billingCheckboxLabel": "Utiliser comme adresse de facturation",
+      "shippingCheckboxLabel": "Utiliser comme adresse de livraison",
+      "cancelButton": "Annuler",
+      "submitAddButton": "Ajouter l'Adresse",
+      "submitUpdateButton": "Enregistrer les Modifications"
+    }
+  },
   "alerts": {
+    "auth": {
+      "logoutSuccess": {
+        "title": "Déconnexion Réussie",
+        "text": "Vous avez été déconnecté avec succès."
+      },
+      "logoutError": {
+        "title": "Erreur de Déconnexion",
+        "text": "Une erreur est survenue lors de la déconnexion. Veuillez réessayer."
+      },
+      "logoutFailed": {
+        "title": "Échec de la Déconnexion",
+        "text": "La déconnexion a échoué. Veuillez réessayer ou contacter le support."
+      }
+    },
+    "addReview": {
+      "success": {
+        "title": "Avis Envoyé",
+        "text": "Votre avis a été soumis et est en attente d'approbation."
+      },
+      "error400": {
+        "title": "Erreur d'Envoi",
+        "text": "Impossible d'envoyer l'avis. Veuillez vérifier votre note et votre commentaire."
+      },
+      "error401": {
+        "title": "Connexion Requise",
+        "text": "Veuillez vous connecter pour laisser un avis."
+      },
+      "error500": {
+        "title": "Erreur Serveur",
+        "text": "Impossible d'envoyer l'avis en raison d'une erreur serveur. Veuillez réessayer."
+      },
+      "defaultError": {
+        "title": "Erreur d'Envoi",
+        "text": "Une erreur inconnue est survenue lors de l'envoi de votre avis."
+      },
+      "error403": { "title": "Déjà Évalué", "text": "Vous semblez avoir déjà laissé un avis pour ce produit." }
+    },
+    "genericError": { "title": "Erreur", "text": "Une erreur inattendue est survenue." },
+    "cart": {
+      "productAdded": {
+        "title": "Ajouté au Panier",
+        "text": "{option}{per} - {name} ajouté au panier."
+      },
+      "insufficientStock": {
+        "title": "Stock Insuffisant",
+        "text": "Stock insuffisant pour l'option {option}{per}."
+      },
+      "quantityAdded": {
+        "title": "Quantité Mise à Jour",
+        "text": "{option}{per} de {name} ajouté(s)."
+      },
+      "quantityRemoved": {
+        "title": "Quantité Mise à Jour",
+        "text": "{option}{per} de {name} retiré(s)."
+      },
+      "productRemoved": {
+        "title": "Produit Retiré",
+        "text": "{name} retiré du panier."
+      },
+      "discountRemoved": {
+        "title": "Code Retiré",
+        "text": "Code promo {name} retiré."
+      },
+      "pointsRemoved": {
+        "title": "Points Retirés",
+        "text": "Points de fidélité retirés."
+      },
+      "discountApplied": {
+        "title": "Code Appliqué",
+        "text": "Code promo {name} appliqué."
+      },
+      "promoCodeApplied": {
+        "title": "Code Appliqué",
+        "text": "Le code promo a été appliqué avec succès."
+      },
+      "promoCodeAlreadyApplied": {
+        "title": "Déjà Appliqué",
+        "text": "Ce code promo est déjà appliqué."
+      },
+      "promoCodeInvalid": {
+        "title": "Code Invalide",
+        "text": "Code promo invalide ou non applicable."
+      }
+    },
+    "signUp": {
+      "success": {
+        "title": "Inscription Réussie",
+        "text": "Votre compte a été créé avec succès !"
+      },
+      "error409": {
+        "title": "Email Existant",
+        "text": "Cet email est déjà enregistré. Redirection vers la connexion..."
+      },
+      "error400": {
+        "title": "Informations Invalides",
+        "text": "Veuillez vérifier les informations fournies."
+      },
+      "error422": {
+        "title": "Erreur de Validation",
+        "text": "Certaines informations sont invalides. Veuillez vérifier le formulaire."
+      },
+      "error500": {
+        "title": "Erreur Serveur",
+        "text": "Impossible de créer le compte en raison d'une erreur serveur. Veuillez réessayer."
+      },
+      "defaultError": {
+        "title": "Erreur d'Inscription",
+        "text": "Une erreur inconnue est survenue lors de l'inscription."
+      }
+    },
+    "signIn": {
+      "success200": {
+        "title": "Succès",
+        "text": "Connexion réussie !"
+      },
+      "error401": {
+        "title": "Erreur Connexion",
+        "text": "Email ou mot de passe incorrect."
+      },
+      "info204": {
+        "title": "Compte non trouvé",
+        "text": "Aucun compte trouvé avec cet email."
+      },
+      "error500": {
+        "title": "Erreur Serveur",
+        "text": "Problème technique, veuillez réessayer plus tard."
+      },
+      "defaultError": {
+        "title": "Erreur",
+        "text": "Une erreur est survenue."
+      }
+    },
     "profile": {
       "infos": {
         "200": {
@@ -325,51 +566,65 @@
       },
       "addresses": {
         "delete": {
-          "200": {
-            "text": "Vous avez supprimé votre adresse avec succès",
-            "title": "Adresse supprimée"
-          },
-          "400": {
-            "text": "L'identifiant de l'adresse est requis",
-            "title": "Identifiant manquant"
-          },
-          "500": {
-            "text": "Erreur lors de la suppression de l'adresse",
-            "title": "Erreur"
-          }
+          "200": { "title": "Adresse Supprimée", "text": "Adresse supprimée avec succès." },
+          "400": { "title": "Requête Invalide", "text": "L'identifiant de l'adresse est manquant." },
+          "500": { "title": "Erreur Serveur", "text": "Impossible de supprimer l'adresse. Veuillez réessayer." }
         },
         "add": {
-          "200": {
-            "text": "Vous avez ajouté votre adresse avec succès",
-            "title": "Adresse ajoutée"
-          },
-          "400": {
-            "text": "Une des informations que vous avez fournies est manquante",
-            "title": "Avertissement"
-          },
-          "409": {
-            "text": "Quelque chose s'est mal passé",
-            "title": "Avertissement"
-          },
-          "422": {
-            "text": "Il y a une erreur sémantique dans les informations que vous avez fournies",
-            "title": "Avertissement"
-          }
+          "200": { "title": "Adresse Ajoutée", "text": "Adresse ajoutée avec succès." },
+          "400": { "title": "Informations Invalides", "text": "Veuillez vérifier les détails de l'adresse fournie." },
+          "409": { "title": "Erreur", "text": "Impossible d'ajouter l'adresse. Veuillez réessayer." },
+          "422": { "title": "Erreur de Validation", "text": "Certaines informations d'adresse sont invalides." }
         },
         "update": {
-          "200": {
-            "text": "Vous avez mis à jour votre adresse avec succès",
-            "title": "Adresse mise à jour"
-          },
-          "400": {
-            "text": "Une des informations que vous avez fournies est manquante",
-            "title": "Avertissement"
-          },
-          "422": {
-            "text": "Il y a une erreur sémantique dans les informations que vous avez fournies",
-            "title": "Avertissement"
-          }
+          "200": { "title": "Adresse Mise à Jour", "text": "Adresse mise à jour avec succès." },
+          "400": { "title": "Informations Invalides", "text": "Veuillez vérifier les détails de l'adresse fournie." },
+          "422": { "title": "Erreur de Validation", "text": "Certaines informations d'adresse sont invalides." }
         }
+      }
+    },
+    "accountCreation": {
+      "success200": {
+        "title": "Compte Créé",
+        "text": "Votre compte a été créé et vous êtes connecté avec succès !"
+      },
+      "error409": {
+        "title": "Email Existant",
+        "text": "Cet email est déjà enregistré. Redirection vers la page de connexion..."
+      },
+      "error500": {
+        "title": "Erreur Serveur",
+        "text": "Erreur serveur lors de la création du compte. Veuillez réessayer plus tard."
+      },
+      "genericError": {
+        "title": "Erreur",
+        "text": "Une erreur est survenue. Veuillez réessayer."
+      },
+      "defaultError": {
+        "title": "Erreur",
+        "text": "Une erreur inconnue est survenue. Veuillez réessayer."
+      }
+    },
+    "forgotPassword": {
+      "success204": {
+        "title": "Email Envoyé",
+        "text": "Si un compte existe avec cet email, un lien de réinitialisation a été envoyé."
+      },
+      "error40x": {
+        "title": "Email Inconnu",
+        "text": "Aucun compte n'est associé à cet email."
+      },
+      "error500": {
+        "title": "Erreur Serveur",
+        "text": "Erreur lors de la demande. Veuillez réessayer."
+      },
+      "error400": {
+        "title": "Requête Invalide",
+        "text": "Veuillez vérifier l'adresse email."
+      },
+      "defaultError": {
+        "title": "Erreur",
+        "text": "Une erreur est survenue. Veuillez réessayer."
       }
     }
   }
