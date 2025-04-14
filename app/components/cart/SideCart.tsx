@@ -63,9 +63,9 @@ export default function Cart() {
                 {/* Panel Content */}
                 <div className={twMerge("flex h-full flex-col overflow-y-hidden bg-white shadow-xl")}>
                   {/* Header */}
-                  <div className="bg-gray-50 px-4 py-4 sm:px-6 border-b border-gray-200">
+                  <div className="bg-gray-50 px-4 py-4 sm:px-6 md:pt-[104px] border-b border-gray-200">
                     {/* Header background + border */}
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-end justify-between">
                       <DialogTitle className="text-lg font-semibold leading-6 text-gray-900">{t("title")}</DialogTitle>
                       <div className="ml-3 flex h-7 items-center">
                         <button
@@ -82,11 +82,11 @@ export default function Cart() {
                   </div>
 
                   {/* Product List (Scrollable Area) */}
-                  <div className="relative flex-1 overflow-y-auto px-4 py-4 sm:px-6">
+                  <div className="relative flex-1 overflow-y-auto px-1 py-8 sm:px-6">
                     {cart?.products?.length > 0 ? (
-                      <ul role="list" className="-my-4 divide-y divide-gray-200">
+                      <ul role="list" className="-my-4">
                         {cart.products.map((product) => (
-                          <li key={product.cartItemId} className="py-4">
+                          <li key={product.cartItemId} className="py-1">
                             <CartProductCard {...product} isInModale={false} />
                           </li>
                         ))}
@@ -98,7 +98,7 @@ export default function Cart() {
 
                   {/* Footer: Total + Button */}
                   {cart?.products?.length > 0 && (
-                    <div className="border-t border-gray-200 px-4 py-4 sm:px-6 bg-gray-50">
+                    <div className="border-t border-gray-200 px-4 pt-4 pb-20 sm:px-6 md:pb-4 bg-gray-50">
                       <div className="flex justify-between text-base font-medium text-gray-900 mb-3">
                         <p>{t("totalLabel")}</p>
                         <p>{cartTotal.toFixed(2)}€</p>
