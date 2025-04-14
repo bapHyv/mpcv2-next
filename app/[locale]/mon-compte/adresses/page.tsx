@@ -33,7 +33,7 @@ export default function Page() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-      <Title title={t("title")} type="h1" classname={titleClassname} firstLetterClassname="text-4xl" />
+      <Title title={t("title")} type="h1" classname={twMerge(titleClassname, "md:mt-14 text-green")} firstLetterClassname="text-xl" />
 
       {/* Main Content Area */}
       <div className="mb-8">

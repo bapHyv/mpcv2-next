@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
 import { useAuth } from "@/app/context/authContext";
+import { iconClassname } from "@/app/staticData/cartPageClasses";
 
 interface Base {
   text: string;
@@ -66,8 +67,6 @@ function UserMenu({
   const ref = useRef<HTMLDivElement | null>(null);
   const t = useTranslations("navbar");
   const { userData, logout } = useAuth();
-
-  const iconClassname = "w-5 h-5 text-gray-300 mr-3 flex-shrink-0";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -173,7 +172,7 @@ function UserMenu({
     <div
       ref={ref}
       className={clsx(
-        "absolute right-0 z-[5000] mt-2 w-56 origin-top-right rounded-md bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
+        "absolute right-0 z-[6500] mt-2 w-56 origin-top-right rounded-md bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
         "top-full"
       )}
       role="menu"

@@ -131,7 +131,7 @@ export function AlertsProvider({ children }: { children: ReactNode }): JSX.Eleme
     >
       <>
         {children}
-        <div className={clsx("w-[95%] fixed left-1 top-1 flex flex-col gap-5 z-[9999]", "md:w-3/5", "md:top-auto md:bottom-2", "xl:w-2/5")}>
+        <div className={clsx("w-[95%] fixed left-1 top-1 flex flex-col gap-5 z-[9000]", "md:w-3/5", "md:top-auto md:bottom-2", "xl:w-2/5")}>
           {alerts}
         </div>
       </>

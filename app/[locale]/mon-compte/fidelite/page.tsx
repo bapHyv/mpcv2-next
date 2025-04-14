@@ -8,7 +8,7 @@ import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { v4 as uuid } from "uuid";
 import Title from "@/app/components/Title";
-import { buttonClassname, subtleSectionWrapperClassname } from "@/app/staticData/cartPageClasses";
+import { buttonClassname, subtleSectionWrapperClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 const PointsSection: React.FC = () => {
@@ -49,8 +49,8 @@ const PointsSection: React.FC = () => {
       <Title
         title={t("account.loyaltyPage.mainTitle")}
         type="h1"
-        classname={`relative mb-8 text-center uppercase text-xl text-green font-bold tracking-widest`}
-        firstLetterClassname="text-4xl"
+        classname={twMerge(titleClassname, "md:mt-14 text-green")}
+        firstLetterClassname="text-xl"
       />
 
       <div className="space-y-10 xl:space-y-12">

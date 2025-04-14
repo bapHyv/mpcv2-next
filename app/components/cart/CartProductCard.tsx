@@ -119,7 +119,7 @@ export default function CartProductCard({
         {/* Details Container */}
         <div className="flex-grow p-2 sm:p-3 flex flex-col justify-between text-sm w-3/4 sm:w-2/3">
           <div>
-            <p className="font-semibold text-gray-900 truncate text-base leading-tight w-11/12">{name}</p>
+            <p className="font-semibold text-gray-900 truncate text-xs md:text-sm leading-tight w-11/12">{name}</p>
             <p className="text-xs text-gray-500 mt-0.5">
               {option}
               {per} - {unitPrice.toFixed(2)}€{t("productCardCart.unitPriceSuffix", { per })}
@@ -156,7 +156,7 @@ export default function CartProductCard({
               <span className="text-xs text-gray-500">Qty: {quantity}</span>
             )}
 
-            <p className="font-semibold text-base text-blue-600">{totalPrice.toFixed(2)}€</p>
+            <p className="font-semibold text-sm text-blue-600">{totalPrice.toFixed(2)}€</p>
           </div>
         </div>
       </div>
