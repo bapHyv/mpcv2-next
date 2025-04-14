@@ -1,3 +1,4 @@
+// BurgerMenuHeader.tsx (Updated with i18n)
 "use client";
 
 import Link from "next/link";
@@ -5,105 +6,128 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import clsx from "clsx";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { usePathname } from "next/navigation";
+import { iconHeaderClassname } from "@/app/staticData/cartPageClasses";
 
-const iconClassname = `h-10 w-10 text-neutral-100 flex items-center
-hover:text-white
-focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white`;
-
-function generatePathWithLocale(pathname: string, locale: string) {
-  const newPath = pathname.split("/");
-  newPath[1] = locale;
-  return newPath.join("/");
-}
-
-export default function BurgerMenuHeader({ locale }: { locale: string }) {
+export default function BurgerMenuHeader() {
+  const t = useTranslations("navbar");
   const [isVisible, setIsVisible] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const pathName = usePathname();
-  const iconRef = useRef<SVGSVGElement | null>(null);
 
+  // Close menu on navigation
   useEffect(() => {
     setIsVisible(false);
   }, [pathName]);
 
+  const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    setIsVisible(!isVisible);
+  };
+
   return (
-    <div className="relavite">
-      <span className="sr-only">Open main menu</span>
-      {isVisible ? (
-        <XMarkIcon ref={iconRef} role="button" className={iconClassname} onClick={() => setIsVisible(false)} />
-      ) : (
-        <Bars3Icon role="button" className={iconClassname} onClick={() => setIsVisible(true)} />
-      )}
-      {isVisible && <BurgerMenu locale={locale} onClickOutside={() => setIsVisible(false)} iconRef={iconRef} />}
+    <div className="relative">
+      <button
+        ref={buttonRef}
+        type="button"
+        className={iconHeaderClassname}
+        onClick={toggleMenu}
+        aria-controls="mobile-menu"
+        aria-expanded={isVisible}
+      >
+        <span className="sr-only">{isVisible ? t("closeMainMenuSR") : t("openMainMenuSR")}</span>
+        {isVisible ? <XMarkIcon aria-hidden="true" /> : <Bars3Icon aria-hidden="true" />}
+      </button>
+      {isVisible && <BurgerMenu onClickOutside={() => setIsVisible(false)} iconRef={buttonRef} />}
     </div>
   );
 }
 
-function BurgerMenu({ locale, onClickOutside, iconRef }: { locale: string; onClickOutside: any; iconRef: MutableRefObject<SVGSVGElement | null> }) {
-  const urlLocale = useLocale();
+interface MenuProps {
+  onClickOutside: () => void;
+  iconRef: MutableRefObject<HTMLButtonElement | null>;
+}
+
+function BurgerMenu({ onClickOutside, iconRef }: MenuProps) {
   const pathname = usePathname();
   const ref = useRef<HTMLDivElement | null>(null);
-  const t = useTranslations("navbar.burger");
+  const tCat = useTranslations("category");
+  const tBlog = useTranslations("blog");
+  const locale = useLocale();
 
   useEffect(() => {
     const handleClickOutsideBurgerMenu = (event: MouseEvent) => {
-      if (
-        ref.current &&
-        iconRef.current &&
-        !ref.current.contains(event.target as HTMLElement) &&
-        !iconRef.current.contains(event.target as HTMLElement)
-      ) {
-        onClickOutside && onClickOutside();
+      if (ref.current && iconRef.current && !ref.current.contains(event.target as Node) && !iconRef.current.contains(event.target as Node)) {
+        onClickOutside();
       }
     };
-    document.addEventListener("click", handleClickOutsideBurgerMenu, true);
+    const timerId = setTimeout(() => {
+      // Delay listener attachment
+      document.addEventListener("click", handleClickOutsideBurgerMenu, true);
+    }, 0);
     return () => {
+      clearTimeout(timerId);
       document.removeEventListener("click", handleClickOutsideBurgerMenu, true);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onClickOutside]);
+  }, [onClickOutside, iconRef]);
 
-  const languageSelector = [
-    {
-      key: "Français",
-      text: "Français",
-      src: "🇫🇷",
-      locale: "fr",
-    },
-    {
-      key: "Espagnol",
-      text: "Español",
-      src: "🇪🇸",
-      locale: "es",
-    },
-    {
-      key: "Anglais",
-      text: "English",
-      src: "🇬🇧",
-      locale: "en",
-    },
+  const categories = [
+    { categoryKey: "flower", emoji: "🌿", slug: "fleurs-cbd" },
+    { categoryKey: "hash", emoji: "🍫", slug: "pollens-resines-hash-cbd" },
+    { categoryKey: "moonrock", emoji: "🌠", slug: "moonrocks-cbd" },
+    { categoryKey: "oil", emoji: "💧", slug: "huiles-cbd" },
+    { categoryKey: "herbalTea", emoji: "🌱", slug: "infusions-cbd" },
+    { categoryKey: "health", emoji: "🌿", slug: "soins-cbd" },
+    { categoryKey: "vaporizer", emoji: "💨", slug: "vaporisateur" },
   ];
 
-  return (
-    <div ref={ref} className={clsx("absolute bottom-[54px] bg-black text-white flex flex-col rounded-t-md w-[45dvw]")}>
-      {/* BLOG */}
-      <Link href={`/${locale}/blog`} className="flex items-center ml-2">
-        <span>📰</span>
-        <span className="p-2">Blog</span>
-      </Link>
+  const activeSlug = pathname.split("/").pop();
 
-      {/* LANGUAGE SELECTOR */}
-      {languageSelector.map((e) => (
-        <React.Fragment key={e.key}>
-          <Link href={generatePathWithLocale(pathname, e.locale)}>
-            <div className="flex items-center ml-2">
-              <span>{e.src}</span>
-              <span className={clsx("p-2", { "text-green": urlLocale === e.locale })}>{e.text}</span>
-            </div>
+  return (
+    <div
+      ref={ref}
+      id="mobile-menu"
+      className={clsx(
+        "absolute bottom-full left-0 mb-1",
+        "z-[6500]",
+        "w-56 rounded-md bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+      )}
+      role="menu"
+      aria-orientation="vertical"
+      aria-labelledby="main-menu-button"
+    >
+      <div className="py-1 space-y-1" role="none">
+        {categories.map((e) => (
+          <Link
+            key={e.categoryKey}
+            href={`/${locale}/${e.slug}`}
+            className={clsx(
+              "flex items-center px-4 py-2 text-sm text-gray-100 hover:bg-gray-700 hover:text-white transition-colors duration-100 ease-in-out rounded-md", // Item styling
+              activeSlug === e.slug && " text-green font-semibold"
+            )}
+            role="menuitem"
+          >
+            <span className="mr-3 text-lg" aria-hidden="true">
+              {e.emoji}
+            </span>
+            <span>{tCat(e.categoryKey)}</span>
           </Link>
-        </React.Fragment>
-      ))}
+        ))}
+        <Link
+          href={`/${locale}/blog`}
+          className={clsx(
+            "flex items-center px-4 py-2 text-sm text-gray-100 hover:bg-gray-700 hover:text-white transition-colors duration-100 ease-in-out rounded-md",
+            pathname.includes("/blog") && " text-green font-semibold"
+          )}
+          role="menuitem"
+        >
+          <span className="mr-3 text-lg" aria-hidden="true">
+            📰
+          </span>
+          <span>{tBlog("link")}</span>
+        </Link>
+      </div>
     </div>
   );
 }

@@ -19,6 +19,7 @@ import {
   statusBadgeBase,
   statusBadgePending,
   statusBadgeRefunded,
+  titleClassname,
 } from "@/app/staticData/cartPageClasses";
 import { Order } from "@/app/types/profileTypes";
 /**
@@ -81,12 +82,7 @@ const Commandes = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-      <Title
-        title={t("title")}
-        type="h1"
-        classname={`relative mb-8 text-center uppercase text-xl text-green font-bold tracking-widest`}
-        firstLetterClassname="text-4xl"
-      />
+      <Title title={t("title")} type="h1" classname={twMerge(titleClassname, "md:mt-14 text-green")} firstLetterClassname="text-xl" />
 
       {!userData ? (
         <div className="flex items-center justify-center min-h-[200px]">

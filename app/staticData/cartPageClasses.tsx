@@ -33,3 +33,6 @@ export const statusBadgeFailed = clsx(statusBadgeBase, "bg-red-100 text-red-800"
 export const labelClassname = clsx("block text-sm font-medium leading-6 text-gray-900");
 
 export const linkClassname = clsx("font-semibold text-green hover:text-opacity-80");
+
+export const iconHeaderClassname = clsx("h-8 w-8 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white rounded-md p-0.5");
+export const iconClassname = clsx("h-5 w-5 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white");

@@ -104,7 +104,7 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
         setSseData,
       }}
     >
-      {/* <div className="fixed bottom-14 bg-black w-full h-20 z-[8999] flex items-start gap-5 p-3">
+      {/* <div className="fixed bottom-14 bg-black w-full h-20 flex items-start gap-5 p-3">
         <input value={value} type="number" onChange={handleChange} />
         <button onClick={handleSetStock} className="text-xs px-3 py-2 bg-blue-600 uppercase text-white rounded-md hover:bg-blue-500">
           Set stock

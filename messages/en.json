@@ -142,6 +142,12 @@
     "relatedProducts": "Related products"
   },
   "navbar": {
+    "productsLink": "Products",
+    "blogLink": "Blog",
+    "mainLogoAlt": "Mon Plan CBD Logo",
+    "cbdLogoAlt": "White CBD logo",
+    "openMainMenuSR": "Open main menu",
+    "closeMainMenuSR": "Close main menu",
     "hemp": "cbd hemp",
     "hash": "cbd hash",
     "moonrock": "cbd moonrock",
@@ -172,6 +178,9 @@
     "GCS": "Conditions générales de vente",
     "privacyPolicies": "privacy policy",
     "about": "About"
+  },
+  "blog": {
+    "link": "Blog"
   },
   "cart": {
     "cart": "cart",

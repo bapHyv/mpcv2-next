@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { LanguageIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
+import { iconHeaderClassname } from "@/app/staticData/cartPageClasses";
 
 function generatePathWithLocale(pathname: string, locale: string): string {
   const pathSegments = pathname.split("/");
@@ -37,14 +38,14 @@ export default function LanguageSelector() {
       <button
         ref={iconRef}
         type="button"
-        className="flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-white rounded-full p-1"
+        className={iconHeaderClassname}
         onClick={toggleVisibility}
         aria-haspopup="true"
         aria-expanded={isVisible}
         aria-controls="language-menu"
       >
         <span className="sr-only">{t("selectLanguageSR")}</span>
-        <LanguageIcon className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+        <LanguageIcon />
       </button>
       {isVisible && <LanguageSelectorMenu onClickOutside={() => setIsVisible(false)} iconRef={iconRef} />}
     </div>
@@ -88,7 +89,7 @@ function LanguageSelectorMenu({ onClickOutside, iconRef }: MenuProps) {
       ref={ref}
       id="language-menu"
       className={clsx(
-        "absolute right-0 z-[5000] mt-2 w-40 origin-top-right rounded-md bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
+        "absolute -top-[155px] left-0 z-[6500] md:top-auto md:left-auto md:right-0 mt-2 w-40 origin-top-right rounded-md bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
         "top-full"
       )}
       role="menu"

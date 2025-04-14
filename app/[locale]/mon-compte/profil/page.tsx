@@ -180,7 +180,7 @@ export default function Profile() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-      <Title title={t("profile.title")} type="h1" classname={baseTitleClassname} firstLetterClassname="text-2xl" />
+      <Title title={t("profile.title")} type="h1" classname={twMerge(baseTitleClassname, "md:mt-14 text-green")} firstLetterClassname="text-xl" />
 
       <div className={twMerge(sectionWrapperClassname)}>
         {/* @ts-ignore */}

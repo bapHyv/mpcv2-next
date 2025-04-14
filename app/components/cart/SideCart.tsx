@@ -10,7 +10,7 @@ import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import CartProductCard from "@/app/components/cart/CartProductCard";
-import { buttonClassname } from "@/app/staticData/cartPageClasses";
+import { buttonClassname, iconHeaderClassname } from "@/app/staticData/cartPageClasses";
 
 export default function Cart() {
   const [open, setOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function Cart() {
         aria-label={t("iconSR")}
       >
         <span className="sr-only">{t("iconSR")}</span>
-        <ShoppingCartIcon className="w-10 h-10 sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
+        <ShoppingCartIcon className={iconHeaderClassname} />
         {cart?.products?.length > 0 && (
           <span
             aria-hidden="true"
@@ -46,7 +46,7 @@ export default function Cart() {
       </button>
 
       {/* SIDE CART DIALOG */}
-      <Dialog open={open} onClose={setOpen} className="relative z-50">
+      <Dialog open={open} onClose={setOpen} className="relative z-[8000]">
         {/* Backdrop */}
         <DialogBackdrop
           transition
@@ -63,7 +63,7 @@ export default function Cart() {
                 {/* Panel Content */}
                 <div className={twMerge("flex h-full flex-col overflow-y-hidden bg-white shadow-xl")}>
                   {/* Header */}
-                  <div className="bg-gray-50 px-4 py-4 sm:px-6 md:pt-[104px] border-b border-gray-200">
+                  <div className="bg-gray-50 px-4 py-4 sm:px-6 border-b border-gray-200">
                     {/* Header background + border */}
                     <div className="flex items-end justify-between">
                       <DialogTitle className="text-lg font-semibold leading-6 text-gray-900">{t("title")}</DialogTitle>
@@ -98,7 +98,7 @@ export default function Cart() {
 
                   {/* Footer: Total + Button */}
                   {cart?.products?.length > 0 && (
-                    <div className="border-t border-gray-200 px-4 pt-4 pb-20 sm:px-6 md:pb-4 bg-gray-50">
+                    <div className="border-t border-gray-200 px-4 py-4 sm:px-6 bg-gray-50">
                       <div className="flex justify-between text-base font-medium text-gray-900 mb-3">
                         <p>{t("totalLabel")}</p>
                         <p>{cartTotal.toFixed(2)}€</p>

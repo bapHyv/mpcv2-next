@@ -8,6 +8,9 @@ import { doesCategoryExists, findSlug, findTitle } from "@/app/utils/productFunc
 import ProductCard from "@/app/components/products/ProductCard";
 import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 import Link from "next/link";
+import OtherNavbar from "@/app/components/OtherNavbar";
+import { twMerge } from "tailwind-merge";
+import { titleClassname } from "@/app/staticData/cartPageClasses";
 
 interface Params {
   params: {
@@ -72,18 +75,13 @@ export default async function Page({ params: { locale, category } }: Params) {
   return (
     <div>
       {/* NAV CATEGORY */}
-      <div
-        className={clsx(
-          "fixed z-[1000] bottom-[58px] px-5 animate-slide-in-bottom bg-gradient-to-t from-black via-black via-60% to-green flex items-center h-10 w-full max-w-[1920px] overflow-y-scroll no-scrollbar ",
-          "md:top-[88px] md:bottom-auto md:justify-between md:h-14 md:animate-slide-in-top md:bg-gradient-to-b md:via-70%"
-        )}
-      >
+      <OtherNavbar>
         {categories.map((cat) => (
           <Link
             key={cat.title}
             href={cat.slug}
             className={clsx(
-              category === cat.slug ? "text-green font-medium" : "text-white",
+              category === cat.slug ? "text-green font-medium bg-white/10" : "text-white",
               "capitalize text-center text-sm py-1 px-2 rounded-md text-nowrap",
               "xl:text-xl"
             )}
@@ -91,14 +89,9 @@ export default async function Page({ params: { locale, category } }: Params) {
             {cat.urlTitle}
           </Link>
         ))}
-      </div>
+      </OtherNavbar>
 
-      <Title
-        title={currentTitle}
-        type="h1"
-        classname={clsx("relative my-4 uppercase text-xl text-green text-center font-bold tracking-widest", "sm:mt-8", "2xl:pl-2")}
-        firstLetterClassname="text-4xl"
-      />
+      <Title title={currentTitle} type="h1" classname={twMerge(titleClassname, "my-4 md:mt-16 text-green")} firstLetterClassname="text-xl" />
 
       <div className="flex flex-wrap px-2 justify-center gap-2 mb-8">
         {/* PRODUCT CARDS */}

@@ -1,11 +1,9 @@
 import AccountHeader from "@/app/components/AccountHeader";
 
-const AccountLayout = ({ children, params: { locale } }: Readonly<{ children: React.ReactNode; params: { locale: string } }>) => {
+const AccountLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <>
-      <div className="hidden sm:block">
-        <AccountHeader locale={locale} />
-      </div>
+      <AccountHeader />
       {children}
     </>
   );

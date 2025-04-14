@@ -20,7 +20,7 @@ export default function Modale({ removedProducts, relatedProducts, handleCloseMo
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[9000] flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm p-4">
+    <div className="fixed inset-0 z-[7000] flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm p-4">
       <div className="bg-white rounded-lg pt-4 pb-6 sm:p-6 shadow-xl w-full max-w-xl lg:max-w-2xl mx-auto relative flex flex-col max-h-[90vh]">
         <div className="absolute top-2 right-2">
           <button
