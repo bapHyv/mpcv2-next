@@ -104,58 +104,60 @@ export default function CartProductCard({
         </button>
       )}
 
-      {/* Image Container */}
-      <div className="relative flex-shrink-0 w-1/4 sm:w-1/3">
-        <Image
-          src={!!image ? `https://www.monplancbd.fr/wp-content/uploads/${image.url}` : "/canna-vert.png"}
-          alt={!!image ? image.alt : name}
-          fill
-          sizes="(max-width: 640px) 20vw, 15vw"
-          className={clsx("rounded-l-md object-cover", isInModale && "!rounded-md")}
-        />
-      </div>
-
-      {/* Details Container */}
-      <div className="flex-grow p-2 sm:p-3 flex flex-col justify-between text-sm">
-        <div>
-          <p className="font-semibold text-gray-900 truncate text-base leading-tight">{name}</p>
-          <p className="text-xs text-gray-500 mt-0.5">
-            {option}
-            {per} - {unitPrice.toFixed(2)}€{t("productCardCart.unitPriceSuffix", { per })}
-          </p>
+      <div className="flex w-full">
+        {/* Image Container */}
+        <div className="relative flex-shrink-0 w-1/4 sm:w-1/3">
+          <Image
+            src={!!image ? `https://www.monplancbd.fr/wp-content/uploads/${image.url}` : "/canna-vert.png"}
+            alt={!!image ? image.alt : name}
+            fill
+            sizes="(max-width: 640px) 20vw, 15vw"
+            className={clsx("rounded-l-md object-cover", isInModale && "!rounded-md")}
+          />
         </div>
-        {/* Bottom part: Quantity and Total */}
-        <div className="flex items-end justify-between mt-1">
-          {!isInModale && productContextData ? (
-            <div className="flex items-center gap-x-1 border border-gray-300 bg-white rounded-full px-1 py-0.5 shadow-sm">
-              <button type="button" onClick={decrementQuantity} disabled={quantity <= 1} aria-label={t("productCardCart.decreaseQtyAriaLabel")}>
-                <MinusIcon
-                  className={twMerge(
-                    "h-5 w-5 p-0.5 rounded-full transition-colors",
-                    quantity <= 1 ? "text-gray-300 cursor-not-allowed" : "text-gray-500 hover:bg-gray-100 active:bg-gray-200"
-                  )}
-                />
-              </button>
-              <span className="font-medium text-gray-800 text-sm w-5 text-center tabular-nums">{quantity}</span>
-              <button
-                type="button"
-                onClick={incrementQuantity}
-                disabled={!isStockAvailableForIncrement}
-                aria-label={t("productCardCart.increaseQtyAriaLabel")}
-              >
-                <PlusIcon
-                  className={twMerge(
-                    "h-5 w-5 p-0.5 rounded-full transition-colors",
-                    !isStockAvailableForIncrement ? "text-gray-300 cursor-not-allowed" : "text-green hover:bg-emerald-50 active:bg-emerald-100"
-                  )}
-                />
-              </button>
-            </div>
-          ) : (
-            <span className="text-xs text-gray-500">Qty: {quantity}</span>
-          )}
 
-          <p className="font-semibold text-base text-blue-600">{totalPrice.toFixed(2)}€</p>
+        {/* Details Container */}
+        <div className="flex-grow p-2 sm:p-3 flex flex-col justify-between text-sm w-3/4 sm:w-2/3">
+          <div>
+            <p className="font-semibold text-gray-900 truncate text-base leading-tight w-11/12">{name}</p>
+            <p className="text-xs text-gray-500 mt-0.5">
+              {option}
+              {per} - {unitPrice.toFixed(2)}€{t("productCardCart.unitPriceSuffix", { per })}
+            </p>
+          </div>
+          {/* Bottom part: Quantity and Total */}
+          <div className="flex items-end justify-between mt-1">
+            {!isInModale && productContextData ? (
+              <div className="flex items-center gap-x-1 border border-gray-300 bg-white rounded-full px-1 py-0.5 shadow-sm">
+                <button type="button" onClick={decrementQuantity} disabled={quantity <= 1} aria-label={t("productCardCart.decreaseQtyAriaLabel")}>
+                  <MinusIcon
+                    className={twMerge(
+                      "h-5 w-5 p-0.5 rounded-full transition-colors",
+                      quantity <= 1 ? "text-gray-300 cursor-not-allowed" : "text-gray-500 hover:bg-gray-100 active:bg-gray-200"
+                    )}
+                  />
+                </button>
+                <span className="font-medium text-gray-800 text-sm w-5 text-center tabular-nums">{quantity}</span>
+                <button
+                  type="button"
+                  onClick={incrementQuantity}
+                  disabled={!isStockAvailableForIncrement}
+                  aria-label={t("productCardCart.increaseQtyAriaLabel")}
+                >
+                  <PlusIcon
+                    className={twMerge(
+                      "h-5 w-5 p-0.5 rounded-full transition-colors",
+                      !isStockAvailableForIncrement ? "text-gray-300 cursor-not-allowed" : "text-green hover:bg-emerald-50 active:bg-emerald-100"
+                    )}
+                  />
+                </button>
+              </div>
+            ) : (
+              <span className="text-xs text-gray-500">Qty: {quantity}</span>
+            )}
+
+            <p className="font-semibold text-base text-blue-600">{totalPrice.toFixed(2)}€</p>
+          </div>
         </div>
       </div>
     </div>
