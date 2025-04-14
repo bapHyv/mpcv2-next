@@ -1,4 +1,3 @@
-// ReviewForm.tsx (Updated with i18n)
 "use client";
 
 import { useEffect, useState } from "react";
@@ -52,19 +51,16 @@ export default function ReviewForm({ id }: Props) {
 
   useEffect(() => {
     if (state.statusCode !== 0) {
-      // Action completed
-      // Check for various success codes (200, 201, 204 might indicate success)
+      // TODO: Check for various success codes (200, 201, 204 might indicate success)
       if (state.isSuccess && (state.statusCode === 200 || state.statusCode === 201 || state.statusCode === 204)) {
-        // Use translated alert
         addAlert(uuid(), t("alerts.addReview.success.text"), t("alerts.addReview.success.title"), "emerald");
         setCommentValue("");
         setRating(0);
         setHoverRating(0);
       } else if (!state.isSuccess) {
-        // Handle errors using translated messages
         let titleKey = "alerts.addReview.defaultError.title";
         let textKey = "alerts.addReview.defaultError.text";
-        let alertType: "yellow" | "red" = "red"; // Default to red
+        let alertType: "yellow" | "red" = "red";
 
         switch (state.statusCode) {
           case 400:
@@ -77,7 +73,7 @@ export default function ReviewForm({ id }: Props) {
             textKey = "alerts.addReview.error401.text";
             alertType = "yellow";
             break;
-          case 403: // Example if added
+          case 403:
             titleKey = "alerts.addReview.error403.title";
             textKey = "alerts.addReview.error403.text";
             alertType = "yellow";
@@ -88,17 +84,13 @@ export default function ReviewForm({ id }: Props) {
             alertType = "red";
             break;
         }
-        // Use server message first, then fallback to translated generic text for that code
         const alertText = state.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), alertType);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]); // Run only when state changes
+  }, [state]);
 
-  // --- Render Logic ---
-
-  // Login Prompt
   if (!userData) {
     return (
       <div className={twMerge(subtleSectionWrapperClassname, "mt-10 text-center")}>
@@ -113,11 +105,10 @@ export default function ReviewForm({ id }: Props) {
     );
   }
 
-  // --- Review Form ---
   return (
     <div className="mt-10">
       <Title
-        title={t("reviews.addReviewTitle")} // Translated title
+        title={t("reviews.addReviewTitle")}
         type="h3"
         classname={twMerge(baseTitleClassname, "text-center !mb-6 text-lg")}
         firstLetterClassname="text-2xl"
@@ -138,7 +129,7 @@ export default function ReviewForm({ id }: Props) {
                 type="button"
                 onClick={() => handleRatingClick(star)}
                 onMouseEnter={() => handleRatingHover(star)}
-                aria-label={t("reviews.ratingAriaLabel", { count: star })} // Translated aria-label
+                aria-label={t("reviews.ratingAriaLabel", { count: star })}
                 className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-400 rounded-full p-0.5"
               >
                 <StarIcon
@@ -151,7 +142,7 @@ export default function ReviewForm({ id }: Props) {
               </button>
             ))}
           </div>
-          {/* Optional: Display rating validation error from server */}
+          {/* TODO: Optional: Display rating validation error from server */}
           {/* {state?.errors?.rating && <p className="mt-1 text-xs text-red-600">{state.errors.rating}</p>} */}
         </div>
 
@@ -167,15 +158,15 @@ export default function ReviewForm({ id }: Props) {
               rows={5}
               value={commentValue}
               onChange={(e) => setCommentValue(e.target.value)}
-              className={inputClassname} // Use consistent input style
+              className={inputClassname}
               aria-describedby="comment-description"
               required
-              placeholder={t("reviews.commentPlaceholder")} // Translated placeholder
-              // aria-invalid={!!state?.errors?.comment} // Example error handling
+              placeholder={t("reviews.commentPlaceholder")}
+              // aria-invalid={!!state?.errors?.comment}
             />
           </div>
           <p id="comment-description" className="mt-1 text-xs text-gray-500">
-            {t("reviews.commentHint")} {/* Translated hint */}
+            {t("reviews.commentHint")}
           </p>
           {/* Optional: Display comment validation error from server */}
           {/* {state?.errors?.comment && <p className="mt-1 text-xs text-red-600">{state.errors.comment}</p>} */}
@@ -183,11 +174,7 @@ export default function ReviewForm({ id }: Props) {
 
         {/* Submit Button */}
         <div className="flex justify-end pt-2">
-          <SubmitButton
-            text={t("reviews.submitButton")} // Translated text
-            isDisabled={rating === 0 || !commentValue.trim()} // Keep disabled logic
-            className="px-5 py-2"
-          />
+          <SubmitButton text={t("reviews.submitButton")} isDisabled={rating === 0 || !commentValue.trim()} className="px-5 py-2" />
         </div>
       </form>
     </div>

@@ -3,45 +3,53 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 import { disableBodyScroll, enableBodyScroll } from "@/app/utils/bodyScroll";
+import { useTranslations } from "next-intl";
 
 interface Props {
-  removedProducts: JSX.Element[];
-  relatedProducts: JSX.Element[];
+  removedProducts: React.ReactElement[];
+  relatedProducts: React.ReactElement[];
   handleCloseModale: () => void;
 }
 
 export default function Modale({ removedProducts, relatedProducts, handleCloseModale }: Props) {
+  const t = useTranslations("outOfStockModal");
+
   useEffect(() => {
     disableBodyScroll();
     return () => enableBodyScroll();
   }, []);
 
   return (
-    <>
-      <div className="fixed bg-black bg-opacity-80 h-full w-full z-[9000] flex items-center justify-center">
-        <div className="w-[95dvw] xl:w-[50dvw] bg-white h-[90dvh] md:h-[70dvh] lg:h-[90dvh] p-2 rounded-md overflow-y-scroll">
-          <div className="flex justify-end">
-            <XMarkIcon onClick={handleCloseModale} className="w-6 h-6 text-neutral-700 rounded-full" />
+    <div className="fixed inset-0 z-[9000] flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-lg pt-4 pb-6 sm:p-6 shadow-xl w-full max-w-xl lg:max-w-2xl mx-auto relative flex flex-col max-h-[90vh]">
+        <div className="absolute top-2 right-2">
+          <button
+            type="button"
+            onClick={handleCloseModale}
+            className="p-1 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green rounded-md"
+          >
+            <span className="sr-only">{t("closeButtonSR")}</span>
+            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
+        <h2 className="text-xl sm:text-2xl font-semibold text-center text-red-600 mb-4 px-6">{t("title")}</h2>
+        <div className="px-4 sm:px-0 overflow-y-auto flex-grow space-y-5">
+          <p className="text-sm sm:text-base text-center text-gray-700 px-2">{t("mainMessage")}</p>
+          <div>
+            <h3 className="text-sm font-medium text-red-600 mb-1">{t("removedItemsHeader")}</h3>
+            <div className="bg-gray-100 border border-gray-200 p-2 rounded-md overflow-y-auto max-h-32">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">{removedProducts}</div>
+            </div>
           </div>
-          <div className="text-red-500 text-center text-xl font-semibold">Manque de stock</div>
-          <div className="mt-3 text-red-500 text-center md:text-left">
-            Nous avons le regret de vous annoncer que certain produit que vous aviez dans le panier ne sont plus disponible.
-            <br />
-            Produit{removedProducts.length > 1 ? "s" : ""} retiré{removedProducts.length > 1 ? "s" : ""} du panier:
-          </div>
-          <div className="bg-neutral-200 p-1 rounded-md overflow-y-scroll overflow-x-hidden max-h-[calc((95vh-80px)*1/3.5)] w-[calc(95dvw-16px)] xl:w-[calc(50dvw-16px)]">
-            <div className="w-full grid grid-cols-6 gap-1">{removedProducts}</div>
-          </div>
-          <div className="mt-5 text-green text-center text-xl font-semibold">Produit similaire</div>
-          <div className="my-3 text-green">
-            Nous sommes sincèrement désolé pour ce désagrément. <br /> Voici une liste des produits similaire qui sont susceptible de vous intéresser:
-          </div>
-
-          <div className="p-1 bg-neutral-200 rounded-md overflow-y-scroll overflow-x-scroll w-[calc(95dvw-16px)] xl:w-[calc(50dvw-16px)]">
-            <div className="w-fit flex gap-1 flex-nowrap items-start">{relatedProducts}</div>
+          <div>
+            <h3 className="text-lg sm:text-xl font-semibold text-center text-green mb-3">{t("similarProductsTitle")}</h3>
+            <p className="text-sm text-gray-600 mb-2 text-center sm:text-left" dangerouslySetInnerHTML={{ __html: t("similarProductsMessage") }} />
+            <div className="bg-gray-100 border border-gray-200 p-2 rounded-md overflow-x-auto overflow-y-hidden">
+              <div className="flex space-x-3 w-max">{relatedProducts}</div>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

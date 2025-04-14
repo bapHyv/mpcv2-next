@@ -1,4 +1,3 @@
-// UpdateAddresseModale.tsx (Updated with i18n)
 "use client";
 
 import { Dispatch, SetStateAction, useEffect } from "react";
@@ -51,31 +50,26 @@ interface Params {
 }
 
 export default function UpdateAddresseModale({ editingAddress, setEditingAddress, setIsModalOpen }: Params) {
-  // --- Hooks ---
-  const t = useTranslations(""); // Namespace for form elements
+  const t = useTranslations("");
 
-  // Ensure initial state for useFormState reflects the Address type accurately
   const initialFormStateForAction = {
     message: "",
-    data: editingAddress, // Pass current address data
+    data: editingAddress,
     isSuccess: false,
     statusCode: 0,
   };
   const [state, formAction] = useFormState(updateAddress, initialFormStateForAction as any);
 
-  // Keep other hooks
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
   const { sseData } = useSse();
 
-  // --- Effects ---
   useEffect(() => {
     disableBodyScroll();
     return () => enableBodyScroll();
   }, []);
 
   useEffect(() => {
-    // Keep existing logic, use translated alert keys
     if (isResponseApi(state) && state.statusCode !== 0) {
       if (state.isSuccess && isAddress(state.data) && state.statusCode === 200) {
         const updatedAddress = state.data;
@@ -86,7 +80,6 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
           }
           return null;
         });
-        // Use translated alert key
         addAlert(uuid(), t("alerts.profile.addresses.update.200.text"), t("alerts.profile.addresses.update.200.title"), "emerald");
         setIsModalOpen(false);
       } else {
@@ -104,20 +97,17 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
             alertTextKey = "alerts.profile.addresses.update.422.text";
             alertType = "yellow";
             break;
-          // Add other cases if needed
+          // TODO: Add other cases if needed
         }
         const alertText = state.message || t(alertTextKey);
         addAlert(uuid(), alertText, t(alertTitleKey), alertType);
-        // Keep modal open on error? Currently false.
-        // setIsModalOpen(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]); // Run only when state changes
+  }, [state]);
 
   // --- Handlers ---
   const handleModalChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    // Keep existing handler for controlled inputs
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
     setEditingAddress((prev) => {
@@ -126,7 +116,6 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
     });
   };
 
-  // --- Render ---
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm p-4"
@@ -138,13 +127,13 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
       >
         {/* Modal Header */}
         <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">{t("addressesPage.editModalTitle")}</h2> {/* Translated Title */}
+          <h2 className="text-xl font-semibold text-gray-900">{t("addressesPage.editModalTitle")}</h2>
           <button
             type="button"
             onClick={() => setIsModalOpen(false)}
             className="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green rounded-md"
           >
-            <span className="sr-only">Close</span> {/* // TODO-TRANSLATION */}
+            <span className="sr-only">{t("addresses.modal.closeButtonSR")}</span>
             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
@@ -152,7 +141,6 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
         {/* Form */}
         <form action={formAction} className="space-y-4">
           <input type="hidden" name="id" value={editingAddress.id} />
-          {/* Form Fields using FormField helper and translated labels */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField id="firstname" label={t("addressesPage.form.firstNameLabel")} required>
               <input type="text" name="firstname" required value={editingAddress.firstname} onChange={handleModalChange} className={inputClassname} />

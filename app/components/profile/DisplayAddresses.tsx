@@ -1,9 +1,8 @@
-// DisplayAddresses.tsx (Updated with i18n)
 "use client";
 
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { useEffect } from "react";
 import { useFormState } from "react-dom";
-import { useTranslations } from "next-intl"; // Import hook
+import { useTranslations } from "next-intl";
 import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
@@ -34,7 +33,7 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
         setUserData((prevState) => {
           if (prevState) {
             const addressIdToRemove = typeof id === "number" ? id : parseInt(id, 10);
-            if (isNaN(addressIdToRemove)) return prevState; // Safety check
+            if (isNaN(addressIdToRemove)) return prevState;
 
             const updatedAddresses = prevState.addresses.filter((address) => address.id !== addressIdToRemove);
             return { ...prevState, addresses: updatedAddresses };
@@ -43,7 +42,6 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
         });
         addAlert(uuid(), t("alerts.profile.addresses.delete.200.text"), t("alerts.profile.addresses.delete.200.title"), "emerald");
       } else {
-        // Handle errors using translated messages
         let titleKey = "alerts.genericError.title";
         let textKey = "alerts.genericError.text";
         let alertType: "yellow" | "red" = "red";
@@ -93,12 +91,12 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
                 <div className="mt-2 space-x-2">
                   {address.billing && (
                     <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
-                      {t("addressesPage.billingBadge")} {/* Translated badge */}
+                      {t("addressesPage.billingBadge")}
                     </span>
                   )}
                   {address.shipping && (
                     <span className="inline-flex items-center rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800">
-                      {t("addressesPage.shippingBadge")} {/* Translated badge */}
+                      {t("addressesPage.shippingBadge")}
                     </span>
                   )}
                 </div>

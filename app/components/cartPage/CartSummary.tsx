@@ -1,16 +1,14 @@
-// CartSummary.tsx (Updated with i18n)
 "use client";
 
 import { twMerge } from "tailwind-merge";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
 import Link from "next/link";
-import { useTranslations } from "next-intl"; // Import hook
+import { useTranslations } from "next-intl";
 
 import { useAlerts } from "@/app/context/alertsContext";
 import { useOrder } from "@/app/context/orderContext";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
-// Import styling classes and link style
 import { sectionWrapperClassname, titleClassname, linkClassname } from "@/app/staticData/cartPageClasses";
 import { computeVAT, displayDiscountValue } from "@/app/utils/orderFunctions";
 import Title from "@/app/components/Title";
@@ -23,23 +21,20 @@ export default function CartSummary() {
   const { addAlert } = useAlerts();
   const { userData } = useAuth();
 
-  // --- Handlers ---
   const handleRemoveDiscount = (name: string) => {
     setOrder((prevState) => ({
       ...prevState,
       discounts: prevState.discounts.filter((e) => e.name !== name),
     }));
-    // Use translated alert
     addAlert(uuid(), t("alerts.cart.discountRemoved.text", { name }), t("alerts.cart.discountRemoved.title"), "yellow");
   };
 
   const handleRemoveFidelity = () => {
     setOrder((prevState) => ({ ...prevState, fidelity: 0 }));
-    // Use translated alert
     addAlert(uuid(), t("alerts.cart.pointsRemoved.text"), t("alerts.cart.pointsRemoved.title"), "yellow");
   };
 
-  // --- Calculations (Keep existing logic) ---
+  // TODO: check this
   const discountsTotal = order.discounts.reduce((total, d) => {
     // Assuming displayDiscountValue returns '- XX.XX€' or 'XX%', need numerical value
     // This part might need adjustment based on displayDiscountValue's actual output for calculation
@@ -64,11 +59,10 @@ export default function CartSummary() {
   const finalTotalClamped = Math.max(0, finalTotal);
   const vatIncluded = computeVAT(cart, finalTotalClamped);
 
-  // --- Render ---
   return (
     <section aria-labelledby="summary-heading" className={twMerge(sectionWrapperClassname)}>
       <Title
-        title={t("cartPage.summary.title")} // Translated title
+        title={t("cartPage.summary.title")}
         type="h3"
         classname={twMerge(titleClassname, "mb-4 text-base")}
         firstLetterClassname="text-xl"
@@ -78,7 +72,7 @@ export default function CartSummary() {
       <dl className="space-y-2 text-sm">
         {/* Sub Total */}
         <div className="flex items-center justify-between">
-          <dt className="text-gray-600">{t("cartPage.summary.subtotalLabel")}</dt> {/* Translated label */}
+          <dt className="text-gray-600">{t("cartPage.summary.subtotalLabel")}</dt>
           <dd className="font-medium text-gray-900">{cart.total.toFixed(2)}€</dd>
         </div>
 
@@ -86,11 +80,8 @@ export default function CartSummary() {
         {order.discounts.map((d) => (
           <div key={d.name} className="flex items-center justify-between text-green">
             <dt className="flex items-center text-gray-600">
-              {/* Translated label with placeholder */}
               <span className="mr-1">{t("cartPage.summary.discountCodeLabel", { name: d.name })}</span>
               <button onClick={() => handleRemoveDiscount(d.name)} aria-label={t("cartPage.summary.removeDiscountAriaLabel", { name: d.name })}>
-                {" "}
-                {/* Translated aria-label */}
                 <XMarkIcon className="w-4 h-4 text-red-500 hover:text-red-700 cursor-pointer" />
               </button>
             </dt>
@@ -103,11 +94,8 @@ export default function CartSummary() {
         {order.fidelity > 0 && (
           <div className="flex items-center justify-between text-green">
             <dt className="flex items-center text-gray-600">
-              {/* Translated label with count */}
               <span className="mr-1">{t("cartPage.summary.fidelityPointsLabel", { count: order.fidelity })}</span>
               <button onClick={handleRemoveFidelity} aria-label={t("cartPage.summary.removePointsAriaLabel")}>
-                {" "}
-                {/* Translated aria-label */}
                 <XMarkIcon className="w-4 h-4 text-red-500 hover:text-red-700 cursor-pointer" />
               </button>
             </dt>
@@ -118,13 +106,10 @@ export default function CartSummary() {
         {/* Separator & Total */}
         <div className="!mt-4 border-t border-gray-200 pt-4">
           <div className="flex items-baseline justify-between text-base font-semibold text-gray-900">
-            <dt>{t("cartPage.summary.totalLabel")}</dt> {/* Translated label */}
+            <dt>{t("cartPage.summary.totalLabel")}</dt>
             <dd className="text-right">
               {finalTotalClamped.toFixed(2)}€
-              <p className="text-xs font-normal text-gray-500 mt-0.5">
-                {/* Translated VAT text with placeholder */}
-                {t("cartPage.summary.vatText", { vatAmount: vatIncluded.toFixed(2) })}
-              </p>
+              <p className="text-xs font-normal text-gray-500 mt-0.5">{t("cartPage.summary.vatText", { vatAmount: vatIncluded.toFixed(2) })}</p>
             </dd>
           </div>
         </div>
@@ -136,18 +121,16 @@ export default function CartSummary() {
           href="/expedition"
           className={`flex w-full items-center justify-center rounded-md border border-transparent bg-green px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2`}
         >
-          {t("cartPage.summary.checkoutButton")} {/* Translated button text */}
+          {t("cartPage.summary.checkoutButton")}
         </Link>
 
         {/* Login Prompt */}
         {!userData && (
           <p className="text-center text-xs text-gray-500 mt-2">
             <Link href="/connexion?redirect=expedition" className={linkClassname}>
-              {" "}
-              {/* Use link class */}
-              {t("cartPage.summary.loginPromptLink")} {/* Translated link text */}
+              {t("cartPage.summary.loginPromptLink")}
             </Link>{" "}
-            {t("cartPage.summary.loginPromptText")} {/* Translated prompt text */}
+            {t("cartPage.summary.loginPromptText")}
           </p>
         )}
       </div>

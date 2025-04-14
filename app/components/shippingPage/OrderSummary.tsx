@@ -1,24 +1,21 @@
-// OrderSummary.tsx (Updated with i18n)
 "use client";
 
 import { twMerge } from "tailwind-merge";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
-import { useTranslations } from "next-intl"; // Import hook
+import { useTranslations } from "next-intl";
 
 import Title from "@/app/components/Title";
 import { useAlerts } from "@/app/context/alertsContext";
 import { useOrder } from "@/app/context/orderContext";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
-// Import styling classes
 import { sectionWrapperClassname, titleClassname } from "@/app/staticData/cartPageClasses";
-import { displayDiscountValue } from "@/app/utils/orderFunctions"; // Keep helper
+import { displayDiscountValue } from "@/app/utils/orderFunctions";
 
-// Simple Separator Component (if used multiple times, keep it, otherwise inline border-t)
 const Separator = () => <div className="h-[1px] bg-gray-200 my-3"></div>;
 
 export default function OrderSummary() {
-  const t = useTranslations(""); // Namespace for UI text
+  const t = useTranslations("");
   const { order, setOrder } = useOrder();
   const { addAlert } = useAlerts();
   const { cart } = useProductsAndCart(); // Keep if needed by displayDiscountValue

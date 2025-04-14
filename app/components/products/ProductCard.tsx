@@ -1,4 +1,3 @@
-// ProductCard.tsx (Styled)
 import { StarIcon } from "@heroicons/react/20/solid";
 import { getTranslations } from "next-intl/server";
 import { twMerge } from "tailwind-merge";
@@ -143,9 +142,11 @@ export default async function ProductCard({
                 />
               ))}
             </div>
-            <span className="ml-2 text-xs font-medium text-gray-500">
-              ({ratings?.amount ?? 0} {t("reviews")})
-            </span>
+            <Link href={`/${locale}/${category}/${slug}#reviews-heading`}>
+              <span className="ml-2 text-xs font-medium text-gray-500 underline">
+                ({ratings?.amount ?? 0} {t("reviews")})
+              </span>
+            </Link>
           </div>
         </section>
 

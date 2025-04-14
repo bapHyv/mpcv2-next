@@ -1,7 +1,6 @@
-// AddAddressModale.tsx (Updated with i18n)
 "use client";
 
-import { useTranslations } from "next-intl"; // Import hook
+import { useTranslations } from "next-intl";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { v4 as uuid } from "uuid";
@@ -16,7 +15,6 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { useSse } from "@/app/context/sseContext";
 import { disableBodyScroll, enableBodyScroll } from "@/app/utils/bodyScroll";
 
-// Import styling classes and helpers
 import { inputClassname, buttonClassname, checkRadioClassname } from "@/app/staticData/cartPageClasses";
 import Star from "@/app/components/Star";
 import SubmitButton from "@/app/components/SubmitButton";
@@ -27,7 +25,6 @@ interface Params {
 
 type addAddressForm = Omit<Address, "id">;
 
-// Reusable FormField component
 const FormField = ({
   id,
   label,
@@ -53,7 +50,7 @@ const FormField = ({
 );
 
 export default function AddAddressModale({ setIsAddModalOpen }: Params) {
-  const t = useTranslations(""); // Use specific namespace for form
+  const t = useTranslations("");
 
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
@@ -76,7 +73,6 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
 
   const initialFormStateForAction = { message: "", data: formData, isSuccess: false, statusCode: 0 };
   const [state, formAction] = useFormState(addAddress, initialFormStateForAction as any);
-  const { isPending } = state; // Get pending state if provided
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target as HTMLInputElement;
@@ -93,16 +89,16 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
 
   useEffect(() => {
     if (state.statusCode !== 0) {
-      // Action completed
       if (state.isSuccess && isAddress(state.data) && state.statusCode === 200) {
-        setUserData((prevState) => (prevState ? { ...prevState, addresses: [...prevState.addresses, state.data] } : null));
-        // Use translated alert key
+        setUserData((prevState) => {
+          if (prevState) return { ...prevState, addresses: [...prevState.addresses, state.data as Address] };
+          return null;
+        });
         addAlert(uuid(), t("alerts.profile.addresses.add.200.text"), t("alerts.profile.addresses.add.200.title"), "emerald");
         setIsAddModalOpen(false);
       } else if (!state.isSuccess) {
-        // Handle errors using translated messages
-        let titleKey = "alerts.genericError.title"; // Default to generic error title
-        let textKey = "alerts.genericError.text"; // Default to generic error text
+        let titleKey = "alerts.genericError.title";
+        let textKey = "alerts.genericError.text";
         let alertType: "yellow" | "red" = "red";
 
         switch (state.statusCode) {
@@ -123,16 +119,15 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
             break;
           // Add 500 if applicable
         }
-        const alertText = state.message || t(textKey); // Use server message or translated fallback
+        const alertText = state.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), alertType);
         // Keep modal open on error
         // setIsAddModalOpen(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]); // Run only when state changes
+  }, [state]);
 
-  // --- Render ---
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm p-4"
@@ -150,7 +145,7 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
             onClick={() => setIsAddModalOpen(false)}
             className="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green rounded-md"
           >
-            <span className="sr-only">Close</span> {/* TODO-TRANSLATION */}
+            <span className="sr-only">{t("addresses.modal.closeButtonSR")}</span>
             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
@@ -159,19 +154,13 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
         <form action={formAction} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField id="firstname" label={t("addressesPage.form.firstNameLabel")} required>
-              {" "}
-              {/* Translated label */}
               <input type="text" name="firstname" required value={formData.firstname} onChange={handleChange} className={inputClassname} />
             </FormField>
             <FormField id="lastname" label={t("addressesPage.form.lastNameLabel")} required>
-              {" "}
-              {/* Translated label */}
               <input type="text" name="lastname" required value={formData.lastname} onChange={handleChange} className={inputClassname} />
             </FormField>
           </div>
           <FormField id="country" label={t("addressesPage.form.countryLabel")} required>
-            {" "}
-            {/* Translated label */}
             <select name="country" required value={formData.country} onChange={handleChange} className={inputClassname}>
               {sseData?.shippingMethods?.byShippingZones &&
                 Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
@@ -182,46 +171,31 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
             </select>
           </FormField>
           <FormField id="address1" label={t("addressesPage.form.address1Label")} required>
-            {" "}
-            {/* Translated label */}
             <input type="text" name="address1" required value={formData.address1} onChange={handleChange} className={inputClassname} />
           </FormField>
           <FormField id="address2" label={t("addressesPage.form.address2Label")}>
-            {" "}
-            {/* Translated label */}
             <input type="text" name="address2" value={formData.address2} onChange={handleChange} className={inputClassname} />
           </FormField>
           <FormField id="company" label={t("addressesPage.form.companyLabel")}>
-            {" "}
-            {/* Translated label */}
             <input type="text" name="company" value={formData.company} onChange={handleChange} className={inputClassname} />
           </FormField>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField id="city" label={t("addressesPage.form.cityLabel")} required>
-              {" "}
-              {/* Translated label */}
               <input type="text" name="city" required value={formData.city} onChange={handleChange} className={inputClassname} />
             </FormField>
             <FormField id="postalCode" label={t("addressesPage.form.postalCodeLabel")} required>
-              {" "}
-              {/* Translated label */}
               <input type="text" name="postalCode" required value={formData.postalCode} onChange={handleChange} className={inputClassname} />
             </FormField>
           </div>
           <FormField id="phone" label={t("addressesPage.form.phoneLabel")} required>
-            {" "}
-            {/* Translated label */}
             <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className={inputClassname} />
           </FormField>
           <FormField id="email" label={t("addressesPage.form.emailLabel")} required>
-            {" "}
-            {/* Translated label */}
             <input type="email" name="email" required value={formData.email} onChange={handleChange} className={inputClassname} />
           </FormField>
           {/* Checkboxes */}
           <fieldset className="pt-4">
             <legend className="block text-sm font-medium leading-6 text-gray-900 mb-2">{t("addressesPage.form.addressTypeLegend")}</legend>{" "}
-            {/* Translated legend */}
             <div className="space-y-3">
               <div className="relative flex items-start">
                 <div className="flex h-6 items-center">
@@ -239,7 +213,6 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
                     {t("addressesPage.form.billingCheckboxLabel")}
                   </label>
                 </div>{" "}
-                {/* Translated label */}
               </div>
               <div className="relative flex items-start">
                 <div className="flex h-6 items-center">
@@ -257,7 +230,6 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
                     {t("addressesPage.form.shippingCheckboxLabel")}
                   </label>
                 </div>{" "}
-                {/* Translated label */}
               </div>
             </div>
           </fieldset>
@@ -268,9 +240,9 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
               className={twMerge(buttonClassname, "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50")}
               onClick={() => setIsAddModalOpen(false)}
             >
-              {t("addressesPage.form.cancelButton")} {/* Translated label */}
+              {t("addressesPage.form.cancelButton")}
             </button>
-            <SubmitButton text={t("addressesPage.form.submitAddButton")} isPending={isPending} className="" /> {/* Translated label */}
+            <SubmitButton text={t("addressesPage.form.submitAddButton")} />
           </div>
         </form>
       </div>

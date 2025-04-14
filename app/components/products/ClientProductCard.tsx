@@ -56,16 +56,10 @@ export default function ClientProductCard({
   const currentStock = parseInt(stock || "0", 10);
   const isOutOfStock = isNaN(currentStock) || currentStock <= 0;
 
-  // Default image if main is missing
-  const mainImage: ImageType = images?.main ?? { url: "/placeholder.png", alt: name }; // Provide default alt
+  const mainImage: ImageType = images?.main ?? { url: "/placeholder.png", alt: name };
 
   return (
-    <div
-      className={twMerge(
-        "transform text-left text-base transition w-[336px] sm:w-[306px] lg:w-[25rem] flex-shrink-0", // Keep fixed widths, add flex-shrink-0
-        mainDivClassname
-      )}
-    >
+    <div className={twMerge("transform text-left text-base transition w-[336px] sm:w-[306px] lg:w-[25rem] flex-shrink-0", mainDivClassname)}>
       <div
         className={twMerge(
           "flex flex-col h-full overflow-hidden p-3 rounded-lg shadow-md bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-150 ease-in-out", // Consistent card styling
@@ -79,12 +73,11 @@ export default function ClientProductCard({
             >
               <Image
                 alt={!!images.main ? images.main.alt : "Image placeholder"}
-                // Construct URL using NEXT_PUBLIC_ vars if needed
                 src={!!images.main ? `https://www.monplancbd.fr/wp-content/uploads/${images.main.url}` : "/logo-noir.png"}
                 fill
                 sizes="(max-width: 640px) 85vw, (max-width: 1024px) 45vw, 33vw"
                 className="object-cover object-center group-hover:opacity-75 transition-opacity"
-                priority={false} // Usually false for cards
+                priority={false}
               />
             </div>
           </Link>

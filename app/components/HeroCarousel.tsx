@@ -1,25 +1,23 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import mandarinBanner from "../../public/mandarin-banner.png"; // Desktop banner
-import mandarinMobileBanner from "../../public/mandarin-mobile-banner.png"; // Mobile banner
+import mandarinBanner from "../../public/mandarin-banner.png";
+import mandarinMobileBanner from "../../public/mandarin-mobile-banner.png";
 
 const HeroCarousel = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Detect mobile screen size
   useEffect(() => {
     const handleResize = () => {
       const isScreenMobile = window.innerWidth <= 768;
       setIsMobile(isScreenMobile);
     };
-    handleResize(); // Set initial state
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Set banners based on screen size
   const banners = isMobile ? [mandarinMobileBanner] : [mandarinBanner];
 
   const handleDotClick = (index: number) => {

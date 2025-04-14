@@ -38,7 +38,7 @@ export default function DisplayComponents() {
   const router = useRouter();
   const { addAlert } = useAlerts();
   const { userData, setUserData } = useAuth();
-  const tAlerts = useTranslations("alerts.accountCreation");
+  const t = useTranslations("");
 
   const handleAction = async (e: FormEvent<HTMLFormElement>) => {
     if (form.current) {
@@ -58,7 +58,7 @@ export default function DisplayComponents() {
       } catch (error) {
         console.error("Error during form action:", error);
         setIsPending(false);
-        addAlert(uuid(), tAlerts("genericError.text"), tAlerts("genericError.title"), "red");
+        addAlert(uuid(), t("alerts.accountCreation.genericError.text"), t("alerts.accountCreation.genericError.title"), "red");
       }
     }
   };
@@ -68,34 +68,34 @@ export default function DisplayComponents() {
       if (actionResponse.isSuccess && actionResponse.data && actionResponse.statusCode === 200) {
         if (isUserDataAPIResponse(actionResponse.data)) {
           setUserData(actionResponse.data);
-          addAlert(uuid(), tAlerts("success200.text"), tAlerts("success200.title"), "emerald");
+          addAlert(uuid(), t("alerts.accountCreation.success200.text"), t("alerts.accountCreation.success200.title"), "emerald");
           router.push("/paiement");
         } else {
           console.warn("Successful response but unexpected data format:", actionResponse.data);
-          addAlert(uuid(), tAlerts("defaultError.text"), tAlerts("defaultError.title"), "yellow");
+          addAlert(uuid(), t("alerts.accountCreation.defaultError.text"), t("alerts.accountCreation.defaultError.title"), "yellow");
         }
       } else if (!actionResponse.isSuccess) {
-        let textKey = "defaultError.text";
-        let titleKey = "defaultError.title";
+        let textKey = "alerts.accountCreation.defaultError.text";
+        let titleKey = "alerts.accountCreation.title";
         let color: "blue" | "red" | "yellow" = "red";
 
         switch (actionResponse.statusCode) {
           case 409:
-            textKey = "error409.text";
-            titleKey = "error409.title";
+            textKey = "alerts.accountCreation.error409.text";
+            titleKey = "alerts.accountCreation.error409.title";
             color = "blue";
             setTimeout(() => router.push("/connexion?redirect=paiement"), 500);
             break;
           case 500:
-            textKey = "error500.text";
-            titleKey = "error500.title";
+            textKey = "alerts.accountCreation.error500.text";
+            titleKey = "alerts.accountCreation.error500.title";
             color = "red";
             break;
           // Add other cases like 400, 422 if your register action can return them
         }
         // Use server message if available, otherwise use translated fallback
-        const alertText = actionResponse.message || tAlerts(textKey);
-        addAlert(uuid(), alertText, tAlerts(titleKey), color);
+        const alertText = actionResponse.message || t(textKey);
+        addAlert(uuid(), alertText, t(titleKey), color);
       }
       // Reset response after handling
       setActionResponse(null);
@@ -106,7 +106,7 @@ export default function DisplayComponents() {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       <Title
-        title="Expédition" // TODO-TRANSLATIOn: Translate this if needed (maybe in a 'shippingPage' namespace)
+        title={t("shippingPage.h1")}
         type="h1"
         classname={`relative mb-6 text-center uppercase text-xl text-green font-bold tracking-widest`}
         firstLetterClassname="text-4xl"
@@ -118,7 +118,7 @@ export default function DisplayComponents() {
           className={twMerge(clsx(buttonClassname, "bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50", "px-3 py-1.5 text-sm"))}
         >
           <ArrowLeftIcon className="h-4 w-4 mr-1.5" aria-hidden="true" />
-          Retour au panier {/* TODO-TRANSLATION: Translate */}
+          {t("shippingPage.backToCartButton")}
         </Link>
       </div>
 

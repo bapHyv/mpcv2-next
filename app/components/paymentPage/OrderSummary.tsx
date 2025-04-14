@@ -25,7 +25,6 @@ export default function OrderSummary() {
       ...prevState,
       discounts: prevState.discounts.filter((e) => e.name !== name),
     }));
-    // Use translated alert (reusing from cart alerts)
     addAlert(uuid(), t("alerts.cart.discountRemoved.text", { name }), t("alerts.cart.discountRemoved.title"), "yellow");
   };
 
@@ -47,13 +46,9 @@ export default function OrderSummary() {
 
       {/* Product List */}
       <div className="space-y-1.5 mb-3 text-sm">
-        {" "}
-        {/* Added spacing and margin */}
         {Object.entries(order.products).map(([pId, orderP]) =>
           orderP.map((p) => (
             <div key={`${p.label}-${p.option}-${p.quantity}`} className="flex items-start justify-between gap-2">
-              {" "}
-              {/* Added gap */}
               {/* Product Name and Details */}
               <span className="text-gray-800 flex-grow pr-1">
                 {p.label}{" "}
@@ -75,21 +70,17 @@ export default function OrderSummary() {
       {/* Discounts Section */}
       {order.discounts.length > 0 && (
         <>
-          <Separator /> {/* Use Separator or hr */}
+          <Separator />
           <div className="flex items-center justify-between text-sm font-medium text-gray-500 pt-2 mb-1.5">
             <span>{t("shippingPage.orderSummary.promoCodesHeader")}</span>
           </div>
           <div className="space-y-1.5 mb-3 text-sm">
-            {" "}
-            {/* Spacing for discounts */}
             {order.discounts.map((d) => (
               <div key={d.name} className="flex items-center justify-between">
                 {/* Discount Name and Remove Button */}
                 <dt className="flex items-center text-gray-600 gap-1">
                   <span>{d.name}</span>
                   <button onClick={() => handleRemoveDiscount(d.name)} aria-label={t("alerts.cart.discountRemoved.title") + " " + d.name}>
-                    {" "}
-                    {/* Improved Aria Label */}
                     <XMarkIcon className="w-4 h-4 text-red-500 hover:text-red-700 cursor-pointer" />
                   </button>
                 </dt>
@@ -110,12 +101,13 @@ export default function OrderSummary() {
           </div>
           <div className="flex items-center justify-between mb-3 text-sm">
             <dt className="flex items-center text-gray-600 gap-1">
-              {/* TODO-TRANSLATION: Potentially needs {count} variable like cart summary */}
               <span>
                 {t("shippingPage.orderSummary.loyaltyPointsLabel")} ({order.fidelity})
               </span>
-              {/* TODO-TRANSLATION: Add aria-label for remove points button */}
-              <button onClick={() => setOrder((prevState) => ({ ...prevState, fidelity: 0 }))} aria-label="Retirer les points">
+              <button
+                onClick={() => setOrder((prevState) => ({ ...prevState, fidelity: 0 }))}
+                aria-label={t("paymentPage.orderSummary.removePointsAriaLabel")}
+              >
                 <XMarkIcon className="w-4 h-4 text-red-500 hover:text-red-700 cursor-pointer" />
               </button>
             </dt>

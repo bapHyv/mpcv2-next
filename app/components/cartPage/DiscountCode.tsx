@@ -30,7 +30,7 @@ export default function DiscountCode({ name, d }: Props) {
   const { message, status } = isDiscountCodeUsable(d, order.discounts.length);
 
   const handleUseDiscountCode = (discount: IDiscountCode, name: string) => {
-    if (order.discounts.some((applied) => applied.name === name)) return; // Prevent re-apply
+    if (order.discounts.some((applied) => applied.name === name)) return;
 
     setOrder((prevState) => ({
       ...prevState,
@@ -47,14 +47,10 @@ export default function DiscountCode({ name, d }: Props) {
     }
   }, [order.discounts, sseData]);
 
-  // --- Derived State ---
   const isAlreadyApplied = order.discounts.some((discount) => discount.name === name);
-  // Can this specific code be applied now? Considers individual use rule.
   const isDisabledByIndividualUse = isIndividualUse && !isAlreadyApplied;
-  // Final disabled state for the button
   const isButtonDisabled = !status || isDisabledByIndividualUse || !cart.products.length || isAlreadyApplied;
 
-  // --- Render ---
   return (
     <div className="flex items-center justify-between py-2">
       {/* Discount Name and Value */}
@@ -76,19 +72,13 @@ export default function DiscountCode({ name, d }: Props) {
             <QuestionMarkCircleIcon
               tabIndex={0}
               className="w-5 h-5 text-blue-600 rounded-full tooltip-trigger cursor-help"
-              // TODO-TRANSLATION: Add aria-label for tooltip trigger
-              aria-label="Discount details"
+              aria-label={t("discountCode.detailsAriaLabel")}
             />
-            <span className="tooltip">{message}</span> {/* Assumes message is ready for display */}
+            <span className="tooltip">{message}</span>
           </div>
         )}
         {/* Apply/Applied Button */}
-        <button
-          disabled={isButtonDisabled}
-          className={twMerge(buttonClassname, "px-3 py-1 text-xs")} // Keep specific sizing
-          onClick={() => handleUseDiscountCode(d, name)}
-        >
-          {/* Use translated button text */}
+        <button disabled={isButtonDisabled} className={twMerge(buttonClassname, "px-3 py-1 text-xs")} onClick={() => handleUseDiscountCode(d, name)}>
           {isAlreadyApplied ? t("discountCode.appliedButton") : t("discountCode.applyButton")}
         </button>
       </div>

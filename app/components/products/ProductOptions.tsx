@@ -1,4 +1,3 @@
-// ProductOptions.tsx (Updated with i18n)
 "use client";
 
 import clsx from "clsx";
@@ -27,12 +26,10 @@ interface Params {
 }
 
 export default function ProductOptions({ pricesPer, name, id, image, category, isInModale }: Params) {
-  // --- Hooks ---
   const t = useTranslations("");
   const { products, updateProduct, setCart } = useProductsAndCart();
   const { addAlert } = useAlerts();
 
-  // --- Memoized Values & State ---
   const productData = products ? products[id] : null;
   const price = productData ? parseFloat(productData.price) : 0;
   const currentStock = productData ? parseInt(productData.stock, 10) : 0;
@@ -41,7 +38,6 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
     return !isNaN(currentStock) && currentStock > 0;
   }, [currentStock]);
 
-  // --- Handlers ---
   const addProductToCart = () => {
     if (!productData) return;
 
@@ -50,7 +46,6 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
     const optionQuantity = parseInt(selectedOption, 10);
 
     if (isNaN(optionQuantity) || optionQuantity > currentStock) {
-      // Use translated alert
       addAlert(
         uuid(),
         t("alerts.cart.insufficientStock.text", { option: selectedOption, per: pricesPer }),
@@ -60,7 +55,6 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
       return;
     }
 
-    // Keep rest of addProductToCart logic...
     const newProduct: ProductCart = {
       cartItemId: uuid(),
       id: id,
@@ -124,7 +118,6 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
     );
   }
 
-  // --- Main Render ---
   return (
     <div className={twMerge(isInModale ? "mt-1" : "mt-4 xl:mt-6")}>
       <fieldset aria-label={t("productOptions.chooseOptionLabel")}>

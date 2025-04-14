@@ -1,4 +1,3 @@
-// SignInForm.tsx (Updated with i18n)
 "use client";
 
 import { useFormState } from "react-dom";
@@ -26,8 +25,7 @@ const initialState = {
 };
 
 export default function SignInForm() {
-  const tForm = useTranslations("signInPage");
-  const tAlerts = useTranslations("alerts.signIn");
+  const t = useTranslations("");
   const [inputType, setInputType] = useState<"password" | "text">("password");
 
   const [state, formAction] = useFormState(login, initialState as any);
@@ -39,7 +37,6 @@ export default function SignInForm() {
 
   useEffect(() => {
     if (state.statusCode !== 0) {
-      // Action completed
       if (state.isSuccess && state.data && state.statusCode === 200) {
         const redirect = searchParams.get("redirect");
         const userData = state.data as UserDataAPIResponse;
@@ -47,7 +44,7 @@ export default function SignInForm() {
         setUserData(userData);
         localStorage.setItem("accessToken", userData.accessToken);
         localStorage.setItem("refreshToken", userData.refreshToken);
-        addAlert(uuid(), tAlerts("success200.text"), tAlerts("success200.title"), "emerald");
+        addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
 
         router.push(redirect ? `/${redirect}` : "/");
         router.refresh();
@@ -74,8 +71,8 @@ export default function SignInForm() {
             break;
           // TODO: Add other potential error codes (400, 422) if applicable
         }
-        const alertText = state.message || tAlerts(textKey);
-        addAlert(uuid(), alertText, tAlerts(titleKey), color);
+        const alertText = state.message || t(textKey);
+        addAlert(uuid(), alertText, t(titleKey), color);
 
         if (state.statusCode === 204 && state.email) {
           router.push(`/inscription/?email=${encodeURIComponent(state.email)}`);
@@ -90,7 +87,7 @@ export default function SignInForm() {
       {/* Email Field */}
       <div>
         <label htmlFor="email" className={labelClassname}>
-          {tForm("emailLabel")}
+          {t("signInPage.emailLabel")}
         </label>
         <div className="mt-2">
           <input
@@ -111,11 +108,11 @@ export default function SignInForm() {
       <div>
         <div className="flex items-center justify-between">
           <label htmlFor="password" className={labelClassname}>
-            {tForm("passwordLabel")}
+            {t("signInPage.passwordLabel")}
           </label>
           <div className="text-sm">
             <Link href="/mot-de-passe-oublie" className={linkClassname}>
-              {tForm("forgotPasswordLink")}
+              {t("signInPage.forgotPasswordLink")}
             </Link>
           </div>
         </div>
@@ -133,8 +130,7 @@ export default function SignInForm() {
             type="button"
             onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
-            // TODO-TRANSLATION: Add translations for aria-label
-            aria-label={inputType === "password" ? "Show password" : "Hide password"}
+            aria-label={inputType === "password" ? t("signInPage.showPasswordAriaLabel") : t("signInPage.hidePasswordAriaLabel")}
           >
             {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
           </button>
@@ -145,7 +141,7 @@ export default function SignInForm() {
 
       {/* Submit Button */}
       <div>
-        <SubmitButton text={tForm("submitButton")} className="w-full" />
+        <SubmitButton text={t("signInPage.submitButton")} className="w-full" />
       </div>
     </form>
   );

@@ -1,19 +1,16 @@
-// ForgotPasswordForm.tsx (Updated with i18n)
 "use client";
 
 import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { v4 as uuid } from "uuid";
-import { useTranslations } from "next-intl"; // Import useTranslations
+import { useTranslations } from "next-intl";
 
 import SubmitButton from "@/app/components/SubmitButton";
 import { forgottenPassword } from "@/app/actions";
 import { useAlerts } from "@/app/context/alertsContext";
-// Import styling classes
-import { inputClassname, labelClassname } from "@/app/staticData/cartPageClasses"; // Adjust path if needed
+import { inputClassname, labelClassname } from "@/app/staticData/cartPageClasses";
 
-// Initial state (can be simplified if action doesn't need initial data)
 const initialState = {
   message: "",
   data: null,
@@ -23,77 +20,68 @@ const initialState = {
 };
 
 export default function ForgotPasswordForm() {
-  // Translations hooks
-  const tForm = useTranslations("forgotPasswordPage");
-  const tAlerts = useTranslations("alerts.forgotPassword");
+  const t = useTranslations("");
 
-  // Form state hook
   const [state, formAction] = useFormState(forgottenPassword, initialState as any);
 
-  // Other hooks
   const { addAlert } = useAlerts();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Effect to handle action response
   useEffect(() => {
     if (state.statusCode !== 0) {
-      // Action completed
       if (state.isSuccess && state.statusCode === 204) {
         const redirect = searchParams.get("redirect");
-        // Use translated success alert
-        addAlert(uuid(), tAlerts("success204.text"), tAlerts("success204.title"), "emerald");
+        addAlert(uuid(), t("alerts.forgotPassword.success204.text"), t("alerts.forgotPassword.success204.title"), "emerald");
         router.push(redirect ? `/${redirect}` : "/connexion");
       } else if (!state.isSuccess) {
-        // Handle errors using translated messages
-        let titleKey = "defaultError.title";
-        let textKey = "defaultError.text";
-        let color: "yellow" | "red" = "red"; // Default to red
+        let titleKey = "alerts.forgotPassword.defaultError.title";
+        let textKey = "alerts.forgotPassword.defaultError.text";
+        let color: "yellow" | "red" = "red";
 
         switch (state.statusCode) {
           case 404:
-          case 409: // Grouping 404 and 409 as "Unknown Email"
-            titleKey = "error40x.title";
-            textKey = "error40x.text";
+          case 409:
+            titleKey = "alerts.forgotPassword.error40x.title";
+            textKey = "alerts.forgotPassword.error40x.text";
             color = "yellow";
             break;
           case 500:
-            titleKey = "error500.title";
-            textKey = "error500.text";
+            titleKey = "alerts.forgotPassword.error500.title";
+            textKey = "alerts.forgotPassword.error500.text";
             color = "red";
             break;
           case 400:
-            titleKey = "error400.title";
-            textKey = "error400.text";
+            titleKey = "alerts.forgotPassword.error400.title";
+            textKey = "alerts.forgotPassword.error400.text";
             color = "yellow";
             break;
-          // Add other specific cases if needed
+          // TODO: Add other specific cases if needed
         }
-        // Use server message if available, otherwise use translated fallback
-        const alertText = state.message || tAlerts(textKey);
-        addAlert(uuid(), alertText, tAlerts(titleKey), color);
+        const alertText = state.message || t(textKey);
+        addAlert(uuid(), alertText, t(titleKey), color);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]); // Run only when state changes
+  }, [state]);
 
   return (
     <form action={formAction}>
       <div>
         <label htmlFor="email" className={labelClassname}>
-          {tForm("emailLabel")} {/* Use translated label */}
+          {t("forgotPasswordPage.emailLabel")}
         </label>
         <div className="mt-1">
           <input
             id="email"
-            name="email" // Name is crucial for formAction
+            name="email" // TODO: Name is crucial for formAction
             type="email"
             required
             autoComplete="email"
-            className={inputClassname} // Apply consistent style
+            className={inputClassname}
             // Optionally add placeholder
-            placeholder={tForm("emailPlaceholder", { default: "you@example.com" })} // Example with default
-            aria-describedby={state?.errors?.email ? "email-error" : undefined}
+            // placeholder={t("emailPlaceholder", { default: "you@example.com" })} // Example with default
+            // aria-describedby={state?.errors?.email ? "email-error" : undefined}
           />
           {/* Optional: Display validation errors */}
           {/* {state?.errors?.email && (<p className="mt-1 text-xs text-red-600" id="email-error">{state.errors.email}</p>)} */}
@@ -101,10 +89,7 @@ export default function ForgotPasswordForm() {
       </div>
 
       <div className="mt-6">
-        <SubmitButton
-          text={tForm("submitButton")}
-          className="w-full" // Make button full width
-        />
+        <SubmitButton text={t("forgotPasswordPage.submitButton")} className="w-full" />
       </div>
     </form>
   );

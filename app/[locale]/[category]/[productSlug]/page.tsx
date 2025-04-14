@@ -197,7 +197,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                     />
                   ))}
                 </div>
-                <Link href="#reviews" className={linkClassname}>
+                <Link href="#reviews-heading" scroll className={linkClassname}>
                   {" "}
                   {/* Use link class */}
                   {product.ratings.amount} avis

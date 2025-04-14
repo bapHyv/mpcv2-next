@@ -150,18 +150,20 @@
     "cream": "cbd cream",
     "vaporisateur": "vapo cbd",
     "connection": "Sign in",
-    "info": "Profile",
-    "addresses": "Addresses",
-    "orders": "Orders",
-    "fidelity": "Sponsorship",
-    "logout": "Logout",
-    "login": "Login",
-    "register": "Sign up",
+    "selectLanguageSR": "Select language",
     "burger": {
       "english": "English",
       "spanish": "Spanish",
       "french": "French"
-    }
+    },
+    "openUserMenuSR": "Open user menu",
+    "info": "My Profile",
+    "addresses": "My Addresses",
+    "orders": "My Orders",
+    "fidelity": "Loyalty & Referral",
+    "logout": "Log Out",
+    "login": "Log In",
+    "register": "Sign Up"
   },
   "footer": {
     "legalNotices": "legal notices",
@@ -173,7 +175,15 @@
   },
   "cart": {
     "cart": "cart",
-    "order": "place order"
+    "order": "place order",
+    "iconSR": "View shopping cart",
+    "title": "Your Cart",
+    "closeButtonSR": "Close cart",
+    "totalLabel": "Total:",
+    "checkoutButton": "View Cart & Checkout",
+    "emptyMessage": "Your cart is currently empty.",
+    "continueShoppingButton": "Continue Shopping",
+    "orSeparator": "or"
   },
   "productCardCart": {
     "nbItem": "number of item",
@@ -183,7 +193,10 @@
     "priceOneArticle": "price per item",
     "subtotal": "subtotal",
     "subtotalLabel": "Subtotal",
-    "unitPriceSuffix": "/{per}"
+    "unitPriceSuffix": "/{per}",
+    "removeAriaLabel": "Remove {name}",
+    "decreaseQtyAriaLabel": "Decrease quantity",
+    "increaseQtyAriaLabel": "Increase quantity"
   },
   "addresses": {
     "title": "My Addresses",
@@ -199,6 +212,7 @@
     "billing": "Use as a billing address",
     "shipping": "Use as a shipping address",
     "modal": {
+      "closeButtonSR": "Close",
       "title": "Edit Address",
       "update": "Update",
       "delete": "Delete",
@@ -301,8 +315,14 @@
       "description": "Copy and share your referral link with your friends to earn points!",
       "copyButton": "Copy",
       "footerText": "Invite your friends to join us to earn even more points!"
-    }
+    },
+    "earnPrefix": "✨ You will earn",
+    "pointsSingular": "loyalty point",
+    "pointsPlural": "loyalty points",
+    "earnSuffix": "with this purchase ✨"
   },
+
+  "STOP_HERE": "________________________________________________________________________________________________________________________",
   "tabs": {
     "profile": "Personal Information",
     "addresses": "Addresses",
@@ -317,9 +337,18 @@
     "emailLabel": "Email address",
     "passwordLabel": "Password",
     "forgotPasswordLink": "Forgot password?",
-    "submitButton": "Sign in"
+    "submitButton": "Sign in",
+    "showPasswordAriaLabel": "Show password",
+    "hidePasswordAriaLabel": "Hide password",
+    "title": "Sign In",
+    "description": "Sign in to your Mon Plan CBD account.",
+    "h1": "Sign in to your account",
+    "logoAlt": "Mon Plan CBD Logo",
+    "signUpPrompt": "Not a member yet?",
+    "signUpLink": "Create an account"
   },
   "signUpPage": {
+    "prefsAndConditionsLegendSR": "Preferences and conditions",
     "firstNameLabel": "First name",
     "lastNameLabel": "Last name",
     "emailLabel": "Email address",
@@ -329,9 +358,19 @@
     "marketingOptInLabel": "I want to receive product news and promotions.",
     "termsLabel": "I have read and agree to the",
     "termsLink": "Terms and Conditions",
-    "submitButton": "Create my account"
+    "submitButton": "Create my account",
+    "showPasswordAriaLabel": "Show password",
+    "hidePasswordAriaLabel": "Hide password",
+    "title": "Sign Up",
+    "description": "Create your Mon Plan CBD account.",
+    "h1": "Create your account",
+    "logoAlt": "Mon Plan CBD Logo",
+    "signInPrompt": "Already a member?",
+    "signInLink": "Sign In",
+    "termsLinkText": "Terms and Conditions"
   },
   "cartPage": {
+    "productsTitle": "Products in Your Cart",
     "summary": {
       "title": "Order Summary",
       "subtotalLabel": "Subtotal",
@@ -350,13 +389,31 @@
       "promoCodeTitle": "Promo Code",
       "inputPlaceholder": "Enter code here",
       "applyButton": "Apply"
+    },
+    "loyalty": {
+      "title": "Your Loyalty Points",
+      "availableLabel": "Available points:",
+      "useInputLabel": "Points to use:",
+      "conversionRate": "1 POINT = 0.10 € DISCOUNT"
     }
   },
   "discountCode": {
     "applyButton": "Apply",
-    "appliedButton": "Applied"
+    "appliedButton": "Applied",
+    "detailsAriaLabel": "Discount details"
   },
   "shippingPage": {
+    "h1": "Shipping",
+    "backToCartButton": "Back to Cart",
+    "parcelPointMap": {
+      "pointSelectedText": "Pickup point selected. Use map to change if needed.",
+      "findButton": "Find Pickup Points",
+      "loadingMapText": "Loading map...",
+      "errorAuthText": "Map authentication failed. Please refresh or try again.",
+      "errorLoadText": "Map could not be loaded. Please check your connection or try again later.",
+      "errorSearchText": "Could not search for pickup points. Please check the address or try again.",
+      "errorAddressIncompleteText": "Please ensure address is complete to search for pickup points."
+    },
     "orderSummary": {
       "title": "Your Order",
       "productsHeader": "Products",
@@ -369,6 +426,58 @@
       "removeDiscountAriaLabel": "Remove {name}",
       "loyaltyPointsText": "{count} points",
       "removePointsAriaLabel": "Remove points"
+    },
+    "totalSummary": {
+      "finalTotalLabel": "Total amount:",
+      "title": "Order Total",
+      "shippingCostText": "(includes {cost}€ shipping)",
+      "privacyPolicyText": "Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <link>privacy policy</link>.",
+      "privacyPolicyLinkText": "privacy policy",
+      "termsLegendSR": "Terms and Marketing",
+      "termsLabel": "I have read and agree to the",
+      "termsLinkText": "terms and conditions",
+      "marketingLabel": "I want to receive news about products and promotions.",
+      "relayButtonText": "Please select a pickup point",
+      "paymentButtonText": "Proceed to Payment",
+      "createAccountButtonText": "Create Account & Pay",
+      "relayErrorText": "Please select a pickup point on the map above."
+    },
+    "shippingMethods": {
+      "title": "Shipping",
+      "costFree": "Free",
+      "thresholdText": "(Free from {amount}€)",
+      "legendSR": "Shipping Methods",
+      "noMethodsAvailableText": "No shipping methods available for the selected address.",
+      "selectCountryText": "Please select a delivery country in the address above to see options."
+    },
+    "addressForm": {
+      "shippingTitle": "Shipping Address",
+      "billingTitle": "Billing Address",
+      "personalInfoLegend": "Personal Information",
+      "firstNameLabel": "First name",
+      "lastNameLabel": "Last name",
+      "companyLabel": "Company (Optional)",
+      "addressInfoLegend": "Address Information",
+      "countryLabel": "Country / Region",
+      "countrySelectDefault": "Select a country...",
+      "address1Label": "Street address",
+      "address1Placeholder": "E.g., 123 Main St",
+      "address2Label": "Apartment, suite, etc. (Optional)",
+      "address2Placeholder": "E.g., Apartment 4B",
+      "postalCodeLabel": "Postal Code",
+      "cityLabel": "City",
+      "provinceLabel": "Province",
+      "stateLabel": "State",
+      "regionLabel": "Region",
+      "provinceSelectDefault": "Please select...",
+      "phoneLabel": "Phone",
+      "phoneHelpText": "Required for delivery updates.",
+      "emailLabel": "Email address",
+      "emailHelpText": "For order confirmation.",
+      "createPasswordLabel": "Create account password",
+      "createPasswordHelpText": "Your account will be created using this email and password.",
+      "orderNotesLabel": "Order notes (Optional)",
+      "differentBillingLabel": "Bill to a different address?"
     }
   },
   "reviews": {
@@ -416,7 +525,119 @@
       "submitUpdateButton": "Save Changes"
     }
   },
+  "forms": {
+    "pendingText": "Processing..."
+  },
+  "account": {
+    "loyaltyPage": {
+      "mainTitle": "My Loyalty Program",
+      "balanceTitle": "Your Current Balance",
+      "pointsSingular": "point",
+      "pointsPlural": "points",
+      "cartPointsInfo": "1 point = €0.10 discount in cart",
+      "howToEarnTitle": "How to Earn Points",
+      "referralTitle": "Refer a Friend",
+      "referralFooterText": "Share your link with friends to earn more points!",
+      "referralLinkLabel": "Your referral link",
+      "referralCopyTitle": "Copy Link",
+      "boxes": {
+        "box1": {
+          "title": "Earn 1 point for every €1 spent!",
+          "description": "Points Earned: 1 POINT / €1.00"
+        },
+        "box2": {
+          "title": "Review a product & get 10 points!",
+          "description": "Points Earned: 10 POINTS"
+        },
+        "box3": {
+          "title": "Get 50 points for signing up!",
+          "description": "Points Earned: 50 POINTS"
+        },
+        "box4": {
+          "title": "You Earn: 1 point per €1 spent by referral (first order > €30)",
+          "description": "Points Earned: 1 POINT / €1.00"
+        },
+        "box5": {
+          "title": "Friend Earns: 50 points on their first order!",
+          "description": "Points Earned by Friend: 50 POINTS"
+        }
+      }
+    }
+  },
+  "outOfStockModal": {
+    "closeButtonSR": "Close modal",
+    "title": "Items Unavailable",
+    "mainMessage": "We regret to inform you that some items previously in your cart are no longer available.",
+    "removedItemsHeader": "Item(s) removed from cart:",
+    "similarProductsTitle": "Similar Products",
+    "similarProductsMessage": "We sincerely apologize for this inconvenience. <br /> Here is a list of similar products you might be interested in:"
+  },
+  "global": {
+    "loading": "Loading...",
+    "cartDataError": "Cart data not available. Please refresh."
+  },
+  "ageVerification": {
+    "title": "Are you over 18 years old?",
+    "noButton": "No",
+    "yesButton": "Yes"
+  },
+  "productPage": {
+    "priceInfoSR": "Product information",
+    "outOfStock": "Out of stock"
+  },
+  "paymentPage": {
+    "totalSummary": {
+      "title": "Payment Summary",
+      "totalAmountLabel": "Total amount to pay:",
+      "shippingCostText": "(includes {cost}€ shipping)",
+      "privacyPolicyText": "Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our ",
+      "privacyPolicyLinkText": "privacy policy",
+      "noMethodButtonText": "Please select a payment method",
+      "bankTransferButtonText": "Confirm Order (Bank Transfer)",
+      "cardPaymentButtonText": "Proceed to Secure Payment"
+    },
+    "paymentMethods": {
+      "title": "Payment Method",
+      "cardTitle": "Credit Card (3D Secure)",
+      "cardImageAlt": "CB Visa Mastercard Logos",
+      "cardDescription": "Choosing this method allows you to pay securely through our bank's server.",
+      "bankTransferTitle": "Bank Transfer",
+      "bankTransferDescription": "Pay directly from your bank account. Please use your Order ID as the payment reference. Your order will not ship until funds are received."
+    },
+    "orderSummary": {
+      "removePointsAriaLabel": "Remove loyalty points"
+    }
+  },
+  "areYouCustomer": {
+    "promptText": "Already have an account?",
+    "loginLinkText": "Log in",
+    "suffixText": "to see your benefits."
+  },
+  "discountMessages": {
+    "minAmount": "Minimum spend of €{amount} required for this discount.",
+    "maxAmount": "Maximum spend of €{amount} allowed for this discount.",
+    "excludePromo": "Cannot be used with sale items currently in your cart.",
+    "individualUse": "This discount cannot be combined with other discounts.",
+    "cartExcludeProducts": "Please remove {products} from your cart to use this discount.",
+    "cartExcludeCategories": "Please remove items from the following categories: {categories}.",
+    "cartRequireProducts": "Requires {products} to be in your cart.",
+    "cartRequireCategories": "Requires at least one item from: {categories}.",
+    "itemExcludeProducts": "Discount not applicable to {products}. Add other eligible items.",
+    "itemExcludeCategories": "Discount not applicable to items from {categories}. Add items from other categories."
+  },
   "alerts": {
+    "referral": {
+      "copy": {
+        "success": {
+          "title": "Copied!",
+          "text": "Referral link copied to clipboard!"
+        },
+        "error": {
+          "title": "Copy Error",
+          "text": "Could not copy link. Please try again."
+        }
+      }
+    },
     "auth": {
       "logoutSuccess": {
         "title": "Logout Successful",
@@ -456,6 +677,10 @@
     },
     "genericError": { "title": "Error", "text": "An unexpected error occurred." },
     "cart": {
+      "insufficientStockIncrement": {
+        "title": "Stock Limited",
+        "text": "Insufficient stock to add more {name} ({option}{per})."
+      },
       "productAdded": {
         "title": "Added to Cart",
         "text": "{option}{per} - {name} added to cart."

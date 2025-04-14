@@ -150,18 +150,20 @@
     "cream": "soins cbd",
     "vaporisateur": "vaporisateur",
     "connection": "Connexion",
-    "info": "Informations",
-    "addresses": "Adresses",
-    "orders": "Commandes",
-    "fidelity": "Fidélité",
-    "logout": "Déconnexion",
-    "login": "Connexion",
-    "register": "S'inscrire",
+    "selectLanguageSR": "Sélectionner la langue",
     "burger": {
       "english": "Anglais",
       "spanish": "Espagnol",
       "french": "Français"
-    }
+    },
+    "openUserMenuSR": "Ouvrir le menu utilisateur",
+    "info": "Mon Profil",
+    "addresses": "Mes Adresses",
+    "orders": "Mes Commandes",
+    "fidelity": "Fidélité & Parrainage",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "register": "Inscription"
   },
   "footer": {
     "legalNotices": "Mentions légales",
@@ -173,7 +175,15 @@
   },
   "cart": {
     "cart": "panier",
-    "order": "Commander"
+    "order": "Commander",
+    "iconSR": "Voir le panier",
+    "title": "Votre Panier",
+    "closeButtonSR": "Fermer le panier",
+    "totalLabel": "Total :",
+    "checkoutButton": "Voir Panier & Commander",
+    "emptyMessage": "Votre panier est actuellement vide.",
+    "continueShoppingButton": "Continuer les achats",
+    "orSeparator": "ou"
   },
   "productCardCart": {
     "nbItem": "nombre d'article",
@@ -183,7 +193,10 @@
     "priceOneArticle": "prix d'un article",
     "subtotal": "sous-total",
     "subtotalLabel": "Sous-total",
-    "unitPriceSuffix": "/{per}"
+    "unitPriceSuffix": "/{per}",
+    "removeAriaLabel": "Retirer {name}",
+    "decreaseQtyAriaLabel": "Diminuer la quantité",
+    "increaseQtyAriaLabel": "Augmenter la quantité"
   },
   "addresses": {
     "title": "Mes Adresses",
@@ -199,6 +212,7 @@
     "billing": "Utiliser comme adresse de facturation",
     "shipping": "Utiliser comme adresse de livraison",
     "modal": {
+      "closeButtonSR": "Fermer",
       "title": "Modifier l'adresse",
       "update": "Mettre à jour",
       "delete": "Supprimer",
@@ -301,7 +315,11 @@
       "description": "Copiez et partagez votre lien de parrainage avec vos amis pour gagner des points !",
       "copyButton": "Copier",
       "footerText": "Invitez vos amis à nous rejoindre pour gagner encore plus de points !"
-    }
+    },
+    "earnPrefix": "✨ Vous gagnerez",
+    "pointsSingular": "point de fidélité",
+    "pointsPlural": "points de fidélité",
+    "earnSuffix": "avec cet achat ✨"
   },
   "tabs": {
     "profile": "Informations personnelles",
@@ -317,9 +335,18 @@
     "emailLabel": "Adresse e-mail",
     "passwordLabel": "Mot de passe",
     "forgotPasswordLink": "Mot de passe oublié ?",
-    "submitButton": "Se connecter"
+    "submitButton": "Se connecter",
+    "showPasswordAriaLabel": "Afficher le mot de passe",
+    "hidePasswordAriaLabel": "Masquer le mot de passe",
+    "title": "Connexion",
+    "description": "Connectez-vous à votre compte Mon Plan CBD.",
+    "h1": "Connectez-vous à votre compte",
+    "logoAlt": "Logo Mon Plan CBD",
+    "signUpPrompt": "Pas encore membre ?",
+    "signUpLink": "Créer un compte"
   },
   "signUpPage": {
+    "prefsAndConditionsLegendSR": "Préférences et conditions",
     "firstNameLabel": "Prénom",
     "lastNameLabel": "Nom",
     "emailLabel": "Adresse e-mail",
@@ -329,9 +356,19 @@
     "marketingOptInLabel": "Je souhaite recevoir les actualités produits et promotions.",
     "termsLabel": "J'ai lu et j'accepte les",
     "termsLink": "conditions générales",
-    "submitButton": "Créer mon compte"
+    "submitButton": "Créer mon compte",
+    "showPasswordAriaLabel": "Afficher le mot de passe",
+    "hidePasswordAriaLabel": "Masquer le mot de passe",
+    "title": "Inscription",
+    "description": "Créez votre compte Mon Plan CBD.",
+    "h1": "Créez votre compte",
+    "logoAlt": "Logo Mon Plan CBD",
+    "signInPrompt": "Déjà membre ?",
+    "signInLink": "Se connecter",
+    "termsLinkText": "conditions générales"
   },
   "cartPage": {
+    "productsTitle": "Produits dans Votre Panier",
     "summary": {
       "title": "Total du Panier",
       "subtotalLabel": "Sous-total",
@@ -350,13 +387,31 @@
       "promoCodeTitle": "Code Promo",
       "inputPlaceholder": "Entrez votre code",
       "applyButton": "Appliquer"
+    },
+    "loyalty": {
+      "title": "Vos Points de Fidélité",
+      "availableLabel": "Points disponibles :",
+      "useInputLabel": "Points à utiliser :",
+      "conversionRate": "1 POINT = 0,10 € DE RÉDUCTION"
     }
   },
   "discountCode": {
     "applyButton": "Utiliser",
-    "appliedButton": "Appliqué"
+    "appliedButton": "Appliqué",
+    "detailsAriaLabel": "Détails de la réduction"
   },
   "shippingPage": {
+    "h1": "Expédition",
+    "backToCartButton": "Retour au Panier",
+    "parcelPointMap": {
+      "pointSelectedText": "Point relais sélectionné. Utilisez la carte pour changer si besoin.",
+      "findButton": "Trouver des Points Relais",
+      "loadingMapText": "Chargement de la carte...",
+      "errorAuthText": "L'authentification de la carte a échoué. Veuillez rafraîchir ou réessayer.",
+      "errorLoadText": "La carte n'a pas pu être chargée. Veuillez vérifier votre connexion ou réessayer plus tard.",
+      "errorSearchText": "Impossible de rechercher des points relais. Veuillez vérifier l'adresse ou réessayer.",
+      "errorAddressIncompleteText": "Veuillez vous assurer que l'adresse est complète pour rechercher des points relais."
+    },
     "orderSummary": {
       "title": "Votre Commande",
       "productsHeader": "Produits",
@@ -369,6 +424,58 @@
       "removeDiscountAriaLabel": "Retirer {name}",
       "loyaltyPointsText": "{count} points",
       "removePointsAriaLabel": "Retirer les points"
+    },
+    "totalSummary": {
+      "finalTotalLabel": "Montant total :",
+      "title": "Total Commande",
+      "shippingCostText": "(dont {cost}€ de frais de port)",
+      "privacyPolicyText": "Vos données personnelles seront utilisées pour le traitement de votre commande, vous accompagner au cours de votre visite du site web, et pour d’autres raisons décrites dans notre ",
+      "privacyPolicyLinkText": "politique de confidentialité",
+      "termsLegendSR": "Conditions et Marketing",
+      "termsLabel": "J’ai lu et j’accepte les",
+      "termsLinkText": "conditions générales",
+      "marketingLabel": "Je souhaite recevoir les actualités concernant les produits et promotions.",
+      "relayButtonText": "Veuillez choisir un point relais",
+      "paymentButtonText": "Procéder au paiement",
+      "createAccountButtonText": "Créer compte et payer",
+      "relayErrorText": "Sélectionnez un point relais sur la carte ci-dessus."
+    },
+    "shippingMethods": {
+      "title": "Expédition",
+      "costFree": "Gratuit",
+      "thresholdText": "(Gratuit dès {amount}€ d'achat)",
+      "legendSR": "Méthodes d'expédition",
+      "noMethodsAvailableText": "Aucune méthode d'expédition disponible pour l'adresse sélectionnée.",
+      "selectCountryText": "Veuillez sélectionner un pays de livraison dans l'adresse ci-dessus pour voir les options."
+    },
+    "addressForm": {
+      "shippingTitle": "Adresse de Livraison",
+      "billingTitle": "Adresse de Facturation",
+      "personalInfoLegend": "Informations Personnelles",
+      "firstNameLabel": "Prénom",
+      "lastNameLabel": "Nom",
+      "companyLabel": "Entreprise (Facultatif)",
+      "addressInfoLegend": "Informations d'Adresse",
+      "countryLabel": "Pays / Région",
+      "countrySelectDefault": "Sélectionnez un pays...",
+      "address1Label": "Numéro et nom de rue",
+      "address1Placeholder": "Ex: 123 Rue Principale",
+      "address2Label": "Appartement, bâtiment, etc. (Facultatif)",
+      "address2Placeholder": "Ex: Appartement 4B",
+      "postalCodeLabel": "Code Postal",
+      "cityLabel": "Ville",
+      "provinceLabel": "Province",
+      "stateLabel": "État",
+      "regionLabel": "Région",
+      "provinceSelectDefault": "Veuillez sélectionner...",
+      "phoneLabel": "Téléphone",
+      "phoneHelpText": "Nécessaire pour la livraison.",
+      "emailLabel": "Adresse e-mail",
+      "emailHelpText": "Pour la confirmation de commande.",
+      "createPasswordLabel": "Créer un mot de passe",
+      "createPasswordHelpText": "Votre compte sera créé avec cet email et mot de passe.",
+      "orderNotesLabel": "Notes de commande (Facultatif)",
+      "differentBillingLabel": "Facturer à une adresse différente ?"
     }
   },
   "reviews": {
@@ -416,7 +523,119 @@
       "submitUpdateButton": "Enregistrer les Modifications"
     }
   },
+  "forms": {
+    "pendingText": "Traitement..."
+  },
+  "account": {
+    "loyaltyPage": {
+      "mainTitle": "Mon Programme Fidélité",
+      "balanceTitle": "Votre Solde Actuel",
+      "pointsSingular": "point",
+      "pointsPlural": "points",
+      "cartPointsInfo": "1 point = 0,10€ de réduction dans le panier",
+      "howToEarnTitle": "Comment Gagner des Points",
+      "referralTitle": "Parrainer un Ami",
+      "referralFooterText": "Partagez votre lien avec vos amis pour gagner plus de points !",
+      "referralLinkLabel": "Votre lien de parrainage",
+      "referralCopyTitle": "Copier le Lien",
+      "boxes": {
+        "box1": {
+          "title": "Gagnez 1 point pour chaque € dépensé !",
+          "description": "Points Gagnés: 1 POINT / 1.00 €"
+        },
+        "box2": {
+          "title": "Évaluez un produit et recevez 10 points !",
+          "description": "Points Gagnés: 10 POINTS"
+        },
+        "box3": {
+          "title": "Recevez 50 points à l'inscription !",
+          "description": "Points Gagnés: 50 POINTS"
+        },
+        "box4": {
+          "title": "Vous Gagnez: 1pt par € dépensé par votre filleul (+30€ 1ère cmd)",
+          "description": "Points Gagnés: 1 POINT / 1.00 €"
+        },
+        "box5": {
+          "title": "Votre Filleul Gagne: 50 points sur sa 1ère commande !",
+          "description": "Points Gagnés par le Filleul: 50 POINTS"
+        }
+      }
+    }
+  },
+  "outOfStockModal": {
+    "closeButtonSR": "Fermer la modale",
+    "title": "Stock Insuffisant",
+    "mainMessage": "Nous avons le regret de vous informer que certains articles de votre panier ne sont plus disponibles.",
+    "removedItemsHeader": "Article(s) retiré(s) du panier :",
+    "similarProductsTitle": "Produits Similaires",
+    "similarProductsMessage": "Nous sommes sincèrement désolés pour ce désagrément. <br /> Voici une liste de produits similaires susceptibles de vous intéresser :"
+  },
+  "global": {
+    "loading": "Chargement...",
+    "cartDataError": "Données du panier non disponibles. Veuillez rafraîchir."
+  },
+  "ageVerification": {
+    "title": "Avez-vous plus de 18 ans ?",
+    "noButton": "Non",
+    "yesButton": "Oui"
+  },
+  "productPage": {
+    "priceInfoSR": "Information produit",
+    "outOfStock": "Épuisé"
+  },
+  "paymentPage": {
+    "totalSummary": {
+      "title": "Récapitulatif Final",
+      "totalAmountLabel": "Montant total à payer :",
+      "shippingCostText": "(dont {cost}€ de frais de port)",
+      "privacyPolicyText": "Vos données personnelles seront utilisées pour le traitement de votre commande, vous accompagner au cours de votre visite du site web, et pour d’autres raisons décrites dans notre ",
+      "privacyPolicyLinkText": "politique de confidentialité",
+      "noMethodButtonText": "Veuillez choisir une méthode de paiement",
+      "bankTransferButtonText": "Valider la commande (Virement)",
+      "cardPaymentButtonText": "Procéder au paiement sécurisé"
+    },
+    "paymentMethods": {
+      "title": "Mode de Paiement",
+      "cardTitle": "Carte Bancaire (3D Secure)",
+      "cardImageAlt": "Logos CB Visa Mastercard",
+      "cardDescription": "En choisissant ce mode de paiement, vous pourrez effectuer votre règlement sur le serveur sécurisé de notre banque.",
+      "bankTransferTitle": "Virement Bancaire",
+      "bankTransferDescription": "Effectuez le paiement directement depuis votre compte bancaire. Veuillez utiliser l’ID de votre commande comme référence du paiement. Votre commande ne sera pas expédiée tant que les fonds ne seront pas reçus."
+    },
+    "orderSummary": {
+      "removePointsAriaLabel": "Retirer les points de fidélité"
+    }
+  },
+  "areYouCustomer": {
+    "promptText": "Déjà client chez nous ?",
+    "loginLinkText": "Connectez-vous",
+    "suffixText": "pour retrouver vos avantages."
+  },
+  "discountMessages": {
+    "minAmount": "Un montant minimum de {amount}€ est requis pour ce code.",
+    "maxAmount": "Un montant maximum de {amount}€ est autorisé pour ce code.",
+    "excludePromo": "Ce code ne peut pas être utilisé avec des articles en promotion dans votre panier.",
+    "individualUse": "Ce code ne peut pas être combiné avec d'autres réductions.",
+    "cartExcludeProducts": "Veuillez retirer le(s) produit(s) {products} de votre panier pour utiliser ce code.",
+    "cartExcludeCategories": "Veuillez retirer les articles des catégories suivantes : {categories}.",
+    "cartRequireProducts": "Requiert le(s) produit(s) {products} dans votre panier.",
+    "cartRequireCategories": "Requiert au moins un article de : {categories}.",
+    "itemExcludeProducts": "Code non applicable sur {products}. Ajoutez d'autres articles éligibles.",
+    "itemExcludeCategories": "Code non applicable sur les articles de {categories}. Ajoutez des articles d'autres catégories."
+  },
   "alerts": {
+    "referral": {
+      "copy": {
+        "success": {
+          "title": "Copié !",
+          "text": "Lien de parrainage copié dans le presse-papiers !"
+        },
+        "error": {
+          "title": "Erreur Copie",
+          "text": "Impossible de copier le lien. Veuillez réessayer."
+        }
+      }
+    },
     "auth": {
       "logoutSuccess": {
         "title": "Déconnexion Réussie",
@@ -456,6 +675,10 @@
     },
     "genericError": { "title": "Erreur", "text": "Une erreur inattendue est survenue." },
     "cart": {
+      "insufficientStockIncrement": {
+        "title": "Stock Limité",
+        "text": "Stock insuffisant pour ajouter plus de {name} ({option}{per})."
+      },
       "productAdded": {
         "title": "Ajouté au Panier",
         "text": "{option}{per} - {name} ajouté au panier."

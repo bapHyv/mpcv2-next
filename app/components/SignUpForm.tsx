@@ -1,9 +1,8 @@
-// SignUpForm.tsx
 "use client";
 
 import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams, redirect as nextRedirect } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
 import Link from "next/link";
@@ -16,9 +15,8 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 import { useTranslations } from "next-intl";
 import Star from "@/app/components/Star";
-import { inputClassname, labelClassname, buttonClassname, checkRadioClassname, linkClassname } from "@/app/staticData/cartPageClasses"; // Adjust path
+import { inputClassname, labelClassname, checkRadioClassname, linkClassname } from "@/app/staticData/cartPageClasses";
 
-// Initial state for the form hook
 const initialState = {
   message: "",
   data: null,
@@ -51,29 +49,23 @@ const FormField = ({
 );
 
 export default function SignUpForm() {
-  const tForm = useTranslations("signUpPage"); // Namespace for form elements
-  const tAlerts = useTranslations("alerts.signUp"); // Namespace for alerts
+  const t = useTranslations("");
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Keep local state for password visibility, matching, and terms agreement
   const [inputType, setInputType] = useState<"password" | "text">("password");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [doesPasswordsMatch, setDoesPasswordMatch] = useState(true);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  // Read initial email from search params
   const initialEmail = searchParams.get("email") || "";
 
-  // Form state hook
   const [state, formAction] = useFormState(register, { ...initialState, email: initialEmail } as any);
 
-  // Keep context hooks
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
 
-  // Keep useEffect for handling action response, using translated alerts
   useEffect(() => {
     if (state.statusCode !== 0) {
       if (state.isSuccess && isUserDataAPIResponse(state.data) && state.statusCode === 200) {
@@ -81,49 +73,44 @@ export default function SignUpForm() {
         setUserData(state.data);
         localStorage.setItem("accessToken", state.data.accessToken);
         localStorage.setItem("refreshToken", state.data.refreshToken);
-        // Use translated success alert
-        addAlert(uuid(), tAlerts("success.text"), tAlerts("success.title"), "emerald");
-        router.push(redirectPath ? `/${redirectPath}` : "/mon-compte"); // Redirect to account
+        addAlert(uuid(), t("alerts.signUp.success.text"), t("alerts.signUp.success.title"), "emerald");
+        router.push(redirectPath ? `/${redirectPath}` : "/"); // Redirect to account
         router.refresh();
       } else {
-        // Handle errors using translated messages
-        let titleKey = "defaultError.title";
-        let textKey = "defaultError.text";
+        let titleKey = "alerts.signUp.defaultError.title";
+        let textKey = "alerts.signUp.defaultError.text";
         let alertType: "yellow" | "red" | "blue" = "red";
 
         switch (state.statusCode) {
           case 409:
-            titleKey = "error409.title";
-            textKey = "error409.text";
+            titleKey = "alerts.signUp.error409.title";
+            textKey = "alerts.signUp.error409.text";
             alertType = "blue";
-            // Pass email back to login page after delay
             setTimeout(() => router.push(`/connexion?email=${encodeURIComponent(state.email || initialEmail)}`), 500);
             break;
           case 400:
-            titleKey = "error400.title";
-            textKey = "error400.text";
+            titleKey = "alerts.signUp.error400.title";
+            textKey = "alerts.signUp.error400.text";
             alertType = "yellow";
             break;
           case 422:
-            titleKey = "error422.title";
-            textKey = "error422.text";
+            titleKey = "alerts.signUp.error422.title";
+            textKey = "alerts.signUp.error422.text";
             alertType = "yellow";
             break;
           case 500:
-            titleKey = "error500.title";
-            textKey = "error500.text";
+            titleKey = "alerts.signUp.error500.title";
+            textKey = "alerts.signUp.error500.text";
             alertType = "red";
             break;
         }
-        // Use server message if available, otherwise use translated fallback
-        const alertText = state.message || tAlerts(textKey);
-        addAlert(uuid(), alertText, tAlerts(titleKey), alertType);
+        const alertText = state.message || t(textKey);
+        addAlert(uuid(), alertText, t(titleKey), alertType);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  // Keep password matching effect
   useEffect(() => {
     if (repeatPassword) {
       setDoesPasswordMatch(password === repeatPassword);
@@ -136,29 +123,29 @@ export default function SignUpForm() {
     <form action={formAction} className="space-y-5">
       {/* First/Last Name */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
-        <FormField id="firstname" label={tForm("firstNameLabel")} required>
+        <FormField id="firstname" label={t("signUpPage.firstNameLabel")} required>
           <input type="text" name="firstname" required className={inputClassname} />
         </FormField>
-        <FormField id="lastname" label={tForm("lastNameLabel")} required>
+        <FormField id="lastname" label={t("signUpPage.lastNameLabel")} required>
           <input type="text" name="lastname" required className={inputClassname} />
         </FormField>
       </div>
 
       {/* Email */}
-      <FormField id="email" label={tForm("emailLabel")} required>
+      <FormField id="email" label={t("signUpPage.emailLabel")} required>
         <input
           type="email"
           name="email"
           required
-          defaultValue={initialEmail} // Use defaultValue
+          defaultValue={initialEmail}
           className={inputClassname}
           aria-describedby={state?.errors?.email ? "email-error" : undefined}
         />
-        {/* Optional: state?.errors?.email */}
+        {/* TODO Optional: state?.errors?.email */}
       </FormField>
 
       {/* Password */}
-      <FormField id="password" label={tForm("passwordLabel")} required>
+      <FormField id="password" label={t("signUpPage.passwordLabel")} required>
         <div className="relative">
           <input
             type={inputType}
@@ -174,8 +161,7 @@ export default function SignUpForm() {
             type="button"
             onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
-            // TODO-TRANSLATION: Add translations for aria-label
-            aria-label={inputType === "password" ? "Show password" : "Hide password"}
+            aria-label={inputType === "password" ? t("signUpPage.showPasswordAriaLabel") : t("signUpPage.hidePasswordAriaLabel")}
           >
             {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
           </button>
@@ -184,11 +170,11 @@ export default function SignUpForm() {
       </FormField>
 
       {/* Repeat Password */}
-      <FormField id="repeat-password" label={tForm("confirmPasswordLabel")} required>
+      <FormField id="repeat-password" label={t("signUpPage.confirmPasswordLabel")} required>
         <div className="relative">
           <input
             type={inputType}
-            name="repeat-password" // Not sent to server, only for validation
+            name="repeat-password"
             value={repeatPassword}
             onChange={(e) => setRepeatPassword(e.target.value)}
             required
@@ -201,8 +187,7 @@ export default function SignUpForm() {
             type="button"
             onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
-            // TODO-TRANSLATION: Add translations for aria-label
-            aria-label={inputType === "password" ? "Show password" : "Hide password"}
+            aria-label={inputType === "password" ? t("signUpPage.showPasswordAriaLabel") : t("signUpPage.hidePasswordAriaLabel")}
           >
             {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
           </button>
@@ -210,14 +195,14 @@ export default function SignUpForm() {
         {/* Password Mismatch Error Message */}
         {!doesPasswordsMatch ? (
           <p id="passwords-dont-match" role="alert" className="mt-1 text-xs text-red-600">
-            {tForm("passwordMismatchError")} {/* Translated error */}
+            {t("signUpPage.passwordMismatchError")}
           </p>
         ) : null}
       </FormField>
 
       {/* Checkboxes */}
       <fieldset className="space-y-4 pt-2">
-        <legend className="sr-only">Préférences et conditions</legend> {/* TODO-TRANSLATION */}
+        <legend className="sr-only">{t("signUpPage.prefsAndConditionsLegendSR")}</legend>
         {/* Marketing Opt-in */}
         <div className="relative flex items-start">
           <div className="flex h-6 items-center">
@@ -225,7 +210,7 @@ export default function SignUpForm() {
           </div>
           <div className="ml-3 text-sm leading-6">
             <label htmlFor="optInMarketing" className="font-medium text-gray-900 cursor-pointer">
-              {tForm("marketingOptInLabel")} {/* Translated label */}
+              {t("signUpPage.marketingOptInLabel")}
             </label>
           </div>
         </div>
@@ -234,19 +219,19 @@ export default function SignUpForm() {
           <div className="flex h-6 items-center">
             <input
               id="condition-generales"
-              name="condition-generales" // Ensure name matches action if needed
+              name="condition-generales" // TODO: Ensure name matches action if needed
               type="checkbox"
-              checked={agreedToTerms} // Controlled state
+              checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}
-              required // Make agreement mandatory
+              required
               className={checkRadioClassname}
             />
           </div>
           <div className="ml-3 text-sm leading-6">
             <label htmlFor="condition-generales" className="text-gray-700 cursor-pointer">
-              {tForm("termsLabel")} {/* Translated label */}
+              {t("signUpPage.termsLabel")}{" "}
               <Link href="/conditions-generales-de-vente" target="_blank" className={linkClassname}>
-                {tForm("termsLink")} {/* Translated link text */}
+                {t("signUpPage.termsLink")}
               </Link>{" "}
               <Star />
             </label>
@@ -256,7 +241,7 @@ export default function SignUpForm() {
 
       {/* Submit Button */}
       <div>
-        <SubmitButton text={tForm("submitButton")} isDisabled={!doesPasswordsMatch || !agreedToTerms} className="w-full mt-4" />
+        <SubmitButton text={t("signUpPage.submitButton")} isDisabled={!doesPasswordsMatch || !agreedToTerms} className="w-full mt-4" />
       </div>
     </form>
   );
