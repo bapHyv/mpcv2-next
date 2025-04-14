@@ -1,4 +1,3 @@
-// Form.tsx
 "use client";
 
 import React, { useEffect } from "react";
@@ -18,6 +17,7 @@ import {
   checkRadioClassname,
 } from "@/app/staticData/cartPageClasses";
 import { province } from "@/app/staticData/provinces";
+import { useTranslations } from "next-intl";
 
 const FormField = ({
   id,
@@ -45,14 +45,18 @@ const FormField = ({
 );
 
 export default function Form() {
+  const t = useTranslations("shippingPage.addressForm");
   const { sseData } = useSse();
   const { userData } = useAuth();
   const { setOrder, order, handleChange } = useOrder();
 
+  const getProvinceLabelKey = (countryCode: string): string => {
+    if (countryCode === "USA") return "stateLabel";
+    return "provinceLabel"; // Default
+  };
+
   useEffect(() => {
-    // Reset shipping province when shipping country changes
     setOrder((prevState) => {
-      // Only update if the country actually changed and province exists
       if (prevState.shippingAddress.country !== order.shippingAddress.country || prevState.shippingAddress.province) {
         return {
           ...prevState,
@@ -65,20 +69,18 @@ export default function Form() {
   }, [order.shippingAddress.country]);
 
   useEffect(() => {
-    // Reset billing province when billing country changes OR when 'different-billing' is unchecked
     setOrder((prevState) => {
       if (
         prevState.billingAddress.country !== order.billingAddress.country ||
         prevState.billingAddress.province ||
-        (prevState["different-billing"] && !order["different-billing"]) // If checkbox was just unchecked
+        (prevState["different-billing"] && !order["different-billing"])
       ) {
         return {
           ...prevState,
-          // Reset only if different billing is active OR was just deactivated
-          billingAddress: order["different-billing"] ? { ...prevState.billingAddress, province: "" } : { ...prevState.billingAddress }, // Keep current billing if checkbox inactive
+          billingAddress: order["different-billing"] ? { ...prevState.billingAddress, province: "" } : { ...prevState.billingAddress },
         };
       }
-      return prevState; // No change needed
+      return prevState;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order.billingAddress.country, order["different-billing"]]);
@@ -88,7 +90,7 @@ export default function Form() {
       {/* Shipping Address Section */}
       <section aria-labelledby="shipping-address-heading" className={twMerge(sectionWrapperClassname)}>
         <Title
-          title="Adresse de livraison"
+          title={t("shippingTitle")}
           type="h2"
           classname={twMerge(titleClassname, "mb-6 text-lg")}
           firstLetterClassname="text-2xl"
@@ -96,12 +98,10 @@ export default function Form() {
         />
 
         {/* --- Personal Info --- */}
-        <fieldset aria-label="Informations personnelles adresse de livraison" className="mb-6 border-b border-gray-200 pb-6">
-          {" "}
-          {/* Separator */}
-          <legend className="text-base font-semibold text-gray-900 mb-4">Informations personnelles</legend>
+        <fieldset aria-label={t("personalInfoLegend")} className="mb-6 border-b border-gray-200 pb-6">
+          <legend className="text-base font-semibold text-gray-900 mb-4">{t("personalInfoLegend")}</legend>
           <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
-            <FormField id="shipping-firstname" label="Prénom" required>
+            <FormField id="shipping-firstname" label={t("firstNameLabel")} required>
               <input
                 type="text"
                 name="firstname"
@@ -112,7 +112,7 @@ export default function Form() {
                 className={inputClassname}
               />
             </FormField>
-            <FormField id="shipping-lastname" label="Nom" required>
+            <FormField id="shipping-lastname" label={t("lastNameLabel")} required>
               <input
                 type="text"
                 name="lastname"
@@ -123,7 +123,7 @@ export default function Form() {
                 className={inputClassname}
               />
             </FormField>
-            <FormField id="shipping-company" label="Nom de l'entreprise (facultatif)" className="sm:col-span-2">
+            <FormField id="shipping-company" label={t("companyLabel")} className="sm:col-span-2">
               <input
                 type="text"
                 name="company"
@@ -137,13 +137,12 @@ export default function Form() {
         </fieldset>
 
         {/* --- Address Info --- */}
-        <fieldset aria-label="Informations d'adresse de livraison">
-          <legend className="text-base font-semibold text-gray-900 mb-4">Informations d&apos;adresse</legend>
+        <fieldset aria-label={t("addressInfoLegend")}>
+          <legend className="text-base font-semibold text-gray-900 mb-4">{t("addressInfoLegend")}</legend>
           <div className="space-y-4">
-            {" "}
-            <FormField id="shipping-country" label="Pays/région" required>
+            <FormField id="shipping-country" label={t("countryLabel")} required>
               <select name="country" value={order.shippingAddress.country} onChange={handleChange} required className={inputClassname}>
-                <option value="">Sélectionnez un pays...</option>
+                <option value="">{t("countrySelectDefault")}</option>
                 {sseData?.shippingMethods?.byShippingZones &&
                   Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
                     <option key={s + i} value={s}>
@@ -152,31 +151,31 @@ export default function Form() {
                   ))}
               </select>
             </FormField>
-            <FormField id="shipping-address1" label="Numéro et nom de rue" required>
+            <FormField id="shipping-address1" label={t("address1Label")} required>
               <input
                 type="text"
                 name="address1"
                 value={order.shippingAddress.address1}
                 onChange={handleChange}
                 required
-                placeholder="Ex: 123 Rue Principale"
+                placeholder={t("address1Placeholder")}
                 autoComplete="shipping address-line1"
                 className={inputClassname}
               />
             </FormField>
-            <FormField id="shipping-address2" label="Bâtiment, appartement, etc. (facultatif)">
+            <FormField id="shipping-address2" label={t("address2Label")}>
               <input
                 type="text"
                 name="address2"
                 value={order.shippingAddress.address2}
                 onChange={handleChange}
-                placeholder="Ex: Appartement 4B"
+                placeholder={t("address2Placeholder")}
                 autoComplete="shipping address-line2"
                 className={inputClassname}
               />
             </FormField>
             <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
-              <FormField id="shipping-postal-code" label="Code postal" required>
+              <FormField id="shipping-postal-code" label={t("postalCodeLabel")} required>
                 <input
                   type="text"
                   name="postalCode"
@@ -187,7 +186,7 @@ export default function Form() {
                   className={inputClassname}
                 />
               </FormField>
-              <FormField id="shipping-city" label="Ville" required>
+              <FormField id="shipping-city" label={t("cityLabel")} required>
                 <input
                   type="text"
                   name="city"
@@ -199,11 +198,11 @@ export default function Form() {
                 />
               </FormField>
             </div>
-            {/* Province field logic - Ensure province data exists */}
+            {/* Province field logic */}
             {order.shippingAddress.country && province[order.shippingAddress.country as keyof typeof province] && (
               <FormField
                 id="shipping-province"
-                label={province[order.shippingAddress.country as keyof typeof province].name}
+                label={t(getProvinceLabelKey(order.shippingAddress.country))}
                 required={province[order.shippingAddress.country as keyof typeof province].required}
               >
                 <select
@@ -213,7 +212,7 @@ export default function Form() {
                   required={province[order.shippingAddress.country as keyof typeof province].required}
                   className={inputClassname}
                 >
-                  <option value="">Veuillez selectionner...</option>
+                  <option value="">{t("provinceSelectDefault")}</option>
                   {province[order.shippingAddress.country as keyof typeof province].options.map((s) => (
                     <option key={s.key} value={s.value}>
                       {s.key}
@@ -222,7 +221,7 @@ export default function Form() {
                 </select>
               </FormField>
             )}
-            <FormField id="shipping-phone" label="Téléphone" required helpText="Nécessaire pour la livraison.">
+            <FormField id="shipping-phone" label={t("phoneLabel")} required helpText={t("phoneHelpText")}>
               <input
                 type="tel"
                 name="phone"
@@ -233,7 +232,7 @@ export default function Form() {
                 className={inputClassname}
               />
             </FormField>
-            <FormField id="shipping-email" label="Adresse e-mail" required helpText="Pour la confirmation de commande.">
+            <FormField id="shipping-email" label={t("emailLabel")} required helpText={t("emailHelpText")}>
               <input
                 type="email"
                 name="email"
@@ -244,18 +243,13 @@ export default function Form() {
                 className={inputClassname}
               />
             </FormField>
-            {/* Password field only if not logged in */}
+            {/* Password (Guest Checkout) */}
             {!userData && (
-              <FormField
-                id="shipping-password"
-                label="Créer un mot de passe"
-                required
-                helpText="Votre compte sera créé avec cet email et mot de passe."
-              >
+              <FormField id="shipping-password" label={t("createPasswordLabel")} required helpText={t("createPasswordHelpText")}>
                 <input type="password" name="password" value={order.password} onChange={handleChange} required className={inputClassname} />
               </FormField>
             )}
-            <FormField id="shipping-order-notes" label="Notes de commande (facultatif)">
+            <FormField id="shipping-order-notes" label={t("orderNotesLabel")}>
               <textarea
                 rows={4}
                 name="order-notes"
@@ -283,7 +277,7 @@ export default function Form() {
           </div>
           <div className="ml-3 text-sm leading-6">
             <label htmlFor="different-billing" className="font-medium text-gray-900 cursor-pointer">
-              Facturer à une adresse différente ?
+              {t("differentBillingLabel")}
             </label>
           </div>
         </div>
@@ -292,17 +286,17 @@ export default function Form() {
       {/* Billing Address Section - Conditionally Shown */}
       <section aria-labelledby="billing-address-heading" className={twMerge(sectionWrapperClassname, clsx({ hidden: !order["different-billing"] }))}>
         <Title
-          title="Adresse de facturation"
+          title={t("billingTitle")}
           type="h2"
           classname={twMerge(titleClassname, "mb-6 text-lg")}
           firstLetterClassname="text-2xl"
           id="billing-address-heading"
         />
-        {/* --- Billing Personal Info --- */}
-        <fieldset aria-label="Informations personnelles adresse de facturation" className="mb-6 border-b border-gray-200 pb-6">
-          <legend className="text-base font-semibold text-gray-900 mb-4">Informations personnelles</legend>
+        {/* Billing Personal Info */}
+        <fieldset aria-label={t("personalInfoLegend")} className="mb-6 border-b border-gray-200 pb-6">
+          <legend className="text-base font-semibold text-gray-900 mb-4">{t("personalInfoLegend")}</legend>
           <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
-            <FormField id="billing-firstname" label="Prénom" required={order["different-billing"]}>
+            <FormField id="billing-firstname" label={t("firstNameLabel")} required={order["different-billing"]}>
               <input
                 type="text"
                 name="firstname"
@@ -313,7 +307,7 @@ export default function Form() {
                 className={inputClassname}
               />
             </FormField>
-            <FormField id="billing-lastname" label="Nom" required={order["different-billing"]}>
+            <FormField id="billing-lastname" label={t("lastNameLabel")} required={order["different-billing"]}>
               <input
                 type="text"
                 name="lastname"
@@ -324,7 +318,7 @@ export default function Form() {
                 className={inputClassname}
               />
             </FormField>
-            <FormField id="billing-company" label="Nom de l'entreprise (facultatif)" className="sm:col-span-2">
+            <FormField id="billing-company" label={t("companyLabel")} className="sm:col-span-2">
               <input
                 type="text"
                 name="company"
@@ -336,11 +330,11 @@ export default function Form() {
             </FormField>
           </div>
         </fieldset>
-        {/* --- Billing Address Info --- */}
-        <fieldset aria-label="Informations d'adresse de facturation">
-          <legend className="text-base font-semibold text-gray-900 mb-4">Informations d&apos;adresse</legend>
+        {/* Billing Address Info */}
+        <fieldset aria-label={t("addressInfoLegend")}>
+          <legend className="text-base font-semibold text-gray-900 mb-4">{t("addressInfoLegend")}</legend>
           <div className="space-y-4">
-            <FormField id="billing-country" label="Pays/région" required={order["different-billing"]}>
+            <FormField id="billing-country" label={t("countryLabel")} required={order["different-billing"]}>
               <select
                 name="country"
                 value={order.billingAddress.country}
@@ -348,7 +342,7 @@ export default function Form() {
                 required={order["different-billing"]}
                 className={inputClassname}
               >
-                <option value="">Sélectionnez un pays...</option>
+                <option value="">{t("countrySelectDefault")}</option>
                 {sseData?.shippingMethods?.byShippingZones &&
                   Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
                     <option key={s + i} value={s}>
@@ -357,31 +351,31 @@ export default function Form() {
                   ))}
               </select>
             </FormField>
-            <FormField id="billing-address1" label="Numéro et nom de rue" required={order["different-billing"]}>
+            <FormField id="billing-address1" label={t("address1Label")} required={order["different-billing"]}>
               <input
                 type="text"
                 name="address1"
                 value={order.billingAddress.address1}
                 onChange={handleChange}
                 required={order["different-billing"]}
-                placeholder="Ex: 123 Rue Principale"
+                placeholder={t("address1Placeholder")}
                 autoComplete="billing address-line1"
                 className={inputClassname}
               />
             </FormField>
-            <FormField id="billing-address2" label="Bâtiment, appartement, etc. (facultatif)">
+            <FormField id="billing-address2" label={t("address2Label")}>
               <input
                 type="text"
                 name="address2"
                 value={order.billingAddress.address2}
                 onChange={handleChange}
-                placeholder="Ex: Appartement 4B"
+                placeholder={t("address2Placeholder")}
                 autoComplete="billing address-line2"
                 className={inputClassname}
               />
             </FormField>
             <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
-              <FormField id="billing-postal-code" label="Code postal" required={order["different-billing"]}>
+              <FormField id="billing-postal-code" label={t("postalCodeLabel")} required={order["different-billing"]}>
                 <input
                   type="text"
                   name="postalCode"
@@ -392,7 +386,7 @@ export default function Form() {
                   className={inputClassname}
                 />
               </FormField>
-              <FormField id="billing-city" label="Ville" required={order["different-billing"]}>
+              <FormField id="billing-city" label={t("cityLabel")} required={order["different-billing"]}>
                 <input
                   type="text"
                   name="city"
@@ -404,11 +398,11 @@ export default function Form() {
                 />
               </FormField>
             </div>
-            {/* Billing Province - Ensure province data exists */}
+            {/* Billing Province */}
             {order.billingAddress.country && province[order.billingAddress.country as keyof typeof province] && (
               <FormField
                 id="billing-province"
-                label={province[order.billingAddress.country as keyof typeof province].name}
+                label={t(getProvinceLabelKey(order.billingAddress.country))}
                 required={order["different-billing"] && province[order.billingAddress.country as keyof typeof province].required}
               >
                 <select
@@ -418,7 +412,7 @@ export default function Form() {
                   required={order["different-billing"] && province[order.billingAddress.country as keyof typeof province].required}
                   className={inputClassname}
                 >
-                  <option value="">Veuillez selectionner...</option>
+                  <option value="">{t("provinceSelectDefault")}</option>
                   {province[order.billingAddress.country as keyof typeof province].options.map((s) => (
                     <option key={s.key} value={s.value}>
                       {s.key}
@@ -427,7 +421,7 @@ export default function Form() {
                 </select>
               </FormField>
             )}
-            <FormField id="billing-phone" label="Téléphone" required={order["different-billing"]}>
+            <FormField id="billing-phone" label={t("phoneLabel")} required={order["different-billing"]}>
               <input
                 type="tel"
                 name="phone"
@@ -438,7 +432,7 @@ export default function Form() {
                 className={inputClassname}
               />
             </FormField>
-            <FormField id="billing-email" label="Adresse e-mail" required={order["different-billing"]}>
+            <FormField id="billing-email" label={t("emailLabel")} required={order["different-billing"]}>
               <input
                 type="email"
                 name="email"

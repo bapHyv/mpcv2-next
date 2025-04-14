@@ -150,18 +150,20 @@
     "cream": "cuidados de CBD",
     "vaporisateur": "vaporizador",
     "connection": "Conexión",
-    "info": "Información",
-    "addresses": "Direcciones",
-    "orders": "Pedidos",
-    "fidelity": "Fidelidad",
-    "logout": "logout es",
-    "login": "Login es",
-    "register": "Sign up es",
+    "selectLanguageSR": "Seleccionar idioma",
     "burger": {
       "english": "Inglés",
       "spanish": "Español",
       "french": "Francés"
-    }
+    },
+    "openUserMenuSR": "Abrir menú de usuario",
+    "info": "Mi Perfil",
+    "addresses": "Mis Direcciones",
+    "orders": "Mis Pedidos",
+    "fidelity": "Fidelidad y Recomendación",
+    "logout": "Cerrar Sesión",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse"
   },
   "footer": {
     "legalNotices": "Aviso legal",
@@ -173,7 +175,15 @@
   },
   "cart": {
     "cart": "carrito",
-    "order": "realizar el pedido"
+    "order": "realizar el pedido",
+    "iconSR": "Ver carrito de compras",
+    "title": "Tu Carrito",
+    "closeButtonSR": "Cerrar carrito",
+    "totalLabel": "Total:",
+    "checkoutButton": "Ver Carrito y Pagar",
+    "emptyMessage": "Tu carrito está actualmente vacío.",
+    "continueShoppingButton": "Continuar Comprando",
+    "orSeparator": "o"
   },
   "productCardCart": {
     "nbItem": "número de artículo",
@@ -181,7 +191,12 @@
     "unitPrice": "precio por unidad",
     "quantity": "cantidad",
     "priceOneArticle": "precio de un artículo",
-    "subtotal": "subtotal"
+    "subtotal": "subtotal",
+    "subtotalLabel": "Subtotal",
+    "unitPriceSuffix": "/{per}",
+    "removeAriaLabel": "Eliminar {name}",
+    "decreaseQtyAriaLabel": "Disminuir cantidad",
+    "increaseQtyAriaLabel": "Aumentar cantidad"
   },
   "addresses": {
     "title": "Mis Direcciones",
@@ -197,6 +212,7 @@
     "billing": "Usar como dirección de facturación",
     "shipping": "Usar como dirección de envío",
     "modal": {
+      "closeButtonSR": "Cerrar",
       "title": "Editar dirección",
       "update": "Actualizar",
       "delete": "Eliminar",
@@ -299,7 +315,11 @@
       "description": "¡Copia y comparte tu enlace de referido con tus amigos para ganar puntos!",
       "copyButton": "Copiar",
       "footerText": "¡Invita a tus amigos a unirse para ganar aún más puntos!"
-    }
+    },
+    "earnPrefix": "✨ Ganarás",
+    "pointsSingular": "punto de fidelidad",
+    "pointsPlural": "puntos de fidelidad",
+    "earnSuffix": "con esta compra ✨"
   },
   "tabs": {
     "profile": "Mis Datos Personales",
@@ -307,7 +327,451 @@
     "orders": "Pedidos",
     "loyalty": "Puntos de fidelidad y referidos"
   },
+  "forgotPasswordPage": {
+    "emailLabel": "Dirección de correo electrónico",
+    "submitButton": "Restablecer contraseña"
+  },
+  "signInPage": {
+    "emailLabel": "Dirección de correo electrónico",
+    "passwordLabel": "Contraseña",
+    "forgotPasswordLink": "¿Olvidaste tu contraseña?",
+    "submitButton": "Iniciar sesión",
+    "showPasswordAriaLabel": "Mostrar contraseña",
+    "hidePasswordAriaLabel": "Ocultar contraseña",
+    "title": "Iniciar Sesión",
+    "description": "Inicia sesión en tu cuenta de Mon Plan CBD.",
+    "h1": "Inicia sesión en tu cuenta",
+    "logoAlt": "Logo de Mon Plan CBD",
+    "signUpPrompt": "¿Aún no eres miembro?",
+    "signUpLink": "Crear una cuenta"
+  },
+  "signUpPage": {
+    "prefsAndConditionsLegendSR": "Preferencias y condiciones",
+    "firstNameLabel": "Nombre",
+    "lastNameLabel": "Apellido",
+    "emailLabel": "Dirección de correo electrónico",
+    "passwordLabel": "Contraseña",
+    "confirmPasswordLabel": "Confirmar contraseña",
+    "passwordMismatchError": "Las contraseñas deben coincidir.",
+    "marketingOptInLabel": "Quiero recibir noticias y promociones de productos.",
+    "termsLabel": "He leído y acepto los",
+    "termsLink": "Términos y Condiciones Generales",
+    "submitButton": "Crear mi cuenta",
+    "showPasswordAriaLabel": "Mostrar contraseña",
+    "hidePasswordAriaLabel": "Ocultar contraseña",
+    "title": "Registro",
+    "description": "Crea tu cuenta de Mon Plan CBD.",
+    "h1": "Crea tu cuenta",
+    "logoAlt": "Logo de Mon Plan CBD",
+    "signInPrompt": "¿Ya eres miembro?",
+    "signInLink": "Iniciar Sesión",
+    "termsLinkText": "Términos y Condiciones Generales"
+  },
+  "cartPage": {
+    "productsTitle": "Productos en Tu Carrito",
+    "summary": {
+      "title": "Resumen del Pedido",
+      "subtotalLabel": "Subtotal",
+      "discountCodeLabel": "Código: {name}",
+      "removeDiscountAriaLabel": "Eliminar código {name}",
+      "fidelityPointsLabel": "Puntos de fidelidad ({count})",
+      "removePointsAriaLabel": "Eliminar puntos de fidelidad",
+      "totalLabel": "Total del Pedido",
+      "vatText": "(incluye {vatAmount}€ IVA)",
+      "checkoutButton": "Proceder al Envío",
+      "loginPromptText": "Inicia sesión para continuar.",
+      "loginPromptLink": "Iniciar sesión"
+    },
+    "discounts": {
+      "accountCodesTitle": "Descuentos de la Cuenta",
+      "promoCodeTitle": "Código Promocional",
+      "inputPlaceholder": "Introduce tu código",
+      "applyButton": "Aplicar"
+    },
+    "loyalty": {
+      "title": "Tus Puntos de Fidelidad",
+      "availableLabel": "Puntos disponibles:",
+      "useInputLabel": "Puntos a usar:",
+      "conversionRate": "1 PUNTO = 0,10 € DE DESCUENTO"
+    }
+  },
+  "discountCode": {
+    "applyButton": "Aplicar",
+    "appliedButton": "Aplicado",
+    "detailsAriaLabel": "Detalles del descuento"
+  },
+  "shippingPage": {
+    "h1": "Envío",
+    "backToCartButton": "Volver al Carrito",
+    "parcelPointMap": {
+      "pointSelectedText": "Punto de recogida seleccionado. Usa el mapa para cambiar si es necesario.",
+      "findButton": "Buscar Puntos de Recogida",
+      "loadingMapText": "Cargando mapa...",
+      "errorAuthText": "Falló la autenticación del mapa. Por favor, actualiza o inténtalo de nuevo.",
+      "errorLoadText": "No se pudo cargar el mapa. Por favor, comprueba tu conexión o inténtalo de nuevo más tarde.",
+      "errorSearchText": "No se pudieron buscar puntos de recogida. Por favor, comprueba la dirección o inténtalo de nuevo.",
+      "errorAddressIncompleteText": "Por favor, asegúrate de que la dirección esté completa para buscar puntos de recogida."
+    },
+    "orderSummary": {
+      "title": "Tu Pedido",
+      "productsHeader": "Productos",
+      "productSubtotalHeader": "Subtotal",
+      "promoCodesHeader": "Códigos Promocionales",
+      "loyaltyHeader": "Programa de Fidelidad",
+      "loyaltyPointsLabel": "Puntos",
+      "finalSubtotalLabel": "Subtotal del Pedido",
+      "discountsHeader": "Descuentos Aplicados",
+      "removeDiscountAriaLabel": "Eliminar {name}",
+      "loyaltyPointsText": "{count} puntos",
+      "removePointsAriaLabel": "Eliminar puntos"
+    },
+    "totalSummary": {
+      "finalTotalLabel": "Importe total:",
+      "title": "Total del Pedido",
+      "shippingCostText": "(incluye {cost}€ de envío)",
+      "privacyPolicyText": "Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en este sitio web y para otros fines descritos en nuestra ",
+      "privacyPolicyLinkText": "política de privacidad",
+      "termsLegendSR": "Condiciones y Marketing",
+      "termsLabel": "He leído y acepto los",
+      "termsLinkText": "términos y condiciones",
+      "marketingLabel": "Quiero recibir noticias sobre productos y promociones.",
+      "relayButtonText": "Por favor, selecciona un punto de recogida",
+      "paymentButtonText": "Proceder al pago",
+      "createAccountButtonText": "Crear cuenta y pagar",
+      "relayErrorText": "Por favor, selecciona un punto de recogida en el mapa de arriba."
+    },
+    "shippingMethods": {
+      "title": "Envío",
+      "costFree": "Gratis",
+      "thresholdText": "(Gratis a partir de {amount}€)",
+      "legendSR": "Métodos de envío",
+      "noMethodsAvailableText": "No hay métodos de envío disponibles para la dirección seleccionada.",
+      "selectCountryText": "Por favor, selecciona un país de entrega en la dirección de arriba para ver las opciones."
+    },
+    "addressForm": {
+      "shippingTitle": "Dirección de Envío",
+      "billingTitle": "Dirección de Facturación",
+      "personalInfoLegend": "Información Personal",
+      "firstNameLabel": "Nombre",
+      "lastNameLabel": "Apellido",
+      "companyLabel": "Empresa (Opcional)",
+      "addressInfoLegend": "Información de Dirección",
+      "countryLabel": "País / Región",
+      "countrySelectDefault": "Selecciona un país...",
+      "address1Label": "Dirección (calle y número)",
+      "address1Placeholder": "Ej: Calle Principal 123",
+      "address2Label": "Apartamento, piso, etc. (Opcional)",
+      "address2Placeholder": "Ej: Apartamento 4B",
+      "postalCodeLabel": "Código Postal",
+      "cityLabel": "Ciudad",
+      "provinceLabel": "Provincia",
+      "stateLabel": "Estado",
+      "regionLabel": "Región",
+      "provinceSelectDefault": "Por favor, selecciona...",
+      "phoneLabel": "Teléfono",
+      "phoneHelpText": "Necesario para actualizaciones de entrega.",
+      "emailLabel": "Dirección de correo electrónico",
+      "emailHelpText": "Para confirmación del pedido.",
+      "createPasswordLabel": "Crear contraseña de cuenta",
+      "createPasswordHelpText": "Tu cuenta se creará usando este correo electrónico y contraseña.",
+      "orderNotesLabel": "Notas del pedido (Opcional)",
+      "differentBillingLabel": "¿Facturar a una dirección diferente?"
+    }
+  },
+  "reviews": {
+    "loginPrompt": {
+      "text": "¿Quieres dejar una reseña?",
+      "link": "Inicia sesión aquí",
+      "suffix": "para compartir tu experiencia (serás redirigido aquí)."
+    },
+    "addReviewTitle": "Añadir Tu Reseña",
+    "ratingLabel": "Tu Calificación",
+    "ratingAriaLabel": "Calificar con {count} de 5 estrellas",
+    "commentLabel": "Tu Reseña",
+    "commentPlaceholder": "Escribe tu reseña aquí...",
+    "commentHint": "Comparte tu experiencia con este producto.",
+    "submitButton": "Enviar Reseña"
+  },
+  "productOptions": {
+    "chooseOptionLabel": "Elige una opción",
+    "addToCartButton": "Añadir al carrito",
+    "outOfStockButton": "Agotado"
+  },
+  "addressesPage": {
+    "billingBadge": "Facturación",
+    "shippingBadge": "Envío",
+    "editButton": "Editar",
+    "deleteButton": "Eliminar",
+    "addModalTitle": "Añadir Nueva Dirección",
+    "editModalTitle": "Editar Dirección",
+    "form": {
+      "firstNameLabel": "Nombre",
+      "lastNameLabel": "Apellido",
+      "countryLabel": "País / Región",
+      "address1Label": "Dirección (calle y número)",
+      "address2Label": "Apartamento, piso, etc. (Opcional)",
+      "companyLabel": "Empresa (Opcional)",
+      "cityLabel": "Ciudad",
+      "postalCodeLabel": "Código Postal",
+      "phoneLabel": "Teléfono",
+      "emailLabel": "Dirección de correo electrónico",
+      "addressTypeLegend": "Tipo de dirección",
+      "billingCheckboxLabel": "Usar como dirección de facturación",
+      "shippingCheckboxLabel": "Usar como dirección de envío",
+      "cancelButton": "Cancelar",
+      "submitAddButton": "Añadir Dirección",
+      "submitUpdateButton": "Guardar Cambios"
+    }
+  },
+  "forms": {
+    "pendingText": "Procesando..."
+  },
+  "account": {
+    "loyaltyPage": {
+      "mainTitle": "Mi Programa de Fidelidad",
+      "balanceTitle": "Tu Saldo Actual",
+      "pointsSingular": "punto",
+      "pointsPlural": "puntos",
+      "cartPointsInfo": "1 punto = 0,10€ de descuento en el carrito",
+      "howToEarnTitle": "Cómo Ganar Puntos",
+      "referralTitle": "Recomendar a un Amigo",
+      "referralFooterText": "¡Comparte tu enlace con amigos para ganar más puntos!",
+      "referralLinkLabel": "Tu enlace de recomendación",
+      "referralCopyTitle": "Copiar Enlace",
+      "boxes": {
+        "box1": {
+          "title": "¡Gana 1 punto por cada 1€ gastado!",
+          "description": "Puntos Ganados: 1 PUNTO / 1.00 €"
+        },
+        "box2": {
+          "title": "¡Valora un producto y recibe 10 puntos!",
+          "description": "Puntos Ganados: 10 PUNTOS"
+        },
+        "box3": {
+          "title": "¡Recibe 50 puntos al registrarte!",
+          "description": "Puntos Ganados: 50 PUNTOS"
+        },
+        "box4": {
+          "title": "Tú Ganas: 1pto por cada 1€ gastado por tu referido (+30€ 1er pedido)",
+          "description": "Puntos Ganados: 1 PUNTO / 1.00 €"
+        },
+        "box5": {
+          "title": "Tu Amigo Gana: ¡50 puntos en su primer pedido!",
+          "description": "Puntos Ganados por Amigo: 50 PUNTOS"
+        }
+      }
+    }
+  },
+  "outOfStockModal": {
+    "closeButtonSR": "Cerrar modal",
+    "title": "Artículos no Disponibles",
+    "mainMessage": "Lamentamos informarte que algunos artículos que estaban en tu carrito ya no están disponibles.",
+    "removedItemsHeader": "Artículo(s) eliminado(s) del carrito:",
+    "similarProductsTitle": "Productos Similares",
+    "similarProductsMessage": "Lamentamos sinceramente este inconveniente. <br /> Aquí tienes una lista de productos similares que podrían interesarte:"
+  },
+  "global": {
+    "loading": "Cargando...",
+    "cartDataError": "Datos del carrito no disponibles. Por favor, actualiza."
+  },
+  "ageVerification": {
+    "title": "¿Eres mayor de 18 años?",
+    "noButton": "No",
+    "yesButton": "Sí"
+  },
+  "productPage": {
+    "priceInfoSR": "Información del producto",
+    "outOfStock": "Agotado"
+  },
+  "paymentPage": {
+    "totalSummary": {
+      "title": "Resumen Final",
+      "totalAmountLabel": "Importe total a pagar:",
+      "shippingCostText": "(incluye {cost}€ de envío)",
+      "privacyPolicyText": "Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en este sitio web y para otros fines descritos en nuestra ",
+      "privacyPolicyLinkText": "política de privacidad",
+      "noMethodButtonText": "Por favor, selecciona un método de pago",
+      "bankTransferButtonText": "Confirmar Pedido (Transferencia)",
+      "cardPaymentButtonText": "Proceder al Pago Seguro"
+    },
+    "paymentMethods": {
+      "title": "Mode de Paiement",
+      "cardTitle": "Carte Bancaire (3D Secure)",
+      "cardImageAlt": "Logos CB Visa Mastercard",
+      "cardDescription": "En choisissant ce mode de paiement, vous pourrez effectuer votre règlement sur le serveur sécurisé de notre banque.",
+      "bankTransferTitle": "Virement Bancaire",
+      "bankTransferDescription": "Effectuez le paiement directement depuis votre compte bancaire. Veuillez utiliser l’ID de votre commande comme référence du paiement. Votre commande ne sera pas expédiée tant que les fonds ne seront pas reçus."
+    },
+    "orderSummary": {
+      "removePointsAriaLabel": "Eliminar puntos de fidelidad"
+    }
+  },
+  "areYouCustomer": {
+    "promptText": "¿Ya tienes una cuenta?",
+    "loginLinkText": "Inicia sesión",
+    "suffixText": "para ver tus beneficios."
+  },
+  "discountMessages": {
+    "minAmount": "Se requiere un gasto mínimo de {amount}€ para este descuento.",
+    "maxAmount": "Se permite un gasto máximo de {amount}€ para este descuento.",
+    "excludePromo": "No se puede usar con artículos en oferta que estén en tu carrito.",
+    "individualUse": "Este descuento no se puede combinar con otros descuentos.",
+    "cartExcludeProducts": "Por favor, elimina {products} de tu carrito para usar este descuento.",
+    "cartExcludeCategories": "Por favor, elimina artículos de las siguientes categorías: {categories}.",
+    "cartRequireProducts": "Requiere {products} en tu carrito.",
+    "cartRequireCategories": "Requiere al menos un artículo de: {categories}.",
+    "itemExcludeProducts": "Descuento no aplicable a {products}. Añade otros artículos elegibles.",
+    "itemExcludeCategories": "Descuento no aplicable a artículos de {categories}. Añade artículos de otras categorías."
+  },
   "alerts": {
+    "referral": {
+      "copy": {
+        "success": {
+          "title": "¡Copiado!",
+          "text": "¡Enlace de recomendación copiado al portapapeles!"
+        },
+        "error": {
+          "title": "Error al Copiar",
+          "text": "No se pudo copiar el enlace. Por favor, inténtalo de nuevo."
+        }
+      }
+    },
+    "auth": {
+      "logoutSuccess": {
+        "title": "Sesión Cerrada",
+        "text": "Has cerrado sesión correctamente."
+      },
+      "logoutError": {
+        "title": "Error al Cerrar Sesión",
+        "text": "Se produjo un error al cerrar la sesión. Por favor, inténtalo de nuevo."
+      },
+      "logoutFailed": {
+        "title": "Fallo al Cerrar Sesión",
+        "text": "No se pudo cerrar la sesión. Por favor, inténtalo de nuevo o contacta con soporte."
+      }
+    },
+    "addReview": {
+      "success": {
+        "title": "Reseña Enviada",
+        "text": "Tu reseña ha sido enviada y está pendiente de aprobación."
+      },
+      "error400": {
+        "title": "Error de Envío",
+        "text": "No se pudo enviar la reseña. Por favor, comprueba tu calificación y comentario."
+      },
+      "error401": {
+        "title": "Inicio de Sesión Requerido",
+        "text": "Por favor, inicia sesión para enviar una reseña."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "No se pudo enviar la reseña debido a un error del servidor. Por favor, inténtalo de nuevo."
+      },
+      "defaultError": {
+        "title": "Error de Envío",
+        "text": "Se produjo un error desconocido al enviar tu reseña."
+      },
+      "error403": { "title": "Ya Evaluado", "text": "Parece que ya has dejado una reseña para este producto." }
+    },
+    "genericError": { "title": "Error", "text": "Se produjo un error inesperado." },
+    "cart": {
+      "insufficientStockIncrement": {
+        "title": "Stock Limitado",
+        "text": "Stock insuficiente para añadir más {name} ({option}{per})."
+      },
+      "productAdded": {
+        "title": "Añadido al Carrito",
+        "text": "{option}{per} - {name} añadido al carrito."
+      },
+      "insufficientStock": {
+        "title": "Stock Insuficiente",
+        "text": "Stock insuficiente para la opción de {option}{per}."
+      },
+      "quantityAdded": {
+        "title": "Cantidad Actualizada",
+        "text": "{option}{per} de {name} añadido(s)."
+      },
+      "quantityRemoved": {
+        "title": "Cantidad Actualizada",
+        "text": "{option}{per} de {name} eliminado(s)."
+      },
+      "productRemoved": {
+        "title": "Producto Eliminado",
+        "text": "{name} eliminado del carrito."
+      },
+      "discountRemoved": {
+        "title": "Código Eliminado",
+        "text": "Código de descuento {name} eliminado."
+      },
+      "pointsRemoved": {
+        "title": "Puntos Eliminados",
+        "text": "Puntos de fidelidad eliminados."
+      },
+      "discountApplied": {
+        "title": "Descuento Aplicado",
+        "text": "Código de descuento {name} aplicado."
+      },
+      "promoCodeApplied": {
+        "title": "Código Aplicado",
+        "text": "¡Código promocional aplicado con éxito!"
+      },
+      "promoCodeAlreadyApplied": {
+        "title": "Ya Aplicado",
+        "text": "Este código promocional ya está aplicado."
+      },
+      "promoCodeInvalid": {
+        "title": "Código Inválido",
+        "text": "Código promocional inválido o no aplicable."
+      }
+    },
+    "signUp": {
+      "success": {
+        "title": "Registro Exitoso",
+        "text": "¡Tu cuenta ha sido creada con éxito!"
+      },
+      "error409": {
+        "title": "Email Existente",
+        "text": "Este correo electrónico ya está registrado. Redirigiendo al inicio de sesión..."
+      },
+      "error400": {
+        "title": "Información Inválida",
+        "text": "Por favor, comprueba la información proporcionada."
+      },
+      "error422": {
+        "title": "Error de Validación",
+        "text": "Alguna información no es válida. Por favor, revisa el formulario."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "No se pudo crear la cuenta debido a un error del servidor. Por favor, inténtalo de nuevo."
+      },
+      "defaultError": {
+        "title": "Error de Registro",
+        "text": "Ha ocurrido un error desconocido durante el registro."
+      }
+    },
+    "signIn": {
+      "success200": {
+        "title": "Éxito",
+        "text": "¡Inicio de sesión exitoso!"
+      },
+      "error401": {
+        "title": "Error de Inicio de Sesión",
+        "text": "Correo electrónico o contraseña incorrectos."
+      },
+      "info204": {
+        "title": "Cuenta no encontrada",
+        "text": "No se encontró ninguna cuenta con este correo electrónico."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "Problema técnico, por favor inténtalo de nuevo más tarde."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "Ha ocurrido un error."
+      }
+    },
     "profile": {
       "infos": {
         "200": {
@@ -325,51 +789,65 @@
       },
       "addresses": {
         "delete": {
-          "200": {
-            "text": "Has eliminado tu dirección correctamente",
-            "title": "Dirección eliminada"
-          },
-          "400": {
-            "text": "Se requiere el ID de la dirección",
-            "title": "ID faltante"
-          },
-          "500": {
-            "text": "Error al eliminar la dirección",
-            "title": "Error"
-          }
+          "200": { "title": "Dirección Eliminada", "text": "Dirección eliminada con éxito." },
+          "400": { "title": "Solicitud Inválida", "text": "Falta el ID de la dirección." },
+          "500": { "title": "Error del Servidor", "text": "No se pudo eliminar la dirección. Por favor, inténtalo de nuevo." }
         },
         "add": {
-          "200": {
-            "text": "Has añadido tu dirección correctamente",
-            "title": "Dirección añadida"
-          },
-          "400": {
-            "text": "Falta una de las informaciones que has proporcionado",
-            "title": "Advertencia"
-          },
-          "409": {
-            "text": "Algo salió mal",
-            "title": "Advertencia"
-          },
-          "422": {
-            "text": "Hay un error semántico en la información que has proporcionado",
-            "title": "Advertencia"
-          }
+          "200": { "title": "Dirección Añadida", "text": "Dirección añadida con éxito." },
+          "400": { "title": "Información Inválida", "text": "Por favor, comprueba los detalles de la dirección proporcionada." },
+          "409": { "title": "Error", "text": "No se pudo añadir la dirección. Por favor, inténtalo de nuevo." },
+          "422": { "title": "Error de Validación", "text": "Alguna información de la dirección no es válida." }
         },
         "update": {
-          "200": {
-            "text": "Has actualizado tu dirección correctamente",
-            "title": "Dirección actualizada"
-          },
-          "400": {
-            "text": "Falta una de las informaciones que has proporcionado",
-            "title": "Advertencia"
-          },
-          "422": {
-            "text": "Hay un error semántico en la información que has proporcionado",
-            "title": "Advertencia"
-          }
+          "200": { "title": "Dirección Actualizada", "text": "Dirección actualizada con éxito." },
+          "400": { "title": "Información Inválida", "text": "Por favor, comprueba los detalles de la dirección proporcionada." },
+          "422": { "title": "Error de Validación", "text": "Alguna información de la dirección no es válida." }
         }
+      }
+    },
+    "accountCreation": {
+      "success200": {
+        "title": "Cuenta Creada",
+        "text": "¡Cuenta creada y sesión iniciada con éxito!"
+      },
+      "error409": {
+        "title": "Email Existente",
+        "text": "Este correo electrónico ya está registrado. Redirigiendo al inicio de sesión..."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "Error del servidor durante la creación de la cuenta. Por favor, inténtalo de nuevo más tarde."
+      },
+      "genericError": {
+        "title": "Error",
+        "text": "Ha ocurrido un error. Por favor, inténtalo de nuevo."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "Ha ocurrido un error desconocido. Por favor, inténtalo de nuevo."
+      }
+    },
+    "forgotPassword": {
+      "success204": {
+        "title": "Correo Enviado",
+        "text": "Si existe una cuenta con este correo electrónico, se ha enviado un enlace para restablecer la contraseña."
+      },
+      "error40x": {
+        "title": "Email Desconocido",
+        "text": "No se encontró ninguna cuenta con esta dirección de correo electrónico."
+      },
+      "error500": {
+        "title": "Error del Servidor",
+        "text": "Error al procesar la solicitud. Por favor, inténtalo de nuevo."
+      },
+      "error400": {
+        "title": "Solicitud Inválida",
+        "text": "Por favor, comprueba la dirección de correo electrónico proporcionada."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "Ha ocurrido un error. Por favor, inténtalo de nuevo."
       }
     }
   }

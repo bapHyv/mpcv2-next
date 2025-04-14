@@ -1,7 +1,10 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { useTranslations } from "next-intl";
 
 import { useAlerts } from "@/app/context/alertsContext";
 import { useOrder } from "@/app/context/orderContext";
@@ -17,6 +20,7 @@ interface Props {
 }
 
 export default function DiscountCode({ name, d }: Props) {
+  const t = useTranslations("");
   const [isIndividualUse, setIsIndividualUse] = useState(false);
   const { sseData } = useSse();
   const { order, setOrder } = useOrder();
@@ -32,11 +36,11 @@ export default function DiscountCode({ name, d }: Props) {
       ...prevState,
       discounts: [...prevState.discounts, { ...discount, name }],
     }));
-    addAlert(uuid(), `Code promo ${name} appliqué`, "Code promo appliqué", "emerald");
+    addAlert(uuid(), t("alerts.cart.discountApplied.text", { name }), t("alerts.cart.discountApplied.title"), "emerald");
   };
 
   useEffect(() => {
-    if (sseData && order.discounts.some((discount) => sseData.coupons[discount.name]?.individualUse)) {
+    if (sseData?.coupons && order.discounts.some((discount) => sseData.coupons[discount.name]?.individualUse)) {
       setIsIndividualUse(true);
     } else {
       setIsIndividualUse(false);
@@ -44,12 +48,12 @@ export default function DiscountCode({ name, d }: Props) {
   }, [order.discounts, sseData]);
 
   const isAlreadyApplied = order.discounts.some((discount) => discount.name === name);
-
   const isDisabledByIndividualUse = isIndividualUse && !isAlreadyApplied;
+  const isButtonDisabled = !status || isDisabledByIndividualUse || !cart.products.length || isAlreadyApplied;
 
   return (
     <div className="flex items-center justify-between py-2">
-      {" "}
+      {/* Discount Name and Value */}
       <div className="flex items-baseline flex-grow min-w-0 mr-2 space-x-2">
         <span className="font-medium text-sm truncate" title={name}>
           {name}
@@ -59,20 +63,23 @@ export default function DiscountCode({ name, d }: Props) {
           {d.discountType === "percent" ? "%" : "€"})
         </span>
       </div>
+
+      {/* Tooltip Icon and Apply Button */}
       <div className="flex items-center justify-end flex-shrink-0 space-x-2">
+        {/* Tooltip - message content comes from hook */}
         {!!message && (
           <div className="has-tooltip group relative">
-            {" "}
-            <QuestionMarkCircleIcon tabIndex={0} className="w-5 h-5 text-blue-600 rounded-full tooltip-trigger cursor-help" />
+            <QuestionMarkCircleIcon
+              tabIndex={0}
+              className="w-5 h-5 text-blue-600 rounded-full tooltip-trigger cursor-help"
+              aria-label={t("discountCode.detailsAriaLabel")}
+            />
             <span className="tooltip">{message}</span>
           </div>
         )}
-        <button
-          disabled={!status || isDisabledByIndividualUse || !cart.products.length || isAlreadyApplied}
-          className={twMerge(buttonClassname, "px-3 py-1 text-xs")}
-          onClick={() => handleUseDiscountCode(d, name)}
-        >
-          {isAlreadyApplied ? "Appliqué" : "Utiliser"}
+        {/* Apply/Applied Button */}
+        <button disabled={isButtonDisabled} className={twMerge(buttonClassname, "px-3 py-1 text-xs")} onClick={() => handleUseDiscountCode(d, name)}>
+          {isAlreadyApplied ? t("discountCode.appliedButton") : t("discountCode.applyButton")}
         </button>
       </div>
     </div>

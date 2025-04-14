@@ -63,7 +63,7 @@ export default async function NavBar({ locale }: { locale: string }) {
 
           <div className="flex justify-between w-[15%] sm:w-[25%]">
             {/* LANGUAGE SELECTOR TABLET AND DESKTOP */}
-            <LanguageSelector locale={locale} />
+            <LanguageSelector />
 
             <ProfileHeader locale={locale} />
 

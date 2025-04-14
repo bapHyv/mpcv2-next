@@ -1,9 +1,8 @@
-// SignUpForm.tsx
 "use client";
 
 import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams, redirect as nextRedirect } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
 import Link from "next/link";
@@ -16,9 +15,8 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 import { useTranslations } from "next-intl";
 import Star from "@/app/components/Star";
-import { inputClassname, labelClassname, buttonClassname, checkRadioClassname, linkClassname } from "@/app/staticData/cartPageClasses"; // Adjust path
+import { inputClassname, labelClassname, checkRadioClassname, linkClassname } from "@/app/staticData/cartPageClasses";
 
-// Initial state for the form hook
 const initialState = {
   message: "",
   data: null,
@@ -51,7 +49,7 @@ const FormField = ({
 );
 
 export default function SignUpForm() {
-  const t = useTranslations();
+  const t = useTranslations("");
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -73,41 +71,41 @@ export default function SignUpForm() {
       if (state.isSuccess && isUserDataAPIResponse(state.data) && state.statusCode === 200) {
         const redirectPath = searchParams.get("redirect");
         setUserData(state.data);
-        console.log(state.data);
         localStorage.setItem("accessToken", state.data.accessToken);
         localStorage.setItem("refreshToken", state.data.refreshToken);
         addAlert(uuid(), t("alerts.signUp.success.text"), t("alerts.signUp.success.title"), "emerald");
-        router.push(redirectPath ? `/${redirectPath}` : "/");
+        router.push(redirectPath ? `/${redirectPath}` : "/"); // Redirect to account
         router.refresh();
       } else {
-        let alertTitle = t("alerts.genericError.title");
-        let alertText = state.message || t("alerts.genericError.text");
+        let titleKey = "alerts.signUp.defaultError.title";
+        let textKey = "alerts.signUp.defaultError.text";
         let alertType: "yellow" | "red" | "blue" = "red";
 
         switch (state.statusCode) {
           case 409:
-            alertTitle = t("alerts.signUp.409.title");
-            alertText = state.message || t("alerts.signUp.409.text");
+            titleKey = "alerts.signUp.error409.title";
+            textKey = "alerts.signUp.error409.text";
             alertType = "blue";
-            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent((state.data as string) || initialEmail)}`), 500);
+            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent(state.email || initialEmail)}`), 500);
             break;
-          case 400: // Bad Request / Invalid input
-            alertTitle = t("alerts.signUp.400.title");
-            alertText = state.message || t("alerts.signUp.400.text");
+          case 400:
+            titleKey = "alerts.signUp.error400.title";
+            textKey = "alerts.signUp.error400.text";
             alertType = "yellow";
             break;
-          case 422: // Server-side validation error
-            alertTitle = t("alerts.signUp.422.title");
-            alertText = state.message || t("alerts.signUp.422.text");
+          case 422:
+            titleKey = "alerts.signUp.error422.title";
+            textKey = "alerts.signUp.error422.text";
             alertType = "yellow";
             break;
-          case 500: // Server Error
-            alertTitle = t("alerts.signUp.500.title");
-            alertText = state.message || t("alerts.signUp.500.text");
+          case 500:
+            titleKey = "alerts.signUp.error500.title";
+            textKey = "alerts.signUp.error500.text";
             alertType = "red";
             break;
         }
-        addAlert(uuid(), alertText, alertTitle, alertType);
+        const alertText = state.message || t(textKey);
+        addAlert(uuid(), alertText, t(titleKey), alertType);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -123,18 +121,31 @@ export default function SignUpForm() {
 
   return (
     <form action={formAction} className="space-y-5">
+      {/* First/Last Name */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
-        <FormField id="firstname" label="Prénom" required>
+        <FormField id="firstname" label={t("signUpPage.firstNameLabel")} required>
           <input type="text" name="firstname" required className={inputClassname} />
         </FormField>
-        <FormField id="lastname" label="Nom" required>
+        <FormField id="lastname" label={t("signUpPage.lastNameLabel")} required>
           <input type="text" name="lastname" required className={inputClassname} />
         </FormField>
       </div>
-      <FormField id="email" label="Adresse e-mail" required>
-        <input type="email" name="email" required defaultValue={initialEmail} className={inputClassname} />
+
+      {/* Email */}
+      <FormField id="email" label={t("signUpPage.emailLabel")} required>
+        <input
+          type="email"
+          name="email"
+          required
+          defaultValue={initialEmail}
+          className={inputClassname}
+          aria-describedby={state?.errors?.email ? "email-error" : undefined}
+        />
+        {/* TODO Optional: state?.errors?.email */}
       </FormField>
-      <FormField id="password" label="Mot de passe" required>
+
+      {/* Password */}
+      <FormField id="password" label={t("signUpPage.passwordLabel")} required>
         <div className="relative">
           <input
             type={inputType}
@@ -144,18 +155,22 @@ export default function SignUpForm() {
             required
             autoComplete="new-password"
             className={inputClassname}
+            aria-describedby={state?.errors?.password ? "password-error" : undefined}
           />
           <button
             type="button"
             onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
-            aria-label={inputType === "password" ? "Show password" : "Hide password"}
+            aria-label={inputType === "password" ? t("signUpPage.showPasswordAriaLabel") : t("signUpPage.hidePasswordAriaLabel")}
           >
             {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
           </button>
         </div>
+        {/* Optional: state?.errors?.password */}
       </FormField>
-      <FormField id="repeat-password" label="Confirmer le mot de passe" required>
+
+      {/* Repeat Password */}
+      <FormField id="repeat-password" label={t("signUpPage.confirmPasswordLabel")} required>
         <div className="relative">
           <input
             type={inputType}
@@ -172,7 +187,7 @@ export default function SignUpForm() {
             type="button"
             onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
-            aria-label={inputType === "password" ? "Show password" : "Hide password"}
+            aria-label={inputType === "password" ? t("signUpPage.showPasswordAriaLabel") : t("signUpPage.hidePasswordAriaLabel")}
           >
             {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
           </button>
@@ -180,27 +195,31 @@ export default function SignUpForm() {
         {/* Password Mismatch Error Message */}
         {!doesPasswordsMatch ? (
           <p id="passwords-dont-match" role="alert" className="mt-1 text-xs text-red-600">
-            Les mots de passe doivent correspondre.
+            {t("signUpPage.passwordMismatchError")}
           </p>
         ) : null}
       </FormField>
+
+      {/* Checkboxes */}
       <fieldset className="space-y-4 pt-2">
-        <legend className="sr-only">Préférences et conditions</legend>
+        <legend className="sr-only">{t("signUpPage.prefsAndConditionsLegendSR")}</legend>
+        {/* Marketing Opt-in */}
         <div className="relative flex items-start">
           <div className="flex h-6 items-center">
             <input id="optInMarketing" name="optInMarketing" type="checkbox" className={checkRadioClassname} />
           </div>
           <div className="ml-3 text-sm leading-6">
             <label htmlFor="optInMarketing" className="font-medium text-gray-900 cursor-pointer">
-              Je souhaite recevoir les actualités produits et promotions.
+              {t("signUpPage.marketingOptInLabel")}
             </label>
           </div>
         </div>
+        {/* Terms and Conditions */}
         <div className="relative flex items-start">
           <div className="flex h-6 items-center">
             <input
               id="condition-generales"
-              name="condition-generales"
+              name="condition-generales" // TODO: Ensure name matches action if needed
               type="checkbox"
               checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}
@@ -210,17 +229,19 @@ export default function SignUpForm() {
           </div>
           <div className="ml-3 text-sm leading-6">
             <label htmlFor="condition-generales" className="text-gray-700 cursor-pointer">
-              J&apos;ai lu et j&apos;accepte les{" "}
+              {t("signUpPage.termsLabel")}{" "}
               <Link href="/conditions-generales-de-vente" target="_blank" className={linkClassname}>
-                conditions générales
+                {t("signUpPage.termsLink")}
               </Link>{" "}
               <Star />
             </label>
           </div>
         </div>
       </fieldset>
+
+      {/* Submit Button */}
       <div>
-        <SubmitButton text="Créer mon compte" isDisabled={!doesPasswordsMatch || !agreedToTerms} className="w-full mt-4" />
+        <SubmitButton text={t("signUpPage.submitButton")} isDisabled={!doesPasswordsMatch || !agreedToTerms} className="w-full mt-4" />
       </div>
     </form>
   );

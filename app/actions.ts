@@ -45,7 +45,7 @@ interface IUser {
   billingAddress: billingAddress | null;
 }
 
-export type statusCode = 0 | 200 | 204 | 400 | 401 | 404 | 409 | 422 | 500;
+export type statusCode = 0 | 200 | 201 | 204 | 400 | 401 | 404 | 409 | 422 | 500;
 export type data = null | UserDataAPIResponse | Address | { id: string } | {};
 
 export interface IResponseAPI {

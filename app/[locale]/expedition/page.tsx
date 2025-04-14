@@ -1,4 +1,3 @@
-// page.tsx (Expedition)
 "use client";
 
 import Link from "next/link";
@@ -8,6 +7,7 @@ import { useEffect, useRef, useState, FormEvent } from "react";
 import clsx from "clsx";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { twMerge } from "tailwind-merge";
+import { useTranslations } from "next-intl";
 
 import Form from "@/app/components/shippingPage/Form";
 import Total from "@/app/components/shippingPage/Total";
@@ -38,6 +38,7 @@ export default function DisplayComponents() {
   const router = useRouter();
   const { addAlert } = useAlerts();
   const { userData, setUserData } = useAuth();
+  const t = useTranslations("");
 
   const handleAction = async (e: FormEvent<HTMLFormElement>) => {
     if (form.current) {
@@ -55,9 +56,9 @@ export default function DisplayComponents() {
           router.push("/paiement");
         }
       } catch (error) {
-        console.error(error);
+        console.error("Error during form action:", error);
         setIsPending(false);
-        addAlert(uuid(), "Une erreur est survenue.", "Erreur", "red");
+        addAlert(uuid(), t("alerts.accountCreation.genericError.text"), t("alerts.accountCreation.genericError.title"), "red");
       }
     }
   };
@@ -67,23 +68,36 @@ export default function DisplayComponents() {
       if (actionResponse.isSuccess && actionResponse.data && actionResponse.statusCode === 200) {
         if (isUserDataAPIResponse(actionResponse.data)) {
           setUserData(actionResponse.data);
-          addAlert(uuid(), "Compte créé et connexion réussie.", "Connexion réussie", "emerald");
+          addAlert(uuid(), t("alerts.accountCreation.success200.text"), t("alerts.accountCreation.success200.title"), "emerald");
           router.push("/paiement");
+        } else {
+          console.warn("Successful response but unexpected data format:", actionResponse.data);
+          addAlert(uuid(), t("alerts.accountCreation.defaultError.text"), t("alerts.accountCreation.defaultError.title"), "yellow");
         }
       } else if (!actionResponse.isSuccess) {
+        let textKey = "alerts.accountCreation.defaultError.text";
+        let titleKey = "alerts.accountCreation.title";
+        let color: "blue" | "red" | "yellow" = "red";
+
         switch (actionResponse.statusCode) {
           case 409:
-            addAlert(uuid(), "Email déjà utilisé. Redirection vers la connexion.", "Utilisateur existant", "blue");
+            textKey = "alerts.accountCreation.error409.text";
+            titleKey = "alerts.accountCreation.error409.title";
+            color = "blue";
             setTimeout(() => router.push("/connexion?redirect=paiement"), 500);
             break;
           case 500:
-            addAlert(uuid(), "Erreur serveur lors de la création du compte.", "Erreur Serveur", "red");
+            textKey = "alerts.accountCreation.error500.text";
+            titleKey = "alerts.accountCreation.error500.title";
+            color = "red";
             break;
-          default:
-            addAlert(uuid(), actionResponse.message || "Une erreur inconnue est survenue.", "Erreur", "red");
-            break;
+          // Add other cases like 400, 422 if your register action can return them
         }
+        // Use server message if available, otherwise use translated fallback
+        const alertText = actionResponse.message || t(textKey);
+        addAlert(uuid(), alertText, t(titleKey), color);
       }
+      // Reset response after handling
       setActionResponse(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,22 +105,20 @@ export default function DisplayComponents() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-      {/* Center Title */}
       <Title
-        title="Expédition"
+        title={t("shippingPage.h1")}
         type="h1"
         classname={`relative mb-6 text-center uppercase text-xl text-green font-bold tracking-widest`}
         firstLetterClassname="text-4xl"
       />
 
-      {/* Back Link - Styled nicely */}
       <div className="mb-6">
         <Link
           href={"/panier"}
           className={twMerge(clsx(buttonClassname, "bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50", "px-3 py-1.5 text-sm"))}
         >
           <ArrowLeftIcon className="h-4 w-4 mr-1.5" aria-hidden="true" />
-          Retour au panier
+          {t("shippingPage.backToCartButton")}
         </Link>
       </div>
 

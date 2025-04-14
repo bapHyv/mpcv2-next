@@ -1,15 +1,14 @@
 "use client";
 
-import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
-import { useAlerts } from "@/app/context/alertsContext";
-
 import { XMarkIcon, PlusIcon, MinusIcon } from "@heroicons/react/20/solid";
-
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
+
+import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
+import { useAlerts } from "@/app/context/alertsContext";
 
 export default function CartProductCard({
   cartItemId,
@@ -25,33 +24,42 @@ export default function CartProductCard({
 }: ProductCart & { isInModale: boolean }) {
   const { addAlert } = useAlerts();
   const { cart, setCart, products } = useProductsAndCart();
-  const t = useTranslations("productCardCart");
+  const t = useTranslations("");
+
+  const productContextData = products ? products[id] : null;
+  const currentStock = productContextData ? parseInt(productContextData.stock || "0", 10) : 0;
+  const isStockAvailableForIncrement = !isNaN(currentStock) && currentStock >= parseInt(option, 10) * (quantity + 1);
 
   const removeProduct = () => {
     const updatedCartProducts = cart.products.filter((product) => product.cartItemId !== cartItemId);
-
     setCart((prevCart) => ({ ...prevCart, products: updatedCartProducts }));
+    addAlert(uuid(), t("alerts.cart.productRemoved.text", { name }), t("alerts.cart.productRemoved.title"), "yellow");
   };
 
   const incrementQuantity = () => {
-    if (parseInt(products[id].stock) >= parseInt(option)) {
+    if (isStockAvailableForIncrement) {
       setCart((prevCart) => {
         const updatedCartProducts = prevCart.products.map((product) => {
           if (product.cartItemId === cartItemId) {
+            const newQuantity = product.quantity + 1;
             return {
               ...product,
-              quantity: product.quantity + 1,
-              totalPrice: (product.quantity + 1) * product.unitPrice,
+              quantity: newQuantity,
+              totalPrice: newQuantity * product.unitPrice,
             };
           }
           return product;
         });
-
         return { ...prevCart, products: updatedCartProducts };
       });
-
-      const alertAddQuantityDescription = `Vous avez bien ajouté ${option} ${per} du produit: ${name}`;
-      addAlert(uuid(), alertAddQuantityDescription, "Ajout de produit", "emerald");
+      addAlert(uuid(), t("alerts.cart.quantityAdded.text", { option, per, name }), t("alerts.cart.quantityAdded.title"), "emerald");
+    } else {
+      addAlert(
+        uuid(),
+        t("alerts.cart.insufficientStockIncrement.text", { name, option, per }),
+        t("alerts.cart.insufficientStockIncrement.title"),
+        "yellow"
+      );
     }
   };
 
@@ -60,86 +68,96 @@ export default function CartProductCard({
       setCart((prevCart) => {
         const updatedCartProducts = prevCart.products.map((product) => {
           if (product.cartItemId === cartItemId) {
+            const newQuantity = product.quantity - 1;
             return {
               ...product,
-              quantity: product.quantity - 1,
-              totalPrice: (product.quantity - 1) * product.unitPrice,
+              quantity: newQuantity,
+              totalPrice: newQuantity * product.unitPrice,
             };
           }
           return product;
         });
-
         return { ...prevCart, products: updatedCartProducts };
       });
-
-      const alertRemoveQuantityDescription = `Vous avez retiré ${option} ${per} du produit: ${name}`;
-      addAlert(uuid(), alertRemoveQuantityDescription, "Ajout de produit", "yellow");
+      addAlert(uuid(), t("alerts.cart.quantityRemoved.text", { option, per, name }), t("alerts.cart.quantityRemoved.title"), "yellow");
     }
+    // Optional: If quantity is 1, maybe call removeProduct directly or disable button further?
+    // Currently, the button is visually disabled below, but logic doesn't prevent click if somehow enabled.
   };
 
   return (
-    <>
-      <div className={twMerge(clsx("relative flex border border-neutral-400 rounded-md shadow-md mb-2 max-h-[140px]", { "mb-0": isInModale }))}>
-        {!isInModale && (
-          <XMarkIcon
-            onClick={() => {
-              removeProduct();
-              addAlert(uuid(), `Le produit ${name} a bien été retiré du panier`, "Suppression de produit", "yellow");
-            }}
-            className="absolute h-[22px] w-[22px] top-0.5 right-0.5 text-neutral-700 cursor-pointer rounded-md hover:bg-neutral-100"
-          />
-        )}
-        <div className="relative w-1/4 flex items-center justify-center aspect-w-1">
-          <Image
-            src={!!image?.url ? `https://www.monplancbd.fr/wp-content/uploads/${image.url}` : "/canna-vert.png"}
-            alt={!!image?.url ? image.alt : "logo monplancbd"}
-            width={1920}
-            height={1080}
-            className="rounded-l-md w-full h-full top-0 left-0 object-cover"
-          />
+    <div
+      className={twMerge(
+        "relative flex border border-gray-200 rounded-md shadow-sm bg-white",
+        "mb-3 max-h-[120px] sm:max-h-[140px]",
+        isInModale ? "!mb-0 border-none shadow-none" : ""
+      )}
+    >
+      {!isInModale && (
+        <button
+          type="button"
+          onClick={removeProduct}
+          aria-label={t("productCardCart.removeAriaLabel", { name })}
+          className="absolute z-10 p-0.5 top-1 right-1 text-gray-400 hover:text-gray-600 bg-white/50 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-1 focus:ring-inset focus:ring-red-500"
+        >
+          <XMarkIcon className="h-5 w-5" />
+        </button>
+      )}
+
+      {/* Image Container */}
+      <div className="relative flex-shrink-0 w-1/4 sm:w-1/3">
+        <Image
+          src={!!image ? `https://www.monplancbd.fr/wp-content/uploads/${image.url}` : "/canna-vert.png"}
+          alt={!!image ? image.alt : name}
+          fill
+          sizes="(max-width: 640px) 20vw, 15vw"
+          className={clsx("rounded-l-md object-cover", isInModale && "!rounded-md")}
+        />
+      </div>
+
+      {/* Details Container */}
+      <div className="flex-grow p-2 sm:p-3 flex flex-col justify-between text-sm">
+        <div>
+          <p className="font-semibold text-gray-900 truncate text-base leading-tight">{name}</p>
+          <p className="text-xs text-gray-500 mt-0.5">
+            {option}
+            {per} - {unitPrice.toFixed(2)}€{t("productCardCart.unitPriceSuffix", { per })}
+          </p>
         </div>
-
-        <div className="w-3/4 text-neutral-900 p-3 md:text-lg">
-          <div className="w-full">
-            <p className="text-md text-ellipsis overflow-hidden text-nowrap md:text-lg text-dark-green">{name}</p>
-          </div>
-          <div className="flex items-center justify-between mb-2">
-            <p className="text-sm">
-              {option} {per} - {unitPrice}€/{per}
-            </p>
-
-            {!isInModale && (
-              <div className="flex items-center gap-x-3 border border-neutral-300 bg-neutral-200 rounded-full">
+        {/* Bottom part: Quantity and Total */}
+        <div className="flex items-end justify-between mt-1">
+          {!isInModale && productContextData ? (
+            <div className="flex items-center gap-x-1 border border-gray-300 bg-white rounded-full px-1 py-0.5 shadow-sm">
+              <button type="button" onClick={decrementQuantity} disabled={quantity <= 1} aria-label={t("productCardCart.decreaseQtyAriaLabel")}>
                 <MinusIcon
-                  onClick={decrementQuantity}
                   className={twMerge(
-                    clsx(quantity === 1 ? "cursor-not-allowed bg-neutral-400" : "cursor-pointer bg-green", "text-white rounded-full h-5 w-5")
+                    "h-5 w-5 p-0.5 rounded-full transition-colors",
+                    quantity <= 1 ? "text-gray-300 cursor-not-allowed" : "text-gray-500 hover:bg-gray-100 active:bg-gray-200"
                   )}
                 />
-                <span className="text-sm">{quantity}</span>
+              </button>
+              <span className="font-medium text-gray-800 text-sm w-5 text-center tabular-nums">{quantity}</span>
+              <button
+                type="button"
+                onClick={incrementQuantity}
+                disabled={!isStockAvailableForIncrement}
+                aria-label={t("productCardCart.increaseQtyAriaLabel")}
+              >
                 <PlusIcon
-                  onClick={incrementQuantity}
                   className={twMerge(
-                    clsx(
-                      parseInt(products[id]?.stock) < parseInt(option) ? "cursor-not-allowed bg-neutral-400" : "cursor-pointer bg-green",
-                      "text-white rounded-full h-5 w-5"
-                    )
+                    "h-5 w-5 p-0.5 rounded-full transition-colors",
+                    !isStockAvailableForIncrement ? "text-gray-300 cursor-not-allowed" : "text-green hover:bg-emerald-50 active:bg-emerald-100"
                   )}
                 />
-              </div>
-            )}
-          </div>
+              </button>
+            </div>
+          ) : (
+            <span className="text-xs text-gray-500">Qty: {quantity}</span>
+          )}
 
-          <p className="text-sm text-right">
-            {quantity} x {unitPrice.toFixed(2)}€
-          </p>
-
-          <p className="font-medium italic text-right text-sm">
-            {/* <span className="capitalize">{t("subtotal")}</span>:{" "} */}
-            <span className="text-blue-600">{totalPrice.toFixed(2)}€</span>
-          </p>
+          <p className="font-semibold text-base text-blue-600">{totalPrice.toFixed(2)}€</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -150,18 +150,20 @@
     "cream": "cbd cream",
     "vaporisateur": "vapo cbd",
     "connection": "Sign in",
-    "info": "Profile",
-    "addresses": "Addresses",
-    "orders": "Orders",
-    "fidelity": "Sponsorship",
-    "logout": "Logout",
-    "login": "Login",
-    "register": "Sign up",
+    "selectLanguageSR": "Select language",
     "burger": {
       "english": "English",
       "spanish": "Spanish",
       "french": "French"
-    }
+    },
+    "openUserMenuSR": "Open user menu",
+    "info": "My Profile",
+    "addresses": "My Addresses",
+    "orders": "My Orders",
+    "fidelity": "Loyalty & Referral",
+    "logout": "Log Out",
+    "login": "Log In",
+    "register": "Sign Up"
   },
   "footer": {
     "legalNotices": "legal notices",
@@ -173,7 +175,15 @@
   },
   "cart": {
     "cart": "cart",
-    "order": "place order"
+    "order": "place order",
+    "iconSR": "View shopping cart",
+    "title": "Your Cart",
+    "closeButtonSR": "Close cart",
+    "totalLabel": "Total:",
+    "checkoutButton": "View Cart & Checkout",
+    "emptyMessage": "Your cart is currently empty.",
+    "continueShoppingButton": "Continue Shopping",
+    "orSeparator": "or"
   },
   "productCardCart": {
     "nbItem": "number of item",
@@ -181,7 +191,12 @@
     "unitPrice": "unit price",
     "quantity": "quantity",
     "priceOneArticle": "price per item",
-    "subtotal": "subtotal"
+    "subtotal": "subtotal",
+    "subtotalLabel": "Subtotal",
+    "unitPriceSuffix": "/{per}",
+    "removeAriaLabel": "Remove {name}",
+    "decreaseQtyAriaLabel": "Decrease quantity",
+    "increaseQtyAriaLabel": "Increase quantity"
   },
   "addresses": {
     "title": "My Addresses",
@@ -197,6 +212,7 @@
     "billing": "Use as a billing address",
     "shipping": "Use as a shipping address",
     "modal": {
+      "closeButtonSR": "Close",
       "title": "Edit Address",
       "update": "Update",
       "delete": "Delete",
@@ -299,15 +315,465 @@
       "description": "Copy and share your referral link with your friends to earn points!",
       "copyButton": "Copy",
       "footerText": "Invite your friends to join us to earn even more points!"
-    }
+    },
+    "earnPrefix": "✨ You will earn",
+    "pointsSingular": "loyalty point",
+    "pointsPlural": "loyalty points",
+    "earnSuffix": "with this purchase ✨"
   },
+
+  "STOP_HERE": "________________________________________________________________________________________________________________________",
   "tabs": {
     "profile": "Personal Information",
     "addresses": "Addresses",
     "orders": "Orders",
     "loyalty": "Loyalty Points & Referral"
   },
+  "forgotPasswordPage": {
+    "emailLabel": "Email address",
+    "submitButton": "Reset Password"
+  },
+  "signInPage": {
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "forgotPasswordLink": "Forgot password?",
+    "submitButton": "Sign in",
+    "showPasswordAriaLabel": "Show password",
+    "hidePasswordAriaLabel": "Hide password",
+    "title": "Sign In",
+    "description": "Sign in to your Mon Plan CBD account.",
+    "h1": "Sign in to your account",
+    "logoAlt": "Mon Plan CBD Logo",
+    "signUpPrompt": "Not a member yet?",
+    "signUpLink": "Create an account"
+  },
+  "signUpPage": {
+    "prefsAndConditionsLegendSR": "Preferences and conditions",
+    "firstNameLabel": "First name",
+    "lastNameLabel": "Last name",
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "passwordMismatchError": "Passwords must match.",
+    "marketingOptInLabel": "I want to receive product news and promotions.",
+    "termsLabel": "I have read and agree to the",
+    "termsLink": "Terms and Conditions",
+    "submitButton": "Create my account",
+    "showPasswordAriaLabel": "Show password",
+    "hidePasswordAriaLabel": "Hide password",
+    "title": "Sign Up",
+    "description": "Create your Mon Plan CBD account.",
+    "h1": "Create your account",
+    "logoAlt": "Mon Plan CBD Logo",
+    "signInPrompt": "Already a member?",
+    "signInLink": "Sign In",
+    "termsLinkText": "Terms and Conditions"
+  },
+  "cartPage": {
+    "productsTitle": "Products in Your Cart",
+    "summary": {
+      "title": "Order Summary",
+      "subtotalLabel": "Subtotal",
+      "discountCodeLabel": "Code: {name}",
+      "removeDiscountAriaLabel": "Remove code {name}",
+      "fidelityPointsLabel": "Loyalty Points ({count})",
+      "removePointsAriaLabel": "Remove loyalty points",
+      "totalLabel": "Order Total",
+      "vatText": "(includes {vatAmount}€ VAT)",
+      "checkoutButton": "Proceed to Shipping",
+      "loginPromptText": "Log in to continue.",
+      "loginPromptLink": "Log in"
+    },
+    "discounts": {
+      "accountCodesTitle": "Account Discounts",
+      "promoCodeTitle": "Promo Code",
+      "inputPlaceholder": "Enter code here",
+      "applyButton": "Apply"
+    },
+    "loyalty": {
+      "title": "Your Loyalty Points",
+      "availableLabel": "Available points:",
+      "useInputLabel": "Points to use:",
+      "conversionRate": "1 POINT = 0.10 € DISCOUNT"
+    }
+  },
+  "discountCode": {
+    "applyButton": "Apply",
+    "appliedButton": "Applied",
+    "detailsAriaLabel": "Discount details"
+  },
+  "shippingPage": {
+    "h1": "Shipping",
+    "backToCartButton": "Back to Cart",
+    "parcelPointMap": {
+      "pointSelectedText": "Pickup point selected. Use map to change if needed.",
+      "findButton": "Find Pickup Points",
+      "loadingMapText": "Loading map...",
+      "errorAuthText": "Map authentication failed. Please refresh or try again.",
+      "errorLoadText": "Map could not be loaded. Please check your connection or try again later.",
+      "errorSearchText": "Could not search for pickup points. Please check the address or try again.",
+      "errorAddressIncompleteText": "Please ensure address is complete to search for pickup points."
+    },
+    "orderSummary": {
+      "title": "Your Order",
+      "productsHeader": "Products",
+      "productSubtotalHeader": "Subtotal",
+      "promoCodesHeader": "Promo Codes",
+      "loyaltyHeader": "Loyalty Program",
+      "loyaltyPointsLabel": "Points",
+      "finalSubtotalLabel": "Order Subtotal",
+      "discountsHeader": "Discounts Applied",
+      "removeDiscountAriaLabel": "Remove {name}",
+      "loyaltyPointsText": "{count} points",
+      "removePointsAriaLabel": "Remove points"
+    },
+    "totalSummary": {
+      "finalTotalLabel": "Total amount:",
+      "title": "Order Total",
+      "shippingCostText": "(includes {cost}€ shipping)",
+      "privacyPolicyText": "Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <link>privacy policy</link>.",
+      "privacyPolicyLinkText": "privacy policy",
+      "termsLegendSR": "Terms and Marketing",
+      "termsLabel": "I have read and agree to the",
+      "termsLinkText": "terms and conditions",
+      "marketingLabel": "I want to receive news about products and promotions.",
+      "relayButtonText": "Please select a pickup point",
+      "paymentButtonText": "Proceed to Payment",
+      "createAccountButtonText": "Create Account & Pay",
+      "relayErrorText": "Please select a pickup point on the map above."
+    },
+    "shippingMethods": {
+      "title": "Shipping",
+      "costFree": "Free",
+      "thresholdText": "(Free from {amount}€)",
+      "legendSR": "Shipping Methods",
+      "noMethodsAvailableText": "No shipping methods available for the selected address.",
+      "selectCountryText": "Please select a delivery country in the address above to see options."
+    },
+    "addressForm": {
+      "shippingTitle": "Shipping Address",
+      "billingTitle": "Billing Address",
+      "personalInfoLegend": "Personal Information",
+      "firstNameLabel": "First name",
+      "lastNameLabel": "Last name",
+      "companyLabel": "Company (Optional)",
+      "addressInfoLegend": "Address Information",
+      "countryLabel": "Country / Region",
+      "countrySelectDefault": "Select a country...",
+      "address1Label": "Street address",
+      "address1Placeholder": "E.g., 123 Main St",
+      "address2Label": "Apartment, suite, etc. (Optional)",
+      "address2Placeholder": "E.g., Apartment 4B",
+      "postalCodeLabel": "Postal Code",
+      "cityLabel": "City",
+      "provinceLabel": "Province",
+      "stateLabel": "State",
+      "regionLabel": "Region",
+      "provinceSelectDefault": "Please select...",
+      "phoneLabel": "Phone",
+      "phoneHelpText": "Required for delivery updates.",
+      "emailLabel": "Email address",
+      "emailHelpText": "For order confirmation.",
+      "createPasswordLabel": "Create account password",
+      "createPasswordHelpText": "Your account will be created using this email and password.",
+      "orderNotesLabel": "Order notes (Optional)",
+      "differentBillingLabel": "Bill to a different address?"
+    }
+  },
+  "reviews": {
+    "loginPrompt": {
+      "text": "Want to leave a review?",
+      "link": "Log in here",
+      "suffix": "to share your thoughts (you'll be redirected back here)."
+    },
+    "addReviewTitle": "Add Your Review",
+    "ratingLabel": "Your Rating",
+    "ratingAriaLabel": "Rate {count} out of 5 stars",
+    "commentLabel": "Your Review",
+    "commentPlaceholder": "Write your review here...",
+    "commentHint": "Share your experience with this product.",
+    "submitButton": "Submit Review"
+  },
+  "productOptions": {
+    "chooseOptionLabel": "Choose an option",
+    "addToCartButton": "Add to Cart",
+    "outOfStockButton": "Out of Stock"
+  },
+  "addressesPage": {
+    "billingBadge": "Billing",
+    "shippingBadge": "Shipping",
+    "editButton": "Edit",
+    "deleteButton": "Delete",
+    "addModalTitle": "Add New Address",
+    "editModalTitle": "Edit Address",
+    "form": {
+      "firstNameLabel": "First name",
+      "lastNameLabel": "Last name",
+      "countryLabel": "Country / Region",
+      "address1Label": "Street address",
+      "address2Label": "Apartment, suite, etc. (Optional)",
+      "companyLabel": "Company (Optional)",
+      "cityLabel": "City",
+      "postalCodeLabel": "Postal Code",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email address",
+      "addressTypeLegend": "Address Type",
+      "billingCheckboxLabel": "Use as billing address",
+      "shippingCheckboxLabel": "Use as shipping address",
+      "cancelButton": "Cancel",
+      "submitAddButton": "Add Address",
+      "submitUpdateButton": "Save Changes"
+    }
+  },
+  "forms": {
+    "pendingText": "Processing..."
+  },
+  "account": {
+    "loyaltyPage": {
+      "mainTitle": "My Loyalty Program",
+      "balanceTitle": "Your Current Balance",
+      "pointsSingular": "point",
+      "pointsPlural": "points",
+      "cartPointsInfo": "1 point = €0.10 discount in cart",
+      "howToEarnTitle": "How to Earn Points",
+      "referralTitle": "Refer a Friend",
+      "referralFooterText": "Share your link with friends to earn more points!",
+      "referralLinkLabel": "Your referral link",
+      "referralCopyTitle": "Copy Link",
+      "boxes": {
+        "box1": {
+          "title": "Earn 1 point for every €1 spent!",
+          "description": "Points Earned: 1 POINT / €1.00"
+        },
+        "box2": {
+          "title": "Review a product & get 10 points!",
+          "description": "Points Earned: 10 POINTS"
+        },
+        "box3": {
+          "title": "Get 50 points for signing up!",
+          "description": "Points Earned: 50 POINTS"
+        },
+        "box4": {
+          "title": "You Earn: 1 point per €1 spent by referral (first order > €30)",
+          "description": "Points Earned: 1 POINT / €1.00"
+        },
+        "box5": {
+          "title": "Friend Earns: 50 points on their first order!",
+          "description": "Points Earned by Friend: 50 POINTS"
+        }
+      }
+    }
+  },
+  "outOfStockModal": {
+    "closeButtonSR": "Close modal",
+    "title": "Items Unavailable",
+    "mainMessage": "We regret to inform you that some items previously in your cart are no longer available.",
+    "removedItemsHeader": "Item(s) removed from cart:",
+    "similarProductsTitle": "Similar Products",
+    "similarProductsMessage": "We sincerely apologize for this inconvenience. <br /> Here is a list of similar products you might be interested in:"
+  },
+  "global": {
+    "loading": "Loading...",
+    "cartDataError": "Cart data not available. Please refresh."
+  },
+  "ageVerification": {
+    "title": "Are you over 18 years old?",
+    "noButton": "No",
+    "yesButton": "Yes"
+  },
+  "productPage": {
+    "priceInfoSR": "Product information",
+    "outOfStock": "Out of stock"
+  },
+  "paymentPage": {
+    "totalSummary": {
+      "title": "Payment Summary",
+      "totalAmountLabel": "Total amount to pay:",
+      "shippingCostText": "(includes {cost}€ shipping)",
+      "privacyPolicyText": "Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our ",
+      "privacyPolicyLinkText": "privacy policy",
+      "noMethodButtonText": "Please select a payment method",
+      "bankTransferButtonText": "Confirm Order (Bank Transfer)",
+      "cardPaymentButtonText": "Proceed to Secure Payment"
+    },
+    "paymentMethods": {
+      "title": "Payment Method",
+      "cardTitle": "Credit Card (3D Secure)",
+      "cardImageAlt": "CB Visa Mastercard Logos",
+      "cardDescription": "Choosing this method allows you to pay securely through our bank's server.",
+      "bankTransferTitle": "Bank Transfer",
+      "bankTransferDescription": "Pay directly from your bank account. Please use your Order ID as the payment reference. Your order will not ship until funds are received."
+    },
+    "orderSummary": {
+      "removePointsAriaLabel": "Remove loyalty points"
+    }
+  },
+  "areYouCustomer": {
+    "promptText": "Already have an account?",
+    "loginLinkText": "Log in",
+    "suffixText": "to see your benefits."
+  },
+  "discountMessages": {
+    "minAmount": "Minimum spend of €{amount} required for this discount.",
+    "maxAmount": "Maximum spend of €{amount} allowed for this discount.",
+    "excludePromo": "Cannot be used with sale items currently in your cart.",
+    "individualUse": "This discount cannot be combined with other discounts.",
+    "cartExcludeProducts": "Please remove {products} from your cart to use this discount.",
+    "cartExcludeCategories": "Please remove items from the following categories: {categories}.",
+    "cartRequireProducts": "Requires {products} to be in your cart.",
+    "cartRequireCategories": "Requires at least one item from: {categories}.",
+    "itemExcludeProducts": "Discount not applicable to {products}. Add other eligible items.",
+    "itemExcludeCategories": "Discount not applicable to items from {categories}. Add items from other categories."
+  },
   "alerts": {
+    "referral": {
+      "copy": {
+        "success": {
+          "title": "Copied!",
+          "text": "Referral link copied to clipboard!"
+        },
+        "error": {
+          "title": "Copy Error",
+          "text": "Could not copy link. Please try again."
+        }
+      }
+    },
+    "auth": {
+      "logoutSuccess": {
+        "title": "Logout Successful",
+        "text": "You have been successfully logged out."
+      },
+      "logoutError": {
+        "title": "Logout Error",
+        "text": "An error occurred while logging out. Please try again."
+      },
+      "logoutFailed": {
+        "title": "Logout Failed",
+        "text": "Logout failed. Please try again or contact support."
+      }
+    },
+    "addReview": {
+      "success": {
+        "title": "Review Submitted",
+        "text": "Your review has been submitted and is pending approval."
+      },
+      "error400": {
+        "title": "Submission Error",
+        "text": "Could not submit review. Please check your rating and comment."
+      },
+      "error401": {
+        "title": "Login Required",
+        "text": "Please log in to submit a review."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Could not submit review due to a server error. Please try again."
+      },
+      "defaultError": {
+        "title": "Submission Error",
+        "text": "An unknown error occurred while submitting your review."
+      },
+      "error403": { "title": "Already Reviewed", "text": "You seem to have already reviewed this product." }
+    },
+    "genericError": { "title": "Error", "text": "An unexpected error occurred." },
+    "cart": {
+      "insufficientStockIncrement": {
+        "title": "Stock Limited",
+        "text": "Insufficient stock to add more {name} ({option}{per})."
+      },
+      "productAdded": {
+        "title": "Added to Cart",
+        "text": "{option}{per} - {name} added to cart."
+      },
+      "insufficientStock": {
+        "title": "Insufficient Stock",
+        "text": "Insufficient stock for the {option}{per} option."
+      },
+      "quantityAdded": {
+        "title": "Quantity Updated",
+        "text": "{option}{per} of {name} added."
+      },
+      "quantityRemoved": {
+        "title": "Quantity Updated",
+        "text": "{option}{per} of {name} removed."
+      },
+      "productRemoved": {
+        "title": "Product Removed",
+        "text": "{name} removed from cart."
+      },
+      "discountRemoved": {
+        "title": "Code Removed",
+        "text": "Discount code {name} removed."
+      },
+      "pointsRemoved": {
+        "title": "Points Removed",
+        "text": "Loyalty points removed."
+      },
+      "discountApplied": {
+        "title": "Discount Applied",
+        "text": "Discount code {name} applied."
+      },
+      "promoCodeApplied": {
+        "title": "Code Applied",
+        "text": "Promo code applied successfully!"
+      },
+      "promoCodeAlreadyApplied": {
+        "title": "Already Applied",
+        "text": "This promo code is already applied."
+      },
+      "promoCodeInvalid": {
+        "title": "Invalid Code",
+        "text": "Invalid or inapplicable promo code."
+      }
+    },
+    "signUp": {
+      "success": {
+        "title": "Signup Successful",
+        "text": "Your account has been created successfully!"
+      },
+      "error409": {
+        "title": "Email Exists",
+        "text": "This email is already registered. Redirecting to login..."
+      },
+      "error400": {
+        "title": "Invalid Information",
+        "text": "Please check the information provided."
+      },
+      "error422": {
+        "title": "Validation Error",
+        "text": "Some information is invalid. Please review the form."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Could not create account due to a server error. Please try again."
+      },
+      "defaultError": {
+        "title": "Signup Error",
+        "text": "An unknown error occurred during signup."
+      }
+    },
+    "signIn": {
+      "success200": {
+        "title": "Success",
+        "text": "Login successful!"
+      },
+      "error401": {
+        "title": "Login Error",
+        "text": "Incorrect email or password."
+      },
+      "info204": {
+        "title": "Account Not Found",
+        "text": "No account found with this email."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Technical issue, please try again later."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "An error occurred."
+      }
+    },
     "profile": {
       "infos": {
         "200": {
@@ -325,51 +791,65 @@
       },
       "addresses": {
         "delete": {
-          "200": {
-            "text": "You have successfully deleted your address",
-            "title": "Delete address"
-          },
-          "400": {
-            "text": "The address id is required",
-            "title": "No id"
-          },
-          "500": {
-            "text": "Error while deleting address",
-            "title": "Error"
-          }
+          "200": { "title": "Address Deleted", "text": "Address successfully deleted." },
+          "400": { "title": "Invalid Request", "text": "Address ID is missing." },
+          "500": { "title": "Server Error", "text": "Could not delete address. Please try again." }
         },
         "add": {
-          "200": {
-            "text": "You've successfully added your address up",
-            "title": "Address added"
-          },
-          "400": {
-            "text": "One of the infos you've provided is missing",
-            "title": "Warning"
-          },
-          "409": {
-            "text": "Something went wrong",
-            "title": "Warning"
-          },
-          "422": {
-            "text": "There is a semantic error in the infos you've provided",
-            "title": "Warning"
-          }
+          "200": { "title": "Address Added", "text": "Address added successfully." },
+          "400": { "title": "Invalid Information", "text": "Please check the address details provided." },
+          "409": { "title": "Error", "text": "Could not add address. Please try again." },
+          "422": { "title": "Validation Error", "text": "Some address information is invalid." }
         },
         "update": {
-          "200": {
-            "text": "You've successfully updated your address",
-            "title": "Address updated"
-          },
-          "400": {
-            "text": "One of the infos you've provided is missing",
-            "title": "Warning"
-          },
-          "422": {
-            "text": "There is a semantic error in the infos you've provided",
-            "title": "Warning"
-          }
+          "200": { "title": "Address Updated", "text": "Address updated successfully." },
+          "400": { "title": "Invalid Information", "text": "Please check the address details provided." },
+          "422": { "title": "Validation Error", "text": "Some address information is invalid." }
         }
+      }
+    },
+    "accountCreation": {
+      "success200": {
+        "title": "Account Created",
+        "text": "Account created & logged in successfully!"
+      },
+      "error409": {
+        "title": "Email Exists",
+        "text": "This email is already registered. Redirecting you to login..."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Server error during account creation. Please try again later."
+      },
+      "genericError": {
+        "title": "Error",
+        "text": "An error occurred. Please try again."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "An unknown error occurred. Please try again."
+      }
+    },
+    "forgotPassword": {
+      "success204": {
+        "title": "Email Sent",
+        "text": "If an account exists for this email, a password reset link has been sent."
+      },
+      "error40x": {
+        "title": "Unknown Email",
+        "text": "No account found with this email address."
+      },
+      "error500": {
+        "title": "Server Error",
+        "text": "Error processing request. Please try again."
+      },
+      "error400": {
+        "title": "Invalid Request",
+        "text": "Please check the email address provided."
+      },
+      "defaultError": {
+        "title": "Error",
+        "text": "An error occurred. Please try again."
       }
     }
   }

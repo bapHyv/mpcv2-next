@@ -1,20 +1,26 @@
+"use client";
+
+import { useMemo } from "react";
+import { useTranslations } from "next-intl";
+
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { DiscountCode } from "@/app/types/sseTypes";
-import { useMemo } from "react";
 
 const useIsDiscountCodeUsable = () => {
+  const t = useTranslations("");
   const { cart: c, products, variationTable } = useProductsAndCart();
 
   const categories: { [categoryId: number]: string } = useMemo(
     () => ({
-      26: "Fleurs de CBD",
-      27: "Résine de CBD",
-      28: "Huiles de CBD",
-      37: "Moonrock de CBD",
-      38: "Soins au CBD",
-      65: "Vaporisateur CBD",
-      87: "Infusion au CBD",
+      26: t("category.flower"), // fleur
+      27: t("category.hash"), // hash
+      28: t("category.oil"), // huile
+      37: t("category.moonrock"), // moonrock
+      38: t("category.health"), // soins
+      65: t("category.vaporizer"), // vapo
+      87: t("category.herbalTea"), // infu
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -83,100 +89,104 @@ const useIsDiscountCodeUsable = () => {
     return c.products.every((p) => set.has(p.categoryId));
   };
 
-  const isDiscountCodeUsable = (d: DiscountCode, l: number) => {
-    const min = parseInt(d.minCartAmount);
-    const max = parseInt(d.maxCartAmount);
-    const hasMin = !!min;
-    const hasMax = !!max;
-    const fcart = d.discountType === "fixed_cart";
-    const percOrFprod = d.discountType === "percent" || d.discountType === "fixed_product";
-    const hasProductInPromo = c.products.some((product) => product.isPromo);
-    const excludesProducts = !!d.excludedProducts.length;
-    const excludesCategories = !!d.excludedCategories.length;
-    const requiresProducts = !!d.requiredProducts.length;
-    const requiresCategories = !!d.requiredCategories.length;
+  const isDiscountCodeUsable = (d: DiscountCode, currentDiscountCount: number) => {
+    const defaultSuccess = { status: true, message: "" };
 
+    if (!c || !products) {
+      return { status: false, message: t("global.cartDataError") };
+    }
+
+    // Safely parse amounts, default to 0 or Infinity if invalid/missing
+    const min = d.minCartAmount ? parseFloat(d.minCartAmount) : 0;
+    const max = d.maxCartAmount ? parseFloat(d.maxCartAmount) : Infinity;
+    const hasMin = min > 0;
+    const hasMax = isFinite(max);
+
+    const isFixedCart = d.discountType === "fixed_cart";
+    const isPercentOrFixedProduct = d.discountType === "percent" || d.discountType === "fixed_product";
+    const hasProductInPromo = c.products.some((product) => product.isPromo);
+    const excludesProducts = d.excludedProducts?.length > 0;
+    const excludesCategories = d.excludedCategories?.length > 0;
+    const requiresProducts = d.requiredProducts?.length > 0;
+    const requiresCategories = d.requiredCategories?.length > 0;
+
+    // --- Condition Checks (Return translated message on failure) ---
     if (hasMin && c.total < min) {
-      return { status: false, message: `To use this discount, the minimum spending is ${min}€` };
+      return { status: false, message: t("discountMessages.minAmount", { amount: min.toFixed(2) }) };
     }
 
     if (hasMax && c.total > max) {
-      return { status: false, message: `To use this discount, The maximum spending is ${max}€` };
+      return { status: false, message: t("discountMessages.maxAmount", { amount: max.toFixed(2) }) };
     }
 
     if (d.excludePromoProduct && hasProductInPromo) {
-      return { status: false, message: "This discount can't be used with on sale products in the cart" };
+      return { status: false, message: t("discountMessages.excludePromo") };
     }
 
-    if (d.individualUse && Boolean(l)) {
-      return { status: false, message: "This discount can't be used concurently with other discount" };
+    if (d.individualUse && currentDiscountCount > 0) {
+      return { status: false, message: t("discountMessages.individualUse") };
     }
 
-    if (fcart && !d.excludePromoProduct && excludesProducts && hasProducts(d.excludedProducts)) {
-      const { length, string } = generateProductsString(d.excludedProducts);
-      return {
-        status: false,
-        message: `The product${length === 1 ? "" : "s"} ${string} ${length === 1 ? "has" : "have"} to be removed from the cart to use this discount`,
-      };
+    // --- Fixed Cart Specific Exclusions/Inclusions ---
+    if (isFixedCart) {
+      if (excludesProducts && hasProducts(d.excludedProducts)) {
+        const { string } = generateProductsString(d.excludedProducts);
+        return { status: false, message: t("discountMessages.cartExcludeProducts", { products: string }) };
+      }
+      if (excludesCategories && hasCategories(d.excludedCategories)) {
+        const { string } = generateCategoriesString(d.excludedCategories);
+        return { status: false, message: t("discountMessages.cartExcludeCategories", { categories: string }) };
+      }
+      if (requiresProducts && !hasProducts(d.requiredProducts)) {
+        const { string } = generateProductsString(d.requiredProducts);
+        return { status: false, message: t("discountMessages.cartRequireProducts", { products: string }) };
+      }
+      if (requiresCategories && !hasCategories(d.requiredCategories)) {
+        const { string } = generateCategoriesString(d.requiredCategories);
+        return { status: false, message: t("discountMessages.cartRequireCategories", { categories: string }) };
+      }
     }
 
-    if (fcart && !d.excludePromoProduct && excludesCategories && hasCategories(d.excludedCategories)) {
-      const { length, string } = generateCategoriesString(d.excludedCategories);
-      return {
-        status: false,
-        message: `To use this discount, remove all products that belong to the following categor${length === 1 ? "y" : "ies"}: ${string}`,
-      };
+    // --- Percent/Fixed Product Specific Exclusions/Inclusions ---
+    // These usually mean the discount *can* be applied, but won't affect certain items,
+    // or only applies if *required* items are present. The tooltip should reflect this nuance.
+    // The previous logic might have been too strict here, preventing application entirely.
+    // Let's refine: the discount *status* is true, but the message explains the limitation.
+    // Note: The actual calculation needs to handle these exclusions.
+
+    if (isPercentOrFixedProduct) {
+      if (requiresProducts && hasNoRequiredProductsInCart(d.requiredProducts)) {
+        const { string } = generateProductsString(d.requiredProducts);
+        // Status is false because the required item isn't there *at all*
+        return { status: false, message: t("discountMessages.cartRequireProducts", { products: string }) };
+      }
+      if (requiresCategories && hasNoRequiredCategoriesProductInCart(d.requiredCategories)) {
+        const { string } = generateCategoriesString(d.requiredCategories);
+        // Status is false because the required category isn't there *at all*
+        return { status: false, message: t("discountMessages.cartRequireCategories", { categories: string }) };
+      }
+      // If ONLY excluded products are in the cart
+      if (excludesProducts && hasOnlyExcludedProductsInCart(d.excludedProducts)) {
+        const { string } = generateProductsString(d.excludedProducts);
+        // Status is false because NO eligible items exist
+        return { status: false, message: t("discountMessages.itemExcludeProducts", { products: string }) };
+      }
+      // If ONLY excluded categories are in the cart
+      if (excludesCategories && hasOnlyExcludedCategoriesProductInCart(d.excludedCategories)) {
+        const { string } = generateCategoriesString(d.excludedCategories);
+        // Status is false because NO eligible items exist
+        return { status: false, message: t("discountMessages.itemExcludeCategories", { categories: string }) };
+      }
+      // If some items are excluded but others are eligible, the code *is* usable (status: true),
+      // but the calculation needs to handle it. No specific message needed here,
+      // unless you want a warning like "Discount won't apply to {excluded_items}".
     }
 
-    if (fcart && !d.excludePromoProduct && requiresProducts && !hasProducts(d.requiredProducts)) {
-      const { length, string } = generateProductsString(d.requiredProducts);
-      return {
-        status: false,
-        message: `The product${length === 1 ? "" : "s"} ${string} ${length === 1 ? "has" : "have"} to be added to the cart to use this discount`,
-      };
-    }
-
-    if (fcart && !d.excludePromoProduct && requiresCategories && !hasCategories(d.requiredCategories)) {
-      const { length, string } = generateCategoriesString(d.requiredCategories);
-      return {
-        status: false,
-        message: `To use this discount, you have to add one product of the following categor${length === 1 ? "y" : "ies"}: ${string}`,
-      };
-    }
-
-    if (percOrFprod && !d.excludePromoProduct && requiresProducts && hasNoRequiredProductsInCart(d.requiredProducts)) {
-      const { length, string } = generateProductsString(d.requiredProducts);
-      return {
-        status: false,
-        message: `The product${length === 1 ? "" : "s"} ${string} ${length === 1 ? "has" : "have"} to be added to the cart to use this discount`,
-      };
-    }
-
-    if (percOrFprod && !d.excludePromoProduct && requiresCategories && hasNoRequiredCategoriesProductInCart(d.requiredCategories)) {
-      const { length, string } = generateCategoriesString(d.requiredCategories);
-      return {
-        status: false,
-        message: `To use this discount, you have to add one product of the following categor${length === 1 ? "y" : "ies"}: ${string}`,
-      };
-    }
-
-    if (percOrFprod && !d.excludePromoProduct && excludesProducts && hasOnlyExcludedProductsInCart(d.excludedProducts)) {
-      const { string } = generateProductsString(d.excludedProducts);
-      return { status: false, message: `This discount is not applicable on ${string}. Add other products to use this discount.` };
-    }
-
-    if (percOrFprod && !d.excludePromoProduct && excludesCategories && hasOnlyExcludedCategoriesProductInCart(d.excludedCategories)) {
-      const { string } = generateCategoriesString(d.excludedCategories);
-      return {
-        status: false,
-        message: `This discount is not applicable on products that belong to ${string}. Add other products from different categories to use this discount.`,
-      };
-    }
-
-    return { status: true, message: "" };
+    // If all checks pass, the code is usable
+    return defaultSuccess;
   };
 
-  return isDiscountCodeUsable;
+  return isDiscountCodeUsable; // Return the function
 };
 
 export default useIsDiscountCodeUsable;

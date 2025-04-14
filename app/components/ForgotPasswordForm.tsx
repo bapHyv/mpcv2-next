@@ -1,10 +1,10 @@
-// ForgotPasswordForm.tsx
 "use client";
 
 import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { v4 as uuid } from "uuid";
+import { useTranslations } from "next-intl";
 
 import SubmitButton from "@/app/components/SubmitButton";
 import { forgottenPassword } from "@/app/actions";
@@ -20,6 +20,8 @@ const initialState = {
 };
 
 export default function ForgotPasswordForm() {
+  const t = useTranslations("");
+
   const [state, formAction] = useFormState(forgottenPassword, initialState as any);
 
   const { addAlert } = useAlerts();
@@ -30,32 +32,34 @@ export default function ForgotPasswordForm() {
     if (state.statusCode !== 0) {
       if (state.isSuccess && state.statusCode === 204) {
         const redirect = searchParams.get("redirect");
-        addAlert(uuid(), "Si un compte existe avec cet email, un lien de réinitialisation a été envoyé.", "Email envoyé", "emerald");
+        addAlert(uuid(), t("alerts.forgotPassword.success204.text"), t("alerts.forgotPassword.success204.title"), "emerald");
         router.push(redirect ? `/${redirect}` : "/connexion");
       } else if (!state.isSuccess) {
-        let alertTitle = "Erreur";
-        let alertText = state.message || "Une erreur est survenue.";
-        let alertType: "yellow" | "red" = "red";
+        let titleKey = "alerts.forgotPassword.defaultError.title";
+        let textKey = "alerts.forgotPassword.defaultError.text";
+        let color: "yellow" | "red" = "red";
 
         switch (state.statusCode) {
           case 404:
           case 409:
-            alertTitle = "Email inconnu";
-            alertText = state.message || "Aucun compte n'est associé à cet email.";
-            alertType = "yellow";
+            titleKey = "alerts.forgotPassword.error40x.title";
+            textKey = "alerts.forgotPassword.error40x.text";
+            color = "yellow";
             break;
           case 500:
-            alertTitle = "Erreur Serveur";
-            alertText = state.message || "Erreur lors de la demande. Veuillez réessayer.";
-            alertType = "red";
+            titleKey = "alerts.forgotPassword.error500.title";
+            textKey = "alerts.forgotPassword.error500.text";
+            color = "red";
             break;
           case 400:
-            alertTitle = "Requête invalide";
-            alertText = state.message || "Veuillez vérifier l'adresse email.";
-            alertType = "yellow";
+            titleKey = "alerts.forgotPassword.error400.title";
+            textKey = "alerts.forgotPassword.error400.text";
+            color = "yellow";
             break;
+          // TODO: Add other specific cases if needed
         }
-        addAlert(uuid(), alertText, alertTitle, alertType);
+        const alertText = state.message || t(textKey);
+        addAlert(uuid(), alertText, t(titleKey), color);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,15 +69,27 @@ export default function ForgotPasswordForm() {
     <form action={formAction}>
       <div>
         <label htmlFor="email" className={labelClassname}>
-          Adresse e-mail
+          {t("forgotPasswordPage.emailLabel")}
         </label>
         <div className="mt-1">
-          <input id="email" name="email" type="email" required autoComplete="email" className={inputClassname} />
+          <input
+            id="email"
+            name="email" // TODO: Name is crucial for formAction
+            type="email"
+            required
+            autoComplete="email"
+            className={inputClassname}
+            // Optionally add placeholder
+            // placeholder={t("emailPlaceholder", { default: "you@example.com" })} // Example with default
+            // aria-describedby={state?.errors?.email ? "email-error" : undefined}
+          />
+          {/* Optional: Display validation errors */}
+          {/* {state?.errors?.email && (<p className="mt-1 text-xs text-red-600" id="email-error">{state.errors.email}</p>)} */}
         </div>
       </div>
 
       <div className="mt-6">
-        <SubmitButton text="Réinitialiser le mot de passe" className="w-full" />
+        <SubmitButton text={t("forgotPasswordPage.submitButton")} className="w-full" />
       </div>
     </form>
   );
