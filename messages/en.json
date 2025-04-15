@@ -1,4 +1,60 @@
 {
+  "homepage": {
+    "seoH1": "Buy Premium Quality CBD in France 🇫🇷 - Flowers 🌿, Oils 💧, Resins ✨ | MonPlanCBD",
+    "heroSR": "MonPlanCBD Special Offers ✨ and New CBD Arrivals 🎉",
+    "categoriesTitle": "Explore Our CBD Worlds 🪐",
+    "categoriesIntroText": "Dive into the heart of our rigorously selected CBD ranges. Whether you're seeking the deep relaxation of a CBD flower 🌿, the precise concentration of a sublingual oil 💧, or the intensity of quality resin ✨, find the ideal CBD product to meet your expectations at MonPlanCBD. 🎯",
+    "featuredFlowersTitle": "Our Must-Have CBD Flowers 💐",
+    "viewAllFlowersLink": "View all our CBD Flowers",
+    "featuredHashsTitle": "Exceptional CBD Resins & Pollens 🍫",
+    "viewAllHashLink": "Discover our Resins and Pollens",
+    "featuredOilsTitle": "Wellness & Performance CBD Oils 💪💧",
+    "viewAllOilsLink": "Explore our range of Oils",
+    "whyChooseUsTitle": "Why Choose MonPlanCBD? 🤔",
+    "whyChooseUsIntroText": "At MonPlanCBD, your well-being and trust are at the core of our mission. ❤️ We are firmly committed to the impeccable quality of our products, the security of your transactions, and total transparency to guarantee you the best possible CBD experience. Discover the commitments that make us different! 👇",
+    "trustSignalLabTestedTitle": "🔬 Independent Lab Tested",
+    "trustSignalLabTestedText": "Every CBD product undergoes strict analysis by a certified, independent laboratory. We verify purity, cannabinoid concentration, and legal compliance ✅ (<0.3% THC). Certificates are available for absolute transparency. 📄",
+    "trustSignalSecurePaymentTitle": "🔒 100% Secure Payment",
+    "trustSignalSecurePaymentText": "Shop for CBD with complete peace of mind. 🧘 Your bank transactions are encrypted and protected by our certified payment partner (PCI DSS), ensuring the confidentiality and security of your data. 💳",
+    "trustSignalFastDiscreetShippingTitle": "🚚 Fast & Discreet Shipping",
+    "trustSignalFastDiscreetShippingText": "Receive your CBD order within 24/48 working hours ⏱️ (mainland France). Your package is shipped in neutral packaging, without any logo or external mention, preserving your privacy. 🤫",
+    "trustSignalFrenchQualityTitle": "🇫🇷 French Expertise & Traceability",
+    "trustSignalFrenchQualityText": "We carefully select our partner growers and suppliers, mainly in France and Europe, for their expertise and adherence to standards. Complete traceability of our CBD products is ensured. 🌱➡️📦",
+    "trustSignalSupportTitle": "💬 Expert & Responsive Customer Service",
+    "trustSignalSupportText": "Based in France 🇫🇷, our team of enthusiasts is available to advise you and answer all your questions about CBD, Monday to Friday, by email or phone. 📞📧",
+    "trustSignalLegalComplianceTitle": "✅ Legal Compliance Guaranteed",
+    "trustSignalLegalComplianceText": "Our entire CBD catalog strictly complies with French and European legislation. All our products contain a THC level strictly below 0.3%, in accordance with the law. ⚖️",
+    "learnMoreAboutCommitmentsLink": "Learn more about our quality commitments",
+    "learnMoreTitle": "Discover the World of CBD 🌍",
+    "learnMoreText": "New to the world of CBD or a curious expert? 🤔 Our blog is full of useful information: buying guides 📖, usage tutorials 💡, cannabinoid breakdowns 🔬, news 📰, and much more to guide you.",
+    "visitBlogLink": "Visit our CBD Blog ➡️",
+    "noFeaturedProducts": "Our popular products will be displayed soon. In the meantime, explore our categories! 👀",
+    "trustSignalLoyaltyTitle": "🎁 Your Loyalty Rewarded",
+    "trustSignalLoyaltyText": "Join our program and earn points 💯 with every purchase. Redeem your points for exclusive discounts 💰 on your next CBD orders.",
+    "trustSignalSatisfactionTitle": "😊 Satisfaction Guaranteed",
+    "trustSignalSatisfactionText": "Your satisfaction is our priority. If a product doesn't meet your expectations, our team is here to find a solution with you (see conditions). 👍",
+    "featuredFlowersIntroText": "Be captivated by our selection of premium CBD flowers. 💐 Carefully grown indoors 🏠, in greenhouses 🌿, or outdoors ☀️, our flowers offer a unique aromatic richness and authentic relaxing effects. Discover our most popular and appreciated strains. ✨",
+    "featuredHashsIntroText": "Explore the concentration and potency of our CBD resins and pollens. 🍫 Crafted using traditional and modern methods, our CBD hash provides varied textures and intense terpene profiles for a profound CBD experience. Here are our current bestsellers. 🔥",
+    "featuredOilsIntroText": "Integrate CBD wellness into your daily routine with our high-quality CBD oils. 💧 Available in Full Spectrum or Broad Spectrum and various concentrations, our sublingual oils are easy to dose and ideal for targeted support. Discover our favorite oils. ❤️",
+    "seoDescription": "Buy premium lab-tested CBD in France at MonPlanCBD. Discover high-quality CBD flowers 🌿, oils 💧 & resins ✨. Fast, discreet shipping guaranteed.",
+    "seoKeywords": "CBD, buy CBD, CBD France, CBD flower, CBD oil, CBD resin, legal CBD, MonPlanCBD, quality CBD, CBD delivery",
+    "ogImageAlt": "MonPlanCBD - High Quality CBD Flowers, Oils, and Resins in France"
+  },
+  "bankTransferPage": {
+    "metadataTitle": "Order Confirmation - MonPlanCBD"
+  },
+  "accountProfilePage": {
+    "metadataTitle": "My Profile - My Account - MonPlanCBD"
+  },
+  "accountAddressesPage": {
+    "metadataTitle": "My Addresses - My Account - MonPlanCBD"
+  },
+  "accountOrdersPage": {
+    "metadataTitle": "My Orders - My Account - MonPlanCBD"
+  },
+  "accountLoyaltyPage": {
+    "metadataTitle": "My Loyalty Points - My Account - MonPlanCBD"
+  },
   "HomePage": {
     "title": "Hello, World!",
     "subtitle": "This is a translation",
@@ -348,10 +404,12 @@
     "loyalty": "Loyalty Points & Referral"
   },
   "forgotPasswordPage": {
+    "metadataTitle": "Forgot Password - MonPlanCBD",
     "emailLabel": "Email address",
     "submitButton": "Reset Password"
   },
   "signInPage": {
+    "metadataTitle": "Login - MonPlanCBD",
     "emailLabel": "Email address",
     "passwordLabel": "Password",
     "forgotPasswordLink": "Forgot password?",
@@ -366,6 +424,7 @@
     "signUpLink": "Create an account"
   },
   "signUpPage": {
+    "metadataTitle": "Sign Up - MonPlanCBD",
     "prefsAndConditionsLegendSR": "Preferences and conditions",
     "firstNameLabel": "First name",
     "lastNameLabel": "Last name",
@@ -388,6 +447,7 @@
     "termsLinkText": "Terms and Conditions"
   },
   "cartPage": {
+    "metadataTitle": "Your Cart - MonPlanCBD",
     "productsTitle": "Products in Your Cart",
     "summary": {
       "title": "Order Summary",
@@ -421,6 +481,7 @@
     "detailsAriaLabel": "Discount details"
   },
   "shippingPage": {
+    "metadataTitle": "Shipping - MonPlanCBD",
     "h1": "Shipping",
     "backToCartButton": "Back to Cart",
     "parcelPointMap": {
@@ -592,7 +653,8 @@
   },
   "global": {
     "loading": "Loading...",
-    "cartDataError": "Cart data not available. Please refresh."
+    "cartDataError": "Cart data not available. Please refresh.",
+    "brandName": "MonPlanCBD"
   },
   "ageVerification": {
     "title": "Are you over 18 years old?",
@@ -604,6 +666,7 @@
     "outOfStock": "Out of stock"
   },
   "paymentPage": {
+    "metadataTitle": "Payment - MonPlanCBD",
     "totalSummary": {
       "title": "Payment Summary",
       "totalAmountLabel": "Total amount to pay:",

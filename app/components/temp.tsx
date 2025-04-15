@@ -1,111 +1,104 @@
-"use client";
-
-import Link from "next/link";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { APIResponse, categories, Product } from "@/app/types/productsTypes";
+import Title from "@/app/components/Title";
 import clsx from "clsx";
-import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
 
-const iconClassname = clsx(
-  "w-6 h-6 lg:w-7 lg:h-7 text-white flex items-center",
-  "hover:text-white",
-  "focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-);
+import { doesCategoryExists, findSlug, findTitle } from "@/app/utils/productFunctions";
+import ProductCard from "@/app/components/products/ProductCard";
+import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
+import Link from "next/link";
+import OtherNavbar from "@/app/components/OtherNavbar";
+import { twMerge } from "tailwind-merge";
+import { titleClassname } from "@/app/staticData/cartPageClasses";
 
-export default function BurgerMenuHeader() {
-  const [isVisible, setIsVisible] = useState(false);
-  const iconRef = useRef<SVGSVGElement | null>(null);
-
-  const pathName = usePathname();
-
-  useEffect(() => {
-    setIsVisible(false);
-  }, [pathName]);
-
-  return (
-    <div className="relavite">
-      <span className="sr-only">Open main menu</span>
-      {isVisible ? (
-        <XMarkIcon ref={iconRef} role="button" className={iconClassname} onClick={() => setIsVisible(false)} />
-      ) : (
-        <Bars3Icon role="button" className={iconClassname} onClick={() => setIsVisible(true)} />
-      )}
-      {isVisible && <BurgerMenu onClickOutside={() => setIsVisible(false)} iconRef={iconRef} />}
-    </div>
-  );
+interface Params {
+  params: {
+    locale: string;
+    category: string;
+  };
 }
 
-function BurgerMenu({ onClickOutside, iconRef }: { onClickOutside: any; iconRef: MutableRefObject<SVGSVGElement | null> }) {
-  const pathname = usePathname();
-  const ref = useRef<HTMLDivElement | null>(null);
-  const t = useTranslations("");
+export default async function Page({ params: { locale, category } }: Params) {
+  const t = await getTranslations({ locale, namespace: "category" });
 
-  useEffect(() => {
-    const handleClickOutsideBurgerMenu = (event: MouseEvent) => {
-      if (
-        ref.current &&
-        iconRef.current &&
-        !ref.current.contains(event.target as HTMLElement) &&
-        !iconRef.current.contains(event.target as HTMLElement)
-      ) {
-        onClickOutside && onClickOutside();
-      }
-    };
-    document.addEventListener("click", handleClickOutsideBurgerMenu, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutsideBurgerMenu, true);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onClickOutside]);
-
-  const categories = [
+  const categories: categories = [
     {
-      category: `🌿 ${t("category.flower")}`,
-      key: "fleurs",
+      url: "fleurs%20de%20cbd",
+      urlTitle: `🌿 ${t("flower")}`,
+      category: "fleurs",
+      title: t("flower"),
       slug: "fleurs-cbd",
     },
     {
-      category: `🍫 ${t("category.hash")}`,
-      key: "hashs",
+      url: "hash%20de%20cbd",
+      urlTitle: `🍫 ${t("hash")}`,
+      category: "hashs",
+      title: t("hash"),
       slug: "pollens-resines-hash-cbd",
     },
     {
-      category: `🌠 ${t("category.moonrock")}`,
-      key: "moonrocks",
+      url: "moonrocks",
+      urlTitle: `🌠 ${t("moonrock")}`,
+      category: "moonrocks",
+      title: t("moonrock"),
       slug: "moonrocks-cbd",
     },
-    { category: `💧 ${t("category.oil")}`, key: "huiles", slug: "huiles-cbd" },
+    { url: "huiles", urlTitle: `💧 ${t("oil")}`, category: "huiles", title: t("oil"), slug: "huiles-cbd" },
     {
-      category: `🌱 ${t("category.herbalTea")}`,
-      key: "infusions",
+      url: "infusions",
+      urlTitle: `🌱 ${t("herbalTea")}`,
+      category: "infusions",
+      title: t("herbalTea"),
       slug: "infusions-cbd",
     },
-    { category: `🌿 ${t("category.health")}`, key: "soins", slug: "soins-cbd" },
+    { url: "soins", urlTitle: `🧴 ${t("health")}`, category: "soins", title: t("health"), slug: "soins-cbd" },
     {
-      category: `💨 ${t("category.vaporizer")}`,
-      key: "vaporisateurs",
+      url: "vaporisateurs",
+      urlTitle: `💨 ${t("vaporizer")}`,
+      category: "vaporisateurs",
+      title: t("vaporizer"),
       slug: "vaporisateur",
-    },
-    {
-      category: `📰 Blog`,
-      key: "blog",
-      slug: "blog",
     },
   ];
 
+  if (!doesCategoryExists(categories, category)) notFound();
+
+  const currentTitle = findTitle(categories, category);
+
+  const currentSlug = findSlug(categories, category);
+
+  const response = await fetch(`${process.env.API_HOST}/products/${currentSlug}`);
+  const data: APIResponse<Product> = await response.json();
+  const formatedProducts: Product[] = Object.values(data.products);
+
   return (
-    <div ref={ref} className={clsx("absolute bottom-[54px] bg-black text-white flex flex-col gap-y-2 rounded-t-md w-[45dvw] p-2")}>
-      {categories.map((e) => (
-        <React.Fragment key={e.key}>
-          <Link href={`/${e.slug}`}>
-            <div className={clsx("flex items-center", { "font-medium text-green": pathname.includes(e.slug) })}>
-              <span>{e.category}</span>
-            </div>
+    <div>
+      {/* NAV CATEGORY */}
+      <OtherNavbar>
+        {categories.map((cat) => (
+          <Link
+            key={cat.title}
+            href={cat.slug}
+            className={clsx(
+              category === cat.slug ? "text-green font-medium bg-white/10" : "text-white",
+              "capitalize text-center text-sm py-1 px-2 rounded-md text-nowrap",
+              "xl:text-xl"
+            )}
+          >
+            {cat.urlTitle}
           </Link>
-        </React.Fragment>
-      ))}
+        ))}
+      </OtherNavbar>
+
+      <Title title={currentTitle} type="h1" classname={twMerge(titleClassname, "my-4 md:mt-16 text-green")} firstLetterClassname="text-xl" />
+
+      <div className="flex flex-wrap px-2 justify-center gap-2 mb-8">
+        {/* PRODUCT CARDS */}
+        {!response.ok
+          ? new Array(8).fill(0).map((e) => <ProductCardSkeleton key={Math.random()} />)
+          : formatedProducts.map((prod) => <ProductCard key={prod.name} locale={locale} {...prod} />)}
+      </div>
     </div>
   );
 }
