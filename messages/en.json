@@ -268,6 +268,7 @@
         }
       },
       "password": "Password",
+      "passwordMismatch": "The two password must match",
       "currentPassword": "Current password",
       "currentPasswordMessage": "If you want to change your password, fill up the \"Current password\" field.",
       "newPassword": "New password",
@@ -284,12 +285,20 @@
       "orderNumber": "Order n°",
       "total": "Total",
       "status": {
-        "delivered": "Delivered",
+        "pending": "Pending",
+        "processing": "Processing",
         "onHold": "In Progress",
-        "failed": "Failed"
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "refunded": "Refunded",
+        "failed": "Failed",
+        "delivered": "Delivered"
       },
       "product": "Product",
-      "price": "Price"
+      "price": "Price",
+      "dateLabel": "Order Date",
+      "totalLabel": "Total Amount",
+      "statusLabel": "Order Status"
     }
   },
   "loyalty": {
@@ -440,8 +449,8 @@
       "finalTotalLabel": "Total amount:",
       "title": "Order Total",
       "shippingCostText": "(includes {cost}€ shipping)",
-      "privacyPolicyText": "Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <link>privacy policy</link>.",
-      "privacyPolicyLinkText": "privacy policy",
+      "privacyPolicyText": "Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our ",
+      "privacyPolicyLinkText": "privacy policy.",
       "termsLegendSR": "Terms and Marketing",
       "termsLabel": "I have read and agree to the",
       "termsLinkText": "terms and conditions",
@@ -600,7 +609,7 @@
       "totalAmountLabel": "Total amount to pay:",
       "shippingCostText": "(includes {cost}€ shipping)",
       "privacyPolicyText": "Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our ",
-      "privacyPolicyLinkText": "privacy policy",
+      "privacyPolicyLinkText": "privacy policy.",
       "noMethodButtonText": "Please select a payment method",
       "bankTransferButtonText": "Confirm Order (Bank Transfer)",
       "cardPaymentButtonText": "Proceed to Secure Payment"
@@ -791,6 +800,14 @@
         },
         "400": {
           "text": "One of the infos you've provided is missing",
+          "title": "Warning"
+        },
+        "401": {
+          "text": "Incorrect old password",
+          "title": "Warning"
+        },
+        "409": {
+          "text": "e-mail already exists",
           "title": "Warning"
         },
         "422": {

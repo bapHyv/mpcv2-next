@@ -268,6 +268,7 @@
         }
       },
       "password": "Mot de passe",
+      "passwordMismatch": "Les deux mots de passe doivent correspondre",
       "currentPassword": "Mot de passe actuel",
       "currentPasswordMessage": "Si vous souhaitez changer votre mot de passe, remplissez le champ \"Mot de passe actuel\".",
       "newPassword": "Nouveau mot de passe",
@@ -284,12 +285,20 @@
       "orderNumber": "Commande n°",
       "total": "Total",
       "status": {
-        "delivered": "Délivré",
+        "pending": "En attente",
+        "processing": "En cours de traitement",
         "onHold": "En cours",
-        "failed": "Échoué"
+        "completed": "Terminé",
+        "cancelled": "Annulé",
+        "refunded": "Remboursé",
+        "failed": "Échoué",
+        "delivered": "Livré"
       },
       "product": "Produit",
-      "price": "Prix"
+      "price": "Prix",
+      "dateLabel": "Date de commande",
+      "totalLabel": "Montant total",
+      "statusLabel": "Statut de la commande"
     }
   },
   "loyalty": {
@@ -439,7 +448,7 @@
       "title": "Total Commande",
       "shippingCostText": "(dont {cost}€ de frais de port)",
       "privacyPolicyText": "Vos données personnelles seront utilisées pour le traitement de votre commande, vous accompagner au cours de votre visite du site web, et pour d’autres raisons décrites dans notre ",
-      "privacyPolicyLinkText": "politique de confidentialité",
+      "privacyPolicyLinkText": "politique de confidentialité.",
       "termsLegendSR": "Conditions et Marketing",
       "termsLabel": "J’ai lu et j’accepte les",
       "termsLinkText": "conditions générales",
@@ -598,7 +607,7 @@
       "totalAmountLabel": "Montant total à payer :",
       "shippingCostText": "(dont {cost}€ de frais de port)",
       "privacyPolicyText": "Vos données personnelles seront utilisées pour le traitement de votre commande, vous accompagner au cours de votre visite du site web, et pour d’autres raisons décrites dans notre ",
-      "privacyPolicyLinkText": "politique de confidentialité",
+      "privacyPolicyLinkText": "politique de confidentialité.",
       "noMethodButtonText": "Veuillez choisir une méthode de paiement",
       "bankTransferButtonText": "Valider la commande (Virement)",
       "cardPaymentButtonText": "Procéder au paiement sécurisé"
@@ -789,6 +798,14 @@
         },
         "400": {
           "text": "Une des informations que vous avez fournies est manquante",
+          "title": "Avertissement"
+        },
+        "401": {
+          "text": "Ancien mot de passe incorrect",
+          "title": "Avertissement"
+        },
+        "409": {
+          "text": "L'e-mail existe déjà",
           "title": "Avertissement"
         },
         "422": {
