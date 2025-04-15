@@ -1,6 +1,11 @@
 // page.tsx (User Profile)
 "use client";
 
+/**
+ * Modale user z index
+ * user button navbar /connexion
+ * probleme ouvrir menu langue
+ */
 import { useState, useEffect, useRef } from "react";
 import { useFormState } from "react-dom";
 import { useTranslations } from "next-intl";

@@ -58,7 +58,9 @@ const PointsSection: React.FC = () => {
           <h2 className="text-lg font-semibold text-gray-800 mb-1">{t("account.loyaltyPage.balanceTitle")}</h2>
           <p className="font-bold text-4xl text-green mb-1">
             {userData.loyaltyPoints ?? 0}
-            <span className="text-2xl font-medium text-gray-600 ml-1">{t(userData.loyaltyPoints === 1 ? "pointsSingular" : "pointsPlural")}</span>
+            <span className="text-2xl font-medium text-gray-600 ml-1">
+              {t(userData.loyaltyPoints === 1 ? "loyalty.pointsSingular" : "loyalty.pointsPlural")}
+            </span>
           </p>
           <p className="text-xs text-gray-500">{t("account.loyaltyPage.cartPointsInfo")}</p>
         </section>

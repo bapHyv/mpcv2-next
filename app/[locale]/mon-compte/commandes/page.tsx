@@ -22,21 +22,11 @@ import {
   titleClassname,
 } from "@/app/staticData/cartPageClasses";
 import { Order } from "@/app/types/profileTypes";
-/**
- * wc-pending – Payment pending (order received but not paid)
- * wc-processing – Payment received and order is being prepared.
- * wc-on-hold – Awaiting payment or requires manual review.
- * wc-completed – Order fulfilled and completed (for downloadable/virtual products, this means access is granted).
- * wc-cancelled – Order cancelled by admin or customer (no refund).
- * wc-refunded – Payment refunded (fully or partially).
- * wc-failed – Payment failed or was declined.
- */
 
 const Commandes = () => {
   const t = useTranslations("orders");
   const { userData } = useAuth();
 
-  // Helper function to get status badge class
   const getStatusClass = (status: Order["status"]): string => {
     switch (status) {
       case "wc-pending":
@@ -58,7 +48,6 @@ const Commandes = () => {
     }
   };
 
-  // Helper function to get translated status text
   const getStatusText = (status: Order["status"]): string => {
     switch (status) {
       case "wc-pending":

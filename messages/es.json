@@ -268,6 +268,7 @@
         }
       },
       "password": "Contraseña",
+      "passwordMismatch": "Las dos contraseñas deben coincidir",
       "currentPassword": "Contraseña actual",
       "currentPasswordMessage": "Si deseas cambiar tu contraseña, completa el campo \"Contraseña actual\".",
       "newPassword": "Nueva contraseña",
@@ -284,12 +285,20 @@
       "orderNumber": "Pedido n°",
       "total": "Total",
       "status": {
-        "delivered": "Entregado",
+        "pending": "Pendiente",
+        "processing": "Procesando",
         "onHold": "En progreso",
-        "failed": "Fallido"
+        "completed": "Completado",
+        "cancelled": "Cancelado",
+        "refunded": "Reembolsado",
+        "failed": "Fallido",
+        "delivered": "Entregado"
       },
       "product": "Producto",
-      "price": "Precio"
+      "price": "Precio",
+      "dateLabel": "Fecha del pedido",
+      "totalLabel": "Monto total",
+      "statusLabel": "Estado del pedido"
     }
   },
   "loyalty": {
@@ -439,7 +448,7 @@
       "title": "Total del Pedido",
       "shippingCostText": "(incluye {cost}€ de envío)",
       "privacyPolicyText": "Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en este sitio web y para otros fines descritos en nuestra ",
-      "privacyPolicyLinkText": "política de privacidad",
+      "privacyPolicyLinkText": "política de privacidad.",
       "termsLegendSR": "Condiciones y Marketing",
       "termsLabel": "He leído y acepto los",
       "termsLinkText": "términos y condiciones",
@@ -598,7 +607,7 @@
       "totalAmountLabel": "Importe total a pagar:",
       "shippingCostText": "(incluye {cost}€ de envío)",
       "privacyPolicyText": "Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en este sitio web y para otros fines descritos en nuestra ",
-      "privacyPolicyLinkText": "política de privacidad",
+      "privacyPolicyLinkText": "política de privacidad.",
       "noMethodButtonText": "Por favor, selecciona un método de pago",
       "bankTransferButtonText": "Confirmar Pedido (Transferencia)",
       "cardPaymentButtonText": "Proceder al Pago Seguro"
@@ -789,6 +798,14 @@
         },
         "400": {
           "text": "Falta una de las informaciones que has proporcionado",
+          "title": "Advertencia"
+        },
+        "401": {
+          "text": "Contraseña anterior incorrecta",
+          "title": "Advertencia"
+        },
+        "409": {
+          "text": "El correo electrónico ya existe",
           "title": "Advertencia"
         },
         "422": {

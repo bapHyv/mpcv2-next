@@ -12,10 +12,10 @@ import OrderSummary from "@/app/components/shippingPage/OrderSummary";
 import Total from "@/app/components/paymentPage/Total";
 import Title from "@/app/components/Title";
 
-import { data, statusCode, payment, bankTransfer } from "@/app/actions";
+import { data, statusCode, bankTransfer } from "@/app/actions";
 import { useOrder } from "@/app/context/orderContext";
 import { paymentRouteGuard } from "@/app/utils/paymentRouteGuard";
-import { Order, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
+import { SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
 import { isSuccessResponse } from "@/app/utils/typeGuardsFunctions";
 import useCleanUpAfterPayment from "@/app/hooks/useCleanUpAfterPayment";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
@@ -103,6 +103,7 @@ export default function Page() {
   useEffect(() => {
     // Keep initial payment setup logic (commented out as per your code)
     if (!shouldReturn && order && !initPaymentResponse && !isPending) {
+      // TODO: Uncomment this
       // Avoid re-fetching if pending
       // const initPayment = async (orderData: Order) => {
       //   console.log("Initiating payment...");
