@@ -89,8 +89,9 @@ function LanguageSelectorMenu({ onClickOutside, iconRef }: MenuProps) {
       ref={ref}
       id="language-menu"
       className={clsx(
-        "absolute -top-[155px] left-0 z-[6500] md:top-auto md:left-auto md:right-0 mt-2 w-40 origin-top-right rounded-md bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
-        "top-full"
+        "absolute -top-[155px] left-0 z-[6500] mt-2 w-40 rounded-md bg-black shadow-lg",
+        "md:top-auto md:left-auto md:right-0",
+        "ring-1 ring-black ring-opacity-5 focus:outline-none"
       )}
       role="menu"
       aria-orientation="vertical"

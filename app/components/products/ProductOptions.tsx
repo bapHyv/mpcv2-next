@@ -104,7 +104,7 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
 
   if (!productData) {
     return (
-      <div className={twMerge("animate-pulse", isInModale ? "mt-1" : "mt-4 xl:mt-6")}>
+      <div className={twMerge("animate-pulse", isInModale ? "mt-1" : "mt-1 xl:mt-6")}>
         <div className={clsx("grid grid-cols-3 gap-2", isInModale ? "w-full px-1" : "w-5/6 mx-auto")}>
           {new Array(isInModale ? 3 : 6).fill(0).map((_, i) => (
             <div key={i} className="col-span-1 h-12 sm:h-14 rounded-md bg-gray-200" />
@@ -119,7 +119,7 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
   }
 
   return (
-    <div className={twMerge(isInModale ? "mt-1" : "mt-4 xl:mt-6")}>
+    <div className={twMerge(isInModale ? "mt-1" : "mt-1 xl:mt-6")}>
       <fieldset aria-label={t("productOptions.chooseOptionLabel")}>
         <legend className="sr-only">{t("productOptions.chooseOptionLabel")}</legend>
         <RadioGroup
@@ -165,7 +165,7 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
 
       {!isInModale && <FidelityPointsEarned price={price} />}
 
-      <div className={twMerge("flex items-center justify-center", isInModale ? "mt-2 mb-1 px-1" : "w-full sm:w-5/6 mx-auto my-6")}>
+      <div className={twMerge("flex items-center justify-center", isInModale ? "mt-2 mb-1 px-1" : "w-full sm:w-5/6 mx-auto my-2")}>
         <button
           type="button"
           onClick={addProductToCart}
