@@ -13,12 +13,12 @@ export default function FidelityPointsEarned({ price }: Props) {
   }
 
   return (
-    <p className="text-center text-sm text-gray-600 my-4">
-      ✨ {t("earnPrefix")}{" "}
+    <p className="text-center text-sm text-gray-600 mt-4">
+      {t("earnPrefix")}{" "}
       <span className="font-semibold text-green">
         {new Intl.NumberFormat().format(points)} {t(points > 1 ? "pointsPlural" : "pointsSingular")}
       </span>{" "}
-      {t("earnSuffix")} ✨
+      {t("earnSuffix")}
     </p>
   );
 }

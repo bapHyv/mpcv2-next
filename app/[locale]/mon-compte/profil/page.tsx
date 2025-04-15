@@ -1,10 +1,7 @@
-// page.tsx (User Profile)
 "use client";
 
 /**
- * Modale user z index
  * user button navbar /connexion
- * probleme ouvrir menu langue
  */
 import { useState, useEffect, useRef } from "react";
 import { useFormState } from "react-dom";
@@ -26,7 +23,7 @@ import {
   inputClassname,
   buttonClassname,
   checkRadioClassname,
-  titleClassname as baseTitleClassname, // Rename to avoid conflict
+  titleClassname as baseTitleClassname,
 } from "@/app/staticData/cartPageClasses";
 
 const initialState = {
