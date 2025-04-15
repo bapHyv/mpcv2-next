@@ -1,16 +1,18 @@
+import type { Metadata } from "next";
+
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { APIResponse, categories, Product } from "@/app/types/productsTypes";
-import Title from "@/app/components/Title";
-import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
+import Link from "next/link";
 
+import { APIResponse, categories as ICategories, Product } from "@/app/types/productsTypes";
+import Title from "@/app/components/Title";
 import { doesCategoryExists, findSlug, findTitle } from "@/app/utils/productFunctions";
 import ProductCard from "@/app/components/products/ProductCard";
 import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
-import Link from "next/link";
 import OtherNavbar from "@/app/components/OtherNavbar";
-import { twMerge } from "tailwind-merge";
-import { titleClassname } from "@/app/staticData/cartPageClasses";
+import Separator from "@/app/components/Separator";
+import { linkClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 
 interface Params {
   params: {
@@ -19,86 +21,172 @@ interface Params {
   };
 }
 
-export default async function Page({ params: { locale, category } }: Params) {
+async function getCategories(locale: string): Promise<ICategories> {
   const t = await getTranslations({ locale, namespace: "category" });
-
-  const categories: categories = [
-    {
-      url: "fleurs%20de%20cbd",
-      urlTitle: `🌿 ${t("flower")}`,
-      category: "fleurs",
-      title: t("flower"),
-      slug: "fleurs-cbd",
-    },
-    {
-      url: "hash%20de%20cbd",
-      urlTitle: `🍫 ${t("hash")}`,
-      category: "hashs",
-      title: t("hash"),
-      slug: "pollens-resines-hash-cbd",
-    },
-    {
-      url: "moonrocks",
-      urlTitle: `🌠 ${t("moonrock")}`,
-      category: "moonrocks",
-      title: t("moonrock"),
-      slug: "moonrocks-cbd",
-    },
+  return [
+    { url: "fleurs%20de%20cbd", urlTitle: `🌿 ${t("flower")}`, category: "fleurs", title: t("flower"), slug: "fleurs-cbd" },
+    { url: "hash%20de%20cbd", urlTitle: `🍫 ${t("hash")}`, category: "hashs", title: t("hash"), slug: "pollens-resines-hash-cbd" },
+    { url: "moonrocks", urlTitle: `🌠 ${t("moonrock")}`, category: "moonrocks", title: t("moonrock"), slug: "moonrocks-cbd" },
     { url: "huiles", urlTitle: `💧 ${t("oil")}`, category: "huiles", title: t("oil"), slug: "huiles-cbd" },
-    {
-      url: "infusions",
-      urlTitle: `🌱 ${t("herbalTea")}`,
-      category: "infusions",
-      title: t("herbalTea"),
-      slug: "infusions-cbd",
-    },
-    { url: "soins", urlTitle: `🧴 ${t("health")}`, category: "soins", title: t("health"), slug: "soins-cbd" },
-    {
-      url: "vaporisateurs",
-      urlTitle: `💨 ${t("vaporizer")}`,
-      category: "vaporisateurs",
-      title: t("vaporizer"),
-      slug: "vaporisateur",
-    },
+    { url: "infusions", urlTitle: `🌱 ${t("herbalTea")}`, category: "infusions", title: t("herbalTea"), slug: "infusions-cbd" },
+    { url: "soins", urlTitle: `🌿 ${t("health")}`, category: "soins", title: t("health"), slug: "soins-cbd" },
+    { url: "vaporisateurs", urlTitle: `💨 ${t("vaporizer")}`, category: "vaporisateurs", title: t("vaporizer"), slug: "vaporisateur" },
   ];
+}
+
+async function getCategoryProducts(categorySlug: string): Promise<Product[]> {
+  try {
+    const response = await fetch(`${process.env.API_HOST}/products/${categorySlug}`);
+    if (!response.ok) {
+      console.error(`Failed to fetch ${categorySlug}: ${response.status}`);
+      return [];
+    }
+    const data: APIResponse<Product> = await response.json();
+    return Object.values(data.products).filter((p) => p && p.stock && parseInt(p.stock, 10) > 0);
+  } catch (error) {
+    console.error(`Error fetching ${categorySlug}:`, error);
+    return [];
+  }
+}
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { locale, category } = params;
+  const categories = await getCategories(locale);
+  const t = await getTranslations({ locale, namespace: "categoryPage" }); // Specific namespace
 
   if (!doesCategoryExists(categories, category)) notFound();
-
   const currentTitle = findTitle(categories, category);
 
+  return {
+    title: t("metadataTitle", { categoryName: currentTitle }), // Dynamic title
+    description: t("metadataDescription", { categoryName: currentTitle }), // Dynamic description
+    // Add other metadata fields like Open Graph specific to category
+  };
+}
+
+export default async function CategoryPage({ params: { locale, category } }: Params) {
+  const categories = await getCategories(locale);
+  if (!doesCategoryExists(categories, category)) {
+    notFound();
+  }
+
+  const currentTitle = findTitle(categories, category);
   const currentSlug = findSlug(categories, category);
 
-  const response = await fetch(`${process.env.API_HOST}/products/${currentSlug}`);
-  const data: APIResponse<Product> = await response.json();
-  const formatedProducts: Product[] = Object.values(data.products);
+  const t = await getTranslations({ locale });
+
+  const products = await getCategoryProducts(currentSlug);
+
+  const productCardsSkeleton = new Array(8).fill(0).map((_, i) => <ProductCardSkeleton key={`skeleton-${i}`} />);
 
   return (
-    <div>
-      {/* NAV CATEGORY */}
+    <div className="md:pt-10">
+      {/* Category Navigation Bar */}
       <OtherNavbar>
         {categories.map((cat) => (
           <Link
-            key={cat.title}
-            href={cat.slug}
-            className={clsx(
-              category === cat.slug ? "text-green font-medium bg-white/10" : "text-white",
-              "capitalize text-center text-sm py-1 px-2 rounded-md text-nowrap",
-              "xl:text-xl"
+            key={cat.slug}
+            href={`/${locale}/${cat.slug}`}
+            className={twMerge(
+              "capitalize text-center text-sm py-1 px-3 mx-1 rounded-md text-nowrap whitespace-nowrap transition-colors duration-150 ease-in-out hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white",
+              category === cat.slug ? "font-medium text-green bg-white/10 ring-1 ring-green/50" : "text-white"
             )}
           >
             {cat.urlTitle}
           </Link>
         ))}
       </OtherNavbar>
-
-      <Title title={currentTitle} type="h1" classname={twMerge(titleClassname, "my-4 md:mt-16 text-green")} firstLetterClassname="text-xl" />
-
-      <div className="flex flex-wrap px-2 justify-center gap-2 mb-8">
-        {/* PRODUCT CARDS */}
-        {!response.ok
-          ? new Array(8).fill(0).map((e) => <ProductCardSkeleton key={Math.random()} />)
-          : formatedProducts.map((prod) => <ProductCard key={prod.name} locale={locale} {...prod} />)}
+      {/* Main Category Title */}
+      <Title
+        title={currentTitle}
+        type="h1"
+        classname={twMerge(titleClassname, "mt-8 mb-6 md:mt-10 text-green text-center")}
+        firstLetterClassname="text-xl"
+      />
+      {/* Product Grid Container */}
+      <div className="flex flex-wrap px-2 justify-center gap-4 mb-8 md:mb-12">
+        {products.length > 0
+          ? products.map((prod) => <ProductCard key={prod.id} locale={locale} {...prod} category={currentSlug} />)
+          : productCardsSkeleton}
       </div>
-    </div>
+      {/* --- NEW CONTENT SECTION --- */}
+      <section aria-labelledby="category-content-heading" className="py-10 md:py-16 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+          <Separator />
+          {/* Dynamic Title for Content */}
+          <Title
+            id="category-content-heading"
+            type="h2"
+            // Use a dynamic key combining namespace and category slug
+            title={t(`categoryPageContent.${currentSlug}.sectionTitle`, { categoryName: currentTitle })}
+            classname="text-2xl md:text-3xl font-bold text-center my-8 text-gray-800"
+          />
+          {/* Main Description */}
+          <div className="prose prose-sm sm:prose-base max-w-none mx-auto text-gray-700 space-y-4 mb-8 md:mb-12 text-justify">
+            {/* Example: Render paragraphs based on translation keys */}
+            {/* You might need multiple paragraphs */}
+            <p>{t(`categoryPageContent.${currentSlug}.descriptionPara1`)}</p>
+            <p>{t(`categoryPageContent.${currentSlug}.descriptionPara2`)}</p>
+            {/* Add more paragraphs or lists as needed based on your translation structure */}
+          </div>
+          {/* Optional: Benefits/Uses Section */}
+          {/* Check if translation exists before rendering */}
+          {t(`categoryPageContent.${currentSlug}.benefitsTitle`) !== `categoryPageContent.${currentSlug}.benefitsTitle` && (
+            <>
+              <Title
+                type="h3"
+                title={t(`categoryPageContent.${currentSlug}.benefitsTitle`)}
+                classname="text-xl md:text-2xl font-semibold text-center mb-6 text-gray-800"
+              />
+              <ul className="list-disc list-inside space-y-2 mb-8 md:mb-12 text-gray-700">
+                {/* Render list items dynamically based on keys */}
+                {/* Example: Assuming keys like benefitsItem1, benefitsItem2... */}
+                <li>{t(`categoryPageContent.${currentSlug}.benefitsItem1`)}</li>
+                <li>{t(`categoryPageContent.${currentSlug}.benefitsItem2`)}</li>
+                {/* Add more */}
+              </ul>
+            </>
+          )}
+          {/* FAQ Section */}
+          {/* Check if translation exists before rendering */}
+          {t(`categoryPageContent.${currentSlug}.faqTitle`) !== `categoryPageContent.${currentSlug}.faqTitle` && (
+            <>
+              <Title
+                type="h3"
+                title={t(`categoryPageContent.${currentSlug}.faqTitle`)}
+                classname="text-xl md:text-2xl font-semibold text-center mb-6 text-gray-800"
+              />
+              <dl className="space-y-6">
+                {/* Example FAQ Item 1 */}
+                <div>
+                  <dt className="font-semibold text-gray-900">{t(`categoryPageContent.${currentSlug}.faq1Question`)}</dt>
+                  <dd className="mt-1 text-gray-700">{t(`categoryPageContent.${currentSlug}.faq1Answer`)}</dd>
+                </div>
+                {/* Example FAQ Item 2 */}
+                <div>
+                  <dt className="font-semibold text-gray-900">{t(`categoryPageContent.${currentSlug}.faq2Question`)}</dt>
+                  <dd className="mt-1 text-gray-700">{t(`categoryPageContent.${currentSlug}.faq2Answer`)}</dd>
+                </div>
+                {/* Add more FAQ items dynamically */}
+              </dl>
+            </>
+          )}
+          {/* Optional: Link to relevant blog posts/guides */}
+          <div className="mt-10 text-center">
+            <p className="text-gray-600 mb-4">{t(`categoryPageContent.${currentSlug}.moreInfoText`)}</p>
+            <Link href={`/${locale}/blog`} legacyBehavior>
+              <a className={twMerge(linkClassname, "text-base font-medium inline-flex items-center")}>
+                {t(`categoryPageContent.${currentSlug}.blogLinkText`)}{" "}
+                <span aria-hidden="true" className="ml-1">
+                  →
+                </span>
+              </a>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div> // End main container
   );
 }
+
+// --- END OF UPDATED [category]/page.tsx ---

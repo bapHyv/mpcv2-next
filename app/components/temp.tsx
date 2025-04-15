@@ -1,182 +1,104 @@
-import Carousel from "@/app/components/Carousel";
-import HeroCarousel from "@/app/components/HeroCarousel";
-import ProductCard from "@/app/components/products/ProductCard";
-import Title from "@/app/components/Title";
-import { CreditCardIcon, GiftIcon, StarIcon, TruckIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
-import ServiceCard from "@/app/components/homepage/ServiceCard";
-import Image from "next/image";
-import { APIResponse, Flower, Hash, Oil } from "@/app/types/productsTypes";
-import { v4 as uuid } from "uuid";
-import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { APIResponse, categories, Product } from "@/app/types/productsTypes";
+import Title from "@/app/components/Title";
 import clsx from "clsx";
 
+import { doesCategoryExists, findSlug, findTitle } from "@/app/utils/productFunctions";
+import ProductCard from "@/app/components/products/ProductCard";
+import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
+import Link from "next/link";
+import OtherNavbar from "@/app/components/OtherNavbar";
+import { twMerge } from "tailwind-merge";
+import { titleClassname } from "@/app/staticData/cartPageClasses";
+
 interface Params {
-  locale: string;
+  params: {
+    locale: string;
+    category: string;
+  };
 }
 
-async function getFlowers() {
-  const response = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`);
-  const data: APIResponse<Flower> = await response.json();
-  //TODO: REMOVE FILTER ON STOCK
-  const formatedFlowers = Object.values(data.products).filter((e) => !!parseInt(e.stock));
+export default async function Page({ params: { locale, category } }: Params) {
+  const t = await getTranslations({ locale, namespace: "category" });
 
-  return formatedFlowers;
-}
-
-async function getHashs() {
-  const response = await fetch(`${process.env.API_HOST}/products/pollens-resines-hash-cbd`);
-  const data: APIResponse<Hash> = await response.json();
-  const formatedHashs = Object.values(data.products).filter((e) => !!parseInt(e.stock));
-
-  return formatedHashs;
-}
-
-async function getOils() {
-  const response = await fetch(`${process.env.API_HOST}/products/huiles-cbd`);
-  const data: APIResponse<Oil> = await response.json();
-  const formatedOils = Object.values(data.products).filter((e) => !!parseInt(e.stock));
-
-  return formatedOils;
-}
-
-// TODO: ADD PHONE NUMBER AND TRUSTPILOT
-
-export default async function Page({ params }: { params: Params }) {
-  const { locale } = params;
-  const t = await getTranslations({ locale, namespace: "HomePage" });
-
-  const flowersData = getFlowers();
-  const hashsData = getHashs();
-  const oilsData = getOils();
-
-  const [flowers, hashs, oils] = await Promise.all([flowersData, hashsData, oilsData]);
-
-  const productCardsSkeleton: JSX.Element[] = new Array(8).fill(0).map(() => <ProductCardSkeleton key={uuid()} />);
-
-  const services = [
+  const categories: categories = [
     {
-      icon: <TruckIcon className="text-white h-10 w-10 z-10" />,
-      title: t("services.delivery.title"),
-      text: t("services.delivery.text"),
+      url: "fleurs%20de%20cbd",
+      urlTitle: `🌿 ${t("flower")}`,
+      category: "fleurs",
+      title: t("flower"),
+      slug: "fleurs-cbd",
     },
     {
-      icon: <CreditCardIcon className="text-white h-10 w-10 z-10" />,
-      title: t("services.payment.title"),
-      text: t("services.payment.text"),
+      url: "hash%20de%20cbd",
+      urlTitle: `🍫 ${t("hash")}`,
+      category: "hashs",
+      title: t("hash"),
+      slug: "pollens-resines-hash-cbd",
     },
     {
-      icon: <ShoppingBagIcon className="text-white h-10 w-10 z-10" />,
-      title: t("services.products.title"),
-      text: t("services.products.text"),
+      url: "moonrocks",
+      urlTitle: `🌠 ${t("moonrock")}`,
+      category: "moonrocks",
+      title: t("moonrock"),
+      slug: "moonrocks-cbd",
     },
+    { url: "huiles", urlTitle: `💧 ${t("oil")}`, category: "huiles", title: t("oil"), slug: "huiles-cbd" },
     {
-      icon: <GiftIcon className="text-white h-10 w-10 z-10" />,
-      title: t("services.fidelity.title"),
-      text: t("services.fidelity.text"),
+      url: "infusions",
+      urlTitle: `🌱 ${t("herbalTea")}`,
+      category: "infusions",
+      title: t("herbalTea"),
+      slug: "infusions-cbd",
     },
+    { url: "soins", urlTitle: `🧴 ${t("health")}`, category: "soins", title: t("health"), slug: "soins-cbd" },
     {
-      icon: <StarIcon className="text-white h-10 w-10 z-10" />,
-      title: t("services.sponsoring.title"),
-      text: t("services.sponsoring.text"),
+      url: "vaporisateurs",
+      urlTitle: `💨 ${t("vaporizer")}`,
+      category: "vaporisateurs",
+      title: t("vaporizer"),
+      slug: "vaporisateur",
     },
   ];
 
-  const titleClassname = clsx(
-    "relative mt-4 mb-6 text-xl text-white font-bold",
-    "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1 after:w-8 after:bg-white",
-    "sm:mt-8 ",
-    "2xl:pl-2 "
-  );
+  if (!doesCategoryExists(categories, category)) notFound();
+
+  const currentTitle = findTitle(categories, category);
+
+  const currentSlug = findSlug(categories, category);
+
+  const response = await fetch(`${process.env.API_HOST}/products/${currentSlug}`);
+  const data: APIResponse<Product> = await response.json();
+  const formatedProducts: Product[] = Object.values(data.products);
 
   return (
-    <>
-      <section className="">
-        <HeroCarousel />
-      </section>
-      <section>
-        <Title title={t("flowers")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
-        <Carousel length={flowers ? flowers.length : 0}>
-          {!flowers
-            ? productCardsSkeleton
-            : flowers.map((flower) => (
-                <ProductCard key={flower.id} {...flower} locale={locale} category={"fleurs-cbd"} mainDivClassname="rounded-md" />
-              ))}
-        </Carousel>
-      </section>
-      <section>
-        <Title title={t("hashs")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
-        <Carousel length={hashs ? hashs.length : 0}>
-          {!hashs
-            ? productCardsSkeleton
-            : hashs.map((hash) => (
-                <ProductCard key={hash.id} {...hash} locale={locale} category={"pollens-resines-hash-cbd"} mainDivClassname="rounded-md" />
-              ))}
-        </Carousel>
-      </section>
-      <section>
-        <Title title={t("oils")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
-        <Carousel length={oils ? oils.length : 0}>
-          {!oils
-            ? productCardsSkeleton
-            : oils.map((oil) => <ProductCard key={oil.id} {...oil} locale={locale} category={"huiles-cbd"} mainDivClassname="rounded-md" />)}
-        </Carousel>
-      </section>
-      <section className="relative mt-4 sm:mt-8">
-        <div className="section-services-container" />
-        <div className="section-services" />
-        <div className="flex justify-center">
-          <Title
-            title={t("services.title")}
-            type="h2"
-            classname={clsx(
-              "relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest",
-              "after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green"
+    <div>
+      {/* NAV CATEGORY */}
+      <OtherNavbar>
+        {categories.map((cat) => (
+          <Link
+            key={cat.title}
+            href={cat.slug}
+            className={clsx(
+              category === cat.slug ? "text-green font-medium bg-white/10" : "text-white",
+              "capitalize text-center text-sm py-1 px-2 rounded-md text-nowrap",
+              "xl:text-xl"
             )}
-            firstLetterClassname="text-4xl"
-          />
-        </div>
-        <div className="w-full lg:w-4/5 m-auto px-2 flex flex-col sm:flex-row justify-center gap-5 sm:flex-wrap">
-          {services.map((service) => (
-            <ServiceCard key={service.title} icon={service.icon} title={service.title} text={service.text} />
-          ))}
-        </div>
-        <div className="h-10" />
-      </section>
-      <section className="mt-10 p-2">
-        <div className="flex flex-col md:items-center lg:flex-row lg:gap-x-5 lg:items-start">
-          <Image src="/section_cbd.jpg" alt={t("cbdSection.imgAlt")} width={550} height={367} />
-          <div>
-            <Title
-              title={t("cbdSection.title")}
-              type="h2"
-              classname={clsx(
-                "relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest",
-                "after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green"
-              )}
-              firstLetterClassname="text-4xl"
-            />
-            <p className="lg:pr-4 text-justify">{t("cbdSection.text")}</p>
-          </div>
-        </div>
-      </section>
-      <section className="mt-10 p-2">
-        <div className="flex flex-col md:items-center lg:flex-row-reverse lg:gap-x-5 lg:items-start">
-          <Image src="/service_bg_hp.jpeg" alt={t("cbdPassion.imgAlt")} width={550} height={367} />
-          <div>
-            <Title
-              title={t("cbdPassion.title")}
-              type="h2"
-              classname={clsx(
-                "relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest",
-                "after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green"
-              )}
-              firstLetterClassname="text-4xl"
-            />
-            <p className="text-justify">{t("cbdPassion.text")}</p>
-          </div>
-        </div>
-      </section>
-    </>
+          >
+            {cat.urlTitle}
+          </Link>
+        ))}
+      </OtherNavbar>
+
+      <Title title={currentTitle} type="h1" classname={twMerge(titleClassname, "my-4 md:mt-16 text-green")} firstLetterClassname="text-xl" />
+
+      <div className="flex flex-wrap px-2 justify-center gap-2 mb-8">
+        {/* PRODUCT CARDS */}
+        {!response.ok
+          ? new Array(8).fill(0).map((e) => <ProductCardSkeleton key={Math.random()} />)
+          : formatedProducts.map((prod) => <ProductCard key={prod.name} locale={locale} {...prod} />)}
+      </div>
+    </div>
   );
 }
