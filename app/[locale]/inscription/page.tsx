@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import SignUpForm from "@/app/components/SignUpForm";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
@@ -11,11 +13,28 @@ interface Params {
   };
 }
 
-export async function generateMetadata({ params: { locale } }: Params) {
+interface GenerateMetadataParams {
+  params: { locale: string };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
+  const { locale } = params;
   const t = await getTranslations({ locale, namespace: "signUpPage" });
+
   return {
-    title: t("title"),
-    description: t("description"),
+    title: t("metadataTitle"), // e.g., "Inscription - MonPlanCBD"
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "none",
+        "max-snippet": -1,
+      },
+    },
   };
 }
 

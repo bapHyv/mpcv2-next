@@ -1,111 +1,182 @@
-"use client";
-
-import Link from "next/link";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import Carousel from "@/app/components/Carousel";
+import HeroCarousel from "@/app/components/HeroCarousel";
+import ProductCard from "@/app/components/products/ProductCard";
+import Title from "@/app/components/Title";
+import { CreditCardIcon, GiftIcon, StarIcon, TruckIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
+import ServiceCard from "@/app/components/homepage/ServiceCard";
+import Image from "next/image";
+import { APIResponse, Flower, Hash, Oil } from "@/app/types/productsTypes";
+import { v4 as uuid } from "uuid";
+import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
+import { getTranslations } from "next-intl/server";
 import clsx from "clsx";
-import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
 
-const iconClassname = clsx(
-  "w-6 h-6 lg:w-7 lg:h-7 text-white flex items-center",
-  "hover:text-white",
-  "focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-);
-
-export default function BurgerMenuHeader() {
-  const [isVisible, setIsVisible] = useState(false);
-  const iconRef = useRef<SVGSVGElement | null>(null);
-
-  const pathName = usePathname();
-
-  useEffect(() => {
-    setIsVisible(false);
-  }, [pathName]);
-
-  return (
-    <div className="relavite">
-      <span className="sr-only">Open main menu</span>
-      {isVisible ? (
-        <XMarkIcon ref={iconRef} role="button" className={iconClassname} onClick={() => setIsVisible(false)} />
-      ) : (
-        <Bars3Icon role="button" className={iconClassname} onClick={() => setIsVisible(true)} />
-      )}
-      {isVisible && <BurgerMenu onClickOutside={() => setIsVisible(false)} iconRef={iconRef} />}
-    </div>
-  );
+interface Params {
+  locale: string;
 }
 
-function BurgerMenu({ onClickOutside, iconRef }: { onClickOutside: any; iconRef: MutableRefObject<SVGSVGElement | null> }) {
-  const pathname = usePathname();
-  const ref = useRef<HTMLDivElement | null>(null);
-  const t = useTranslations("");
+async function getFlowers() {
+  const response = await fetch(`${process.env.API_HOST}/products/fleurs-cbd`);
+  const data: APIResponse<Flower> = await response.json();
+  //TODO: REMOVE FILTER ON STOCK
+  const formatedFlowers = Object.values(data.products).filter((e) => !!parseInt(e.stock));
 
-  useEffect(() => {
-    const handleClickOutsideBurgerMenu = (event: MouseEvent) => {
-      if (
-        ref.current &&
-        iconRef.current &&
-        !ref.current.contains(event.target as HTMLElement) &&
-        !iconRef.current.contains(event.target as HTMLElement)
-      ) {
-        onClickOutside && onClickOutside();
-      }
-    };
-    document.addEventListener("click", handleClickOutsideBurgerMenu, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutsideBurgerMenu, true);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onClickOutside]);
+  return formatedFlowers;
+}
 
-  const categories = [
+async function getHashs() {
+  const response = await fetch(`${process.env.API_HOST}/products/pollens-resines-hash-cbd`);
+  const data: APIResponse<Hash> = await response.json();
+  const formatedHashs = Object.values(data.products).filter((e) => !!parseInt(e.stock));
+
+  return formatedHashs;
+}
+
+async function getOils() {
+  const response = await fetch(`${process.env.API_HOST}/products/huiles-cbd`);
+  const data: APIResponse<Oil> = await response.json();
+  const formatedOils = Object.values(data.products).filter((e) => !!parseInt(e.stock));
+
+  return formatedOils;
+}
+
+// TODO: ADD PHONE NUMBER AND TRUSTPILOT
+
+export default async function Page({ params }: { params: Params }) {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "HomePage" });
+
+  const flowersData = getFlowers();
+  const hashsData = getHashs();
+  const oilsData = getOils();
+
+  const [flowers, hashs, oils] = await Promise.all([flowersData, hashsData, oilsData]);
+
+  const productCardsSkeleton: JSX.Element[] = new Array(8).fill(0).map(() => <ProductCardSkeleton key={uuid()} />);
+
+  const services = [
     {
-      category: `🌿 ${t("category.flower")}`,
-      key: "fleurs",
-      slug: "fleurs-cbd",
+      icon: <TruckIcon className="text-white h-10 w-10 z-10" />,
+      title: t("services.delivery.title"),
+      text: t("services.delivery.text"),
     },
     {
-      category: `🍫 ${t("category.hash")}`,
-      key: "hashs",
-      slug: "pollens-resines-hash-cbd",
+      icon: <CreditCardIcon className="text-white h-10 w-10 z-10" />,
+      title: t("services.payment.title"),
+      text: t("services.payment.text"),
     },
     {
-      category: `🌠 ${t("category.moonrock")}`,
-      key: "moonrocks",
-      slug: "moonrocks-cbd",
-    },
-    { category: `💧 ${t("category.oil")}`, key: "huiles", slug: "huiles-cbd" },
-    {
-      category: `🌱 ${t("category.herbalTea")}`,
-      key: "infusions",
-      slug: "infusions-cbd",
-    },
-    { category: `🌿 ${t("category.health")}`, key: "soins", slug: "soins-cbd" },
-    {
-      category: `💨 ${t("category.vaporizer")}`,
-      key: "vaporisateurs",
-      slug: "vaporisateur",
+      icon: <ShoppingBagIcon className="text-white h-10 w-10 z-10" />,
+      title: t("services.products.title"),
+      text: t("services.products.text"),
     },
     {
-      category: `📰 Blog`,
-      key: "blog",
-      slug: "blog",
+      icon: <GiftIcon className="text-white h-10 w-10 z-10" />,
+      title: t("services.fidelity.title"),
+      text: t("services.fidelity.text"),
+    },
+    {
+      icon: <StarIcon className="text-white h-10 w-10 z-10" />,
+      title: t("services.sponsoring.title"),
+      text: t("services.sponsoring.text"),
     },
   ];
 
+  const titleClassname = clsx(
+    "relative mt-4 mb-6 text-xl text-white font-bold",
+    "after:content-['_'] after:absolute after:left-0 after:2xl:left-2 after:-bottom-1 after:h-1 after:w-8 after:bg-white",
+    "sm:mt-8 ",
+    "2xl:pl-2 "
+  );
+
   return (
-    <div ref={ref} className={clsx("absolute bottom-[54px] bg-black text-white flex flex-col gap-y-2 rounded-t-md w-[45dvw] p-2")}>
-      {categories.map((e) => (
-        <React.Fragment key={e.key}>
-          <Link href={`/${e.slug}`}>
-            <div className={clsx("flex items-center", { "font-medium text-green": pathname.includes(e.slug) })}>
-              <span>{e.category}</span>
-            </div>
-          </Link>
-        </React.Fragment>
-      ))}
-    </div>
+    <>
+      <section className="">
+        <HeroCarousel />
+      </section>
+      <section>
+        <Title title={t("flowers")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
+        <Carousel length={flowers ? flowers.length : 0}>
+          {!flowers
+            ? productCardsSkeleton
+            : flowers.map((flower) => (
+                <ProductCard key={flower.id} {...flower} locale={locale} category={"fleurs-cbd"} mainDivClassname="rounded-md" />
+              ))}
+        </Carousel>
+      </section>
+      <section>
+        <Title title={t("hashs")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
+        <Carousel length={hashs ? hashs.length : 0}>
+          {!hashs
+            ? productCardsSkeleton
+            : hashs.map((hash) => (
+                <ProductCard key={hash.id} {...hash} locale={locale} category={"pollens-resines-hash-cbd"} mainDivClassname="rounded-md" />
+              ))}
+        </Carousel>
+      </section>
+      <section>
+        <Title title={t("oils")} type="h2" classname={titleClassname} firstLetterClassname="text-xl lowercase" />
+        <Carousel length={oils ? oils.length : 0}>
+          {!oils
+            ? productCardsSkeleton
+            : oils.map((oil) => <ProductCard key={oil.id} {...oil} locale={locale} category={"huiles-cbd"} mainDivClassname="rounded-md" />)}
+        </Carousel>
+      </section>
+      <section className="relative mt-4 sm:mt-8">
+        <div className="section-services-container" />
+        <div className="section-services" />
+        <div className="flex justify-center">
+          <Title
+            title={t("services.title")}
+            type="h2"
+            classname={clsx(
+              "relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest",
+              "after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green"
+            )}
+            firstLetterClassname="text-4xl"
+          />
+        </div>
+        <div className="w-full lg:w-4/5 m-auto px-2 flex flex-col sm:flex-row justify-center gap-5 sm:flex-wrap">
+          {services.map((service) => (
+            <ServiceCard key={service.title} icon={service.icon} title={service.title} text={service.text} />
+          ))}
+        </div>
+        <div className="h-10" />
+      </section>
+      <section className="mt-10 p-2">
+        <div className="flex flex-col md:items-center lg:flex-row lg:gap-x-5 lg:items-start">
+          <Image src="/section_cbd.jpg" alt={t("cbdSection.imgAlt")} width={550} height={367} />
+          <div>
+            <Title
+              title={t("cbdSection.title")}
+              type="h2"
+              classname={clsx(
+                "relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest",
+                "after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green"
+              )}
+              firstLetterClassname="text-4xl"
+            />
+            <p className="lg:pr-4 text-justify">{t("cbdSection.text")}</p>
+          </div>
+        </div>
+      </section>
+      <section className="mt-10 p-2">
+        <div className="flex flex-col md:items-center lg:flex-row-reverse lg:gap-x-5 lg:items-start">
+          <Image src="/service_bg_hp.jpeg" alt={t("cbdPassion.imgAlt")} width={550} height={367} />
+          <div>
+            <Title
+              title={t("cbdPassion.title")}
+              type="h2"
+              classname={clsx(
+                "relative mt-4 mb-6 uppercase text-xl text-white font-bold tracking-widest",
+                "after:content-['_'] after:absolute after:left-0 after:-bottom-1 after:h-1.5 after:w-16 after:bg-green"
+              )}
+              firstLetterClassname="text-4xl"
+            />
+            <p className="text-justify">{t("cbdPassion.text")}</p>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

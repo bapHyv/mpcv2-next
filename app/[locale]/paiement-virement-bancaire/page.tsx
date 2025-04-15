@@ -3,6 +3,34 @@ import { redirect } from "next/navigation";
 import Title from "@/app/components/Title";
 import CleanUpAfterPayment from "@/app/components/CleanUpAfterPayment";
 
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
+interface GenerateMetadataParams {
+  params: { locale: string };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "bankTransferPage" }); // Use relevant namespace
+
+  return {
+    title: t("metadataTitle"), // e.g., "Confirmation de Commande - MonPlanCBD"
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "none",
+        "max-snippet": -1,
+      },
+    },
+  };
+}
+
 export default async function Page() {
   const hasCookies = cookies().get("allow_bank_transfer_access");
 

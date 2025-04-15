@@ -52,7 +52,7 @@ export default async function Page({ params: { locale, category } }: Params) {
       title: t("herbalTea"),
       slug: "infusions-cbd",
     },
-    { url: "soins", urlTitle: `🌿 ${t("health")}`, category: "soins", title: t("health"), slug: "soins-cbd" },
+    { url: "soins", urlTitle: `🧴 ${t("health")}`, category: "soins", title: t("health"), slug: "soins-cbd" },
     {
       url: "vaporisateurs",
       urlTitle: `💨 ${t("vaporizer")}`,
