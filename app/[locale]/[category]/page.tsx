@@ -52,15 +52,14 @@ async function getCategoryProducts(categorySlug: string): Promise<Product[]> {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { locale, category } = params;
   const categories = await getCategories(locale);
-  const t = await getTranslations({ locale, namespace: "categoryPage" }); // Specific namespace
+  const t = await getTranslations({ locale, namespace: "categoryPage" });
 
   if (!doesCategoryExists(categories, category)) notFound();
   const currentTitle = findTitle(categories, category);
 
   return {
-    title: t("metadataTitle", { categoryName: currentTitle }), // Dynamic title
-    description: t("metadataDescription", { categoryName: currentTitle }), // Dynamic description
-    // Add other metadata fields like Open Graph specific to category
+    title: t("metadataTitle", { categoryName: currentTitle }),
+    description: t("metadataDescription", { categoryName: currentTitle }),
   };
 }
 
@@ -109,28 +108,20 @@ export default async function CategoryPage({ params: { locale, category } }: Par
           ? products.map((prod) => <ProductCard key={prod.id} locale={locale} {...prod} category={currentSlug} />)
           : productCardsSkeleton}
       </div>
-      {/* --- NEW CONTENT SECTION --- */}
       <section aria-labelledby="category-content-heading" className="py-10 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
           <Separator />
-          {/* Dynamic Title for Content */}
           <Title
             id="category-content-heading"
             type="h2"
-            // Use a dynamic key combining namespace and category slug
             title={t(`categoryPageContent.${currentSlug}.sectionTitle`, { categoryName: currentTitle })}
             classname="text-2xl md:text-3xl font-bold text-center my-8 text-gray-800"
           />
           {/* Main Description */}
           <div className="prose prose-sm sm:prose-base max-w-none mx-auto text-gray-700 space-y-4 mb-8 md:mb-12 text-justify">
-            {/* Example: Render paragraphs based on translation keys */}
-            {/* You might need multiple paragraphs */}
             <p>{t(`categoryPageContent.${currentSlug}.descriptionPara1`)}</p>
             <p>{t(`categoryPageContent.${currentSlug}.descriptionPara2`)}</p>
-            {/* Add more paragraphs or lists as needed based on your translation structure */}
           </div>
-          {/* Optional: Benefits/Uses Section */}
-          {/* Check if translation exists before rendering */}
           {t(`categoryPageContent.${currentSlug}.benefitsTitle`) !== `categoryPageContent.${currentSlug}.benefitsTitle` && (
             <>
               <Title
@@ -139,16 +130,14 @@ export default async function CategoryPage({ params: { locale, category } }: Par
                 classname="text-xl md:text-2xl font-semibold text-center mb-6 text-gray-800"
               />
               <ul className="list-disc list-inside space-y-2 mb-8 md:mb-12 text-gray-700">
-                {/* Render list items dynamically based on keys */}
-                {/* Example: Assuming keys like benefitsItem1, benefitsItem2... */}
                 <li>{t(`categoryPageContent.${currentSlug}.benefitsItem1`)}</li>
                 <li>{t(`categoryPageContent.${currentSlug}.benefitsItem2`)}</li>
-                {/* Add more */}
+                <li>{t(`categoryPageContent.${currentSlug}.benefitsItem3`)}</li>
+                <li>{t(`categoryPageContent.${currentSlug}.benefitsItem4`)}</li>
+                <li>{t(`categoryPageContent.${currentSlug}.benefitsItem5`)}</li>
               </ul>
             </>
           )}
-          {/* FAQ Section */}
-          {/* Check if translation exists before rendering */}
           {t(`categoryPageContent.${currentSlug}.faqTitle`) !== `categoryPageContent.${currentSlug}.faqTitle` && (
             <>
               <Title
@@ -157,21 +146,17 @@ export default async function CategoryPage({ params: { locale, category } }: Par
                 classname="text-xl md:text-2xl font-semibold text-center mb-6 text-gray-800"
               />
               <dl className="space-y-6">
-                {/* Example FAQ Item 1 */}
                 <div>
                   <dt className="font-semibold text-gray-900">{t(`categoryPageContent.${currentSlug}.faq1Question`)}</dt>
                   <dd className="mt-1 text-gray-700">{t(`categoryPageContent.${currentSlug}.faq1Answer`)}</dd>
                 </div>
-                {/* Example FAQ Item 2 */}
                 <div>
                   <dt className="font-semibold text-gray-900">{t(`categoryPageContent.${currentSlug}.faq2Question`)}</dt>
                   <dd className="mt-1 text-gray-700">{t(`categoryPageContent.${currentSlug}.faq2Answer`)}</dd>
                 </div>
-                {/* Add more FAQ items dynamically */}
               </dl>
             </>
           )}
-          {/* Optional: Link to relevant blog posts/guides */}
           <div className="mt-10 text-center">
             <p className="text-gray-600 mb-4">{t(`categoryPageContent.${currentSlug}.moreInfoText`)}</p>
             <Link href={`/${locale}/blog`} legacyBehavior>
@@ -185,8 +170,6 @@ export default async function CategoryPage({ params: { locale, category } }: Par
           </div>
         </div>
       </section>
-    </div> // End main container
+    </div>
   );
 }
-
-// --- END OF UPDATED [category]/page.tsx ---
