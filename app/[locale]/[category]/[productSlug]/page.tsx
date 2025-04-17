@@ -1,12 +1,13 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import { Disclosure, DisclosureButton, DisclosurePanel, TabGroup, TabPanel, TabPanels } from "@headlessui/react";
 import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/20/solid";
 import { getTranslations } from "next-intl/server";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import geoip from "geoip-lite";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
+import { notFound } from "next/navigation";
 
 import ProductOptions from "@/app/components/products/ProductOptions";
 import ProductPrice from "@/app/components/products/ProductPrice";
@@ -20,6 +21,7 @@ import { findHighestOption, returnRenamedGrowingMethod } from "@/app/utils/produ
 import getClientIp from "@/app/components/getClientIp";
 
 import { sectionWrapperClassname, titleClassname as baseTitleClassname, linkClassname } from "@/app/staticData/cartPageClasses";
+
 interface Params {
   params: {
     locale: string;
@@ -28,29 +30,125 @@ interface Params {
   };
 }
 
-export async function generateMetadata({ params: { category, locale, productSlug } }: Params, parent: ResolvingMetadata): Promise<Metadata> {
-  const response = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`);
-  const product: Product = await response.json();
-  const domain = process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.MAIN_DOMAIN;
-  const img = !!product.images.main ? product.images.main.url : "/logo-noir.png";
-  const alt = !!product.images.main ? product.images.main.alt : product.name;
-  const imgHost = `${process.env.MAIN_URL}${process.env.IMG_HOST}`;
-  const images = product.images.others.reduce(
-    (acc, img) => {
-      return [...acc, { url: `${imgHost}${img.url}`, alt: img.url }];
-    },
-    [{ url: `${imgHost}${img}`, alt }]
-  );
+async function getProductDataForMeta(productSlug: string): Promise<Product | null> {
+  try {
+    const response = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`);
+    if (!response.ok) {
+      if (response.status === 404) {
+        console.warn(`Metadata: Product with slug "${productSlug}" not found (404).`);
+        return null;
+      }
+      throw new Error(`Failed to fetch product data: ${response.status}`);
+    }
+    const product: Product = await response.json();
+    return product;
+  } catch (error) {
+    console.error("Error fetching product data for metadata:", error);
+    return null;
+  }
+}
+
+export async function generateMetadata({ params: { category: categorySlug, locale, productSlug } }: Params): Promise<Metadata> {
+  const product = await getProductDataForMeta(productSlug);
+
+  if (!product) {
+    notFound();
+  }
+
+  const t = await getTranslations({ locale });
+
+  const brandName = t("global.brandName");
+  const categoryTitle = t(`category.${product.category}`);
+  const productName = product.name;
+  const shortDescription = product.shortDescription;
+
+  const representativePrice = Object.entries(product.prices)[0][1].price;
+
+  const stockStatus = product.stock && parseInt(product.stock, 10) > 0 ? "instock" : "outofstock";
+
+  const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
+  const canonicalUrl = `${siteBaseUrl}/${locale}/${categorySlug}/${productSlug}`;
+
+  const mainImage = product.images?.main;
+  const ogImageUrl = mainImage ? `${process.env.MAIN_URL}${process.env.IMG_HOST}${mainImage.url}` : `${siteBaseUrl}/og-image-default.png`; // **Fallback image is crucial**
+  const ogImageAlt = mainImage ? mainImage.alt : `Image of ${productName}`; // Descriptive fallback alt
+
+  const title = `${t("productOptions.addToCartButton")} ${productName} - ${categoryTitle} | ${brandName}`;
+
+  // TODO: **Description:** ~150-160 characters. Engaging summary, includes keywords, potentially a subtle CTA.
+  const description = shortDescription.length > 160 ? `${shortDescription.substring(0, 157)}...` : shortDescription;
+
+  const keywords = [
+    productName,
+    `${productName} CBD`,
+    categoryTitle,
+    `Acheter ${categoryTitle}`,
+    `Acheter ${productName}`,
+    brandName,
+    "CBD",
+    locale === "fr" ? "acheter" : locale === "en" ? "buy" : "comprar",
+  ].join(", ");
 
   return {
-    title: product.name,
-    description: product.shortDescription,
-    metadataBase: new URL(`${domain}/${category}/${productSlug}`),
+    title: title,
+    description: description,
+    keywords: keywords,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "fr-FR": `${siteBaseUrl}/fr/${categorySlug}/${productSlug}`,
+        "en-US": `${siteBaseUrl}/en/${categorySlug}/${productSlug}`,
+        "es-ES": `${siteBaseUrl}/es/${categorySlug}/${productSlug}`,
+        "x-default": `${siteBaseUrl}/fr/${categorySlug}/${productSlug}`,
+      },
+    },
     openGraph: {
-      images,
+      title: title,
+      description: description,
+      url: canonicalUrl,
+      siteName: brandName,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 800,
+          height: 800,
+          alt: ogImageAlt,
+        },
+        ...product.images.others.slice(0, 2).map((img) => ({
+          url: `${process.env.MAIN_URL}${process.env.IMG_HOST}${img.url}`,
+          width: 800,
+          height: 800,
+          alt: img.alt || `Image of ${productName}`,
+        })),
+      ],
+      locale: locale.replace("-", "_"),
+      alternateLocale: ["fr_FR", "en_US", "es_ES"].filter((altLocale) => altLocale !== locale.replace("-", "_")),
       type: "article",
-      locale: "fr-FR",
-      alternateLocale: ["en-US", "es-ES"],
+      authors: brandName,
+      section: categoryTitle,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: [ogImageUrl],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    other: {
+      "product:price:amount": representativePrice,
+      "product:price:currency": "EUR",
+      "product:availability": stockStatus,
+      "product:brand": brandName,
     },
   };
 }
@@ -73,7 +171,6 @@ export default async function Page({ params: { category, locale, productSlug } }
   }
   const product: Product = await response.json();
 
-  // Process ratings (keep existing logic)
   const counts = product.ratings.reviews.reduce(
     (acc, rating) => {
       return { ...acc, [rating.rating]: acc[rating.rating] + 1 };
@@ -81,7 +178,6 @@ export default async function Page({ params: { category, locale, productSlug } }
     { "5": 0, "4": 0, "3": 0, "2": 0, "1": 0 } as { [key: string]: number }
   );
 
-  // Translations (keep existing logic)
   const terpenesFlavor = {
     caryophyllene: t("category.caryophyllene"),
     limonene: t("category.limonene"),
@@ -107,10 +203,8 @@ export default async function Page({ params: { category, locale, productSlug } }
     usa: "Etats-unis",
   };
 
-  // Growing method (keep existing logic)
   const renamedGrowindMethod = returnRenamedGrowingMethod("growingMethod" in product ? product.growingMethod : undefined);
 
-  // GeoIP logic (keep existing logic)
   let isFrance = false;
   const clientIp = getClientIp();
 
@@ -130,28 +224,24 @@ export default async function Page({ params: { category, locale, productSlug } }
     }
   }
 
-  // --- Render Component ---
   return (
-    // Use standard container padding, remove default bg-white if needed
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
       <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 xl:gap-x-12">
         {/* --- Image Gallery --- */}
-        {/* Using Headless UI TabGroup */}
         <TabGroup as="div" className="flex flex-col-reverse">
           {/* Image selector thumbnails */}
           <ProductImageGallery images={product.images} />
           {/* Main image display */}
           <TabPanels className="aspect-h-1 aspect-w-1 w-full mt-4 sm:mt-0">
-            {/* Ensure main image panel is first */}
             {product.images.main && (
               <TabPanel key={`${product.images.main.alt}-panel`}>
                 <Image
-                  priority // Prioritize LCP image
-                  width={800} // Provide appropriate width/height for aspect ratio hint
+                  priority
+                  width={800}
                   height={800}
                   alt={product.images.main.alt}
                   src={`${process.env.MAIN_URL}${process.env.IMG_HOST}${product.images.main.url}`}
-                  className="h-full w-full object-cover object-center sm:rounded-lg border border-gray-200 shadow-md" // Consistent styling
+                  className="h-full w-full object-cover object-center sm:rounded-lg border border-gray-200 shadow-md"
                 />
               </TabPanel>
             )}
@@ -170,16 +260,11 @@ export default async function Page({ params: { category, locale, productSlug } }
         </TabGroup>
 
         {/* --- Product Info Column --- */}
-        {/* Add vertical spacing */}
         <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0 space-y-6">
-          {" "}
-          {/* Use space-y */}
-          {/* Product Name */}
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl text-center lg:text-left">{product.name}</h1>
           {/* Product Price Component Placeholder */}
           <div className="mt-3">
             <h2 className="sr-only">Product information</h2>
-            {/* ProductPrice component will be styled later */}
             <ProductPrice id={product.id} />
           </div>
           {/* Stars Review Link */}
@@ -187,7 +272,6 @@ export default async function Page({ params: { category, locale, productSlug } }
             <div className="mt-3">
               <h3 className="sr-only">Reviews</h3>
               <div className="flex items-center gap-x-2">
-                {/* Consider a StarDisplay component */}
                 <div className="flex items-center">
                   {[0, 1, 2, 3, 4].map((rating) => (
                     <StarIcon
@@ -198,8 +282,6 @@ export default async function Page({ params: { category, locale, productSlug } }
                   ))}
                 </div>
                 <Link href="#reviews-heading" scroll className={linkClassname}>
-                  {" "}
-                  {/* Use link class */}
                   {product.ratings.amount} avis
                 </Link>
               </div>
@@ -208,44 +290,33 @@ export default async function Page({ params: { category, locale, productSlug } }
           {/* Short Description */}
           <div className="mt-6">
             <h3 className="sr-only">Description</h3>
-            {/* Style prose for readability */}
             <div
               dangerouslySetInnerHTML={{ __html: product.shortDescription }}
-              className="space-y-6 text-base text-gray-700 prose prose-sm max-w-none" // Use prose classes
+              className="space-y-6 text-base text-gray-700 prose prose-sm max-w-none"
             />
           </div>
           {/* Timer Component Placeholder */}
           {isFrance && <Timer />}
-          {/* Product Options Component Placeholder */}
-          {/* This component handles option selection and add to cart */}
           <ProductOptions
             pricesPer={product.pricesPer}
             prices={product.prices}
             name={product.name}
             id={product.id}
-            image={product.images.main ?? product.images.others[0]} // Provide a fallback image
+            image={product.images.main ?? product.images.others[0]}
             stock={product.stock}
             slug={productSlug}
             category={category}
             isInModale={false}
           />
           {/* --- Additional Details Disclosure --- */}
-          {/* Check if there's *any* detail to show */}
-          {(!!renamedGrowindMethod || ("country" in product && !!product.country.length)) /* ... other checks ... */ && (
+          {(!!renamedGrowindMethod || ("country" in product && !!product.country.length)) /* ... TODO: other checks ... */ && (
             <section aria-labelledby="details-heading" className="mt-8 border-t border-gray-200 pt-8">
               <h2 id="details-heading" className="sr-only">
                 Additional details
               </h2>
               <Disclosure as="div">
                 <DisclosureButton className="group relative flex w-full items-center justify-between py-2 text-left focus:outline-none focus-visible:ring focus-visible:ring-green focus-visible:ring-opacity-75">
-                  <span
-                    className={clsx(
-                      "text-base font-medium text-gray-900", // Adjusted text style
-                      "group-data-[open]:text-green"
-                    )}
-                  >
-                    Informations Complémentaires
-                  </span>
+                  <span className={clsx("text-base font-medium text-gray-900", "group-data-[open]:text-green")}>Informations Complémentaires</span>
                   <span className="ml-6 flex items-center">
                     <PlusIcon aria-hidden="true" className="block h-6 w-6 text-gray-400 group-hover:text-gray-500 group-data-[open]:hidden" />
                     <MinusIcon aria-hidden="true" className="hidden h-6 w-6 text-gray-400 group-hover:text-gray-500 group-data-[open]:block" />
@@ -284,7 +355,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                       </div>
                     )}
                     {/* Analyses */}
-                    {/* ... logic for analyses links ... */}
+                    {/* ... TODO: logic for analyses links ... */}
                     {/* Cannabinoids */}
                     {"cannabinoids" in product && product.cannabinoids && Object.keys(product.cannabinoids).length > 0 && (
                       <div className="pt-4 border-t border-gray-100">
@@ -298,7 +369,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                                 ? "bg-purple-100 text-purple-800"
                                 : key === "CBN"
                                 ? "bg-yellow-100 text-yellow-800"
-                                : "bg-gray-100 text-gray-800"; // Fallback
+                                : "bg-gray-100 text-gray-800";
                             return (
                               <span key={key} className={clsx("inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium", colorClass)}>
                                 {key}: {parseFloat(value).toFixed(2)}%
@@ -328,7 +399,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                                     "h-1.5 rounded-full",
                                     terpenesToColor[key.toLowerCase() as keyof typeof terpenesToColor] ?? "bg-gray-400"
                                   )}
-                                  style={{ width: `${Math.min(100, parseInt(value) * 20)}%` }} // Cap width at 100%
+                                  style={{ width: `${Math.min(100, parseInt(value) * 20)}%` }}
                                 ></div>
                               </div>
                             </div>
@@ -345,15 +416,12 @@ export default async function Page({ params: { category, locale, productSlug } }
       </div>
 
       {/* --- Long Description --- */}
-      {/* Add spacing and use prose for styling */}
       <div className="mt-16 lg:mt-20 prose prose-sm sm:prose-base max-w-none text-gray-700">
         <div className="product-page-long-description" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
       </div>
 
       {/* --- Review Form Placeholder --- */}
-      {/* Wrap in a styled section */}
       <section aria-labelledby="review-form-heading" className={twMerge(sectionWrapperClassname, "mt-16 lg:mt-20")}>
-        {/* Title will be inside ReviewForm */}
         <ReviewForm id={product.id} />
       </section>
 
@@ -400,8 +468,6 @@ export default async function Page({ params: { category, locale, productSlug } }
             <div className="space-y-10 divide-y divide-gray-200 border-t border-gray-200 pt-10">
               {product.ratings.reviews.map((review) => (
                 <div key={Math.random()} className="pt-10 first:pt-0">
-                  {" "}
-                  {/* Use review ID if available */}
                   <div className="flex flex-col sm:flex-row items-start gap-x-4 gap-y-2">
                     {/* Author and Date */}
                     <div className="flex-shrink-0">
@@ -421,10 +487,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                           />
                         ))}
                       </div>
-                      <div
-                        dangerouslySetInnerHTML={{ __html: review.content }}
-                        className="prose prose-sm max-w-none text-gray-600" // Style review content
-                      />
+                      <div dangerouslySetInnerHTML={{ __html: review.content }} className="prose prose-sm max-w-none text-gray-600" />
                     </div>
                   </div>
                 </div>
@@ -443,34 +506,30 @@ export default async function Page({ params: { category, locale, productSlug } }
 
           <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 xl:gap-x-6">
             {product.relatedProducts.map((relatedProduct) => (
-              // Simplified related product card - styling can be enhanced further
               <div
                 key={relatedProduct.name}
                 className="group relative text-sm border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="aspect-h-1 aspect-w-1 bg-gray-100">
                   <Image
-                    fill // Use fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" // Example sizes
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     alt={relatedProduct.images?.main?.alt ?? relatedProduct.name}
                     src={
                       relatedProduct.images?.main?.url
                         ? `${process.env.MAIN_URL}${process.env.IMG_HOST}${relatedProduct.images.main.url}`
                         : "/placeholder.png"
-                    } // Fallback image
+                    }
                     className="object-cover object-center group-hover:opacity-75"
                   />
                 </div>
                 <div className="p-3 space-y-1 bg-white">
                   <h3 className="font-medium text-gray-900 truncate">
                     <Link href={`/${locale}/${category}${relatedProduct.productUrl}`}>
-                      {" "}
-                      {/* Ensure URL is correct */}
                       <span aria-hidden="true" className="absolute inset-0" />
                       {relatedProduct.name}
                     </Link>
                   </h3>
-                  {/* Add simplified price */}
                   <p className="text-gray-700">
                     À partir de {findHighestOption(relatedProduct.prices).price}€/{relatedProduct.pricesPer}
                   </p>

@@ -18,7 +18,8 @@
       "faq3Question": "¿Qué flor CBD elegir?",
       "faq3Answer": "La elección depende de tus preferencias (aromas, cultivo Interior/Invernadero/Exterior) y del efecto deseado. Consulta nuestras descripciones detalladas o contacta con nuestro servicio de atención al cliente para un consejo personalizado y encontrar la mejor flor CBD para ti.",
       "moreInfoText": "¿Quieres profundizar tus conocimientos sobre las flores de cáñamo y el CBD?",
-      "blogLinkText": "Visita nuestro Blog experto"
+      "blogLinkText": "Visita nuestro Blog experto",
+      "descriptionMetaTag": "Descubre nuestra selección premium de flores CBD: Indoor, Greenhouse y Outdoor. Aromas únicos, relajación natural. Calidad probada <0.3% THC | MonPlanCBD."
     },
     "pollens-resines-hash-cbd": {
       "sectionTitle": "Resinas y Pólenes CBD: Concentración y Aromas Intensos",
@@ -38,7 +39,8 @@
       "faq3Question": "¿Son las resinas de CBD más fuertes que las flores?",
       "faq3Answer": "Generalmente sí, ya que son concentrados de cannabinoides y terpenos. El nivel de CBD suele ser más alto que en las flores, lo que puede llevar a efectos percibidos como más intensos. Empieza siempre con una pequeña cantidad.",
       "moreInfoText": "¿Tienes curiosidad por saber más sobre los métodos de extracción y las especificidades de los concentrados de CBD?",
-      "blogLinkText": "Explora nuestro Blog especializado"
+      "blogLinkText": "Explora nuestro Blog especializado",
+      "descriptionMetaTag": "Explora resinas y pólenes CBD concentrados. Potencia, sabores intensos y texturas variadas. Calidad garantizada <0.3% THC | MonPlanCBD."
     },
     "moonrocks-cbd": {
       "sectionTitle": "Moonrocks CBD: La Experiencia Definitiva de Potencia",
@@ -58,7 +60,8 @@
       "faq3Question": "¿Son las Moonrocks mucho más fuertes?",
       "faq3Answer": "Sí, debido a su altísima concentración de CBD que combina flor, aceite y polen, los efectos percibidos pueden ser significativamente más intensos que los de las flores o resinas clásicas. Se aconseja comenzar con una cantidad muy pequeña.",
       "moreInfoText": "¿Intrigado por estas pepitas de CBD? Descubre más detalles sobre su fabricación y uso.",
-      "blogLinkText": "Lee nuestros artículos dedicados"
+      "blogLinkText": "Lee nuestros artículos dedicados",
+      "descriptionMetaTag": "La experiencia CBD definitiva: ¡descubre nuestras Moonrocks CBD! Flor + aceite + polen para potencia y aromas inigualables. Garantía <0.3% THC | MonPlanCBD."
     },
     "huiles-cbd": {
       "sectionTitle": "Aceites CBD: Bienestar y Equilibrio Diario",
@@ -78,7 +81,8 @@
       "faq3Question": "Aceite Full Spectrum o Broad Spectrum: ¿cuál es la diferencia?",
       "faq3Answer": "El aceite Full Spectrum contiene todos los compuestos del cáñamo, incluyendo trazas de THC (<0.3%), lo que favorece el efecto séquito (sinergia de componentes). El aceite Broad Spectrum también contiene muchos cannabinoides y terpenos, pero se le ha eliminado el THC.",
       "moreInfoText": "¿Necesitas ayuda para elegir tu aceite o entender las dosis?",
-      "blogLinkText": "Consulta nuestras guías completas sobre CBD"
+      "blogLinkText": "Consulta nuestras guías completas sobre CBD",
+      "descriptionMetaTag": "Encuentra tu aceite CBD ideal (5-40%) en MonPlanCBD. Full/Broad Spectrum para bienestar diario. Dosis precisa, rápida absorción sublingual."
     },
     "infusions-cbd": {
       "sectionTitle": "Infusiones CBD: Suavidad y Bienestar para Saborear",
@@ -98,7 +102,8 @@
       "faq3Question": "¿Cuándo beber una infusión de CBD?",
       "faq3Answer": "Depende de la mezcla y de tus necesidades. Algunas son ideales por la noche para favorecer la relajación antes de dormir, mientras que otras se pueden disfrutar durante el día para una pausa relajante sin somnolencia marcada. Lee la descripción de cada infusión.",
       "moreInfoText": "Explora las diferentes formas de preparar y disfrutar tus bebidas con CBD.",
-      "blogLinkText": "Descubre nuestros consejos en el Blog"
+      "blogLinkText": "Descubre nuestros consejos en el Blog",
+      "descriptionMetaTag": "Disfruta nuestras infusiones y tés CBD para una pausa relajante natural. Mezclas orgánicas, sabores agradables. Bienestar fácil de beber | MonPlanCBD."
     },
     "soins-cbd": {
       "sectionTitle": "Cuidados CBD: Bienestar Específico para Cuerpo y Piel",
@@ -118,7 +123,8 @@
       "faq3Question": "¿Tienen efectos psicotrópicos las cremas con CBD?",
       "faq3Answer": "No. El CBD en sí mismo no es psicotrópico. Además, la aplicación tópica limita fuertemente el paso del CBD y otros componentes (incluidas las trazas de THC <0.3%) al torrente sanguíneo, haciendo improbable cualquier efecto sistémico o psicotrópico.",
       "moreInfoText": "Aprende más sobre la interacción entre el CBD y la piel y descubre nuestros rituales de cuidado.",
-      "blogLinkText": "Consulta nuestra sección de Bienestar del Blog"
+      "blogLinkText": "Consulta nuestra sección de Bienestar del Blog",
+      "descriptionMetaTag": "Descubre nuestros cuidados CBD: bálsamos, cremas, aceites de masaje. Acción localizada para confort muscular/articular e hidratación | MonPlanCBD."
     },
     "vaporisateur": {
       "sectionTitle": "Vaporizadores: El Método Moderno y Saludable para el CBD",
@@ -138,7 +144,8 @@
       "faq3Question": "¿Es la vaporización más saludable que fumar?",
       "faq3Answer": "La vaporización es ampliamente considerada una alternativa más saludable a la combustión (fumar). Al evitar quemar el material, elimina la creación e inhalación de muchas sustancias tóxicas y cancerígenas presentes en el humo.",
       "moreInfoText": "¿Listo para pasarte a la vaporización? Descubre nuestros consejos para elegir y mantener tu dispositivo.",
-      "blogLinkText": "Consulta nuestras Guías de Vaporización"
+      "blogLinkText": "Consulta nuestras Guías de Vaporización",
+      "descriptionMetaTag": "Optimiza tu experiencia CBD con nuestros vaporizadores. Método sano, sin combustión, para flores y resinas. Sabores puros garantizados | MonPlanCBD."
     }
   },
   "homepage": {
@@ -265,8 +272,208 @@
     "p3": "En Francia, los datos personales están protegidos por la ley n° 78-87 del 6 de enero de 1978, la ley n° 2004-801 del 6 de agosto de 2004, el artículo L. 226-13 del Código Penal y la Directiva Europea del 24 de octubre de 1995. Con motivo de la utilización del sitio monplancbd.fr, pueden recopilarse: la URL de los enlaces a través de los cuales el usuario accedió al sitio monplancbd.fr, el proveedor de acceso del usuario, la dirección de protocolo de Internet (IP) del usuario. En cualquier caso, MONPLANCBD solo recopila información personal del usuario para la necesidad de ciertos servicios ofrecidos por el sitio monplancbd.fr. El usuario proporciona esta información con pleno conocimiento de causa, especialmente cuando él mismo realiza la introducción de los datos. Entonces se le especifica al usuario del sitio monplancbd.fr si está o no obligado a proporcionar dicha información. De acuerdo con las disposiciones de los artículos 38 y siguientes de la ley 78-17 del 6 de enero de 1978 relativa a la informática, los archivos y las libertades, cualquier usuario tiene derecho a acceder, rectificar y oponerse a los datos personales que le conciernen, enviando su solicitud por escrito y firmada, acompañada de una copia del documento de identidad con la firma del titular del documento, especificando la dirección a la que se debe enviar la respuesta. Ninguna información personal del usuario del sitio monplancbd.fr se publica sin el conocimiento del usuario, se intercambia, transfiere, cede o vende en ningún soporte a terceros. Solo la hipótesis de la compra de MONPLANCBD y sus derechos permitiría la transmisión de dicha información al posible comprador que a su vez estaría obligado a la misma obligación de conservación y modificación de los datos con respecto al usuario del sitio monplancbd.fr. Las bases de datos están protegidas por las disposiciones de la ley del 1 de julio de 1998 que transpone la directiva 96/9 del 11 de marzo de 1996 relativa a la protección jurídica de las bases de datos."
   },
   "conditionsOfUse": {
-    "title": "Condiciones de uso",
-    "description": "descripción"
+    "pageTitle": "Condiciones Generales de Uso del Sitio MonPlanCBD",
+    "lastUpdated": "Última actualización: 16/04/2025",
+    "section1": {
+      "title": "1. Introducción y Aceptación de las Condiciones",
+      "para1": "Bienvenido a www.monplancbd.fr (el \"Sitio\"), publicado por la sociedad MONPLANCBD SAS (\"MonPlanCBD\", \"nosotros\", \"nuestro\"). Las presentes Condiciones Generales de Uso (\"CGU\") rigen su acceso y uso del Sitio, incluyendo cualquier contenido, funcionalidad y servicio ofrecido en o a través del Sitio.",
+      "para2": "Le invitamos a leer atentamente estas CGU antes de utilizar el Sitio. Al acceder, navegar o utilizar el Sitio de cualquier manera, usted reconoce haber leído, entendido y aceptado estar sujeto a la totalidad de estas CGU y a nuestra {privacyPolicyLink}, que se incorpora aquí por referencia. Si no acepta estas CGU en su totalidad, no debe acceder ni utilizar el Sitio.",
+      "privacyPolicyLinkText": "Política de Privacidad",
+      "para3": "Estas CGU constituyen un acuerdo legalmente vinculante entre usted y MonPlanCBD."
+    },
+    "section2": {
+      "title": "2. Definiciones",
+      "intro": "A los efectos de las presentes CGU, los siguientes términos tendrán el significado que se les atribuye a continuación:",
+      "terms": {
+        "site": {
+          "label": "\"Sitio\"",
+          "definition": "Se refiere al sitio web accesible en la dirección www.monplancbd.fr y a todas sus páginas, contenidos y funcionalidades."
+        },
+        "user": {
+          "label": "\"Usuario\" o \"Usted\"",
+          "definition": "Se refiere a cualquier persona física que acceda o utilice el Sitio, ya sea como simple visitante o como cliente que realiza una compra."
+        },
+        "monplancbd": {
+          "label": "\"MonPlanCBD\" o \"Nosotros\"",
+          "definition": "Se refiere a la sociedad MONPLANCBD SAS, tal como se identifica en nuestro {legalNoticesLink}.",
+          "legalNoticesLinkText": "Aviso Legal"
+        },
+        "product": {
+          "label": "\"Producto(s)\"",
+          "definition": "Se refiere a los artículos a base de Cannabidiol (CBD) y otros productos relacionados ofrecidos para la venta en el Sitio, de conformidad con la legislación francesa y europea vigente."
+        },
+        "content": {
+          "label": "\"Contenido\"",
+          "definition": "Se refiere a todos los textos, gráficos, imágenes, logotipos, iconos, fotografías, clips de audio y vídeo, datos, software y otros elementos presentes en el Sitio."
+        },
+        "cgv": {
+          "label": "\"CGC\"",
+          "definition": "Se refiere a nuestras {cgvLink}, que rigen específicamente la compra de Productos en el Sitio.",
+          "cgvLinkText": "Condiciones Generales de Venta"
+        },
+        "cgu": {
+          "label": "\"CGU\"",
+          "definition": "Se refiere a las presentes Condiciones Generales de Uso."
+        }
+      }
+    },
+    "section3": {
+      "title": "3. Acceso al Sitio y Elegibilidad (Solo Usuarios Adultos)",
+      "para1": "El Sitio y los Productos ofrecidos están destinados exclusivamente a personas mayores de 18 años. Al acceder y utilizar este Sitio, usted declara y garantiza que tiene al menos 18 años y posee la plena capacidad legal para aceptar estas CGU y, en su caso, para comprar nuestros Productos de acuerdo con nuestras CGC.",
+      "para2": "MonPlanCBD no recopila conscientemente información de personas menores de 18 años. Si nos enteramos de que un menor ha proporcionado información personal o ha intentado utilizar el Sitio, tomaremos las medidas necesarias para eliminar dicha información y/o bloquear el acceso.",
+      "para3": "El acceso al Sitio desde territorios donde su contenido o la venta de los Productos sea ilegal está prohibido."
+    },
+    "section4": {
+      "title": "4. Cuentas de Usuario",
+      "para1": "Aunque la navegación por el Sitio puede ser posible sin registrarse, realizar un pedido requiere proporcionar la información necesaria, incluyendo una dirección de correo electrónico y una contraseña. Completar el proceso de pago creará automáticamente una cuenta de usuario asociada a la dirección de correo electrónico proporcionada.",
+      "para2": "Usted se compromete a proporcionar información precisa, actual y completa según se solicite durante el proceso de pago. Esta información es necesaria para procesar su pedido y crear su cuenta. Consulte nuestra {privacyPolicyLink} para obtener detalles sobre cómo recopilamos y utilizamos sus datos personales.",
+      "privacyPolicyLinkText": "Política de Privacidad",
+      "para3": "Usted es el único responsable de mantener la confidencialidad de la contraseña asociada a su cuenta creada durante el pago y de restringir el acceso a su computadora o dispositivo. Usted acepta la responsabilidad de todas las actividades que ocurran bajo su cuenta o contraseña.",
+      "para4": "MonPlanCBD se reserva el derecho de rechazar el servicio, cancelar cuentas, eliminar o editar contenido, o cancelar pedidos a su entera discreción, particularmente en caso de violación de estas Condiciones de Uso o de cualquier ley aplicable."
+    },
+    "section5": {
+      "title": "5. Propiedad Intelectual",
+      "para1": "Todo el Contenido presente en el Sitio, incluyendo, pero no limitado a, textos, gráficos, logotipos, iconos, imágenes, clips de audio y vídeo, descargas digitales, compilaciones de datos y software, es propiedad exclusiva de MonPlanCBD o de sus proveedores de contenido y está protegido por las leyes francesas e internacionales de derechos de autor y propiedad intelectual. El nombre \"MonPlanCBD\" y su logotipo son marcas registradas pertenecientes a MonPlanCBD SAS.",
+      "para2": "Ningún elemento del Sitio puede ser copiado, reproducido, republicado, cargado, publicado, transmitido o distribuido de ninguna manera sin el permiso previo por escrito de MonPlanCBD. Cualquier uso no autorizado del Contenido del Sitio constituye una infracción y puede dar lugar a acciones civiles y/o penales de conformidad con los artículos L.335-2 y siguientes del Código de Propiedad Intelectual francés.",
+      "para3": "Se le concede una licencia limitada para acceder y hacer uso personal y no comercial del Sitio."
+    },
+    "section6": {
+      "title": "6. Información sobre los Productos y Advertencias Importantes (CBD)",
+      "intro": "Los Productos ofrecidos en el Sitio contienen Cannabidiol (CBD), un cannabinoide no psicotrópico derivado de la planta de cáñamo (*Cannabis Sativa L.*). Es esencial que los Usuarios comprendan la naturaleza de estos Productos y respeten las siguientes precauciones de uso:",
+      "subsection_compliance": {
+        "title": "Naturaleza de los Productos y Cumplimiento Legal (THC < 0,3%)",
+        "para1": "Nuestros Productos son seleccionados cuidadosamente y cumplen con la legislación francesa y europea vigente. Contienen un nivel de tetrahidrocannabinol (THC) estrictamente inferior al 0,3%, de conformidad con la normativa. Estos Productos no son estupefacientes y no provocan efectos psicotrópicos.",
+        "para2": "Ponemos a disposición los certificados de análisis de laboratorio para acreditar esta conformidad. Es responsabilidad del Usuario asegurarse de la legalidad de la posesión y el consumo de productos a base de CBD en su país o región de residencia si es diferente de Francia."
+      },
+      "subsection_no_medical_claims": {
+        "title": "Ausencia de Declaraciones Terapéuticas",
+        "warning": "Advertencia importante:",
+        "para1": "Los Productos vendidos en este Sitio no son medicamentos y bajo ninguna circunstancia pueden considerarse como tales. No están destinados a diagnosticar, tratar, curar, mitigar o prevenir ninguna enfermedad. La información proporcionada en el Sitio (blog, descripciones de productos, etc.) es únicamente a título informativo, basada en investigaciones públicas y experiencias de usuarios. No reemplaza en ningún caso el consejo de un profesional de la salud cualificado. MonPlanCBD no realiza ninguna declaración terapéutica sobre sus Productos."
+      },
+      "subsection_usage_recommendations": {
+        "title": "Recomendaciones de Uso (Infusión/Vaporización)",
+        "intro": "Para una experiencia óptima y acorde con la naturaleza de los Productos:",
+        "item_flowers": {
+          "label": "Flores y Resinas/Pólenes:",
+          "text": "Recomendamos su uso en infusión (añadiendo una sustancia grasa como leche entera, aceite de coco o mantequilla para una mejor asimilación de los cannabinoides) o en vaporización a una temperatura controlada (generalmente entre 160°C y 220°C) utilizando un vaporizador adecuado. La vaporización permite preservar los aromas (terpenos) y evitar los subproductos nocivos relacionados con la combustión."
+        },
+        "item_oils": {
+          "label": "Aceites CBD:",
+          "text": "Nuestros aceites están diseñados para administración sublingual. Deposite el número deseado de gotas debajo de la lengua, deje actuar de 60 a 90 segundos antes de tragar."
+        },
+        "outro": "Por favor, siga las instrucciones específicas que puedan proporcionarse en el embalaje del Producto."
+      },
+      "subsection_no_smoking": {
+        "title": "Prohibición de Fumar",
+        "para1": "Nuestras flores, resinas y pólenes de CBD no están destinados en absoluto a ser fumados. La combustión de materia vegetal, sea cual sea su tipo, genera sustancias tóxicas y nocivas para la salud. MonPlanCBD declina toda responsabilidad en caso de uso de sus Productos mediante combustión (fumar)."
+      },
+      "subsection_precautions": {
+        "title": "Precauciones de Uso (Salud, Conducción, Embarazo)",
+        "item_medical": {
+          "label": "Consulta Médica:",
+          "text": "Si está siguiendo un tratamiento médico, si padece problemas de salud particulares o si tiene dudas, consulte imperativamente a su médico o a un profesional de la salud antes de consumir productos que contengan CBD. El CBD puede interactuar con ciertos medicamentos."
+        },
+        "item_driving": {
+          "label": "Conducción y Somnolencia:",
+          "text": "Aunque el CBD no es psicotrópico, puede provocar una sensación de relajación o somnolencia en algunas personas. No conduzca ni utilice maquinaria peligrosa si siente somnolencia después de consumir CBD. Adapte su consumo a su sensibilidad y a las actividades previstas."
+        },
+        "item_pregnancy": {
+          "label": "Embarazo y Lactancia:",
+          "text": "Como medida de precaución, el consumo de CBD está totalmente desaconsejado para mujeres embarazadas o en período de lactancia, debido a la falta de estudios suficientes sobre sus posibles efectos."
+        },
+        "item_minors": {
+          "label": "Menores:",
+          "text": "La venta y el consumo de nuestros Productos están estrictamente prohibidos a menores de 18 años."
+        }
+      },
+      "subsection_variability": {
+        "title": "Variabilidad de los Efectos",
+        "para1": "Los efectos experimentados después del consumo de CBD pueden variar considerablemente de una persona a otra en función de factores como el peso, el metabolismo, la sensibilidad individual, la dosis consumida y la frecuencia de uso. Comience siempre con una dosis baja para evaluar su reacción personal."
+      }
+    },
+    "section7": {
+      "title": "7. Conducta del Usuario y Usos Prohibidos",
+      "intro": "Al utilizar el Sitio, usted se compromete a no:",
+      "item1": "Utilizar el Sitio para fines ilegales, fraudulentos o no autorizados por estas CGU.",
+      "item2": "Violar cualquier ley o regulación aplicable, incluidas, entre otras, las relativas a la venta y consumo de productos a base de CBD.",
+      "item3": "Hacerse pasar por otra persona o entidad, o declarar falsamente su afiliación a una persona o entidad.",
+      "item4": "Cargar, publicar, transmitir o difundir cualquier contenido ilegal, dañino, amenazante, abusivo, acosador, difamatorio, vulgar, obsceno, que invada la privacidad de otros, odioso o censurable desde el punto de vista racial, étnico o de otro tipo.",
+      "item5": "Interferir o interrumpir el funcionamiento del Sitio o de los servidores o redes conectados al Sitio, incluso mediante la introducción de virus, gusanos, troyanos u otros códigos maliciosos.",
+      "item6": "Intentar obtener acceso no autorizado al Sitio, a las cuentas de otros usuarios o a los sistemas informáticos o redes conectados al Sitio.",
+      "item7": "Recopilar o almacenar datos personales sobre otros usuarios sin su consentimiento explícito.",
+      "item8": "Utilizar el Sitio con fines comerciales sin nuestro permiso previo por escrito, incluida la publicidad o la solicitud.",
+      "item9": "Utilizar robots, \"spiders\" u otros dispositivos automáticos, procesos o medios para acceder al Sitio con cualquier fin, incluida la supervisión o copia de cualquier material en el Sitio (scraping)."
+    },
+    "section8": {
+      "title": "8. Contenido Generado por los Usuarios (Opiniones de Productos)",
+      "para1": "Si el Sitio le permite enviar contenido, como opiniones sobre los Productos (\"Contenido del Usuario\"), usted sigue siendo el único responsable de dicho Contenido del Usuario.",
+      "para2": "Al enviar Contenido del Usuario, usted declara y garantiza que:",
+      "item1": "Usted es el único autor y propietario de los derechos de propiedad intelectual correspondientes.",
+      "item2": "Su Contenido del Usuario es preciso y no contiene información engañosa.",
+      "item3": "Su Contenido del Usuario no viola ninguna ley, regulación o derecho de terceros (incluidos derechos de autor, marcas comerciales, privacidad).",
+      "item4_medical_claim": "Su Contenido del Usuario no contiene ninguna declaración médica o terapéutica sobre los Productos. Las opiniones deben centrarse en la experiencia personal (sabor, aroma, aspecto, servicio al cliente) y no en efectos sobre la salud.",
+      "item5": "Su Contenido del Usuario no es difamatorio, odioso, discriminatorio, amenazante ni objetable de otro modo.",
+      "para3": "MonPlanCBD se reserva el derecho (pero no tiene la obligación) de supervisar, moderar, modificar o eliminar cualquier Contenido del Usuario a su entera discreción, sin previo aviso, especialmente si considera que dicho contenido viola estas CGU.",
+      "para4": "Al enviar Contenido del Usuario, usted otorga a MonPlanCBD una licencia mundial, perpetua, irrevocable, libre de regalías, transferible y sublicenciable para usar, copiar, modificar, eliminar en su totalidad, adaptar, publicar, traducir, crear obras derivadas, vender y/o distribuir dicho contenido y/o incorporarlo en cualquier forma, medio o tecnología, sin compensación para usted."
+    },
+    "section9": {
+      "title": "9. Enlaces a Sitios de Terceros",
+      "para1": "El Sitio puede contener enlaces a sitios web o recursos propiedad de terceros y operados por ellos. Estos enlaces se proporcionan únicamente para su conveniencia. MonPlanCBD no ejerce ningún control sobre el contenido, las políticas de privacidad o las prácticas de estos sitios de terceros y no asume ninguna responsabilidad por ellos.",
+      "para2": "La inclusión de enlaces a sitios de terceros no implica que MonPlanCBD respalde, garantice o recomiende los servicios, información, contenidos o productos ofrecidos por estos sitios.",
+      "para3": "Usted reconoce y acepta que MonPlanCBD no es responsable, directa o indirectamente, de ningún daño o pérdida causado o presuntamente causado por o en relación con el uso o la confianza depositada en cualquier contenido, bien o servicio disponible en o a través de dichos sitios o recursos de terceros. Le recomendamos que lea las condiciones de uso y las políticas de privacidad de cualquier sitio web de terceros que visite."
+    },
+    "section10": {
+      "title": "10. Exclusión de Garantías",
+      "para1": "EL SITIO Y SU CONTENIDO SE PROPORCIONAN \"TAL CUAL\" Y \"SEGÚN DISPONIBILIDAD\", SIN GARANTÍA DE NINGÚN TIPO, YA SEA EXPRESA O IMPLÍCITA.",
+      "para2": "EN LA MEDIDA MÁXIMA PERMITIDA POR LA LEY APLICABLE, MONPLANCBD EXCLUYE TODAS LAS GARANTÍAS, EXPRESAS O IMPLÍCITAS, INCLUIDAS, ENTRE OTRAS, LAS GARANTÍAS IMPLÍCITAS DE COMERCIABILIDAD, IDONEIDAD PARA UN PROPÓSITO PARTICULAR, TÍTULO Y NO INFRACCIÓN.",
+      "para3": "MONPLANCBD NO GARANTIZA QUE EL SITIO SEA ININTERRUMPIDO, SEGURO O LIBRE DE ERRORES, QUE LOS DEFECTOS SE CORRIJAN, O QUE EL SITIO O EL SERVIDOR QUE LO HACE DISPONIBLE ESTÉN LIBRES DE VIRUS U OTROS COMPONENTES DAÑINOS. MONPLANCBD NO GARANTIZA LA EXACTITUD, INTEGRIDAD O FIABILIDAD DEL CONTENIDO DEL SITIO O DE LOS RESULTADOS QUE PUEDAN OBTENERSE MEDIANTE EL USO DEL SITIO."
+    },
+    "section11": {
+      "title": "11. Limitación de Responsabilidad",
+      "para1": "EN LA MEDIDA MÁXIMA PERMITIDA POR LA LEY APLICABLE, MONPLANCBD, SUS DIRECTIVOS, ADMINISTRADORES, EMPLEADOS, AGENTES O AFILIADOS NO SERÁN RESPONSABLES EN NINGÚN CASO POR DAÑOS INDIRECTOS, CONSECUENTES, ESPECIALES, INCIDENTALES, EJEMPLARES O PUNITIVOS (INCLUIDOS, ENTRE OTROS, LA PÉRDIDA DE BENEFICIOS, DATOS O FONDO DE COMERCIO) DERIVADOS DE O RELACIONADOS CON SU ACCESO O USO, O SU INCAPACIDAD PARA ACCEDER O UTILIZAR, EL SITIO, EL CONTENIDO O LOS PRODUCTOS, INCLUSO SI MONPLANCBD HA SIDO ADVERTIDO DE LA POSIBILIDAD DE TALES DAÑOS.",
+      "para2": "LA RESPONSABILIDAD TOTAL DE MONPLANCBD HACIA USTED POR TODOS LOS DAÑOS, PÉRDIDAS Y CAUSAS DE ACCIÓN (YA SEAN CONTRACTUALES, EXTRACONTRACTUALES (INCLUIDA LA NEGLIGENCIA) U OTROS) NO EXCEDERÁ LA CANTIDAD MAYOR ENTRE CIEN EUROS (100 €) O LA CANTIDAD QUE USTED HAYA PAGADO A MONPLANCBD, SI CORRESPONDE, DURANTE LOS SEIS (6) MESES ANTERIORES A LA RECLAMACIÓN QUE DA LUGAR A LA RESPONSABILIDAD.",
+      "para3": "ALGUNAS JURISDICCIONES NO PERMITEN LA EXCLUSIÓN O LIMITACIÓN DE CIERTAS GARANTÍAS O RESPONSABILIDADES. POR LO TANTO, ALGUNAS DE LAS LIMITACIONES ANTERIORES PUEDEN NO APLICARSE A USTED. NADA EN ESTAS CGU AFECTA SUS DERECHOS LEGALES COMO CONSUMIDOR QUE NO PUEDEN SER EXCLUIDOS O LIMITADOS POR CONTRATO. NINGUNA DISPOSICIÓN DE LAS PRESENTES CGU LIMITA O EXCLUYE NUESTRA RESPONSABILIDAD EN CASO DE NEGLIGENCIA GRAVE, DOLO, MUERTE O DAÑOS CORPORALES CAUSADOS POR NUESTRA NEGLIGENCIA."
+    },
+    "section12": {
+      "title": "12. Indemnización",
+      "para1": "Usted acepta indemnizar, defender y eximir de responsabilidad a MonPlanCBD, sus directivos, administradores, empleados, agentes, licenciantes y proveedores de y contra todas las pérdidas, gastos, daños y costos, incluidos los honorarios razonables de abogados, que resulten de cualquier violación de estas CGU o cualquier actividad relacionada con su cuenta (incluida la conducta negligente o ilícita) por su parte o por cualquier otra persona que acceda al Sitio utilizando su cuenta de Internet."
+    },
+    "section13": {
+      "title": "13. Política de Privacidad y Condiciones Generales de Venta",
+      "para1": "Su uso del Sitio también se rige por nuestra {privacyPolicyLink}, que describe cómo recopilamos, usamos y protegemos sus datos personales.",
+      "privacyPolicyLinkText": "Política de Privacidad",
+      "para2": "Todas las compras de Productos realizadas a través del Sitio se rigen por nuestras {cgvLink} (CGC).",
+      "cgvLinkText": "Condiciones Generales de Venta",
+      "para3": "Estas CGU se aplican al uso general del Sitio, mientras que las CGC se aplican específicamente a las transacciones de compra. En caso de conflicto entre las CGU y las CGC con respecto a una compra, prevalecerán las CGC."
+    },
+    "section14": {
+      "title": "14. Modificación de las Condiciones de Uso",
+      "para1": "MonPlanCBD se reserva el derecho de modificar o actualizar estas CGU en cualquier momento, a su entera discreción y sin previo aviso. Cualquier modificación entrará en vigor inmediatamente después de su publicación en el Sitio. La fecha de \"Última actualización\" en la parte superior de esta página indicará la fecha de entrada en vigor de las revisiones.",
+      "para2": "Le recomendamos que consulte esta página regularmente para estar al tanto de cualquier cambio. Su uso continuado del Sitio después de la publicación de las CGU modificadas constituye su aceptación de dichos cambios. Si no acepta los nuevos términos, debe dejar de usar el Sitio."
+    },
+    "section15": {
+      "title": "15. Rescisión",
+      "para1": "MonPlanCBD puede, a su entera discreción, suspender o rescindir su acceso a todo o parte del Sitio, con o sin previo aviso, por cualquier motivo, incluido, entre otros, el incumplimiento de estas CGU.",
+      "para2": "Usted también puede dejar de usar el Sitio en cualquier momento. Las disposiciones de estas CGU que, por su naturaleza, deban sobrevivir a la rescisión (incluidas, entre otras, las disposiciones relativas a la propiedad intelectual, las exclusiones de garantías, la indemnización y las limitaciones de responsabilidad) permanecerán en vigor después de la rescisión."
+    },
+    "section16": {
+      "title": "16. Ley Aplicable y Resolución de Disputas",
+      "para1": "Estas CGU y su uso del Sitio se regirán e interpretarán de acuerdo con la ley francesa, sin tener en cuenta sus principios de conflicto de leyes.",
+      "para2": "Cualquier disputa o reclamación que surja de o esté relacionada con estas CGU, el Sitio o su uso estará sujeta a la jurisdicción exclusiva de los tribunales competentes de Bayona, Francia."
+    },
+    "section17": {
+      "title": "17. Contáctenos",
+      "intro": "Si tiene alguna pregunta sobre estas Condiciones Generales de Uso, por favor contáctenos:",
+      "item_email": "Por correo electrónico",
+      "email_address": "contact@monplancbd.fr",
+      "item_mail": "Por correo postal",
+      "postal_address": "MONPLANCBD SAS, 2 place Elie Lambert, 64100 Bayonne, Francia."
+    },
+    "section18": {
+      "title": "18. Divisibilidad e Integridad del Acuerdo",
+      "para1": "Si alguna disposición de estas CGU es considerada ilegal, nula o inaplicable por un tribunal de jurisdicción competente, dicha disposición se considerará separable de estas CGU y no afectará la validez y aplicabilidad de las disposiciones restantes.",
+      "para2": "Estas CGU, junto con la Política de Privacidad y las CGC (para compras), constituyen el acuerdo completo entre usted y MonPlanCBD con respecto a su uso del Sitio y reemplazan todos los acuerdos anteriores o contemporáneos, escritos u orales, sobre dicho tema."
+    }
   },
   "FAQ": {
     "title": "FAQ",
@@ -291,8 +498,46 @@
     "description": "descripción"
   },
   "about": {
-    "title": "Acerca de",
-    "description": "descripción"
+    "pageTitle": "Nuestra Historia: La Pasión por el CBD de Calidad en MonPlanCBD",
+    "imageAlt": "El paisaje que inspiró la marca",
+    "section1": {
+      "title": "La Chispa: Nuestra Historia de Origen",
+      "para1": "Todo comenzó no en un laboratorio de alta tecnología, sino en el vibrante corazón del País Vasco, durante una tarde de finales de invierno en el Bistrot des Halles de Bayona. Alrededor de una mesa, una animada conversación entre amigos apasionados reveló un creciente interés compartido por una planta ancestral con virtudes fascinantes: el cáñamo, y más específicamente, el Cannabidiol (CBD).",
+      "para2": "Cada uno de nosotros había descubierto el CBD a su manera. Para algunos, era una búsqueda personal de bienestar, un medio natural para encontrar serenidad y equilibrio frente al estrés diario. Para otros, era el deseo de ayudar a sus seres queridos, de compartir una alternativa suave para aliviar tensiones o mejorar el sueño. Ya fuera en forma de aceite, bálsamo o infusión, todos estábamos convencidos del increíble potencial de esta molécula derivada del cáñamo.",
+      "para3": "De esta pasión compartida nació una idea simple pero poderosa: crear MonPlanCBD. No solo otra tienda en línea, sino un espacio de confianza, arraigado en nuestros valores, donde todos pudieran encontrar productos excepcionales de CBD, seleccionados con el mismo rigor que usaríamos para nosotros o nuestras familias."
+    },
+    "section2": {
+      "title": "Nuestro Compromiso: Calidad y Transparencia",
+      "intro": "En MonPlanCBD, nuestra misión va más allá de la simple venta. Nos impulsa una profunda convicción: el bienestar a través del CBD solo puede florecer sobre una base de **confianza** y **calidad**. Por eso nos comprometemos con principios claros e innegociables:",
+      "item1": {
+        "label": " Selección Rigurosa:",
+        "text": "Buscamos por toda Europa (priorizando Francia siempre que sea posible) para encontrar productores asociados que compartan nuestra ética: cultivo respetuoso (Interior, Invernadero, Exterior), saber hacer artesanal y cumplimiento de las normas más estrictas. Cada flor, cada resina, cada aceite se elige por su perfil aromático único y su potencial de bienestar."
+      },
+      "item2": {
+        "label": " Transparencia Total:",
+        "text": "La confianza se gana. Es por eso que *cada lote* de nuestros productos es analizado sistemáticamente por un laboratorio externo independiente y certificado. Verificamos meticulosamente la concentración de cannabinoides (CBD, CBG, CBN...) y nos aseguramos de que el nivel de THC siempre permanezca estrictamente por debajo del límite legal francés del 0,3%. Estos certificados de análisis están disponibles porque su tranquilidad es nuestra prioridad."
+      },
+      "item3": {
+        "label": " Experiencia Francesa y Trazabilidad:",
+        "text": "Con sede en el País Vasco, estamos orgullosos de nuestras raíces locales y nuestro enfoque a escala humana. Conocemos a nuestros socios y hacemos un seguimiento de nuestros productos desde el cultivo hasta su puerta, garantizando una trazabilidad completa."
+      },
+      "item4": {
+        "label": " Soporte Personalizado:",
+        "text": "El mundo del CBD puede parecer complejo. Nuestro equipo de entusiastas, con sede en Francia, está aquí para escucharle, asesorarle y responder a todas sus preguntas con amabilidad y experiencia. No dude nunca en contactarnos."
+      }
+    },
+    "section3": {
+      "title": "Más que Productos: Una Visión para el Bienestar",
+      "para1": "MonPlanCBD representa el deseo de democratizar el acceso a un CBD de calidad superior, de forma legal y transparente. Creemos en un enfoque holístico del bienestar, donde la naturaleza nos proporciona claves preciosas.",
+      "para2": "Tanto si eres un principiante curioso por explorar los beneficios potenciales del CBD para la relajación, el sueño o el manejo del estrés, como si eres un conocedor en busca de sabores y experiencias específicas, estamos aquí para guiarte.",
+      "para3": "Explora nuestras diferentes gamas – desde flores con aromas cautivadores hasta aceites fáciles de dosificar, pasando por resinas concentradas y productos de cuidado calmantes – y encuentra el \"plan CBD\" que más te convenga."
+    },
+    "cta": {
+      "intro": "Únete a la comunidad MonPlanCBD y descubre un enfoque del bienestar natural, transparente y de alta calidad.",
+      "link1": "Explora nuestras flores CBD",
+      "link2": "Descubre nuestros aceites",
+      "link3": "Visita nuestro Blog para saber más"
+    }
   },
   "signIn": {
     "title": "Iniciar sesión",
@@ -329,7 +574,14 @@
     "unit": "Unidad",
     "details": "Ver más detalles",
     "reviews": "avis es",
-    "addToCart": "Add to cart es"
+    "addToCart": "Add to cart es",
+    "fleurs-cbd": "Flores de CBD",
+    "pollens-resines-hash-cbd": "Hash CBD",
+    "moonrocks-cbd": "Moonrocks CBD",
+    "huiles-cbd": "Aceites de CBD",
+    "infusions-cbd": "Infusiones de CBD",
+    "soins-cbd": "Cuidados de CBD",
+    "vaporisateur": "Vaporizador"
   },
   "singleProduct": {
     "analyzes": "análisis",

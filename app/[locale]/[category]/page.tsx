@@ -49,17 +49,107 @@ async function getCategoryProducts(categorySlug: string): Promise<Product[]> {
   }
 }
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { locale, category } = params;
+interface GenerateMetadataParams {
+  params: {
+    locale: string;
+    category: string;
+  };
+}
+
+export async function generateMetadata({ params: { category: categorySlug, locale } }: GenerateMetadataParams): Promise<Metadata> {
+  // 1. Fetch & Validate Category
   const categories = await getCategories(locale);
-  const t = await getTranslations({ locale, namespace: "categoryPage" });
+  if (!doesCategoryExists(categories, categorySlug)) {
+    notFound();
+  }
+  const currentCategoryObject = categories.find((cat) => cat.slug === categorySlug);
+  if (!currentCategoryObject) {
+    notFound();
+  }
+  const currentTitle = currentCategoryObject.title;
 
-  if (!doesCategoryExists(categories, category)) notFound();
-  const currentTitle = findTitle(categories, category);
+  // 2. Fetch Translations
+  let tContent, tGlobal;
+  try {
+    tContent = await getTranslations({ locale, namespace: `categoryPageContent.${categorySlug}` });
+    tGlobal = await getTranslations({ locale, namespace: "global" });
+  } catch (error) {
+    console.error(`Error fetching translations for locale ${locale}, category ${categorySlug}:`, error);
+    notFound();
+  }
 
+  // 3. Prepare Variables
+  const brandName = tGlobal("brandName");
+  const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
+  const canonicalUrl = `${siteBaseUrl}/${locale}/${categorySlug}`;
+  const metaDescription = tContent("descriptionMetaTag") || tContent("descriptionPara1").substring(0, 157) + "...";
+  const ogImageUrl = `${siteBaseUrl}/og-image-${categorySlug}.png`; // TODO: **Ensure these exist**
+  const fallbackOgImageUrl = `${siteBaseUrl}/og-image-default.png`; // **Ensure this exists**
+  // Simple check: Assume specific image exists, otherwise use fallback (Improve if possible)
+  const finalOgImageUrl = ogImageUrl; // Replace with check if feasible, otherwise ensure files exist
+
+  // 4. Define Metadata Content
+  const title = `${currentTitle} | ${brandName} - Acheter ${currentTitle} de Qualité`;
+
+  const actionVerb = locale === "fr" ? "acheter" : locale === "en" ? "buy" : "comprar";
+
+  const keywordsArray = [currentTitle, `${actionVerb} ${currentTitle}`, `${currentTitle} France`, "CBD", brandName, categorySlug];
+
+  const uniqueKeywords = [...new Set(keywordsArray.filter(Boolean))];
+  const keywords = uniqueKeywords.join(", ");
+  const locales = ["en_US", "es_ES", "fr_FR"];
+  const alternatesLanguages: { [key: string]: string } = {};
+
+  locales.forEach((altLocale) => {
+    const langCode = altLocale.split("_")[0];
+    if (langCode !== locale) {
+      alternatesLanguages[altLocale.replace("_", "-")] = `${siteBaseUrl}/${langCode}/${categorySlug}`;
+    }
+  });
+
+  // 5. Construct Metadata Object
   return {
-    title: t("metadataTitle", { categoryName: currentTitle }),
-    description: t("metadataDescription", { categoryName: currentTitle }),
+    title: title,
+    description: metaDescription,
+    keywords: keywords,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: alternatesLanguages,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      title: title,
+      description: metaDescription,
+      url: canonicalUrl,
+      siteName: brandName,
+      images: [
+        {
+          url: finalOgImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `Acheter ${currentTitle} CBD de Qualité | ${brandName}`,
+        },
+      ],
+      locale: locale.replace("-", "_"),
+      alternateLocale: locales.filter((alt) => alt !== locale.replace("-", "_")),
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: metaDescription,
+      images: [finalOgImageUrl],
+    },
   };
 }
 

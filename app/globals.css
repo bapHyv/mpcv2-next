@@ -380,6 +380,7 @@ article ul li::marker,
 .city-page ul li::marker,
 .product-page-long-description ul li::marker {
   content: url(/canna-green.svg);
+  @apply mr-2;
 }
 
 /* Figcaption Styles - Updated */
