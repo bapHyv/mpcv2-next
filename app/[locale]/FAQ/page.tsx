@@ -1,5 +1,54 @@
+import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 
+/**
+ * 
+I. About CBD & Legality
+  Qu'est-ce que le CBD (Cannabidiol) exactement ?
+  Quelle est la différence entre le CBD et le THC ?
+  Le CBD est-il légal en France et en Europe ?
+  Les produits MonPlanCBD contiennent-ils du THC ? Quel est le taux maximal ?
+  Le CBD a-t-il des effets psychoactifs ? Fait-il "planer" ?
+  Quels sont les effets potentiels ou les bienfaits ressentis du CBD ? (Answer carefully, no medical claims)
+  Le CBD est-il addictif ?
+II. About MonPlanCBD Products
+  Quels types de produits CBD proposez-vous (fleurs, huiles, résines, etc.) ?
+  Quelle est la différence entre les fleurs, les huiles et les résines de CBD ?
+  Comment choisir le produit CBD qui me convient le mieux ?
+  Que signifie le pourcentage de CBD indiqué sur vos produits ?
+  Comment garantissez-vous la qualité et la sécurité de vos produits ? (Tests labo, origine)
+  D'où proviennent vos produits à base de chanvre/CBD ?
+  Comment dois-je conserver mes produits CBD ?
+III. Usage & Recommendations
+  Comment utiliser les fleurs de CBD ? (Infusion/Vaporisation)
+  Comment utiliser l'huile de CBD ? (Voie sublinguale)
+  Peut-on fumer les fleurs ou résines de CBD ? (Address the "no smoking" policy clearly)
+  Quel dosage de CBD dois-je prendre ? (Provide guidance, not medical advice)
+IV. Ordering & Account
+  Comment passer une commande sur MonPlanCBD ?
+  Dois-je créer un compte pour commander ?
+  Quels sont les moyens de paiement acceptés ? Le paiement est-il sécurisé ?
+  Comment fonctionne votre programme de fidélité ? Comment utiliser mes points ?
+
+
+V. Shipping & Delivery
+  Quels sont les frais et les délais de livraison ?
+  Dans quels pays livrez-vous ?
+  Comment puis-je suivre ma commande ?
+  Que faire si mon colis est endommagé ou n'arrive pas ?
+  Vos colis sont-ils discrets ?
+VI. Returns & Issues
+  Quelle est votre politique de retour ?
+  Comment retourner un article ?
+VII. Safety & Precautions
+  Le CBD présente-t-il des effets secondaires ?
+  Puis-je conduire après avoir consommé du CBD ?
+  Le CBD est-il sûr pour les femmes enceintes ou allaitantes ?
+  Le CBD peut-il interagir avec des médicaments ?
+  Le CBD apparaîtra-t-il dans un test de dépistage de drogues ?
+VIII. Contact & Support
+  Comment contacter le service client de MonPlanCBD ?
+ */
 interface Params {
   params: {
     locale: string;
@@ -18,6 +67,267 @@ export default async function Page({ params: { locale } }: Params) {
   const t = await getTranslations({ locale, namespace: "FAQ" });
   return (
     <div className="utility-page">
+      {/* Section I: About CBD & Legality */}
+      <h2>{t("section1.title")}</h2>
+      <div>
+        <h3>{t("section1.q1.question")}</h3>
+        <p>{t("section1.q1.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section1.q2.question")}</h3>
+        <p>{t("section1.q2.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section1.q3.question")}</h3>
+        <p>{t("section1.q3.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section1.q4.question")}</h3>
+        <p>{t("section1.q4.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section1.q5.question")}</h3>
+        <p>{t("section1.q5.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section1.q6.question")}</h3>
+        <p>{t("section1.q6.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section1.q7.question")}</h3>
+        <p>{t("section1.q7.answer")}</p>
+      </div>
+      {/* Section II: About MonPlanCBD Products */}
+      <h2>{t("section2.title")}</h2>
+      <div>
+        <h3>{t("section2.q8.question")}</h3>
+        {/* Using dangerouslySetInnerHTML to allow the link within the translation */}
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("section2.q8.answer", {
+              productsLink: `<a href="/${locale}/fleurs-cbd" class="${linkClassname}">${t("section2.q8.productsLinkText")}</a>`,
+            }),
+          }}
+        />
+      </div>
+      <div>
+        <h3>{t("section2.q9.question")}</h3>
+        {/* Using <ul> for the multi-part answer */}
+        <ul>
+          <li>
+            <strong>{t("section2.q9.answer_flowers_label")}</strong>: {t("section2.q9.answer_flowers_text")}
+          </li>
+          <li>
+            <strong>{t("section2.q9.answer_oils_label")}</strong>: {t("section2.q9.answer_oils_text")}
+          </li>
+          <li>
+            <strong>{t("section2.q9.answer_resins_label")}</strong>: {t("section2.q9.answer_resins_text")}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>{t("section2.q10.question")}</h3>
+        <p>{t("section2.q10.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section2.q11.question")}</h3>
+        <p>{t("section2.q11.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section2.q12.question")}</h3>
+        {/* Using dangerouslySetInnerHTML to allow the link within the translation */}
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("section2.q12.answer", {
+              analysisLink: `<a href="https://www.monplancbd.fr/analyses" class="${linkClassname}">${t("section2.q12.analysisLinkText")}</a>`,
+            }),
+          }}
+        />
+        {/* Note: Replace "/lien-analyses" with the actual link to the analysis page or info */}
+      </div>
+      <div>
+        <h3>{t("section2.q13.question")}</h3>
+        <p>{t("section2.q13.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section2.q14.question")}</h3>
+        <p>{t("section2.q14.answer")}</p>
+      </div>
+      {/* Section III: Usage & Recommendations */}
+      <h2>{t("section3.title")}</h2>
+      <div>
+        <h3>{t("section3.q15.question")}</h3>
+        <p>{t("section3.q15.intro")}</p>
+        <ul>
+          <li>
+            <strong>{t("section3.q15.answer_infusion_label")}</strong>: {t("section3.q15.answer_infusion_text")}
+          </li>
+          <li>
+            <strong>{t("section3.q15.answer_vaporization_label")}</strong>: {t("section3.q15.answer_vaporization_text")}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>{t("section3.q16.question")}</h3>
+        <p>{t("section3.q16.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section3.q17.question")}</h3>
+        <p>
+          <strong>{t("section3.q17.answer_emphasis")}</strong> {t("section3.q17.answer_text")}
+        </p>
+      </div>
+      <div>
+        <h3>{t("section3.q18.question")}</h3>
+        <p>{t("section3.q18.answer")}</p>
+      </div>
+      {/* Section IV: Ordering & Account */}
+      <h2>{t("section4.title")}</h2>
+      <div>
+        <h3>{t("section4.q19.question")}</h3>
+        <p>{t("section4.q19.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section4.q20.question")}</h3>
+        <p>{t("section4.q20.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section4.q21.question")}</h3>
+        <p>{t("section4.q21.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section4.q22.question")}</h3>
+        {/* Using dangerouslySetInnerHTML to allow the link within the translation */}
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("section4.q22.answer", {
+              loyaltyProgramLink: `<a href="/${locale}/mon-compte/fidelite" class="${linkClassname}">${t("section4.q22.loyaltyProgramLinkText")}</a>`,
+            }),
+          }}
+        />
+        {/* Note: Adjust href="/${locale}/mon-compte/fidelite" if slug differs */}
+      </div>
+      {/* Section V: Shipping & Delivery */}
+      <h2>{t("section5.title")}</h2>
+      <div>
+        <h3>{t("section5.q23.question")}</h3>
+        {/* Using dangerouslySetInnerHTML for the link */}
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("section5.q23.answer", {
+              shippingPolicyLink: `<a href="/${locale}/politique-expedition" class="${linkClassname}">${t(
+                "section5.q23.shippingPolicyLinkText"
+              )}</a>`,
+            }),
+          }}
+        />
+        {/* Note: Adjust href="/${locale}/politique-expedition" if slug differs */}
+      </div>
+      <div>
+        <h3>{t("section5.q24.question")}</h3>
+        {/* Using dangerouslySetInnerHTML for the link */}
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("section5.q24.answer", {
+              shippingPolicyLink: `<a href="/${locale}/politique-expedition" class="${linkClassname}">${t(
+                "section5.q24.shippingPolicyLinkText"
+              )}</a>`,
+            }),
+          }}
+        />
+      </div>
+      <div>
+        <h3>{t("section5.q25.question")}</h3>
+        <p>{t("section5.q25.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section5.q26.question")}</h3>
+        {/* Using dangerouslySetInnerHTML for the link */}
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("section5.q26.answer", {
+              gtcLink: `<a href="/${locale}/conditions-generales-de-vente" class="${linkClassname}">${t("section5.q26.gtcLinkText")}</a>`,
+            }),
+          }}
+        />
+      </div>
+      <div>
+        <h3>{t("section5.q27.question")}</h3>
+        <p>{t("section5.q27.answer")}</p>
+      </div>
+      {/* Section VI: Returns & Issues */}
+      <h2>{t("section6.title")}</h2>
+      <div>
+        <h3>{t("section6.q28.question")}</h3>
+        <p>{t("section6.q28.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section6.q29.question")}</h3>
+        {/* Using dangerouslySetInnerHTML for links */}
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("section6.q29.answer", {
+              gtcLink: `<a href="/${locale}/conditions-generales-de-vente" class="${linkClassname}">${t("section6.q29.gtcLinkText")}</a>`,
+              returnPolicyLink: `<a href="/${locale}/politique-de-retour" class="${linkClassname}">${t("section6.q29.returnPolicyLinkText")}</a>`,
+            }),
+          }}
+        />
+        {/* Note: Adjust href="/${locale}/politique-de-retour" if slug differs or policy isn't separate */}
+      </div>
+      {/* Section VII: Safety & Precautions */}
+      <h2>{t("section7.title")}</h2>
+      <div>
+        <h3>{t("section7.q30.question")}</h3>
+        <p>{t("section7.q30.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section7.q31.question")}</h3>
+        <p>{t("section7.q31.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section7.q32.question")}</h3>
+        <p>{t("section7.q32.answer")}</p>
+      </div>
+      <div>
+        <h3>{t("section7.q33.question")}</h3>
+        <p>
+          <strong>{t("section7.q33.answer_emphasis")}</strong> {t("section7.q33.answer_text")}
+        </p>
+      </div>
+      <div>
+        <h3>{t("section7.q34.question")}</h3>
+        <p>{t("section7.q34.answer")}</p>
+      </div>
+      {/* Section VIII: Contact & Support */}
+      <h2>{t("section8.title")}</h2>
+      <div>
+        <h3>{t("section8.q35.question")}</h3>
+        <p>{t("section8.q35.intro")}</p>
+        {/* Using <ul> for contact methods */}
+        <ul>
+          <li>
+            {t("section8.q35.email_label")}:{" "}
+            <a href={`mailto:${t("section8.q35.email_value")}`} className={linkClassname}>
+              {t("section8.q35.email_value")}
+            </a>
+          </li>
+          <li>
+            {t("section8.q35.phone_label")}: {t("section8.q35.phone_value")}
+          </li>
+          <li>
+            {t("section8.q35.form_label")}{" "}
+            <a href="/lien-contact" className={linkClassname}>
+              {t("section8.q35.form_link_text")}
+            </a>
+            .
+          </li>{" "}
+          {/* Note: Replace "/lien-contact" */}
+        </ul>
+        <p>{t("section8.q35.outro")}</p>
+      </div>
+      {/* TODO: check previous _______________________________________________________________________________________________________________ */}
+      <p>_______________________________________________________________________________________________________________</p>
+      <p>PREVIOUS:</p>
       <h1>FAQ - CBD</h1>
       <h3>CBD : Le cannabidiol, qu’est-ce que c’est ?</h3>
       <p>

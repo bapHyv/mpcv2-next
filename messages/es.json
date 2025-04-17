@@ -579,18 +579,196 @@
     }
   },
   "FAQ": {
-    "title": "FAQ",
-    "description": "descripción",
-    "subtitle1": "CBD: ¿Qué es el cannabidiol?",
-    "p1": "El cannabidiol (CBD) es una molécula presente en el cáñamo que complementa el espectro de los otros 110 cannabinoides conocidos hasta la fecha. Se le atribuyen propiedades de bienestar para el sueño, el estrés, la ansiedad, las tensiones musculares, etc. Se encuentra en forma de bálsamo, aceite o flores para infusionar.",
-    "subtitle2": "¿Cómo conocer el nivel de CBD/THC?",
-    "p2": "Es natural querer conocer los niveles de CBD o THC presentes en las flores y aceites de cáñamo que ofrecemos. Es por eso que cada etiqueta de producto tendrá un código QR que lo redirigirá al análisis asociado, cumpliendo con los procedimientos requeridos por la orden del 24 de febrero de 2004 art. 3 JORF del 21 de marzo de 2004.",
-    "subtitle3": "¿Cómo usar CBD?",
-    "p3": "No hay una única mejor manera, simplemente porque cada persona tiene un perfil único y particular. El método más conocido es infusionar la flor de cáñamo incorporando una grasa en la mezcla. Por ejemplo, puede agregar mantequilla, crema o aceite vegetal (como aceite de coco) en agua hirviendo a 90°C. Deje infusionar de 10 a 15 minutos. Sirva.",
-    "subtitle4": "¿Puedo recibir CBD en casa?",
-    "p4": "Si vive en una de estas ciudades (ver mapa), puede recibir sus productos en 24 horas. La calidad del servicio y la información son criterios esenciales para Mon Plan CBD. Por esta razón, recibirá su pedido en un empaque que garantiza una conservación óptima para aprovechar al máximo las propiedades de bienestar que busca.",
-    "subtitle5": "Algunas recomendaciones...",
-    "p5": "De acuerdo con la ley vigente, nuestros productos no están destinados a la combustión. Se trata de respetar el método mencionado anteriormente, es decir, la infusión con una grasa. No fumar, no conducir después del consumo, desaconsejado para mujeres embarazadas o en periodo de lactancia. Si desea saber más sobre las condiciones de uso, haga clic aquí. Nuestros productos no son estupefacientes ni medicamentos. Para cualquier pregunta, no dude en contactarnos en las redes sociales o por correo electrónico en la dirección que encontrará en la sección 'Contacto', mencionando su consulta en el asunto."
+    "section1": {
+      "title": "I. Acerca del CBD y la Legalidad",
+      "q1": {
+        "question": "¿Qué es exactamente el CBD (Cannabidiol)?",
+        "answer": "El CBD, o Cannabidiol, es uno de los muchos compuestos naturales presentes en la planta de cáñamo (Cannabis Sativa L.). A diferencia del THC, no tiene efectos psicoactivos. Se estudia por sus diversas propiedades potenciales relacionadas con el bienestar."
+      },
+      "q2": {
+        "question": "¿Cuál es la diferencia entre el CBD y el THC?",
+        "answer": "El CBD (Cannabidiol) y el THC (Tetrahidrocannabinol) son dos cannabinoides del cáñamo, pero con efectos muy diferentes. El THC es el compuesto psicoactivo responsable del efecto \"colocón\" del cannabis recreativo y es ilegal por encima de un cierto umbral en Francia. El CBD no es psicoactivo y no provoca euforia."
+      },
+      "q3": {
+        "question": "¿Es legal el CBD en Francia y en Europa?",
+        "answer": "Sí, el CBD es legal en Francia y en la mayoría de los países europeos, siempre que los productos terminados contengan un nivel de THC inferior al 0,3%, de conformidad con la legislación vigente."
+      },
+      "q4": {
+        "question": "¿Los productos de MonPlanCBD contienen THC? ¿Cuál es el nivel máximo?",
+        "answer": "Todos nuestros productos cumplen estrictamente la legislación francesa y europea. Contienen un nivel de THC inferior al 0,3%, como exige la ley. Cada producto va acompañado de análisis de laboratorios independientes que puede consultar."
+      },
+      "q5": {
+        "question": "¿Tiene el CBD efectos psicoactivos? ¿Provoca un \"colocón\"?",
+        "answer": "No, el CBD no tiene efectos psicoactivos y no provoca la sensación de euforia o \"colocón\" asociada al THC."
+      },
+      "q6": {
+        "question": "¿Cuáles son los efectos potenciales o los beneficios percibidos del CBD?",
+        "answer": "Los usuarios suelen informar de una sensación de relajación, una mejor gestión del estrés o una mejora del sueño. Sin embargo, el CBD no es un medicamento y no está destinado a diagnosticar, tratar, curar o prevenir ninguna enfermedad. Los efectos pueden variar de una persona a otra. No hacemos ninguna afirmación terapéutica."
+      },
+      "q7": {
+        "question": "¿Es adictivo el CBD?",
+        "answer": "Según la Organización Mundial de la Salud (OMS), el CBD no presenta potencial de abuso o dependencia. Se considera que tiene un buen perfil de seguridad."
+      }
+    },
+    "section2": {
+      "title": "II. Acerca de los Productos MonPlanCBD",
+      "q8": {
+        "question": "¿Qué tipos de productos de CBD ofrecen (flores, aceites, resinas, etc.)?",
+        "answer": "Ofrecemos una amplia gama de productos para satisfacer diferentes preferencias: Flores de CBD para infusión o vaporización, Aceites de CBD sublinguales, Resinas y Pólenes de CBD, Moonrocks, así como productos de Cuidado Personal y Vaporizadores. Descubra nuestro catálogo completo {productsLink}.",
+        "productsLinkText": "aquí"
+      },
+      "q9": {
+        "question": "¿Cuál es la diferencia entre las flores, los aceites y las resinas de CBD?",
+        "answer_flowers_label": "Flores",
+        "answer_flowers_text": "Son los cogollos secos de la planta de cáñamo, ricos en CBD. Generalmente se utilizan en infusión o vaporización.",
+        "answer_oils_label": "Aceites",
+        "answer_oils_text": "Se obtienen extrayendo el CBD de la planta y diluyéndolo en un aceite portador (como el aceite MCT o de cáñamo). Se toman por vía sublingual (debajo de la lengua) para una rápida absorción.",
+        "answer_resins_label": "Resinas/Pólenes",
+        "answer_resins_text": "Son extracciones concentradas de los tricomas (pequeñas glándulas resinosas) de la planta, que ofrecen niveles de CBD más altos. Suelen utilizarse en vaporización."
+      },
+      "q10": {
+        "question": "¿Cómo elijo el producto de CBD adecuado para mí?",
+        "answer": "La elección depende de sus preferencias personales, del efecto deseado y de la rapidez de acción deseada. Los aceites ofrecen una absorción rápida y una dosificación precisa. Las flores y resinas (en infusión/vaporización) permiten disfrutar de los aromas naturales de la planta. No dude en explorar nuestras categorías de productos y leer las descripciones para ayudarle a elegir."
+      },
+      "q11": {
+        "question": "¿Qué significa el porcentaje de CBD indicado en sus productos?",
+        "answer": "El porcentaje indica la concentración de CBD en el producto. Por ejemplo, un aceite al 10% contiene 1000mg de CBD por 10ml de aceite. Para las flores o resinas, representa el peso de CBD en relación con el peso total del producto (ej: 15% = 150mg de CBD por gramo)."
+      },
+      "q12": {
+        "question": "¿Cómo garantizan la calidad y seguridad de sus productos? (Análisis de laboratorio, origen)",
+        "answer": "La calidad es nuestra prioridad. Todos nuestros productos proceden de variedades de cáñamo autorizadas y cultivadas en la Unión Europea, sin pesticidas ni herbicidas. Cada lote es analizado por laboratorios independientes para verificar los niveles de cannabinoides (CBD, THC <0,3%) y garantizar la ausencia de contaminantes. Puede consultar estos análisis {analysisLink}.",
+        "analysisLinkText": "aquí"
+      },
+      "q13": {
+        "question": "¿De dónde proceden sus productos de cáñamo/CBD?",
+        "answer": "Seleccionamos rigurosamente nuestros productos de productores de cáñamo ubicados principalmente en Europa (Francia, Suiza, Italia, etc.), conocidos por sus prácticas de cultivo respetuosas y la calidad de sus cosechas."
+      },
+      "q14": {
+        "question": "¿Cómo debo conservar mis productos de CBD?",
+        "answer": "Para preservar mejor sus cualidades, conserve sus productos de CBD en su embalaje original, lejos de la luz solar directa, el calor excesivo y la humedad. Un lugar fresco y seco es ideal."
+      }
+    },
+    "section3": {
+      "title": "III. Uso y Recomendaciones",
+      "q15": {
+        "question": "¿Cómo usar las flores de CBD? (Infusión/Vaporización)",
+        "intro": "Recomendamos dos métodos principales:",
+        "answer_infusion_label": "Infusión",
+        "answer_infusion_text": "Infusionar las flores desmenuzadas en agua caliente (no hirviendo) durante 5 a 10 minutos, añadiendo una materia grasa (leche entera, aceite de coco, mantequilla) para ayudar a la extracción del CBD (que es liposoluble).",
+        "answer_vaporization_label": "Vaporización",
+        "answer_vaporization_text": "Utilice un vaporizador diseñado para hierbas secas. Caliente a la temperatura recomendada (generalmente entre 170°C y 210°C) para inhalar los vapores sin combustión."
+      },
+      "q16": {
+        "question": "¿Cómo usar el aceite de CBD? (Sublingual)",
+        "answer": "Coloque el número deseado de gotas debajo de la lengua con la pipeta suministrada. Mantenga el aceite debajo de la lengua durante 60 a 90 segundos antes de tragar. Esto permite una absorción más rápida a través de las membranas mucosas."
+      },
+      "q17": {
+        "question": "¿Se pueden fumar las flores o resinas de CBD?",
+        "answer_emphasis": "No.",
+        "answer_text": "Nuestras flores y resinas no están destinadas a ser fumadas. La combustión degrada los compuestos beneficiosos y produce sustancias nocivas. Recomendamos exclusivamente la infusión o la vaporización para disfrutar plena y saludablemente de nuestros productos."
+      },
+      "q18": {
+        "question": "¿Qué dosis de CBD debo tomar?",
+        "answer": "No existe una dosis universal, ya que los efectos varían según el individuo (peso, metabolismo, sensibilidad). Siempre aconsejamos empezar con una dosis baja (por ejemplo, unas pocas gotas de aceite o una pequeña cantidad en infusión/vaporización) y aumentar gradualmente si es necesario, escuchando a su cuerpo. En caso de duda o si está bajo tratamiento médico, consulte a un profesional de la salud."
+      }
+    },
+    "section4": {
+      "title": "IV. Pedidos y Cuenta",
+      "q19": {
+        "question": "¿Cómo realizo un pedido en MonPlanCBD?",
+        "answer": "Es sencillo: explore nuestros productos, añada los que desee a su cesta y luego haga clic en el icono de la cesta para finalizar su pedido. Siga los pasos indicados para introducir su dirección de entrega, elegir su método de envío y realizar el pago seguro."
+      },
+      "q20": {
+        "question": "¿Necesito crear una cuenta para hacer un pedido?",
+        "answer": "No, puede realizar un pedido como invitado. Sin embargo, crear una cuenta le permite seguir sus pedidos más fácilmente, acceder a su historial, gestionar sus direcciones y beneficiarse de nuestro programa de fidelización."
+      },
+      "q21": {
+        "question": "¿Qué métodos de pago se aceptan? ¿Es seguro el pago?",
+        "answer": "Aceptamos pagos seguros con tarjeta bancaria (Visa, Mastercard). Todas las transacciones están protegidas por un protocolo de encriptación SSL y el sistema 3D Secure para garantizar la seguridad de sus datos bancarios a través de nuestro socio de pagos Stripe."
+      },
+      "q22": {
+        "question": "¿Cómo funciona su programa de fidelización? ¿Cómo uso mis puntos?",
+        "answer": "Nuestro programa de fidelización le permite acumular puntos con cada compra realizada en nuestro sitio. Luego puede canjear estos puntos por descuentos en sus próximos pedidos directamente desde su cesta. Para más detalles, consulte la página dedicada a nuestro {loyaltyProgramLink}.",
+        "loyaltyProgramLinkText": "Programa de Fidelización"
+      }
+    },
+    "section5": {
+      "title": "V. Envío y Entrega",
+      "q23": {
+        "question": "¿Cuáles son los gastos y plazos de envío?",
+        "answer": "Los gastos de envío varían según su país de destino y el importe de su pedido. Ofrecemos envío gratuito a partir de un cierto importe de compra (por ejemplo, 40€ para Francia metropolitana). Los plazos de entrega suelen ser de [Insertar plazo típico, ej: 24 a 72 horas laborables] para Francia después del envío, pero son solo indicativos. Encontrará todos los detalles (tarifas, umbrales de envío gratuito, plazos estimados por país) en nuestra página de {shippingPolicyLink}.",
+        "shippingPolicyLinkText": "Política de Envíos"
+      },
+      "q24": {
+        "question": "¿A qué países realizan envíos?",
+        "answer": "Actualmente realizamos envíos a Francia metropolitana, [Listar otros países principales como Bélgica, España, Irlanda, Reunión, etc., según las CGV]. La lista completa de países y los costes asociados están disponibles en nuestra página de {shippingPolicyLink}.",
+        "shippingPolicyLinkText": "Política de Envíos"
+      },
+      "q25": {
+        "question": "¿Cómo puedo seguir mi pedido?",
+        "answer": "Una vez que su pedido sea enviado, recibirá un correo electrónico de confirmación con un número de seguimiento. Podrá utilizar este número en el sitio web del transportista (por ejemplo, Chronopost) para seguir el progreso de su paquete en tiempo real."
+      },
+      "q26": {
+        "question": "¿Qué debo hacer si mi paquete llega dañado o no llega?",
+        "answer": "Si su paquete llega dañado, rechácelo si es posible o haga reservas específicas en el albarán de entrega antes de aceptarlo. Tome fotos y contáctenos inmediatamente en contact@monplancbd.fr. Si su paquete figura como \"entregado\" pero no lo ha recibido, contáctenos también para que iniciemos una investigación con el transportista. Consulte nuestras {gtcLink} (Artículo 7) para más detalles.",
+        "gtcLinkText": "Condiciones Generales de Venta"
+      },
+      "q27": {
+        "question": "¿Son discretos sus paquetes?",
+        "answer": "Sí, todos nuestros pedidos se envían en embalajes neutros y discretos, sin ninguna mención externa de MonPlanCBD o de su contenido, para garantizar su privacidad."
+      }
+    },
+    "section6": {
+      "title": "VI. Devoluciones y Problemas",
+      "q28": {
+        "question": "¿Cuál es su política de devoluciones?",
+        "answer": "De acuerdo con la ley, dispone de 14 días desde la recepción de su pedido para ejercer su derecho de desistimiento, sin justificación. Los productos deben devolverse intactos, completos, sin abrir y en su embalaje original sellado."
+      },
+      "q29": {
+        "question": "¿Cómo devuelvo un artículo?",
+        "answer": "Para devolver un artículo, por favor, póngase primero en contacto con nosotros en contact@monplancbd.fr dentro del plazo de 14 días para informarnos de su decisión. Le indicaremos entonces el procedimiento a seguir y la dirección de devolución. Los gastos de envío de la devolución corren por su cuenta. Para más detalles, consulte nuestras {gtcLink} (Artículo 6) o nuestra {returnPolicyLink} si está disponible.",
+        "gtcLinkText": "Condiciones Generales de Venta",
+        "returnPolicyLinkText": "Política de Devoluciones"
+      }
+    },
+    "section7": {
+      "title": "VII. Seguridad y Precauciones",
+      "q30": {
+        "question": "¿Tiene efectos secundarios el CBD?",
+        "answer": "El CBD generalmente se tolera bien. Sin embargo, algunas personas pueden experimentar efectos secundarios leves como fatiga, sequedad de boca o cambios en el apetito. Estos efectos suelen estar relacionados con dosis altas. Empiece siempre con una dosis baja."
+      },
+      "q31": {
+        "question": "¿Puedo conducir después de consumir CBD?",
+        "answer": "Aunque el CBD no es psicoactivo, puede provocar somnolencia en algunas personas. Por precaución, desaconsejamos conducir u operar maquinaria pesada inmediatamente después de consumir CBD, especialmente si es nuevo en su uso o si siente cansancio."
+      },
+      "q32": {
+        "question": "¿Es seguro el CBD para mujeres embarazadas o lactantes?",
+        "answer": "Debido a la falta de estudios suficientes sobre los efectos del CBD durante el embarazo y la lactancia, desaconsejamos encarecidamente su uso a mujeres embarazadas o en período de lactancia."
+      },
+      "q33": {
+        "question": "¿Puede el CBD interactuar con medicamentos?",
+        "answer_emphasis": "Sí,",
+        "answer_text": "el CBD puede interactuar con ciertos medicamentos al afectar la forma en que son metabolizados por el hígado (a través del sistema enzimático citocromo P450). Si está tomando medicamentos, es **esencial** consultar a su médico o farmacéutico antes de consumir CBD."
+      },
+      "q34": {
+        "question": "¿Aparecerá el CBD en un test de drogas?",
+        "answer": "Los tests de drogas estándar buscan principalmente el THC. Nuestros productos contienen menos del 0,3% de THC, cumpliendo con la ley. Sin embargo, el consumo de cantidades muy grandes de productos de CBD, especialmente de espectro completo, *podría* teóricamente resultar en un rastro detectable de THC. Si está sujeto a pruebas regulares, considere usar productos de aislado de CBD o discútalo con su empleador/organismo de pruebas."
+      }
+    },
+    "section8": {
+      "title": "VIII. Contacto y Soporte",
+      "q35": {
+        "question": "¿Cómo puedo contactar con el servicio de atención al cliente de MonPlanCBD?",
+        "intro": "Puede contactarnos fácilmente:",
+        "email_label": "Por correo electrónico",
+        "email_value": "contact@monplancbd.fr",
+        "phone_label": "Por teléfono",
+        "phone_value": "+33 7 66 13 59 38",
+        "form_label": "A través del formulario de contacto en nuestro sitio",
+        "form_link_text": "aquí",
+        "outro": "Nos esforzamos por responder a todas las consultas lo antes posible."
+      }
+    }
   },
   "GCS": {
     "preamble": {
@@ -785,6 +963,151 @@
   "privacyPolicies": {
     "title": "Políticas de privacidad",
     "description": "descripción"
+  },
+  "privacyPolicy": {
+    "mainTitle": "MONPLANCBD - POLÍTICA DE PRIVACIDAD",
+    "introduction": {
+      "title": "Introducción y Compromiso",
+      "para1": "Bienvenido a www.monplancbd.fr. La sociedad MONPLANCBD SAS (\"MONPLANCBD\", \"nosotros\", \"nuestro/a\") se compromete a proteger la privacidad y los datos personales de sus usuarios y clientes (\"usted\"). Esta Política de Privacidad explica qué datos personales recopilamos, por qué los recopilamos, cómo los utilizamos, compartimos y protegemos, así como los derechos que usted tiene sobre sus datos. Nos comprometemos a respetar el Reglamento General de Protección de Datos (RGPD - Reglamento (UE) 2016/679) y la ley francesa aplicable de Informática y Libertades."
+    },
+    "dataController": {
+      "title": "Responsable del Tratamiento",
+      "intro": "El responsable del tratamiento de sus datos personales recogidos a través del sitio web www.monplancbd.fr es:",
+      "companyName": "MONPLANCBD SAS",
+      "address": "2 place Elie Lambert, 64100 Bayona, Francia",
+      "emailLabel": "Correo electrónico",
+      "emailValue": "contact@monplancbd.fr"
+    },
+    "dataCollected": {
+      "title": "¿Qué Datos Personales Recopilamos?",
+      "intro": "Podemos recopilar y tratar diferentes tipos de datos personales sobre usted, incluyendo:",
+      "item_identification": "Datos de identificación y contacto: Apellidos, nombre, dirección de correo electrónico, dirección postal (entrega y facturación), número de teléfono.",
+      "item_connection_navigation": "Datos de conexión y navegación: Dirección IP, tipo de navegador, páginas visitadas en nuestro sitio, fechas y horas de conexión, datos de localización aproximada (deducida de la IP), información sobre el dispositivo utilizado.",
+      "item_order_transaction": "Datos de pedido y transacción: Historial de compras, productos consultados o añadidos a la cesta, detalles del pedido, información de pago (procesada de forma segura por nuestro proveedor), información de entrega, incidencias o reclamaciones.",
+      "item_account": "Datos de la cuenta de cliente: Identificador, contraseña (cifrada), preferencias de comunicación (suscripción al boletín), puntos de fidelidad, historial de interacciones con el servicio al cliente.",
+      "item_reviews": "Datos relativos a las opiniones sobre productos: Pseudónimo (si se proporciona), contenido de la opinión, calificación otorgada.",
+      "item_technical": "Datos técnicos: Información recopilada a través de cookies (ver sección dedicada).",
+      "outro": "Estos datos se recopilan cuando navega por nuestro sitio, crea una cuenta, realiza un pedido (incluso como invitado), se suscribe a nuestro boletín informativo, contacta con nuestro servicio de atención al cliente o deja una reseña."
+    },
+    "purposes": {
+      "title": "¿Por Qué Utilizamos Sus Datos (Finalidades)?",
+      "intro": "Utilizamos sus datos personales para las siguientes finalidades, basadas en diferentes fundamentos jurídicos:",
+      "contract": {
+        "basis": "Ejecución del contrato (Base legal: Contrato):",
+        "item_order_management": "Gestionar sus pedidos (validación, pago, preparación, envío).",
+        "item_delivery": "Asegurar la entrega de los productos en la dirección indicada.",
+        "item_crm": "Gestionar la relación con el cliente (seguimiento del pedido, servicio postventa, reclamaciones).",
+        "item_account_management": "Gestionar su cuenta de cliente."
+      },
+      "legalObligation": {
+        "basis": "Cumplimiento de una obligación legal (Base legal: Obligación Legal):",
+        "item_invoice_retention": "Conservar las facturas y documentos contables durante el período legal requerido (10 años).",
+        "item_authority_requests": "Responder a las solicitudes de las autoridades competentes."
+      },
+      "consent": {
+        "basis": "Su Consentimiento (Base legal: Consentimiento):",
+        "item_newsletter": "Enviarle nuestros boletines informativos y ofertas promocionales por correo electrónico o SMS, si ha consentido mediante la casilla de verificación durante la creación de la cuenta o el pedido.",
+        "item_cookies": "Instalar ciertos tipos de cookies en su dispositivo (ver sección Cookies).",
+        "item_reviews": "Publicar sus opiniones sobre nuestros productos.",
+        "withdrawal_note": "Puede retirar su consentimiento en cualquier momento (ver sección \"Sus Derechos\")."
+      },
+      "legitimateInterest": {
+        "basis": "Nuestro Interés Legítimo (Base legal: Interés Legítimo):",
+        "item_security_fraud": "Garantizar la seguridad de nuestro sitio web y prevenir el fraude.",
+        "item_service_improvement": "Mejorar nuestros servicios y la experiencia del usuario en nuestro sitio (análisis de navegación, estadísticas anonimizadas).",
+        "item_personalization": "Personalizar su experiencia en el sitio (por ejemplo, mostrar productos relevantes).",
+        "item_loyalty": "Gestionar nuestro programa de fidelización.",
+        "item_information_requests": "Responder a sus solicitudes de información a través de nuestros formularios de contacto o correo electrónico."
+      }
+    },
+    "dataSharing": {
+      "title": "¿Con Quién Compartimos Sus Datos?",
+      "intro": "No vendemos sus datos personales. Sin embargo, podemos compartirlos con terceros de confianza para llevar a cabo las finalidades descritas anteriormente:",
+      "item_payment": "Proveedores de pago: Para procesar sus pagos de forma segura (ej: Stripe).",
+      "item_carriers": "Transportistas: Para asegurar la entrega de sus pedidos (ej: Chronopost, La Poste).",
+      "item_hosting": "Proveedores de alojamiento: Para almacenar los datos de nuestro sitio web (Scaleway, con sede en la UE).",
+      "item_emailing": "Plataformas de emailing: Para el envío de nuestros boletines, si ha consentido (Benchmark Email - *la ubicación de los servidores y posibles transferencias fuera de la UE deben verificarse y especificarse aquí, junto con las garantías asociadas si es necesario*).",
+      "item_authorities": "Autoridades competentes: Únicamente si la ley lo exige o en el marco de un procedimiento legal.",
+      "outro": "Nos aseguramos de que nuestros socios respeten la confidencialidad y seguridad de sus datos y los utilicen únicamente para las tareas que se les han encomendado.",
+      "transfers": {
+        "title": "Transferencias Internacionales:",
+        "para1": "Nuestros servidores de alojamiento (Scaleway) están ubicados dentro de la Unión Europea.",
+        "para2_outside_eu": "Algunos de nuestros proveedores de servicios, como nuestra plataforma de emailing Benchmark Email, pueden tratar datos fuera de la UE (por ejemplo, en Estados Unidos). En tales casos, nos aseguramos de que estas transferencias estén reguladas por garantías adecuadas, como las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea, para garantizar un nivel adecuado de protección de sus datos.",
+        "para2_inside_eu": "Todos nuestros principales proveedores de servicios tratan sus datos dentro de la Unión Europea."
+      }
+    },
+    "dataRetention": {
+      "title": "¿Cuánto Tiempo Conservamos Sus Datos?",
+      "intro": "Conservamos sus datos personales únicamente durante el tiempo necesario para las finalidades para las que fueron recogidos, respetando la normativa:",
+      "item_client_active": "Datos del Cliente (cuenta activa): Conservados durante toda la relación comercial, luego archivados durante 3 años a partir de su última actividad (pedido, inicio de sesión en la cuenta, etc.), salvo solicitud de supresión u oposición por su parte.",
+      "item_order_billing": "Datos de Pedido/Facturación: Conservados durante el período legal obligatorio de 10 años a partir del cierre del ejercicio contable.",
+      "item_prospects": "Datos de Prospectos (sin pedido): Conservados durante 3 años a partir de su última interacción (clic en un correo electrónico, contacto, etc.), salvo solicitud de supresión u oposición.",
+      "item_marketing_consent": "Datos relacionados con el consentimiento de marketing: Conservados mientras no retire su consentimiento.",
+      "item_cookies": "Cookies: La vida útil de las cookies se detalla en la sección \"Uso de Cookies\" a continuación (generalmente 13 meses máximo para las cookies no esenciales que requieren consentimiento)."
+    },
+    "dataSecurity": {
+      "title": "¿Cómo Protegemos Sus Datos?",
+      "para1": "Nos tomamos muy en serio la seguridad de sus datos. Implementamos medidas técnicas y organizativas apropiadas para proteger sus datos personales contra la pérdida, el uso indebido, el acceso no autorizado, la divulgación, la alteración o la destrucción. Esto incluye el uso del protocolo SSL/TLS para cifrar los datos intercambiados en nuestro sitio, accesos seguros a nuestros sistemas y políticas internas de gestión de datos."
+    },
+    "cookies": {
+      "title": "Uso de Cookies",
+      "intro": "Las cookies son pequeños archivos de texto que se depositan en su dispositivo (ordenador, tableta, móvil) cuando visita nuestro sitio. Nos ayudan a:",
+      "item_essential": "Asegurar el funcionamiento esencial del sitio: Cookies necesarias para la navegación, el acceso a su cuenta, la gestión de la cesta de la compra. Estas cookies no requieren su consentimiento previo.",
+      "item_functional": "Mejorar su experiencia: Cookies funcionales que recuerdan sus preferencias (idioma, etc.).",
+      "item_analytics": "Analizar el rendimiento del sitio: Cookies analíticas que nos permiten entender cómo los visitantes usan nuestro sitio (páginas visitadas, tiempo empleado), de forma anónima, para mejorarlo.",
+      "item_marketing": "Ofrecer publicidad dirigida: Cookies de marketing o publicitarias que permiten mostrar anuncios relevantes en otros sitios, en función de su navegación en www.monplancbd.fr (utilizadas únicamente con su consentimiento).",
+      "consentManagement": {
+        "title": "Gestión del Consentimiento de Cookies:",
+        "para1": "En su primera visita, un banner le informa sobre el uso de cookies y le permite aceptar, rechazar o personalizar sus opciones para las cookies no esenciales. Puede modificar sus preferencias en cualquier momento a través de {consentManagementLink}.",
+        "para2": "El período de validez del consentimiento para las cookies no esenciales es de {consentDuration} meses. El período máximo de conservación de la información recopilada por las cookies es de {retentionDuration} meses."
+      }
+    },
+    "yourRights": {
+      "title": "Sus Derechos Respecto a Sus Datos Personales",
+      "intro": "De conformidad con el RGPD, usted dispone de los siguientes derechos sobre sus datos personales:",
+      "item_access": "Derecho de acceso: Solicitar consultar los datos que tenemos sobre usted.",
+      "item_rectification": "Derecho de rectificación: Solicitar la corrección de datos inexactos o incompletos.",
+      "item_erasure": "Derecho de supresión (\"derecho al olvido\"): Solicitar la eliminación de sus datos, sujeto a las obligaciones legales de conservación.",
+      "item_restriction": "Derecho a la limitación del tratamiento: Solicitar la congelación temporal del uso de algunos de sus datos.",
+      "item_portability": "Derecho a la portabilidad: Recibir los datos que nos ha facilitado en un formato estructurado y de uso común, y transmitirlos a otro responsable del tratamiento si es técnicamente posible.",
+      "item_objection": "Derecho de oposición: Oponerse al tratamiento de sus datos por motivos legítimos, y en cualquier momento para el marketing directo (incluida la elaboración de perfiles relacionada con el marketing directo).",
+      "item_withdraw_consent": "Derecho a retirar el consentimiento: Para los tratamientos basados en el consentimiento (boletín informativo, ciertas cookies), puede retirarlo en cualquier momento.",
+      "item_post_mortem": "Derecho a definir directivas post-mortem: Organizar el destino de sus datos después de su fallecimiento.",
+      "howToExercise": {
+        "title": "Cómo ejercer sus derechos:",
+        "intro": "Puede ejercer la mayoría de estos derechos directamente desde su área de cliente:",
+        "item_profile": "Modificar su información personal en la sección {profileLink}.",
+        "profileLinkText": "\"Mi Perfil\"",
+        "item_addresses": "Gestionar sus direcciones en la sección {addressesLink}.",
+        "addressesLinkText": "\"Mis Direcciones\"",
+        "item_newsletter": "Gestionar su suscripción al boletín en la sección \"Mi Perfil\" o a través de los enlaces de baja presentes en nuestros correos electrónicos.",
+        "outro": "Para cualquier otra solicitud o para ejercer los derechos no disponibles a través de su cuenta, puede contactarnos por correo electrónico a contact@monplancbd.fr o por correo postal a la dirección indicada en el Artículo 2, adjuntando si es necesario una copia de un documento de identidad para verificar su identidad. Nos comprometemos a responder en el plazo de un mes."
+      },
+      "complaintRight": {
+        "title": "Derecho a presentar una reclamación ante la CNIL:",
+        "para1": "Si considera, después de contactarnos, que sus derechos no se respetan, puede presentar una reclamación ante la Comisión Nacional de Informática y Libertades (CNIL) francesa: {cnilLink}."
+      }
+    },
+    "minorsPolicy": {
+      "title": "Política Relativa a Menores",
+      "para1": "Nuestro sitio y nuestros productos no están destinados a menores de 18 años. No recopilamos ni tratamos conscientemente datos personales de menores. Si descubrimos que hemos recopilado dichos datos, los eliminaremos inmediatamente."
+    },
+    "policyUpdate": {
+      "title": "Actualización de la Política de Privacidad",
+      "para1": "Podemos modificar ocasionalmente esta Política de Privacidad para reflejar cambios en nuestras prácticas o por razones legales o reglamentarias. En caso de cambios sustanciales, le informaremos por correo electrónico (si tenemos su dirección) o mediante una notificación en nuestro sitio web antes de que el cambio entre en vigor. Le recomendamos que consulte esta página regularmente."
+    },
+    "contact": {
+      "title": "Contacto",
+      "intro": "Para cualquier pregunta relativa a esta Política de Privacidad o a la gestión de sus datos personales, por favor contáctenos:",
+      "emailLabel": "Por correo electrónico",
+      "emailValue": "contact@monplancbd.fr",
+      "mailLabel": "Por correo postal",
+      "postalAddress": "MONPLANCBD SAS, Delegado de Protección de Datos, 2 place Elie Lambert, 64100 Bayona, Francia."
+    },
+    "lastUpdate": {
+      "title": "Fecha de la Última Actualización",
+      "date": "Última actualización: {updateDate}"
+    }
   },
   "about": {
     "pageTitle": "Nuestra Historia: La Pasión por el CBD de Calidad en MonPlanCBD",

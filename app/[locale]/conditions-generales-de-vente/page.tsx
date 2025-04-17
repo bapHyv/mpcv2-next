@@ -1,65 +1,7 @@
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
-/**
- * 
-H2: Préambule et Champ d'Application
-  H3: Identification du Vendeur (MONPLANCBD SAS)
-  H3: Identification de l'Acheteur
-  H3: Objet des Conditions Générales de Vente
-  H3: Acceptation des Conditions
-H2: Produits
-  H3: Description des Produits
-  H3: Disponibilité des Produits
-  H3: Zone Géographique de Vente
-H2: Prix
-  H3: Devise et Taxes (TVA)
-  H3: Modification des Prix
-  H3: Frais de Livraison (Suggestion: Follow this with a clear table instead of paragraph)
-H2: Commande et Paiement
-  H3: Processus de Commande
-  H3: Compte Client et Commande Invité
-  H3: Confirmation de Commande
-  H3: Moyens de Paiement Sécurisés
-  H3: Preuve de la Transaction
 
-
-
-
-H2: Réserve de Propriété
-H2: Droit de Rétractation
-  H3: Délai d'Exercice du Droit de Rétractation
-  H3: Conditions de Retour des Produits
-  H3: Modalités de Retour et Remboursement (Suggestion: Link to a detailed Returns Policy page if available)
-H2: Livraison
-  H3: Adresse de Livraison
-  H3: Modes et Frais de Livraison (Reiteration/link back to price section or dedicated policy)
-  H3: Délais de Livraison (Indicatifs)
-  H3: Transfert des Risques
-  H3: Réception de la Commande et Vérification
-  H3: Problèmes de Livraison (Dommages, Colis non reçu)
-H2: Garanties Légales
-  H3: Garantie de Conformité
-  H3: Garantie des Vices Cachés
-  H3: Modalités de Réclamation
-H2: Responsabilité
-
-
-
-
-
-
-
-H2: Propriété Intellectuelle
-H2: Protection des Données Personnelles (Short section linking to the full Privacy Policy)
-H2: Utilisation des Cookies (Short section linking to Cookie information, likely within Privacy Policy)
-H2: Modification des Conditions Générales de Vente
-H2: Droit Applicable et Règlement des Litiges
-  H3: Droit Applicable
-  H3: Juridiction Compétente
-  H3: Médiation et Règlement en Ligne des Litiges (ODR) (Optional but recommended)
-H2: Contact
-
-
+/*
 first step: generate content
 seconde step: generate html and translation keys
 third step: english translation
@@ -318,7 +260,9 @@ export default async function Page({ params: { locale } }: Params) {
         </li>
       </ul>
 
+      {/* TODO: check previous _______________________________________________________________________________________________________________  */}
       <p>___________________________________________________________________________________________________________________</p>
+      <p>PREVIOUS:</p>
       <h1>CONDITIONS GÉNÉRALES DE VENTE MON PLAN CBD</h1>
       <p>
         Les présentes conditions de vente sont conclues d’une part par la société MONPLANCBD au capital social de 1000€ dont le siège social est situé

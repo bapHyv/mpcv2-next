@@ -1,39 +1,6 @@
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 
-/**
- * 
-H2: 1. Informations Légales (Éditeur du Site)
-  H3: Raison Sociale
-  H3: Adresse du Siège Social
-  H3: Forme Juridique et Capital Social
-  H3: Numéro SIRET
-  H3: Numéro RCS
-  H3: Numéro de TVA Intracommunautaire
-  H3: Coordonnées de Contact (Email, Téléphone)
-  H3: Conditions Générales de Vente (Link)
-H2: 2. Administration du Site
-  H3: Directeur de la Publication
-  H3: Contact du Directeur de la Publication
-  H3: Webmaster (Optional, can be combined if same as director)
-  H3: Contact du Webmaster (Optional)
-H2: 3. Hébergement du Site
-  H3: Nom de l'Hébergeur (Needs verification: Likely Scaleway)
-  H3: Raison Sociale de l'Hébergeur (Needs verification)
-  H3: Adresse de l'Hébergeur (Needs verification)
-  H3: Contact de l'Hébergeur (Needs verification)
-
-
-H2: 4. Propriété Intellectuelle
-H2: 5. Protection des Données Personnelles (Concise statement + Link)
-H2: 6. Utilisation des Cookies (Concise statement + Link)
-H2: 7. Liens Hypertextes
-H2: 8. Limitation de Responsabilité (Can potentially be merged with a general disclaimer section if desired, but separating is clear)
-H2: 9. Droit Applicable et Juridiction
-H2: 10. Date de Mise à Jour (Optional but recommended)
-
- */
-
 interface Params {
   params: {
     locale: string;
@@ -234,6 +201,8 @@ export default async function Page({ params: { locale } }: Params) {
       {/* Replace placeholder in translation or dynamically insert date */}
 
       {/* TODO: check previous _______________________________________________________________________________________________________________ */}
+      <p>_______________________________________________________________________________________________________________</p>
+      <p>PREVIOUS:</p>
       <h1>MENTIONS LÉGALES</h1>
       <h2>Présentation du site</h2>
       <p>
