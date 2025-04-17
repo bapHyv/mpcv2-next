@@ -259,17 +259,120 @@
     "button": "Volver a la página principal"
   },
   "legalNotices": {
-    "title": "Aviso legal",
-    "description": "descripción",
-    "subtitle1": "Presentación del sitio",
-    "p1": "En virtud del artículo 6 de la ley n° 2004-575 del 21 de junio de 2004 para la confianza en la economía digital, se especifica a los usuarios del sitio monplancbd.fr la identidad de los diferentes actores en el marco de su realización y seguimiento:",
-    "subtitle2": "Información legal",
-    "subtitle3": "Alojamiento",
-    "subtitle4": "Administración del sitio",
-    "subtitle5": "Enlaces de hipertexto y uso de cookies",
-    "p2": "El sitio monplancbd.fr contiene una serie de enlaces de hipertexto a otros sitios, implementados con la autorización de MONPLANCBD. Sin embargo, MONPLANCBD no tiene la posibilidad de verificar el contenido de los sitios visitados de esta manera y, por lo tanto, no asumirá ninguna responsabilidad en este sentido. La navegación en el sitio monplancbd.fr puede provocar la instalación de cookie(s) en la computadora del usuario. Una cookie es un archivo pequeño, que no permite la identificación del usuario, pero que registra información relacionada con la navegación de una computadora en un sitio. Los datos así obtenidos están destinados a facilitar la navegación posterior en el sitio y también tienen como objetivo permitir diversas mediciones de audiencia. La negativa a la instalación de una cookie puede impedir el acceso a ciertos servicios. Sin embargo, el usuario puede configurar su computadora de la siguiente manera para rechazar la instalación de cookies: En Internet Explorer: pestaña de herramientas (icono en forma de engranaje en la parte superior derecha) / opciones de Internet. Haga clic en Privacidad y elija Bloquear todas las cookies. Haga clic en Aceptar. En Firefox: en la parte superior de la ventana del navegador, haga clic en el botón Firefox, luego vaya a la pestaña Opciones. Haga clic en la pestaña Privacidad. Establezca las Reglas de conservación en: usar configuraciones personalizadas para el historial. Finalmente, desmarque la opción para desactivar las cookies. En Safari: Haga clic en la parte superior derecha del navegador en el icono de menú (simbolizado por un engranaje). Seleccione Configuración. Haga clic en Mostrar configuración avanzada. En la sección 'Privacidad', haga clic en Configuración de contenido. En la sección 'Cookies', puede bloquear las cookies. En Chrome: Haga clic en la parte superior derecha del navegador en el icono de menú (simbolizado por tres líneas horizontales). Seleccione Configuración. Haga clic en Mostrar configuración avanzada. En la sección 'Privacidad', haga clic en Preferencias. En la pestaña 'Privacidad', puede bloquear las cookies.",
-    "subtitle6": "Uso de datos personales",
-    "p3": "En Francia, los datos personales están protegidos por la ley n° 78-87 del 6 de enero de 1978, la ley n° 2004-801 del 6 de agosto de 2004, el artículo L. 226-13 del Código Penal y la Directiva Europea del 24 de octubre de 1995. Con motivo de la utilización del sitio monplancbd.fr, pueden recopilarse: la URL de los enlaces a través de los cuales el usuario accedió al sitio monplancbd.fr, el proveedor de acceso del usuario, la dirección de protocolo de Internet (IP) del usuario. En cualquier caso, MONPLANCBD solo recopila información personal del usuario para la necesidad de ciertos servicios ofrecidos por el sitio monplancbd.fr. El usuario proporciona esta información con pleno conocimiento de causa, especialmente cuando él mismo realiza la introducción de los datos. Entonces se le especifica al usuario del sitio monplancbd.fr si está o no obligado a proporcionar dicha información. De acuerdo con las disposiciones de los artículos 38 y siguientes de la ley 78-17 del 6 de enero de 1978 relativa a la informática, los archivos y las libertades, cualquier usuario tiene derecho a acceder, rectificar y oponerse a los datos personales que le conciernen, enviando su solicitud por escrito y firmada, acompañada de una copia del documento de identidad con la firma del titular del documento, especificando la dirección a la que se debe enviar la respuesta. Ninguna información personal del usuario del sitio monplancbd.fr se publica sin el conocimiento del usuario, se intercambia, transfiere, cede o vende en ningún soporte a terceros. Solo la hipótesis de la compra de MONPLANCBD y sus derechos permitiría la transmisión de dicha información al posible comprador que a su vez estaría obligado a la misma obligación de conservación y modificación de los datos con respecto al usuario del sitio monplancbd.fr. Las bases de datos están protegidas por las disposiciones de la ley del 1 de julio de 1998 que transpone la directiva 96/9 del 11 de marzo de 1996 relativa a la protección jurídica de las bases de datos."
+    "toBeVerified": "Información a verificar y confirmar",
+    "section1": {
+      "title": "1. Información Legal (Editor del Sitio)",
+      "intro": "De conformidad con las disposiciones de los artículos 6-III y 19 de la Ley n° 2004-575 del 21 de junio de 2004 para la Confianza en la Economía Digital (LCEN), se informa a los usuarios y visitantes del sitio www.monplancbd.fr de las presentes menciones legales. El sitio www.monplancbd.fr es editado por:",
+      "item_companyName": {
+        "label": "Razón Social:",
+        "value": "MONPLANCBD SAS"
+      },
+      "item_address": {
+        "label": "Dirección de la Sede Social:",
+        "value": "2 place Elie Lambert, 64100 Bayona, Francia"
+      },
+      "item_legalFormCapital": {
+        "label": "Forma Jurídica y Capital Social:",
+        "value": "Sociedad por Acciones Simplificada (SAS) con un capital social de 1000 €"
+      },
+      "item_siret": {
+        "label": "Número SIRET:",
+        "value": "88780395500012"
+      },
+      "item_rcs": {
+        "label": "Número RCS:",
+        "value": "887 803 955 R.C.S. Bayona"
+      },
+      "item_vat": {
+        "label": "Número de IVA Intracomunitario:",
+        "value": "FR39 887803955"
+      },
+      "item_contact": {
+        "label": "Datos de Contacto:",
+        "emailLabel": "Dirección de correo electrónico",
+        "emailValue": "contact@monplancbd.fr",
+        "phoneLabel": "Teléfono",
+        "phoneValue": "+33 7 66 13 59 38"
+      },
+      "item_gtc": {
+        "label": "Condiciones Generales de Venta:",
+        "value": "El uso del sitio y las compras realizadas se rigen por nuestras Condiciones Generales de Venta, disponibles aquí: {gtcLink}.",
+        "gtcLinkText": "Consultar las CGV"
+      }
+    },
+    "section2": {
+      "title": "2. Administración del Sitio",
+      "item_director": {
+        "label": "Director de Publicación:",
+        "value": "Sr. HAMDADA Mohamed Yacine"
+      },
+      "item_directorContact": {
+        "label": "Contacto del Director de Publicación:",
+        "value": "contact@monplancbd.fr"
+      },
+      "item_webmaster": {
+        "label": "Webmaster:",
+        "value": "Sr. HAMDADA Mohamed Yacine"
+      },
+      "item_webmasterContact": {
+        "label": "Contacto del Webmaster:",
+        "value": "contact@monplancbd.fr"
+      }
+    },
+    "section3": {
+      "title": "3. Alojamiento del Sitio",
+      "intro": "El sitio www.monplancbd.fr está alojado por:",
+      "item_hostName": {
+        "label": "Nombre del Proveedor de Alojamiento:",
+        "value": "Scaleway"
+      },
+      "item_hostCompany": {
+        "label": "Razón Social del Proveedor de Alojamiento:",
+        "value": "Scaleway SAS"
+      },
+      "item_hostAddress": {
+        "label": "Dirección del Proveedor de Alojamiento:",
+        "value": "BP 438, 75366 París CEDEX 08, Francia"
+      },
+      "item_hostContact": {
+        "label": "Contacto del Proveedor de Alojamiento:",
+        "value": "+33 (0)1 84 13 00 00"
+      }
+    },
+    "section4": {
+      "title": "4. Propiedad Intelectual",
+      "para1": "Todo este sitio (contenido y presentación) constituye una obra protegida por la legislación francesa e internacional vigente sobre derechos de autor y, de manera general, sobre la propiedad intelectual e industrial.",
+      "para2": "Todos los derechos de propiedad intelectual e industrial (derechos de autor, patentes, marcas), incluidos los derechos de reproducción, representación y adaptación de todo o parte de los elementos del sitio (textos, imágenes, logotipos, gráficos, etc.) están reservados exclusivamente a MONPLANCBD SAS.",
+      "para3": "Queda prohibida cualquier reproducción, representación, modificación, publicación, adaptación de todo o parte de los elementos del sitio, cualquiera que sea el medio o procedimiento utilizado, sin la autorización previa por escrito de MONPLANCBD SAS. Cualquier explotación no autorizada del sitio o de cualquiera de los elementos que contiene se considerará constitutiva de una infracción y será perseguida de conformidad con las disposiciones de los artículos L.335-2 y siguientes del Código de Propiedad Intelectual francés."
+    },
+    "section5": {
+      "title": "5. Protección de Datos Personales",
+      "para1": "MONPLANCBD SAS se compromete a proteger la privacidad de sus usuarios y la confidencialidad de sus datos personales. La recopilación y el tratamiento de los datos personales realizados en el sitio www.monplancbd.fr se ajustan al Reglamento General de Protección de Datos (RGPD) y a la Ley francesa de Informática y Libertades. Para obtener información detallada sobre cómo recopilamos, utilizamos y protegemos sus datos, así como sobre el ejercicio de sus derechos, consulte nuestra {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Política de Privacidad"
+    },
+    "section6": {
+      "title": "6. Uso de Cookies",
+      "para1": "El sitio www.monplancbd.fr utiliza cookies para asegurar su correcto funcionamiento, mejorar su experiencia de navegación y realizar estadísticas de visita. Al continuar navegando por este sitio, usted acepta el uso de estas cookies, a menos que las haya desactivado en la configuración de su navegador. Para obtener más información sobre las cookies que utilizamos y sobre cómo gestionar sus preferencias, consulte la sección dedicada en nuestra {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Política de Privacidad"
+    },
+    "section7": {
+      "title": "7. Enlaces de Hipertexto",
+      "para1": "El sitio www.monplancbd.fr puede contener enlaces de hipertexto hacia otros sitios presentes en la red de Internet. Los enlaces a estos otros recursos le hacen abandonar el sitio www.monplancbd.fr.",
+      "para2": "MONPLANCBD SAS no es responsable del contenido de estos sitios externos y no podrá ser considerada responsable de los daños de cualquier naturaleza resultantes del contenido de estos sitios o fuentes externas, y en particular de la información, productos o servicios que proponen. Los riesgos relacionados con este uso incumben plenamente al internauta, que debe cumplir sus condiciones de uso."
+    },
+    "section8": {
+      "title": "8. Limitación de Responsabilidad",
+      "para1": "MONPLANCBD SAS se esfuerza por asegurar, en la medida de sus posibilidades, la exactitud y actualización de la información difundida en el sitio www.monplancbd.fr, cuyo contenido se reserva el derecho de corregir, en cualquier momento y sin previo aviso. Sin embargo, MONPLANCBD SAS no puede garantizar la exactitud, precisión o exhaustividad de la información puesta a disposición en este sitio.",
+      "para2": "En consecuencia, MONPLANCBD SAS declina toda responsabilidad por cualquier interrupción del sitio, aparición de errores, por cualquier inexactitud u omisión relativa a la información disponible en el sitio, por cualquier daño resultante de una intrusión fraudulenta de un tercero que haya provocado una modificación de la información puesta a disposición en el sitio, y más generalmente por cualquier daño directo e indirecto, cualesquiera que sean sus causas, orígenes, naturalezas o consecuencias. MONPLANCBD no podrá ser considerada responsable de los daños materiales relacionados con el uso del sitio. El usuario se compromete a acceder al sitio utilizando un equipo reciente, que no contenga virus y con un navegador de última generación actualizado."
+    },
+    "section9": {
+      "title": "9. Ley Aplicable y Jurisdicción",
+      "para1": "Las presentes menciones legales se rigen por la ley francesa. En caso de litigio y a falta de acuerdo amistoso, la controversia se someterá a los tribunales franceses competentes de conformidad con las normas de competencia vigentes."
+    },
+    "section10": {
+      "title": "10. Fecha de Actualización",
+      "para1": "Última actualización: {updateDate}"
+    }
   },
   "conditionsOfUse": {
     "pageTitle": "Condiciones Generales de Uso del Sitio MonPlanCBD",
@@ -490,8 +593,194 @@
     "p5": "De acuerdo con la ley vigente, nuestros productos no están destinados a la combustión. Se trata de respetar el método mencionado anteriormente, es decir, la infusión con una grasa. No fumar, no conducir después del consumo, desaconsejado para mujeres embarazadas o en periodo de lactancia. Si desea saber más sobre las condiciones de uso, haga clic aquí. Nuestros productos no son estupefacientes ni medicamentos. Para cualquier pregunta, no dude en contactarnos en las redes sociales o por correo electrónico en la dirección que encontrará en la sección 'Contacto', mencionando su consulta en el asunto."
   },
   "GCS": {
-    "title": "Condiciones generales de venta",
-    "description": "descripción"
+    "preamble": {
+      "title": "Preámbulo y Ámbito de Aplicación",
+      "sellerId": {
+        "title": "Identificación del Vendedor (MONPLANCBD SAS)",
+        "para1": "Las presentes Condiciones Generales de Venta (CGV) se establecen entre la sociedad MONPLANCBD SAS, con un capital social de 1000€, cuyo domicilio social se encuentra en 2 place Elie Lambert, 64100 Bayona, Francia, inscrita en el Registro Mercantil de Bayona con el número 887 803 955, número de IVA intracomunitario FR39 887803955 (en adelante denominada \"MONPLANCBD\" o \"el Vendedor\"), editora del sitio web www.monplancbd.fr."
+      },
+      "buyerId": {
+        "title": "Identificación del Comprador",
+        "para1": "Y, por otra parte, cualquier persona física o jurídica (en adelante denominada \"el Comprador\" o \"el Cliente\") que desee realizar una compra en el sitio web www.monplancbd.fr. El Comprador declara actuar con fines que no entran en el ámbito de su actividad comercial, industrial, artesanal, liberal o agrícola, y tener plena capacidad jurídica para comprometerse bajo las presentes CGV."
+      },
+      "object": {
+        "title": "Objeto de las Condiciones Generales de Venta",
+        "para1": "Estas CGV tienen como objetivo definir las relaciones contractuales entre MONPLANCBD y el Comprador, así como las condiciones aplicables a cualquier compra realizada a través del sitio web www.monplancbd.fr."
+      },
+      "acceptance": {
+        "title": "Aceptación de las Condiciones",
+        "para1": "La adquisición de un producto en el sitio web www.monplancbd.fr implica la aceptación sin reservas por parte del Comprador de las presentes CGV. El Comprador reconoce haberlas leído y aceptado antes de validar su pedido. Las CGV aplicables son las vigentes en la fecha del pedido. MONPLANCBD se reserva el derecho de modificar estas CGV en cualquier momento."
+      }
+    },
+    "products": {
+      "title": "Productos",
+      "description": {
+        "title": "Descripción de los Productos",
+        "para1": "Los productos ofrecidos a la venta son los que figuran en el sitio web www.monplancbd.fr. Cada producto va acompañado de una descripción elaborada por MONPLANCBD, presentando sus principales características (composición, uso recomendado, contenido, etc.). Las fotografías que ilustran los productos son lo más fieles posible pero no son contractuales."
+      },
+      "availability": {
+        "title": "Disponibilidad de los Productos",
+        "para1": "Las ofertas de productos son válidas mientras estén visibles en el sitio, dentro del límite de las existencias disponibles. MONPLANCBD se reserva el derecho de modificar el surtido de productos en cualquier momento. En caso de indisponibilidad de un producto después de realizar el pedido, MONPLANCBD informará al Comprador por correo electrónico lo antes posible."
+      },
+      "zone": {
+        "title": "Zona Geográfica de Venta",
+        "para1": "La venta de los productos presentados en el sitio www.monplancbd.fr está destinada a los Compradores residentes en los países especificados en la sección relativa a los gastos de envío."
+      }
+    },
+    "price": {
+      "title": "Precio",
+      "currencyVat": {
+        "title": "Moneda e Impuestos (IVA)",
+        "para1": "Los precios mostrados en las fichas de producto se indican en Euros (€) con Todos los Impuestos Incluidos (IVA incluido), incluyendo el Impuesto sobre el Valor Añadido (IVA) aplicable el día del pedido."
+      },
+      "modification": {
+        "title": "Modificación de Precios",
+        "para1": "MONPLANCBD se reserva el derecho de modificar sus precios en cualquier momento. Sin embargo, el precio aplicable al pedido del Comprador será el que aparezca en el sitio en el momento de la validación del pedido. Cualquier cambio en la tasa de IVA se repercutirá automáticamente en el precio de los productos."
+      },
+      "shippingCosts": {
+        "title": "Gastos de Envío",
+        "para1": "Los precios indicados en las fichas de producto no incluyen los gastos de envío. Estos gastos se facturan adicionalmente y varían en función del importe total del pedido y de la zona geográfica de entrega. Los gastos de envío aplicables se indican claramente al Comprador antes de la validación final de su pedido.",
+        "para2": "Los umbrales para beneficiarse del envío gratuito y las tarifas planas aplicables se detallan a continuación (o en nuestra {shippingPolicyLink}).",
+        "shippingPolicyLinkText": "Política de Envíos"
+      }
+    },
+    "orderPayment": {
+      "title": "Pedido y Pago",
+      "process": {
+        "title": "Proceso de Pedido",
+        "para1": "Para realizar un pedido, el Comprador selecciona los productos deseados y los añade a su cesta. Puede modificar el contenido de su cesta (cantidades, referencias) en cualquier momento. Antes de validar su pedido, el Comprador verifica el resumen de su cesta, la dirección de entrega (y de facturación si es diferente), y el importe total incluyendo los gastos de envío calculados."
+      },
+      "accountGuest": {
+        "title": "Cuenta de Cliente y Pedido como Invitado",
+        "para1": "El Comprador puede elegir crear una cuenta de cliente o realizar el pedido como invitado. Crear una cuenta permite seguir el estado de los pedidos y facilitar compras futuras. Si tiene una cuenta, el Comprador deberá identificarse antes de finalizar su pedido."
+      },
+      "confirmation": {
+        "title": "Confirmación del Pedido",
+        "para1": "La validación del pedido se realiza haciendo clic en el botón previsto para ello (por ejemplo, \"Confirmar mi pedido\" o \"Pagar\"). Esta validación implica la aceptación expresa y sin reservas de las presentes CGV. Tras la validación y aceptación del pago, MONPLANCBD enviará al Comprador una confirmación del registro de su pedido por correo electrónico, a la dirección de email facilitada por el Comprador."
+      },
+      "securePayment": {
+        "title": "Métodos de Pago Seguros",
+        "para1": "MONPLANCBD ofrece pago seguro con tarjeta bancaria a través de la plataforma Stripe (u otro proveedor especificado). El Comprador es redirigido a la interfaz segura del proveedor para introducir sus datos bancarios. El pago con tarjeta bancaria es irrevocable, salvo en caso de uso fraudulento probado."
+      },
+      "proof": {
+        "title": "Prueba de la Transacción",
+        "para1": "El conjunto de los datos facilitados por el Comprador y la confirmación del pedido registrada por MONPLANCBD constituyen la prueba de la transacción y de la aceptación de las operaciones realizadas. Los registros informatizados, conservados en los sistemas informáticos de MONPLANCBD en condiciones razonables de seguridad, se considerarán como prueba de las comunicaciones, pedidos y pagos realizados entre las partes."
+      }
+    },
+    "retentionOfTitle": {
+      "title": "Reserva de Dominio",
+      "para1": "MONPLANCBD conserva la plena propiedad de los productos vendidos hasta el pago íntegro del precio total por parte del Comprador, incluyendo el principal, los gastos y los impuestos."
+    },
+    "rightOfWithdrawal": {
+      "title": "Derecho de Desistimiento",
+      "exercisePeriod": {
+        "title": "Plazo de Ejercicio del Derecho de Desistimiento",
+        "para1": "De conformidad con el artículo L221-18 del Código de Consumo francés, el Comprador dispone de un plazo de catorce (14) días naturales a partir de la fecha de recepción de su pedido para ejercer su derecho de desistimiento, sin necesidad de justificar motivos ni pagar penalizaciones."
+      },
+      "returnConditions": {
+        "title": "Condiciones de Devolución de los Productos",
+        "para1": "Para que se acepte el derecho de desistimiento, los productos devueltos deben estar intactos, sin abrir, sin usar, completos y en su embalaje original sellado. Cualquier producto dañado, sucio, incompleto o cuyo embalaje original esté deteriorado no será reembolsado ni cambiado."
+      },
+      "returnRefundProcess": {
+        "title": "Modalidades de Devolución y Reembolso",
+        "para1": "El Comprador que desee ejercer su derecho de desistimiento deberá informar a MONPLANCBD antes de la expiración del plazo de 14 días, por ejemplo, por correo electrónico a contact@monplancbd.fr o a través de su cuenta de cliente. Los productos deben ser devueltos a la dirección indicada por MONPLANCBD, a cargo y riesgo del Comprador, en los 14 días siguientes a la comunicación de su decisión de desistir. Siempre que se cumplan las condiciones de devolución, MONPLANCBD reembolsará al Comprador la totalidad de las sumas pagadas (incluidos los gastos de envío iniciales estándar), utilizando el mismo medio de pago que el utilizado para la transacción inicial, salvo acuerdo expreso del Comprador para otro medio. El reembolso se realizará a la mayor brevedad posible y, a más tardar, en los 14 días siguientes a la fecha en que MONPLANCBD sea informado de la decisión de desistimiento, o tras la recuperación de los bienes devueltos. (Sugerencia: Para obtener información detallada sobre el procedimiento de devolución, consulte nuestra {returnPolicyLink}).",
+        "returnPolicyLinkText": "Política de Devoluciones y Reembolsos"
+      }
+    },
+    "delivery": {
+      "title": "Entrega",
+      "address": {
+        "title": "Dirección de Entrega",
+        "para1": "Las entregas se realizan en la dirección indicada por el Comprador en el formulario de pedido. Esta dirección debe estar situada en la zona geográfica de venta convenida. El Comprador es responsable de la exactitud de la información facilitada para la entrega."
+      },
+      "methodsCosts": {
+        "title": "Métodos y Gastos de Envío",
+        "para1": "Los métodos de envío disponibles y los gastos asociados se presentan al Comprador durante el proceso de pedido y se detallan en la sección \"Precio\" de las presentes CGV (o en nuestra Política de Envíos específica)."
+      },
+      "timescales": {
+        "title": "Plazos de Entrega (Indicativos)",
+        "para1": "MONPLANCBD se esfuerza por enviar los pedidos lo antes posible. Los plazos de entrega indicados en el sitio o durante el pedido son meramente indicativos. MONPLANCBD no se hace responsable de los retrasos en la entrega imputables al transportista. De conformidad con la ley, si la entrega no se ha producido en un plazo de treinta (30) días a partir del pedido (salvo caso de fuerza mayor o acuerdo diferente), el Comprador puede solicitar la resolución del contrato de venta y ser reembolsado."
+      },
+      "riskTransfer": {
+        "title": "Transferencia de Riesgos",
+        "para1": "Los riesgos relacionados con el transporte (pérdida, robo, deterioro) se transfieren al Comprador en el momento en que éste, o un tercero designado por él, toma posesión física de los productos."
+      },
+      "receptionVerification": {
+        "title": "Recepción del Pedido y Verificación",
+        "para1": "Al recibir su pedido, el Comprador está obligado a verificar el estado del embalaje y la conformidad de los productos entregados en presencia del repartidor o en el punto de recogida. Cualquier anomalía (avería, producto faltante en comparación con el albarán de entrega, paquete dañado, productos rotos...) deberá indicarse imperativamente en el albarán de entrega en forma de reservas manuscritas claras y precisas, acompañadas de la firma del Comprador."
+      },
+      "issues": {
+        "title": "Problemas de Entrega (Daños, Paquete no recibido)",
+        "para1": "En caso de daño constatado durante la entrega, el Comprador debe formular una reclamación motivada al transportista en un plazo de tres (3) días (sin incluir festivos) siguientes a la entrega, mediante carta certificada con acuse de recibo, e informar simultáneamente a MONPLANCBD. En cuanto a los paquetes indicados como \"entregados\" por el transportista pero no recibidos por el Comprador, MONPLANCBD se compromete a abrir una investigación con el transportista. El resultado de esta investigación (llevada a cabo por el transportista) determinará las acciones a seguir (reembolso, reenvío), sin que MONPLANCBD pueda garantizar un resultado favorable si el transportista confirma la entrega."
+      }
+    },
+    "legalGuarantees": {
+      "title": "Garantías Legales",
+      "conformity": {
+        "title": "Garantía de Conformidad",
+        "para1": "Todos los productos vendidos por MONPLANCBD se benefician de la garantía legal de conformidad prevista en los artículos L217-4 y siguientes del Código de Consumo francés. Esta garantía se aplica a los defectos de conformidad existentes en el momento de la entrega del producto."
+      },
+      "hiddenDefects": {
+        "title": "Garantía contra Vicios Ocultos",
+        "para1": "Los productos también se benefician de la garantía legal contra vicios ocultos prevista en los artículos 1641 y siguientes del Código Civil francés. Esta garantía cubre los defectos ocultos del producto que lo hacen inadecuado para el uso al que está destinado, o que disminuyen tanto este uso que el Comprador no lo habría adquirido, o habría pagado un precio menor, si los hubiera conocido."
+      },
+      "claimsProcess": {
+        "title": "Modalidades de Reclamación",
+        "para1": "En caso de no conformidad o vicio oculto de un producto vendido, el Comprador puede devolverlo a MONPLANCBD. Cualquier reclamación, solicitud de cambio o reembolso en virtud de las garantías legales debe realizarse por correo electrónico a contact@monplancbd.fr o por correo postal a la dirección: MONPLANCBD SAS, 2 place Elie Lambert, 64100 Bayona, Francia, especificando el defecto constatado y aportando un comprobante de compra. MONPLANCBD indicará entonces el procedimiento a seguir."
+      }
+    },
+    "liability": {
+      "title": "Responsabilidad",
+      "para1": "MONPLANCBD, en el proceso de venta en línea, sólo está sujeta a una obligación de medios. Su responsabilidad no podrá ser exigida por un daño resultante del uso de la red de Internet como pérdida de datos, intrusión, virus, interrupción del servicio u otros problemas involuntarios.",
+      "para2": "La responsabilidad de MONPLANCBD no podrá ser comprometida en caso de incumplimiento de la legislación del país donde se entregan los productos. Es responsabilidad del Comprador verificar con las autoridades locales las posibilidades de importación o uso de los productos pedidos."
+    },
+    "intellectualProperty": {
+      "title": "Propiedad Intelectual",
+      "para1": "Todos los elementos presentes en el sitio www.monplancbd.fr, ya sean visuales (logotipos, fotos, gráficos) o textuales, son y seguirán siendo propiedad intelectual exclusiva de la sociedad MONPLANCBD.",
+      "para2": "Nadie está autorizado a reproducir, explotar, redistribuir o utilizar con cualquier fin, ni siquiera parcialmente, los elementos del sitio sin el consentimiento previo por escrito de MONPLANCBD. Cualquier reproducción o uso no autorizado constituye una infracción y es susceptible de acciones legales."
+    },
+    "personalData": {
+      "title": "Protección de Datos Personales",
+      "para1": "MONPLANCBD se compromete a proteger los datos personales de sus Clientes. La información recopilada al realizar un pedido es necesaria para la gestión de la transacción y la relación comercial. Se trata de conformidad con la normativa vigente sobre protección de datos (RGPD y Ley francesa de Informática y Libertades). Para obtener más información sobre la recopilación, el uso y la protección de sus datos personales, así como sobre sus derechos (acceso, rectificación, supresión, etc.), consulte nuestra {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Política de Privacidad"
+    },
+    "cookies": {
+      "title": "Uso de Cookies",
+      "para1": "El sitio www.monplancbd.fr utiliza cookies para mejorar la experiencia de navegación, analizar el tráfico y ofrecer funcionalidades adaptadas. Una cookie es un pequeño archivo de texto almacenado en su dispositivo. Al navegar por nuestro sitio, usted consiente el uso de estas cookies, a menos que configure su navegador para rechazarlas. Para obtener más información sobre los tipos de cookies utilizadas, su finalidad y cómo gestionar sus preferencias, consulte nuestra sección dedicada a las cookies en nuestra {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Política de Privacidad"
+    },
+    "modificationGTC": {
+      "title": "Modificación de las Condiciones Generales de Venta",
+      "para1": "MONPLANCBD se reserva el derecho de modificar las presentes Condiciones Generales de Venta en cualquier momento. Las nuevas CGV se aplicarán a cualquier pedido realizado después de su publicación en línea en el sitio.",
+      "para2": "Las condiciones aplicables a un pedido son las vigentes el día de la validación de dicho pedido por parte del Comprador. Se recomienda al Comprador consultar regularmente las CGV."
+    },
+    "governingLawDisputes": {
+      "title": "Ley Aplicable y Resolución de Disputas",
+      "applicableLaw": {
+        "title": "Ley Aplicable",
+        "para1": "Las presentes Condiciones Generales de Venta y las operaciones de compra y venta resultantes están sujetas a la legislación francesa."
+      },
+      "jurisdiction": {
+        "title": "Jurisdicción Competente",
+        "para1": "Cualquier litigio relativo a la interpretación, ejecución o rescisión del contrato celebrado entre MONPLANCBD y el Comprador será, en ausencia de acuerdo amistoso, sometido a la jurisdicción exclusiva de los tribunales franceses competentes, sin perjuicio de la pluralidad de demandados o de la llamada en garantía. El tribunal competente se determinará según las normas del derecho común."
+      },
+      "mediationODR": {
+        "title": "Mediación y Resolución de Litigios en Línea (RLL)",
+        "para1": "En caso de litigio, se invita al Comprador a ponerse en contacto prioritariamente con el servicio de atención al cliente de MONPLANCBD (ver sección \"Contacto\") para intentar encontrar una solución amistosa. De conformidad con los artículos L.616-1 y R.616-1 del Código de Consumo francés, el Comprador también tiene derecho a recurrir gratuitamente a un mediador de consumo con vistas a la resolución amistosa del litigio que le enfrenta a MONPLANCBD. Además, de conformidad con el artículo 14 del Reglamento (UE) nº 524/2013, la Comisión Europea ha establecido una plataforma de Resolución de Litigios en Línea (RLL), que facilita la resolución extrajudicial independiente de litigios en línea entre consumidores y profesionales de la Unión Europea. Esta plataforma es accesible en el siguiente enlace: {odrLink}.",
+        "odrLinkText": "https://webgate.ec.europa.eu/odr/"
+      }
+    },
+    "contact": {
+      "title": "Contacto",
+      "para1": "Para cualquier pregunta, reclamación o solicitud de información relativa a los productos, a un pedido o a las presentes Condiciones Generales de Venta, el Comprador puede contactar con MONPLANCBD:",
+      "email": "Por correo electrónico",
+      "emailAddress": "contact@monplancbd.fr",
+      "phone": "Por teléfono",
+      "phoneNumber": "+33 7 66 13 59 38",
+      "phoneInfo": "número de tarifa estándar, coste según operador",
+      "mail": "Por correo postal",
+      "postalAddress": "MONPLANCBD SAS, 2 place Elie Lambert, 64100 Bayona, Francia."
+    }
   },
   "privacyPolicies": {
     "title": "Políticas de privacidad",
