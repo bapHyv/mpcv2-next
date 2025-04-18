@@ -244,17 +244,120 @@
     "button": "Retour à la page d'accueil"
   },
   "legalNotices": {
-    "title": "Mentions légales",
-    "description": "description",
-    "subtitle1": "Présentation du site",
-    "p1": "En vertu de l’article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique, il est précisé aux utilisateurs du site monplancbd.fr l’identité des différents intervenants dans le cadre de sa réalisation et de son suivi :",
-    "subtitle2": "Informations légales",
-    "subtitle3": "Hébergement",
-    "subtitle4": "Administration du site",
-    "subtitle5": "Liens hypertextes et utilisation des cookies",
-    "p2": "Le site monplancbd.fr contient un certain nombre de liens hypertextes vers d’autres sites, mis en place avec l’autorisation de MONPLANCBD. Cependant, MONPLANCBD n’a pas la possibilité de vérifier le contenu des sites ainsi visités et n’assumera en conséquence aucune responsabilité de ce fait. La navigation sur le site monplancbd.fr est susceptible de provoquer l’installation de cookie(s) sur l’ordinateur de l’utilisateur. Un cookie est un fichier de petite taille, qui ne permet pas l’identification de l’utilisateur, mais qui enregistre des informations relatives à la navigation d’un ordinateur sur un site. Les données ainsi obtenues visent à faciliter la navigation ultérieure sur le site et ont également vocation à permettre diverses mesures de fréquentation. Le refus d’installation d’un cookie peut entraîner l’impossibilité d’accéder à certains services. L’utilisateur peut toutefois configurer son ordinateur de la manière suivante, pour refuser l’installation des cookies: Sous Internet Explorer : onglet outil (pictogramme en forme de rouage en haut a droite) / options internet. Cliquez sur Confidentialité et choisissez Bloquer tous les cookies. Validez sur Ok. Sous Firefox : en haut de la fenêtre du navigateur, cliquez sur le bouton Firefox, puis aller dans l’onglet Options. Cliquer sur l’onglet Vie privée. Paramétrez les Règles de conservation sur : utiliser les paramètres personnalisés pour l’historique. Enfin décochez-la pour désactiver les cookies. Sous Safari : Cliquez en haut à droite du navigateur sur le pictogramme de menu (symbolisé par un rouage). Sélectionnez Paramètres. Cliquez sur Afficher les paramètres avancés. Dans la section “Confidentialité”, cliquez sur Paramètres de contenu. Dans la section “Cookies”, vous pouvez bloquer les cookies. Sous Chrome : Cliquez en haut à droite du navigateur sur le pictogramme de menu (symbolisé par trois lignes horizontales). Sélectionnez Paramètres. Cliquez sur Afficher les paramètres avancés. Dans la section “Confidentialité”, cliquez sur préférences. Dans l’onglet “Confidentialité”, vous pouvez bloquer les cookies.",
-    "subtitle6": "Utilisation des données personnelles",
-    "p3": "En France, les données personnelles sont notamment protégées par la loi n° 78-87 du 6 janvier 1978, la loi n° 2004-801 du 6 août 2004, l’article L. 226-13 du Code pénal et la Directive Européenne du 24 octobre 1995. A l’occasion de l’utilisation du site monplancbd.fr, peuvent êtres recueillies : l’URL des liens par l’intermédiaire desquels l’utilisateur a accédé au site monplancbd.fr, le fournisseur d’accès de l’utilisateur, l’adresse de protocole Internet (IP) de l’utilisateur. En tout état de cause, MONPLANCBD ne collecte des informations personnelles relatives à l’utilisateur uniquement pour le besoin de certains services proposés par le site monplancbd.fr. L’utilisateur fournit ces informations en toute connaissance de cause, notamment lorsqu’il procède par lui-même à leur saisie. Il est alors précisé à l’utilisateur du site monplancbd.fr l’obligation ou non de fournir ces informations. Conformément aux dispositions des articles 38 et suivants de la loi 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, tout utilisateur dispose d’un droit d’accès, de rectification et d’opposition aux données personnelles le concernant, en effectuant sa demande écrite et signée, accompagnée d’une copie du titre d’identité avec signature du titulaire de la pièce, en précisant l’adresse à laquelle la réponse doit être envoyée. Aucune information personnelle de l’utilisateur du site monplancbd.fr n’est publiée à l’insu de l’utilisateur, échangée, transférée, cédée ou vendue sur un support quelconque à des tiers. Seule l’hypothèse du rachat de MONPLANCBD et de ses droits permettrait la transmission des dites informations à l’éventuel acquéreur qui serait à son tour tenu de la même obligation de conservation et de modification des données vis à vis de l’utilisateur du site monplancbd.fr. Les bases de données sont protégées par les dispositions de la loi du 1er juillet 1998 transposant la directive 96/9 du 11 mars 1996 relative à la protection juridique des bases de données."
+    "toBeVerified": "Information à vérifier et confirmer",
+    "section1": {
+      "title": "1. Informations Légales (Éditeur du Site)",
+      "intro": "Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique (LCEN), il est porté à la connaissance des utilisateurs et visiteurs du site www.monplancbd.fr les présentes mentions légales. Le site www.monplancbd.fr est édité par :",
+      "item_companyName": {
+        "label": "Raison Sociale :",
+        "value": "MONPLANCBD SAS"
+      },
+      "item_address": {
+        "label": "Adresse du Siège Social :",
+        "value": "2 place Elie Lambert, 64100 Bayonne, France"
+      },
+      "item_legalFormCapital": {
+        "label": "Forme Juridique et Capital Social :",
+        "value": "Société par Actions Simplifiée (SAS) au capital social de 1000 €"
+      },
+      "item_siret": {
+        "label": "Numéro SIRET :",
+        "value": "88780395500012"
+      },
+      "item_rcs": {
+        "label": "Numéro RCS :",
+        "value": "887 803 955 R.C.S. Bayonne"
+      },
+      "item_vat": {
+        "label": "Numéro de TVA Intracommunautaire :",
+        "value": "FR39 887803955"
+      },
+      "item_contact": {
+        "label": "Coordonnées de Contact :",
+        "emailLabel": "Adresse e-mail",
+        "emailValue": "contact@monplancbd.fr",
+        "phoneLabel": "Téléphone",
+        "phoneValue": "07 66 13 59 38"
+      },
+      "item_gtc": {
+        "label": "Conditions Générales de Vente :",
+        "value": "L'utilisation du site et les achats effectués sont régis par nos Conditions Générales de Vente, consultables ici : {gtcLink}.",
+        "gtcLinkText": "Consulter les CGV"
+      }
+    },
+    "section2": {
+      "title": "2. Administration du Site",
+      "item_director": {
+        "label": "Directeur de la Publication :",
+        "value": "Monsieur HAMDADA Mohamed Yacine"
+      },
+      "item_directorContact": {
+        "label": "Contact du Directeur de la Publication :",
+        "value": "contact@monplancbd.fr"
+      },
+      "item_webmaster": {
+        "label": "Webmaster :",
+        "value": "Monsieur HAMDADA Mohamed Yacine"
+      },
+      "item_webmasterContact": {
+        "label": "Contact du Webmaster :",
+        "value": "contact@monplancbd.fr"
+      }
+    },
+    "section3": {
+      "title": "3. Hébergement du Site",
+      "intro": "Le site www.monplancbd.fr est hébergé par :",
+      "item_hostName": {
+        "label": "Nom de l'Hébergeur :",
+        "value": "Scaleway"
+      },
+      "item_hostCompany": {
+        "label": "Raison Sociale de l'Hébergeur :",
+        "value": "Scaleway SAS"
+      },
+      "item_hostAddress": {
+        "label": "Adresse de l'Hébergeur :",
+        "value": "BP 438, 75366 Paris CEDEX 08, France"
+      },
+      "item_hostContact": {
+        "label": "Contact de l'Hébergeur :",
+        "value": "+33 (0)1 84 13 00 00"
+      }
+    },
+    "section4": {
+      "title": "4. Propriété Intellectuelle",
+      "para1": "L'ensemble de ce site (contenu et présentation) constitue une œuvre protégée par la législation française et internationale en vigueur sur le droit d'auteur et d'une manière générale sur la propriété intellectuelle et industrielle.",
+      "para2": "Tous les droits de propriété intellectuelle et industrielle (droits d'auteur, brevets, marques), y compris les droits de reproduction, de représentation et d'adaptation de tout ou partie des éléments du site (textes, images, logos, graphismes, etc.) sont réservés exclusivement à MONPLANCBD SAS.",
+      "para3": "Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de MONPLANCBD SAS. Toute exploitation non autorisée du site ou de l’un des éléments qu’il contient sera considérée comme constitutive d’une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle."
+    },
+    "section5": {
+      "title": "5. Protection des Données Personnelles",
+      "para1": "MONPLANCBD SAS s'engage à protéger la vie privée de ses utilisateurs et la confidentialité de leurs données personnelles. La collecte et le traitement des données personnelles effectués sur le site www.monplancbd.fr se font dans le respect du Règlement Général sur la Protection des Données (RGPD) et de la loi Informatique et Libertés. Pour obtenir des informations détaillées sur la manière dont nous collectons, utilisons et protégeons vos données, ainsi que sur l'exercice de vos droits, veuillez consulter notre {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Politique de Confidentialité"
+    },
+    "section6": {
+      "title": "6. Utilisation des Cookies",
+      "para1": "Le site www.monplancbd.fr utilise des cookies pour assurer son bon fonctionnement, améliorer votre expérience de navigation et réaliser des statistiques de visite. En continuant à naviguer sur ce site, vous acceptez l'utilisation de ces cookies, sauf si vous les avez désactivés dans les paramètres de votre navigateur. Pour plus d'informations sur les cookies que nous utilisons et sur la manière de gérer vos préférences, veuillez consulter la section dédiée dans notre {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Politique de Confidentialité"
+    },
+    "section7": {
+      "title": "7. Liens Hypertextes",
+      "para1": "Le site www.monplancbd.fr peut contenir des liens hypertextes vers d'autres sites présents sur le réseau Internet. Les liens vers ces autres ressources vous font quitter le site www.monplancbd.fr.",
+      "para2": "MONPLANCBD SAS n'est pas responsable du contenu de ces sites externes et ne saurait être tenue pour responsable des dommages de toute nature résultant du contenu de ces sites ou sources externes, et notamment des informations, produits ou services qu’ils proposent. Les risques liés à cette utilisation incombent pleinement à l'internaute, qui doit se conformer à leurs conditions d'utilisation."
+    },
+    "section8": {
+      "title": "8. Limitation de Responsabilité",
+      "para1": "MONPLANCBD SAS s'efforce d'assurer au mieux de ses possibilités, l'exactitude et la mise à jour des informations diffusées sur le site www.monplancbd.fr, dont elle se réserve le droit de corriger, à tout moment et sans préavis, le contenu. Toutefois, MONPLANCBD SAS ne peut garantir l'exactitude, la précision ou l'exhaustivité des informations mises à disposition sur ce site.",
+      "para2": "En conséquence, MONPLANCBD SAS décline toute responsabilité pour toute interruption du site, survenance de bogues, pour toute inexactitude ou omission portant sur des informations disponibles sur le site, pour tous dommages résultant d'une intrusion frauduleuse d'un tiers ayant entraîné une modification des informations mises à disposition sur le site, et plus généralement pour tous dommages directs et indirects, quelles qu'en soient les causes, origines, natures ou conséquences. MONPLANCBD ne pourra être tenue responsable des dommages matériels liés à l’utilisation du site. L’utilisateur s’engage à accéder au site en utilisant un matériel récent, ne contenant pas de virus et avec un navigateur de dernière génération mis-à-jour."
+    },
+    "section9": {
+      "title": "9. Droit Applicable et Juridiction",
+      "para1": "Les présentes mentions légales sont régies par le droit français. En cas de litige et à défaut d'accord amiable, le différend sera porté devant les tribunaux français compétents conformément aux règles de compétence en vigueur."
+    },
+    "section10": {
+      "title": "10. Date de Mise à Jour",
+      "para1": "Dernière mise à jour : {updateDate}"
+    }
   },
   "conditionsOfUse": {
     "pageTitle": "Conditions Générales d'Utilisation du Site MonPlanCBD",
@@ -461,26 +564,535 @@
     }
   },
   "FAQ": {
-    "title": "FAQ",
-    "description": "description",
-    "subtitle1": "CBD : Le cannabidiol, qu’est-ce que c’est ?",
-    "p1": "Le cannabidiol (CBD) est une molécule présente dans le chanvre et complète le spectre des 110 autres cannabinoïdes connus à ce jour. On lui connaît des vertus bien-être pour le sommeil, le stress, l’anxiété, les tensions musculaires, etc. On le retrouve sous forme de baume, d’huile ou de fleurs à infuser.",
-    "subtitle2": "Comment connaître le taux de CBD/THC?",
-    "p2": "Il est tout naturel de vouloir connaître les taux de CBD ou de THC présents dans les fleurs et les huiles de chanvre que nous vous proposons. C’est pourquoi chaque étiquette produit se verra apposer un QR code qui vous redirigera vers l’analyse associée, répondant aux procédures requises par l’arrêté 2004-02-24 art. 3 JORF du 21 mars 2004.",
-    "subtitle3": "Comment utiliser du CBD ?",
-    "p3": "Il n’y a pas une seule meilleure façon, tout simplement parce que chaque personne a un profil unique et particulier. La méthode la plus connue est l’infusion de la fleur de chanvre en incorporant un corps gras dans le mélange. Par exemple, vVous pouvez ajouter du beurre, de la crème ou encore de huile végétale (comme l’huile de coco) dans de l’eau frémissante à 90°C Laissez infuser 10 à 15 min. Servez.",
-    "subtitle4": "Puis-je me faire livrer du CBD à domicile ?",
-    "p4": "Si vous habitez dans l’une de ces villes (voir la carte), vous pourrez recevoir vos produits sous 24H. La qualité de service et d’information sont des critères essentiels pour Mon Plan CBD.  Pour cette raison, vous recevrez votre commande dans un conditionnement garantissant une conservation optimale afin de profiter au maximum des vertus bien-êtres recherchées.",
-    "subtitle5": "Quelques recommandations…",
-    "p5": "Conformément à la loi en vigueur, nos produits ne sont pas destinés à la combustion. Il s’agit de respecter la méthode mentionnée plus haut, à savoir l’infusion avec un corps gras. Ne pas fumer, ne pas conduire après consommation, déconseillé pour la femme enceinte ou allaitante. Si vous souhaitez en savoir plus sur les conditions d’utilisation, veuillez cliquer ici. Nos produits ne sont ni des stupéfiants, ni des médicaments. Pour toute question, n’hésitez pas à nous joindre sur les réseaux sociaux ou par e-mail à l’adresse que vous trouverez dans la rubrique « Contact », en mentionnant votre demande en objet."
+    "section1": {
+      "title": "I. À propos du CBD & Légalité",
+      "q1": {
+        "question": "Qu'est-ce que le CBD (Cannabidiol) exactement ?",
+        "answer": "Le CBD, ou Cannabidiol, est l'un des nombreux composés naturels présents dans la plante de chanvre (Cannabis Sativa L.). Contrairement au THC, il n'a pas d'effets psychoactifs. Il est étudié pour ses diverses propriétés potentielles liées au bien-être."
+      },
+      "q2": {
+        "question": "Quelle est la différence entre le CBD et le THC ?",
+        "answer": "Le CBD (Cannabidiol) et le THC (Tétrahydrocannabinol) sont deux cannabinoïdes du chanvre, mais avec des effets très différents. Le THC est le composé psychoactif responsable de l'effet \"planant\" du cannabis récréatif et est illégal au-delà d'un certain seuil en France. Le CBD n'est pas psychoactif et ne provoque pas d'euphorie."
+      },
+      "q3": {
+        "question": "Le CBD est-il légal en France et en Europe ?",
+        "answer": "Oui, le CBD est légal en France et dans la plupart des pays européens, à condition que les produits finis contiennent un taux de THC inférieur à 0,3%, conformément à la législation en vigueur."
+      },
+      "q4": {
+        "question": "Les produits MonPlanCBD contiennent-ils du THC ? Quel est le taux maximal ?",
+        "answer": "Tous nos produits respectent scrupuleusement la législation française et européenne. Ils contiennent un taux de THC inférieur à 0,3%, comme l'exige la loi. Chaque produit est accompagné d'analyses de laboratoire indépendantes que vous pouvez consulter."
+      },
+      "q5": {
+        "question": "Le CBD a-t-il des effets psychoactifs ? Fait-il \"planer\" ?",
+        "answer": "Non, le CBD n'a pas d'effets psychoactifs et ne provoque pas la sensation d'euphorie ou \"d'effet planant\" associée au THC."
+      },
+      "q6": {
+        "question": "Quels sont les effets potentiels ou les bienfaits ressentis du CBD ?",
+        "answer": "Les utilisateurs rapportent souvent une sensation de relaxation, de détente, une meilleure gestion du stress ou une amélioration du sommeil. Cependant, le CBD n'est pas un médicament et n'est pas destiné à diagnostiquer, traiter, guérir ou prévenir une maladie. Les effets peuvent varier d'une personne à l'autre. Nous ne faisons aucune allégation thérapeutique."
+      },
+      "q7": {
+        "question": "Le CBD est-il addictif ?",
+        "answer": "Selon l'Organisation Mondiale de la Santé (OMS), le CBD ne présente pas de potentiel d'abus ou de dépendance. Il est considéré comme ayant un bon profil de sécurité."
+      }
+    },
+    "section2": {
+      "title": "II. À propos des Produits MonPlanCBD",
+      "q8": {
+        "question": "Quels types de produits CBD proposez-vous (fleurs, huiles, résines, etc.) ?",
+        "answer": "Nous proposons une large gamme de produits pour répondre à différentes préférences : Fleurs de CBD à infuser ou vaporiser, Huiles de CBD sublinguales, Résines et Pollens de CBD, Moonrocks, ainsi que des produits de Soins et des Vaporisateurs. Découvrez notre catalogue complet {productsLink}.",
+        "productsLinkText": "ici"
+      },
+      "q9": {
+        "question": "Quelle est la différence entre les fleurs, les huiles et les résines de CBD ?",
+        "answer_flowers_label": "Fleurs",
+        "answer_flowers_text": "Ce sont les têtes séchées de la plante de chanvre, riches en CBD. Elles sont généralement utilisées en infusion ou vaporisation.",
+        "answer_oils_label": "Huiles",
+        "answer_oils_text": "Elles sont obtenues en extrayant le CBD de la plante et en le diluant dans une huile porteuse (comme l'huile MCT ou de chanvre). Elles sont prises par voie sublinguale (sous la langue) pour une absorption rapide.",
+        "answer_resins_label": "Résines/Pollens",
+        "answer_resins_text": "Ce sont des extractions concentrées des trichomes (petites glandes résineuses) de la plante, offrant des taux de CBD plus élevés. Elles sont souvent utilisées en vaporisation."
+      },
+      "q10": {
+        "question": "Comment choisir le produit CBD qui me convient le mieux ?",
+        "answer": "Le choix dépend de vos préférences personnelles, de l'effet recherché et de la rapidité d'action souhaitée. Les huiles offrent une absorption rapide et un dosage précis. Les fleurs et résines (en infusion/vaporisation) permettent de profiter des arômes naturels de la plante. N'hésitez pas à parcourir nos catégories de produits et lire les descriptions pour vous aider à choisir."
+      },
+      "q11": {
+        "question": "Que signifie le pourcentage de CBD indiqué sur vos produits ?",
+        "answer": "Le pourcentage indique la concentration de CBD dans le produit. Par exemple, une huile à 10% contient 1000mg de CBD pour 10ml d'huile. Pour les fleurs ou résines, il représente le poids de CBD par rapport au poids total du produit (ex: 15% = 150mg de CBD par gramme)."
+      },
+      "q12": {
+        "question": "Comment garantissez-vous la qualité et la sécurité de vos produits ? (Tests labo, origine)",
+        "answer": "La qualité est notre priorité. Tous nos produits sont issus de variétés de chanvre autorisées et cultivées dans l'Union Européenne, sans pesticides ni herbicides. Chaque lot fait l'objet d'analyses par des laboratoires indépendants pour vérifier les taux de cannabinoïdes (CBD, THC <0,3%) et garantir l'absence de contaminants. Vous pouvez consulter ces analyses {analysisLink}.",
+        "analysisLinkText": "ici"
+      },
+      "q13": {
+        "question": "D'où proviennent vos produits à base de chanvre/CBD ?",
+        "answer": "Nous sélectionnons rigoureusement nos produits auprès de producteurs de chanvre basés principalement en Europe (France, Suisse, Italie, etc.), reconnus pour leurs pratiques de culture respectueuses et la qualité de leurs récoltes."
+      },
+      "q14": {
+        "question": "Comment dois-je conserver mes produits CBD ?",
+        "answer": "Pour préserver au mieux leurs qualités, conservez vos produits CBD dans leur emballage d'origine, à l'abri de la lumière directe du soleil, de la chaleur excessive et de l'humidité. Un endroit frais et sec est idéal."
+      }
+    },
+    "section3": {
+      "title": "III. Usage & Recommandations",
+      "q15": {
+        "question": "Comment utiliser les fleurs de CBD ? (Infusion/Vaporisation)",
+        "intro": "Nous recommandons deux méthodes principales :",
+        "answer_infusion_label": "Infusion",
+        "answer_infusion_text": "Faites infuser les fleurs émiettées dans de l'eau chaude (non bouillante) pendant 5 à 10 minutes, en ajoutant un corps gras (lait entier, huile de coco, beurre) pour aider à l'extraction du CBD (qui est liposoluble).",
+        "answer_vaporization_label": "Vaporisation",
+        "answer_vaporization_text": "Utilisez un vaporisateur conçu pour les herbes sèches. Chauffez à la température recommandée (généralement entre 170°C et 210°C) pour inhaler les vapeurs sans combustion."
+      },
+      "q16": {
+        "question": "Comment utiliser l'huile de CBD ? (Voie sublinguale)",
+        "answer": "Placez le nombre de gouttes souhaité sous votre langue à l'aide de la pipette fournie. Gardez l'huile sous la langue pendant 60 à 90 secondes avant d'avaler. Cela permet une absorption plus rapide par les muqueuses."
+      },
+      "q17": {
+        "question": "Peut-on fumer les fleurs ou résines de CBD ?",
+        "answer_emphasis": "Non.",
+        "answer_text": "Nos fleurs et résines ne sont pas destinées à être fumées. La combustion dégrade les composés bénéfiques et produit des substances nocives. Nous recommandons exclusivement l'infusion ou la vaporisation pour profiter pleinement et sainement de nos produits."
+      },
+      "q18": {
+        "question": "Quel dosage de CBD dois-je prendre ?",
+        "answer": "Il n'y a pas de dosage universel, car les effets varient selon les individus (poids, métabolisme, sensibilité). Nous conseillons toujours de commencer par une faible dose (par exemple, quelques gouttes d'huile ou une petite quantité en infusion/vaporisation) et d'augmenter progressivement si nécessaire, en écoutant votre corps. En cas de doute ou si vous suivez un traitement médical, consultez un professionnel de santé."
+      }
+    },
+    "section4": {
+      "title": "IV. Commande & Compte",
+      "q19": {
+        "question": "Comment passer une commande sur MonPlanCBD ?",
+        "answer": "C'est simple : parcourez nos produits, ajoutez ceux que vous souhaitez à votre panier, puis cliquez sur l'icône du panier pour finaliser votre commande. Suivez les étapes indiquées pour renseigner votre adresse de livraison, choisir votre mode de livraison et effectuer le paiement sécurisé."
+      },
+      "q20": {
+        "question": "Dois-je créer un compte pour commander ?",
+        "answer": "Non, vous pouvez passer commande en tant qu'invité. Cependant, créer un compte vous permet de suivre vos commandes plus facilement, d'accéder à votre historique, de gérer vos adresses et de bénéficier de notre programme de fidélité."
+      },
+      "q21": {
+        "question": "Quels sont les moyens de paiement acceptés ? Le paiement est-il sécurisé ?",
+        "answer": "Nous acceptons les paiements sécurisés par carte bancaire (Visa, Mastercard). Toutes les transactions sont protégées par un protocole de cryptage SSL et le système 3D Secure pour garantir la sécurité de vos informations bancaires via notre partenaire de paiement Stripe."
+      },
+      "q22": {
+        "question": "Comment fonctionne votre programme de fidélité ? Comment utiliser mes points ?",
+        "answer": "Notre programme de fidélité vous permet de cumuler des points à chaque achat effectué sur notre site. Vous pouvez ensuite échanger ces points contre des réductions sur vos prochaines commandes directement depuis votre panier. Pour plus de détails, consultez la page dédiée à notre {loyaltyProgramLink}.",
+        "loyaltyProgramLinkText": "Programme de Fidélité"
+      }
+    },
+    "section5": {
+      "title": "V. Expédition & Livraison",
+      "q23": {
+        "question": "Quels sont les frais et les délais de livraison ?",
+        "answer": "Les frais de livraison varient en fonction de votre pays de destination et du montant de votre commande. Nous offrons la livraison gratuite à partir d'un certain montant d'achat (par exemple, 40€ pour la France métropolitaine). Les délais de livraison sont généralement de [Insérer délai type, ex: 24 à 72 heures ouvrées] pour la France après expédition, mais sont donnés à titre indicatif. Vous trouverez tous les détails (tarifs, seuils de gratuité, délais estimés par pays) sur notre page {shippingPolicyLink}.",
+        "shippingPolicyLinkText": "Politique de Livraison"
+      },
+      "q24": {
+        "question": "Dans quels pays livrez-vous ?",
+        "answer": "Nous livrons actuellement en France métropolitaine, [Lister les autres pays principaux comme Belgique, Espagne, Irlande, La Réunion, etc., conformément aux CGV]. La liste complète des pays et les frais associés sont disponibles sur notre page {shippingPolicyLink}.",
+        "shippingPolicyLinkText": "Politique de Livraison"
+      },
+      "q25": {
+        "question": "Comment puis-je suivre ma commande ?",
+        "answer": "Une fois votre commande expédiée, vous recevrez un email de confirmation contenant un numéro de suivi. Vous pourrez utiliser ce numéro sur le site du transporteur (par exemple, Chronopost) pour suivre l'acheminement de votre colis en temps réel."
+      },
+      "q26": {
+        "question": "Que faire si mon colis est endommagé ou n'arrive pas ?",
+        "answer": "Si votre colis arrive endommagé, refusez-le si possible ou émettez des réserves précises sur le bon de livraison avant de l'accepter. Prenez des photos et contactez-nous immédiatement à contact@monplancbd.fr. Si votre colis est indiqué comme \"livré\" mais que vous ne l'avez pas reçu, contactez-nous également pour que nous lancions une enquête auprès du transporteur. Consulter nos {gtcLink} (Article 7) pour plus de détails.",
+        "gtcLinkText": "Conditions Générales de Vente"
+      },
+      "q27": {
+        "question": "Vos colis sont-ils discrets ?",
+        "answer": "Oui, toutes nos commandes sont expédiées dans des emballages neutres et discrets, sans aucune mention extérieure de MonPlanCBD ou de son contenu, afin de garantir votre confidentialité."
+      }
+    },
+    "section6": {
+      "title": "VI. Retours & Problèmes",
+      "q28": {
+        "question": "Quelle est votre politique de retour ?",
+        "answer": "Conformément à la loi, vous disposez d'un délai de 14 jours à compter de la réception de votre commande pour exercer votre droit de rétractation, sans justification. Les produits doivent être retournés intacts, complets, non ouverts et dans leur emballage d'origine scellé."
+      },
+      "q29": {
+        "question": "Comment retourner un article ?",
+        "answer": "Pour retourner un article, veuillez d'abord nous contacter à contact@monplancbd.fr dans le délai de 14 jours pour nous informer de votre décision. Nous vous indiquerons ensuite la procédure à suivre et l'adresse de retour. Les frais de retour sont à votre charge. Pour plus de détails, consultez nos {gtcLink} (Article 6) ou notre {returnPolicyLink} si elle existe.",
+        "gtcLinkText": "Conditions Générales de Vente",
+        "returnPolicyLinkText": "Politique de Retour"
+      }
+    },
+    "section7": {
+      "title": "VII. Sécurité & Précautions",
+      "q30": {
+        "question": "Le CBD présente-t-il des effets secondaires ?",
+        "answer": "Le CBD est généralement bien toléré. Cependant, certaines personnes peuvent ressentir des effets secondaires légers comme de la fatigue, de la sécheresse buccale ou des changements d'appétit. Ces effets sont souvent liés à un dosage élevé. Commencez toujours par une faible dose."
+      },
+      "q31": {
+        "question": "Puis-je conduire après avoir consommé du CBD ?",
+        "answer": "Bien que le CBD ne soit pas psychoactif, il peut provoquer une somnolence chez certaines personnes. Par précaution, nous déconseillons de conduire ou d'utiliser des machines lourdes juste après avoir consommé du CBD, surtout si vous débutez ou si vous ressentez de la fatigue."
+      },
+      "q32": {
+        "question": "Le CBD est-il sûr pour les femmes enceintes ou allaitantes ?",
+        "answer": "Par manque d'études suffisantes sur les effets du CBD pendant la grossesse et l'allaitement, nous déconseillons fortement son utilisation aux femmes enceintes ou qui allaitent."
+      },
+      "q33": {
+        "question": "Le CBD peut-il interagir avec des médicaments ?",
+        "answer_emphasis": "Oui,",
+        "answer_text": "le CBD peut interagir avec certains médicaments en affectant la manière dont ils sont métabolisés par le foie (via le système enzymatique cytochrome P450). Si vous prenez des médicaments, il est **essentiel** de consulter votre médecin ou un pharmacien avant de consommer du CBD."
+      },
+      "q34": {
+        "question": "Le CBD apparaîtra-t-il dans un test de dépistage de drogues ?",
+        "answer": "Les tests de dépistage standard recherchent principalement le THC. Nos produits contiennent moins de 0,3% de THC, ce qui est conforme à la loi. Cependant, la consommation de très grandes quantités de produits CBD, surtout en spectre complet, *pourrait* théoriquement entraîner une trace de THC détectable. Si vous êtes soumis à des tests réguliers, privilégiez les produits à base d'isolat de CBD ou discutez-en avec votre employeur/organisme de test."
+      }
+    },
+    "section8": {
+      "title": "VIII. Contact & Support",
+      "q35": {
+        "question": "Comment contacter le service client de MonPlanCBD ?",
+        "intro": "Vous pouvez nous contacter facilement :",
+        "email_label": "Par email",
+        "email_value": "contact@monplancbd.fr",
+        "phone_label": "Par téléphone",
+        "phone_value": "07 66 13 59 38",
+        "form_label": "Via le formulaire de contact sur notre site",
+        "form_link_text": "ici",
+        "outro": "Nous nous efforçons de répondre à toutes les demandes dans les plus brefs délais."
+      }
+    }
   },
   "GCS": {
-    "title": "Conditions générales de vente",
-    "description": "description"
+    "preamble": {
+      "title": "Préambule et Champ d'Application",
+      "sellerId": {
+        "title": "Identification du Vendeur (MONPLANCBD SAS)",
+        "para1": "Les présentes Conditions Générales de Vente (CGV) sont conclues entre la société MONPLANCBD SAS, au capital social de 1000€, dont le siège social est situé 2 place Elie Lambert, 64100 Bayonne, France, immatriculée au Registre du Commerce et des Sociétés de Bayonne sous le numéro 887 803 955, numéro de TVA intracommunautaire FR39 887803955 (ci-après dénommée \"MONPLANCBD\" ou \"le Vendeur\"), éditrice du site internet www.monplancbd.fr."
+      },
+      "buyerId": {
+        "title": "Identification de l'Acheteur",
+        "para1": "Et, d'autre part, toute personne physique ou morale (ci-après dénommée \"l'Acheteur\" ou \"le Client\") souhaitant effectuer un achat sur le site www.monplancbd.fr. L'Acheteur déclare agir à des fins qui n'entrent pas dans le cadre de son activité commerciale, industrielle, artisanale, libérale ou agricole, et avoir la pleine capacité juridique lui permettant de s'engager au titre des présentes CGV."
+      },
+      "object": {
+        "title": "Objet des Conditions Générales de Vente",
+        "para1": "Ces CGV visent à définir les relations contractuelles entre MONPLANCBD et l'Acheteur, ainsi que les conditions applicables à tout achat réalisé via le site www.monplancbd.fr."
+      },
+      "acceptance": {
+        "title": "Acceptation des Conditions",
+        "para1": "L'acquisition d'un produit sur le site www.monplancbd.fr implique une acceptation sans réserve par l'Acheteur des présentes CGV. L'Acheteur reconnaît en avoir pris connaissance et les avoir acceptées avant de valider sa commande. Les CGV applicables sont celles en vigueur à la date de la commande. MONPLANCBD se réserve le droit de modifier ces CGV à tout moment."
+      }
+    },
+    "products": {
+      "title": "Produits",
+      "description": {
+        "title": "Description des Produits",
+        "para1": "Les produits proposés à la vente sont ceux qui figurent sur le site www.monplancbd.fr. Chaque produit est accompagné d'un descriptif établi par MONPLANCBD, présentant ses principales caractéristiques (composition, usage recommandé, contenance, etc.). Les photographies illustrant les produits sont les plus fidèles possibles mais ne sont pas contractuelles."
+      },
+      "availability": {
+        "title": "Disponibilité des Produits",
+        "para1": "Les offres de produits sont valables tant qu'elles sont visibles sur le site, dans la limite des stocks disponibles. MONPLANCBD se réserve le droit de modifier l'assortiment de produits à tout moment. En cas d'indisponibilité d'un produit après passation de la commande, MONPLANCBD en informera l'Acheteur par email dans les meilleurs délais."
+      },
+      "zone": {
+        "title": "Zone Géographique de Vente",
+        "para1": "La vente des produits présentés sur le site www.monplancbd.fr est destinée aux Acheteurs résidant dans les pays spécifiés dans la section relative aux frais de livraison."
+      }
+    },
+    "price": {
+      "title": "Prix",
+      "currencyVat": {
+        "title": "Devise et Taxes (TVA)",
+        "para1": "Les prix affichés sur les fiches produits sont indiqués en Euros (€) Toutes Taxes Comprises (TTC), incluant la Taxe sur la Valeur Ajoutée (TVA) applicable au jour de la commande."
+      },
+      "modification": {
+        "title": "Modification des Prix",
+        "para1": "MONPLANCBD se réserve le droit de modifier ses prix à tout moment. Cependant, le prix applicable à la commande de l'Acheteur sera celui affiché sur le site au moment de la validation de la commande. Tout changement du taux de TVA sera automatiquement répercuté sur le prix des produits."
+      },
+      "shippingCosts": {
+        "title": "Frais de Livraison",
+        "para1": "Les prix indiqués sur les fiches produits ne comprennent pas les frais de livraison. Ces frais sont facturés en supplément et varient en fonction du montant total de la commande et de la zone géographique de livraison. Les frais de livraison applicables sont clairement indiqués à l'Acheteur avant la validation finale de sa commande.",
+        "para2": "Les seuils pour bénéficier de la livraison offerte et les forfaits applicables sont détaillés ci-dessous (ou dans notre {shippingPolicyLink}).",
+        "shippingPolicyLinkText": "Politique de Livraison"
+      }
+    },
+    "orderPayment": {
+      "title": "Commande et Paiement",
+      "process": {
+        "title": "Processus de Commande",
+        "para1": "Pour passer commande, l'Acheteur sélectionne les produits souhaités et les ajoute à son panier. Il peut modifier le contenu de son panier (quantités, références) à tout moment. Avant de valider sa commande, l'Acheteur vérifie le récapitulatif de son panier, l'adresse de livraison (et de facturation si différente), et le montant total incluant les frais de port calculés."
+      },
+      "accountGuest": {
+        "title": "Compte Client et Commande Invité",
+        "para1": "L'Acheteur peut choisir de créer un compte client ou de passer commande en tant qu'invité. La création d'un compte permet de suivre l'état des commandes et de faciliter les achats futurs. S'il possède un compte, l'Acheteur devra s'identifier avant de finaliser sa commande."
+      },
+      "confirmation": {
+        "title": "Confirmation de Commande",
+        "para1": "La validation de la commande s'effectue en cliquant sur le bouton prévu à cet effet (par exemple, \"Confirmer ma commande\" ou \"Payer\"). Cette validation implique l'acceptation expresse et sans réserve des présentes CGV. Après validation et acceptation du paiement, MONPLANCBD enverra à l'Acheteur une confirmation de l'enregistrement de sa commande par courrier électronique, à l'adresse email fournie par l'Acheteur."
+      },
+      "securePayment": {
+        "title": "Moyens de Paiement Sécurisés",
+        "para1": "MONPLANCBD propose le paiement sécurisé par carte bancaire via la plateforme Stripe (ou autre prestataire spécifié). L'Acheteur est redirigé vers l'interface sécurisée du prestataire pour saisir ses informations bancaires. Le paiement par carte bancaire est irrévocable, sauf en cas d'utilisation frauduleuse prouvée."
+      },
+      "proof": {
+        "title": "Preuve de la Transaction",
+        "para1": "L'ensemble des données fournies par l'Acheteur et la confirmation de commande enregistrée par MONPLANCBD constituent la preuve de la transaction et de l'acceptation des opérations effectuées. Les registres informatisés, conservés dans les systèmes informatiques de MONPLANCBD dans des conditions raisonnables de sécurité, seront considérés comme les preuves des communications, des commandes et des paiements intervenus entre les parties."
+      }
+    },
+    "retentionOfTitle": {
+      "title": "Réserve de Propriété",
+      "para1": "MONPLANCBD conserve la propriété pleine et entière des produits vendus jusqu'au parfait encaissement de la totalité du prix par l'Acheteur, incluant le principal, les frais et les taxes."
+    },
+    "rightOfWithdrawal": {
+      "title": "Droit de Rétractation",
+      "exercisePeriod": {
+        "title": "Délai d'Exercice du Droit de Rétractation",
+        "para1": "Conformément à l'article L221-18 du Code de la consommation, l'Acheteur dispose d'un délai de quatorze (14) jours calendaires à compter de la date de réception de sa commande pour exercer son droit de rétractation, sans avoir à justifier de motifs ni à payer de pénalités."
+      },
+      "returnConditions": {
+        "title": "Conditions de Retour des Produits",
+        "para1": "Pour que le droit de rétractation soit accepté, les produits retournés doivent être intacts, non ouverts, non utilisés, complets et dans leur emballage d'origine scellé. Tout produit endommagé, sali, incomplet ou dont l'emballage d'origine serait détérioré ne sera ni remboursé ni échangé."
+      },
+      "returnRefundProcess": {
+        "title": "Modalités de Retour et Remboursement",
+        "para1": "L'Acheteur qui souhaite exercer son droit de rétractation doit en informer MONPLANCBD avant l'expiration du délai de 14 jours, par exemple par email à contact@monplancbd.fr ou via son compte client. Les produits doivent être retournés à l'adresse indiquée par MONPLANCBD, aux frais et risques de l'Acheteur, dans les 14 jours suivant la communication de sa décision de se rétracter. Sous réserve du respect des conditions de retour, MONPLANCBD remboursera l'Acheteur de la totalité des sommes versées (y compris les frais de livraison initiaux standards), en utilisant le même moyen de paiement que celui utilisé pour la transaction initiale, sauf accord exprès de l'Acheteur pour un autre moyen. Le remboursement interviendra dans les meilleurs délais et au plus tard dans les 14 jours suivant la date à laquelle MONPLANCBD est informé de la décision de rétractation, ou après récupération des biens retournés. (Suggestion : Pour des informations détaillées sur la procédure de retour, veuillez consulter notre {returnPolicyLink}).",
+        "returnPolicyLinkText": "Politique de Retour et Remboursement"
+      }
+    },
+    "delivery": {
+      "title": "Livraison",
+      "address": {
+        "title": "Adresse de Livraison",
+        "para1": "Les livraisons sont effectuées à l'adresse indiquée par l'Acheteur sur le bon de commande. Cette adresse doit se situer dans la zone géographique de vente convenue. L'Acheteur est responsable de l'exactitude des informations fournies pour la livraison."
+      },
+      "methodsCosts": {
+        "title": "Modes et Frais de Livraison",
+        "para1": "Les modes de livraison disponibles et les frais associés sont présentés à l'Acheteur lors du processus de commande et sont détaillés dans la section \"Prix\" des présentes CGV (ou dans notre Politique de Livraison dédiée)."
+      },
+      "timescales": {
+        "title": "Délais de Livraison (Indicatifs)",
+        "para1": "MONPLANCBD s'efforce d'expédier les commandes dans les meilleurs délais. Les délais de livraison indiqués sur le site ou lors de la commande sont donnés à titre indicatif. MONPLANCBD ne saurait être tenue responsable des retards de livraison imputables au transporteur. Conformément à la loi, si la livraison n'est pas intervenue dans un délai de trente (30) jours à compter de la commande (sauf cas de force majeure ou accord différent), l'Acheteur peut demander la résolution du contrat de vente et être remboursé."
+      },
+      "riskTransfer": {
+        "title": "Transfert des Risques",
+        "para1": "Les risques liés au transport (perte, vol, détérioration) sont transférés à l'Acheteur au moment où il prend physiquement possession des produits, ou un tiers désigné par lui."
+      },
+      "receptionVerification": {
+        "title": "Réception de la Commande et Vérification",
+        "para1": "À la réception de sa commande, l'Acheteur est tenu de vérifier l'état de l'emballage et la conformité des produits livrés en présence du livreur ou au point de retrait. Toute anomalie (avarie, produit manquant par rapport au bon de livraison, colis endommagé, produits cassés...) devra être impérativement indiquée sur le bon de livraison sous forme de réserves manuscrites claires et précises, accompagnées de la signature de l'Acheteur."
+      },
+      "issues": {
+        "title": "Problèmes de Livraison (Dommages, Colis non reçu)",
+        "para1": "En cas de dommage constaté lors de la livraison, l'Acheteur doit formuler une réclamation motivée auprès du transporteur dans un délai de trois (3) jours (non compris les jours fériés) suivant la livraison, par lettre recommandée avec accusé de réception, et en informer simultanément MONPLANCBD. Concernant les colis indiqués comme \"livrés\" par le transporteur mais non reçus par l'Acheteur, MONPLANCBD s'engage à ouvrir une enquête auprès du transporteur. L'issue de cette enquête (menée par le transporteur) déterminera les suites données (remboursement, réexpédition), sans que MONPLANCBD ne puisse garantir une issue favorable si le transporteur confirme la livraison."
+      }
+    },
+    "legalGuarantees": {
+      "title": "Garanties Légales",
+      "conformity": {
+        "title": "Garantie de Conformité",
+        "para1": "Tous les produits vendus par MONPLANCBD bénéficient de la garantie légale de conformité prévue aux articles L217-4 et suivants du Code de la consommation. Cette garantie s'applique aux défauts de conformité existant lors de la délivrance du produit."
+      },
+      "hiddenDefects": {
+        "title": "Garantie des Vices Cachés",
+        "para1": "Les produits bénéficient également de la garantie légale contre les vices cachés prévue aux articles 1641 et suivants du Code civil. Cette garantie couvre les défauts cachés du produit qui le rendent impropre à l'usage auquel on le destine, ou qui diminuent tellement cet usage que l'Acheteur ne l'aurait pas acquis, ou n'en aurait donné qu'un moindre prix, s'il les avait connus."
+      },
+      "claimsProcess": {
+        "title": "Modalités de Réclamation",
+        "para1": "En cas de non-conformité ou de vice caché d'un produit vendu, l'Acheteur peut le retourner à MONPLANCBD. Toute réclamation, demande d'échange ou de remboursement au titre des garanties légales doit être effectuée par email à contact@monplancbd.fr ou par voie postale à l'adresse : MONPLANCBD SAS, 2 place Elie Lambert, 64100 Bayonne, France, en précisant le défaut constaté et en fournissant une preuve d'achat. MONPLANCBD indiquera alors la procédure à suivre."
+      }
+    },
+    "liability": {
+      "title": "Responsabilité",
+      "para1": "MONPLANCBD, dans le processus de vente en ligne, n'est tenue que par une obligation de moyens. Sa responsabilité ne pourra être engagée pour un dommage résultant de l'utilisation du réseau Internet tel que perte de données, intrusion, virus, rupture du service, ou autres problèmes involontaires.",
+      "para2": "La responsabilité de MONPLANCBD ne saurait être engagée en cas de non-respect de la législation du pays où les produits sont livrés. Il appartient à l'Acheteur de vérifier auprès des autorités locales les possibilités d'importation ou d'utilisation des produits commandés."
+    },
+    "intellectualProperty": {
+      "title": "Propriété Intellectuelle",
+      "para1": "Tous les éléments présents sur le site www.monplancbd.fr, qu'ils soient visuels (logos, photos, graphismes) ou textuels, sont et restent la propriété intellectuelle et exclusive de la société MONPLANCBD.",
+      "para2": "Nul n'est autorisé à reproduire, exploiter, rediffuser, ou utiliser à quelque titre que ce soit, même partiellement, des éléments du site sans l'accord écrit préalable de MONPLANCBD. Toute reproduction ou utilisation non autorisée est constitutive de contrefaçon et passible de poursuites judiciaires."
+    },
+    "personalData": {
+      "title": "Protection des Données Personnelles",
+      "para1": "MONPLANCBD s'engage à protéger les données personnelles de ses Clients. Les informations collectées lors de la passation de commande sont nécessaires à la gestion de la transaction et à la relation commerciale. Elles sont traitées conformément à la réglementation en vigueur sur la protection des données (RGPD et Loi Informatique et Libertés). Pour plus d'informations sur la collecte, l'utilisation, et la protection de vos données personnelles, ainsi que sur vos droits (accès, rectification, suppression, etc.), veuillez consulter notre {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Politique de Confidentialité"
+    },
+    "cookies": {
+      "title": "Utilisation des Cookies",
+      "para1": "Le site www.monplancbd.fr utilise des cookies pour améliorer l'expérience de navigation, analyser le trafic et proposer des fonctionnalités adaptées. Un cookie est un petit fichier texte stocké sur votre appareil. En naviguant sur notre site, vous consentez à l'utilisation de ces cookies, sauf si vous configurez votre navigateur pour les refuser. Pour en savoir plus sur les types de cookies utilisés, leur finalité, et comment gérer vos préférences, veuillez consulter notre section dédiée aux cookies dans notre {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Politique de Confidentialité"
+    },
+    "modificationGTC": {
+      "title": "Modification des Conditions Générales de Vente",
+      "para1": "MONPLANCBD se réserve le droit de modifier les présentes Conditions Générales de Vente à tout moment. Les nouvelles CGV s'appliqueront à toute commande passée après leur mise en ligne sur le site.",
+      "para2": "Les conditions applicables à une commande sont celles en vigueur au jour de la validation de ladite commande par l'Acheteur. Il est conseillé à l'Acheteur de consulter régulièrement les CGV."
+    },
+    "governingLawDisputes": {
+      "title": "Droit Applicable et Règlement des Litiges",
+      "applicableLaw": {
+        "title": "Droit Applicable",
+        "para1": "Les présentes Conditions Générales de Vente et les opérations d'achat et de vente qui en découlent sont soumises au droit français."
+      },
+      "jurisdiction": {
+        "title": "Juridiction Compétente",
+        "para1": "Tout litige relatif à l'interprétation, l'exécution ou la rupture du contrat conclu entre MONPLANCBD et l'Acheteur sera, à défaut d'accord amiable, soumis à la compétence exclusive des tribunaux français compétents, nonobstant pluralité de défendeurs ou appel en garantie. Le tribunal compétent sera déterminé selon les règles de droit commun."
+      },
+      "mediationODR": {
+        "title": "Médiation et Règlement en Ligne des Litiges (RLL)",
+        "para1": "En cas de litige, l'Acheteur est invité à contacter en priorité le service client de MONPLANCBD (voir section \"Contact\") pour tenter de trouver une solution amiable. Conformément aux articles L.616-1 et R.616-1 du Code de la consommation, l'Acheteur a également le droit de recourir gratuitement à un médiateur de la consommation en vue de la résolution amiable du litige qui l'oppose à MONPLANCBD. De plus, conformément à l’article 14 du Règlement (UE) n°524/2013, la Commission Européenne a mis en place une plateforme de Règlement en Ligne des Litiges (RLL), facilitant le règlement indépendant par voie extrajudiciaire des litiges en ligne entre consommateurs et professionnels de l’Union européenne. Cette plateforme est accessible au lien suivant : {odrLink}.",
+        "odrLinkText": "https://webgate.ec.europa.eu/odr/"
+      }
+    },
+    "contact": {
+      "title": "Contact",
+      "para1": "Pour toute question, réclamation ou demande d'information relative aux produits, à une commande ou aux présentes Conditions Générales de Vente, l'Acheteur peut contacter MONPLANCBD :",
+      "email": "Par courrier électronique",
+      "emailAddress": "contact@monplancbd.fr",
+      "phone": "Par téléphone",
+      "phoneNumber": "07 66 13 59 38",
+      "phoneInfo": "numéro non surtaxé, coût selon opérateur",
+      "mail": "Par courrier postal",
+      "postalAddress": "MONPLANCBD SAS, 2 place Elie Lambert, 64100 Bayonne, France."
+    }
   },
   "privacyPolicies": {
     "title": "politiques de confidentialite",
     "description": "description"
+  },
+  "privacyPolicy": {
+    "mainTitle": "MONPLANCBD - POLITIQUE DE CONFIDENTIALITÉ",
+    "introduction": {
+      "title": "Introduction et Engagement",
+      "para1": "Bienvenue sur www.monplancbd.fr. La société MONPLANCBD SAS (\"MONPLANCBD\", \"nous\", \"notre\") s'engage à protéger la vie privée et les données personnelles de ses utilisateurs et clients (\"vous\"). Cette Politique de Confidentialité explique quelles données personnelles nous collectons, pourquoi nous les collectons, comment nous les utilisons, les partageons et les protégeons, ainsi que les droits dont vous disposez concernant vos données. Nous nous engageons à respecter le Règlement Général sur la Protection des Données (RGPD - Règlement (UE) 2016/679) et la loi française Informatique et Libertés applicable."
+    },
+    "dataController": {
+      "title": "Responsable du Traitement",
+      "intro": "Le responsable du traitement de vos données personnelles collectées via le site www.monplancbd.fr est :",
+      "companyName": "MONPLANCBD SAS",
+      "address": "2 place Elie Lambert, 64100 Bayonne, France",
+      "emailLabel": "Email",
+      "emailValue": "contact@monplancbd.fr"
+    },
+    "dataCollected": {
+      "title": "Quelles Données Personnelles Collectons-Nous ?",
+      "intro": "Nous pouvons collecter et traiter différents types de données personnelles vous concernant, notamment :",
+      "item_identification": "Données d'identification et de contact : Nom, prénom, adresse email, adresse postale (livraison et facturation), numéro de téléphone.",
+      "item_connection_navigation": "Données de connexion et de navigation : Adresse IP, type de navigateur, pages visitées sur notre site, dates et heures de connexion, données de localisation approximative (déduite de l'IP), informations sur l'appareil utilisé.",
+      "item_order_transaction": "Données de commande et de transaction : Historique des achats, produits consultés ou ajoutés au panier, détails de la commande, informations de paiement (traitées de manière sécurisée par notre prestataire), informations de livraison, incidents ou réclamations.",
+      "item_account": "Données de compte client : Identifiant, mot de passe (crypté), préférences de communication (abonnement newsletter), points de fidélité, historique des interactions avec le service client.",
+      "item_reviews": "Données relatives aux avis produits : Pseudo (si fourni), contenu de l'avis, note attribuée.",
+      "item_technical": "Données techniques : Informations collectées via les cookies (voir section dédiée).",
+      "outro": "Ces données sont collectées lorsque vous naviguez sur notre site, créez un compte, passez une commande (même en tant qu'invité), vous inscrivez à notre newsletter, contactez notre service client ou laissez un avis."
+    },
+    "purposes": {
+      "title": "Pourquoi Utilisons-Nous Vos Données (Finalités) ?",
+      "intro": "Nous utilisons vos données personnelles pour les finalités suivantes, basées sur différents fondements juridiques :",
+      "contract": {
+        "basis": "Exécution du contrat (Base légale : Contrat) :",
+        "item_order_management": "Gérer vos commandes (validation, paiement, préparation, expédition).",
+        "item_delivery": "Assurer la livraison des produits à l'adresse indiquée.",
+        "item_crm": "Gérer la relation client (suivi de commande, service après-vente, réclamations).",
+        "item_account_management": "Gérer votre compte client."
+      },
+      "legalObligation": {
+        "basis": "Respect d'une obligation légale (Base légale : Obligation Légale) :",
+        "item_invoice_retention": "Conserver les factures et documents comptables pendant la durée légale requise (10 ans).",
+        "item_authority_requests": "Répondre aux demandes des autorités compétentes."
+      },
+      "consent": {
+        "basis": "Votre Consentement (Base légale : Consentement) :",
+        "item_newsletter": "Vous envoyer nos newsletters et offres promotionnelles par email ou SMS, si vous y avez consenti via la case à cocher lors de la création de compte ou de la commande.",
+        "item_cookies": "Déposer certains types de cookies sur votre appareil (voir section Cookies).",
+        "item_reviews": "Publier vos avis sur nos produits.",
+        "withdrawal_note": "Vous pouvez retirer votre consentement à tout moment (voir section \"Vos Droits\")."
+      },
+      "legitimateInterest": {
+        "basis": "Notre Intérêt Légitime (Base légale : Intérêt Légitime) :",
+        "item_security_fraud": "Assurer la sécurité de notre site web et prévenir la fraude.",
+        "item_service_improvement": "Améliorer nos services et l'expérience utilisateur sur notre site (analyse de navigation, statistiques anonymisées).",
+        "item_personalization": "Personnaliser votre expérience sur le site (par exemple, afficher des produits pertinents).",
+        "item_loyalty": "Gérer notre programme de fidélité.",
+        "item_information_requests": "Répondre à vos demandes d'information via nos formulaires de contact ou email."
+      }
+    },
+    "dataSharing": {
+      "title": "Avec Qui Partageons-Nous Vos Données ?",
+      "intro": "Nous ne vendons pas vos données personnelles. Nous pouvons cependant les partager avec des tiers de confiance pour réaliser les finalités décrites ci-dessus :",
+      "item_payment": "Prestataires de paiement : Pour traiter vos paiements de manière sécurisée (ex: Stripe).",
+      "item_carriers": "Transporteurs : Pour assurer la livraison de vos commandes (ex: Chronopost, La Poste).",
+      "item_hosting": "Prestataires d'hébergement : Pour stocker les données de notre site web (Scaleway, basé dans l'UE).",
+      "item_emailing": "Plateformes d'emailing : Pour l'envoi de nos newsletters, si vous y avez consenti (Benchmark Email - *localisation des serveurs et transferts éventuels hors UE à vérifier et préciser ici, avec les garanties associées si nécessaire*).",
+      "item_authorities": "Autorités compétentes : Uniquement si la loi l'exige ou dans le cadre d'une procédure légale.",
+      "outro": "Nous nous assurons que nos partenaires respectent la confidentialité et la sécurité de vos données et ne les utilisent que pour les missions qui leur sont confiées.",
+      "transfers": {
+        "title": "Transferts Internationaux :",
+        "para1": "Nos serveurs d'hébergement (Scaleway) sont situés dans l'Union Européenne.",
+        "para2_outside_eu": "Certains de nos prestataires, comme notre plateforme d'emailing Benchmark Email, peuvent traiter des données en dehors de l'UE (par exemple, aux États-Unis). Dans ce cas, nous nous assurons que ces transferts sont encadrés par des garanties appropriées, telles que les Clauses Contractuelles Types approuvées par la Commission Européenne, afin d'assurer un niveau de protection adéquat de vos données.",
+        "para2_inside_eu": "Tous nos principaux prestataires traitent vos données au sein de l'Union Européenne."
+      }
+    },
+    "dataRetention": {
+      "title": "Combien de Temps Conservons-Nous Vos Données ?",
+      "intro": "Nous conservons vos données personnelles uniquement pour la durée nécessaire aux finalités pour lesquelles elles ont été collectées, dans le respect de la réglementation :",
+      "item_client_active": "Données Client (compte actif) : Conservées pendant toute la durée de la relation commerciale, puis archivées pour une durée de 3 ans à compter de votre dernière activité (commande, connexion au compte, etc.), sauf demande d'effacement ou opposition de votre part.",
+      "item_order_billing": "Données de Commande/Facturation : Conservées pendant la durée légale obligatoire de 10 ans à compter de la clôture de l'exercice comptable.",
+      "item_prospects": "Données de Prospects (sans commande) : Conservées pendant 3 ans à compter de votre dernière interaction (clic dans un email, contact, etc.), sauf demande d'effacement ou opposition.",
+      "item_marketing_consent": "Données liées au consentement marketing : Conservées tant que vous ne retirez pas votre consentement.",
+      "item_cookies": "Cookies : La durée de vie des cookies est détaillée dans la section \"Utilisation des Cookies\" ci-dessous (généralement 13 mois maximum pour les cookies non essentiels nécessitant consentement)."
+    },
+    "dataSecurity": {
+      "title": "Comment Protégeons-Nous Vos Données ?",
+      "para1": "Nous prenons la sécurité de vos données très au sérieux. Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données personnelles contre la perte, l'utilisation abusive, l'accès non autorisé, la divulgation, l'altération ou la destruction. Cela inclut l'utilisation du protocole SSL/TLS pour crypter les données échangées sur notre site, des accès sécurisés à nos systèmes, et des politiques internes de gestion des données."
+    },
+    "cookies": {
+      "title": "Utilisation des Cookies",
+      "intro": "Les cookies sont de petits fichiers texte déposés sur votre appareil (ordinateur, tablette, mobile) lorsque vous visitez notre site. Ils nous aident à :",
+      "item_essential": "Assurer le fonctionnement essentiel du site : Cookies nécessaires pour la navigation, l'accès à votre compte, la gestion du panier d'achat. Ces cookies ne nécessitent pas votre consentement préalable.",
+      "item_functional": "Améliorer votre expérience : Cookies fonctionnels qui mémorisent vos préférences (langue, etc.).",
+      "item_analytics": "Analyser la performance du site : Cookies analytiques qui nous permettent de comprendre comment les visiteurs utilisent notre site (pages visitées, temps passé), de manière anonymisée, pour l'améliorer.",
+      "item_marketing": "Proposer des publicités ciblées : Cookies marketing ou publicitaires qui permettent d'afficher des publicités pertinentes sur d'autres sites, en fonction de votre navigation sur www.monplancbd.fr (utilisés uniquement avec votre consentement).",
+      "consentManagement": {
+        "title": "Gestion du Consentement aux Cookies :",
+        "para1": "Lors de votre première visite, un bandeau vous informe de l'utilisation des cookies et vous permet d'accepter, de refuser ou de personnaliser vos choix pour les cookies non essentiels. Vous pouvez modifier vos préférences à tout moment via {consentManagementLink}.",
+        "para2": "La durée de validité du consentement pour les cookies non essentiels est de {consentDuration} mois. La durée de conservation des informations collectées par les cookies est au maximum de {retentionDuration} mois."
+      }
+    },
+    "yourRights": {
+      "title": "Vos Droits Concernant Vos Données Personnelles",
+      "intro": "Conformément au RGPD, vous disposez des droits suivants sur vos données personnelles :",
+      "item_access": "Droit d'accès : Demander à consulter les données que nous détenons sur vous.",
+      "item_rectification": "Droit de rectification : Demander la correction de données inexactes ou incomplètes.",
+      "item_erasure": "Droit à l'effacement (\"droit à l'oubli\") : Demander la suppression de vos données, sous réserve des obligations légales de conservation.",
+      "item_restriction": "Droit à la limitation du traitement : Demander de geler temporairement l'utilisation de certaines de vos données.",
+      "item_portability": "Droit à la portabilité : Recevoir les données que vous nous avez fournies dans un format structuré et couramment utilisé, et les transmettre à un autre responsable de traitement si techniquement possible.",
+      "item_objection": "Droit d'opposition : Vous opposer au traitement de vos données pour des motifs légitimes, et à tout moment pour le marketing direct (y compris le profilage lié au marketing direct).",
+      "item_withdraw_consent": "Droit de retirer votre consentement : Pour les traitements basés sur le consentement (newsletter, certains cookies), vous pouvez le retirer à tout moment.",
+      "item_post_mortem": "Droit de définir des directives post-mortem : Organiser le sort de vos données après votre décès.",
+      "howToExercise": {
+        "title": "Comment exercer vos droits :",
+        "intro": "Vous pouvez exercer la plupart de ces droits directement depuis votre espace client :",
+        "item_profile": "Modifier vos informations personnelles dans la section {profileLink}.",
+        "profileLinkText": "\"Mon Profil\"",
+        "item_addresses": "Gérer vos adresses dans la section {addressesLink}.",
+        "addressesLinkText": "\"Mes Adresses\"",
+        "item_newsletter": "Gérer votre abonnement à la newsletter dans la section \"Mon Profil\" ou via les liens de désinscription présents dans nos emails.",
+        "outro": "Pour toute autre demande ou pour exercer les droits non disponibles via votre compte, vous pouvez nous contacter par email à contact@monplancbd.fr ou par courrier postal à l'adresse indiquée à l'Article 2, en joignant si nécessaire une copie d'une pièce d'identité pour vérifier votre identité. Nous nous engageons à répondre dans un délai d'un mois."
+      },
+      "complaintRight": {
+        "title": "Droit de réclamation auprès de la CNIL :",
+        "para1": "Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la Commission Nationale de l'Informatique et des Libertés (CNIL) : {cnilLink}."
+      }
+    },
+    "minorsPolicy": {
+      "title": "Politique Concernant les Mineurs",
+      "para1": "Notre site et nos produits ne sont pas destinés aux personnes mineures de moins de 18 ans. Nous ne collectons ni ne traitons sciemment les données personnelles de mineurs. Si nous découvrons que nous avons collecté de telles données, nous les supprimerons immédiatement."
+    },
+    "policyUpdate": {
+      "title": "Mise à Jour de la Politique de Confidentialité",
+      "para1": "Nous pouvons être amenés à modifier cette Politique de Confidentialité occasionnellement pour refléter des changements dans nos pratiques ou pour des raisons légales ou réglementaires. En cas de modification substantielle, nous vous en informerons par email (si nous avons votre adresse) ou via une notification sur notre site web avant que le changement ne devienne effectif. Nous vous encourageons à consulter cette page régulièrement."
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "Pour toute question relative à cette Politique de Confidentialité ou à la gestion de vos données personnelles, veuillez nous contacter :",
+      "emailLabel": "Par email",
+      "emailValue": "contact@monplancbd.fr",
+      "mailLabel": "Par courrier postal",
+      "postalAddress": "MONPLANCBD SAS, Délégué à la Protection des Données, 2 place Elie Lambert, 64100 Bayonne, France."
+    },
+    "lastUpdate": {
+      "title": "Date de Dernière Mise à Jour",
+      "date": "Dernière mise à jour : {updateDate}"
+    }
   },
   "about": {
     "pageTitle": "Notre Histoire : La Passion du CBD de Qualité chez MonPlanCBD",

@@ -259,17 +259,120 @@
     "button": "Go back home"
   },
   "legalNotices": {
-    "title": "Legal Notices",
-    "description": "description",
-    "subtitle1": "Site Presentation",
-    "p1": "In accordance with Article 6 of Law No. 2004-575 of June 21, 2004, for confidence in the digital economy, users of the website monplancbd.fr are informed of the identity of the various stakeholders involved in its creation and monitoring:",
-    "subtitle2": "Legal Information",
-    "subtitle3": "Hosting",
-    "subtitle4": "Site Administration",
-    "subtitle5": "Hypertext Links and Use of Cookies",
-    "p2": "The site monplancbd.fr contains a number of hypertext links to other sites, set up with the authorization of MONPLANCBD. However, MONPLANCBD does not have the ability to verify the content of the sites visited and will not assume any responsibility in this regard. Browsing the site monplancbd.fr may result in the installation of cookie(s) on the user's computer. A cookie is a small file that does not allow the identification of the user but records information relating to the navigation of a computer on a site. The data thus obtained is intended to facilitate subsequent navigation on the site and is also intended to allow various traffic measurements. Refusing to install a cookie may result in the impossibility of accessing certain services. The user can, however, configure their computer as follows, to refuse the installation of cookies: On Internet Explorer: tool tab (gear icon at the top right) / internet options. Click on Privacy and select Block all cookies. Confirm by clicking Ok. On Firefox: at the top of the browser window, click the Firefox button, then go to the Options tab. Click on the Privacy tab. Set the retention rules to: use custom settings for history. Finally, uncheck it to disable cookies. On Safari: Click at the top right of the browser on the menu icon (symbolized by a gear). Select Settings. Click on Show advanced settings. In the 'Privacy' section, click on Content settings. In the 'Cookies' section, you can block cookies. On Chrome: Click at the top right of the browser on the menu icon (symbolized by three horizontal lines). Select Settings. Click on Show advanced settings. In the 'Privacy' section, click on preferences. In the 'Privacy' tab, you can block cookies.",
-    "subtitle6": "Use of Personal Data",
-    "p3": "In France, personal data is particularly protected by Law No. 78-87 of January 6, 1978, Law No. 2004-801 of August 6, 2004, Article L. 226-13 of the Penal Code, and the European Directive of October 24, 1995. When using the site monplancbd.fr, the following may be collected: the URL of the links through which the user accessed the site monplancbd.fr, the user's internet service provider, the user's Internet Protocol (IP) address. In any case, MONPLANCBD only collects personal information about the user for the need of certain services offered by the site monplancbd.fr. The user provides this information with full knowledge of the facts, especially when they enter it themselves. It is then specified to the user of the site monplancbd.fr whether or not they are required to provide this information. In accordance with the provisions of Articles 38 and following of Law 78-17 of January 6, 1978, relating to information technology, files, and freedoms, every user has the right to access, rectify, and oppose personal data concerning them, by making a written and signed request, accompanied by a copy of the identity document with the signature of the holder, specifying the address to which the response must be sent. No personal information of the user of the site monplancbd.fr is published without the user's knowledge, exchanged, transferred, assigned, or sold on any medium to third parties. Only in the event of the purchase of MONPLANCBD and its rights would the transmission of the said information to the potential buyer be allowed, who would in turn be bound by the same obligation to retain and modify the data with respect to the user of the site monplancbd.fr. The databases are protected by the provisions of the Law of July 1, 1998, transposing Directive 96/9 of March 11, 1996, on the legal protection of databases."
+    "toBeVerified": "Information to be verified and confirmed",
+    "section1": {
+      "title": "1. Legal Information (Site Editor)",
+      "intro": "In accordance with the provisions of Articles 6-III and 19 of Law No. 2004-575 of June 21, 2004 for Confidence in the Digital Economy (LCEN), users and visitors of the www.monplancbd.fr site are informed of these legal notices. The www.monplancbd.fr site is published by:",
+      "item_companyName": {
+        "label": "Company Name:",
+        "value": "MONPLANCBD SAS"
+      },
+      "item_address": {
+        "label": "Registered Office Address:",
+        "value": "2 place Elie Lambert, 64100 Bayonne, France"
+      },
+      "item_legalFormCapital": {
+        "label": "Legal Form and Share Capital:",
+        "value": "Simplified Joint Stock Company (SAS) with a share capital of €1000"
+      },
+      "item_siret": {
+        "label": "SIRET Number:",
+        "value": "88780395500012"
+      },
+      "item_rcs": {
+        "label": "RCS Number:",
+        "value": "887 803 955 R.C.S. Bayonne"
+      },
+      "item_vat": {
+        "label": "Intra-community VAT Number:",
+        "value": "FR39 887803955"
+      },
+      "item_contact": {
+        "label": "Contact Details:",
+        "emailLabel": "Email Address",
+        "emailValue": "contact@monplancbd.fr",
+        "phoneLabel": "Phone",
+        "phoneValue": "+33 7 66 13 59 38"
+      },
+      "item_gtc": {
+        "label": "General Terms and Conditions of Sale:",
+        "value": "The use of the site and purchases made are governed by our General Terms and Conditions of Sale, available here: {gtcLink}.",
+        "gtcLinkText": "View GTC"
+      }
+    },
+    "section2": {
+      "title": "2. Site Administration",
+      "item_director": {
+        "label": "Publication Director:",
+        "value": "Mr. HAMDADA Mohamed Yacine"
+      },
+      "item_directorContact": {
+        "label": "Publication Director Contact:",
+        "value": "contact@monplancbd.fr"
+      },
+      "item_webmaster": {
+        "label": "Webmaster:",
+        "value": "Mr. HAMDADA Mohamed Yacine"
+      },
+      "item_webmasterContact": {
+        "label": "Webmaster Contact:",
+        "value": "contact@monplancbd.fr"
+      }
+    },
+    "section3": {
+      "title": "3. Site Hosting",
+      "intro": "The www.monplancbd.fr site is hosted by:",
+      "item_hostName": {
+        "label": "Host Name:",
+        "value": "Scaleway"
+      },
+      "item_hostCompany": {
+        "label": "Host Company Name:",
+        "value": "Scaleway SAS"
+      },
+      "item_hostAddress": {
+        "label": "Host Address:",
+        "value": "BP 438, 75366 Paris CEDEX 08, France"
+      },
+      "item_hostContact": {
+        "label": "Host Contact:",
+        "value": "+33 (0)1 84 13 00 00"
+      }
+    },
+    "section4": {
+      "title": "4. Intellectual Property",
+      "para1": "This entire site (content and presentation) constitutes a work protected by current French and international legislation on copyright and, more generally, on intellectual and industrial property.",
+      "para2": "All intellectual and industrial property rights (copyrights, patents, trademarks), including the rights of reproduction, representation, and adaptation of all or part of the site's elements (texts, images, logos, graphics, etc.) are exclusively reserved for MONPLANCBD SAS.",
+      "para3": "Any reproduction, representation, modification, publication, adaptation of all or part of the site's elements, whatever the means or process used, is prohibited without the prior written authorization of MONPLANCBD SAS. Any unauthorized use of the site or any of the elements it contains will be considered as constituting an infringement and prosecuted in accordance with the provisions of Articles L.335-2 and following of the Intellectual Property Code."
+    },
+    "section5": {
+      "title": "5. Personal Data Protection",
+      "para1": "MONPLANCBD SAS is committed to protecting the privacy of its users and the confidentiality of their personal data. The collection and processing of personal data carried out on the www.monplancbd.fr site comply with the General Data Protection Regulation (GDPR) and the French Data Protection Act. For detailed information on how we collect, use, and protect your data, as well as how to exercise your rights, please consult our {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Privacy Policy"
+    },
+    "section6": {
+      "title": "6. Use of Cookies",
+      "para1": "The www.monplancbd.fr site uses cookies to ensure its proper functioning, improve your browsing experience, and compile visit statistics. By continuing to browse this site, you accept the use of these cookies, unless you have disabled them in your browser settings. For more information on the cookies we use and how to manage your preferences, please consult the dedicated section in our {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Privacy Policy"
+    },
+    "section7": {
+      "title": "7. Hypertext Links",
+      "para1": "The www.monplancbd.fr site may contain hypertext links to other sites present on the Internet network. Links to these other resources cause you to leave the www.monplancbd.fr site.",
+      "para2": "MONPLANCBD SAS is not responsible for the content of these external sites and cannot be held liable for damages of any kind resulting from the content of these sites or external sources, particularly the information, products, or services they offer. The risks associated with this use fall fully on the Internet user, who must comply with their terms of use."
+    },
+    "section8": {
+      "title": "8. Limitation of Liability",
+      "para1": "MONPLANCBD SAS strives to ensure, to the best of its ability, the accuracy and updating of the information published on the www.monplancbd.fr site, the content of which it reserves the right to correct at any time and without notice. However, MONPLANCBD SAS cannot guarantee the accuracy, precision, or completeness of the information made available on this site.",
+      "para2": "Consequently, MONPLANCBD SAS declines all responsibility for any interruption of the site, occurrence of bugs, for any inaccuracy or omission relating to information available on the site, for any damage resulting from fraudulent intrusion by a third party leading to a modification of the information made available on the site, and more generally for any direct and indirect damage, whatever the causes, origins, natures, or consequences. MONPLANCBD cannot be held responsible for material damage related to the use of the site. The user agrees to access the site using recent equipment, free of viruses, and with an up-to-date latest generation browser."
+    },
+    "section9": {
+      "title": "9. Applicable Law and Jurisdiction",
+      "para1": "These legal notices are governed by French law. In the event of a dispute and in the absence of an amicable agreement, the dispute will be brought before the competent French courts in accordance with the rules of jurisdiction in force."
+    },
+    "section10": {
+      "title": "10. Update Date",
+      "para1": "Last updated: {updateDate}"
+    }
   },
   "conditionsOfUse": {
     "pageTitle": "MonPlanCBD Site Terms of Use",
@@ -476,26 +579,535 @@
     }
   },
   "FAQ": {
-    "title": "FAQ",
-    "description": "description",
-    "subtitle1": "CBD : Le cannabidiol, qu’est-ce que c’est ?",
-    "p1": "Le cannabidiol (CBD) est une molécule présente dans le chanvre et complète le spectre des 110 autres cannabinoïdes connus à ce jour. On lui connaît des vertus bien-être pour le sommeil, le stress, l’anxiété, les tensions musculaires, etc. On le retrouve sous forme de baume, d’huile ou de fleurs à infuser.",
-    "subtitle2": "Comment connaître le taux de CBD/THC?",
-    "p2": "Il est tout naturel de vouloir connaître les taux de CBD ou de THC présents dans les fleurs et les huiles de chanvre que nous vous proposons. C’est pourquoi chaque étiquette produit se verra apposer un QR code qui vous redirigera vers l’analyse associée, répondant aux procédures requises par l’arrêté 2004-02-24 art. 3 JORF du 21 mars 2004.",
-    "subtitle3": "Comment utiliser du CBD ?",
-    "p3": "Il n’y a pas une seule meilleure façon, tout simplement parce que chaque personne a un profil unique et particulier. La méthode la plus connue est l’infusion de la fleur de chanvre en incorporant un corps gras dans le mélange. Par exemple, vVous pouvez ajouter du beurre, de la crème ou encore de huile végétale (comme l’huile de coco) dans de l’eau frémissante à 90°C Laissez infuser 10 à 15 min. Servez.",
-    "subtitle4": "Puis-je me faire livrer du CBD à domicile ?",
-    "p4": "Si vous habitez dans l’une de ces villes (voir la carte), vous pourrez recevoir vos produits sous 24H. La qualité de service et d’information sont des critères essentiels pour Mon Plan CBD.  Pour cette raison, vous recevrez votre commande dans un conditionnement garantissant une conservation optimale afin de profiter au maximum des vertus bien-êtres recherchées.",
-    "subtitle5": "Quelques recommandations…",
-    "p5": "Conformément à la loi en vigueur, nos produits ne sont pas destinés à la combustion. Il s’agit de respecter la méthode mentionnée plus haut, à savoir l’infusion avec un corps gras. Ne pas fumer, ne pas conduire après consommation, déconseillé pour la femme enceinte ou allaitante. Si vous souhaitez en savoir plus sur les conditions d’utilisation, veuillez cliquer ici. Nos produits ne sont ni des stupéfiants, ni des médicaments. Pour toute question, n’hésitez pas à nous joindre sur les réseaux sociaux ou par e-mail à l’adresse que vous trouverez dans la rubrique « Contact », en mentionnant votre demande en objet."
+    "section1": {
+      "title": "I. About CBD & Legality",
+      "q1": {
+        "question": "What exactly is CBD (Cannabidiol)?",
+        "answer": "CBD, or Cannabidiol, is one of the many natural compounds found in the hemp plant (Cannabis Sativa L.). Unlike THC, it has no psychoactive effects. It is studied for its various potential properties related to well-being."
+      },
+      "q2": {
+        "question": "What is the difference between CBD and THC?",
+        "answer": "CBD (Cannabidiol) and THC (Tetrahydrocannabinol) are two cannabinoids from hemp, but with very different effects. THC is the psychoactive compound responsible for the 'high' effect of recreational cannabis and is illegal above a certain threshold in France. CBD is not psychoactive and does not cause euphoria."
+      },
+      "q3": {
+        "question": "Is CBD legal in France and Europe?",
+        "answer": "Yes, CBD is legal in France and most European countries, provided that the finished products contain a THC level below 0.3%, in accordance with current legislation."
+      },
+      "q4": {
+        "question": "Do MonPlanCBD products contain THC? What is the maximum level?",
+        "answer": "All our products strictly comply with French and European legislation. They contain a THC level below 0.3%, as required by law. Each product comes with independent laboratory analyses that you can consult."
+      },
+      "q5": {
+        "question": "Does CBD have psychoactive effects? Does it get you 'high'?",
+        "answer": "No, CBD does not have psychoactive effects and does not cause the feeling of euphoria or 'high' associated with THC."
+      },
+      "q6": {
+        "question": "What are the potential effects or perceived benefits of CBD?",
+        "answer": "Users often report a feeling of relaxation, stress management improvement, or better sleep. However, CBD is not a medicine and is not intended to diagnose, treat, cure, or prevent any disease. Effects can vary from person to person. We make no therapeutic claims."
+      },
+      "q7": {
+        "question": "Is CBD addictive?",
+        "answer": "According to the World Health Organization (WHO), CBD does not exhibit potential for abuse or dependence. It is considered to have a good safety profile."
+      }
+    },
+    "section2": {
+      "title": "II. About MonPlanCBD Products",
+      "q8": {
+        "question": "What types of CBD products do you offer (flowers, oils, resins, etc.)?",
+        "answer": "We offer a wide range of products to suit different preferences: CBD Flowers for infusion or vaporization, sublingual CBD Oils, CBD Resins and Pollens, Moonrocks, as well as Skincare products and Vaporizers. Discover our full catalog {productsLink}.",
+        "productsLinkText": "here"
+      },
+      "q9": {
+        "question": "What is the difference between CBD flowers, oils, and resins?",
+        "answer_flowers_label": "Flowers",
+        "answer_flowers_text": "These are the dried buds of the hemp plant, rich in CBD. They are generally used for infusion or vaporization.",
+        "answer_oils_label": "Oils",
+        "answer_oils_text": "They are obtained by extracting CBD from the plant and diluting it in a carrier oil (like MCT or hemp oil). They are taken sublingually (under the tongue) for rapid absorption.",
+        "answer_resins_label": "Resins/Pollens",
+        "answer_resins_text": "These are concentrated extractions of the plant's trichomes (small resin glands), offering higher CBD levels. They are often used for vaporization."
+      },
+      "q10": {
+        "question": "How do I choose the CBD product that's right for me?",
+        "answer": "The choice depends on your personal preferences, the desired effect, and the desired speed of action. Oils offer rapid absorption and precise dosing. Flowers and resins (via infusion/vaporization) allow you to enjoy the natural aromas of the plant. Feel free to browse our product categories and read the descriptions to help you choose."
+      },
+      "q11": {
+        "question": "What does the CBD percentage indicated on your products mean?",
+        "answer": "The percentage indicates the concentration of CBD in the product. For example, a 10% oil contains 1000mg of CBD per 10ml of oil. For flowers or resins, it represents the weight of CBD relative to the total weight of the product (e.g., 15% = 150mg of CBD per gram)."
+      },
+      "q12": {
+        "question": "How do you guarantee the quality and safety of your products? (Lab tests, origin)",
+        "answer": "Quality is our priority. All our products come from authorized hemp varieties grown in the European Union, without pesticides or herbicides. Each batch undergoes analysis by independent laboratories to verify cannabinoid levels (CBD, THC <0.3%) and ensure the absence of contaminants. You can consult these analyses {analysisLink}.",
+        "analysisLinkText": "here"
+      },
+      "q13": {
+        "question": "Where do your hemp/CBD products come from?",
+        "answer": "We rigorously select our products from hemp producers based mainly in Europe (France, Switzerland, Italy, etc.), known for their respectful cultivation practices and the quality of their harvests."
+      },
+      "q14": {
+        "question": "How should I store my CBD products?",
+        "answer": "To best preserve their qualities, store your CBD products in their original packaging, away from direct sunlight, excessive heat, and moisture. A cool, dry place is ideal."
+      }
+    },
+    "section3": {
+      "title": "III. Usage & Recommendations",
+      "q15": {
+        "question": "How to use CBD flowers? (Infusion/Vaporization)",
+        "intro": "We recommend two main methods:",
+        "answer_infusion_label": "Infusion",
+        "answer_infusion_text": "Infuse the crumbled flowers in hot (not boiling) water for 5 to 10 minutes, adding a fatty substance (whole milk, coconut oil, butter) to help extract the CBD (which is fat-soluble).",
+        "answer_vaporization_label": "Vaporization",
+        "answer_vaporization_text": "Use a vaporizer designed for dry herbs. Heat to the recommended temperature (usually between 170°C and 210°C) to inhale the vapors without combustion."
+      },
+      "q16": {
+        "question": "How to use CBD oil? (Sublingual)",
+        "answer": "Place the desired number of drops under your tongue using the provided dropper. Hold the oil under the tongue for 60 to 90 seconds before swallowing. This allows for faster absorption through the mucous membranes."
+      },
+      "q17": {
+        "question": "Can CBD flowers or resins be smoked?",
+        "answer_emphasis": "No.",
+        "answer_text": "Our flowers and resins are not intended for smoking. Combustion degrades beneficial compounds and produces harmful substances. We exclusively recommend infusion or vaporization to fully and healthily enjoy our products."
+      },
+      "q18": {
+        "question": "What CBD dosage should I take?",
+        "answer": "There is no universal dosage, as effects vary depending on the individual (weight, metabolism, sensitivity). We always advise starting with a low dose (e.g., a few drops of oil or a small amount in infusion/vaporization) and gradually increasing if necessary, listening to your body. If in doubt or if you are undergoing medical treatment, consult a healthcare professional."
+      }
+    },
+    "section4": {
+      "title": "IV. Ordering & Account",
+      "q19": {
+        "question": "How do I place an order on MonPlanCBD?",
+        "answer": "It's simple: browse our products, add the ones you want to your cart, then click on the cart icon to finalize your order. Follow the indicated steps to enter your delivery address, choose your delivery method, and make the secure payment."
+      },
+      "q20": {
+        "question": "Do I need to create an account to order?",
+        "answer": "No, you can place an order as a guest. However, creating an account allows you to track your orders more easily, access your history, manage your addresses, and benefit from our loyalty program."
+      },
+      "q21": {
+        "question": "What payment methods are accepted? Is the payment secure?",
+        "answer": "We accept secure payments by credit/debit card (Visa, Mastercard). All transactions are protected by SSL encryption protocol and the 3D Secure system to ensure the security of your bank details via our payment partner Stripe."
+      },
+      "q22": {
+        "question": "How does your loyalty program work? How do I use my points?",
+        "answer": "Our loyalty program allows you to accumulate points with each purchase made on our site. You can then redeem these points for discounts on your next orders directly from your cart. For more details, visit the page dedicated to our {loyaltyProgramLink}.",
+        "loyaltyProgramLinkText": "Loyalty Program"
+      }
+    },
+    "section5": {
+      "title": "V. Shipping & Delivery",
+      "q23": {
+        "question": "What are the shipping costs and delivery times?",
+        "answer": "Shipping costs vary depending on your destination country and order amount. We offer free shipping above a certain purchase amount (e.g., €40 for mainland France). Delivery times are generally [Insert typical timeframe, e.g., 24 to 72 business hours] for France after dispatch, but are indicative only. You can find full details (rates, free shipping thresholds, estimated times per country) on our {shippingPolicyLink} page.",
+        "shippingPolicyLinkText": "Shipping Policy"
+      },
+      "q24": {
+        "question": "Which countries do you ship to?",
+        "answer": "We currently ship to mainland France, [List other main countries like Belgium, Spain, Ireland, Réunion, etc., as per GTC]. The complete list of countries and associated costs are available on our {shippingPolicyLink} page.",
+        "shippingPolicyLinkText": "Shipping Policy"
+      },
+      "q25": {
+        "question": "How can I track my order?",
+        "answer": "Once your order is shipped, you will receive a confirmation email containing a tracking number. You can use this number on the carrier's website (e.g., Chronopost) to track the progress of your package in real time."
+      },
+      "q26": {
+        "question": "What should I do if my package is damaged or does not arrive?",
+        "answer": "If your package arrives damaged, refuse it if possible or make specific reservations on the delivery note before accepting it. Take photos and contact us immediately at contact@monplancbd.fr. If your package is marked as \"delivered\" but you have not received it, please also contact us so we can initiate an investigation with the carrier. Consult our {gtcLink} (Article 7) for more details.",
+        "gtcLinkText": "General Terms and Conditions of Sale"
+      },
+      "q27": {
+        "question": "Are your packages discreet?",
+        "answer": "Yes, all our orders are shipped in neutral, discreet packaging with no external mention of MonPlanCBD or its contents, to ensure your privacy."
+      }
+    },
+    "section6": {
+      "title": "VI. Returns & Issues",
+      "q28": {
+        "question": "What is your return policy?",
+        "answer": "In accordance with the law, you have 14 days from receipt of your order to exercise your right of withdrawal, without justification. Products must be returned intact, complete, unopened, and in their original sealed packaging."
+      },
+      "q29": {
+        "question": "How do I return an item?",
+        "answer": "To return an item, please first contact us at contact@monplancbd.fr within the 14-day period to inform us of your decision. We will then provide you with the return procedure and address. Return shipping costs are your responsibility. For more details, consult our {gtcLink} (Article 6) or our {returnPolicyLink} if available.",
+        "gtcLinkText": "General Terms and Conditions of Sale",
+        "returnPolicyLinkText": "Return Policy"
+      }
+    },
+    "section7": {
+      "title": "VII. Safety & Precautions",
+      "q30": {
+        "question": "Does CBD have side effects?",
+        "answer": "CBD is generally well tolerated. However, some people may experience mild side effects such as fatigue, dry mouth, or changes in appetite. These effects are often related to high dosages. Always start with a low dose."
+      },
+      "q31": {
+        "question": "Can I drive after consuming CBD?",
+        "answer": "Although CBD is not psychoactive, it can cause drowsiness in some people. As a precaution, we advise against driving or operating heavy machinery immediately after consuming CBD, especially if you are new to it or feel tired."
+      },
+      "q32": {
+        "question": "Is CBD safe for pregnant or breastfeeding women?",
+        "answer": "Due to a lack of sufficient studies on the effects of CBD during pregnancy and breastfeeding, we strongly advise against its use by pregnant or breastfeeding women."
+      },
+      "q33": {
+        "question": "Can CBD interact with medications?",
+        "answer_emphasis": "Yes,",
+        "answer_text": "CBD can interact with certain medications by affecting how they are metabolized by the liver (via the cytochrome P450 enzyme system). If you are taking medication, it is **essential** to consult your doctor or pharmacist before consuming CBD."
+      },
+      "q34": {
+        "question": "Will CBD show up on a drug test?",
+        "answer": "Standard drug tests primarily screen for THC. Our products contain less than 0.3% THC, complying with the law. However, consuming very large quantities of CBD products, especially full-spectrum ones, *could* theoretically result in a detectable trace of THC. If you are subject to regular testing, consider using CBD isolate products or discuss it with your employer/testing body."
+      }
+    },
+    "section8": {
+      "title": "VIII. Contact & Support",
+      "q35": {
+        "question": "How can I contact MonPlanCBD customer service?",
+        "intro": "You can easily reach us:",
+        "email_label": "By email",
+        "email_value": "contact@monplancbd.fr",
+        "phone_label": "By phone",
+        "phone_value": "+33 7 66 13 59 38",
+        "form_label": "Via the contact form on our site",
+        "form_link_text": "here",
+        "outro": "We strive to respond to all inquiries as quickly as possible."
+      }
+    }
   },
   "GCS": {
-    "title": "Conditions générales de vente",
-    "description": "description"
+    "preamble": {
+      "title": "Preamble and Scope",
+      "sellerId": {
+        "title": "Seller Identification (MONPLANCBD SAS)",
+        "para1": "These General Terms and Conditions of Sale (GTC) are concluded between the company MONPLANCBD SAS, with a share capital of €1000, whose registered office is located at 2 place Elie Lambert, 64100 Bayonne, France, registered with the Bayonne Trade and Companies Register under number 887 803 955, intra-community VAT number FR39 887803955 (hereinafter referred to as \"MONPLANCBD\" or \"the Seller\"), publisher of the website www.monplancbd.fr."
+      },
+      "buyerId": {
+        "title": "Buyer Identification",
+        "para1": "And, on the other hand, any natural or legal person (hereinafter referred to as \"the Buyer\" or \"the Customer\") wishing to make a purchase on the website www.monplancbd.fr. The Buyer declares acting for purposes that do not fall within the scope of their commercial, industrial, craft, liberal, or agricultural activity, and having the full legal capacity to commit under these GTC."
+      },
+      "object": {
+        "title": "Purpose of the General Terms and Conditions of Sale",
+        "para1": "These GTC aim to define the contractual relationship between MONPLANCBD and the Buyer, as well as the conditions applicable to any purchase made via the www.monplancbd.fr website."
+      },
+      "acceptance": {
+        "title": "Acceptance of Conditions",
+        "para1": "Acquiring a product on the www.monplancbd.fr website implies unreserved acceptance by the Buyer of these GTC. The Buyer acknowledges having read and accepted them before validating their order. The applicable GTC are those in force on the date of the order. MONPLANCBD reserves the right to modify these GTC at any time."
+      }
+    },
+    "products": {
+      "title": "Products",
+      "description": {
+        "title": "Product Description",
+        "para1": "The products offered for sale are those listed on the www.monplancbd.fr website. Each product is accompanied by a description prepared by MONPLANCBD, presenting its main characteristics (composition, recommended use, content, etc.). The photographs illustrating the products are as accurate as possible but are not contractually binding."
+      },
+      "availability": {
+        "title": "Product Availability",
+        "para1": "Product offers are valid as long as they are visible on the site, subject to stock availability. MONPLANCBD reserves the right to modify the product assortment at any time. In case of unavailability of a product after the order has been placed, MONPLANCBD will inform the Buyer by email as soon as possible."
+      },
+      "zone": {
+        "title": "Geographic Sales Area",
+        "para1": "The sale of products presented on the www.monplancbd.fr website is intended for Buyers residing in the countries specified in the section relating to delivery costs."
+      }
+    },
+    "price": {
+      "title": "Price",
+      "currencyVat": {
+        "title": "Currency and Taxes (VAT)",
+        "para1": "The prices displayed on the product sheets are indicated in Euros (€) All Taxes Included (ATI), including the Value Added Tax (VAT) applicable on the day of the order."
+      },
+      "modification": {
+        "title": "Price Modification",
+        "para1": "MONPLANCBD reserves the right to modify its prices at any time. However, the price applicable to the Buyer's order will be the one displayed on the site at the time of order validation. Any change in the VAT rate will be automatically reflected in the price of the products."
+      },
+      "shippingCosts": {
+        "title": "Delivery Costs",
+        "para1": "The prices indicated on the product sheets do not include delivery costs. These costs are invoiced in addition and vary depending on the total amount of the order and the delivery geographic area. The applicable delivery costs are clearly indicated to the Buyer before the final validation of their order.",
+        "para2": "The thresholds for free delivery and the applicable flat rates are detailed below (or in our {shippingPolicyLink}).",
+        "shippingPolicyLinkText": "Shipping Policy"
+      }
+    },
+    "orderPayment": {
+      "title": "Order and Payment",
+      "process": {
+        "title": "Order Process",
+        "para1": "To place an order, the Buyer selects the desired products and adds them to their basket. They can modify the contents of their basket (quantities, references) at any time. Before validating the order, the Buyer checks the summary of their basket, the delivery address (and billing address if different), and the total amount including calculated shipping costs."
+      },
+      "accountGuest": {
+        "title": "Customer Account and Guest Checkout",
+        "para1": "The Buyer can choose to create a customer account or place an order as a guest. Creating an account allows tracking order status and facilitates future purchases. If they have an account, the Buyer must log in before finalizing their order."
+      },
+      "confirmation": {
+        "title": "Order Confirmation",
+        "para1": "Order validation occurs by clicking the designated button (e.g., \"Confirm my order\" or \"Pay\"). This validation implies express and unreserved acceptance of these GTC. After validation and payment acceptance, MONPLANCBD will send the Buyer an order registration confirmation by email, to the email address provided by the Buyer."
+      },
+      "securePayment": {
+        "title": "Secure Payment Methods",
+        "para1": "MONPLANCBD offers secure payment by credit/debit card via the Stripe platform (or other specified provider). The Buyer is redirected to the secure interface of the provider to enter their bank details. Payment by credit/debit card is irrevocable, except in proven cases of fraudulent use."
+      },
+      "proof": {
+        "title": "Proof of Transaction",
+        "para1": "All data provided by the Buyer and the order confirmation recorded by MONPLANCBD constitute proof of the transaction and acceptance of the operations performed. The computerized records, kept in MONPLANCBD's computer systems under reasonable security conditions, will be considered as proof of communications, orders, and payments between the parties."
+      }
+    },
+    "retentionOfTitle": {
+      "title": "Retention of Title",
+      "para1": "MONPLANCBD retains full ownership of the products sold until the Buyer has fully paid the entire price, including principal, fees, and taxes."
+    },
+    "rightOfWithdrawal": {
+      "title": "Right of Withdrawal",
+      "exercisePeriod": {
+        "title": "Withdrawal Period",
+        "para1": "In accordance with Article L221-18 of the Consumer Code, the Buyer has a period of fourteen (14) calendar days from the date of receipt of their order to exercise their right of withdrawal, without having to provide reasons or pay penalties."
+      },
+      "returnConditions": {
+        "title": "Product Return Conditions",
+        "para1": "For the right of withdrawal to be accepted, the returned products must be intact, unopened, unused, complete, and in their original sealed packaging. Any product that is damaged, soiled, incomplete, or whose original packaging is damaged will not be refunded or exchanged."
+      },
+      "returnRefundProcess": {
+        "title": "Return and Refund Process",
+        "para1": "The Buyer wishing to exercise their right of withdrawal must inform MONPLANCBD before the 14-day period expires, for example by email at contact@monplancbd.fr or via their customer account. Products must be returned to the address indicated by MONPLANCBD, at the Buyer's expense and risk, within 14 days following the communication of their decision to withdraw. Subject to compliance with the return conditions, MONPLANCBD will refund the Buyer the total amount paid (including standard initial delivery costs), using the same payment method used for the initial transaction, unless the Buyer expressly agrees to another method. The refund will occur as soon as possible and at the latest within 14 days following the date MONPLANCBD is informed of the withdrawal decision, or after recovery of the returned goods. (Suggestion: For detailed information on the return procedure, please consult our {returnPolicyLink}).",
+        "returnPolicyLinkText": "Return and Refund Policy"
+      }
+    },
+    "delivery": {
+      "title": "Delivery",
+      "address": {
+        "title": "Delivery Address",
+        "para1": "Deliveries are made to the address indicated by the Buyer on the order form. This address must be within the agreed geographic sales area. The Buyer is responsible for the accuracy of the information provided for delivery."
+      },
+      "methodsCosts": {
+        "title": "Delivery Methods and Costs",
+        "para1": "The available delivery methods and associated costs are presented to the Buyer during the ordering process and are detailed in the \"Price\" section of these GTC (or in our dedicated Shipping Policy)."
+      },
+      "timescales": {
+        "title": "Delivery Timescales (Indicative)",
+        "para1": "MONPLANCBD strives to ship orders as quickly as possible. Delivery times indicated on the site or during the order are indicative only. MONPLANCBD cannot be held responsible for delivery delays attributable to the carrier. In accordance with the law, if delivery has not occurred within thirty (30) days from the order (except in cases of force majeure or different agreement), the Buyer may request the cancellation of the sales contract and be refunded."
+      },
+      "riskTransfer": {
+        "title": "Transfer of Risks",
+        "para1": "The risks associated with transport (loss, theft, damage) are transferred to the Buyer at the moment they, or a third party designated by them, physically take possession of the products."
+      },
+      "receptionVerification": {
+        "title": "Order Reception and Verification",
+        "para1": "Upon receipt of their order, the Buyer is required to check the condition of the packaging and the conformity of the delivered products in the presence of the delivery person or at the collection point. Any anomaly (damage, missing product compared to the delivery note, damaged package, broken products...) must imperatively be indicated on the delivery note in the form of clear and precise handwritten reservations, accompanied by the Buyer's signature."
+      },
+      "issues": {
+        "title": "Delivery Issues (Damage, Package Not Received)",
+        "para1": "In case of damage noted upon delivery, the Buyer must formulate a reasoned claim with the carrier within three (3) days (excluding public holidays) following delivery, by registered letter with acknowledgment of receipt, and simultaneously inform MONPLANCBD. Regarding packages indicated as \"delivered\" by the carrier but not received by the Buyer, MONPLANCBD undertakes to open an investigation with the carrier. The outcome of this investigation (conducted by the carrier) will determine the follow-up actions (refund, reshipment), without MONPLANCBD being able to guarantee a favorable outcome if the carrier confirms delivery."
+      }
+    },
+    "legalGuarantees": {
+      "title": "Legal Guarantees",
+      "conformity": {
+        "title": "Guarantee of Conformity",
+        "para1": "All products sold by MONPLANCBD benefit from the legal guarantee of conformity provided for in Articles L217-4 and following of the Consumer Code. This guarantee applies to defects of conformity existing at the time of delivery of the product."
+      },
+      "hiddenDefects": {
+        "title": "Guarantee Against Hidden Defects",
+        "para1": "The products also benefit from the legal guarantee against hidden defects provided for in Articles 1641 and following of the Civil Code. This guarantee covers hidden defects of the product that render it unfit for the use for which it is intended, or which so diminish this use that the Buyer would not have acquired it, or would have paid a lower price, had they known of them."
+      },
+      "claimsProcess": {
+        "title": "Claims Process",
+        "para1": "In case of non-conformity or hidden defect of a sold product, the Buyer may return it to MONPLANCBD. Any claim, request for exchange, or refund under the legal guarantees must be made by email to contact@monplancbd.fr or by post to the address: MONPLANCBD SAS, 2 place Elie Lambert, 64100 Bayonne, France, specifying the defect found and providing proof of purchase. MONPLANCBD will then indicate the procedure to follow."
+      }
+    },
+    "liability": {
+      "title": "Liability",
+      "para1": "MONPLANCBD, in the online sales process, is bound only by an obligation of means. Its liability cannot be engaged for damage resulting from the use of the Internet network such as data loss, intrusion, virus, service interruption, or other involuntary problems.",
+      "para2": "MONPLANCBD's liability cannot be engaged in case of non-compliance with the legislation of the country where the products are delivered. It is the Buyer's responsibility to check with local authorities the possibilities of importing or using the ordered products."
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "para1": "All elements present on the www.monplancbd.fr website, whether visual (logos, photos, graphics) or textual, are and remain the exclusive intellectual property of the company MONPLANCBD.",
+      "para2": "No one is authorized to reproduce, exploit, redistribute, or use for any purpose whatsoever, even partially, elements of the site without the prior written consent of MONPLANCBD. Any unauthorized reproduction or use constitutes infringement and is liable to legal action."
+    },
+    "personalData": {
+      "title": "Personal Data Protection",
+      "para1": "MONPLANCBD is committed to protecting the personal data of its Customers. The information collected when placing an order is necessary for managing the transaction and the commercial relationship. It is processed in accordance with current data protection regulations (GDPR and the French Data Protection Act). For more information on the collection, use, and protection of your personal data, as well as your rights (access, rectification, deletion, etc.), please consult our {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Privacy Policy"
+    },
+    "cookies": {
+      "title": "Use of Cookies",
+      "para1": "The www.monplancbd.fr website uses cookies to improve the browsing experience, analyze traffic, and offer tailored features. A cookie is a small text file stored on your device. By browsing our site, you consent to the use of these cookies, unless you configure your browser to refuse them. To learn more about the types of cookies used, their purpose, and how to manage your preferences, please consult the dedicated cookie section in our {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Privacy Policy"
+    },
+    "modificationGTC": {
+      "title": "Modification of the General Terms and Conditions of Sale",
+      "para1": "MONPLANCBD reserves the right to modify these General Terms and Conditions of Sale at any time. The new GTC will apply to any order placed after they are posted online on the site.",
+      "para2": "The conditions applicable to an order are those in force on the day the said order is validated by the Buyer. The Buyer is advised to consult the GTC regularly."
+    },
+    "governingLawDisputes": {
+      "title": "Governing Law and Dispute Resolution",
+      "applicableLaw": {
+        "title": "Applicable Law",
+        "para1": "These General Terms and Conditions of Sale and the resulting purchase and sale operations are subject to French law."
+      },
+      "jurisdiction": {
+        "title": "Competent Jurisdiction",
+        "para1": "Any dispute relating to the interpretation, execution, or termination of the contract concluded between MONPLANCBD and the Buyer shall, in the absence of an amicable agreement, be subject to the exclusive jurisdiction of the competent French courts, notwithstanding multiple defendants or third-party claims. The competent court will be determined according to the rules of common law."
+      },
+      "mediationODR": {
+        "title": "Mediation and Online Dispute Resolution (ODR)",
+        "para1": "In the event of a dispute, the Buyer is invited to first contact MONPLANCBD's customer service (see \"Contact\" section) to try to find an amicable solution. In accordance with Articles L.616-1 and R.616-1 of the French Consumer Code, the Buyer also has the right to resort free of charge to a consumer mediator for the amicable resolution of the dispute with MONPLANCBD. Furthermore, in accordance with Article 14 of Regulation (EU) No 524/2013, the European Commission has set up an Online Dispute Resolution (ODR) platform, facilitating the independent out-of-court settlement of online disputes between consumers and professionals in the European Union. This platform is accessible at the following link: {odrLink}.",
+        "odrLinkText": "https://webgate.ec.europa.eu/odr/"
+      }
+    },
+    "contact": {
+      "title": "Contact",
+      "para1": "For any questions, claims, or requests for information regarding products, an order, or these General Terms and Conditions of Sale, the Buyer can contact MONPLANCBD:",
+      "email": "By email",
+      "emailAddress": "contact@monplancbd.fr",
+      "phone": "By phone",
+      "phoneNumber": "07 66 13 59 38",
+      "phoneInfo": "standard rate number, cost according to operator",
+      "mail": "By post",
+      "postalAddress": "MONPLANCBD SAS, 2 place Elie Lambert, 64100 Bayonne, France."
+    }
   },
   "privacyPolicies": {
     "title": "privacy policy",
     "description": "description"
+  },
+  "privacyPolicy": {
+    "mainTitle": "MONPLANCBD - PRIVACY POLICY",
+    "introduction": {
+      "title": "Introduction and Commitment",
+      "para1": "Welcome to www.monplancbd.fr. MONPLANCBD SAS (\"MONPLANCBD\", \"we\", \"us\", \"our\") is committed to protecting the privacy and personal data of its users and customers (\"you\"). This Privacy Policy explains what personal data we collect, why we collect it, how we use, share, and protect it, and the rights you have regarding your data. We are committed to complying with the General Data Protection Regulation (GDPR - Regulation (EU) 2016/679) and the applicable French Data Protection Act."
+    },
+    "dataController": {
+      "title": "Data Controller",
+      "intro": "The controller of your personal data collected via the www.monplancbd.fr website is:",
+      "companyName": "MONPLANCBD SAS",
+      "address": "2 place Elie Lambert, 64100 Bayonne, France",
+      "emailLabel": "Email",
+      "emailValue": "contact@monplancbd.fr"
+    },
+    "dataCollected": {
+      "title": "What Personal Data Do We Collect?",
+      "intro": "We may collect and process different types of personal data about you, including:",
+      "item_identification": "Identification and contact data: Last name, first name, email address, postal address (delivery and billing), phone number.",
+      "item_connection_navigation": "Connection and navigation data: IP address, browser type, pages visited on our site, connection dates and times, approximate location data (inferred from IP), information about the device used.",
+      "item_order_transaction": "Order and transaction data: Purchase history, products viewed or added to the cart, order details, payment information (processed securely by our provider), delivery information, incidents, or claims.",
+      "item_account": "Customer account data: Login ID, password (encrypted), communication preferences (newsletter subscription), loyalty points, customer service interaction history.",
+      "item_reviews": "Product review data: Pseudonym (if provided), review content, rating given.",
+      "item_technical": "Technical data: Information collected via cookies (see dedicated section).",
+      "outro": "This data is generally collected when you browse our site, create or log into your account, place an order (even as a guest), subscribe to our newsletter, contact our customer service, or leave a review."
+    },
+    "purposes": {
+      "title": "Why Do We Use Your Data (Purposes)?",
+      "intro": "We use your personal data for the following purposes, based on different legal grounds:",
+      "contract": {
+        "basis": "Performance of a contract (Legal basis: Contract):",
+        "item_order_management": "Manage your orders (validation, payment, preparation, shipping).",
+        "item_delivery": "Ensure the delivery of products to the specified address.",
+        "item_crm": "Manage the customer relationship (order tracking, after-sales service, claims).",
+        "item_account_management": "Manage your customer account."
+      },
+      "legalObligation": {
+        "basis": "Compliance with a legal obligation (Legal basis: Legal Obligation):",
+        "item_invoice_retention": "Retain invoices and accounting documents for the legally required period (10 years).",
+        "item_authority_requests": "Respond to requests from competent authorities."
+      },
+      "consent": {
+        "basis": "Your Consent (Legal basis: Consent):",
+        "item_newsletter": "Send you our newsletters and promotional offers by email or SMS, if you have consented via the checkbox during account creation or ordering.",
+        "item_cookies": "Place certain types of cookies on your device (see Cookies section).",
+        "item_reviews": "Publish your product reviews.",
+        "withdrawal_note": "You can withdraw your consent at any time (see \"Your Rights\" section)."
+      },
+      "legitimateInterest": {
+        "basis": "Our Legitimate Interest (Legal basis: Legitimate Interest):",
+        "item_security_fraud": "Ensure the security of our website and prevent fraud.",
+        "item_service_improvement": "Improve our services and the user experience on our site (navigation analysis, anonymized statistics).",
+        "item_personalization": "Personalize your experience on the site (e.g., display relevant products).",
+        "item_loyalty": "Manage our loyalty program.",
+        "item_information_requests": "Respond to your information requests via our contact forms or email."
+      }
+    },
+    "dataSharing": {
+      "title": "Who Do We Share Your Data With?",
+      "intro": "We do not sell your personal data. However, we may share it with trusted third parties to achieve the purposes described above:",
+      "item_payment": "Payment providers: To process your payments securely (e.g., Stripe).",
+      "item_carriers": "Shipping carriers: To ensure the delivery of your orders (e.g., Chronopost, La Poste).",
+      "item_hosting": "Hosting providers: To store our website data (Scaleway, based in the EU).",
+      "item_emailing": "Emailing platforms: To send our newsletters, if you have consented (Benchmark Email - *server location and potential transfers outside the EU need verification and clarification here, along with associated safeguards if necessary*).",
+      "item_authorities": "Competent authorities: Only if required by law or as part of legal proceedings.",
+      "outro": "We ensure that our partners respect the confidentiality and security of your data and use it only for the tasks entrusted to them.",
+      "transfers": {
+        "title": "International Transfers:",
+        "para1": "Our hosting servers (Scaleway) are located within the European Union.",
+        "para2_outside_eu": "Some of our service providers, such as our emailing platform Benchmark Email, may process data outside the EU (e.g., in the United States). In such cases, we ensure that these transfers are governed by appropriate safeguards, such as the Standard Contractual Clauses approved by the European Commission, to ensure an adequate level of protection for your data.",
+        "para2_inside_eu": "All our main service providers process your data within the European Union."
+      }
+    },
+    "dataRetention": {
+      "title": "How Long Do We Keep Your Data?",
+      "intro": "We keep your personal data only for the time necessary for the purposes for which it was collected, in compliance with regulations:",
+      "item_client_active": "Customer data (active account): Kept for the entire duration of the commercial relationship, then archived for 3 years from your last activity (order, account login, etc.), unless you request deletion or object.",
+      "item_order_billing": "Order/Billing data: Kept for the mandatory legal period of 10 years from the end of the accounting year.",
+      "item_prospects": "Prospect data (no order): Kept for 3 years from your last interaction (email click, contact, etc.), unless you request deletion or object.",
+      "item_marketing_consent": "Marketing consent data: Kept as long as you do not withdraw your consent.",
+      "item_cookies": "Cookies: Cookie lifespan is detailed in the \"Use of Cookies\" section below (generally 13 months maximum for non-essential cookies requiring consent)."
+    },
+    "dataSecurity": {
+      "title": "How Do We Protect Your Data?",
+      "para1": "We take the security of your data very seriously. We implement appropriate technical and organizational measures to protect your personal data against loss, misuse, unauthorized access, disclosure, alteration, or destruction. This includes using the SSL/TLS protocol to encrypt data exchanged on our site, secure access to our systems, and internal data management policies."
+    },
+    "cookies": {
+      "title": "Use of Cookies",
+      "intro": "Cookies are small text files placed on your device (computer, tablet, mobile) when you visit our site. They help us to:",
+      "item_essential": "Ensure the essential functioning of the site: Cookies necessary for navigation, accessing your account, managing the shopping cart. These cookies do not require your prior consent.",
+      "item_functional": "Improve your experience: Functional cookies that remember your preferences (language, etc.).",
+      "item_analytics": "Analyze site performance: Analytical cookies that allow us to understand how visitors use our site (pages visited, time spent), anonymously, to improve it.",
+      "item_marketing": "Offer targeted advertising: Marketing or advertising cookies that allow displaying relevant ads on other sites, based on your browsing on www.monplancbd.fr (used only with your consent).",
+      "consentManagement": {
+        "title": "Cookie Consent Management:",
+        "para1": "On your first visit, a banner informs you about the use of cookies and allows you to accept, refuse, or customize your choices for non-essential cookies. You can change your preferences at any time via {consentManagementLink}.",
+        "para2": "The validity period for consent to non-essential cookies is {consentDuration} months. The maximum retention period for information collected by cookies is {retentionDuration} months."
+      }
+    },
+    "yourRights": {
+      "title": "Your Rights Regarding Your Personal Data",
+      "intro": "In accordance with the GDPR, you have the following rights over your personal data:",
+      "item_access": "Right of access: Request to view the data we hold about you.",
+      "item_rectification": "Right to rectification: Request correction of inaccurate or incomplete data.",
+      "item_erasure": "Right to erasure ('right to be forgotten'): Request the deletion of your data, subject to legal retention obligations.",
+      "item_restriction": "Right to restriction of processing: Request to temporarily freeze the use of some of your data.",
+      "item_portability": "Right to data portability: Receive the data you provided us in a structured, commonly used format, and transmit it to another controller if technically feasible.",
+      "item_objection": "Right to object: Object to the processing of your data for legitimate reasons, and at any time for direct marketing (including profiling related to direct marketing).",
+      "item_withdraw_consent": "Right to withdraw consent: For processing based on consent (newsletter, certain cookies), you can withdraw it at any time.",
+      "item_post_mortem": "Right to define post-mortem directives: Organize the fate of your data after your death.",
+      "howToExercise": {
+        "title": "How to exercise your rights:",
+        "intro": "You can exercise most of these rights directly from your customer area:",
+        "item_profile": "Modify your personal information in the {profileLink} section.",
+        "profileLinkText": "\"My Profile\"",
+        "item_addresses": "Manage your addresses in the {addressesLink} section.",
+        "addressesLinkText": "\"My Addresses\"",
+        "item_newsletter": "Manage your newsletter subscription in the \"My Profile\" section or via the unsubscribe links in our emails.",
+        "outro": "For any other request or to exercise rights not available via your account, you can contact us by email at contact@monplancbd.fr or by post to the address indicated in Article 2, enclosing a copy of an identity document if necessary to verify your identity. We commit to responding within one month."
+      },
+      "complaintRight": {
+        "title": "Right to lodge a complaint with the CNIL:",
+        "para1": "If you believe, after contacting us, that your rights are not respected, you can lodge a complaint with the French Data Protection Authority (CNIL): {cnilLink}."
+      }
+    },
+    "minorsPolicy": {
+      "title": "Policy Regarding Minors",
+      "para1": "Our site and products are not intended for minors under 18 years of age. We do not knowingly collect or process personal data from minors. If we discover that we have collected such data, we will delete it immediately."
+    },
+    "policyUpdate": {
+      "title": "Privacy Policy Updates",
+      "para1": "We may occasionally modify this Privacy Policy to reflect changes in our practices or for legal or regulatory reasons. In case of substantial changes, we will inform you by email (if we have your address) or via a notification on our website before the change becomes effective. We encourage you to consult this page regularly."
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "For any questions regarding this Privacy Policy or the management of your personal data, please contact us:",
+      "emailLabel": "By email",
+      "emailValue": "contact@monplancbd.fr",
+      "mailLabel": "By post",
+      "postalAddress": "MONPLANCBD SAS, Data Protection Officer, 2 place Elie Lambert, 64100 Bayonne, France."
+    },
+    "lastUpdate": {
+      "title": "Date of Last Update",
+      "date": "Last updated: {updateDate}"
+    }
   },
   "about": {
     "pageTitle": "Our Story: The Passion for Quality CBD at MonPlanCBD",
