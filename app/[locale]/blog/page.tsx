@@ -2,6 +2,73 @@ import data from "@/app/staticData/blog.json";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
+interface GenerateMetadataParams {
+  params: { locale: string };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "" });
+  const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
+
+  const title = t("blogPage.metadata.title");
+  const description = t("blogPage.metadata.description");
+
+  return {
+    title: title,
+    description: description,
+    keywords: t("blogPage.metadata.keywords")
+      .split(",")
+      .map((k) => k.trim()),
+    alternates: {
+      canonical: `${siteBaseUrl}/${locale}/blog`,
+      languages: {
+        "fr-FR": `${siteBaseUrl}/fr/blog`,
+        "en-US": `${siteBaseUrl}/en/blog`,
+        "es-ES": `${siteBaseUrl}/es/blog`,
+        "x-default": `${siteBaseUrl}/fr/blog`,
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: `${siteBaseUrl}/${locale}/blog`,
+      siteName: t("global.brandName"),
+      // TODO: Replace with a dedicated blog OG image URL
+      images: [
+        {
+          url: `${siteBaseUrl}/og-image-blog.png`, // TODO: Create this image!
+          width: 1200,
+          height: 630,
+          alt: t("blogPage.metadata.ogImageAlt"),
+        },
+      ],
+      locale: locale.replace("-", "_"),
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      // TODO: Use the same dedicated blog OG image URL
+      images: [`${siteBaseUrl}/og-image-blog.png`],
+    },
+  };
+}
 
 interface Params {
   locale: string;

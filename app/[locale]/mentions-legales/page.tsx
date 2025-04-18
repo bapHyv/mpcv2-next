@@ -1,17 +1,62 @@
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+// import LegalNoticesContent from './Content';
+
+interface GenerateMetadataParams {
+  params: { locale: string };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "" });
+  const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
+
+  const title = t("metadataLegalNotices.title"); // e.g., "Mentions Légales - MonPlanCBD"
+  const description = t("metadataLegalNotices.description"); // e.g., "Consultez les mentions légales de MonPlanCBD : informations sur l'éditeur..."
+
+  return {
+    title: title,
+    description: description,
+    alternates: {
+      canonical: `${siteBaseUrl}/${locale}/mentions-legales`,
+    },
+    robots: {
+      // Standard legal page
+      index: false,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "none",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      // Minimal OG
+      title: title,
+      description: description,
+      url: `${siteBaseUrl}/${locale}/mentions-legales`,
+      siteName: t("global.brandName"),
+      images: [{ url: `${siteBaseUrl}/og-image-default.png`, width: 1200, height: 630, alt: "MonPlanCBD" }],
+      locale: locale.replace("-", "_"),
+      type: "article",
+    },
+    twitter: {
+      // Minimal Twitter
+      card: "summary",
+      title: title,
+      description: description,
+      images: [`${siteBaseUrl}/og-image-default.png`],
+    },
+  };
+}
 
 interface Params {
   params: {
     locale: string;
-  };
-}
-
-export async function generateMetadata({ params: { locale } }: Params) {
-  const t = await getTranslations({ locale, namespace: "legalNotices" });
-  return {
-    title: t("title"),
-    description: t("description"),
   };
 }
 

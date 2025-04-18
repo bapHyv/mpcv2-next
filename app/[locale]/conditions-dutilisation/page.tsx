@@ -1,18 +1,64 @@
+import type { Metadata } from "next";
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
-interface Params {
-  params: {
-    locale: string;
+interface GenerateMetadataParams {
+  params: { locale: string };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "" });
+  const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
+
+  const title = t("metadataConditionsOfUse.title"); // e.g., "Conditions d'Utilisation - MonPlanCBD"
+  const description = t("metadataConditionsOfUse.description"); // e.g., "Consultez les conditions générales d'utilisation (CGU) du site MonPlanCBD..."
+
+  return {
+    title: title,
+    description: description,
+    alternates: {
+      canonical: `${siteBaseUrl}/${locale}/conditions-dutilisation`,
+    },
+    robots: {
+      // Standard legal page, often best not indexed
+      index: false,
+      follow: true, // Allow link equity to flow
+      googleBot: {
+        index: false,
+        follow: true,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "none",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      // Minimal OG for noindex pages
+      title: title,
+      description: description,
+      url: `${siteBaseUrl}/${locale}/conditions-dutilisation`,
+      siteName: t("global.brandName"),
+      // Use a default/fallback OG image
+      images: [{ url: `${siteBaseUrl}/og-image-default.png`, width: 1200, height: 630, alt: "MonPlanCBD" }],
+      locale: locale.replace("-", "_"),
+      type: "article", // or website
+    },
+    twitter: {
+      // Minimal Twitter card
+      card: "summary",
+      title: title,
+      description: description,
+      images: [`${siteBaseUrl}/og-image-default.png`],
+    },
+    // No specific schema needed beyond basic WebPage handled by default usually
   };
 }
 
-export async function generateMetadata({ params: { locale } }: Params) {
-  const t = await getTranslations({ locale, namespace: "conditionsOfUse" });
-  return {
-    title: t("title"),
-    description: t("description"),
+interface Params {
+  params: {
+    locale: string;
   };
 }
 

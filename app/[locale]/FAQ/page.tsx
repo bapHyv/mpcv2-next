@@ -1,17 +1,72 @@
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+// import FaqContent from './Content';
+
+interface GenerateMetadataParams {
+  params: { locale: string };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "" });
+  const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
+
+  const title = t("metadataFAQ.title"); // e.g., "FAQ - Questions Fréquentes sur le CBD | MonPlanCBD"
+  const description = t("metadataFAQ.description"); // e.g., "Trouvez les réponses à vos questions fréquentes sur le CBD..."
+
+  return {
+    title: title,
+    description: description,
+    keywords: t("metadataFAQ.keywords")
+      .split(",")
+      .map((k) => k.trim()),
+    alternates: {
+      canonical: `${siteBaseUrl}/${locale}/FAQ`,
+      // languages: { ... }, // Add if applicable
+    },
+    robots: {
+      // FAQ pages are great for capturing informational queries & rich snippets
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: `${siteBaseUrl}/${locale}/FAQ`,
+      siteName: t("global.brandName"),
+      // Use a default or a specific FAQ OG image
+      images: [
+        {
+          url: `${siteBaseUrl}/og-image-faq.png`, // TODO: Create this image!
+          width: 1200,
+          height: 630,
+          alt: t("metadataFAQ.ogImageAlt"), // e.g., "FAQ sur le CBD - MonPlanCBD"
+        },
+      ],
+      locale: locale.replace("-", "_"),
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: [`${siteBaseUrl}/og-image-faq.png`],
+    },
+    // IMPORTANT: Implement FAQPage schema markup *within* the FAQ page component's JSX structure for Rich Results.
+  };
+}
 
 interface Params {
   params: {
     locale: string;
-  };
-}
-
-export async function generateMetadata({ params: { locale } }: Params) {
-  const t = await getTranslations({ locale, namespace: "FAQ" });
-  return {
-    title: t("title"),
-    description: t("description"),
   };
 }
 

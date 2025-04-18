@@ -1094,6 +1094,34 @@
       "date": "Dernière mise à jour : {updateDate}"
     }
   },
+  "metadataAbout": {
+    "title": "À Propos de MonPlanCBD - Notre Histoire, Nos Valeurs, Votre Bien-être",
+    "description": "Découvrez l'histoire de MonPlanCBD, notre passion pour le CBD de qualité, notre engagement envers la transparence et notre mission pour votre bien-être naturel.",
+    "keywords": "à propos de monplancbd, histoire monplancbd, valeurs cbd, engagement qualité cbd, mission monplancbd, qui sommes-nous cbd, entreprise cbd france, cbd bayonne, équipe monplancbd, chanvre bien-être",
+    "ogImageAlt": "Découvrez MonPlanCBD : Passion, Qualité et Engagement pour le Bien-être CBD"
+  },
+  "metadataConditionsOfUse": {
+    "title": "Conditions d'Utilisation - MonPlanCBD",
+    "description": "Consultez les conditions générales d'utilisation (CGU) régissant l'accès et l'utilisation du site MonPlanCBD. Votre accord est requis pour naviguer."
+  },
+  "metadataGCS": {
+    "title": "Conditions Générales de Vente (CGV) - MonPlanCBD",
+    "description": "Lisez attentivement nos Conditions Générales de Vente (CGV) avant de passer commande sur MonPlanCBD. Détails sur les produits, prix, livraison, retours."
+  },
+  "metadataFAQ": {
+    "title": "FAQ - Questions Fréquentes sur le CBD | MonPlanCBD",
+    "description": "Trouvez les réponses à vos questions fréquentes sur le CBD, nos produits, la légalité, l'utilisation, les commandes et la livraison sur MonPlanCBD.",
+    "keywords": "faq cbd, questions fréquentes cbd, cbd légal, utilisation cbd, comment prendre cbd, effets cbd, commande cbd, livraison cbd, monplancbd faq, aide cbd",
+    "ogImageAlt": "FAQ - Réponses aux questions fréquentes sur le CBD chez MonPlanCBD"
+  },
+  "metadataLegalNotices": {
+    "title": "Mentions Légales - MonPlanCBD",
+    "description": "Consultez les mentions légales de MonPlanCBD : informations sur l'éditeur du site, l'hébergeur, la propriété intellectuelle et les contacts."
+  },
+  "metadataPrivacyPolicy": {
+    "title": "Politique de Confidentialité - MonPlanCBD",
+    "description": "Découvrez comment MonPlanCBD collecte, utilise et protège vos données personnelles conformément au RGPD. Vos droits et nos engagements."
+  },
   "about": {
     "pageTitle": "Notre Histoire : La Passion du CBD de Qualité chez MonPlanCBD",
     "imageAlt": "Le paysage qui a inspiré la marque",
@@ -1134,6 +1162,14 @@
       "link1": "Explorez nos fleurs CBD",
       "link2": "Découvrez nos huiles",
       "link3": "Visitez notre blog pour en savoir plus"
+    }
+  },
+  "blogPage": {
+    "metadata": {
+      "title": "Blog CBD : Actus, Conseils & Guides Bien-être | MonPlanCBD",
+      "description": "Explorez le blog MonPlanCBD : actualités CBD, conseils bien-être, guides d'utilisation et dernières recherches sur le chanvre et ses cannabinoïdes.",
+      "keywords": "blog cbd, actualités cbd, conseils cbd, guide cbd, information cbd, bien-être cbd, chanvre infos, cannabinoïdes, monplancbd blog, recherche cbd",
+      "ogImageAlt": "Le Blog MonPlanCBD - Actualités, Conseils et Guides sur le CBD"
     }
   },
   "signIn": {

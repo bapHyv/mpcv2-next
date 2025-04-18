@@ -1109,6 +1109,34 @@
       "date": "Last updated: {updateDate}"
     }
   },
+  "metadataAbout": {
+    "title": "About MonPlanCBD - Our Story, Our Values, Your Well-being",
+    "description": "Discover the story of MonPlanCBD, our passion for quality CBD, our commitment to transparency, and our mission for your natural well-being.",
+    "keywords": "about monplancbd, monplancbd story, cbd values, quality commitment cbd, monplancbd mission, who we are cbd, cbd company france, cbd bayonne, monplancbd team, hemp wellness",
+    "ogImageAlt": "Discover MonPlanCBD: Passion, Quality, and Commitment to CBD Wellness"
+  },
+  "metadataConditionsOfUse": {
+    "title": "Terms of Use - MonPlanCBD",
+    "description": "Review the Terms of Use governing access and use of the MonPlanCBD website. Your agreement is required to browse the site."
+  },
+  "metadataGCS": {
+    "title": "General Conditions of Sale (GCS) - MonPlanCBD",
+    "description": "Carefully read our General Conditions of Sale (GCS) before ordering from MonPlanCBD. Details on products, pricing, shipping, and returns."
+  },
+  "metadataFAQ": {
+    "title": "FAQ - Frequently Asked Questions about CBD | MonPlanCBD",
+    "description": "Find answers to your frequently asked questions about CBD, our products, legality, usage, ordering, and shipping on MonPlanCBD.",
+    "keywords": "cbd faq, cbd frequently asked questions, cbd legal, cbd usage, how to take cbd, cbd effects, cbd order, cbd shipping, monplancbd faq, cbd help",
+    "ogImageAlt": "FAQ - Answers to frequently asked questions about CBD at MonPlanCBD"
+  },
+  "metadataLegalNotices": {
+    "title": "Legal Notices - MonPlanCBD",
+    "description": "Consult MonPlanCBD's legal notices: information about the site editor, hosting provider, intellectual property, and contact details."
+  },
+  "metadataPrivacyPolicy": {
+    "title": "Privacy Policy - MonPlanCBD",
+    "description": "Learn how MonPlanCBD collects, uses, and protects your personal data in accordance with GDPR. Your rights and our commitments."
+  },
   "about": {
     "pageTitle": "Our Story: The Passion for Quality CBD at MonPlanCBD",
     "imageAlt": "The landscape that inspired the brand",
@@ -1149,6 +1177,14 @@
       "link1": "Explore our CBD Flowers",
       "link2": "Discover our Oils",
       "link3": "Visit our Blog to learn more"
+    }
+  },
+  "blogPage": {
+    "metadata": {
+      "title": "CBD Blog: News, Wellness Tips & Guides | MonPlanCBD",
+      "description": "Explore the MonPlanCBD blog: CBD news, wellness tips, usage guides, and the latest research on hemp and its cannabinoids.",
+      "keywords": "cbd blog, cbd news, cbd tips, cbd guide, cbd information, cbd wellness, hemp info, cannabinoids, monplancbd blog, cbd research",
+      "ogImageAlt": "The MonPlanCBD Blog - CBD News, Tips, and Guides"
     }
   },
   "signIn": {
