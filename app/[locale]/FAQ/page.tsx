@@ -1,54 +1,6 @@
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 
-/**
- * 
-I. About CBD & Legality
-  Qu'est-ce que le CBD (Cannabidiol) exactement ?
-  Quelle est la différence entre le CBD et le THC ?
-  Le CBD est-il légal en France et en Europe ?
-  Les produits MonPlanCBD contiennent-ils du THC ? Quel est le taux maximal ?
-  Le CBD a-t-il des effets psychoactifs ? Fait-il "planer" ?
-  Quels sont les effets potentiels ou les bienfaits ressentis du CBD ? (Answer carefully, no medical claims)
-  Le CBD est-il addictif ?
-II. About MonPlanCBD Products
-  Quels types de produits CBD proposez-vous (fleurs, huiles, résines, etc.) ?
-  Quelle est la différence entre les fleurs, les huiles et les résines de CBD ?
-  Comment choisir le produit CBD qui me convient le mieux ?
-  Que signifie le pourcentage de CBD indiqué sur vos produits ?
-  Comment garantissez-vous la qualité et la sécurité de vos produits ? (Tests labo, origine)
-  D'où proviennent vos produits à base de chanvre/CBD ?
-  Comment dois-je conserver mes produits CBD ?
-III. Usage & Recommendations
-  Comment utiliser les fleurs de CBD ? (Infusion/Vaporisation)
-  Comment utiliser l'huile de CBD ? (Voie sublinguale)
-  Peut-on fumer les fleurs ou résines de CBD ? (Address the "no smoking" policy clearly)
-  Quel dosage de CBD dois-je prendre ? (Provide guidance, not medical advice)
-IV. Ordering & Account
-  Comment passer une commande sur MonPlanCBD ?
-  Dois-je créer un compte pour commander ?
-  Quels sont les moyens de paiement acceptés ? Le paiement est-il sécurisé ?
-  Comment fonctionne votre programme de fidélité ? Comment utiliser mes points ?
-
-
-V. Shipping & Delivery
-  Quels sont les frais et les délais de livraison ?
-  Dans quels pays livrez-vous ?
-  Comment puis-je suivre ma commande ?
-  Que faire si mon colis est endommagé ou n'arrive pas ?
-  Vos colis sont-ils discrets ?
-VI. Returns & Issues
-  Quelle est votre politique de retour ?
-  Comment retourner un article ?
-VII. Safety & Precautions
-  Le CBD présente-t-il des effets secondaires ?
-  Puis-je conduire après avoir consommé du CBD ?
-  Le CBD est-il sûr pour les femmes enceintes ou allaitantes ?
-  Le CBD peut-il interagir avec des médicaments ?
-  Le CBD apparaîtra-t-il dans un test de dépistage de drogues ?
-VIII. Contact & Support
-  Comment contacter le service client de MonPlanCBD ?
- */
 interface Params {
   params: {
     locale: string;

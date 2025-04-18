@@ -1,13 +1,6 @@
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 
-/*
-first step: generate content
-seconde step: generate html and translation keys
-third step: english translation
-fourth step: french translation
-fith step: spanish translation
- */
 interface Params {
   params: {
     locale: string;

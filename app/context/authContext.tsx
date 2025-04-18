@@ -1,4 +1,3 @@
-// AuthProvider.tsx (Updated with i18n)
 "use client";
 
 import { jwtDecode } from "jwt-decode";
