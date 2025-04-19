@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   const t = await getTranslations({ locale, namespace: "signUpPage" });
 
   return {
-    title: t("metadataTitle"), // e.g., "Inscription - MonPlanCBD"
+    title: t("metadataTitle"),
     robots: {
       index: false,
       follow: false,

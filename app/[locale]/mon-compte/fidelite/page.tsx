@@ -8,10 +8,10 @@ interface GenerateMetadataParams {
 
 export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
   const { locale } = params;
-  const t = await getTranslations({ locale, namespace: "accountLoyaltyPage" }); // Use relevant namespace
+  const t = await getTranslations({ locale, namespace: "accountLoyaltyPage" });
 
   return {
-    title: t("metadataTitle"), // e.g., "Mes Points Fidélité - Mon Compte - MonPlanCBD"
+    title: t("metadataTitle"),
     robots: {
       index: false,
       follow: false,

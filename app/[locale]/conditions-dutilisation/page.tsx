@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   const t = await getTranslations({ locale, namespace: "" });
   const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
 
-  const title = t("metadataConditionsOfUse.title"); // e.g., "Conditions d'Utilisation - MonPlanCBD"
-  const description = t("metadataConditionsOfUse.description"); // e.g., "Consultez les conditions générales d'utilisation (CGU) du site MonPlanCBD..."
+  const title = t("metadataConditionsOfUse.title");
+  const description = t("metadataConditionsOfUse.description");
 
   return {
     title: title,
@@ -22,9 +22,8 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       canonical: `${siteBaseUrl}/${locale}/conditions-dutilisation`,
     },
     robots: {
-      // Standard legal page, often best not indexed
       index: false,
-      follow: true, // Allow link equity to flow
+      follow: true,
       googleBot: {
         index: false,
         follow: true,
@@ -35,24 +34,20 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       },
     },
     openGraph: {
-      // Minimal OG for noindex pages
       title: title,
       description: description,
       url: `${siteBaseUrl}/${locale}/conditions-dutilisation`,
       siteName: t("global.brandName"),
-      // Use a default/fallback OG image
       images: [{ url: `${siteBaseUrl}/og-image-default.png`, width: 1200, height: 630, alt: "MonPlanCBD" }],
       locale: locale.replace("-", "_"),
-      type: "article", // or website
+      type: "article",
     },
     twitter: {
-      // Minimal Twitter card
       card: "summary",
       title: title,
       description: description,
       images: [`${siteBaseUrl}/og-image-default.png`],
     },
-    // No specific schema needed beyond basic WebPage handled by default usually
   };
 }
 

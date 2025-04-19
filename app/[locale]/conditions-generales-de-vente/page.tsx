@@ -8,11 +8,11 @@ interface GenerateMetadataParams {
 
 export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
   const { locale } = params;
-  const t = await getTranslations({ locale, namespace: "" }); // General Conditions of Sale namespace
+  const t = await getTranslations({ locale, namespace: "" });
   const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
 
-  const title = t("metadataGCS.title"); // e.g., "Conditions Générales de Vente (CGV) - MonPlanCBD"
-  const description = t("metadataGCS.description"); // e.g., "Lisez les conditions générales de vente (CGV) de MonPlanCBD..."
+  const title = t("metadataGCS.title");
+  const description = t("metadataGCS.description");
 
   return {
     title: title,
@@ -21,7 +21,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       canonical: `${siteBaseUrl}/${locale}/conditions-generales-de-vente`,
     },
     robots: {
-      // Standard legal page
       index: false,
       follow: true,
       googleBot: {
@@ -34,7 +33,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       },
     },
     openGraph: {
-      // Minimal OG
       title: title,
       description: description,
       url: `${siteBaseUrl}/${locale}/conditions-generales-de-vente`,
@@ -44,7 +42,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       type: "article",
     },
     twitter: {
-      // Minimal Twitter
       card: "summary",
       title: title,
       description: description,

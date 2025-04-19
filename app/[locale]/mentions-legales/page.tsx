@@ -1,7 +1,6 @@
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
-// import LegalNoticesContent from './Content';
 
 interface GenerateMetadataParams {
   params: { locale: string };
@@ -12,8 +11,8 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   const t = await getTranslations({ locale, namespace: "" });
   const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
 
-  const title = t("metadataLegalNotices.title"); // e.g., "Mentions Légales - MonPlanCBD"
-  const description = t("metadataLegalNotices.description"); // e.g., "Consultez les mentions légales de MonPlanCBD : informations sur l'éditeur..."
+  const title = t("metadataLegalNotices.title");
+  const description = t("metadataLegalNotices.description");
 
   return {
     title: title,
@@ -22,7 +21,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       canonical: `${siteBaseUrl}/${locale}/mentions-legales`,
     },
     robots: {
-      // Standard legal page
       index: false,
       follow: true,
       googleBot: {
@@ -35,7 +33,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       },
     },
     openGraph: {
-      // Minimal OG
       title: title,
       description: description,
       url: `${siteBaseUrl}/${locale}/mentions-legales`,
@@ -45,7 +42,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       type: "article",
     },
     twitter: {
-      // Minimal Twitter
       card: "summary",
       title: title,
       description: description,

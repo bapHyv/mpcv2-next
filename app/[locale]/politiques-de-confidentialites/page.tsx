@@ -2,7 +2,6 @@ import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import type { Metadata } from "next";
-// import PrivacyPolicyContent from './Content';
 
 interface GenerateMetadataParams {
   params: { locale: string };
@@ -10,11 +9,11 @@ interface GenerateMetadataParams {
 
 export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
   const { locale } = params;
-  const t = await getTranslations({ locale, namespace: "" }); // Ensure this namespace exists
+  const t = await getTranslations({ locale, namespace: "" });
   const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
 
-  const title = t("metadataPrivacyPolicy.title"); // e.g., "Politique de Confidentialité - MonPlanCBD"
-  const description = t("metadataPrivacyPolicy.description"); // e.g., "Découvrez comment MonPlanCBD collecte, utilise et protège vos données..."
+  const title = t("metadataPrivacyPolicy.title");
+  const description = t("metadataPrivacyPolicy.description");
 
   return {
     title: title,
@@ -23,7 +22,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       canonical: `${siteBaseUrl}/${locale}/politiques-de-confidentialites`,
     },
     robots: {
-      // Standard legal page
       index: false,
       follow: true,
       googleBot: {
@@ -36,7 +34,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       },
     },
     openGraph: {
-      // Minimal OG
       title: title,
       description: description,
       url: `${siteBaseUrl}/${locale}/politiques-de-confidentialites`,
@@ -46,7 +43,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       type: "article",
     },
     twitter: {
-      // Minimal Twitter
       card: "summary",
       title: title,
       description: description,

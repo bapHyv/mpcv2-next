@@ -81,19 +81,19 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       title: t("homepage.seoH1"),
       description: t("homepage.seoDescription"),
       images: [ogImageUrl],
-      // site: '@YourTwitterHandle',
-      // creator: '@YourTwitterHandle',
     },
 
-    // Robots meta tag (optional, defaults are usually fine)
-    // robots: {
-    //   index: true,
-    //   follow: true,
-    //   googleBot: {
-    //     index: true,
-    //     follow: true,
-    //   },
-    // },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
 
     // Optional: Icons/Favicons (define in root layout usually, but can add here if specific)
     icons: {

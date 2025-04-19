@@ -70,12 +70,12 @@ export async function generateMetadata({ params: { category: categorySlug, local
   const canonicalUrl = `${siteBaseUrl}/${locale}/${categorySlug}/${productSlug}`;
 
   const mainImage = product.images?.main;
-  const ogImageUrl = mainImage ? `${process.env.MAIN_URL}${process.env.IMG_HOST}${mainImage.url}` : `${siteBaseUrl}/og-image-default.png`; // **Fallback image is crucial**
+  const ogImageUrl = mainImage ? `${process.env.MAIN_URL}${process.env.IMG_HOST}${mainImage.url}` : `${siteBaseUrl}/og-image-default.png`; // TODO: **Fallback image is crucial** // Replace og-image-default.png fallback with og-image-${category-slug}.png
   const ogImageAlt = mainImage ? mainImage.alt : `Image of ${productName}`; // Descriptive fallback alt
 
   const title = `${t("productOptions.addToCartButton")} ${productName} - ${categoryTitle} | ${brandName}`;
 
-  // TODO: **Description:** ~150-160 characters. Engaging summary, includes keywords, potentially a subtle CTA.
+  // TODO: Add metaDescription to product **Description:** ~150-160 characters. Engaging summary, includes keywords, potentially a subtle CTA.
   const description = shortDescription.length > 160 ? `${shortDescription.substring(0, 157)}...` : shortDescription;
 
   const keywords = [

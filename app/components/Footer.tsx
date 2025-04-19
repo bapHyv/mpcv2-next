@@ -41,6 +41,7 @@ export default async function Footer({ locale }: { locale: string }) {
     { name: t("GCS"), href: "conditions-generales-de-vente" },
     { name: t("privacyPolicies"), href: "politiques-de-confidentialites" },
     { name: t("about"), href: "a-propos-de-monplancbd" },
+    { name: t("shippingPolicy"), href: "politique-expedition" },
   ];
 
   return (
