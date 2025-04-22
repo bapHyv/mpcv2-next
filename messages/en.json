@@ -254,9 +254,10 @@
     "button": "Click here to go back to the homepage"
   },
   "notFound": {
-    "title": "Page Not Found",
-    "text": "Sorry, we could not find the page you are looking for.",
-    "button": "Go back home"
+    "statusCode": "404",
+    "title": "Page not found",
+    "description": "Sorry, we couldn’t find the page you’re looking for.",
+    "goBackHomeLink": "Go back home"
   },
   "legalNotices": {
     "toBeVerified": "Information to be verified and confirmed",
@@ -1553,6 +1554,13 @@
     "emailLabel": "Email address",
     "submitButton": "Reset Password"
   },
+  "forgotPassword": {
+    "h1": "Forgot your password?",
+    "introText": "Enter the email address associated with your account, and we'll send you a link to reset your password.",
+    "rememberPasswordPrompt": "Remember your password? ",
+    "loginLinkText": "Log in",
+    "logoAltText": "Monplancbd Logo"
+  },
   "signInPage": {
     "metadataTitle": "Login - MonPlanCBD",
     "emailLabel": "Email address",
@@ -1808,7 +1816,11 @@
   },
   "productPage": {
     "priceInfoSR": "Product information",
-    "outOfStock": "Out of stock"
+    "outOfStock": "Out of stock",
+    "timer": {
+      "mainText": "Order within the next",
+      "disclaimer": "for same-day dispatch (Monday to Friday)."
+    }
   },
   "paymentPage": {
     "metadataTitle": "Payment - MonPlanCBD",
