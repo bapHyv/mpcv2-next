@@ -239,9 +239,10 @@
     "button": "Cliquez ici pour revenir à la page d'accueil"
   },
   "notFound": {
+    "statusCode": "404",
     "title": "Page non trouvée",
-    "text": "Désolé, nous n'avons pas trouvé la page que vous demandez",
-    "button": "Retour à la page d'accueil"
+    "description": "Désolé, nous n'avons pas pu trouver la page que vous recherchez.",
+    "goBackHomeLink": "Retour à l'accueil"
   },
   "legalNotices": {
     "toBeVerified": "Information à vérifier et confirmer",
@@ -1548,6 +1549,13 @@
     "submitButton": "Réinitialiser le mot de passe",
     "metadataTitle": "Mot de passe oublié - MonPlanCBD"
   },
+  "forgotPassword": {
+    "h1": "Mot de passe oublié ?",
+    "introText": "Entrez l'adresse e-mail associée à votre compte et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "rememberPasswordPrompt": "Vous vous souvenez du mot de passe ? ",
+    "loginLinkText": "Se connecter",
+    "logoAltText": "Logo Monplancbd"
+  },
   "signInPage": {
     "emailLabel": "Adresse e-mail",
     "passwordLabel": "Mot de passe",
@@ -1803,7 +1811,11 @@
   },
   "productPage": {
     "priceInfoSR": "Information produit",
-    "outOfStock": "Épuisé"
+    "outOfStock": "Épuisé",
+    "timer": {
+      "mainText": "Commandez dans les prochaines",
+      "disclaimer": "pour une expédition le jour même (du lundi au vendredi)."
+    }
   },
   "bankTransferPage": {
     "metadataTitle": "Confirmation de Commande - MonPlanCBD"
