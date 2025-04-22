@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
 
   const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
   const homepageUrl = `${siteBaseUrl}/${locale}`;
-  const ogImageUrl = `${siteBaseUrl}/og-image-homepage.png`; // **IMPORTANT** TODO: Create and place this image in your /public folder
+  const ogImageUrl = `${siteBaseUrl}/og-image-homepage.jpg`;
 
   const metadata: Metadata = {
     title: t("homepage.seoH1"),
@@ -65,9 +65,9 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       siteName: t("global.brandName"),
       images: [
         {
-          url: ogImageUrl, // TODO: Use the defined OG image URL
-          width: 1200, // Standard OG width
-          height: 630, // Standard OG height
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
           alt: t("homepage.ogImageAlt"),
         },
       ],
@@ -95,10 +95,9 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       },
     },
 
-    // Optional: Icons/Favicons (define in root layout usually, but can add here if specific)
     icons: {
       icon: "/favicon.ico",
-      // apple: '/apple-touch-icon.png', TODO: generate apple-touch-icon.png
+      apple: "/apple-touch-icon.png",
     },
   };
 

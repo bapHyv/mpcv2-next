@@ -57,7 +57,6 @@ interface GenerateMetadataParams {
 }
 
 export async function generateMetadata({ params: { category: categorySlug, locale } }: GenerateMetadataParams): Promise<Metadata> {
-  // 1. Fetch & Validate Category
   const categories = await getCategories(locale);
   if (!doesCategoryExists(categories, categorySlug)) {
     notFound();
@@ -68,7 +67,6 @@ export async function generateMetadata({ params: { category: categorySlug, local
   }
   const currentTitle = currentCategoryObject.title;
 
-  // 2. Fetch Translations
   let tContent, tGlobal;
   try {
     tContent = await getTranslations({ locale, namespace: `categoryPageContent.${categorySlug}` });
@@ -78,17 +76,14 @@ export async function generateMetadata({ params: { category: categorySlug, local
     notFound();
   }
 
-  // 3. Prepare Variables
   const brandName = tGlobal("brandName");
   const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
   const canonicalUrl = `${siteBaseUrl}/${locale}/${categorySlug}`;
   const metaDescription = tContent("descriptionMetaTag") || tContent("descriptionPara1").substring(0, 157) + "...";
-  const ogImageUrl = `${siteBaseUrl}/og-image-${categorySlug}.png`; // TODO: **Ensure these exist**
-  const fallbackOgImageUrl = `${siteBaseUrl}/og-image-default.png`; // **Ensure this exists**
-  // Simple check: Assume specific image exists, otherwise use fallback (Improve if possible)
-  const finalOgImageUrl = ogImageUrl; // Replace with check if feasible, otherwise ensure files exist
+  const ogImageUrl = `${siteBaseUrl}/og-image-${categorySlug}.jpg`;
+  const fallbackOgImageUrl = `${siteBaseUrl}/og-image-default.jpg`;
+  const finalOgImageUrl = ogImageUrl.includes("undefined") ? fallbackOgImageUrl : ogImageUrl;
 
-  // 4. Define Metadata Content
   const title = `${currentTitle} | ${brandName} - Acheter ${currentTitle} de Qualité`;
 
   const actionVerb = locale === "fr" ? "acheter" : locale === "en" ? "buy" : "comprar";
@@ -107,7 +102,6 @@ export async function generateMetadata({ params: { category: categorySlug, local
     }
   });
 
-  // 5. Construct Metadata Object
   return {
     title: title,
     description: metaDescription,

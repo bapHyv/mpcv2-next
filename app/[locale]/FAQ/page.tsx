@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       siteName: t("global.brandName"),
       images: [
         {
-          url: `${siteBaseUrl}/og-image-png`, // TODO: Create this image!
+          url: `${siteBaseUrl}/og-image-faq.jpg`,
           width: 1200,
           height: 630,
           alt: t("metadataFAQ.ogImageAlt"),
@@ -61,9 +61,8 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       card: "summary_large_image",
       title: title,
       description: description,
-      images: [`${siteBaseUrl}/og-image-png`],
+      images: [`${siteBaseUrl}/og-image-faq.jpg`],
     },
-    // IMPORTANT: Implement FAQPage schema markup *within* the FAQ page component's JSX structure for Rich Results.
   };
 }
 

@@ -48,10 +48,9 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       description: description,
       url: `${siteBaseUrl}/${locale}/blog`,
       siteName: t("global.brandName"),
-      // TODO: Replace with a dedicated blog OG image URL
       images: [
         {
-          url: `${siteBaseUrl}/og-image-blog.png`, // TODO: Create this image!
+          url: `${siteBaseUrl}/og-image-blog.jpg`,
           width: 1200,
           height: 630,
           alt: t("blogPage.metadata.ogImageAlt"),
@@ -64,8 +63,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       card: "summary_large_image",
       title: title,
       description: description,
-      // TODO: Use the same dedicated blog OG image URL
-      images: [`${siteBaseUrl}/og-image-blog.png`],
+      images: [`${siteBaseUrl}/og-image-blog.jpg`],
     },
   };
 }

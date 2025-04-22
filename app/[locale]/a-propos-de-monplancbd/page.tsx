@@ -13,15 +13,15 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   const t = await getTranslations({ locale, namespace: "" });
   const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
 
-  const title = t("metadataAbout.title"); // e.g., "À Propos de MonPlanCBD - Notre Histoire et Engagement"
-  const description = t("metadataAbout.description"); // e.g., "Découvrez l'histoire de MonPlanCBD, notre passion..."
+  const title = t("metadataAbout.title");
+  const description = t("metadataAbout.description");
 
   return {
     title: title,
     description: description,
     keywords: t("metadataAbout.keywords")
       .split(",")
-      .map((k) => k.trim()), // Assuming keywords are comma-separated in JSON
+      .map((k) => k.trim()),
     alternates: {
       canonical: `${siteBaseUrl}/${locale}/a-propos-de-monplancbd`,
       languages: {
@@ -47,13 +47,12 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       description: description,
       url: `${siteBaseUrl}/${locale}/a-propos-de-monplancbd`,
       siteName: t("global.brandName"),
-      // TODO: Replace with a relevant OG image URL, maybe a team/brand image or fallback
       images: [
         {
-          url: `${siteBaseUrl}/og-image-about.png`, // TODO: Create this image!
+          url: `${siteBaseUrl}/og-image-about.jpg`,
           width: 1200,
           height: 630,
-          alt: t("metadataAbout.ogImageAlt"), // e.g., "L'équipe et les valeurs de MonPlanCBD"
+          alt: t("metadataAbout.ogImageAlt"),
         },
       ],
       locale: locale.replace("-", "_"),
@@ -63,8 +62,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       card: "summary_large_image",
       title: title,
       description: description,
-      // TODO: Use the same relevant OG image URL
-      images: [`${siteBaseUrl}/og-image-about.png`],
+      images: [`${siteBaseUrl}/og-image-about.jpg`],
     },
   };
 }
