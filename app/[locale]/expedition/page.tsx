@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   const t = await getTranslations({ locale, namespace: "shippingPage" });
 
   return {
-    title: t("metadataTitle"), // e.g., "Expédition - MonPlanCBD"
+    title: t("metadataTitle"),
     robots: {
       index: false,
       follow: false,

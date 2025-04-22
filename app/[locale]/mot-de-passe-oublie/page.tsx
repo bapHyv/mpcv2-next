@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   const t = await getTranslations({ locale, namespace: "forgotPasswordPage" });
 
   return {
-    title: t("metadataTitle"), // e.g., "Mot de passe oublié - MonPlanCBD"
+    title: t("metadataTitle"),
     robots: {
       index: false,
       follow: false,
@@ -37,6 +37,9 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
     },
   };
 }
+
+// TODO: Trad
+
 export default async function Page({ params: { locale } }: Params) {
   const t = await getTranslations({ locale, namespace: "forgotPassword" });
   return (

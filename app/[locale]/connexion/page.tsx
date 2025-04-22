@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   const t = await getTranslations({ locale, namespace: "signInPage" });
 
   return {
-    title: t("metadataTitle"), // e.g., "Connexion - MonPlanCBD"
+    title: t("metadataTitle"),
     robots: {
       index: false,
       follow: false,

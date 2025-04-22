@@ -70,12 +70,12 @@ export async function generateMetadata({ params: { category: categorySlug, local
   const canonicalUrl = `${siteBaseUrl}/${locale}/${categorySlug}/${productSlug}`;
 
   const mainImage = product.images?.main;
-  const ogImageUrl = mainImage ? `${process.env.MAIN_URL}${process.env.IMG_HOST}${mainImage.url}` : `${siteBaseUrl}/og-image-default.png`; // **Fallback image is crucial**
-  const ogImageAlt = mainImage ? mainImage.alt : `Image of ${productName}`; // Descriptive fallback alt
+  const ogImageUrl = mainImage ? `${process.env.MAIN_URL}${process.env.IMG_HOST}${mainImage.url}` : `${siteBaseUrl}/og-image-default.jpg`;
+  const ogImageAlt = mainImage ? mainImage.alt : `Image of ${productName}`;
 
   const title = `${t("productOptions.addToCartButton")} ${productName} - ${categoryTitle} | ${brandName}`;
 
-  // TODO: **Description:** ~150-160 characters. Engaging summary, includes keywords, potentially a subtle CTA.
+  // TODO: Add metaDescription to product **Description:** ~150-160 characters. Engaging summary, includes keywords, potentially a subtle CTA.
   const description = shortDescription.length > 160 ? `${shortDescription.substring(0, 157)}...` : shortDescription;
 
   const keywords = [
@@ -160,15 +160,17 @@ function classNames(...classes: any) {
 export default async function Page({ params: { category, locale, productSlug } }: Params) {
   const t = await getTranslations({ locale });
 
-  // Fetch product data (keep existing logic)
   const response = await fetch(`${process.env.API_HOST}/product/slug/${productSlug}`);
-  // TODO: Add error handling for fetch (e.g., if product not found -> notFound())
+
   if (!response.ok) {
-    // Handle error, maybe redirect or show a not found component
     console.error("Failed to fetch product:", response.status, response.statusText);
-    // Example: import { notFound } from 'next/navigation'; notFound();
-    return <div className="container mx-auto py-12 text-center">Produit non trouvé.</div>;
+    if (response.status === 404) {
+      notFound();
+    } else {
+      throw new Error("Something went wront", { cause: response.status });
+    }
   }
+
   const product: Product = await response.json();
 
   const counts = product.ratings.reviews.reduce(

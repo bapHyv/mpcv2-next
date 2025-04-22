@@ -74,16 +74,14 @@ export default function ForgotPasswordForm() {
         <div className="mt-1">
           <input
             id="email"
-            name="email" // TODO: Name is crucial for formAction
+            name="email"
             type="email"
             required
             autoComplete="email"
             className={inputClassname}
-            // Optionally add placeholder
-            // placeholder={t("emailPlaceholder", { default: "you@example.com" })} // Example with default
-            // aria-describedby={state?.errors?.email ? "email-error" : undefined}
+            // TODO: aria-describedby={state?.errors?.email ? "email-error" : undefined}
           />
-          {/* Optional: Display validation errors */}
+          {/* TODO: Optional: Display validation errors */}
           {/* {state?.errors?.email && (<p className="mt-1 text-xs text-red-600" id="email-error">{state.errors.email}</p>)} */}
         </div>
       </div>

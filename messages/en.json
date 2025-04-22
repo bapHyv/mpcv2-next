@@ -578,7 +578,109 @@
       "para2": "These ToU, together with the Privacy Policy and the T&Cs (for purchases), constitute the entire agreement between you and MonPlanCBD regarding your use of the Site and supersede all prior or contemporaneous agreements, whether written or oral, concerning such subject matter."
     }
   },
+  "metadataShippingPolicy": {
+    "title": "Shipping Policy - MonPlanCBD | Times, Costs, Tracking",
+    "description": "Review MonPlanCBD's shipping policy: processing times, shipping costs by zone, delivery estimates, tracking information, and contact details.",
+    "keywords": "monplancbd shipping, cbd delivery france, cbd delivery europe, shipping policy cbd, cbd shipping costs, cbd delivery times, free cbd shipping, chronopost cbd, cbd order tracking, cbd belgium, cbd spain, cbd ireland",
+    "ogImageAlt": "MonPlanCBD Shipping Policy Information"
+  },
+  "shippingPolicy": {
+    "pageTitle": "Shipping Policy - MonPlanCBD",
+    "lastUpdated": "Last Updated: {updateDate}",
+    "introduction": {
+      "para1": "This Shipping Policy outlines the terms and conditions regarding the shipment of orders placed on www.monplancbd.fr. By placing an order, you agree to this policy."
+    },
+    "processing": {
+      "title": "Order Processing Time",
+      "para1": "Orders are typically processed and dispatched within 24 business hours (Monday to Friday) of receiving payment confirmation.",
+      "para2": "Please note that orders placed after 3:00 PM (CET) on Friday, or on weekends/public holidays, will be processed on the next business day. See the calendar below for estimated dispatch times:"
+    },
+    "methods": {
+      "title": "Shipping Methods",
+      "para1": "Deliveries are handled by {carrier}, a tracked delivery service, with options for delivery with or without signature depending on the specific service chosen during checkout.",
+      "para2_relay": "We also offer delivery to relay points via [Relay Point Carrier Name, e.g., Mondial Relay] in eligible regions."
+    },
+    "costs": {
+      "title": "Shipping Costs & Free Shipping",
+      "para1": "Shipping costs are calculated based on the destination country and the total order amount (including VAT). We offer free shipping thresholds for certain zones:",
+      "france": {
+        "zoneName": "Metropolitan France",
+        "thresholdMet": "Free shipping for orders of €{amount} (incl. VAT) or more.",
+        "thresholdNotMet": "For orders under €{amount} (incl. VAT), a flat shipping fee of €{cost} (incl. VAT) applies."
+      },
+      "belgium": {
+        "zoneName": "Belgium",
+        "thresholdMet": "Free shipping for orders of €{amount} (incl. VAT) or more.",
+        "thresholdNotMet": "For orders under €{amount} (incl. VAT), a flat shipping fee of €{cost} (incl. VAT) applies."
+      },
+      "reunion": {
+        "zoneName": "Réunion",
+        "thresholdMet": "Free shipping for orders of €{amount} (incl. VAT) or more.",
+        "thresholdNotMet": "For orders under €{amount} (incl. VAT), a flat shipping fee of €{cost} (incl. VAT) applies."
+      },
+      "spain": {
+        "zoneName": "Spain (Excluding Balearic Islands, Canary Islands, Ceuta, Melilla)",
+        "thresholdMet": "Free shipping for orders of €{amount} (incl. VAT) or more.",
+        "thresholdNotMet": "For orders under €{amount} (incl. VAT), a flat shipping fee of €{cost} (incl. VAT) applies."
+      },
+      "ireland": {
+        "zoneName": "Ireland",
+        "thresholdMet": "Free shipping for orders of €{amount} (incl. VAT) or more.",
+        "thresholdNotMet": "For orders under €{amount} (incl. VAT), a flat shipping fee of €{cost} (incl. VAT) applies."
+      }
+    },
+    "deliveryTimes": {
+      "title": "Estimated Delivery Times",
+      "para1": "Delivery times provided are estimates only and start from the date of dispatch. Actual delivery times may vary due to carrier delays or unforeseen circumstances.",
+      "para2": "If your order has not arrived within {maxDays} days of dispatch, please contact us. If the delay exceeds thirty days from the order date, the sales contract may be cancelled, and you will be refunded.",
+      "para3_france_estimate": "Typical delivery time for Metropolitan France is {days} business days after dispatch."
+    },
+    "tracking": {
+      "title": "Order Tracking",
+      "para1": "Once your order is shipped, we will send you a confirmation email containing your tracking number, allowing you to follow your package's journey on the carrier's website."
+    },
+    "reception": {
+      "title": "Receiving Your Order",
+      "para1": "Deliveries are made to the address specified on your order form.",
+      "para2": "If you are absent during delivery, the carrier (e.g., your postal worker) will leave a notice indicating where and for how long you can collect your package (usually the nearest post office or collection point).",
+      "para3_checkPackage": "It is your responsibility to check the condition of the packaging and its contents upon delivery, in the presence of the delivery person if possible."
+    },
+    "deliveryIssues": {
+      "title": "Delivery Issues",
+      "riskTransfer": {
+        "label": "Risk Transfer:",
+        "text": "The risks associated with transport are transferred to the buyer from the moment the items leave MonPlanCBD's premises."
+      },
+      "damage": {
+        "label": "Damage During Transit:",
+        "text": "In case of damage during transport, any claims must be made directly to the carrier within {days} days of delivery."
+      },
+      "nonReceipt": {
+        "importantNote": "IMPORTANT NOTE:",
+        "policy": "If tracking indicates your order has been delivered, but you claim not to have received it, please note that we cannot reship the order or issue a refund, regardless of the shipping method chosen."
+      }
+    },
+    "international": {
+      "title": "International Shipping",
+      "para1_customs": "For orders shipped outside the European Union, customs duties, taxes, or import fees may apply upon arrival in the destination country. These charges are the sole responsibility of the buyer."
+    },
+    "returns": {
+      "title": "Returns & Right of Withdrawal",
+      "para1_withdrawal": "In accordance with consumer law, you have {days} working days from the delivery of your order to exercise your right of withdrawal. Please refer to our {gtcLink} (Article 6) for conditions.",
+      "gtcLinkText": "General Terms and Conditions of Sale",
+      "para2_policyLink": "For detailed instructions on how to return an item, please consult our {returnPolicyLink}.",
+      "returnPolicyLinkText": "Return Policy page"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "para1": "If you have any questions about your shipment or this policy, please contact us via email at {emailLink} or by phone at {phone}.",
+      "emailAddress": "contact@monplancbd.fr",
+      "phoneNumber": "+33 7 66 13 59 38"
+    }
+  },
   "FAQ": {
+    "pageTitle": "FAQ",
+    "lastUpdated": "Last Updated: 16/04/2025 (dd/mm/yyyy)",
     "section1": {
       "title": "I. About CBD & Legality",
       "q1": {
@@ -726,7 +828,7 @@
       },
       "q29": {
         "question": "How do I return an item?",
-        "answer": "To return an item, please first contact us at contact@monplancbd.fr within the 14-day period to inform us of your decision. We will then provide you with the return procedure and address. Return shipping costs are your responsibility. For more details, consult our {gtcLink} (Article 6) or our {returnPolicyLink} if available.",
+        "answer": "To return an item, please first contact us at contact@monplancbd.fr within the 14-day period to inform us of your decision. We will then provide you with the return procedure and address. Return shipping costs are your responsibility. For more details, consult our {gtcLink} (Article 6) or our {returnPolicyLink}.",
         "gtcLinkText": "General Terms and Conditions of Sale",
         "returnPolicyLinkText": "Return Policy"
       }
@@ -1109,6 +1211,34 @@
       "date": "Last updated: {updateDate}"
     }
   },
+  "metadataAbout": {
+    "title": "About MonPlanCBD - Our Story, Our Values, Your Well-being",
+    "description": "Discover the story of MonPlanCBD, our passion for quality CBD, our commitment to transparency, and our mission for your natural well-being.",
+    "keywords": "about monplancbd, monplancbd story, cbd values, quality commitment cbd, monplancbd mission, who we are cbd, cbd company france, cbd bayonne, monplancbd team, hemp wellness",
+    "ogImageAlt": "Discover MonPlanCBD: Passion, Quality, and Commitment to CBD Wellness"
+  },
+  "metadataConditionsOfUse": {
+    "title": "Terms of Use - MonPlanCBD",
+    "description": "Review the Terms of Use governing access and use of the MonPlanCBD website. Your agreement is required to browse the site."
+  },
+  "metadataGCS": {
+    "title": "General Conditions of Sale (GCS) - MonPlanCBD",
+    "description": "Carefully read our General Conditions of Sale (GCS) before ordering from MonPlanCBD. Details on products, pricing, shipping, and returns."
+  },
+  "metadataFAQ": {
+    "title": "FAQ - Frequently Asked Questions about CBD | MonPlanCBD",
+    "description": "Find answers to your frequently asked questions about CBD, our products, legality, usage, ordering, and shipping on MonPlanCBD.",
+    "keywords": "cbd faq, cbd frequently asked questions, cbd legal, cbd usage, how to take cbd, cbd effects, cbd order, cbd shipping, monplancbd faq, cbd help",
+    "ogImageAlt": "FAQ - Answers to frequently asked questions about CBD at MonPlanCBD"
+  },
+  "metadataLegalNotices": {
+    "title": "Legal Notices - MonPlanCBD",
+    "description": "Consult MonPlanCBD's legal notices: information about the site editor, hosting provider, intellectual property, and contact details."
+  },
+  "metadataPrivacyPolicy": {
+    "title": "Privacy Policy - MonPlanCBD",
+    "description": "Learn how MonPlanCBD collects, uses, and protects your personal data in accordance with GDPR. Your rights and our commitments."
+  },
   "about": {
     "pageTitle": "Our Story: The Passion for Quality CBD at MonPlanCBD",
     "imageAlt": "The landscape that inspired the brand",
@@ -1149,6 +1279,14 @@
       "link1": "Explore our CBD Flowers",
       "link2": "Discover our Oils",
       "link3": "Visit our Blog to learn more"
+    }
+  },
+  "blogPage": {
+    "metadata": {
+      "title": "CBD Blog: News, Wellness Tips & Guides | MonPlanCBD",
+      "description": "Explore the MonPlanCBD blog: CBD news, wellness tips, usage guides, and the latest research on hemp and its cannabinoids.",
+      "keywords": "cbd blog, cbd news, cbd tips, cbd guide, cbd information, cbd wellness, hemp info, cannabinoids, monplancbd blog, cbd research",
+      "ogImageAlt": "The MonPlanCBD Blog - CBD News, Tips, and Guides"
     }
   },
   "signIn": {
@@ -1235,11 +1373,12 @@
   },
   "footer": {
     "legalNotices": "legal notices",
-    "conditionsOfUse": "Conditions d'utilisation",
+    "conditionsOfUse": "Terms of Use",
     "FAQ": "FAQ",
-    "GCS": "Conditions générales de vente",
-    "privacyPolicies": "privacy policy",
-    "about": "About"
+    "GCS": "General Terms and Conditions of Sale",
+    "privacyPolicies": "Privacy policy",
+    "about": "About",
+    "shippingPolicy": "Shipping Terms / Delivery Conditions"
   },
   "blog": {
     "link": "Blog"

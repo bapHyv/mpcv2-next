@@ -80,7 +80,7 @@ const DeliveryTimer: React.FC = () => {
     return null;
   }
 
-  // --- Styled Render ---
+  // TODO: trad
   return (
     <div className={twMerge("p-3 my-4 border border-emerald-200 bg-emerald-50 rounded-md shadow-sm", "text-center")}>
       <ClockIcon className="h-6 w-6 text-emerald-600 mx-auto mb-1" />

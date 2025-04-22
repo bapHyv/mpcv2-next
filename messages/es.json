@@ -578,7 +578,109 @@
       "para2": "Estas CGU, junto con la Política de Privacidad y las CGC (para compras), constituyen el acuerdo completo entre usted y MonPlanCBD con respecto a su uso del Sitio y reemplazan todos los acuerdos anteriores o contemporáneos, escritos u orales, sobre dicho tema."
     }
   },
+  "metadataShippingPolicy": {
+    "title": "Política de Envío - MonPlanCBD | Plazos, Costos, Seguimiento",
+    "description": "Consulte nuestra política de envío: tiempos de procesamiento, costos de envío por zona, estimaciones de entrega, información de seguimiento y contacto.",
+    "keywords": "envío monplancbd, entrega cbd francia, envío cbd europa, política envío cbd, costos envío cbd, plazos entrega cbd, envío cbd gratis, chronopost cbd, seguimiento pedido cbd, cbd bélgica, cbd españa, cbd irlanda",
+    "ogImageAlt": "Información sobre la Política de Envío de MonPlanCBD"
+  },
+  "shippingPolicy": {
+    "pageTitle": "Política de Envío - MonPlanCBD",
+    "lastUpdated": "Última actualización: {updateDate}",
+    "introduction": {
+      "para1": "Esta Política de Envío describe los términos y condiciones relativos al envío de los pedidos realizados en www.monplancbd.fr. Al realizar un pedido, usted acepta esta política."
+    },
+    "processing": {
+      "title": "Procesamiento de Pedidos",
+      "para1": "Los pedidos se procesan y envían generalmente dentro de las 24 horas hábiles (de lunes a viernes) siguientes a la confirmación del pago.",
+      "para2": "Tenga en cuenta que los pedidos realizados después de las 15:00 (CET) del viernes, o durante el fin de semana/días festivos, se procesarán el siguiente día hábil. Consulte el calendario a continuación para ver las estimaciones de envío:"
+    },
+    "methods": {
+      "title": "Métodos de Envío",
+      "para1": "Las entregas son realizadas por {carrier}, un servicio de entrega con seguimiento, con opciones de entrega con o sin firma según el servicio específico elegido durante la finalización de la compra.",
+      "para2_relay": "También ofrecemos entrega en puntos de conveniencia a través de [Nombre Transportista Punto Relais] en las regiones elegibles."
+    },
+    "costs": {
+      "title": "Costos de Envío y Envío Gratuito",
+      "para1": "Los costos de envío se calculan en función del país de destino y del importe total del pedido (IVA incluido). Ofrecemos umbrales de envío gratuito para ciertas zonas:",
+      "france": {
+        "zoneName": "Francia Metropolitana",
+        "thresholdMet": "Envío gratuito para pedidos superiores o iguales a {amount} € (IVA incl.).",
+        "thresholdNotMet": "Para pedidos inferiores a {amount} € (IVA incl.), se aplicará una tarifa plana de envío de {cost} € (IVA incl.)."
+      },
+      "belgium": {
+        "zoneName": "Bélgica",
+        "thresholdMet": "Envío gratuito para pedidos superiores o iguales a {amount} € (IVA incl.).",
+        "thresholdNotMet": "Para pedidos inferiores a {amount} € (IVA incl.), se aplicará una tarifa plana de envío de {cost} € (IVA incl.)."
+      },
+      "reunion": {
+        "zoneName": "Reunión",
+        "thresholdMet": "Envío gratuito para pedidos superiores o iguales a {amount} € (IVA incl.).",
+        "thresholdNotMet": "Para pedidos inferiores a {amount} € (IVA incl.), se aplicará una tarifa plana de envío de {cost} € (IVA incl.)."
+      },
+      "spain": {
+        "zoneName": "España (excepto Baleares, Canarias, Ceuta, Melilla)",
+        "thresholdMet": "Envío gratuito para pedidos superiores o iguales a {amount} € (IVA incl.).",
+        "thresholdNotMet": "Para pedidos inferiores a {amount} € (IVA incl.), se aplicará una tarifa plana de envío de {cost} € (IVA incl.)."
+      },
+      "ireland": {
+        "zoneName": "Irlanda",
+        "thresholdMet": "Envío gratuito para pedidos superiores o iguales a {amount} € (IVA incl.).",
+        "thresholdNotMet": "Para pedidos inferiores a {amount} € (IVA incl.), se aplicará una tarifa plana de envío de {cost} € (IVA incl.)."
+      }
+    },
+    "deliveryTimes": {
+      "title": "Tiempos de Entrega Estimados",
+      "para1": "Los tiempos de entrega proporcionados son solo estimaciones y comienzan a contar desde la fecha de envío. Los tiempos reales pueden variar debido a retrasos del transportista o circunstancias imprevistas.",
+      "para2": "Si su pedido no ha llegado en un plazo de {maxDays} días desde el envío, por favor contáctenos. Si el retraso supera los treinta días desde la fecha del pedido, el contrato de venta podrá ser rescindido y se le reembolsará el importe.",
+      "para3_france_estimate": "El tiempo de entrega típico para Francia Metropolitana es de {days} días hábiles después del envío."
+    },
+    "tracking": {
+      "title": "Seguimiento del Pedido",
+      "para1": "Una vez que su pedido sea enviado, le enviaremos un correo electrónico de confirmación con su número de seguimiento, permitiéndole seguir el progreso de su paquete en el sitio web del transportista."
+    },
+    "reception": {
+      "title": "Recepción de Su Pedido",
+      "para1": "Las entregas se realizan en la dirección indicada en el formulario de pedido.",
+      "para2": "En caso de ausencia, el transportista (por ejemplo, su cartero) dejará un aviso de paso indicando dónde y durante cuánto tiempo puede recoger su paquete (generalmente en la oficina de correos o punto de recogida más cercano).",
+      "para3_checkPackage": "Es su responsabilidad verificar el estado del embalaje y su contenido en el momento de la entrega, si es posible en presencia del repartidor."
+    },
+    "deliveryIssues": {
+      "title": "Problemas con la Entrega",
+      "riskTransfer": {
+        "label": "Transferencia de Riesgos:",
+        "text": "Los riesgos asociados al transporte corren a cargo del comprador desde el momento en que los artículos salen de las instalaciones de MonPlanCBD."
+      },
+      "damage": {
+        "label": "Daños Durante el Transporte:",
+        "text": "En caso de daño durante el transporte, cualquier reclamación debe realizarse directamente al transportista en un plazo de {days} días a partir de la entrega."
+      },
+      "nonReceipt": {
+        "importantNote": "NOTA IMPORTANTE:",
+        "policy": "Si el seguimiento indica que su pedido ha sido entregado, pero usted afirma no haberlo recibido, tenga en cuenta que no podremos proceder al reenvío de su pedido ni a su reembolso, independientemente del método de envío elegido."
+      }
+    },
+    "international": {
+      "title": "Envíos Internacionales",
+      "para1_customs": "Para pedidos enviados fuera de la Unión Europea, pueden aplicarse derechos de aduana, impuestos o tasas de importación a la llegada al país de destino. Estos cargos son responsabilidad exclusiva del comprador."
+    },
+    "returns": {
+      "title": "Devoluciones y Derecho de Desistimiento",
+      "para1_withdrawal": "De conformidad con la ley del consumidor, dispone de {days} días hábiles desde la recepción de su pedido para ejercer su derecho de desistimiento. Consulte nuestras {gtcLink} (Artículo 6) para conocer las condiciones.",
+      "gtcLinkText": "Condiciones Generales de Venta",
+      "para2_policyLink": "Para obtener instrucciones detalladas sobre cómo devolver un artículo, consulte nuestra {returnPolicyLink}.",
+      "returnPolicyLinkText": "página de Política de Devoluciones"
+    },
+    "contact": {
+      "title": "Contáctenos",
+      "para1": "Si tiene alguna pregunta sobre su envío o esta política, contáctenos por correo electrónico a {emailLink} o por teléfono al {phone}.",
+      "emailAddress": "contact@monplancbd.fr",
+      "phoneNumber": "+33 7 66 13 59 38"
+    }
+  },
   "FAQ": {
+    "pageTitle": "FAQ",
+    "lastUpdated": "Última actualización: 16/04/2025",
     "section1": {
       "title": "I. Acerca del CBD y la Legalidad",
       "q1": {
@@ -726,7 +828,7 @@
       },
       "q29": {
         "question": "¿Cómo devuelvo un artículo?",
-        "answer": "Para devolver un artículo, por favor, póngase primero en contacto con nosotros en contact@monplancbd.fr dentro del plazo de 14 días para informarnos de su decisión. Le indicaremos entonces el procedimiento a seguir y la dirección de devolución. Los gastos de envío de la devolución corren por su cuenta. Para más detalles, consulte nuestras {gtcLink} (Artículo 6) o nuestra {returnPolicyLink} si está disponible.",
+        "answer": "Para devolver un artículo, por favor, póngase primero en contacto con nosotros en contact@monplancbd.fr dentro del plazo de 14 días para informarnos de su decisión. Le indicaremos entonces el procedimiento a seguir y la dirección de devolución. Los gastos de envío de la devolución corren por su cuenta. Para más detalles, consulte nuestras {gtcLink} (Artículo 6) o nuestra {returnPolicyLink}.",
         "gtcLinkText": "Condiciones Generales de Venta",
         "returnPolicyLinkText": "Política de Devoluciones"
       }
@@ -1109,6 +1211,34 @@
       "date": "Última actualización: {updateDate}"
     }
   },
+  "metadataAbout": {
+    "title": "Sobre MonPlanCBD - Nuestra Historia, Nuestros Valores, Tu Bienestar",
+    "description": "Descubre la historia de MonPlanCBD, nuestra pasión por el CBD de calidad, nuestro compromiso con la transparencia y nuestra misión para tu bienestar natural.",
+    "keywords": "sobre monplancbd, historia monplancbd, valores cbd, compromiso calidad cbd, misión monplancbd, quiénes somos cbd, empresa cbd francia, cbd bayona, equipo monplancbd, bienestar cáñamo",
+    "ogImageAlt": "Descubre MonPlanCBD: Pasión, Calidad y Compromiso con el Bienestar CBD"
+  },
+  "metadataConditionsOfUse": {
+    "title": "Condiciones de Uso - MonPlanCBD",
+    "description": "Revise las Condiciones Generales de Uso (CGU) que rigen el acceso y uso del sitio web de MonPlanCBD. Se requiere su acuerdo para navegar."
+  },
+  "metadataGCS": {
+    "title": "Condiciones Generales de Venta (CGV) - MonPlanCBD",
+    "description": "Lea atentamente nuestras Condiciones Generales de Venta (CGV) antes de realizar un pedido en MonPlanCBD. Detalles sobre productos, precios, envío y devoluciones."
+  },
+  "metadataFAQ": {
+    "title": "FAQ - Preguntas Frecuentes sobre el CBD | MonPlanCBD",
+    "description": "Encuentre respuestas a sus preguntas frecuentes sobre el CBD, nuestros productos, legalidad, uso, pedidos y envíos en MonPlanCBD.",
+    "keywords": "faq cbd, preguntas frecuentes cbd, cbd legal, uso cbd, cómo tomar cbd, efectos cbd, pedido cbd, envío cbd, monplancbd faq, ayuda cbd",
+    "ogImageAlt": "FAQ - Respuestas a preguntas frecuentes sobre el CBD en MonPlanCBD"
+  },
+  "metadataLegalNotices": {
+    "title": "Aviso Legal - MonPlanCBD",
+    "description": "Consulte el aviso legal de MonPlanCBD: información sobre el editor del sitio, el proveedor de hosting, la propiedad intelectual y los datos de contacto."
+  },
+  "metadataPrivacyPolicy": {
+    "title": "Política de Privacidad - MonPlanCBD",
+    "description": "Descubra cómo MonPlanCBD recopila, utiliza y protege sus datos personales de acuerdo con el RGPD. Sus derechos y nuestros compromisos."
+  },
   "about": {
     "pageTitle": "Nuestra Historia: La Pasión por el CBD de Calidad en MonPlanCBD",
     "imageAlt": "El paisaje que inspiró la marca",
@@ -1149,6 +1279,14 @@
       "link1": "Explora nuestras flores CBD",
       "link2": "Descubre nuestros aceites",
       "link3": "Visita nuestro Blog para saber más"
+    }
+  },
+  "blogPage": {
+    "metadata": {
+      "title": "Blog CBD: Noticias, Consejos de Bienestar y Guías | MonPlanCBD",
+      "description": "Explora el blog de MonPlanCBD: noticias sobre CBD, consejos de bienestar, guías de uso y las últimas investigaciones sobre el cáñamo y sus cannabinoides.",
+      "keywords": "blog cbd, noticias cbd, consejos cbd, guía cbd, información cbd, bienestar cbd, info cáñamo, cannabinoides, monplancbd blog, investigación cbd",
+      "ogImageAlt": "El Blog de MonPlanCBD - Noticias, Consejos y Guías sobre CBD"
     }
   },
   "signIn": {
@@ -1235,11 +1373,12 @@
   },
   "footer": {
     "legalNotices": "Aviso legal",
-    "conditionsOfUse": "Condiciones de uso",
+    "conditionsOfUse": "Términos de Uso",
     "FAQ": "FAQ",
     "GCS": "Condiciones generales de venta",
     "privacyPolicies": "Políticas de privacidad",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "shippingPolicy": "Políticas de Envío"
   },
   "blog": {
     "link": "Blog"

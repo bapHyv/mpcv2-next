@@ -12,10 +12,10 @@ interface GenerateMetadataParams {
 
 export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
   const { locale } = params;
-  const t = await getTranslations({ locale, namespace: "bankTransferPage" }); // Use relevant namespace
+  const t = await getTranslations({ locale, namespace: "bankTransferPage" });
 
   return {
-    title: t("metadataTitle"), // e.g., "Confirmation de Commande - MonPlanCBD"
+    title: t("metadataTitle"),
     robots: {
       index: false,
       follow: false,

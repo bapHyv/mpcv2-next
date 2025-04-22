@@ -1,18 +1,59 @@
+import type { Metadata } from "next";
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
-interface Params {
-  params: {
-    locale: string;
+interface GenerateMetadataParams {
+  params: { locale: string };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "" });
+  const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
+
+  const title = t("metadataConditionsOfUse.title");
+  const description = t("metadataConditionsOfUse.description");
+
+  return {
+    title: title,
+    description: description,
+    alternates: {
+      canonical: `${siteBaseUrl}/${locale}/conditions-dutilisation`,
+    },
+    robots: {
+      index: false,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "none",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: `${siteBaseUrl}/${locale}/conditions-dutilisation`,
+      siteName: t("global.brandName"),
+      images: [{ url: `${siteBaseUrl}/og-image-default.png`, width: 1200, height: 630, alt: "MonPlanCBD" }],
+      locale: locale.replace("-", "_"),
+      type: "article",
+    },
+    twitter: {
+      card: "summary",
+      title: title,
+      description: description,
+      images: [`${siteBaseUrl}/og-image-default.png`],
+    },
   };
 }
 
-export async function generateMetadata({ params: { locale } }: Params) {
-  const t = await getTranslations({ locale, namespace: "conditionsOfUse" });
-  return {
-    title: t("title"),
-    description: t("description"),
+interface Params {
+  params: {
+    locale: string;
   };
 }
 

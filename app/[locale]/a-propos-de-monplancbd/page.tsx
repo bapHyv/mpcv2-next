@@ -1,19 +1,75 @@
+import type { Metadata } from "next";
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 
-interface Params {
-  params: {
-    locale: string;
+interface GenerateMetadataParams {
+  params: { locale: string };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "" });
+  const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
+
+  const title = t("metadataAbout.title");
+  const description = t("metadataAbout.description");
+
+  return {
+    title: title,
+    description: description,
+    keywords: t("metadataAbout.keywords")
+      .split(",")
+      .map((k) => k.trim()),
+    alternates: {
+      canonical: `${siteBaseUrl}/${locale}/a-propos-de-monplancbd`,
+      languages: {
+        "fr-FR": `${siteBaseUrl}/fr/a-propos-de-monplancbd`,
+        "en-US": `${siteBaseUrl}/en/a-propos-de-monplancbd`,
+        "es-ES": `${siteBaseUrl}/es/a-propos-de-monplancbd`,
+        "x-default": `${siteBaseUrl}/fr/a-propos-de-monplancbd`,
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: `${siteBaseUrl}/${locale}/a-propos-de-monplancbd`,
+      siteName: t("global.brandName"),
+      images: [
+        {
+          url: `${siteBaseUrl}/og-image-about.jpg`,
+          width: 1200,
+          height: 630,
+          alt: t("metadataAbout.ogImageAlt"),
+        },
+      ],
+      locale: locale.replace("-", "_"),
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: [`${siteBaseUrl}/og-image-about.jpg`],
+    },
   };
 }
 
-export async function generateMetadata({ params: { locale } }: Params) {
-  const t = await getTranslations({ locale, namespace: "about" });
-  return {
-    title: t("title"),
-    description: t("description"),
+interface Params {
+  params: {
+    locale: string;
   };
 }
 

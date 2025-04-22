@@ -1,18 +1,59 @@
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+interface GenerateMetadataParams {
+  params: { locale: string };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "" });
+  const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
+
+  const title = t("metadataPrivacyPolicy.title");
+  const description = t("metadataPrivacyPolicy.description");
+
+  return {
+    title: title,
+    description: description,
+    alternates: {
+      canonical: `${siteBaseUrl}/${locale}/politiques-de-confidentialites`,
+    },
+    robots: {
+      index: false,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "none",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: `${siteBaseUrl}/${locale}/politiques-de-confidentialites`,
+      siteName: t("global.brandName"),
+      images: [{ url: `${siteBaseUrl}/og-image-default.png`, width: 1200, height: 630, alt: "MonPlanCBD" }],
+      locale: locale.replace("-", "_"),
+      type: "article",
+    },
+    twitter: {
+      card: "summary",
+      title: title,
+      description: description,
+      images: [`${siteBaseUrl}/og-image-default.png`],
+    },
+  };
+}
 
 interface Params {
   params: {
     locale: string;
-  };
-}
-
-export async function generateMetadata({ params: { locale } }: Params) {
-  const t = await getTranslations({ locale, namespace: "privacyPolicies" });
-  return {
-    title: t("title"),
-    description: t("description"),
   };
 }
 

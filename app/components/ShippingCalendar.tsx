@@ -16,7 +16,7 @@ export default function ShippingCalendar() {
       </thead>
       <tbody>
         <tr>
-          <td className="border border-black py-0.5 px-1 md:py-2 md:px-4">Avant 12h00</td>
+          <td className="border border-black py-0.5 px-1 md:py-2 md:px-4">Avant 15h00</td>
           <td colSpan={5} className="border border-black py-0.5 px-1 md:py-2 md:px-4 bg-teal-100">
             Expédiée le jour même
           </td>
@@ -25,7 +25,7 @@ export default function ShippingCalendar() {
           </td>
         </tr>
         <tr>
-          <td className="border border-black py-0.5 px-1 md:py-2 md:px-4">Après 12h00</td>
+          <td className="border border-black py-0.5 px-1 md:py-2 md:px-4">Après 15h00</td>
           <td colSpan={4} className="border border-black py-0.5 px-1 md:py-2 md:px-4 bg-teal-50">
             Expédiée le lendemain
           </td>
