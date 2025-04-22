@@ -67,7 +67,8 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   };
 }
 
-export default async function Page({ locale }: { locale: string }) {
+export default async function Page({ params }: { params: { locale: string } }) {
+  const { locale } = params;
   const t = await getTranslations({ locale, namespace: "shippingPolicy" });
 
   return (
