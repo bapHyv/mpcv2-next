@@ -51,7 +51,7 @@ export default function ReviewForm({ id }: Props) {
 
   useEffect(() => {
     if (state.statusCode !== 0) {
-      // TODO: Check for various success codes (200, 201, 204 might indicate success)
+      // TODO STATUS: Check for various success codes (200, 201, 204 might indicate success)
       if (state.isSuccess && (state.statusCode === 200 || state.statusCode === 201 || state.statusCode === 204)) {
         addAlert(uuid(), t("alerts.addReview.success.text"), t("alerts.addReview.success.title"), "emerald");
         setCommentValue("");

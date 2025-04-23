@@ -1960,7 +1960,12 @@
       "promoCodeInvalid": {
         "title": "Código Inválido",
         "text": "Código promocional inválido o no aplicable."
-      }
+      },
+      "cartEmptied": {
+        "title": "Carrito Vaciado",
+        "text": "Tu carrito se ha vaciado correctamente."
+      },
+      "emptyCartButton": "Vaciar carrito"
     },
     "signUp": {
       "success": {

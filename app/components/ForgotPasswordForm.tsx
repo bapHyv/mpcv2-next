@@ -56,7 +56,7 @@ export default function ForgotPasswordForm() {
             textKey = "alerts.forgotPassword.error400.text";
             color = "yellow";
             break;
-          // TODO: Add other specific cases if needed
+          // TODO STATUS: Add other specific cases if needed
         }
         const alertText = state.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), color);

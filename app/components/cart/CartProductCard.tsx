@@ -10,6 +10,19 @@ import clsx from "clsx";
 import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { useAlerts } from "@/app/context/alertsContext";
 
+/**
+ *
+ * increment quantity is disabled even though there is enough stock
+ * features:
+ *
+ *  productOptions:
+ *    Lorsque je clique sur l'une des options, option et price doivent changer dans ProductsAndCartContext.products[productId]
+ *    Lorsque je clique sur ajouter au panier, le produit doit s'ajouter dans le panier
+ *            ↳ Si le produit existe déjà dans le panier, la quantité doit s'incrémenter
+ *    Lorsque le stock est inférieur à l'option, l'option doit être désactivée et ne doit pas être cliquable.
+ *    Si le stock est inférieur à toutes les options, toutes les options ainsi que le bouton ajouter au panier doivent être désativées
+ */
+
 export default function CartProductCard({
   cartItemId,
   id,
@@ -28,7 +41,10 @@ export default function CartProductCard({
 
   const productContextData = products ? products[id] : null;
   const currentStock = productContextData ? parseInt(productContextData.stock || "0", 10) : 0;
-  const isStockAvailableForIncrement = !isNaN(currentStock) && currentStock >= parseInt(option, 10) * (quantity + 1);
+  const isStockAvailableForIncrement = !isNaN(currentStock) && currentStock >= parseInt(option, 10);
+  const pricePer = unitPrice / parseInt(option);
+
+  console.log({ isStockAvailableForIncrement });
 
   const removeProduct = () => {
     const updatedCartProducts = cart.products.filter((product) => product.cartItemId !== cartItemId);
@@ -121,8 +137,7 @@ export default function CartProductCard({
           <div>
             <p className="font-semibold text-gray-900 truncate text-xs md:text-sm leading-tight w-11/12">{name}</p>
             <p className="text-xs text-gray-500 mt-0.5">
-              {option}
-              {per} - {unitPrice.toFixed(2)}€{t("productCardCart.unitPriceSuffix", { per })}
+              {quantity} x {option} {per} - {pricePer.toFixed(2)}€{t("productCardCart.unitPriceSuffix", { per })}
             </p>
           </div>
           {/* Bottom part: Quantity and Total */}

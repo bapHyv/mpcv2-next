@@ -69,7 +69,7 @@ export default function SignInForm() {
             textKey = "error500.text";
             color = "red";
             break;
-          // TODO: Add other potential error codes (400, 422) if applicable
+          // TODO STATUS: Add other potential error codes (400, 422) if applicable
         }
         const alertText = state.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), color);

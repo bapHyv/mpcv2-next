@@ -33,10 +33,11 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
   const productData = products ? products[id] : null;
   const price = productData ? parseFloat(productData.price) : 0;
   const currentStock = productData ? parseInt(productData.stock, 10) : 0;
+  const firstOption = productData ? parseInt(Object.keys(productData.prices)[0]) : 0;
 
   const hasStockAvailable = useMemo(() => {
-    return !isNaN(currentStock) && currentStock > 0;
-  }, [currentStock]);
+    return !isNaN(currentStock) && currentStock > firstOption;
+  }, [currentStock, firstOption]);
 
   const addProductToCart = () => {
     if (!productData) return;
@@ -151,7 +152,7 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
                       {pricesPer === "g" ? "g" : "u"}
                     </span>
                     {!isInModale && (
-                      <span className="text-xs opacity-80">
+                      <span className="text-xs opacity-70">
                         ({(parseFloat(priceData.price) / optionValue).toFixed(2)}€/{pricesPer})
                       </span>
                     )}

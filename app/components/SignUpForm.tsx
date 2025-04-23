@@ -219,7 +219,7 @@ export default function SignUpForm() {
           <div className="flex h-6 items-center">
             <input
               id="condition-generales"
-              name="condition-generales" // TODO: Ensure name matches action if needed
+              name="condition-generales"
               type="checkbox"
               checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}

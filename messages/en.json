@@ -1915,6 +1915,11 @@
     },
     "genericError": { "title": "Error", "text": "An unexpected error occurred." },
     "cart": {
+      "cartEmptied": {
+        "title": "Cart Emptied",
+        "text": "Your cart has been successfully emptied."
+      },
+      "emptyCartButton": "Empty Cart",
       "insufficientStockIncrement": {
         "title": "Stock Limited",
         "text": "Insufficient stock to add more {name} ({option}{per})."

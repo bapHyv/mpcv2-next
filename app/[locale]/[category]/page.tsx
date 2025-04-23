@@ -165,7 +165,7 @@ export default async function CategoryPage({ params: { locale, category } }: Par
   return (
     <div className="md:pt-10">
       {/* Category Navigation Bar */}
-      <OtherNavbar>
+      <OtherNavbar className="xl:justify-center">
         {categories.map((cat) => (
           <Link
             key={cat.slug}
