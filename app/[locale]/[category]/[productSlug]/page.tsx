@@ -1,5 +1,5 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, TabGroup, TabPanel, TabPanels } from "@headlessui/react";
-import { StarIcon, PlusIcon, MinusIcon } from "@heroicons/react/20/solid";
+import { StarIcon, PlusIcon, MinusIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -15,7 +15,7 @@ import ReviewForm from "@/app/components/productPage/ReviewForm";
 import Timer from "@/app/components/Timer";
 import ProductImageGallery from "@/app/components/productPage/ProductImageGallery";
 
-import { Product } from "@/app/types/productsTypes";
+import { Analyse, Cannabinoids, Product, Terpenes } from "@/app/types/productsTypes";
 import { terpenesToColor } from "@/app/utils/terpenesToColor";
 import { findHighestOption, returnRenamedGrowingMethod } from "@/app/utils/productFunctions";
 import getClientIp from "@/app/components/getClientIp";
@@ -311,7 +311,11 @@ export default async function Page({ params: { category, locale, productSlug } }
             isInModale={false}
           />
           {/* --- Additional Details Disclosure --- */}
-          {(!!renamedGrowindMethod || ("country" in product && !!product.country.length)) /* ... TODO: other checks ... */ && (
+          {(!!renamedGrowindMethod ||
+            ("country" in product && !!product.country.length) ||
+            ("analyzes" in product && !!Object.values(product.analyzes as Analyse).length) ||
+            ("cannabinoids" in product && !!Object.values(product.cannabinoids as Cannabinoids).length) ||
+            ("terpenes" in product && !!Object.values(product.terpenes as Terpenes).length)) && (
             <section aria-labelledby="details-heading" className="mt-8 border-t border-gray-200 pt-8">
               <h2 id="details-heading" className="sr-only">
                 Additional details
@@ -357,7 +361,26 @@ export default async function Page({ params: { category, locale, productSlug } }
                       </div>
                     )}
                     {/* Analyses */}
-                    {/* ... TODO: logic for analyses links ... */}
+                    {"analyzes" in product && !!Object.values(product.analyzes).length && !!Object.values(product.analyzes as Analyse) && (
+                      <>
+                        <div className="flex items-center justify-between gap-4">
+                          <p className="font-medium text-gray-900">Analyses:</p>
+                          <ul role="list">
+                            {Object.entries(product.analyzes as Analyse).map(([key, value]) => (
+                              <li key={key}>
+                                <Link
+                                  href={`https://www.monplancbd.fr/analyses/${value}`}
+                                  target="_blank"
+                                  className="underline flex gap-1 capitalize text-gray-700"
+                                >
+                                  {key} <ArrowUpRightIcon className="w-3 h-3 mt-1 text-green" />
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </>
+                    )}
                     {/* Cannabinoids */}
                     {"cannabinoids" in product && product.cannabinoids && Object.keys(product.cannabinoids).length > 0 && (
                       <div className="pt-4 border-t border-gray-100">

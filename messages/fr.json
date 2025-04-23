@@ -1814,7 +1814,7 @@
     "outOfStock": "Épuisé",
     "timer": {
       "mainText": "Commandez dans les prochaines",
-      "disclaimer": "pour une expédition le jour même (du lundi au vendredi)."
+      "disclaimer": "et recevez votre commande dès demain! (du lundi au vendredi)."
     }
   },
   "bankTransferPage": {
@@ -1960,7 +1960,12 @@
       "promoCodeInvalid": {
         "title": "Code Invalide",
         "text": "Code promo invalide ou non applicable."
-      }
+      },
+      "cartEmptied": {
+        "title": "Panier vidé",
+        "text": "Votre panier a bien été vidé."
+      },
+      "emptyCartButton": "Vider le panier"
     },
     "signUp": {
       "success": {

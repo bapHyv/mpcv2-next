@@ -97,7 +97,7 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
             alertTextKey = "alerts.profile.addresses.update.422.text";
             alertType = "yellow";
             break;
-          // TODO: Add other cases if needed
+          // TODO STATUS: Add other cases if needed
         }
         const alertText = state.message || t(alertTextKey);
         addAlert(uuid(), alertText, t(alertTitleKey), alertType);

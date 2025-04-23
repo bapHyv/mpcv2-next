@@ -57,7 +57,7 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
             textKey = "alerts.profile.addresses.delete.500.text";
             alertType = "red";
             break;
-          // TODO: Add 403, 404 cases if needed
+          // TODO STATUS: Add 403, 404 cases if needed
         }
         const alertText = state.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), alertType);

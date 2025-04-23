@@ -1,9 +1,8 @@
 "use client";
 
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import { UserCircleIcon, ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
 
@@ -61,7 +60,7 @@ export default function AccountHeader() {
   ];
 
   return (
-    <OtherNavbar>
+    <OtherNavbar className="lg:justify-center">
       {itemsProfile.map((item) => {
         const isActive = "href" in item && item.href && pathname.includes(item.href);
         const commonClasses = twMerge(
