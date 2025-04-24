@@ -211,22 +211,22 @@ export default function Profile() {
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       <Title title={t("profile.title")} type="h1" classname={twMerge(baseTitleClassname, "md:mt-14 text-green")} firstLetterClassname="text-xl" />
 
-      <div className={twMerge(sectionWrapperClassname, "relative")}>
-        {isLoading && (
-          <>
-            <div className="absolute inset-0 bg-white opacity-60" />
+      {!userData ? (
+        <div className="flex items-center justify-center min-h-[200px]">
+          <LoadingSpinner size="lg" color="green" />
+        </div>
+      ) : (
+        <div className={twMerge(sectionWrapperClassname, "relative")}>
+          {isLoading && (
+            <>
+              <div className="absolute inset-0 bg-white opacity-60" />
 
-            <div className="absolute inset-0 flex items-center justify-center z-50">
-              <LoadingSpinner />
-            </div>
-          </>
-        )}
-        {!userData ? (
-          <div className="flex items-center justify-center min-h-[200px]">
-            <LoadingSpinner size="lg" color="green" />
-          </div>
-        ) : (
-          // @ts-ignore
+              <div className="absolute inset-0 flex items-center justify-center z-50">
+                <LoadingSpinner />
+              </div>
+            </>
+          )}
+          {/* @ts-ignore */}
           <form onChange={isUpdating ? handleLocalChange : undefined} onSubmit={handleSubmit}>
             {/* --- Personal Information Section --- */}
             <fieldset className="mb-6 border-b border-gray-200 pb-6">
@@ -414,8 +414,8 @@ export default function Profile() {
               )}
             </div>
           </form>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

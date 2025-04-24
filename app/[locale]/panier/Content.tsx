@@ -89,8 +89,7 @@ export default function DisplayComponents() {
             {products ? (
               products.length > 0 ? (
                 products.map((p) => (
-                  <div key={p.id} className="flex-shrink-0 w-64">
-                    {" "}
+                  <div key={p.id} className="flex gap-x-1">
                     <ProductCard {...p} />
                   </div>
                 ))

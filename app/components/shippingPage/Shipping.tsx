@@ -24,6 +24,7 @@ export default function Shipping() {
   const hasFreeShipping = useMemo(() => {
     return order.discounts.some((d) => ("freeShipping" in d ? d.freeShipping : false));
   }, [order.discounts]);
+
   const filteredMethods: ShippingMethod[] = useMemo(() => {
     // Original logic with added null checks and enabled check
     if (
@@ -32,37 +33,21 @@ export default function Shipping() {
       sseData.shippingMethods.byShippingZones[order.shippingAddress.country]
     ) {
       return sseData.shippingMethods.byShippingZones[order.shippingAddress.country].methods.filter((m) => {
-        // Skip methods that are not explicitly enabled in backend data if 'enabled' property exists
-        if ("enabled" in m && !m.enabled) {
-          return false;
-        }
-
         if (isBoxtalConnectMethod(m) || isLocalPickupMethod(m)) {
           return true; // Always show these if enabled
         } else if (isFreeShippingMethod(m)) {
+          if (hasFreeShipping) return true;
           // Handle min_amount safely
           const minAmount = m.min_amount ? parseInt(m.min_amount, 10) : 0;
-          if (isNaN(minAmount)) {
-            // If minAmount is invalid, show only if a free shipping coupon is active
-            return hasFreeShipping;
-          }
           const amountToCheck = m.ignore_discounts === "yes" ? cart.total : order["sub-total"];
-          return amountToCheck >= minAmount || hasFreeShipping; // Show if threshold met OR coupon active
+          return amountToCheck >= minAmount;
         } else if (isFlatRateMethod(m)) {
           const zoneData = sseData.shippingMethods.byShippingZones[order.shippingAddress.country];
           const priceThreshold = zoneData?.priceThreshold;
-          // If no threshold defined for the zone, always show flat rate
-          if (!priceThreshold) return true;
 
-          // If user has free shipping coupon, we need to check the threshold
-          if (hasFreeShipping) {
-            const lowestVATRate = findLowestVATRate(cart.products);
-            // Calculate threshold including VAT
-            const thresholdWithVAT = priceThreshold * (1 + lowestVATRate / 100);
-            // Hide flat rate ONLY if the cart total meets or exceeds the threshold
-            return cart.total < thresholdWithVAT;
-          }
-          // If no free shipping coupon, always show flat rate
+          if (hasFreeShipping) return false;
+          if (!priceThreshold) return true;
+          if (priceThreshold * 1.055 < cart.total) return false;
           return true;
         } else {
           // Default case for unknown method types (shouldn't happen with guards)

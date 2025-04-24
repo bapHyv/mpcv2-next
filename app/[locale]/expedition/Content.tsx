@@ -92,11 +92,9 @@ export default function DisplayComponents() {
             color = "red";
             break;
         }
-        // Use server message if available, otherwise use translated fallback
         const alertText = actionResponse.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), color);
       }
-      // Reset response after handling
       setActionResponse(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
