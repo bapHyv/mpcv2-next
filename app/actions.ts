@@ -265,9 +265,6 @@ export async function addAddress(stringifiedData: string) {
       },
     };
 
-    console.log({ address });
-    console.log({ fetchOptions });
-
     const response = await fetchWrapper(`${process.env.API_HOST}/user/addresses/add`, fetchOptions);
 
     if (!response.ok) {

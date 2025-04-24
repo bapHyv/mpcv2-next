@@ -105,7 +105,6 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
       try {
         const strigifiedData = JSON.stringify(formData);
         setIsLoading(true);
-        console.log("Adding address...");
         const response = await addAddress(strigifiedData);
         setIsLoading(false);
         setActionResponse(response);

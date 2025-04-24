@@ -124,7 +124,6 @@ export default function Profile() {
       try {
         const strigifiedData = JSON.stringify(localFormData);
         setIsLoading(true);
-        console.log("Updating user...");
         const response = await update(strigifiedData);
         setIsLoading(false);
         setActionResponse(response);

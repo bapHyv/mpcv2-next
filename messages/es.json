@@ -1600,6 +1600,7 @@
   "cartPage": {
     "metadataTitle": "Tu Cesta - MonPlanCBD",
     "productsTitle": "Productos en Tu Carrito",
+    "backToHomeButton": "Volver a la página de inicio",
     "summary": {
       "title": "Resumen del Pedido",
       "subtotalLabel": "Subtotal",

@@ -49,7 +49,6 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
         const addressId = new FormData(e.currentTarget).get("addressId");
         const strigifiedData = JSON.stringify({ id: addressId });
         setIsLoading(true);
-        console.log("deleting address...");
         const response = await deleteAddress(strigifiedData);
         setIsLoading(false);
         setActionResponse(response);
@@ -62,19 +61,12 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
 
   useEffect(() => {
     if (actionResponse.statusCode !== 0) {
-      console.log(0);
       if (actionResponse.isSuccess && isId(actionResponse.data) && actionResponse.statusCode === 200) {
-        console.log(1);
         const { id } = actionResponse.data;
-        console.log({ id });
         setUserData((prevState) => {
           if (prevState) {
             const addressIdToRemove = typeof id === "number" ? id : parseInt(id, 10);
-            console.log({ addressIdToRemove });
-            console.log(typeof id === "number");
-            console.log(parseInt(id, 10));
             if (isNaN(addressIdToRemove)) return prevState;
-            console.log(2);
 
             const updatedAddresses = prevState.addresses.filter((address) => address.id !== addressIdToRemove);
             return { ...prevState, addresses: updatedAddresses };
