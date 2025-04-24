@@ -209,16 +209,9 @@ export async function register(prevState: any, formData: FormData) {
  *  422: semantic error {message, null, !isSuccess, statusCode: 422}
  *  500: error server {message, null, !isSuccess, statusCode: 500}
  */
-export async function update(prevState: Update, formData: FormData) {
+export async function update(strigifiedData: string) {
   try {
-    const user = {
-      mail: formData.get("email"),
-      firstname: formData.get("firstname"),
-      lastname: formData.get("lastname"),
-      optInMarketing: formData.get("optInMarketing") ? true : false,
-      oldPassword: formData.get("oldPassword"),
-      newPassword: formData.get("newPassword"),
-    };
+    const user = JSON.parse(strigifiedData);
 
     const fetchOptions = {
       method: "PUT",
@@ -260,22 +253,9 @@ export async function update(prevState: Update, formData: FormData) {
  *  422: semantic error {message, null, !isSuccess, statusCode: 422}
  *  500: error server {message, null, !isSuccess, statusCode: 500}
  */
-export async function addAddress(prevState: Address, formData: FormData) {
+export async function addAddress(stringifiedData: string) {
   try {
-    const address = {
-      firstname: formData.get("firstname"),
-      lastname: formData.get("lastname"),
-      address1: formData.get("address1"),
-      address2: formData.get("address2"),
-      postalCode: formData.get("postalCode"),
-      city: formData.get("city"),
-      country: formData.get("country"),
-      phone: formData.get("phone"),
-      email: formData.get("email"),
-      billing: formData.get("billing") ? true : false,
-      shipping: formData.get("shipping") ? true : false,
-      company: formData.get("company"),
-    };
+    const address = JSON.parse(stringifiedData);
 
     const fetchOptions = {
       method: "POST",
@@ -284,6 +264,9 @@ export async function addAddress(prevState: Address, formData: FormData) {
         "Content-Type": "application/json",
       },
     };
+
+    console.log({ address });
+    console.log({ fetchOptions });
 
     const response = await fetchWrapper(`${process.env.API_HOST}/user/addresses/add`, fetchOptions);
 
@@ -316,11 +299,9 @@ export async function addAddress(prevState: Address, formData: FormData) {
  *  401: unauthorized {message, null, !isSuccess, statusCode: 401}
  *  500: error server {message, null, !isSuccess, statusCode: 500}
  */
-export async function deleteAddress(prevState: any, formData: FormData) {
+export async function deleteAddress(stringifiedData: string) {
   try {
-    const { id } = {
-      id: formData.get("addressId"),
-    };
+    const { id }: { id: string } = JSON.parse(stringifiedData);
 
     if (!id) {
       const errorData = null;
@@ -351,26 +332,9 @@ export async function deleteAddress(prevState: any, formData: FormData) {
   }
 }
 
-export async function updateAddress(prevState: Address & { id: string }, formData: FormData) {
+export async function updateAddress(stringifiedData: string) {
   try {
-    const address = {
-      firstname: formData.get("firstname"),
-      lastname: formData.get("lastname"),
-      address1: formData.get("address1"),
-      address2: formData.get("address2") ? formData.get("address2") : "",
-      postalCode: formData.get("postalCode"),
-      city: formData.get("city"),
-      country: formData.get("country"),
-      phone: formData.get("phone"),
-      email: formData.get("email"),
-      billing: formData.get("billing") ? true : false,
-      shipping: formData.get("shipping") ? true : false,
-      company: formData.get("company"),
-    };
-
-    const { id } = {
-      id: formData.get("addressId"),
-    };
+    const { address, id }: { address: Address; id: string } = JSON.parse(stringifiedData);
 
     if (!id) {
       const errorData = null;

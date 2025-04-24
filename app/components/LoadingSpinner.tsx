@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 
 interface Props {
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   color?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "white" | "green" | "black";
   className?: string;
 }
@@ -12,6 +12,7 @@ export default function LoadingSpinner({ size = "md", color = "primary", classNa
   const t = useTranslations("global");
 
   const sizeClasses = {
+    xs: "h-4 w-4",
     sm: "h-5 w-5",
     md: "h-6 w-6",
     lg: "h-10 w-10",

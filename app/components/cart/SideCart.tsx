@@ -17,7 +17,7 @@ import { useAlerts } from "@/app/context/alertsContext";
 export default function Cart() {
   const [open, setOpen] = useState(false);
   const { cart, setCart } = useProductsAndCart();
-  const t = useTranslations("");
+  const t = useTranslations();
   const locale = useLocale();
   const pathname = usePathname();
   const { addAlert } = useAlerts();

@@ -37,7 +37,6 @@ export default function Content() {
 
       {/* Main Content Area */}
       <div className="mb-8">
-        {" "}
         {!userData ? (
           <div className="flex items-center justify-center min-h-[200px]">
             <LoadingSpinner size="lg" color="green" />

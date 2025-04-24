@@ -11,7 +11,7 @@ import OrderSummary from "@/app/components/shippingPage/OrderSummary";
 import Total from "@/app/components/paymentPage/Total";
 import Title from "@/app/components/Title";
 
-import { data, statusCode, bankTransfer, payment } from "@/app/actions";
+import { bankTransfer, payment } from "@/app/actions";
 import { useOrder } from "@/app/context/orderContext";
 import { paymentRouteGuard } from "@/app/utils/paymentRouteGuard";
 import { Order, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
@@ -19,13 +19,7 @@ import { isSuccessResponse } from "@/app/utils/typeGuardsFunctions";
 import useCleanUpAfterPayment from "@/app/hooks/useCleanUpAfterPayment";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";
-
-interface IActionResponse {
-  message: string;
-  data: data;
-  isSuccess: boolean;
-  statusCode: statusCode;
-}
+import { IActionResponse } from "@/app/types/apiTypes";
 
 interface OrderId {
   orderId: number;

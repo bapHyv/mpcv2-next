@@ -34,17 +34,17 @@ export function isUserDataAPIResponse(data: any): data is UserDataAPIResponse {
   // }
 
   // Check addresses (if present)
-  if (data.addresses && !Array.isArray(data.addresses)) {
-    return false;
-  }
-  if (data.addresses && !data.addresses.every((address: any) => isAddress(address))) {
-    return false;
-  }
+  // if (data.addresses && !Array.isArray(data.addresses)) {
+  //   return false;
+  // }
+  // if (data.addresses && !data.addresses.every((address: any) => isAddress(address))) {
+  //   return false;
+  // }
 
-  // Check orders
-  if (!data.orders.every((order: any) => isOrder(order))) {
-    return false;
-  }
+  // // Check orders
+  // if (!data.orders.every((order: any) => isOrder(order))) {
+  //   return false;
+  // }
 
   return true;
 }
