@@ -82,7 +82,7 @@ export interface BaseProduct {
   slug: string;
   stock: string;
   VATRate: number;
-  metadescription?: string;
+  metaDescription?: string;
 }
 
 export interface NaturalProduct extends BaseProduct {

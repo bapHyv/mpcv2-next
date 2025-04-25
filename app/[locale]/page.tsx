@@ -26,6 +26,7 @@ import {
 
 import { APIResponse, Product } from "@/app/types/productsTypes";
 import { linkClassname, titleClassname as baseTitleClassname } from "@/app/staticData/cartPageClasses";
+import Image from "next/image";
 
 interface GenerateMetadataParams {
   params: {
@@ -259,11 +260,20 @@ export default async function HomePage({ params }: Params) {
       <h1 className="sr-only">{t("homepage.seoH1")}</h1>
 
       {/* 2. Hero Section */}
-      <section aria-labelledby="hero-heading" className="mb-8 md:mb-12">
+      <section aria-labelledby="hero-heading" className="mb-8">
         <h2 id="hero-heading" className="sr-only">
           {t("homepage.heroSR")}
         </h2>
         <HeroCarousel />
+      </section>
+
+      {/* 2. Trust Pilot */}
+      <section aria-labelledby="trustpilot" className="mb-8">
+        <div className="w-32 m-auto flex flex-col justify-center items-center">
+          <Link href="https://fr.trustpilot.com/review/monplancbd.fr?utm_medium=trustbox&utm_source=MicroReviewCount" target="_blank">
+            <Image src="/trustpilot.png" alt="trustpilot link monplancbd" width={1544} height={700} className="h-10 object-contain" />
+          </Link>
+        </div>
       </section>
 
       {/* 3. Featured Flowers Section */}
@@ -436,5 +446,3 @@ export default async function HomePage({ params }: Params) {
     </div>
   );
 }
-
-// --- END OF GENERATED HomePage.tsx ---
