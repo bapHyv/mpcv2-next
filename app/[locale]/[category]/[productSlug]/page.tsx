@@ -75,8 +75,11 @@ export async function generateMetadata({ params: { category: categorySlug, local
 
   const title = `${t("productOptions.addToCartButton")} ${productName} - ${categoryTitle} | ${brandName}`;
 
-  // TODO: Add metaDescription to product **Description:** ~150-160 characters. Engaging summary, includes keywords, potentially a subtle CTA.
-  const description = shortDescription.length > 160 ? `${shortDescription.substring(0, 157)}...` : shortDescription;
+  const description = product?.metadescription
+    ? product?.metadescription
+    : shortDescription.length > 160
+    ? `${shortDescription.substring(0, 157)}...`
+    : shortDescription;
 
   const keywords = [
     productName,
