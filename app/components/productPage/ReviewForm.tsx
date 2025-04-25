@@ -106,7 +106,7 @@ export default function ReviewForm({ id }: Props) {
   }
 
   return (
-    <div>
+    <div className="mt-10">
       <Title
         title={t("reviews.addReviewTitle")}
         type="h3"
@@ -119,10 +119,10 @@ export default function ReviewForm({ id }: Props) {
 
         {/* Star Rating */}
         <div>
-          <label htmlFor="rating-value" className={labelClassname}>
+          <label htmlFor="rating-input" className={labelClassname}>
             {t("reviews.ratingLabel")} <span className="text-red-600">*</span>
           </label>
-          <div className="mt-1 flex items-center" id="rating-value" onMouseLeave={handleRatingLeave}>
+          <div className="mt-1 flex items-center" id="rating-input" onMouseLeave={handleRatingLeave}>
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
@@ -142,6 +142,8 @@ export default function ReviewForm({ id }: Props) {
               </button>
             ))}
           </div>
+          {/* TODO: Optional: Display rating validation error from server */}
+          {/* {state?.errors?.rating && <p className="mt-1 text-xs text-red-600">{state.errors.rating}</p>} */}
         </div>
 
         {/* Comment Textarea */}
@@ -160,11 +162,14 @@ export default function ReviewForm({ id }: Props) {
               aria-describedby="comment-description"
               required
               placeholder={t("reviews.commentPlaceholder")}
+              // aria-invalid={!!state?.errors?.comment}
             />
           </div>
           <p id="comment-description" className="mt-1 text-xs text-gray-500">
             {t("reviews.commentHint")}
           </p>
+          {/* Optional: Display comment validation error from server */}
+          {/* {state?.errors?.comment && <p className="mt-1 text-xs text-red-600">{state.errors.comment}</p>} */}
         </div>
 
         {/* Submit Button */}
