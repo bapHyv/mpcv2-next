@@ -238,18 +238,16 @@ export default async function Page({ params: { category, locale, productSlug } }
           <ProductImageGallery images={product.images} />
           {/* Main image display */}
           <TabPanels className="aspect-h-1 aspect-w-1 w-full mt-4 sm:mt-0">
-            {product.images.main && (
-              <TabPanel key={`${product.images.main.alt}-panel`}>
-                <Image
-                  priority
-                  width={800}
-                  height={800}
-                  alt={product.images.main.alt}
-                  src={`${process.env.MAIN_URL}${process.env.IMG_HOST}${product.images.main.url}`}
-                  className="h-full w-full object-cover object-center sm:rounded-lg border border-gray-200 shadow-md"
-                />
-              </TabPanel>
-            )}
+            <TabPanel key={!!product.images.main ? `${product.images.main.alt}-panel` : `${product.name}-panel`}>
+              <Image
+                priority
+                width={800}
+                height={800}
+                alt={!!product.images.main ? product.images.main.alt : `${product.name}`}
+                src={!!product.images.main ? `${process.env.MAIN_URL}${process.env.IMG_HOST}${product.images.main.url}` : "/logo-noir.png"}
+                className="h-full w-full object-cover object-center sm:rounded-lg border border-gray-200 shadow-md"
+              />
+            </TabPanel>
             {product.images.others.map((image) => (
               <TabPanel key={`${image.alt}-${image.url}-panel`}>
                 <Image
