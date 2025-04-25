@@ -97,11 +97,10 @@ const useIsDiscountCodeUsable = () => {
     }
 
     // Safely parse amounts, default to 0 or Infinity if invalid/missing
-    const min = d.minCartAmount ? parseFloat(d.minCartAmount) : 0;
-    const max = d.maxCartAmount ? parseFloat(d.maxCartAmount) : Infinity;
-    const hasMin = min > 0;
-    const hasMax = isFinite(max);
-
+    const min = parseInt(d.minCartAmount);
+    const max = parseInt(d.maxCartAmount);
+    const hasMin = !!min;
+    const hasMax = !!max;
     const isFixedCart = d.discountType === "fixed_cart";
     const isPercentOrFixedProduct = d.discountType === "percent" || d.discountType === "fixed_product";
     const hasProductInPromo = c.products.some((product) => product.isPromo);

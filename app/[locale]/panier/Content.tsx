@@ -1,8 +1,11 @@
-// page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import Link from "next/link";
+import { twMerge } from "tailwind-merge";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import { useTranslations } from "next-intl";
 
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { APIResponse, Flower } from "@/app/types/productsTypes";
@@ -13,10 +16,12 @@ import Fidelity from "@/app/components/cartPage/Fidelity";
 import CartSummary from "@/app/components/cartPage/CartSummary";
 import ProductCard from "@/app/components/products/ClientProductCard";
 import Title from "@/app/components/Title";
+import { buttonClassname } from "@/app/staticData/cartPageClasses";
 
 export default function DisplayComponents() {
   const { cart } = useProductsAndCart();
   const [products, setProducts] = useState<null | Flower[]>(null);
+  const t = useTranslations("");
 
   useEffect(() => {
     const fetchFlowers = async () => {
@@ -46,6 +51,17 @@ export default function DisplayComponents() {
         classname={clsx("relative mt-6 mb-8 uppercase text-xl text-green text-center font-bold tracking-widest", "sm:mt-10", "2xl:pl-2")}
         firstLetterClassname="text-4xl"
       />
+
+      <div className="mb-6">
+        <Link
+          href={"/"}
+          className={twMerge(clsx(buttonClassname, "bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50", "px-3 py-1.5 text-sm"))}
+        >
+          <ArrowLeftIcon className="h-4 w-4 mr-1.5" aria-hidden="true" />
+          {t("cartPage.backToHomeButton")}
+        </Link>
+      </div>
+
       {cart.products.length > 0 ? (
         <div className="lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-8 xl:gap-x-12">
           <section aria-labelledby="cart-heading" className="lg:col-span-7">
@@ -73,8 +89,7 @@ export default function DisplayComponents() {
             {products ? (
               products.length > 0 ? (
                 products.map((p) => (
-                  <div key={p.id} className="flex-shrink-0 w-64">
-                    {" "}
+                  <div key={p.id} className="flex gap-x-1">
                     <ProductCard {...p} />
                   </div>
                 ))

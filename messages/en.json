@@ -1602,6 +1602,7 @@
   "cartPage": {
     "metadataTitle": "Your Cart - MonPlanCBD",
     "productsTitle": "Products in Your Cart",
+    "backToHomeButton": "Back to Homepage",
     "summary": {
       "title": "Order Summary",
       "subtotalLabel": "Subtotal",

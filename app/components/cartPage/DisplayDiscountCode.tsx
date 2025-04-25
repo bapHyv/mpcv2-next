@@ -41,7 +41,6 @@ export default function DisplayDiscountCode() {
     }
   };
 
-  // TODO: Check here
   useEffect(() => {
     if (
       sseData?.coupons && // Check if coupons data exists

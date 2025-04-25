@@ -44,8 +44,6 @@ export default function CartProductCard({
   const isStockAvailableForIncrement = !isNaN(currentStock) && currentStock >= parseInt(option, 10);
   const pricePer = unitPrice / parseInt(option);
 
-  console.log({ isStockAvailableForIncrement });
-
   const removeProduct = () => {
     const updatedCartProducts = cart.products.filter((product) => product.cartItemId !== cartItemId);
     setCart((prevCart) => ({ ...prevCart, products: updatedCartProducts }));

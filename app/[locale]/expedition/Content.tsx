@@ -91,13 +91,10 @@ export default function DisplayComponents() {
             titleKey = "alerts.accountCreation.error500.title";
             color = "red";
             break;
-          // TODO STATUS: Add other cases like 400, 422 if your register action can return them
         }
-        // Use server message if available, otherwise use translated fallback
         const alertText = actionResponse.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), color);
       }
-      // Reset response after handling
       setActionResponse(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

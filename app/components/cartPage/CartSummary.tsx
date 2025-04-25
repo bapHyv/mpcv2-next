@@ -13,6 +13,7 @@ import { sectionWrapperClassname, titleClassname, linkClassname } from "@/app/st
 import { computeVAT, displayDiscountValue } from "@/app/utils/orderFunctions";
 import Title from "@/app/components/Title";
 import { useAuth } from "@/app/context/authContext";
+import clsx from "clsx";
 
 export default function CartSummary() {
   const t = useTranslations("");
@@ -34,7 +35,6 @@ export default function CartSummary() {
     addAlert(uuid(), t("alerts.cart.pointsRemoved.text"), t("alerts.cart.pointsRemoved.title"), "yellow");
   };
 
-  // TODO: check this
   const discountsTotal = order.discounts.reduce((total, d) => {
     // Assuming displayDiscountValue returns '- XX.XX€' or 'XX%', need numerical value
     // This part might need adjustment based on displayDiscountValue's actual output for calculation
@@ -57,7 +57,7 @@ export default function CartSummary() {
   const fidelityReduction = order.fidelity / 10;
   const finalTotal = cart.total - discountsTotal - fidelityReduction;
   const finalTotalClamped = Math.max(0, finalTotal);
-  const vatIncluded = computeVAT(cart, finalTotalClamped);
+  const vatIncluded = computeVAT(cart, discountsTotal + fidelityReduction);
 
   return (
     <section aria-labelledby="summary-heading" className={twMerge(sectionWrapperClassname)}>
@@ -119,7 +119,10 @@ export default function CartSummary() {
       <div className="mt-6">
         <Link
           href="/expedition"
-          className={`flex w-full items-center justify-center rounded-md border border-transparent bg-green px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2`}
+          className={clsx(
+            "flex w-full items-center justify-center rounded-md border border-transparent bg-green px-6 py-3 text-base font-medium text-white shadow-sm",
+            "hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
+          )}
         >
           {t("cartPage.summary.checkoutButton")}
         </Link>

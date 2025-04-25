@@ -15,9 +15,9 @@ export default async function NavBar({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "navbar" });
 
   return (
-    <nav className={clsx("fixed bottom-0 sm:top-0 sm:bottom-auto", "w-full max-w-[1920px] mx-auto", "bg-black z-[6500]")}>
-      <div className="relative w-full px-3 sm:px-4 lg:px-8 py-1 sm:py-2">
-        <div className="flex h-12 items-center justify-around sm:hidden">
+    <nav className={clsx("fixed bottom-0 md:top-0 md:bottom-auto", "w-full max-w-[1920px] mx-auto", "bg-black z-[6500]")}>
+      <div className="relative w-full px-3 md:px-4 lg:px-8 py-1 md:py-2">
+        <div className="flex h-12 items-center justify-around md:hidden">
           {/* BURGER MENU PHONE */}
           <BurgerMenuHeader />
           {/* LANGUAGE SELECTOR PHONE */}
@@ -34,7 +34,7 @@ export default async function NavBar({ locale }: { locale: string }) {
           <SideCart />
         </div>
         {/* --- TABLET AND DESKTOP VIEW --- */}
-        <div className="hidden sm:flex h-16 items-center justify-between gap-x-4 lg:gap-x-6">
+        <div className="hidden md:flex h-16 items-center justify-between gap-x-4 lg:gap-x-6">
           <div className="flex-shrink-0">
             <Link href={`/${locale}`}>
               <Image alt={t("mainLogoAlt")} src="/logo-blanc.png" width={80} height={80} className="h-auto" />
