@@ -103,6 +103,7 @@ export default function Form() {
           <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
             <FormField id="shipping-firstname" label={t("firstNameLabel")} required>
               <input
+                id="shipping-firstname"
                 type="text"
                 name="firstname"
                 value={order.shippingAddress.firstname}
@@ -114,6 +115,7 @@ export default function Form() {
             </FormField>
             <FormField id="shipping-lastname" label={t("lastNameLabel")} required>
               <input
+                id="shipping-lastname"
                 type="text"
                 name="lastname"
                 value={order.shippingAddress.lastname}
@@ -125,6 +127,7 @@ export default function Form() {
             </FormField>
             <FormField id="shipping-company" label={t("companyLabel")} className="sm:col-span-2">
               <input
+                id="shipping-company"
                 type="text"
                 name="company"
                 value={order.shippingAddress.company}
@@ -141,7 +144,14 @@ export default function Form() {
           <legend className="text-base font-semibold text-gray-900 mb-4">{t("addressInfoLegend")}</legend>
           <div className="space-y-4">
             <FormField id="shipping-country" label={t("countryLabel")} required>
-              <select name="country" value={order.shippingAddress.country} onChange={handleChange} required className={inputClassname}>
+              <select
+                id="shipping-country"
+                name="country"
+                value={order.shippingAddress.country}
+                onChange={handleChange}
+                required
+                className={inputClassname}
+              >
                 <option value="">{t("countrySelectDefault")}</option>
                 {sseData?.shippingMethods?.byShippingZones &&
                   Object.keys(sseData.shippingMethods.byShippingZones).map((s, i) => (
@@ -153,6 +163,7 @@ export default function Form() {
             </FormField>
             <FormField id="shipping-address1" label={t("address1Label")} required>
               <input
+                id="shipping-address1"
                 type="text"
                 name="address1"
                 value={order.shippingAddress.address1}
@@ -165,6 +176,7 @@ export default function Form() {
             </FormField>
             <FormField id="shipping-address2" label={t("address2Label")}>
               <input
+                id="shipping-address2"
                 type="text"
                 name="address2"
                 value={order.shippingAddress.address2}
@@ -177,6 +189,7 @@ export default function Form() {
             <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
               <FormField id="shipping-postal-code" label={t("postalCodeLabel")} required>
                 <input
+                  id="shipping-postal-code"
                   type="text"
                   name="postalCode"
                   value={order.shippingAddress.postalCode}
@@ -188,6 +201,7 @@ export default function Form() {
               </FormField>
               <FormField id="shipping-city" label={t("cityLabel")} required>
                 <input
+                  id="shipping-city"
                   type="text"
                   name="city"
                   value={order.shippingAddress.city}
@@ -206,6 +220,7 @@ export default function Form() {
                 required={province[order.shippingAddress.country as keyof typeof province].required}
               >
                 <select
+                  id="shipping-province"
                   name="province"
                   value={order.shippingAddress.province}
                   onChange={handleChange}
@@ -223,6 +238,7 @@ export default function Form() {
             )}
             <FormField id="shipping-phone" label={t("phoneLabel")} required helpText={t("phoneHelpText")}>
               <input
+                id="shipping-phone"
                 type="tel"
                 name="phone"
                 value={order.shippingAddress.phone}
@@ -234,6 +250,7 @@ export default function Form() {
             </FormField>
             <FormField id="shipping-email" label={t("emailLabel")} required helpText={t("emailHelpText")}>
               <input
+                id="shipping-email"
                 type="email"
                 name="email"
                 value={order.shippingAddress.email}
@@ -245,12 +262,21 @@ export default function Form() {
             </FormField>
             {/* Password (Guest Checkout) */}
             {!userData && (
-              <FormField id="shipping-password" label={t("createPasswordLabel")} required helpText={t("createPasswordHelpText")}>
-                <input type="password" name="password" value={order.password} onChange={handleChange} required className={inputClassname} />
+              <FormField id="password" label={t("createPasswordLabel")} required helpText={t("createPasswordHelpText")}>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  value={order.password}
+                  onChange={handleChange}
+                  required
+                  className={inputClassname}
+                />
               </FormField>
             )}
             <FormField id="shipping-order-notes" label={t("orderNotesLabel")}>
               <textarea
+                id="shipping-order-notes"
                 rows={4}
                 name="order-notes"
                 value={order.shippingAddress["order-notes"]}
@@ -298,6 +324,7 @@ export default function Form() {
           <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
             <FormField id="billing-firstname" label={t("firstNameLabel")} required={order["different-billing"]}>
               <input
+                id="billing-firstname"
                 type="text"
                 name="firstname"
                 value={order.billingAddress.firstname}
@@ -309,6 +336,7 @@ export default function Form() {
             </FormField>
             <FormField id="billing-lastname" label={t("lastNameLabel")} required={order["different-billing"]}>
               <input
+                id="billing-lastname"
                 type="text"
                 name="lastname"
                 value={order.billingAddress.lastname}
@@ -320,6 +348,7 @@ export default function Form() {
             </FormField>
             <FormField id="billing-company" label={t("companyLabel")} className="sm:col-span-2">
               <input
+                id="billing-company"
                 type="text"
                 name="company"
                 value={order.billingAddress.company}
@@ -336,6 +365,7 @@ export default function Form() {
           <div className="space-y-4">
             <FormField id="billing-country" label={t("countryLabel")} required={order["different-billing"]}>
               <select
+                id="billing-country"
                 name="country"
                 value={order.billingAddress.country}
                 onChange={handleChange}
@@ -353,6 +383,7 @@ export default function Form() {
             </FormField>
             <FormField id="billing-address1" label={t("address1Label")} required={order["different-billing"]}>
               <input
+                id="billing-address1"
                 type="text"
                 name="address1"
                 value={order.billingAddress.address1}
@@ -365,6 +396,7 @@ export default function Form() {
             </FormField>
             <FormField id="billing-address2" label={t("address2Label")}>
               <input
+                id="billing-address2"
                 type="text"
                 name="address2"
                 value={order.billingAddress.address2}
@@ -377,6 +409,7 @@ export default function Form() {
             <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
               <FormField id="billing-postal-code" label={t("postalCodeLabel")} required={order["different-billing"]}>
                 <input
+                  id="billing-postal-code"
                   type="text"
                   name="postalCode"
                   value={order.billingAddress.postalCode}
@@ -388,6 +421,7 @@ export default function Form() {
               </FormField>
               <FormField id="billing-city" label={t("cityLabel")} required={order["different-billing"]}>
                 <input
+                  id="billing-city"
                   type="text"
                   name="city"
                   value={order.billingAddress.city}
@@ -406,6 +440,7 @@ export default function Form() {
                 required={order["different-billing"] && province[order.billingAddress.country as keyof typeof province].required}
               >
                 <select
+                  id="billing-province"
                   name="province"
                   value={order.billingAddress.province}
                   onChange={handleChange}
@@ -423,6 +458,7 @@ export default function Form() {
             )}
             <FormField id="billing-phone" label={t("phoneLabel")} required={order["different-billing"]}>
               <input
+                id="billing-phone"
                 type="tel"
                 name="phone"
                 value={order.billingAddress.phone}
@@ -434,6 +470,7 @@ export default function Form() {
             </FormField>
             <FormField id="billing-email" label={t("emailLabel")} required={order["different-billing"]}>
               <input
+                id="billing-email"
                 type="email"
                 name="email"
                 value={order.billingAddress.email}

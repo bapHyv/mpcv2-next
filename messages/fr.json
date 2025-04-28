@@ -279,7 +279,7 @@
         "emailLabel": "Adresse e-mail",
         "emailValue": "contact@monplancbd.fr",
         "phoneLabel": "Téléphone",
-        "phoneValue": "07 66 13 59 38"
+        "phoneValue": "+33 6 65 35 03 78"
       },
       "item_gtc": {
         "label": "Conditions Générales de Vente :",
@@ -662,7 +662,7 @@
       "title": "Nous Contacter",
       "para1": "Si vous avez des questions concernant votre expédition ou cette politique, veuillez nous contacter par e-mail à {emailLink} ou par téléphone au {phone}.",
       "emailAddress": "contact@monplancbd.fr",
-      "phoneNumber": "07 66 13 59 38"
+      "phoneNumber": "+33 6 65 35 03 78"
     }
   },
   "FAQ": {
@@ -852,7 +852,7 @@
         "email_label": "Par email",
         "email_value": "contact@monplancbd.fr",
         "phone_label": "Par téléphone",
-        "phone_value": "07 66 13 59 38",
+        "phone_value": "+33 6 65 35 03 78",
         "form_label": "Via le formulaire de contact sur notre site",
         "form_link_text": "ici",
         "outro": "Nous nous efforçons de répondre à toutes les demandes dans les plus brefs délais."
@@ -1043,7 +1043,7 @@
       "email": "Par courrier électronique",
       "emailAddress": "contact@monplancbd.fr",
       "phone": "Par téléphone",
-      "phoneNumber": "07 66 13 59 38",
+      "phoneNumber": "+33 6 65 35 03 78",
       "phoneInfo": "numéro non surtaxé, coût selon opérateur",
       "mail": "Par courrier postal",
       "postalAddress": "MONPLANCBD SAS, 2 place Elie Lambert, 64100 Bayonne, France."
@@ -1377,7 +1377,8 @@
     "title": "Votre Panier",
     "closeButtonSR": "Fermer le panier",
     "totalLabel": "Total :",
-    "checkoutButton": "Voir Panier & Commander",
+    "checkoutButton": "Voir Panier",
+    "shippingButton": "Commander",
     "emptyMessage": "Votre panier est actuellement vide.",
     "continueShoppingButton": "Continuer les achats",
     "orSeparator": "ou"

@@ -94,7 +94,6 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
           id: addressId,
         });
         setIsLoading(true);
-        console.log("Adding address...");
         const response = await updateAddress(strigifiedData);
         setIsLoading(false);
         setActionResponse(response);
