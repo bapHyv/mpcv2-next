@@ -75,8 +75,6 @@ export async function generateMetadata({ params: { category: categorySlug, local
 
   const title = `${t("productOptions.addToCartButton")} ${productName} - ${categoryTitle} | ${brandName}`;
 
-  console.log(product?.metaDescription);
-
   const description = product?.metaDescription
     ? product?.metaDescription
     : shortDescription.length > 160

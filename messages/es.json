@@ -294,7 +294,7 @@
         "emailLabel": "Dirección de correo electrónico",
         "emailValue": "contact@monplancbd.fr",
         "phoneLabel": "Teléfono",
-        "phoneValue": "+33 7 66 13 59 38"
+        "phoneValue": "+33 6 65 35 03 78"
       },
       "item_gtc": {
         "label": "Condiciones Generales de Venta:",
@@ -677,7 +677,7 @@
       "title": "Contáctenos",
       "para1": "Si tiene alguna pregunta sobre su envío o esta política, contáctenos por correo electrónico a {emailLink} o por teléfono al {phone}.",
       "emailAddress": "contact@monplancbd.fr",
-      "phoneNumber": "+33 7 66 13 59 38"
+      "phoneNumber": "+33 6 65 35 03 78"
     }
   },
   "FAQ": {
@@ -867,7 +867,7 @@
         "email_label": "Por correo electrónico",
         "email_value": "contact@monplancbd.fr",
         "phone_label": "Por teléfono",
-        "phone_value": "+33 7 66 13 59 38",
+        "phone_value": "+33 6 65 35 03 78",
         "form_label": "A través del formulario de contacto en nuestro sitio",
         "form_link_text": "aquí",
         "outro": "Nos esforzamos por responder a todas las consultas lo antes posible."
@@ -1058,7 +1058,7 @@
       "email": "Por correo electrónico",
       "emailAddress": "contact@monplancbd.fr",
       "phone": "Por teléfono",
-      "phoneNumber": "+33 7 66 13 59 38",
+      "phoneNumber": "+33 6 65 35 03 78",
       "phoneInfo": "número de tarifa estándar, coste según operador",
       "mail": "Por correo postal",
       "postalAddress": "MONPLANCBD SAS, 2 place Elie Lambert, 64100 Bayona, Francia."
@@ -1392,7 +1392,8 @@
     "title": "Tu Carrito",
     "closeButtonSR": "Cerrar carrito",
     "totalLabel": "Total:",
-    "checkoutButton": "Ver Carrito y Pagar",
+    "checkoutButton": "Ver Carrito",
+    "shippingButton": "Pagar",
     "emptyMessage": "Tu carrito está actualmente vacío.",
     "continueShoppingButton": "Continuar Comprando",
     "orSeparator": "o"

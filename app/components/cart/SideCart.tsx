@@ -116,11 +116,18 @@ export default function Cart() {
                         <p>{t("cart.totalLabel")}</p>
                         <p>{cartTotal.toFixed(2)}€</p>
                       </div>
-                      <Link href={`/${locale}/panier`} className="block">
-                        <button type="button" className={twMerge(buttonClassname, "w-full py-2.5")} disabled={!cart?.products?.length}>
-                          {t("cart.checkoutButton")}
-                        </button>
-                      </Link>
+                      <div className="w-full flex gap-x-3">
+                        <Link href={`/${locale}/panier`} className="w-1/2">
+                          <button type="button" className={twMerge(buttonClassname, "w-full")} disabled={!cart?.products?.length}>
+                            {t("cart.checkoutButton")}
+                          </button>
+                        </Link>
+                        <Link href={`/${locale}/expedition`} className="w-1/2">
+                          <button type="button" className={twMerge(buttonClassname, "w-full")} disabled={!cart?.products?.length}>
+                            {t("cart.shippingButton")}
+                          </button>
+                        </Link>
+                      </div>
                       <div className="mt-4 flex justify-center text-center text-sm text-gray-500">
                         <p>
                           {t("cart.orSeparator")}{" "}
