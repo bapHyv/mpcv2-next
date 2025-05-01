@@ -190,8 +190,90 @@
     "seoKeywords": "CBD, comprar CBD, CBD Francia, flor CBD, aceite CBD, resina CBD, CBD legal, MonPlanCBD, calidad CBD, envío CBD",
     "ogImageAlt": "MonPlanCBD - Flores, Aceites y Resinas CBD de Alta Calidad en Francia"
   },
-  "bankTransferPage": {
-    "metadataTitle": "Confirmación de Pedido - MonPlanCBD"
+  "orderReceived": {
+    "metadataTitle": "Confirmación de Pedido - MonPlanCBD",
+    "pageTitle": "Pedido Recibido",
+    "status": {
+      "processing": "Procesando Pago",
+      "success": "Pago Exitoso",
+      "failed": "Pago Fallido",
+      "fraud_refusal": "Pago Rechazado (Sospecha de Fraude)",
+      "fraud_warning": "Pago Autorizado (Alerta de Fraude)",
+      "auth_failed": "Autenticación Fallida (3D Secure)",
+      "bank_refusal": "Pago Rechazado por el Banco",
+      "max_attempts": "Máximo de Intentos Alcanzado",
+      "technical_error": "Error Técnico Durante el Pago",
+      "abandoned": "Pago Abandonado",
+      "unknown_failure": "Pago Fallido (Razón Desconocida)",
+      "error": "Error al Procesar la Información de Pago",
+      "unknownReason": "Razón desconocida"
+    },
+    "statusMessages": {
+      "fraudWarningNote": "Su pago fue autorizado pero marcado para revisión. Podríamos contactarlo si es necesario.",
+      "contactSupport": "Por favor, intente de nuevo o contacte con atención al cliente si el problema persiste."
+    },
+    "summary": {
+      "title": "Resumen del Pedido",
+      "orderNumber": "Número de Pedido",
+      "date": "Fecha",
+      "email": "Correo Electrónico",
+      "total": "Total",
+      "paymentMethod": "Método de Pago",
+      "notAvailable": "N/D"
+    },
+    "paymentMethods": {
+      "bankTransfer": "Transferencia Bancaria",
+      "card": "Tarjeta Bancaria"
+    },
+    "bankDetails": {
+      "title": "Nuestros Datos Bancarios",
+      "instruction": "Por favor, utilice su Número de Pedido como referencia de pago.",
+      "bankNameLabel": "Banco",
+      "bankNameValue": "LCL",
+      "accountNumberLabel": "Número de Cuenta",
+      "accountNumberValue": "0000070699C",
+      "branchCodeLabel": "Código de Sucursal",
+      "branchCodeValue": "01747",
+      "ibanLabel": "IBAN",
+      "ibanValue": "FR05 3000 2017 4700 0007 0699 C46",
+      "bicLabel": "BIC / SWIFT",
+      "bicValue": "CRLYFRPP",
+      "reminder": "Recuerde incluir su Número de Pedido ({orderId}) en la referencia de la transferencia."
+    },
+    "orderDetails": {
+      "title": "Detalles del Pedido",
+      "productHeader": "Producto",
+      "totalHeader": "Total",
+      "subtotalLabel": "Subtotal",
+      "shippingLabel": "Envío",
+      "paymentMethodLabel": "Método de pago",
+      "grandTotalLabel": "Total",
+      "vatIncludedText": "(incluye {vatAmount}€ de IVA)"
+    },
+    "shippingAddress": {
+      "title": "Dirección de Envío"
+    },
+    "billingAddress": {
+      "title": "Dirección de Facturación"
+    },
+    "alerts": {
+      "bankTransfer": {
+        "title": "Pedido Recibido",
+        "text": "Su pedido ha sido recibido. Por favor, proceda con la transferencia bancaria utilizando los datos proporcionados."
+      },
+      "cardSuccess": {
+        "title": "Pago Exitoso",
+        "text": "¡Su pago fue exitoso! Su pedido está siendo procesado."
+      },
+      "cardWarning": {
+        "title": "Pago Bajo Revisión",
+        "text": "Su pago fue autorizado pero está bajo revisión debido a una posible alerta de fraude ({reason}). Nos pondremos en contacto si es necesario."
+      },
+      "cardFailed": {
+        "title": "Pago Fallido",
+        "text": "No se pudo procesar su pago ({reason}). Por favor, intente de nuevo o contacte con soporte."
+      }
+    }
   },
   "accountProfilePage": {
     "metadataTitle": "Mi Perfil - Mi Cuenta - MonPlanCBD"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
@@ -16,13 +16,7 @@ import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 import { useTranslations } from "next-intl";
 import Star from "@/app/components/Star";
 import { inputClassname, labelClassname, checkRadioClassname, linkClassname } from "@/app/staticData/cartPageClasses";
-
-const initialState = {
-  message: "",
-  data: null,
-  isSuccess: false,
-  statusCode: 0,
-};
+import { IActionResponse } from "@/app/types/apiTypes";
 
 const FormField = ({
   id,
@@ -54,25 +48,62 @@ export default function SignUpForm() {
   const searchParams = useSearchParams();
 
   const [inputType, setInputType] = useState<"password" | "text">("password");
-  const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [doesPasswordsMatch, setDoesPasswordMatch] = useState(true);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    optInMarketing: false,
+  });
+
   const initialEmail = searchParams.get("email") || "";
 
-  const [state, formAction] = useFormState(register, { ...initialState, email: initialEmail } as any);
+  const [isLoading, setIsLoading] = useState(false);
+  const [actionResponse, setActionResponse] = useState<IActionResponse>({
+    message: "",
+    data: null,
+    isSuccess: false,
+    statusCode: 0,
+  });
 
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const target = e.target as HTMLInputElement;
+    setFormData((prev) => ({
+      ...prev,
+      [target.name]: target.type === "checkbox" ? target.checked : target.value,
+    }));
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const registerFunction = async () => {
+      try {
+        const stringifiedData = JSON.stringify(formData);
+        setIsLoading(true);
+        const response = await register(stringifiedData);
+        setIsLoading(false);
+        setActionResponse(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    registerFunction();
+  };
+
   useEffect(() => {
-    if (state.statusCode !== 0) {
-      if (state.isSuccess && isUserDataAPIResponse(state.data) && state.statusCode === 200) {
+    if (actionResponse.statusCode !== 0) {
+      if (actionResponse.isSuccess && isUserDataAPIResponse(actionResponse.data) && actionResponse.statusCode === 200) {
         const redirectPath = searchParams.get("redirect");
-        setUserData(state.data);
-        localStorage.setItem("accessToken", state.data.accessToken);
-        localStorage.setItem("refreshToken", state.data.refreshToken);
+        setUserData(actionResponse.data);
         addAlert(uuid(), t("alerts.signUp.success.text"), t("alerts.signUp.success.title"), "emerald");
         router.push(redirectPath ? `/${redirectPath}` : "/"); // Redirect to account
         router.refresh();
@@ -81,12 +112,12 @@ export default function SignUpForm() {
         let textKey = "alerts.signUp.defaultError.text";
         let alertType: "yellow" | "red" | "blue" = "red";
 
-        switch (state.statusCode) {
+        switch (actionResponse.statusCode) {
           case 409:
             titleKey = "alerts.signUp.error409.title";
             textKey = "alerts.signUp.error409.text";
             alertType = "blue";
-            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent(state.email || initialEmail)}`), 500);
+            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent((actionResponse.data as string) || initialEmail)}`), 500);
             break;
           case 400:
             titleKey = "alerts.signUp.error400.title";
@@ -104,30 +135,30 @@ export default function SignUpForm() {
             alertType = "red";
             break;
         }
-        const alertText = state.message || t(textKey);
+        const alertText = t(textKey);
         addAlert(uuid(), alertText, t(titleKey), alertType);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [actionResponse]);
 
   useEffect(() => {
     if (repeatPassword) {
-      setDoesPasswordMatch(password === repeatPassword);
+      setDoesPasswordMatch(formData.password === repeatPassword);
     } else {
       setDoesPasswordMatch(true);
     }
-  }, [password, repeatPassword]);
+  }, [formData.password, repeatPassword]);
 
   return (
-    <form action={formAction} className="space-y-5">
+    <form className="space-y-5" onSubmit={handleSubmit}>
       {/* First/Last Name */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
         <FormField id="firstname" label={t("signUpPage.firstNameLabel")} required>
-          <input type="text" name="firstname" required className={inputClassname} />
+          <input type="text" name="firstname" required className={inputClassname} onChange={handleChange} value={formData.firstname} />
         </FormField>
         <FormField id="lastname" label={t("signUpPage.lastNameLabel")} required>
-          <input type="text" name="lastname" required className={inputClassname} />
+          <input type="text" name="lastname" required className={inputClassname} onChange={handleChange} value={formData.lastname} />
         </FormField>
       </div>
 
@@ -138,10 +169,10 @@ export default function SignUpForm() {
           name="email"
           required
           defaultValue={initialEmail}
+          value={formData.email}
+          onChange={handleChange}
           className={inputClassname}
-          aria-describedby={state?.errors?.email ? "email-error" : undefined}
         />
-        {/* TODO Optional: state?.errors?.email */}
       </FormField>
 
       {/* Password */}
@@ -150,12 +181,11 @@ export default function SignUpForm() {
           <input
             type={inputType}
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             required
+            value={formData.password}
+            onChange={handleChange}
             autoComplete="new-password"
             className={inputClassname}
-            aria-describedby={state?.errors?.password ? "password-error" : undefined}
           />
           <button
             type="button"
@@ -166,7 +196,6 @@ export default function SignUpForm() {
             {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
           </button>
         </div>
-        {/* Optional: state?.errors?.password */}
       </FormField>
 
       {/* Repeat Password */}
@@ -206,7 +235,14 @@ export default function SignUpForm() {
         {/* Marketing Opt-in */}
         <div className="relative flex items-start">
           <div className="flex h-6 items-center">
-            <input id="optInMarketing" name="optInMarketing" type="checkbox" className={checkRadioClassname} />
+            <input
+              id="optInMarketing"
+              name="optInMarketing"
+              type="checkbox"
+              checked={formData.optInMarketing}
+              onChange={handleChange}
+              className={checkRadioClassname}
+            />
           </div>
           <div className="ml-3 text-sm leading-6">
             <label htmlFor="optInMarketing" className="font-medium text-gray-900 cursor-pointer">
@@ -241,7 +277,12 @@ export default function SignUpForm() {
 
       {/* Submit Button */}
       <div>
-        <SubmitButton text={t("signUpPage.submitButton")} isDisabled={!doesPasswordsMatch || !agreedToTerms} className="w-full mt-4" />
+        <SubmitButton
+          text={t("signUpPage.submitButton")}
+          isDisabled={!doesPasswordsMatch || !agreedToTerms}
+          isPending={isLoading}
+          className="w-full mt-4"
+        />
       </div>
     </form>
   );

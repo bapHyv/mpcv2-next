@@ -10,7 +10,7 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { useAuth } from "@/app/context/authContext";
 import { Address } from "@/app/types/profileTypes";
 import { updateAddress } from "@/app/actions";
-import { isAddress, isResponseApi } from "@/app/utils/typeGuardsFunctions";
+import { isAddress, isResponseApi, isUpdateAddressResponse } from "@/app/utils/typeGuardsFunctions";
 import { useSse } from "@/app/context/sseContext";
 import { disableBodyScroll, enableBodyScroll } from "@/app/utils/bodyScroll";
 
@@ -89,12 +89,12 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
     const updateAddressFunction = async () => {
       try {
         const addressId = new FormData(e.currentTarget).get("id");
-        const strigifiedData = JSON.stringify({
+        const stringifiedData = JSON.stringify({
           address: editingAddress,
           id: addressId,
         });
         setIsLoading(true);
-        const response = await updateAddress(strigifiedData);
+        const response = await updateAddress(stringifiedData);
         setIsLoading(false);
         setActionResponse(response);
       } catch (error) {
@@ -111,8 +111,13 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
 
   useEffect(() => {
     if (isResponseApi(actionResponse) && actionResponse.statusCode !== 0) {
-      if (actionResponse.isSuccess && isAddress(actionResponse.data) && actionResponse.statusCode === 200) {
-        const updatedAddress = actionResponse.data;
+      if (actionResponse.isSuccess && actionResponse.statusCode === 200) {
+        // Have to do this because the Address.id is supposed to be type number but the updateAddressResponse.id is type string
+        const deepCopy = JSON.parse(JSON.stringify(actionResponse.data));
+        deepCopy.id = parseInt(deepCopy.id);
+
+        const updatedAddress: Address = deepCopy;
+
         setUserData((prevState) => {
           if (prevState) {
             const updatedAddresses = prevState.addresses.map((addr) => (addr.id === updatedAddress.id ? updatedAddress : addr));

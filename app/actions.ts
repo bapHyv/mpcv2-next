@@ -1,29 +1,10 @@
 "use server";
 
-import { Address, UserDataAPIResponse } from "@/app/types/profileTypes";
+import { Address, UpdateAddressResponse, UserDataAPIResponse } from "@/app/types/profileTypes";
 import { cookies } from "next/headers";
 import { fetchWrapper } from "@/app/utils/fetchWrapper";
 import { billingAddress, Order, shippingAddress, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
-interface Login {
-  email: string;
-  password: string;
-}
-
-interface Register extends Login {
-  firstname: string;
-  lastname: string;
-  optInMarketing: boolean;
-}
-
-interface Update {
-  title: string;
-  firstname: string;
-  lastname: string;
-  displayName: string;
-  email: string;
-  optInMarketing: number;
-}
-
+import { generatePaymentToken } from "@/app/utils/auth";
 interface ErrorReponse {
   message: string;
   statusCode: number;
@@ -36,10 +17,10 @@ interface IComment {
 }
 
 interface IUser {
-  mail: FormDataEntryValue | null;
-  password: FormDataEntryValue | null;
-  firstname: FormDataEntryValue | null;
-  lastname: FormDataEntryValue | null;
+  mail: string;
+  password: string;
+  firstname: string;
+  lastname: string;
   optInMarketing: boolean;
   shippingAddress: shippingAddress | null;
   billingAddress: billingAddress | null;
@@ -66,9 +47,9 @@ function responseAPI(message: string, data: data, isSuccess: boolean, statusCode
  *  401: wrong password {message, null, !isSuccess, statusCode: 401}
  *  500: error server {message, null, !isSuccess, statusCode: 500}
  */
-export async function login(prevState: Login, formData: FormData) {
+export async function login(stringifiedData: string) {
   try {
-    const user = { username: formData.get("email"), password: formData.get("password") };
+    const user: { username: string; password: string } = JSON.parse(stringifiedData);
 
     const fetchOptions = {
       method: "POST",
@@ -135,29 +116,47 @@ export async function logout() {
  *  500: error server {message, null, !isSuccess, statusCode: 500}
  */
 
-export async function register(prevState: any, formData: FormData) {
+interface User {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  optInMarketing: boolean;
+}
+
+export async function register(stringifiedData: string, formData?: FormData) {
   try {
-    const shippingAddress: shippingAddress = JSON.parse(formData.get("shipping-address") as string);
-    const billingAddress: billingAddress = JSON.parse(formData.get("billing-address") as string);
-    const isDifferentBilling = !!formData.get("different-billing");
+    const parsedUser: User = JSON.parse(stringifiedData);
+
+    const shippingAddress: shippingAddress | undefined = formData ? JSON.parse(formData.get("shipping-address") as string) : undefined;
+    const billingAddress: billingAddress | undefined = formData ? JSON.parse(formData.get("billing-address") as string) : undefined;
+    const isDifferentBilling: boolean | undefined = formData ? !!formData.get("different-billing") : undefined;
+
+    console.log({ isDifferentBilling });
 
     const user: IUser = {
-      mail: formData.get("email"),
-      password: formData.get("password"),
-      firstname: formData.get("firstname"),
-      lastname: formData.get("lastname"),
-      optInMarketing: formData.get("optInMarketing") ? true : false,
+      mail: parsedUser.email,
+      password: parsedUser.password,
+      firstname: parsedUser.firstname,
+      lastname: parsedUser.lastname,
+      optInMarketing: parsedUser.optInMarketing,
       shippingAddress: !!shippingAddress ? shippingAddress : null,
       billingAddress: !!billingAddress ? billingAddress : null,
     };
 
-    if (!isDifferentBilling) {
+    if (isDifferentBilling !== undefined && billingAddress && shippingAddress && !isDifferentBilling) {
       for (const key in shippingAddress) {
         if (key !== "order-notes") {
           billingAddress[key as keyof billingAddress] = shippingAddress[key as keyof shippingAddress];
         }
       }
     }
+
+    console.log({ parsedUser });
+    console.log({ shippingAddress });
+    console.log({ billingAddress });
+    console.log({ isDifferentBilling });
+    console.log({ user });
 
     const fetchOptions = {
       method: "POST",
@@ -170,7 +169,7 @@ export async function register(prevState: any, formData: FormData) {
     const response = await fetch(`${process.env.API_HOST}/register`, fetchOptions);
 
     if (!response.ok && response.status === 409) {
-      return responseAPI("User successfully signed up", user.mail, false, response.status);
+      return responseAPI("User already exists", user.mail, false, response.status);
     }
 
     if (!response.ok) {
@@ -209,9 +208,19 @@ export async function register(prevState: any, formData: FormData) {
  *  422: semantic error {message, null, !isSuccess, statusCode: 422}
  *  500: error server {message, null, !isSuccess, statusCode: 500}
  */
-export async function update(strigifiedData: string) {
+
+interface UpdateUser {
+  firstname: string;
+  lastname: string;
+  mail: string;
+  oldPassword: string;
+  newPassword: string;
+  optInMarketing: boolean;
+}
+
+export async function update(stringifiedData: string) {
   try {
-    const user = JSON.parse(strigifiedData);
+    const user: UpdateUser = JSON.parse(stringifiedData);
 
     const fetchOptions = {
       method: "PUT",
@@ -253,9 +262,12 @@ export async function update(strigifiedData: string) {
  *  422: semantic error {message, null, !isSuccess, statusCode: 422}
  *  500: error server {message, null, !isSuccess, statusCode: 500}
  */
+
+type addedAddress = Omit<Address, "id">;
+
 export async function addAddress(stringifiedData: string) {
   try {
-    const address = JSON.parse(stringifiedData);
+    const address: addedAddress = JSON.parse(stringifiedData);
 
     const fetchOptions = {
       method: "POST",
@@ -363,7 +375,7 @@ export async function updateAddress(stringifiedData: string) {
 
     const addressResponse: Address = await response.json();
 
-    return responseAPI("Address successfully updated", addressResponse, true, response.status as 200);
+    return responseAPI("Address successfully updated", addressResponse as unknown as UpdateAddressResponse, true, response.status as 200);
   } catch (error: any | ErrorReponse) {
     console.error("Update address error:", error);
 
@@ -524,15 +536,8 @@ export async function bankTransfer(stringifiedOrder: string, orderId: number) {
     const response = await fetchWrapper(`${process.env.API_HOST}/order/${orderId}/transfer-payment`, fetchOptions);
 
     if (response.status === 204) {
-      const cookieOptions = {
-        path: "/",
-        httpOnly: true, // Important for security: Cannot be accessed via client-side JS
-        secure: process.env.NODE_ENV === "production", // Use secure in production (HTTPS)
-        maxAge: 300, // Expires after 5 minutes
-        sameSite: "lax" as const, // Good default for navigation context
-      };
-      cookies().set("allow_bank_transfer_access", "true", cookieOptions);
-      return responseAPI("Bank transfer call successful", null, true, response.status);
+      const token = generatePaymentToken({ orderId, payment: "bankTransfer" });
+      return responseAPI("Bank transfer call successful", token, true, response.status);
     }
 
     if (!response.ok) {
@@ -553,8 +558,4 @@ export async function bankTransfer(stringifiedOrder: string, orderId: number) {
 
     return responseAPI(errorMessage, null, false, statusCode);
   }
-}
-
-export async function clearBankTransferCookie() {
-  cookies().delete("allow_bank_transfer_access");
 }

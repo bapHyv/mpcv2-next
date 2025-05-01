@@ -26,18 +26,6 @@ export interface FormatedProduct {
   VATRate: number;
 }
 
-const variationTable = {
-  "286": 284,
-  "287": 284,
-  "288": 284,
-  "289": 284,
-  "290": 284,
-  "927": 284,
-  "20510": 341,
-  "20511": 341,
-  "20512": 341,
-};
-
 export interface ProductCart {
   cartItemId: string; // uuid generated when adding a product in the cart. It is used to delete it
   id: number; // This is the productId

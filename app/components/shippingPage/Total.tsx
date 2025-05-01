@@ -70,6 +70,7 @@ export default function Total({ isPending }: { isPending: boolean }) {
               <label htmlFor="condition-generales" className="text-gray-700 cursor-pointer">
                 {t("shippingPage.totalSummary.termsLabel")}
                 <Link href="/conditions-generales-de-vente" target="_blank" className={linkClassname}>
+                  {" "}
                   {t("shippingPage.totalSummary.termsLinkText")}
                 </Link>{" "}
                 <Star />

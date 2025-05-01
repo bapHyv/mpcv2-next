@@ -5,7 +5,7 @@ export default function useCleanUpAfterPayment() {
   const { setCart } = useProductsAndCart();
   const { setOrder } = useOrder();
 
-  const handleCleanUpAfterPayment = () => {
+  const handleCleanUpAfterPayment = (callback?: () => void) => {
     setCart({ total: 0, products: [] });
     localStorage.setItem("cart", JSON.stringify({ total: 0, products: [] }));
     setOrder({
@@ -52,6 +52,7 @@ export default function useCleanUpAfterPayment() {
       customerUserAgent: "",
       deviceType: {} as UAParser.IResult,
     });
+    if (callback) callback();
   };
 
   return { handleCleanUpAfterPayment };

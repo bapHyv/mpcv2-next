@@ -1,4 +1,4 @@
-import { UserDataAPIResponse, UserMetadata, Address, Order, Product, Shipping } from "@/app/types/profileTypes";
+import { UserDataAPIResponse, UserMetadata, Address, Order, Product, Shipping, UpdateAddressResponse } from "@/app/types/profileTypes";
 import { BoxtalConnectMethod, FlatRateMethod, FreeShippingMethod, IShippingMethod, LocalPickupMethod } from "@/app/types/sseTypes";
 import { InitPaymentResponse, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
 import { IResponseAPI } from "@/app/actions";
@@ -103,7 +103,6 @@ export function isAddress(address: any): address is Address {
     typeof address.lastname === "string" &&
     typeof address.address1 === "string" &&
     typeof address.address2 === "string" &&
-    // typeof address.postalCode === "number" &&
     typeof address.city === "string" &&
     typeof address.country === "string" &&
     typeof address.phone === "string" &&
@@ -111,7 +110,25 @@ export function isAddress(address: any): address is Address {
     typeof address.billing === "boolean" &&
     typeof address.shipping === "boolean" &&
     typeof address.company === "string"
-    // typeof address.id === "number"
+  );
+}
+
+export function isUpdateAddressResponse(address: any): address is UpdateAddressResponse {
+  return (
+    address &&
+    typeof address.firstname === "string" &&
+    typeof address.lastname === "string" &&
+    typeof address.company === "string" &&
+    typeof address.country === "string" &&
+    typeof address.address1 === "string" &&
+    typeof address.address2 === "string" &&
+    typeof address.postalCode === "string" &&
+    typeof address.city === "string" &&
+    typeof address.phone === "string" &&
+    typeof address.email === "string" &&
+    typeof address.billing === "boolean" &&
+    typeof address.shipping === "boolean" &&
+    typeof address.id === "string"
   );
 }
 
