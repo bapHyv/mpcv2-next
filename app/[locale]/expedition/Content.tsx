@@ -49,7 +49,16 @@ export default function DisplayComponents() {
           const formData = new FormData(form.current);
           formData.append("shipping-address", JSON.stringify(order.shippingAddress));
           formData.append("billing-address", JSON.stringify(order.billingAddress));
-          const response = await register(null, formData);
+
+          const stringifiedUser = JSON.stringify({
+            email: order.shippingAddress.email,
+            password: order.password,
+            firstname: order.shippingAddress.firstname,
+            lastname: order.shippingAddress.lastname,
+            optInMarketing: !!formData.get("optInMarketing") ? true : false,
+          });
+
+          const response = await register(stringifiedUser, formData);
           setIsPending(false);
           setActionResponse(response);
         } else {
@@ -67,6 +76,7 @@ export default function DisplayComponents() {
     if (actionResponse) {
       if (actionResponse.isSuccess && actionResponse.data && actionResponse.statusCode === 200) {
         if (isUserDataAPIResponse(actionResponse.data)) {
+          console.log(actionResponse.data);
           setUserData(actionResponse.data);
           addAlert(uuid(), t("alerts.accountCreation.success200.text"), t("alerts.accountCreation.success200.title"), "emerald");
           router.push("/paiement");

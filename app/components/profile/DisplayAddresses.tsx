@@ -47,9 +47,9 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
     const deleteAddressFunction = async () => {
       try {
         const addressId = new FormData(e.currentTarget).get("addressId");
-        const strigifiedData = JSON.stringify({ id: addressId });
+        const stringifiedData = JSON.stringify({ id: addressId });
         setIsLoading(true);
-        const response = await deleteAddress(strigifiedData);
+        const response = await deleteAddress(stringifiedData);
         setIsLoading(false);
         setActionResponse(response);
       } catch (error) {

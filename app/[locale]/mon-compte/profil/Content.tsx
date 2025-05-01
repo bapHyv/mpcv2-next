@@ -122,9 +122,9 @@ export default function Profile() {
     e.preventDefault();
     const updateUser = async () => {
       try {
-        const strigifiedData = JSON.stringify(localFormData);
+        const stringifiedData = JSON.stringify(localFormData);
         setIsLoading(true);
-        const response = await update(strigifiedData);
+        const response = await update(stringifiedData);
         setIsLoading(false);
         setActionResponse(response);
       } catch (error) {

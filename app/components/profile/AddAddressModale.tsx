@@ -103,9 +103,9 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
 
     const addAddressFunction = async () => {
       try {
-        const strigifiedData = JSON.stringify(formData);
+        const stringifiedData = JSON.stringify(formData);
         setIsLoading(true);
-        const response = await addAddress(strigifiedData);
+        const response = await addAddress(stringifiedData);
         setIsLoading(false);
         setActionResponse(response);
       } catch (error) {
@@ -123,6 +123,8 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
   useEffect(() => {
     if (actionResponse.statusCode !== 0) {
       if (actionResponse.isSuccess && isAddress(actionResponse.data) && actionResponse.statusCode === 200) {
+        console.log(actionResponse.data);
+
         setUserData((prevState) => {
           if (prevState) return { ...prevState, addresses: [...prevState.addresses, actionResponse.data as Address] };
           return null;

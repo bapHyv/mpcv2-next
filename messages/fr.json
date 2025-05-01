@@ -1820,8 +1820,90 @@
       "disclaimer": "et recevez votre commande dès demain! (du lundi au vendredi)."
     }
   },
-  "bankTransferPage": {
-    "metadataTitle": "Confirmation de Commande - MonPlanCBD"
+  "orderReceived": {
+    "metadataTitle": "Confirmation de Commande - MonPlanCBD",
+    "pageTitle": "Commande Reçue",
+    "status": {
+      "processing": "Paiement en cours de traitement",
+      "success": "Paiement Réussi",
+      "failed": "Échec du Paiement",
+      "fraud_refusal": "Paiement Refusé (Suspicion de Fraude)",
+      "fraud_warning": "Paiement Autorisé (Alerte Fraude)",
+      "auth_failed": "Échec d'Authentification (3D Secure)",
+      "bank_refusal": "Paiement Refusé par la Banque",
+      "max_attempts": "Nombre Maximum de Tentatives Atteint",
+      "technical_error": "Erreur Technique Pendant le Paiement",
+      "abandoned": "Paiement Abandonné",
+      "unknown_failure": "Échec du Paiement (Raison Inconnue)",
+      "error": "Erreur lors du Traitement des Informations de Paiement",
+      "unknownReason": "Raison inconnue"
+    },
+    "statusMessages": {
+      "fraudWarningNote": "Votre paiement a été autorisé mais signalé pour vérification. Nous pourrions vous contacter si nécessaire.",
+      "contactSupport": "Veuillez réessayer ou contacter le support client si le problème persiste."
+    },
+    "summary": {
+      "title": "Récapitulatif de la Commande",
+      "orderNumber": "Numéro de Commande",
+      "date": "Date",
+      "email": "E-mail",
+      "total": "Total",
+      "paymentMethod": "Moyen de Paiement",
+      "notAvailable": "N/D"
+    },
+    "paymentMethods": {
+      "bankTransfer": "Virement Bancaire",
+      "card": "Carte Bancaire"
+    },
+    "bankDetails": {
+      "title": "Nos Coordonnées Bancaires",
+      "instruction": "Veuillez utiliser votre numéro de commande comme référence de paiement.",
+      "bankNameLabel": "Banque",
+      "bankNameValue": "LCL",
+      "accountNumberLabel": "Numéro de Compte",
+      "accountNumberValue": "0000070699C",
+      "branchCodeLabel": "Code Guichet",
+      "branchCodeValue": "01747",
+      "ibanLabel": "IBAN",
+      "ibanValue": "FR05 3000 2017 4700 0007 0699 C46",
+      "bicLabel": "BIC / SWIFT",
+      "bicValue": "CRLYFRPP",
+      "reminder": "N'oubliez pas d'inclure votre numéro de commande ({orderId}) dans la référence du virement."
+    },
+    "orderDetails": {
+      "title": "Détails de la Commande",
+      "productHeader": "Produit",
+      "totalHeader": "Total",
+      "subtotalLabel": "Sous-total",
+      "shippingLabel": "Expédition",
+      "paymentMethodLabel": "Moyen de paiement",
+      "grandTotalLabel": "Total",
+      "vatIncludedText": "(dont {vatAmount}€ de TVA)"
+    },
+    "shippingAddress": {
+      "title": "Adresse de Livraison"
+    },
+    "billingAddress": {
+      "title": "Adresse de Facturation"
+    },
+    "alerts": {
+      "bankTransfer": {
+        "title": "Commande Reçue",
+        "text": "Votre commande a bien été reçue. Veuillez procéder au virement bancaire en utilisant les informations fournies."
+      },
+      "cardSuccess": {
+        "title": "Paiement Réussi",
+        "text": "Votre paiement a été accepté ! Votre commande est en cours de traitement."
+      },
+      "cardWarning": {
+        "title": "Paiement en Cours d'Examen",
+        "text": "Votre paiement a été autorisé mais est en cours d'examen en raison d'une alerte fraude potentielle ({reason}). Nous vous contacterons si nécessaire."
+      },
+      "cardFailed": {
+        "title": "Échec du Paiement",
+        "text": "Votre paiement n'a pas pu être traité ({reason}). Veuillez réessayer ou contacter le support."
+      }
+    }
   },
   "paymentPage": {
     "metadataTitle": "Paiement - MonPlanCBD",

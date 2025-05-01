@@ -12,17 +12,6 @@ import { usePathname, useRouter } from "next/navigation";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const isTokenExpired = (token: string): boolean => {
-  try {
-    const decoded: any = jwtDecode(token);
-    const currentTime = Math.floor(Date.now() / 1000);
-    return decoded.exp < currentTime;
-  } catch (error) {
-    console.error("Error decoding token:", error);
-    return true;
-  }
-};
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserDataAPIResponse | null>(null);
   const { addAlert } = useAlerts();
@@ -31,27 +20,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const tAlerts = useTranslations("alerts.auth");
 
   const cleanUpLocalStorageUserRelated = () => {
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("accessToken");
     localStorage.removeItem("userData");
   };
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
-    const storedToken = localStorage.getItem("accessToken");
 
-    if (storedUserData && storedToken && !isTokenExpired(storedToken)) {
-      // Check if token exists and is not expired
+    if (storedUserData) {
       try {
         const parsedData = JSON.parse(storedUserData);
         setUserData(parsedData);
       } catch (error) {
         console.error("Failed to parse stored user data:", error);
-        cleanUpLocalStorageUserRelated(); // Clean up corrupted data
       }
-    } else if (storedToken && isTokenExpired(storedToken)) {
-      // If token is expired, clean up everything
-      cleanUpLocalStorageUserRelated();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -60,8 +41,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (userData) {
       localStorage.setItem("userData", JSON.stringify(userData));
-      if (userData.accessToken) localStorage.setItem("accessToken", userData.accessToken);
-      if (userData.refreshToken) localStorage.setItem("refreshToken", userData.refreshToken);
     } else {
       cleanUpLocalStorageUserRelated();
     }

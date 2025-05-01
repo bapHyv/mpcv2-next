@@ -190,8 +190,90 @@
     "seoKeywords": "CBD, buy CBD, CBD France, CBD flower, CBD oil, CBD resin, legal CBD, MonPlanCBD, quality CBD, CBD delivery",
     "ogImageAlt": "MonPlanCBD - High Quality CBD Flowers, Oils, and Resins in France"
   },
-  "bankTransferPage": {
-    "metadataTitle": "Order Confirmation - MonPlanCBD"
+  "orderReceived": {
+    "metadataTitle": "Order Confirmation - MonPlanCBD",
+    "pageTitle": "Order Received",
+    "status": {
+      "processing": "Payment Processing",
+      "success": "Payment Successful",
+      "failed": "Payment Failed",
+      "fraud_refusal": "Payment Refused (Fraud Suspected)",
+      "fraud_warning": "Payment Authorized (Fraud Warning)",
+      "auth_failed": "Authentication Failed (3D Secure)",
+      "bank_refusal": "Payment Refused by Bank",
+      "max_attempts": "Maximum Payment Attempts Reached",
+      "technical_error": "Technical Error During Payment",
+      "abandoned": "Payment Abandoned",
+      "unknown_failure": "Payment Failed (Unknown Reason)",
+      "error": "Error Processing Payment Information",
+      "unknownReason": "Unknown reason"
+    },
+    "statusMessages": {
+      "fraudWarningNote": "Your payment was authorized but flagged for review. We may contact you for verification.",
+      "contactSupport": "Please try again or contact customer support if the issue persists."
+    },
+    "summary": {
+      "title": "Order Summary",
+      "orderNumber": "Order Number",
+      "date": "Date",
+      "email": "Email",
+      "total": "Total",
+      "paymentMethod": "Payment Method",
+      "notAvailable": "N/A"
+    },
+    "paymentMethods": {
+      "bankTransfer": "Bank Transfer",
+      "card": "Credit Card"
+    },
+    "bankDetails": {
+      "title": "Our Bank Details",
+      "instruction": "Please use your Order Number as the payment reference.",
+      "bankNameLabel": "Bank",
+      "bankNameValue": "LCL",
+      "accountNumberLabel": "Account Number",
+      "accountNumberValue": "0000070699C",
+      "branchCodeLabel": "Branch Code",
+      "branchCodeValue": "01747",
+      "ibanLabel": "IBAN",
+      "ibanValue": "FR05 3000 2017 4700 0007 0699 C46",
+      "bicLabel": "BIC / SWIFT",
+      "bicValue": "CRLYFRPP",
+      "reminder": "Remember to include your Order Number ({orderId}) in the transfer reference."
+    },
+    "orderDetails": {
+      "title": "Order Details",
+      "productHeader": "Product",
+      "totalHeader": "Total",
+      "subtotalLabel": "Subtotal",
+      "shippingLabel": "Shipping",
+      "paymentMethodLabel": "Payment method",
+      "grandTotalLabel": "Total",
+      "vatIncludedText": "(includes {vatAmount}€ VAT)"
+    },
+    "shippingAddress": {
+      "title": "Shipping Address"
+    },
+    "billingAddress": {
+      "title": "Billing Address"
+    },
+    "alerts": {
+      "bankTransfer": {
+        "title": "Order Received",
+        "text": "Your order has been received. Please proceed with the bank transfer using the details provided."
+      },
+      "cardSuccess": {
+        "title": "Payment Successful",
+        "text": "Your payment was successful! Your order is being processed."
+      },
+      "cardWarning": {
+        "title": "Payment Under Review",
+        "text": "Your payment was authorized but is under review due to a potential fraud warning ({reason}). We will contact you if needed."
+      },
+      "cardFailed": {
+        "title": "Payment Failed",
+        "text": "Your payment could not be processed ({reason}). Please try again or contact support."
+      }
+    }
   },
   "accountProfilePage": {
     "metadataTitle": "My Profile - My Account - MonPlanCBD"

@@ -1,7 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
@@ -14,93 +13,98 @@ import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { UserDataAPIResponse } from "@/app/types/profileTypes";
 import { inputClassname, labelClassname, linkClassname } from "@/app/staticData/cartPageClasses";
-
-const initialState = {
-  message: "",
-  data: null,
-  isSuccess: false,
-  statusCode: 0,
-  email: "",
-  password: "",
-};
+import { IActionResponse } from "@/app/types/apiTypes";
 
 export default function SignInForm() {
   const t = useTranslations("");
   const [inputType, setInputType] = useState<"password" | "text">("password");
+  const [formData, setFormData] = useState({ username: "", password: "" });
 
-  const [state, formAction] = useFormState(login, initialState as any);
+  const [isLoading, setIsLoading] = useState(false);
+  const [actionResponse, setActionResponse] = useState<IActionResponse>({
+    message: "",
+    data: null,
+    isSuccess: false,
+    statusCode: 0,
+  });
 
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const target = e.target as HTMLInputElement;
+    setFormData((prev) => ({
+      ...prev,
+      [target.name]: target.value,
+    }));
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const loginFunction = async () => {
+      try {
+        const stringifiedData = JSON.stringify(formData);
+        setIsLoading(true);
+        const response = await login(stringifiedData);
+        setIsLoading(false);
+        setActionResponse(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loginFunction();
+  };
+
   useEffect(() => {
-    if (state.statusCode !== 0) {
-      if (state.isSuccess && state.data && state.statusCode === 200) {
+    if (actionResponse.statusCode !== 0) {
+      if (actionResponse.statusCode === 204) {
+        addAlert(uuid(), t("alerts.signIn.info204.text"), t("alerts.signIn.info204.title"), "blue");
+        router.push(`/inscription/?email=${encodeURIComponent(actionResponse.data as string)}`);
+      } else if (actionResponse.isSuccess && actionResponse.data && actionResponse.statusCode === 200) {
         const redirect = searchParams.get("redirect");
-        const userData = state.data as UserDataAPIResponse;
+        const userData = actionResponse.data as UserDataAPIResponse;
 
         setUserData(userData);
-        localStorage.setItem("accessToken", userData.accessToken);
-        localStorage.setItem("refreshToken", userData.refreshToken);
         addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
 
         router.push(redirect ? `/${redirect}` : "/");
         router.refresh();
-      } else if (!state.isSuccess) {
-        let titleKey = "defaultError.title";
-        let textKey = "defaultError.text";
+      } else if (!actionResponse.isSuccess) {
+        let titleKey = "alerts.signIn.defaultError.title";
+        let textKey = "alerts.signIn.defaultError.text";
         let color: "yellow" | "red" | "blue" = "red";
 
-        switch (state.statusCode) {
+        switch (actionResponse.statusCode) {
           case 401:
-            titleKey = "error401.title";
-            textKey = "error401.text";
+            titleKey = "alerts.signIn.error401.title";
+            textKey = "alerts.signIn.error401.text";
             color = "yellow";
             break;
-          case 204:
-            titleKey = "info204.title";
-            textKey = "info204.text";
-            color = "blue";
-            break;
           case 500:
-            titleKey = "error500.title";
-            textKey = "error500.text";
+            titleKey = "alerts.signIn.error500.title";
+            textKey = "alerts.signIn.error500.text";
             color = "red";
             break;
-          // TODO STATUS: Add other potential error codes (400, 422) if applicable
         }
-        const alertText = state.message || t(textKey);
+        const alertText = t(textKey);
         addAlert(uuid(), alertText, t(titleKey), color);
-
-        if (state.statusCode === 204 && state.email) {
-          router.push(`/inscription/?email=${encodeURIComponent(state.email)}`);
-        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [actionResponse]);
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form className="space-y-6" onSubmit={handleSubmit}>
       {/* Email Field */}
       <div>
         <label htmlFor="email" className={labelClassname}>
           {t("signInPage.emailLabel")}
         </label>
         <div className="mt-2">
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            className={inputClassname}
-            aria-describedby={state?.errors?.email ? "email-error" : undefined}
-          />
-          {/* Optional: Display validation errors */}
-          {/* {state?.errors?.email && (<p className="mt-1 text-xs text-red-600" id="email-error">{state.errors.email}</p>)} */}
+          <input id="email" name="username" type="email" required autoComplete="email" className={inputClassname} onChange={handleChange} />
         </div>
       </div>
 
@@ -124,7 +128,7 @@ export default function SignInForm() {
             required
             autoComplete="current-password"
             className={inputClassname}
-            aria-describedby={state?.errors?.password ? "password-error" : undefined}
+            onChange={handleChange}
           />
           <button
             type="button"
@@ -135,13 +139,11 @@ export default function SignInForm() {
             {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
           </button>
         </div>
-        {/* Optional: Display validation errors */}
-        {/* {state?.errors?.password && (<p className="mt-1 text-xs text-red-600" id="password-error">{state.errors.password}</p>)} */}
       </div>
 
       {/* Submit Button */}
       <div>
-        <SubmitButton text={t("signInPage.submitButton")} className="w-full" />
+        <SubmitButton text={t("signInPage.submitButton")} className="w-full" isPending={isLoading} />
       </div>
     </form>
   );

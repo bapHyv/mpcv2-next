@@ -33,6 +33,22 @@ export interface Address {
   shipping: boolean;
 }
 
+export interface UpdateAddressResponse {
+  firstname: string;
+  lastname: string;
+  company: string;
+  country: string;
+  address1: string;
+  address2: string;
+  postalCode: string;
+  city: string;
+  phone: string;
+  email: string;
+  billing: boolean;
+  shipping: boolean;
+  id: string;
+}
+
 export interface AuthContextType {
   userData: UserDataAPIResponse | null;
   setUserData: Dispatch<SetStateAction<UserDataAPIResponse | null>>;

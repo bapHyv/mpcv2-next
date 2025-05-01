@@ -334,6 +334,12 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     getClientInfo();
   }, []);
 
+  useEffect(() => {
+    if (order) {
+      localStorage.setItem("order", JSON.stringify(order));
+    }
+  }, [order]);
+
   return <orderContext.Provider value={{ order, setOrder, handleChange }}>{children}</orderContext.Provider>;
 };
 

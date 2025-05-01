@@ -118,7 +118,11 @@ export default function Cart() {
                       </div>
                       <div className="w-full flex gap-x-3">
                         <Link href={`/${locale}/panier`} className="w-1/2">
-                          <button type="button" className={twMerge(buttonClassname, "w-full")} disabled={!cart?.products?.length}>
+                          <button
+                            type="button"
+                            className={twMerge(buttonClassname, "w-full bg-transparent text-green ring-2 ring-green")}
+                            disabled={!cart?.products?.length}
+                          >
                             {t("cart.checkoutButton")}
                           </button>
                         </Link>

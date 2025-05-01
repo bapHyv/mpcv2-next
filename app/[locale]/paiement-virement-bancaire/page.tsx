@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
 }
 
 export default async function Page() {
-  const hasCookies = cookies().get("allow_bank_transfer_access");
+  const hasCookies = cookies().get("allow_order_received_access");
 
   if (!hasCookies || hasCookies.value !== "true") redirect("/");
 

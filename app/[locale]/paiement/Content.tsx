@@ -16,7 +16,6 @@ import { useOrder } from "@/app/context/orderContext";
 import { paymentRouteGuard } from "@/app/utils/paymentRouteGuard";
 import { Order, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
 import { isSuccessResponse } from "@/app/utils/typeGuardsFunctions";
-import useCleanUpAfterPayment from "@/app/hooks/useCleanUpAfterPayment";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";
 import { IActionResponse } from "@/app/types/apiTypes";
@@ -32,7 +31,6 @@ export default function Page() {
   const formRef = useRef<HTMLFormElement>(null);
 
   const { order } = useOrder();
-  const { handleCleanUpAfterPayment } = useCleanUpAfterPayment();
   const router = useRouter();
 
   const shouldReturn = paymentRouteGuard(order);
@@ -65,7 +63,6 @@ export default function Page() {
 
         document.body.appendChild(form);
         form.submit();
-        handleCleanUpAfterPayment();
       } else if (order["payment-method"] === "bank-transfer") {
         // Check if bank transfer selected
         const bankTransferPayment = async () => {
@@ -93,8 +90,8 @@ export default function Page() {
     }
   };
 
+  // Trigger init-payment on mounted
   useEffect(() => {
-    // Keep initial payment setup logic (commented out as per your code)
     if (!shouldReturn && order && !initPaymentResponse && !isPending) {
       // Avoid re-fetching if pending
       const initPayment = async (orderData: Order) => {
@@ -116,10 +113,10 @@ export default function Page() {
         }
       };
       initPayment(order);
-      console.log("Payment Page Mounted, Ready for initPayment (currently commented out)");
+      console.log("Payment Page Mounted, Ready for initPayment");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldReturn, order, initPaymentResponse, isPending]); // Add isPending dependency
+  }, [shouldReturn, order, initPaymentResponse, isPending]);
 
   useEffect(() => {
     if (
@@ -129,13 +126,12 @@ export default function Page() {
       actionResponse.statusCode === 204 &&
       order["payment-method"] === "bank-transfer"
     ) {
-      handleCleanUpAfterPayment(); // Clean up before navigating
-      router.push(`/paiement-virement-bancaire?orderId=${initPaymentResponse.orderId}`);
+      router.push(`/commande-recue?token=${actionResponse.data}`);
     }
     // Reset actionResponse after handling
     if (actionResponse) setActionResponse(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionResponse, initPaymentResponse, router, handleCleanUpAfterPayment, order]);
+  }, [actionResponse, initPaymentResponse, router, order]);
 
   // Keep route guard logic
   if (shouldReturn) {
