@@ -12,13 +12,15 @@ import { notFound } from "next/navigation";
 import ProductOptions from "@/app/components/products/ProductOptions";
 import ProductPrice from "@/app/components/products/ProductPrice";
 import ReviewForm from "@/app/components/productPage/ReviewForm";
-import Timer from "@/app/components/Timer";
+// TODO: UNCOMMENT THIS
+// import Timer from "@/app/components/Timer";
 import ProductImageGallery from "@/app/components/productPage/ProductImageGallery";
 
 import { Analyse, Cannabinoids, Product, Terpenes } from "@/app/types/productsTypes";
 import { terpenesToColor } from "@/app/utils/terpenesToColor";
 import { findHighestOption, returnRenamedGrowingMethod } from "@/app/utils/productFunctions";
-import getClientIp from "@/app/components/getClientIp";
+// TODO: UNCOMMENT THIS
+// import getClientIp from "@/app/components/getClientIp";
 
 import { sectionWrapperClassname, titleClassname as baseTitleClassname, linkClassname } from "@/app/staticData/cartPageClasses";
 
@@ -210,24 +212,25 @@ export default async function Page({ params: { category, locale, productSlug } }
 
   const renamedGrowindMethod = returnRenamedGrowingMethod("growingMethod" in product ? product.growingMethod : undefined);
 
-  let isFrance = false;
-  const clientIp = getClientIp();
+  // TODO: UNCOMMENT THIS
+  // let isFrance = false;
+  // const clientIp = getClientIp();
 
-  if (clientIp && clientIp !== "127.0.0.1" && clientIp !== "::1") {
-    try {
-      const geo = geoip.lookup(clientIp);
-      if (geo && geo.country === "FR") {
-        isFrance = true;
-      }
-    } catch (error) {
-      console.error(`Error performing GeoIP lookup for ${clientIp}:`, error);
-      isFrance = false;
-    }
-  } else {
-    if (process.env.NODE_ENV === "development") {
-      isFrance = true;
-    }
-  }
+  // if (clientIp && clientIp !== "127.0.0.1" && clientIp !== "::1") {
+  //   try {
+  //     const geo = geoip.lookup(clientIp);
+  //     if (geo && geo.country === "FR") {
+  //       isFrance = true;
+  //     }
+  //   } catch (error) {
+  //     console.error(`Error performing GeoIP lookup for ${clientIp}:`, error);
+  //     isFrance = false;
+  //   }
+  // } else {
+  //   if (process.env.NODE_ENV === "development") {
+  //     isFrance = true;
+  //   }
+  // }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -301,7 +304,8 @@ export default async function Page({ params: { category, locale, productSlug } }
             />
           </div>
           {/* Timer Component Placeholder */}
-          {isFrance && <Timer />}
+          {/* TODO: UNCOMMENT THIS */}
+          {/* {isFrance && <Timer />} */}
           <ProductOptions
             pricesPer={product.pricesPer}
             prices={product.prices}
