@@ -1,4 +1,144 @@
 {
+  "cookieConsent": {
+    "bannerAriaLabel": "Cookie Consent Banner",
+    "description": "We use essential cookies for site operation. With your consent, we also use functional cookies (like remembering your language) and analytics tools (like collecting device info) to improve your experience. Read our",
+    "link": "cookies policy",
+    "policyLinkText": "Cookie Policy",
+    "acceptAllButton": "Accept All",
+    "rejectAllButton": "Reject All",
+    "customizeButton": "Customize",
+    "modalTitle": "Cookie Preferences",
+    "modalDescription": "Manage your consent preferences below. Changes will be saved when you click 'Save Preferences'.",
+    "necessaryTitle": "Strictly Necessary Cookies",
+    "necessaryDescription": "These cookies are essential for the website to function and cannot be disabled.",
+    "functionalTitle": "Functional Cookies",
+    "functionalDescription": "These cookies remember your preferences like language choice to enhance your experience.",
+    "analyticsTitle": "Analytics & Improvement",
+    "analyticsDescription": "These cookies allow us to collect anonymous information (like device type and IP address) to understand how visitors use our site and help us improve it.",
+    "saveButton": "Save Preferences",
+    "cancelButton": "Cancel",
+    "closeButtonAriaLabel": "Close preferences modal",
+    "cookiePreferencesLink": "Cookie Preferences"
+  },
+  "cookiePolicy": {
+    "metadata": {
+      "title": "Cookie Policy | MonPlanCBD",
+      "description": "Understand how MonPlanCBD uses cookies and similar technologies on our website. Learn about necessary, functional, and analytics data."
+    },
+    "pageTitle": "Cookie Policy",
+    "lastUpdated": "Last Updated: May 05, 2025",
+    "section1": {
+      "title": "1. What Are Cookies?",
+      "para1": "Cookies are small text files placed on your device (computer, tablet, smartphone) when you visit a website. They are widely used to make websites work, or work more efficiently, as well as to provide information to the site owners.",
+      "para2": "This policy explains how we use cookies and similar technologies (like localStorage) on MonPlanCBD. For information on how we handle your personal data in general, please see our Privacy Policy."
+    },
+    "section2": {
+      "title": "2. How We Use Cookies and Similar Technologies",
+      "para1": "We use cookies and localStorage for several reasons, primarily to ensure our website functions correctly, to remember your preferences, and to help us understand how you use our site so we can improve it."
+    },
+    "section3": {
+      "title": "3. Types of Cookies and Data We Use",
+      "necessary": {
+        "title": "Strictly Necessary Cookies & Storage",
+        "para1": "These are essential for the operation of our website and cannot be disabled in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as logging in or managing your session.",
+        "para2": "You can set your browser to block or alert you about these, but some parts of the site will not then work.",
+        "cookie1": {
+          "name": "accessToken",
+          "purpose": "Authenticates your logged-in session.",
+          "duration": "Session (or longer if refreshed)"
+        },
+        "cookie2": {
+          "name": "refreshToken",
+          "purpose": "Securely refreshes your access token for continued login.",
+          "duration": "Longer-term (as configured)"
+        },
+        "storage": {
+          "name": "user_consent_preferences_v1 (localStorage)",
+          "purpose": "Stores your cookie consent choices.",
+          "duration": "Persistent (until cleared)"
+        }
+      },
+      "functional": {
+        "title": "Functional Cookies & Storage",
+        "para1": "These enable the website to provide enhanced functionality and personalization. They may be set by us or by third-party providers whose services we have added to our pages. They are only used if you consent.",
+        "para2": "If you do not allow these, then some or all of these services may not function properly.",
+        "cookie1": {
+          "name": "NEXT_LOCALE",
+          "purpose": "Remembers your preferred language.",
+          "duration": "Persistent (typically 1 year)"
+        },
+        "storage1": {
+          "name": "age_verified (localStorage)",
+          "purpose": "Remembers that you have confirmed you are over 18.",
+          "duration": "Persistent (until cleared)"
+        }
+      },
+      "analytics": {
+        "title": "Analytics & Improvement Data",
+        "para1": "With your consent, we collect certain information to help us understand how visitors interact with our website. This data helps us improve site performance and user experience.",
+        "para2": "This data is collected anonymously where possible and is not used to identify you personally for marketing purposes.",
+        "data1": {
+          "name": "IP Address (Anonymized where possible)"
+        },
+        "data2": {
+          "name": "User Agent String (Browser & OS type)"
+        },
+        "data3": {
+          "name": "Device Information (e.g., Screen size, type)"
+        },
+        "para3": "This information is collected only if you consent to 'Analytics & Improvement'."
+      }
+    },
+    "section4": {
+      "title": "4. Third-Party Cookies",
+      "para1": "Some features on our site may use cookies set by other companies (third-party cookies). For example, if we embed content from another site.",
+      "para2": "We list major third-party cookies below. Please review their respective privacy policies for more information.",
+      "service1": {
+        "purpose": "Used by Google Analytics to distinguish users and track website usage.",
+        "duration": "Various (e.g., 2 years for _ga)",
+        "policyLink": "Read Google's Privacy Policy"
+      }
+    },
+    "section5": {
+      "title": "5. Managing Your Preferences",
+      "para1": "You have control over the non-essential cookies and data collection used on our site.",
+      "para2": "You can change your consent preferences at any time by clicking the '{preferencesLink}' link, usually found in the footer of our website. This will allow you to adjust the toggles for Functional and Analytics consent and save your choices.",
+      "preferencesLinkText": "Cookie Preferences",
+      "para3": "Additionally, most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set, visit www.aboutcookies.org or www.allaboutcookies.org. Find out how to manage cookies on popular browsers:",
+      "para4": "Please note that blocking strictly necessary cookies may impact the functionality of the website."
+    },
+    "section6": {
+      "title": "6. Local Storage Usage",
+      "para1": "In addition to cookies, we utilize your browser's localStorage mechanism. Unlike cookies, data in localStorage is not automatically sent to the server with every request. We use it for:",
+      "item1": {
+        "name": "Cart Data (`cart`)",
+        "purpose": "To temporarily store the items you add to your shopping cart during your current browsing session."
+      },
+      "item2": {
+        "name": "Order Data (`order`)",
+        "purpose": "To hold details of your order as you proceed through checkout, before final submission."
+      },
+      "item3": {
+        "name": "User Data (`userData`)",
+        "purpose": "To cache some of your account information locally for quicker access after you log in."
+      },
+      "item4": {
+        "name": "Age Verification (`age_verified`)",
+        "purpose": "To remember that you have confirmed you meet the minimum age requirement, avoiding repeated checks."
+      },
+      "para2": "You can clear localStorage through your browser settings, but this may result in losing your current cart contents or requiring you to log in or verify your age again."
+    },
+    "section7": {
+      "title": "7. Changes to This Policy",
+      "para1": "We may update this Cookie Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We encourage you to review this policy periodically."
+    },
+    "section8": {
+      "title": "8. Contact Us",
+      "para1": "If you have questions about our use of cookies or this policy, please contact us at {emailLink} or consult our full {privacyPolicyLink}.",
+      "privacyPolicyLinkText": "Privacy Policy"
+    },
+    "contactEmail": "contact@monplancbd.fr"
+  },
   "trustpilot": "Check out our reviews:",
   "categoryPageContent": {
     "fleurs-cbd": {
@@ -1151,6 +1291,10 @@
     "description": "description"
   },
   "privacyPolicy": {
+    "metadata": {
+      "title": "Privacy Policy | MonPlanCBD",
+      "description": "Learn how MonPlanCBD collects, uses, and protects your personal data. Understand your rights regarding your information when using our website."
+    },
     "mainTitle": "MONPLANCBD - PRIVACY POLICY",
     "introduction": {
       "title": "Introduction and Commitment",
@@ -1193,7 +1337,7 @@
       "consent": {
         "basis": "Your Consent (Legal basis: Consent):",
         "item_newsletter": "Send you our newsletters and promotional offers by email or SMS, if you have consented via the checkbox during account creation or ordering.",
-        "item_cookies": "Place certain types of cookies on your device (see Cookies section).",
+        "item_cookies": "Place certain types of cookies on your device (see Cookie Policy).",
         "item_reviews": "Publish your product reviews.",
         "withdrawal_note": "You can withdraw your consent at any time (see \"Your Rights\" section)."
       },
@@ -1212,7 +1356,7 @@
       "item_payment": "Payment providers: To process your payments securely (e.g., Stripe).",
       "item_carriers": "Shipping carriers: To ensure the delivery of your orders (e.g., Chronopost, La Poste).",
       "item_hosting": "Hosting providers: To store our website data (Scaleway, based in the EU).",
-      "item_emailing": "Emailing platforms: To send our newsletters, if you have consented (Benchmark Email - *server location and potential transfers outside the EU need verification and clarification here, along with associated safeguards if necessary*).",
+      "item_emailing": "Emailing platforms: To send our newsletters, if you have consented (Benchmark Email - Requires verification of data processing location and safeguards).",
       "item_authorities": "Competent authorities: Only if required by law or as part of legal proceedings.",
       "outro": "We ensure that our partners respect the confidentiality and security of your data and use it only for the tasks entrusted to them.",
       "transfers": {
@@ -1229,7 +1373,7 @@
       "item_order_billing": "Order/Billing data: Kept for the mandatory legal period of 10 years from the end of the accounting year.",
       "item_prospects": "Prospect data (no order): Kept for 3 years from your last interaction (email click, contact, etc.), unless you request deletion or object.",
       "item_marketing_consent": "Marketing consent data: Kept as long as you do not withdraw your consent.",
-      "item_cookies": "Cookies: Cookie lifespan is detailed in the \"Use of Cookies\" section below (generally 13 months maximum for non-essential cookies requiring consent)."
+      "item_cookies": "Cookies: Cookie lifespan is detailed in our Cookie Policy (generally 13 months maximum for non-essential cookies requiring consent)."
     },
     "dataSecurity": {
       "title": "How Do We Protect Your Data?",
@@ -1237,16 +1381,8 @@
     },
     "cookies": {
       "title": "Use of Cookies",
-      "intro": "Cookies are small text files placed on your device (computer, tablet, mobile) when you visit our site. They help us to:",
-      "item_essential": "Ensure the essential functioning of the site: Cookies necessary for navigation, accessing your account, managing the shopping cart. These cookies do not require your prior consent.",
-      "item_functional": "Improve your experience: Functional cookies that remember your preferences (language, etc.).",
-      "item_analytics": "Analyze site performance: Analytical cookies that allow us to understand how visitors use our site (pages visited, time spent), anonymously, to improve it.",
-      "item_marketing": "Offer targeted advertising: Marketing or advertising cookies that allow displaying relevant ads on other sites, based on your browsing on www.monplancbd.fr (used only with your consent).",
-      "consentManagement": {
-        "title": "Cookie Consent Management:",
-        "para1": "On your first visit, a banner informs you about the use of cookies and allows you to accept, refuse, or customize your choices for non-essential cookies. You can change your preferences at any time via {consentManagementLink}.",
-        "para2": "The validity period for consent to non-essential cookies is {consentDuration} months. The maximum retention period for information collected by cookies is {retentionDuration} months."
-      }
+      "introduction": "We use cookies and similar technologies. For detailed information on the cookies we use, their purposes, and how you can manage them, please consult our dedicated",
+      "cookiePolicyLinkText": "Cookie Policy"
     },
     "yourRights": {
       "title": "Your Rights Regarding Your Personal Data",
@@ -1293,6 +1429,9 @@
     "lastUpdate": {
       "title": "Date of Last Update",
       "date": "Last updated: {updateDate}"
+    },
+    "footer": {
+      "cookiePreferencesLink": "Cookie Preferences"
     }
   },
   "metadataAbout": {
@@ -1456,13 +1595,20 @@
     "register": "Sign Up"
   },
   "footer": {
-    "legalNotices": "legal notices",
+    "footerSR": "Footer",
+    "logoAlt": "Monplancbd Logo - White",
+    "navigationTitle": "Navigation",
+    "legalNotices": "Legal Notices",
     "conditionsOfUse": "Terms of Use",
     "FAQ": "FAQ",
-    "GCS": "General Terms and Conditions of Sale",
-    "privacyPolicies": "Privacy policy",
-    "about": "About",
-    "shippingPolicy": "Shipping Terms / Delivery Conditions"
+    "GCS": "General Conditions of Sale",
+    "privacyPolicies": "Privacy Policy",
+    "about": "About Monplancbd",
+    "shippingPolicy": "Shipping Policy",
+    "cookiePolicy": "Cookie Policy",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "copyrightText": "Monplancbd. All rights reserved."
   },
   "blog": {
     "link": "Blog"

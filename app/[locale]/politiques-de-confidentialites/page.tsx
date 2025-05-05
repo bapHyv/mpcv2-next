@@ -2,6 +2,7 @@ import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 interface GenerateMetadataParams {
   params: { locale: string };
@@ -12,16 +13,23 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   const t = await getTranslations({ locale, namespace: "" });
   const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
 
-  const title = t("metadataPrivacyPolicy.title");
-  const description = t("metadataPrivacyPolicy.description");
+  const title = t("privacyPolicy.metadata.title");
+  const description = t("privacyPolicy.metadata.description");
 
   return {
     title: title,
     description: description,
     alternates: {
       canonical: `${siteBaseUrl}/${locale}/politiques-de-confidentialites`,
+      languages: {
+        "fr-FR": `${siteBaseUrl}/fr/politiques-de-confidentialites`,
+        "en-US": `${siteBaseUrl}/en/politiques-de-confidentialites`,
+        "es-ES": `${siteBaseUrl}/es/politiques-de-confidentialites`,
+        "x-default": `${siteBaseUrl}/fr/politiques-de-confidentialites`,
+      },
     },
     robots: {
+      // Keep as noindex unless needed
       index: false,
       follow: true,
       googleBot: {
@@ -38,7 +46,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       description: description,
       url: `${siteBaseUrl}/${locale}/politiques-de-confidentialites`,
       siteName: t("global.brandName"),
-      images: [{ url: `${siteBaseUrl}/og-image-default.png`, width: 1200, height: 630, alt: "MonPlanCBD" }],
+      images: [{ url: `${siteBaseUrl}/og-image-default.png`, width: 1200, height: 630, alt: "MonPlanCBD Privacy Policy" }],
       locale: locale.replace("-", "_"),
       type: "article",
     },
@@ -60,12 +68,19 @@ interface Params {
 export default async function Page({ params: { locale } }: Params) {
   const t = await getTranslations({ locale, namespace: "" });
 
+  const updateDate = new Date().toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
+
+  // Placeholder for Benchmark Email location verification - set based on real info
+  const benchmarkProcessesOutsideEU = true; // <-- TODO: **VERIFY AND SET THIS**
+
   return (
     <div className="utility-page">
       <h1>{t("privacyPolicy.mainTitle")}</h1>
+
       {/* Section: Introduction et Engagement */}
       <h2>{t("privacyPolicy.introduction.title")}</h2>
       <p>{t("privacyPolicy.introduction.para1")}</p>
+
       {/* Section: Responsable du Traitement */}
       <h2>{t("privacyPolicy.dataController.title")}</h2>
       <p>{t("privacyPolicy.dataController.intro")}</p>
@@ -79,6 +94,7 @@ export default async function Page({ params: { locale } }: Params) {
           </a>
         </li>
       </ul>
+
       {/* Section: Quelles Données Personnelles Collectons-Nous ? */}
       <h2>{t("privacyPolicy.dataCollected.title")}</h2>
       <p>{t("privacyPolicy.dataCollected.intro")}</p>
@@ -91,6 +107,7 @@ export default async function Page({ params: { locale } }: Params) {
         <li>{t("privacyPolicy.dataCollected.item_technical")}</li>
       </ul>
       <p>{t("privacyPolicy.dataCollected.outro")}</p>
+
       {/* Section: Pourquoi Utilisons-Nous Vos Données (Finalités) ? */}
       <h2>{t("privacyPolicy.purposes.title")}</h2>
       <p>{t("privacyPolicy.purposes.intro")}</p>
@@ -127,6 +144,7 @@ export default async function Page({ params: { locale } }: Params) {
         <li>{t("privacyPolicy.purposes.legitimateInterest.item_loyalty")}</li>
         <li>{t("privacyPolicy.purposes.legitimateInterest.item_information_requests")}</li>
       </ul>
+
       {/* Section: Avec Qui Partageons-Nous Vos Données ? */}
       <h2>{t("privacyPolicy.dataSharing.title")}</h2>
       <p>{t("privacyPolicy.dataSharing.intro")}</p>
@@ -134,16 +152,20 @@ export default async function Page({ params: { locale } }: Params) {
         <li>{t("privacyPolicy.dataSharing.item_payment")}</li>
         <li>{t("privacyPolicy.dataSharing.item_carriers")}</li>
         <li>{t("privacyPolicy.dataSharing.item_hosting")}</li>
-        <li>{t("privacyPolicy.dataSharing.item_emailing")}</li> {/* Remember to verify Benchmark location */}
+        <li>{t("privacyPolicy.dataSharing.item_emailing")}</li> {/* Keep the verification note here or in translation */}
         <li>{t("privacyPolicy.dataSharing.item_authorities")}</li>
       </ul>
       <p>{t("privacyPolicy.dataSharing.outro")}</p>
       {/* Sub-section: Transferts Internationaux */}
       <h3>{t("privacyPolicy.dataSharing.transfers.title")}</h3>
       <p>{t("privacyPolicy.dataSharing.transfers.para1")}</p>
-      {/* Conditional part - Need logic here based on Benchmark verification */}
-      {/* <p>{t("privacyPolicy.dataSharing.transfers.para2_outside_eu")}</p> */}
-      {/* <p>{t("privacyPolicy.dataSharing.transfers.para2_inside_eu")}</p> */}
+      {/* Conditional Paragraph based on verification */}
+      {benchmarkProcessesOutsideEU ? (
+        <p>{t("privacyPolicy.dataSharing.transfers.para2_outside_eu")}</p>
+      ) : (
+        <p>{t("privacyPolicy.dataSharing.transfers.para2_inside_eu")}</p>
+      )}
+
       {/* Section: Combien de Temps Conservons-Nous Vos Données ? */}
       <h2>{t("privacyPolicy.dataRetention.title")}</h2>
       <p>{t("privacyPolicy.dataRetention.intro")}</p>
@@ -154,24 +176,19 @@ export default async function Page({ params: { locale } }: Params) {
         <li>{t("privacyPolicy.dataRetention.item_marketing_consent")}</li>
         <li>{t("privacyPolicy.dataRetention.item_cookies")}</li>
       </ul>
+
       {/* Section: Comment Protégeons-Nous Vos Données ? */}
       <h2>{t("privacyPolicy.dataSecurity.title")}</h2>
       <p>{t("privacyPolicy.dataSecurity.para1")}</p>
+
       {/* Section: Utilisation des Cookies */}
       <h2>{t("privacyPolicy.cookies.title")}</h2>
-      <p>{t("privacyPolicy.cookies.intro")}</p>
-      <ul className="list-disc list-inside space-y-1 my-4">
-        <li>{t("privacyPolicy.cookies.item_essential")}</li>
-        <li>{t("privacyPolicy.cookies.item_functional")}</li>
-        <li>{t("privacyPolicy.cookies.item_analytics")}</li>
-        {/* Conditional part - Render only if marketing cookies are used */}
-        {/* <li>{t("privacyPolicy.cookies.item_marketing")}</li> */}
-      </ul>
+
+      <p>
+        {t("privacyPolicy.cookies.introduction")} <Link href="/politique-cookies">{t("privacyPolicy.cookies.cookiePolicyLinkText")}</Link>
+      </p>
       {/* Sub-section: Gestion du Consentement aux Cookies */}
-      <h3>{t("privacyPolicy.cookies.consentManagement.title")}</h3>
-      <p>{t("privacyPolicy.cookies.consentManagement.para1", { consentManagementLink: "[Lien/mécanisme de gestion des cookies]" })}</p>{" "}
-      {/* Add mechanism description/link */}
-      <p>{t("privacyPolicy.cookies.consentManagement.para2", { consentDuration: "[Durée du consentement, ex: 6]", retentionDuration: "13" })}</p>
+
       {/* Section: Vos Droits Concernant Vos Données Personnelles */}
       <h2>{t("privacyPolicy.yourRights.title")}</h2>
       <p>{t("privacyPolicy.yourRights.intro")}</p>
@@ -189,7 +206,6 @@ export default async function Page({ params: { locale } }: Params) {
       <h3>{t("privacyPolicy.yourRights.howToExercise.title")}</h3>
       <p>{t("privacyPolicy.yourRights.howToExercise.intro")}</p>
       <ul className="list-disc list-inside space-y-1 my-2 ml-4">
-        {/* Using dangerouslySetInnerHTML for links */}
         <li
           dangerouslySetInnerHTML={{
             __html: t("privacyPolicy.yourRights.howToExercise.item_profile", {
@@ -220,12 +236,15 @@ export default async function Page({ params: { locale } }: Params) {
           }),
         }}
       />
+
       {/* Section: Politique Concernant les Mineurs */}
       <h2>{t("privacyPolicy.minorsPolicy.title")}</h2>
       <p>{t("privacyPolicy.minorsPolicy.para1")}</p>
+
       {/* Section: Mise à Jour de la Politique de Confidentialité */}
       <h2>{t("privacyPolicy.policyUpdate.title")}</h2>
       <p>{t("privacyPolicy.policyUpdate.para1")}</p>
+
       {/* Section: Contact */}
       <h2>{t("privacyPolicy.contact.title")}</h2>
       <p>{t("privacyPolicy.contact.intro")}</p>
@@ -240,9 +259,10 @@ export default async function Page({ params: { locale } }: Params) {
           {t("privacyPolicy.contact.mailLabel")}: {t("privacyPolicy.contact.postalAddress")}
         </li>
       </ul>
+
       {/* Section: Date de Dernière Mise à Jour */}
       <h2>{t("privacyPolicy.lastUpdate.title")}</h2>
-      <p>{t("privacyPolicy.lastUpdate.date", { updateDate: "17/04/2025" })}</p>
+      <p>{t("privacyPolicy.lastUpdate.date", { updateDate: updateDate })}</p>
       {/* TODO: check previous _______________________________________________________________________________________________________________ */}
       <p>_______________________________________________________________________________________________________________</p>
       <p>PREVIOUS:</p>

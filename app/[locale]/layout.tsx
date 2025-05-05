@@ -8,6 +8,7 @@ import { Providers } from "@/app/providers";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import AgeVerificationOverlay from "@/app/components/AgeVerificationOverlay";
+import CookieConsentBanner from "@/app/components/CookieConsentBanner";
 
 export const metadata: Metadata = {
   title: "Monplancbd",
@@ -87,12 +88,12 @@ export default async function RootLayout({
     <html className="scroll-smooth" lang={locale} suppressHydrationWarning>
       <body className={`${myFont.className} max-w-[1920px] m-auto`}>
         <NextIntlClientProvider messages={messages}>
-          <AgeVerificationOverlay />
           <Providers>
+            <AgeVerificationOverlay />
             <NavBar locale={locale} />
             <main className="min-h-screen 2xl:px-0 sm:pt-20">{children}</main>
-
             <Footer locale={locale} />
+            <CookieConsentBanner />
           </Providers>
         </NextIntlClientProvider>
       </body>
