@@ -1757,7 +1757,9 @@
       "relayButtonText": "Please select a pickup point",
       "paymentButtonText": "Proceed to Payment",
       "createAccountButtonText": "Create Account & Pay",
-      "relayErrorText": "Please select a pickup point on the map above."
+      "relayErrorText": "Please select a pickup point on the map above.",
+      "noProduct": "No products in the cart",
+      "noProductLink": "Click here to browse our product selection"
     },
     "shippingMethods": {
       "title": "Shipping",

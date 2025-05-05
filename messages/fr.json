@@ -1670,7 +1670,9 @@
       "relayButtonText": "Veuillez choisir un point relais",
       "paymentButtonText": "Procéder au paiement",
       "createAccountButtonText": "Créer compte et payer",
-      "relayErrorText": "Sélectionnez un point relais sur la carte ci-dessus."
+      "relayErrorText": "Sélectionnez un point relais sur la carte ci-dessus.",
+      "noProduct": "Aucun produit dans le panier",
+      "noProductLink": "Cliquez ici pour vous diriger vers notre selection de produits"
     },
     "shippingMethods": {
       "title": "Expédition",

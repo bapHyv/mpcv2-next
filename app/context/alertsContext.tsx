@@ -120,7 +120,7 @@ export function AlertsProvider({ children }: { children: ReactNode }): JSX.Eleme
 
   const addAlert = (alertId: string, description: string, title: string, color: color) => {
     const element = <AlertElement key={alertId} alertId={alertId} description={description} title={title} color={color} closeAlert={closeAlert} />;
-    setAlerts((prevState) => [...prevState, element]);
+    setAlerts([element]);
   };
 
   return (

@@ -11,11 +11,13 @@ import Title from "@/app/components/Title";
 import { useAuth } from "@/app/context/authContext";
 import { useOrder } from "@/app/context/orderContext";
 import { sectionWrapperClassname, titleClassname, buttonClassname, checkRadioClassname, linkClassname } from "@/app/staticData/cartPageClasses";
+import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 
 export default function Total({ isPending }: { isPending: boolean }) {
   const t = useTranslations("");
   const { order } = useOrder();
   const { userData } = useAuth();
+  const { cart } = useProductsAndCart();
 
   const isDisabled = useMemo(() => isPending || (order["shipping-method"] === "boxtal_connect" && !order["parcel-point"]), [isPending, order]);
 
@@ -25,6 +27,7 @@ export default function Total({ isPending }: { isPending: boolean }) {
     if (isPending) return null;
     if (isDisabled && order["shipping-method"] === "boxtal_connect") return t("shippingPage.totalSummary.relayButtonText");
     if (userData) return t("shippingPage.totalSummary.paymentButtonText");
+    if (!cart.products.length) return t("shippingPage.totalSummary.noProduct");
     return t("shippingPage.totalSummary.createAccountButtonText");
   };
 
@@ -93,7 +96,11 @@ export default function Total({ isPending }: { isPending: boolean }) {
 
       {/* Submit Button */}
       <div className="mt-6">
-        <button type="submit" disabled={isDisabled} className={twMerge(buttonClassname, "w-full py-3 text-base flex justify-center items-center")}>
+        <button
+          type="submit"
+          disabled={isDisabled || !cart.products.length}
+          className={twMerge(buttonClassname, "w-full py-3 text-base flex justify-center items-center")}
+        >
           {isPending ? (
             <>
               <ArrowPathIcon className="animate-spin h-5 w-5 mr-2" aria-hidden="true" />
@@ -108,6 +115,12 @@ export default function Total({ isPending }: { isPending: boolean }) {
       {/* Relay Selection Error Message */}
       {isDisabled && order["shipping-method"] === "boxtal_connect" && !isPending && (
         <p className="text-center text-xs text-red-600 mt-2">{t("shippingPage.totalSummary.relayErrorText")}</p>
+      )}
+
+      {!cart.products.length && (
+        <Link href="/fleurs-cbd" className="block w-full mt-4 text-center text-green underline font-semibold text-sm">
+          {t("shippingPage.totalSummary.noProductLink")}
+        </Link>
       )}
     </section>
   );

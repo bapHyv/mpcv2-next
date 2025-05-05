@@ -1755,7 +1755,9 @@
       "relayButtonText": "Por favor, selecciona un punto de recogida",
       "paymentButtonText": "Proceder al pago",
       "createAccountButtonText": "Crear cuenta y pagar",
-      "relayErrorText": "Por favor, selecciona un punto de recogida en el mapa de arriba."
+      "relayErrorText": "Por favor, selecciona un punto de recogida en el mapa de arriba.",
+      "noProduct": "No hay productos en el carrito",
+      "noProductLink": "Haz clic aquí para ver nuestra selección de productos"
     },
     "shippingMethods": {
       "title": "Envío",

@@ -473,55 +473,38 @@ article dfn,
 .city-page dfn {
   @apply font-bold not-italic; /* Ensure not italic if default is */
 }
+
 @layer components {
   /* Container for the trigger element and its tooltip */
   .has-tooltip {
     @apply relative inline-block align-middle; /* Ensure proper alignment for icon */
   }
 
-  /* The main tooltip bubble */
   .tooltip {
-    /* Visibility & Interaction */
     @apply invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus:visible group-focus:opacity-100
            transition-opacity duration-200 ease-in-out;
 
-    /* Positioning - Adjusted based on your preference */
-    @apply absolute z-20 bottom-full mb-3 /* Position above trigger */
-           /* Positions right edge 10 units (2.5rem) left of icon container's right edge */
-           -right-10; /* Adjust this value as needed */
-    /* Or try: right-0 - positions right edge aligned with icon container's right edge */
+    @apply w-max max-w-xs p-3 z-[100];
 
-    /* Sizing & Layout - Recommend max-width instead of fixed vw */
-    @apply w-max max-w-xs /* Let it size to content, up to a max (adjust xs/sm/md) */
-           /* w-[80dvw] */ /* Using vw can be unpredictable, prefer max-width */
-           p-3; /* Padding inside the bubble */
-
-    /* Appearance */
-    @apply bg-green text-white text-sm font-medium
-           rounded-lg shadow-lg;
+    @apply bg-green text-white text-sm font-medium rounded-lg shadow-lg;
   }
 
-  /* The speech bubble "tail" using ::after */
-  .tooltip::after {
+  .tooltip-discount {
+    @apply absolute z-20 bottom-full mb-3 -right-10;
+  }
+
+  .tooltip-product-attribute {
+    /* @apply absolute z-20 -top-1/2 mb-3 left-[calc(100%+5px)]; */
+    @apply absolute z-20 top-[calc(100%+5px)] mb-3 left-0;
+  }
+
+  .tooltip-discount::after {
     content: "";
-    @apply absolute top-full /* Position below the bubble */
-            /* Adjust this 'right' value to align the tail under the '?' icon */
-            /* It's relative to the bubble's right edge */
-            right-11 /* Example: Approx under the '?' icon relative to bubble's -right-10 pos */
-            /* Maybe try right-6 or right-4 depending on exact icon placement */
-
-            /* The triangle trick - points down */
-            border-[7px] border-solid border-transparent border-t-green;
-    /* Make sure border color matches bubble bg */
-
-    /* We don't need translate-x here as we're positioning from the right */
-    /* transform -translate-x-1/2; */
+    @apply absolute top-full right-11 border-[7px] border-solid border-transparent border-t-green;
   }
 
-  /* Style for the trigger element (?) itself for focus */
   .tooltip-trigger {
-    @apply cursor-help
-            focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 rounded-full;
+    @apply cursor-help focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500;
   }
 }
 

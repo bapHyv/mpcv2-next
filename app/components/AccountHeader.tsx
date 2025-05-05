@@ -4,21 +4,22 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import { UserCircleIcon, ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
+import { UserCircleIcon, ArrowLeftEndOnRectangleIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 
 import { useAuth } from "@/app/context/authContext";
 import { iconClassname } from "@/app/staticData/cartPageClasses";
 import OtherNavbar from "./OtherNavbar";
+import { useState } from "react";
 
 export default function AccountHeader() {
-  const t = useTranslations("navbar");
+  const t = useTranslations("");
   const pathname = usePathname();
-  const { logout } = useAuth();
+  const { logout, isLoggingOut } = useAuth();
 
   const itemsProfile = [
-    { textKey: "info", href: `/mon-compte/profil`, icon: <UserCircleIcon className={iconClassname} /> },
+    { textKey: "navbar.info", href: `/mon-compte/profil`, icon: <UserCircleIcon className={iconClassname} /> },
     {
-      textKey: "addresses",
+      textKey: "navbar.addresses",
       href: `/mon-compte/adresses`,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClassname}>
@@ -31,7 +32,7 @@ export default function AccountHeader() {
       ),
     },
     {
-      textKey: "orders",
+      textKey: "navbar.orders",
       href: `/mon-compte/commandes`,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClassname}>
@@ -44,7 +45,7 @@ export default function AccountHeader() {
       ),
     },
     {
-      textKey: "fidelity",
+      textKey: "navbar.fidelity",
       href: `/mon-compte/fidelite`,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClassname}>
@@ -56,7 +57,7 @@ export default function AccountHeader() {
         </svg>
       ),
     },
-    { textKey: "logout", onClick: logout, icon: <ArrowLeftEndOnRectangleIcon className={twMerge(iconClassname)} /> },
+    { textKey: "navbar.logout", onClick: logout, icon: <ArrowLeftEndOnRectangleIcon className={twMerge(iconClassname)} /> },
   ];
 
   return (
@@ -77,8 +78,17 @@ export default function AccountHeader() {
           </Link>
         ) : (
           <button key={item.textKey} type="button" onClick={item.onClick} className={twMerge(commonClasses, "bg-red-600 font-medium px-2")}>
-            {item.icon}
-            <span>{t(item.textKey)}</span>
+            {isLoggingOut ? (
+              <>
+                <ArrowPathIcon className="animate-spin h-5 w-5 mr-2" aria-hidden="true" />
+                {t("forms.pendingText")}
+              </>
+            ) : (
+              <>
+                {item.icon}
+                <span>{t(item.textKey)}</span>
+              </>
+            )}
           </button>
         );
       })}

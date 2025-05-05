@@ -55,6 +55,19 @@ export default async function ProductCard({
   const renamedGrowindMethod = returnRenamedGrowingMethod(growingMethod);
   const isOutOfStock = !parseInt(stock);
 
+  const codeToCountry = {
+    af: "Afghanistan",
+    ch: "Suisse",
+    en: "Royaume-unis",
+    es: "Espagne",
+    fr: "France",
+    it: "Italie",
+    lb: "Liban",
+    ma: "Maroc",
+    np: "Nepal",
+    usa: "États-unis",
+  };
+
   return (
     <div className={twMerge("transform text-left text-base transition w-[336px] sm:w-[306px] lg:w-[25rem] flex-shrink-0", mainDivClassname)}>
       <div
@@ -82,21 +95,25 @@ export default async function ProductCard({
             {isOutOfStock ? (
               <span className={twMerge(statusBadgeBase, "bg-red-100 text-red-800")}>{t("outOfStock")}</span>
             ) : isPromo ? (
-              <span className={twMerge(statusBadgeBase, "bg-green text-white animate-tada")}>{t("promo")}</span>
+              <Link href={`/${category}/${slug}`}>
+                <span className={twMerge(statusBadgeBase, "bg-green text-white animate-tada cursor-pointer")}>{t("promo")}</span>
+              </Link>
             ) : null}
           </div>
-          <div className="absolute top-2 left-2 flex items-center gap-1.5 z-10">
+          {/* <div className="absolute bottom-2 left-2 flex items-end justify-end gap-1.5 z-10">
             {country && (
-              <div className="overflow-hidden shadow-sm">
-                <Image src={`/${country}.png`} alt={`Drapeau ${country}`} width={24} height={24} />
+              <div className="h-full flex items-center justify-center shadow-sm has-tooltip group">
+                <Image className="tooltip-trigger" src={`/${country}.png`} alt={`Drapeau ${country}`} width={30} height={30} />
+                <span className="tooltip tooltip-product-attribute">Provenance: {codeToCountry[country]}</span>
               </div>
             )}
             {renamedGrowindMethod && (
-              <div className="w-6 h-6 flex items-center justify-center bg-white/70 backdrop-blur-sm rounded-full shadow-sm">
-                <Image src={`/${renamedGrowindMethod}.png`} alt={`Culture: ${growingMethod}`} width={18} height={18} />
+              <div className="w-6 h-6 flex items-center justify-center bg-white/70 backdrop-blur-sm rounded-full shadow-sm has-tooltip group">
+                <Image className="tooltip-trigger" src={`/${renamedGrowindMethod}.png`} alt={`Culture: ${growingMethod}`} width={25} height={25} />
+                <span className="tooltip tooltip-product-attribute">Méthode de culture: {growingMethod}</span>
               </div>
             )}
-          </div>
+          </div> */}
           {cannabinoidRating && (
             <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-10">
               <span
@@ -113,7 +130,7 @@ export default async function ProductCard({
         </div>
 
         <section aria-labelledby={`info-${id}`} className="text-center flex flex-col flex-grow">
-          <Link href={`/${locale}/${category}/${slug}`} className="block mb-1 group">
+          <Link href={`/${locale}/${category}/${slug}`} className="mb-1 group w-fit m-auto">
             <h2
               id={`info-${id}`}
               className={clsx("text-base font-semibold text-gray-900 truncate group-hover:text-green transition-colors", "xl:text-lg")}

@@ -1,6 +1,5 @@
 "use client";
 
-import { jwtDecode } from "jwt-decode";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { v4 as uuid } from "uuid";
 import { useTranslations } from "next-intl";
@@ -14,6 +13,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserDataAPIResponse | null>(null);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { addAlert } = useAlerts();
   const router = useRouter();
   const pathname = usePathname();
@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Effect to save user data to local storage when it changes
   useEffect(() => {
     if (userData) {
       localStorage.setItem("userData", JSON.stringify(userData));
@@ -46,21 +45,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userData]);
 
-  // --- Logout Function ---
   const logout = async () => {
     try {
-      const result = await logoutAction(); // Call server action
+      setIsLoggingOut(true);
+      const result = await logoutAction();
       if (result.isSuccess) {
         cleanUpLocalStorageUserRelated();
-        setUserData(null); // Update local state
-        // Use translated success alert
+        setUserData(null);
         addAlert(uuid(), tAlerts("logoutSuccess.text"), tAlerts("logoutSuccess.title"), "emerald");
-        // Redirect if on an account page
         if (pathname.includes("/mon-compte")) {
-          // More robust check
           router.push("/");
         }
-        router.refresh(); // Refresh layout/data after logout
+        router.refresh();
       } else {
         console.error("Logout action failed:", result.message);
         addAlert(uuid(), result.message || tAlerts("logoutFailed.text"), tAlerts("logoutFailed.title"), "red");
@@ -68,10 +64,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Error during logout process:", error);
       addAlert(uuid(), tAlerts("logoutError.text"), tAlerts("logoutError.title"), "red");
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
-  const value = { userData, setUserData, cleanUpLocalStorageUserRelated, logout };
+  const value = { userData, setUserData, cleanUpLocalStorageUserRelated, logout, isLoggingOut };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

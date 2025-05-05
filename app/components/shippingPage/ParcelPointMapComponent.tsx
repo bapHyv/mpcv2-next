@@ -1,4 +1,3 @@
-// ParcelPointMapComponent.tsx (Updated with i18n)
 "use client";
 
 import { useEffect, useState } from "react";
@@ -7,7 +6,7 @@ import { twMerge } from "tailwind-merge";
 
 import { useOrder } from "@/app/context/orderContext";
 import { BoxtalParcelPointMap, ParcelPoint } from "@/app/types/mapTypes";
-import { BoxtalAuthResponse } from "@/app/api/route";
+import { BoxtalAuthResponse } from "@/app/api/boxtal-token/route";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 
@@ -22,14 +21,41 @@ export default function ParcelPointMapComponent() {
   const t = useTranslations("shippingPage.parcelPointMap");
   const [accessToken, setAccessToken] = useState<null | string>(null);
   const [mapInstance, setMapInstance] = useState<null | BoxtalParcelPointMap>(null);
-  const [isLoadingMap, setIsLoadingMap] = useState(false);
   const [errorLoadingMap, setErrorLoadingMap] = useState<string | null>(null);
 
   const { order, setOrder } = useOrder();
 
+  // --- Handler to Search for Points ---
+  const handleFind = () => {
+    if (mapInstance && order.shippingAddress.postalCode && order.shippingAddress.city) {
+      setErrorLoadingMap(null);
+      const address = {
+        country: order.shippingAddress.country === "France (Corse)" ? "FR" : "FR",
+        zipCode: order.shippingAddress.postalCode,
+        city: order.shippingAddress.city,
+        street: order.shippingAddress.address1,
+      };
+      console.log("Searching parcel points for:", address);
+      try {
+        // The callback updates the order state when a point is selected *by the user* on the map
+        mapInstance.searchParcelPoints(address, (parcelPoint: ParcelPoint) => {
+          console.log("Parcel point selected:", parcelPoint);
+          setOrder((prevState) => ({ ...prevState, "parcel-point": parcelPoint }));
+        });
+      } catch (error) {
+        console.error("Error searching parcel points:", error);
+        setErrorLoadingMap(t("errorSearchText"));
+      } finally {
+        // Note: Loading might stop before user selection, map handles its own loading state visually
+      }
+    } else {
+      console.warn("Cannot search points: Map not ready or address incomplete.");
+      setErrorLoadingMap(t("errorAddressIncompleteText"));
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoadingMap(true);
       setErrorLoadingMap(null);
       try {
         const stringifiedLsAccessToken = localStorage.getItem("accessTokenBoxtal");
@@ -64,9 +90,9 @@ export default function ParcelPointMapComponent() {
       } catch (error) {
         console.error("Error fetching/setting Boxtal access token:", error);
         setErrorLoadingMap(t("errorAuthText"));
-      } finally {
       }
     };
+
     fetchData();
 
     // --- Cleanup Logic ---
@@ -85,14 +111,13 @@ export default function ParcelPointMapComponent() {
     };
     // Rerun if shipping method changes externally (though typically unmounts)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Fetch token only once on mount
+  }, []);
 
   // --- Effect to Initialize Map Instance ---
   useEffect(() => {
     let map: BoxtalParcelPointMap | null = null; // Local variable for cleanup
     if (accessToken && !mapInstance && !errorLoadingMap) {
       // Only init if token exists, no map yet, and no error
-      setIsLoadingMap(true);
       try {
         console.log("Initializing Boxtal Map...");
         map = new BoxtalMaps.BoxtalParcelPointMap({
@@ -110,7 +135,6 @@ export default function ParcelPointMapComponent() {
         console.error("Error initializing Boxtal Map instance:", error);
         setErrorLoadingMap(t("errorLoadText"));
       } finally {
-        setIsLoadingMap(false);
       }
     }
 
@@ -124,82 +148,42 @@ export default function ParcelPointMapComponent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken, errorLoadingMap]); // Re-run if token changes or error occurs
 
-  // --- Handler to Search for Points ---
-  const handleFind = () => {
-    if (mapInstance && order.shippingAddress.postalCode && order.shippingAddress.city) {
-      setIsLoadingMap(true);
-      setErrorLoadingMap(null);
-      const address = {
-        country: order.shippingAddress.country === "France (Corse)" ? "FR" : "FR", // Map country code if needed
-        zipCode: order.shippingAddress.postalCode,
-        city: order.shippingAddress.city,
-        street: order.shippingAddress.address1, // Street is optional but helps accuracy
-      };
-      console.log("Searching parcel points for:", address);
-      try {
-        // The callback updates the order state when a point is selected *by the user* on the map
-        mapInstance.searchParcelPoints(address, (parcelPoint: ParcelPoint) => {
-          console.log("Parcel point selected:", parcelPoint);
-          setOrder((prevState) => ({ ...prevState, "parcel-point": parcelPoint }));
-        });
-      } catch (error) {
-        console.error("Error searching parcel points:", error);
-        setErrorLoadingMap(t("errorSearchText"));
-      } finally {
-        // Note: Loading might stop before user selection, map handles its own loading state visually
-        setIsLoadingMap(false);
-      }
-    } else {
-      console.warn("Cannot search points: Map not ready or address incomplete.");
-      setErrorLoadingMap(t("errorAddressIncompleteText"));
-    }
-  };
-
-  const isPointSelected = order["parcel-point"] && "code" in order["parcel-point"] && !!order["parcel-point"].code;
-
   return (
     <div className="space-y-3">
       {/* Map Container */}
-      <div id="parcel-point-map" className="h-[400px] sm:h-[500px] w-full border border-gray-300 rounded-md bg-gray-100 overflow-hidden relative">
-        {/* Loading Overlay */}
-        {isLoadingMap && (
+      <div id="parcel-point-map" className="h-[400px] sm:h-[500px] w-full rounded-md overflow-hidden relative" />
+
+      {/* Loading Overlay */}
+      {/* {isLoadingMap && (
           <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-10">
             <LoadingSpinner color="green" size="md" />
             <span className="ml-2 text-sm text-gray-600">{t("loadingMapText")}</span>
           </div>
-        )}
-        {/* Error Overlay */}
-        {errorLoadingMap && !isLoadingMap && (
+        )} */}
+      {/* Error Overlay */}
+      {/* {errorLoadingMap && (
           <div className="absolute inset-0 bg-red-50 flex items-center justify-center p-4 z-10">
             <p className="text-sm text-red-700 text-center">{errorLoadingMap}</p>
           </div>
-        )}
-        {/* Initial Load/Auth Error Overlay */}
-        {!accessToken &&
-          !isLoadingMap &&
+        )} */}
+      {/* Initial Load/Auth Error Overlay */}
+      {/* {!accessToken &&
           !errorLoadingMap && ( // TODO: Condition might need adjustment based on auth error state
             <div className="absolute inset-0 bg-gray-100 flex items-center justify-center p-4">
               <p className="text-sm text-gray-500 text-center">{t("errorLoadText")}</p>
             </div>
-          )}
-      </div>
+          )} */}
 
       {/* Button / Selection Info Area */}
-      <div className="flex items-center justify-end min-h-[40px]">
-        {isPointSelected ? (
-          <div className="text-center w-full">
-            <p className="text-sm font-medium text-green italic">{t("pointSelectedText")}</p>
-          </div>
-        ) : (
-          <button
-            type="button"
-            className={twMerge(buttonClassname, "px-4 py-2")}
-            onClick={handleFind}
-            disabled={!mapInstance || !order.shippingAddress.postalCode || !order.shippingAddress.city || isLoadingMap || !!errorLoadingMap} // Also disable on error
-          >
-            {t("findButton")}
-          </button>
-        )}
+      <div className="flex items-center justify-center min-h-[40px]">
+        <button
+          type="button"
+          className={twMerge(buttonClassname, "px-4 py-2")}
+          onClick={handleFind}
+          disabled={!order.shippingAddress.postalCode || !order.shippingAddress.city || !!errorLoadingMap} // Also disable on error
+        >
+          {t("findButton")}
+        </button>
       </div>
     </div>
   );
