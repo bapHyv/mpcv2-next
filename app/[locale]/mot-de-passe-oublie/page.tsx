@@ -49,7 +49,7 @@ export default async function Page({ params: { locale } }: Params) {
         </div>
         <p className="mt-4 text-center text-sm text-gray-600 max-w-sm mx-auto">{t("introText")}</p>
         <div className={twMerge("mt-8 bg-white px-6 py-8 shadow rounded-lg sm:px-10 sm:py-10")}>
-          <ForgotPasswordForm /> {/* Assuming this component handles its own translations */}
+          <ForgotPasswordForm />
         </div>
         <p className="mt-8 text-center text-sm text-gray-500">
           {t("rememberPasswordPrompt")}

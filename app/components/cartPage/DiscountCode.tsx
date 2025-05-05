@@ -74,7 +74,7 @@ export default function DiscountCode({ name, d }: Props) {
               className="w-5 h-5 text-blue-600 rounded-full tooltip-trigger cursor-help"
               aria-label={t("discountCode.detailsAriaLabel")}
             />
-            <span className="tooltip">{message}</span>
+            <span className="tooltip tooltip-discount">{message}</span>
           </div>
         )}
         {/* Apply/Applied Button */}

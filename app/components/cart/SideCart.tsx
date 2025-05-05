@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,6 +14,8 @@ import CartProductCard from "@/app/components/cart/CartProductCard";
 import { buttonClassname, iconClassname, iconHeaderClassname } from "@/app/staticData/cartPageClasses";
 import { useAlerts } from "@/app/context/alertsContext";
 
+const SWIPE_CLOSE_THRESHOLD = 75;
+
 export default function Cart() {
   const [open, setOpen] = useState(false);
   const { cart, setCart } = useProductsAndCart();
@@ -22,19 +24,41 @@ export default function Cart() {
   const pathname = usePathname();
   const { addAlert } = useAlerts();
 
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
+
   const handleEmptyCart = () => {
     setCart({ total: 0, products: [] });
-    addAlert(
-      uuid(),
-      t("alerts.cart.cartEmptied.text"), // Key for the message text
-      t("alerts.cart.cartEmptied.title"), // Key for the title
-      "yellow"
-    );
+    addAlert(uuid(), t("alerts.cart.cartEmptied.text"), t("alerts.cart.cartEmptied.title"), "yellow");
   };
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!open || e.touches.length === 0) return;
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!open || e.touches.length === 0 || touchStartX.current === 0) return;
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!open || touchStartX.current === 0) return;
+
+    const deltaX = touchEndX.current - touchStartX.current;
+
+    if (deltaX > SWIPE_CLOSE_THRESHOLD) {
+      setOpen(false);
+    }
+
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
 
   const cartTotal = cart?.total ?? 0;
 
@@ -72,6 +96,9 @@ export default function Cart() {
               <DialogPanel
                 transition
                 className="pointer-events-auto w-screen max-w-md transform transition duration-300 ease-in-out data-[closed]:translate-x-full"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
               >
                 {/* Panel Content */}
                 <div className={twMerge("flex h-full flex-col overflow-y-hidden bg-white shadow-xl")}>

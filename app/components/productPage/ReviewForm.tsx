@@ -106,7 +106,7 @@ export default function ReviewForm({ id }: Props) {
   }
 
   return (
-    <div className="mt-10">
+    <div>
       <Title
         title={t("reviews.addReviewTitle")}
         type="h3"
@@ -142,8 +142,6 @@ export default function ReviewForm({ id }: Props) {
               </button>
             ))}
           </div>
-          {/* TODO: Optional: Display rating validation error from server */}
-          {/* {state?.errors?.rating && <p className="mt-1 text-xs text-red-600">{state.errors.rating}</p>} */}
         </div>
 
         {/* Comment Textarea */}
@@ -168,8 +166,6 @@ export default function ReviewForm({ id }: Props) {
           <p id="comment-description" className="mt-1 text-xs text-gray-500">
             {t("reviews.commentHint")}
           </p>
-          {/* Optional: Display comment validation error from server */}
-          {/* {state?.errors?.comment && <p className="mt-1 text-xs text-red-600">{state.errors.comment}</p>} */}
         </div>
 
         {/* Submit Button */}

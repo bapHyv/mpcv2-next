@@ -33,8 +33,10 @@ export default function Shipping() {
       sseData.shippingMethods.byShippingZones[order.shippingAddress.country]
     ) {
       return sseData.shippingMethods.byShippingZones[order.shippingAddress.country].methods.filter((m) => {
-        if (isBoxtalConnectMethod(m) || isLocalPickupMethod(m)) {
-          return true; // Always show these if enabled
+        if (isBoxtalConnectMethod(m)) {
+          return false;
+        } else if (isLocalPickupMethod(m)) {
+          return true;
         } else if (isFreeShippingMethod(m)) {
           if (hasFreeShipping) return true;
           // Handle min_amount safely
@@ -138,12 +140,6 @@ export default function Shipping() {
         firstLetterClassname="text-xl"
         id="shipping-heading"
       />
-
-      {order.shippingAddress.country === "France (hors Corse)" && order["shipping-method"] === "boxtal_connect" && (
-        <div className="mb-4 border rounded-md overflow-hidden shadow-sm">
-          <ParcelPointMapComponent />
-        </div>
-      )}
 
       <fieldset>
         <legend className="sr-only">

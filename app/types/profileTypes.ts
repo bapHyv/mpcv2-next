@@ -54,6 +54,7 @@ export interface AuthContextType {
   setUserData: Dispatch<SetStateAction<UserDataAPIResponse | null>>;
   cleanUpLocalStorageUserRelated: () => void;
   logout: () => void;
+  isLoggingOut: boolean;
 }
 
 export interface UserMetadata {

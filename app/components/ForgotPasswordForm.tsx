@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { useEffect } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { v4 as uuid } from "uuid";
 import { useTranslations } from "next-intl";
@@ -10,6 +10,7 @@ import SubmitButton from "@/app/components/SubmitButton";
 import { forgottenPassword } from "@/app/actions";
 import { useAlerts } from "@/app/context/alertsContext";
 import { inputClassname, labelClassname } from "@/app/staticData/cartPageClasses";
+import { IActionResponse } from "../types/apiTypes";
 
 const initialState = {
   message: "",
@@ -21,25 +22,49 @@ const initialState = {
 
 export default function ForgotPasswordForm() {
   const t = useTranslations("");
+  const [email, setEmail] = useState("");
 
-  const [state, formAction] = useFormState(forgottenPassword, initialState as any);
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const forgotPasswordFunction = async () => {
+      try {
+        const stringifiedData = JSON.stringify({ mail: email });
+        setIsLoading(true);
+        const response = await forgottenPassword(stringifiedData);
+        setIsLoading(false);
+        setActionResponse(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    forgotPasswordFunction();
+  };
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [actionResponse, setActionResponse] = useState<IActionResponse>({
+    message: "",
+    data: null,
+    isSuccess: false,
+    statusCode: 0,
+  });
 
   const { addAlert } = useAlerts();
   const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (state.statusCode !== 0) {
-      if (state.isSuccess && state.statusCode === 204) {
+    if (actionResponse.statusCode !== 0) {
+      if (actionResponse.isSuccess && actionResponse.statusCode === 204) {
         const redirect = searchParams.get("redirect");
         addAlert(uuid(), t("alerts.forgotPassword.success204.text"), t("alerts.forgotPassword.success204.title"), "emerald");
         router.push(redirect ? `/${redirect}` : "/connexion");
-      } else if (!state.isSuccess) {
+      } else if (!actionResponse.isSuccess) {
         let titleKey = "alerts.forgotPassword.defaultError.title";
         let textKey = "alerts.forgotPassword.defaultError.text";
         let color: "yellow" | "red" = "red";
 
-        switch (state.statusCode) {
+        switch (actionResponse.statusCode) {
           case 404:
           case 409:
             titleKey = "alerts.forgotPassword.error40x.title";
@@ -56,17 +81,16 @@ export default function ForgotPasswordForm() {
             textKey = "alerts.forgotPassword.error400.text";
             color = "yellow";
             break;
-          // TODO STATUS: Add other specific cases if needed
         }
-        const alertText = state.message || t(textKey);
+        const alertText = actionResponse.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), color);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [actionResponse]);
 
   return (
-    <form action={formAction}>
+    <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="email" className={labelClassname}>
           {t("forgotPasswordPage.emailLabel")}
@@ -79,15 +103,13 @@ export default function ForgotPasswordForm() {
             required
             autoComplete="email"
             className={inputClassname}
-            // TODO: aria-describedby={state?.errors?.email ? "email-error" : undefined}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          {/* TODO: Optional: Display validation errors */}
-          {/* {state?.errors?.email && (<p className="mt-1 text-xs text-red-600" id="email-error">{state.errors.email}</p>)} */}
         </div>
       </div>
 
       <div className="mt-6">
-        <SubmitButton text={t("forgotPasswordPage.submitButton")} className="w-full" />
+        <SubmitButton text={t("forgotPasswordPage.submitButton")} className="w-full" isPending={isLoading} />
       </div>
     </form>
   );

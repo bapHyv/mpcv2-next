@@ -216,11 +216,18 @@ interface UpdateUser {
   oldPassword: string;
   newPassword: string;
   optInMarketing: boolean;
+  confirmNewPassword?: string;
 }
 
 export async function update(stringifiedData: string) {
   try {
     const user: UpdateUser = JSON.parse(stringifiedData);
+
+    if ("confirmNewPassword" in user) {
+      delete user.confirmNewPassword;
+    }
+
+    console.log(user);
 
     const fetchOptions = {
       method: "PUT",
@@ -449,11 +456,9 @@ export async function comment(prevState: IComment, formData: FormData) {
  * 204: success no content {message, null, isSuccess, status code: 204}
  * 409: password recovery failed {message, null, !isSuccess, statusCode: 409}
  */
-export async function forgottenPassword(prevState: { email: string }, formData: FormData) {
+export async function forgottenPassword(stringifiedData: string) {
   try {
-    const email = {
-      mail: formData.get("email"),
-    };
+    const email: { mail: string } = JSON.parse(stringifiedData);
 
     const fetchOptions = {
       method: "POST",
