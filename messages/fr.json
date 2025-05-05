@@ -1,4 +1,144 @@
 {
+  "cookieConsent": {
+    "bannerAriaLabel": "Bandeau de Consentement aux Cookies",
+    "description": "Nous utilisons des cookies essentiels au fonctionnement du site. Avec votre accord, nous utilisons aussi des cookies fonctionnels (ex: langue préférée) et des outils d'analyse (ex: infos appareil) pour améliorer votre expérience. Consultez notre",
+    "link": "politique de cookies",
+    "policyLinkText": "Politique de Cookies",
+    "acceptAllButton": "Tout Accepter",
+    "rejectAllButton": "Tout Refuser",
+    "customizeButton": "Personnaliser",
+    "modalTitle": "Préférences des Cookies",
+    "modalDescription": "Gérez vos préférences de consentement ci-dessous. Les modifications seront enregistrées lorsque vous cliquerez sur 'Enregistrer'.",
+    "necessaryTitle": "Cookies Strictement Nécessaires",
+    "necessaryDescription": "Ces cookies sont essentiels au fonctionnement du site et ne peuvent pas être désactivés.",
+    "functionalTitle": "Cookies Fonctionnels",
+    "functionalDescription": "Ces cookies mémorisent vos préférences (ex: choix de langue) pour améliorer votre expérience.",
+    "analyticsTitle": "Analyse et Amélioration",
+    "analyticsDescription": "Ces cookies nous permettent de collecter des informations anonymes (type d'appareil, adresse IP) pour comprendre comment les visiteurs utilisent notre site et nous aider à l'améliorer.",
+    "saveButton": "Enregistrer",
+    "cancelButton": "Annuler",
+    "closeButtonAriaLabel": "Fermer la modale des préférences",
+    "cookiePreferencesLink": "Préférences des Cookies"
+  },
+  "cookiePolicy": {
+    "metadata": {
+      "title": "Politique de Cookies | MonPlanCBD",
+      "description": "Comprenez comment MonPlanCBD utilise les cookies et technologies similaires sur notre site web. Découvrez les données nécessaires, fonctionnelles et analytiques."
+    },
+    "pageTitle": "Politique de Cookies",
+    "lastUpdated": "Dernière mise à jour : 05 mai 2025",
+    "section1": {
+      "title": "1. Que sont les Cookies ?",
+      "para1": "Les cookies sont de petits fichiers texte placés sur votre appareil (ordinateur, tablette, smartphone) lorsque vous visitez un site web. Ils sont largement utilisés pour faire fonctionner les sites web, ou les faire fonctionner plus efficacement, ainsi que pour fournir des informations aux propriétaires du site.",
+      "para2": "Cette politique explique comment nous utilisons les cookies et les technologies similaires (comme le localStorage) sur MonPlanCBD. Pour plus d'informations sur la manière dont nous traitons vos données personnelles en général, veuillez consulter notre Politique de Confidentialité."
+    },
+    "section2": {
+      "title": "2. Comment Utilisons-Nous les Cookies et Technologies Similaires",
+      "para1": "Nous utilisons les cookies et le localStorage pour plusieurs raisons, principalement pour assurer le bon fonctionnement de notre site web, mémoriser vos préférences et nous aider à comprendre comment vous utilisez notre site afin de l'améliorer."
+    },
+    "section3": {
+      "title": "3. Types de Cookies et Données Utilisés",
+      "necessary": {
+        "title": "Cookies & Stockage Strictement Nécessaires",
+        "para1": "Ils sont essentiels au fonctionnement de notre site web et ne peuvent pas être désactivés dans nos systèmes. Ils ne sont généralement définis qu'en réponse à des actions effectuées par vous qui équivalent à une demande de services, telles que la connexion ou la gestion de votre session.",
+        "para2": "Vous pouvez configurer votre navigateur pour bloquer ou vous alerter sur ces éléments, mais certaines parties du site ne fonctionneront alors pas.",
+        "cookie1": {
+          "name": "accessToken",
+          "purpose": "Authentifie votre session connectée.",
+          "duration": "Session (ou plus si rafraîchi)"
+        },
+        "cookie2": {
+          "name": "refreshToken",
+          "purpose": "Rafraîchit de manière sécurisée votre jeton d'accès pour une connexion continue.",
+          "duration": "Long terme (selon configuration)"
+        },
+        "storage": {
+          "name": "user_consent_preferences_v1 (localStorage)",
+          "purpose": "Stocke vos choix de consentement aux cookies.",
+          "duration": "Persistant (jusqu'à effacement)"
+        }
+      },
+      "functional": {
+        "title": "Cookies & Stockage Fonctionnels",
+        "para1": "Ils permettent au site web d'offrir des fonctionnalités et une personnalisation améliorées. Ils peuvent être définis par nous ou par des fournisseurs tiers dont nous avons ajouté les services à nos pages. Ils ne sont utilisés qu'avec votre consentement.",
+        "para2": "Si vous n'autorisez pas ces éléments, certains ou tous ces services pourraient ne pas fonctionner correctement.",
+        "cookie1": {
+          "name": "NEXT_LOCALE",
+          "purpose": "Mémorise votre langue préférée.",
+          "duration": "Persistant (typiquement 1 an)"
+        },
+        "storage1": {
+          "name": "age_verified (localStorage)",
+          "purpose": "Mémorise que vous avez confirmé avoir plus de 18 ans.",
+          "duration": "Persistant (jusqu'à effacement)"
+        }
+      },
+      "analytics": {
+        "title": "Données d'Analyse et d'Amélioration",
+        "para1": "Avec votre consentement, nous collectons certaines informations pour nous aider à comprendre comment les visiteurs interagissent avec notre site web. Ces données nous aident à améliorer les performances du site et l'expérience utilisateur.",
+        "para2": "Ces données sont collectées de manière anonyme lorsque cela est possible et ne sont pas utilisées pour vous identifier personnellement à des fins marketing.",
+        "data1": {
+          "name": "Adresse IP (Anonymisée si possible)"
+        },
+        "data2": {
+          "name": "Chaîne User Agent (Type de navigateur et OS)"
+        },
+        "data3": {
+          "name": "Informations sur l'appareil (ex: Taille d'écran, type)"
+        },
+        "para3": "Ces informations ne sont collectées que si vous consentez à 'Analyse et Amélioration'."
+      }
+    },
+    "section4": {
+      "title": "4. Cookies Tiers",
+      "para1": "Certaines fonctionnalités de notre site peuvent utiliser des cookies définis par d'autres sociétés (cookies tiers). Par exemple, si nous intégrons du contenu provenant d'un autre site.",
+      "para2": "Nous listons ci-dessous les principaux cookies tiers potentiels. Veuillez consulter leurs politiques de confidentialité respectives pour plus d'informations.",
+      "service1": {
+        "purpose": "Utilisé par Google Analytics pour distinguer les utilisateurs et suivre l'utilisation du site web.",
+        "duration": "Variable (ex: 2 ans pour _ga)",
+        "policyLink": "Lire la politique de confidentialité de Google"
+      }
+    },
+    "section5": {
+      "title": "5. Gérer Vos Préférences",
+      "para1": "Vous avez le contrôle sur les cookies non essentiels et la collecte de données utilisés sur notre site.",
+      "para2": "Vous pouvez modifier vos préférences de consentement à tout moment en cliquant sur le lien '{preferencesLink}', généralement situé dans le pied de page de notre site web. Cela vous permettra d'ajuster les options pour le consentement Fonctionnel et Analyse et d'enregistrer vos choix.",
+      "preferencesLinkText": "Préférences des Cookies",
+      "para3": "De plus, la plupart des navigateurs web permettent un certain contrôle sur la plupart des cookies via les paramètres du navigateur. Pour en savoir plus sur les cookies, y compris comment voir quels cookies ont été installés, visitez www.aboutcookies.org ou www.allaboutcookies.org (en anglais) ou le site de la CNIL. Découvrez comment gérer les cookies sur les navigateurs populaires :",
+      "para4": "Veuillez noter que le blocage des cookies strictement nécessaires peut affecter la fonctionnalité du site web."
+    },
+    "section6": {
+      "title": "6. Utilisation du Local Storage",
+      "para1": "En plus des cookies, nous utilisons le mécanisme de localStorage de votre navigateur. Contrairement aux cookies, les données du localStorage ne sont pas automatiquement envoyées au serveur à chaque requête. Nous l'utilisons pour :",
+      "item1": {
+        "name": "Données du Panier (`cart`)",
+        "purpose": "Stocker temporairement les articles que vous ajoutez à votre panier pendant votre session de navigation actuelle."
+      },
+      "item2": {
+        "name": "Données de Commande (`order`)",
+        "purpose": "Conserver les détails de votre commande au fur et à mesure que vous avancez dans le processus de paiement, avant la soumission finale."
+      },
+      "item3": {
+        "name": "Données Utilisateur (`userData`)",
+        "purpose": "Mettre en cache certaines informations de votre compte localement pour un accès plus rapide après votre connexion."
+      },
+      "item4": {
+        "name": "Vérification de l'Âge (`age_verified`)",
+        "purpose": "Se souvenir que vous avez confirmé répondre à l'exigence d'âge minimum, évitant les vérifications répétées."
+      },
+      "para2": "Vous pouvez vider le localStorage via les paramètres de votre navigateur, mais cela peut entraîner la perte du contenu de votre panier actuel ou vous obliger à vous reconnecter ou à vérifier à nouveau votre âge."
+    },
+    "section7": {
+      "title": "7. Modifications de Cette Politique",
+      "para1": "Nous pouvons mettre à jour cette Politique de Cookies de temps à autre pour refléter des changements dans nos pratiques ou pour d'autres raisons opérationnelles, légales ou réglementaires. Nous vous encourageons à consulter cette politique périodiquement."
+    },
+    "section8": {
+      "title": "8. Nous Contacter",
+      "para1": "Si vous avez des questions sur notre utilisation des cookies ou cette politique, veuillez nous contacter à {emailLink} ou consulter notre {privacyPolicyLink} complète.",
+      "privacyPolicyLinkText": "Politique de Confidentialité"
+    },
+    "contactEmail": "contact@monplancbd.fr"
+  },
   "trustpilot": "Consultez nos avis:",
   "categoryPageContent": {
     "fleurs-cbd": {
@@ -1054,10 +1194,14 @@
     "description": "description"
   },
   "privacyPolicy": {
+    "metadata": {
+      "title": "Politique de Confidentialité | MonPlanCBD",
+      "description": "Apprenez comment MonPlanCBD collecte, utilise et protège vos données personnelles. Comprenez vos droits concernant vos informations lors de l'utilisation de notre site web."
+    },
     "mainTitle": "MONPLANCBD - POLITIQUE DE CONFIDENTIALITÉ",
     "introduction": {
       "title": "Introduction et Engagement",
-      "para1": "Bienvenue sur www.monplancbd.fr. La société MONPLANCBD SAS (\"MONPLANCBD\", \"nous\", \"notre\") s'engage à protéger la vie privée et les données personnelles de ses utilisateurs et clients (\"vous\"). Cette Politique de Confidentialité explique quelles données personnelles nous collectons, pourquoi nous les collectons, comment nous les utilisons, les partageons et les protégeons, ainsi que les droits dont vous disposez concernant vos données. Nous nous engageons à respecter le Règlement Général sur la Protection des Données (RGPD - Règlement (UE) 2016/679) et la loi française Informatique et Libertés applicable."
+      "para1": "Bienvenue sur www.monplancbd.fr. MONPLANCBD SAS (\"MONPLANCBD\", \"nous\", \"notre\") s'engage à protéger la vie privée et les données personnelles de ses utilisateurs et clients (\"vous\"). Cette Politique de Confidentialité explique quelles données personnelles nous collectons, pourquoi nous les collectons, comment nous les utilisons, partageons et protégeons, ainsi que les droits dont vous disposez concernant vos données. Nous nous engageons à respecter le Règlement Général sur la Protection des Données (RGPD - Règlement (UE) 2016/679) et la loi Informatique et Libertés française applicable."
     },
     "dataController": {
       "title": "Responsable du Traitement",
@@ -1071,95 +1215,87 @@
       "title": "Quelles Données Personnelles Collectons-Nous ?",
       "intro": "Nous pouvons collecter et traiter différents types de données personnelles vous concernant, notamment :",
       "item_identification": "Données d'identification et de contact : Nom, prénom, adresse email, adresse postale (livraison et facturation), numéro de téléphone.",
-      "item_connection_navigation": "Données de connexion et de navigation : Adresse IP, type de navigateur, pages visitées sur notre site, dates et heures de connexion, données de localisation approximative (déduite de l'IP), informations sur l'appareil utilisé.",
-      "item_order_transaction": "Données de commande et de transaction : Historique des achats, produits consultés ou ajoutés au panier, détails de la commande, informations de paiement (traitées de manière sécurisée par notre prestataire), informations de livraison, incidents ou réclamations.",
-      "item_account": "Données de compte client : Identifiant, mot de passe (crypté), préférences de communication (abonnement newsletter), points de fidélité, historique des interactions avec le service client.",
-      "item_reviews": "Données relatives aux avis produits : Pseudo (si fourni), contenu de l'avis, note attribuée.",
+      "item_connection_navigation": "Données de connexion et de navigation : Adresse IP, type de navigateur, pages visitées sur notre site, dates et heures de connexion, données de localisation approximative (déduites de l'IP), informations sur l'appareil utilisé.",
+      "item_order_transaction": "Données de commande et de transaction : Historique d'achats, produits consultés ou ajoutés au panier, détails de la commande, informations de paiement (traitées de manière sécurisée par notre prestataire), informations de livraison, incidents ou réclamations.",
+      "item_account": "Données du compte client : Identifiant de connexion, mot de passe (crypté), préférences de communication (abonnement newsletter), points de fidélité, historique des interactions avec le service client.",
+      "item_reviews": "Données d'avis produit : Pseudonyme (si fourni), contenu de l'avis, note attribuée.",
       "item_technical": "Données techniques : Informations collectées via les cookies (voir section dédiée).",
-      "outro": "Ces données sont collectées lorsque vous naviguez sur notre site, créez un compte, passez une commande (même en tant qu'invité), vous inscrivez à notre newsletter, contactez notre service client ou laissez un avis."
+      "outro": "Ces données sont généralement collectées lorsque vous naviguez sur notre site, créez ou vous connectez à votre compte, passez une commande (même en tant qu'invité), vous abonnez à notre newsletter, contactez notre service client ou laissez un avis."
     },
     "purposes": {
       "title": "Pourquoi Utilisons-Nous Vos Données (Finalités) ?",
-      "intro": "Nous utilisons vos données personnelles pour les finalités suivantes, basées sur différents fondements juridiques :",
+      "intro": "Nous utilisons vos données personnelles aux fins suivantes, sur la base de différents fondements juridiques :",
       "contract": {
-        "basis": "Exécution du contrat (Base légale : Contrat) :",
+        "basis": "Exécution d'un contrat (Base légale : Contrat) :",
         "item_order_management": "Gérer vos commandes (validation, paiement, préparation, expédition).",
         "item_delivery": "Assurer la livraison des produits à l'adresse indiquée.",
         "item_crm": "Gérer la relation client (suivi de commande, service après-vente, réclamations).",
         "item_account_management": "Gérer votre compte client."
       },
       "legalObligation": {
-        "basis": "Respect d'une obligation légale (Base légale : Obligation Légale) :",
+        "basis": "Respect d'une obligation légale (Base légale : Obligation légale) :",
         "item_invoice_retention": "Conserver les factures et documents comptables pendant la durée légale requise (10 ans).",
         "item_authority_requests": "Répondre aux demandes des autorités compétentes."
       },
       "consent": {
         "basis": "Votre Consentement (Base légale : Consentement) :",
         "item_newsletter": "Vous envoyer nos newsletters et offres promotionnelles par email ou SMS, si vous y avez consenti via la case à cocher lors de la création de compte ou de la commande.",
-        "item_cookies": "Déposer certains types de cookies sur votre appareil (voir section Cookies).",
-        "item_reviews": "Publier vos avis sur nos produits.",
+        "item_cookies": "Déposer certains types de cookies sur votre appareil (voir Politique de Cookies).",
+        "item_reviews": "Publier vos avis sur les produits.",
         "withdrawal_note": "Vous pouvez retirer votre consentement à tout moment (voir section \"Vos Droits\")."
       },
       "legitimateInterest": {
-        "basis": "Notre Intérêt Légitime (Base légale : Intérêt Légitime) :",
+        "basis": "Notre Intérêt Légitime (Base légale : Intérêt légitime) :",
         "item_security_fraud": "Assurer la sécurité de notre site web et prévenir la fraude.",
         "item_service_improvement": "Améliorer nos services et l'expérience utilisateur sur notre site (analyse de navigation, statistiques anonymisées).",
-        "item_personalization": "Personnaliser votre expérience sur le site (par exemple, afficher des produits pertinents).",
+        "item_personalization": "Personnaliser votre expérience sur le site (ex : affichage de produits pertinents).",
         "item_loyalty": "Gérer notre programme de fidélité.",
         "item_information_requests": "Répondre à vos demandes d'information via nos formulaires de contact ou email."
       }
     },
     "dataSharing": {
       "title": "Avec Qui Partageons-Nous Vos Données ?",
-      "intro": "Nous ne vendons pas vos données personnelles. Nous pouvons cependant les partager avec des tiers de confiance pour réaliser les finalités décrites ci-dessus :",
-      "item_payment": "Prestataires de paiement : Pour traiter vos paiements de manière sécurisée (ex: Stripe).",
-      "item_carriers": "Transporteurs : Pour assurer la livraison de vos commandes (ex: Chronopost, La Poste).",
-      "item_hosting": "Prestataires d'hébergement : Pour stocker les données de notre site web (Scaleway, basé dans l'UE).",
-      "item_emailing": "Plateformes d'emailing : Pour l'envoi de nos newsletters, si vous y avez consenti (Benchmark Email - *localisation des serveurs et transferts éventuels hors UE à vérifier et préciser ici, avec les garanties associées si nécessaire*).",
-      "item_authorities": "Autorités compétentes : Uniquement si la loi l'exige ou dans le cadre d'une procédure légale.",
+      "intro": "Nous ne vendons pas vos données personnelles. Cependant, nous pouvons les partager avec des tiers de confiance pour réaliser les finalités décrites ci-dessus :",
+      "item_payment": "Prestataires de paiement : Pour traiter vos paiements de manière sécurisée (ex : Stripe).",
+      "item_carriers": "Transporteurs : Pour assurer la livraison de vos commandes (ex : Chronopost, La Poste).",
+      "item_hosting": "Hébergeurs : Pour stocker les données de notre site web (Scaleway, basé dans l'UE).",
+      "item_emailing": "Plateformes d'emailing : Pour envoyer nos newsletters, si vous y avez consenti (Benchmark Email - Nécessite une vérification de la localisation du traitement des données et des garanties).",
+      "item_authorities": "Autorités compétentes : Uniquement si la loi l'exige ou dans le cadre de procédures judiciaires.",
       "outro": "Nous nous assurons que nos partenaires respectent la confidentialité et la sécurité de vos données et ne les utilisent que pour les missions qui leur sont confiées.",
       "transfers": {
         "title": "Transferts Internationaux :",
-        "para1": "Nos serveurs d'hébergement (Scaleway) sont situés dans l'Union Européenne.",
-        "para2_outside_eu": "Certains de nos prestataires, comme notre plateforme d'emailing Benchmark Email, peuvent traiter des données en dehors de l'UE (par exemple, aux États-Unis). Dans ce cas, nous nous assurons que ces transferts sont encadrés par des garanties appropriées, telles que les Clauses Contractuelles Types approuvées par la Commission Européenne, afin d'assurer un niveau de protection adéquat de vos données.",
+        "para1": "Nos serveurs d'hébergement (Scaleway) sont situés au sein de l'Union Européenne.",
+        "para2_outside_eu": "Certains de nos prestataires, comme notre plateforme d'emailing Benchmark Email, peuvent traiter des données en dehors de l'UE (ex : aux États-Unis). Dans ce cas, nous nous assurons que ces transferts sont encadrés par des garanties appropriées, telles que les Clauses Contractuelles Types approuvées par la Commission Européenne, pour assurer un niveau de protection adéquat de vos données.",
         "para2_inside_eu": "Tous nos principaux prestataires traitent vos données au sein de l'Union Européenne."
       }
     },
     "dataRetention": {
       "title": "Combien de Temps Conservons-Nous Vos Données ?",
-      "intro": "Nous conservons vos données personnelles uniquement pour la durée nécessaire aux finalités pour lesquelles elles ont été collectées, dans le respect de la réglementation :",
-      "item_client_active": "Données Client (compte actif) : Conservées pendant toute la durée de la relation commerciale, puis archivées pour une durée de 3 ans à compter de votre dernière activité (commande, connexion au compte, etc.), sauf demande d'effacement ou opposition de votre part.",
-      "item_order_billing": "Données de Commande/Facturation : Conservées pendant la durée légale obligatoire de 10 ans à compter de la clôture de l'exercice comptable.",
-      "item_prospects": "Données de Prospects (sans commande) : Conservées pendant 3 ans à compter de votre dernière interaction (clic dans un email, contact, etc.), sauf demande d'effacement ou opposition.",
-      "item_marketing_consent": "Données liées au consentement marketing : Conservées tant que vous ne retirez pas votre consentement.",
-      "item_cookies": "Cookies : La durée de vie des cookies est détaillée dans la section \"Utilisation des Cookies\" ci-dessous (généralement 13 mois maximum pour les cookies non essentiels nécessitant consentement)."
+      "intro": "Nous conservons vos données personnelles uniquement le temps nécessaire aux finalités pour lesquelles elles ont été collectées, dans le respect de la réglementation :",
+      "item_client_active": "Données client (compte actif) : Conservées pendant toute la durée de la relation commerciale, puis archivées pendant 3 ans à compter de votre dernière activité (commande, connexion compte...), sauf demande de suppression ou opposition de votre part.",
+      "item_order_billing": "Données de commande/facturation : Conservées pendant la durée légale obligatoire de 10 ans à compter de la clôture de l'exercice comptable.",
+      "item_prospects": "Données prospect (pas de commande) : Conservées pendant 3 ans à compter de votre dernière interaction (clic email, contact...), sauf demande de suppression ou opposition de votre part.",
+      "item_marketing_consent": "Données de consentement marketing : Conservées tant que vous ne retirez pas votre consentement.",
+      "item_cookies": "Cookies : La durée de vie des cookies est détaillée dans notre Politique de Cookies (généralement 13 mois maximum pour les cookies non essentiels nécessitant un consentement)."
     },
     "dataSecurity": {
       "title": "Comment Protégeons-Nous Vos Données ?",
-      "para1": "Nous prenons la sécurité de vos données très au sérieux. Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données personnelles contre la perte, l'utilisation abusive, l'accès non autorisé, la divulgation, l'altération ou la destruction. Cela inclut l'utilisation du protocole SSL/TLS pour crypter les données échangées sur notre site, des accès sécurisés à nos systèmes, et des politiques internes de gestion des données."
+      "para1": "Nous prenons la sécurité de vos données très au sérieux. Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données personnelles contre la perte, l'usage abusif, l'accès non autorisé, la divulgation, l'altération ou la destruction. Cela inclut l'utilisation du protocole SSL/TLS pour crypter les données échangées sur notre site, des accès sécurisés à nos systèmes et des politiques internes de gestion des données."
     },
     "cookies": {
       "title": "Utilisation des Cookies",
-      "intro": "Les cookies sont de petits fichiers texte déposés sur votre appareil (ordinateur, tablette, mobile) lorsque vous visitez notre site. Ils nous aident à :",
-      "item_essential": "Assurer le fonctionnement essentiel du site : Cookies nécessaires pour la navigation, l'accès à votre compte, la gestion du panier d'achat. Ces cookies ne nécessitent pas votre consentement préalable.",
-      "item_functional": "Améliorer votre expérience : Cookies fonctionnels qui mémorisent vos préférences (langue, etc.).",
-      "item_analytics": "Analyser la performance du site : Cookies analytiques qui nous permettent de comprendre comment les visiteurs utilisent notre site (pages visitées, temps passé), de manière anonymisée, pour l'améliorer.",
-      "item_marketing": "Proposer des publicités ciblées : Cookies marketing ou publicitaires qui permettent d'afficher des publicités pertinentes sur d'autres sites, en fonction de votre navigation sur www.monplancbd.fr (utilisés uniquement avec votre consentement).",
-      "consentManagement": {
-        "title": "Gestion du Consentement aux Cookies :",
-        "para1": "Lors de votre première visite, un bandeau vous informe de l'utilisation des cookies et vous permet d'accepter, de refuser ou de personnaliser vos choix pour les cookies non essentiels. Vous pouvez modifier vos préférences à tout moment via {consentManagementLink}.",
-        "para2": "La durée de validité du consentement pour les cookies non essentiels est de {consentDuration} mois. La durée de conservation des informations collectées par les cookies est au maximum de {retentionDuration} mois."
-      }
+      "introduction": "Nous utilisons des cookies et technologies similaires. Pour des informations détaillées sur les cookies que nous utilisons, leurs finalités et comment vous pouvez les gérer, veuillez consulter notre",
+      "cookiePolicyLinkText": "Politique de Cookies"
     },
     "yourRights": {
       "title": "Vos Droits Concernant Vos Données Personnelles",
       "intro": "Conformément au RGPD, vous disposez des droits suivants sur vos données personnelles :",
       "item_access": "Droit d'accès : Demander à consulter les données que nous détenons sur vous.",
-      "item_rectification": "Droit de rectification : Demander la correction de données inexactes ou incomplètes.",
-      "item_erasure": "Droit à l'effacement (\"droit à l'oubli\") : Demander la suppression de vos données, sous réserve des obligations légales de conservation.",
+      "item_rectification": "Droit de rectification : Demander la correction des données inexactes ou incomplètes.",
+      "item_erasure": "Droit à l'effacement ('droit à l'oubli') : Demander la suppression de vos données, sous réserve des obligations légales de conservation.",
       "item_restriction": "Droit à la limitation du traitement : Demander de geler temporairement l'utilisation de certaines de vos données.",
-      "item_portability": "Droit à la portabilité : Recevoir les données que vous nous avez fournies dans un format structuré et couramment utilisé, et les transmettre à un autre responsable de traitement si techniquement possible.",
-      "item_objection": "Droit d'opposition : Vous opposer au traitement de vos données pour des motifs légitimes, et à tout moment pour le marketing direct (y compris le profilage lié au marketing direct).",
+      "item_portability": "Droit à la portabilité des données : Recevoir les données que vous nous avez fournies dans un format structuré, couramment utilisé, et les transmettre à un autre responsable de traitement si techniquement possible.",
+      "item_objection": "Droit d'opposition : Vous opposer au traitement de vos données pour des motifs légitimes, et à tout moment pour la prospection commerciale (y compris le profilage lié à la prospection).",
       "item_withdraw_consent": "Droit de retirer votre consentement : Pour les traitements basés sur le consentement (newsletter, certains cookies), vous pouvez le retirer à tout moment.",
       "item_post_mortem": "Droit de définir des directives post-mortem : Organiser le sort de vos données après votre décès.",
       "howToExercise": {
@@ -1169,25 +1305,25 @@
         "profileLinkText": "\"Mon Profil\"",
         "item_addresses": "Gérer vos adresses dans la section {addressesLink}.",
         "addressesLinkText": "\"Mes Adresses\"",
-        "item_newsletter": "Gérer votre abonnement à la newsletter dans la section \"Mon Profil\" ou via les liens de désinscription présents dans nos emails.",
-        "outro": "Pour toute autre demande ou pour exercer les droits non disponibles via votre compte, vous pouvez nous contacter par email à contact@monplancbd.fr ou par courrier postal à l'adresse indiquée à l'Article 2, en joignant si nécessaire une copie d'une pièce d'identité pour vérifier votre identité. Nous nous engageons à répondre dans un délai d'un mois."
+        "item_newsletter": "Gérer votre abonnement à la newsletter dans la section \"Mon Profil\" ou via les liens de désabonnement dans nos emails.",
+        "outro": "Pour toute autre demande ou pour exercer des droits non disponibles via votre compte, vous pouvez nous contacter par email à contact@monplancbd.fr ou par courrier postal à l'adresse indiquée à l'Article 2, en joignant si nécessaire une copie d'une pièce d'identité pour vérifier votre identité. Nous nous engageons à répondre dans un délai d'un mois."
       },
       "complaintRight": {
-        "title": "Droit de réclamation auprès de la CNIL :",
-        "para1": "Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la Commission Nationale de l'Informatique et des Libertés (CNIL) : {cnilLink}."
+        "title": "Droit d'introduire une réclamation auprès de la CNIL :",
+        "para1": "Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la Commission Nationale de l'Informatique et des Libertés (CNIL) : {cnilLink}."
       }
     },
     "minorsPolicy": {
       "title": "Politique Concernant les Mineurs",
-      "para1": "Notre site et nos produits ne sont pas destinés aux personnes mineures de moins de 18 ans. Nous ne collectons ni ne traitons sciemment les données personnelles de mineurs. Si nous découvrons que nous avons collecté de telles données, nous les supprimerons immédiatement."
+      "para1": "Notre site et nos produits ne sont pas destinés aux mineurs de moins de 18 ans. Nous ne collectons ni ne traitons sciemment les données personnelles des mineurs. Si nous découvrons que nous avons collecté de telles données, nous les supprimerons immédiatement."
     },
     "policyUpdate": {
-      "title": "Mise à Jour de la Politique de Confidentialité",
-      "para1": "Nous pouvons être amenés à modifier cette Politique de Confidentialité occasionnellement pour refléter des changements dans nos pratiques ou pour des raisons légales ou réglementaires. En cas de modification substantielle, nous vous en informerons par email (si nous avons votre adresse) ou via une notification sur notre site web avant que le changement ne devienne effectif. Nous vous encourageons à consulter cette page régulièrement."
+      "title": "Mises à Jour de la Politique de Confidentialité",
+      "para1": "Nous pouvons modifier occasionnellement cette Politique de Confidentialité pour refléter des changements dans nos pratiques ou pour des raisons légales ou réglementaires. En cas de modification substantielle, nous vous informerons par email (si nous avons votre adresse) ou via une notification sur notre site web avant que la modification ne prenne effet. Nous vous encourageons à consulter cette page régulièrement."
     },
     "contact": {
       "title": "Contact",
-      "intro": "Pour toute question relative à cette Politique de Confidentialité ou à la gestion de vos données personnelles, veuillez nous contacter :",
+      "intro": "Pour toute question concernant cette Politique de Confidentialité ou la gestion de vos données personnelles, veuillez nous contacter :",
       "emailLabel": "Par email",
       "emailValue": "contact@monplancbd.fr",
       "mailLabel": "Par courrier postal",
@@ -1359,13 +1495,20 @@
     "register": "Inscription"
   },
   "footer": {
-    "legalNotices": "Mentions légales",
-    "conditionsOfUse": "Conditions d'utilisation",
+    "footerSR": "Pied de page",
+    "logoAlt": "Logo Monplancbd - Blanc",
+    "navigationTitle": "Navigation",
+    "legalNotices": "Mentions Légales",
+    "conditionsOfUse": "Conditions d'Utilisation",
     "FAQ": "FAQ",
-    "GCS": "Conditions générales de vente",
-    "privacyPolicies": "Politiques de confidentialité",
-    "about": "À propos",
-    "shippingPolicy": "Politique d'expedition"
+    "GCS": "Conditions Générales de Vente",
+    "privacyPolicies": "Politique de Confidentialité",
+    "about": "À Propos de Monplancbd",
+    "shippingPolicy": "Politique d'Expédition",
+    "cookiePolicy": "Politique de Cookies",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "copyrightText": "Monplancbd. Tous droits réservés."
   },
   "blog": {
     "link": "Blog"

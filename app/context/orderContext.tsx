@@ -1,14 +1,15 @@
 "use client";
 import { createContext, useContext, ReactNode, useState, useEffect, Dispatch, SetStateAction, useMemo } from "react";
+import { UAParser } from "ua-parser-js";
 
-import { useProductsAndCart } from "@/app/context/productsAndCartContext";
+import { ParcelPoint } from "@/app/types/mapTypes";
 import { Order, OrderProducts, shippingAddress, billingAddress } from "@/app/types/orderTypes";
 import { computeFixedProductDiscount, computePercentDiscount } from "@/app/utils/orderFunctions";
-import { useAuth } from "./authContext";
-import { UAParser } from "ua-parser-js";
 import useDiscountCodeUsable from "@/app/hooks/useDiscountCodeUsable";
-import { ParcelPoint } from "@/app/types/mapTypes";
-import { useSse } from "./sseContext";
+import { useAuth } from "@/app/context/authContext";
+import { useConsent } from "@/app/context/consentContext";
+import { useProductsAndCart } from "@/app/context/productsAndCartContext";
+import { useSse } from "@/app/context/sseContext";
 
 interface OrderContext {
   order: Order;
@@ -74,6 +75,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const { cart } = useProductsAndCart();
   const { userData } = useAuth();
   const isDiscountCodeUsable = useDiscountCodeUsable();
+  const { consentState, isLoadingConsent } = useConsent();
 
   const userShippingAddress = useMemo(() => {
     if (userData) return userData.addresses.find((address) => address.shipping);
@@ -318,21 +320,51 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
    * Get the client data for analysis purpose
    */
   useEffect(() => {
-    const getClientInfo = async () => {
-      const response = await fetch("https://api.ipify.org/?format=json");
-      const data: { ip: string } = await response.json();
-      const parser = UAParser();
+    if (isLoadingConsent) {
+      return;
+    }
 
-      setOrder((prevState) => ({
-        ...prevState,
-        customerIp: data.ip,
-        customerUserAgent: parser.ua,
-        deviceType: parser,
-      }));
-    };
+    if (consentState.analytics) {
+      const getClientInfo = async () => {
+        try {
+          const response = await fetch("https://api.ipify.org/?format=json");
+          if (!response.ok) throw new Error("Failed to fetch IP");
+          const data: { ip: string } = await response.json();
 
-    getClientInfo();
-  }, []);
+          const parser = UAParser();
+
+          setOrder((prevState) => ({
+            ...prevState,
+            customerIp: data.ip,
+            customerUserAgent: parser.ua,
+            deviceType: parser,
+          }));
+        } catch (error) {
+          console.error("Failed to get client info:", error);
+          setOrder((prevState) => ({
+            ...prevState,
+            customerIp: "",
+            customerUserAgent: "",
+            deviceType: {} as UAParser.IResult,
+          }));
+        }
+      };
+
+      getClientInfo();
+    } else {
+      setOrder((prevState) => {
+        if (prevState.customerIp !== "" || prevState.customerUserAgent !== "") {
+          return {
+            ...prevState,
+            customerIp: "",
+            customerUserAgent: "",
+            deviceType: {} as UAParser.IResult,
+          };
+        }
+        return prevState;
+      });
+    }
+  }, [consentState.analytics, isLoadingConsent]);
 
   useEffect(() => {
     if (order) {

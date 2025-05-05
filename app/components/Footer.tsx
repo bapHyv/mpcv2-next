@@ -2,12 +2,14 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 
+import CookiePreferencesModal from "@/app/components/CookiePreferencesModal";
+
 export default async function Footer({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "footer" });
 
   const social = [
     {
-      name: "Facebook",
+      nameKey: "facebook",
       href: "https://www.facebook.com/monplancbd",
       icon: (props: any) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -20,7 +22,7 @@ export default async function Footer({ locale }: { locale: string }) {
       ),
     },
     {
-      name: "Instagram",
+      nameKey: "instagram",
       href: "https://www.instagram.com/monplancbd.fr",
       icon: (props: any) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -35,52 +37,68 @@ export default async function Footer({ locale }: { locale: string }) {
   ];
 
   const navigation = [
-    { name: t("legalNotices"), href: "mentions-legales" },
-    { name: t("conditionsOfUse"), href: "conditions-dutilisation" },
-    { name: t("FAQ"), href: "FAQ" },
-    { name: t("GCS"), href: "conditions-generales-de-vente" },
-    { name: t("privacyPolicies"), href: "politiques-de-confidentialites" },
-    { name: t("about"), href: "a-propos-de-monplancbd" },
-    { name: t("shippingPolicy"), href: "politique-expedition" },
+    { nameKey: "legalNotices", href: "mentions-legales" },
+    { nameKey: "conditionsOfUse", href: "conditions-dutilisation" },
+    { nameKey: "FAQ", href: "FAQ" },
+    { nameKey: "GCS", href: "conditions-generales-de-vente" },
+    { nameKey: "privacyPolicies", href: "politiques-de-confidentialites" },
+    { nameKey: "about", href: "a-propos-de-monplancbd" },
+    { nameKey: "shippingPolicy", href: "politique-expedition" },
+    { nameKey: "cookiePolicy", href: "politique-cookies" },
   ];
 
   return (
-    <footer aria-labelledby="footer-heading" className="bg-black p-10">
-      <h2 id="footer-heading" className="sr-only">
-        Footer
-      </h2>
-      <div className="flex space-x-10">
-        <div>
-          <Link href="/">
-            <Image alt="Monplancbd" src="/logo-blanc.png" width={150} height={150} />
-          </Link>
-          <div className="flex space-x-6">
-            {social.map((item) => (
-              <a key={item.name} href={item.href} className="text-gray-100 hover:bg-gray-700 p-2 rounded-full" target="_blank">
-                <span className="sr-only">{item.name}</span>
-                <item.icon aria-hidden="true" className="h-6 w-6" />
-              </a>
-            ))}
+    <>
+      <footer aria-labelledby="footer-heading" className="bg-black p-6 md:p-10">
+        <h2 id="footer-heading" className="sr-only">
+          {t("footerSR")}
+        </h2>
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row justify-start gap-x-12 gap-y-8">
+            {/* Logo & Social Links */}
+            <div className="flex flex-col items-center md:items-start">
+              <Link href={`/${locale}`}>
+                <Image alt={t("logoAlt")} src="/logo-blanc.png" width={120} height={120} />
+              </Link>
+              <div className="flex space-x-4 mt-4">
+                {social.map((item) => (
+                  <a
+                    key={item.nameKey}
+                    href={item.href}
+                    className="text-gray-300 hover:text-white p-2 rounded-full transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="sr-only">{t(item.nameKey)}</span>
+                    <item.icon aria-hidden="true" className="h-6 w-6" />
+                  </a>
+                ))}
+              </div>
+            </div>
+            {/* Navigation Links */}
+            <div>
+              <h3 className="text-sm font-semibold leading-6 text-white">{t("navigationTitle")}</h3>
+              <ul role="list" className="mt-4 space-y-3">
+                {navigation.map((item) => (
+                  <li key={item.nameKey}>
+                    <Link href={`/${locale}/${item.href}`} className="text-sm leading-6 text-gray-300 hover:text-white">
+                      {t(item.nameKey)}
+                    </Link>
+                  </li>
+                ))}
+                {/* Cookie Preferences Link */}
+                <CookiePreferencesModal />
+              </ul>
+            </div>
+          </div>
+          {/* Copyright & Bottom Links */}
+          <div className="mt-10 border-t border-white/10 pt-6 md:pt-8">
+            <p className="text-xs leading-5 text-gray-400 text-center">
+              © {new Date().getFullYear()} {t("copyrightText")}
+            </p>
           </div>
         </div>
-        <div>
-          <h3 className="text-sm font-semibold leading-6 text-white">Navigations</h3>
-          <ul role="list" className="mt-6 space-y-4">
-            {navigation.map((item) => (
-              <li key={item.name}>
-                <Link href={`/${locale}/${item.href}`} className="text-sm leading-6 text-gray-300 hover:text-white">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="">
-        <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-          <p className="text-xs leading-5 text-gray-100">&copy; 2024 Monplancbd tout droits réservés.</p>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }

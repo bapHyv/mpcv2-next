@@ -4,23 +4,20 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { twMerge } from "tailwind-merge";
 
-import useCookies from "@/app/hooks/useCookies";
 import Image from "next/image";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 
 const AgeVerificationOverlay = () => {
   const t = useTranslations("ageVerification");
   const [showOverlay, setShowOverlay] = useState(false);
-  const { addCookie } = useCookies();
 
   useEffect(() => {
-    const isAgeVerified = document.cookie.includes("age_verified=true") || localStorage.getItem("age_verified") === "true";
+    const isAgeVerified = localStorage.getItem("age_verified") === "true";
     setShowOverlay(!isAgeVerified);
   }, []);
 
   const verifyAge = (isOfAge: boolean) => {
     if (isOfAge) {
-      addCookie({ name: "age_verified", value: "true", options: { "Max-Age": 30 * 24 * 60 * 60 } });
       localStorage.setItem("age_verified", "true");
       setShowOverlay(false);
     } else {

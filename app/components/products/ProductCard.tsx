@@ -130,7 +130,7 @@ export default async function ProductCard({
         </div>
 
         <section aria-labelledby={`info-${id}`} className="text-center flex flex-col flex-grow">
-          <Link href={`/${locale}/${category}/${slug}`} className="mb-1 group w-fit m-auto">
+          <Link href={`/${locale}/${category}/${slug}`} className="mb-1 group w-4/5 m-auto">
             <h2
               id={`info-${id}`}
               className={clsx("text-base font-semibold text-gray-900 truncate group-hover:text-green transition-colors", "xl:text-lg")}
