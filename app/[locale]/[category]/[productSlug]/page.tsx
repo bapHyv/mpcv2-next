@@ -289,7 +289,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                     />
                   ))}
                 </div>
-                <Link href="#reviews-heading" scroll className={linkClassname}>
+                <Link href="#review-form" scroll className={linkClassname}>
                   {product.ratings.amount} avis
                 </Link>
               </div>
@@ -453,7 +453,7 @@ export default async function Page({ params: { category, locale, productSlug } }
       </div>
 
       {/* --- Review Form Placeholder --- */}
-      <section aria-labelledby="review-form-heading" className={twMerge(sectionWrapperClassname, "mt-16 lg:mt-20")}>
+      <section id="review-form" aria-labelledby="review-form-heading" className={twMerge(sectionWrapperClassname, "mt-16 lg:mt-20")}>
         <ReviewForm id={product.id} />
       </section>
 

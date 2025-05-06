@@ -159,7 +159,7 @@ export default async function ProductCard({
                 />
               ))}
             </div>
-            <Link href={`/${locale}/${category}/${slug}#reviews-heading`}>
+            <Link href={{ pathname: `/${locale}/${category}/${slug}`, hash: "review-form" }}>
               <span className="ml-2 text-xs font-medium text-gray-500 underline">
                 ({ratings?.amount ?? 0} {t("reviews")})
               </span>
