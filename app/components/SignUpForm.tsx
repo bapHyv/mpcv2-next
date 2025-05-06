@@ -55,12 +55,10 @@ export default function SignUpForm() {
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
-    email: "",
+    email: searchParams.get("email") || "",
     password: "",
     optInMarketing: false,
   });
-
-  const initialEmail = searchParams.get("email") || "";
 
   const [isLoading, setIsLoading] = useState(false);
   const [actionResponse, setActionResponse] = useState<IActionResponse>({
@@ -122,7 +120,7 @@ export default function SignUpForm() {
             titleKey = "alerts.signUp.error409.title";
             textKey = "alerts.signUp.error409.text";
             alertType = "blue";
-            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent((actionResponse.data as string) || initialEmail)}`), 500);
+            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent((actionResponse.data as string) || formData.email)}`), 500);
             break;
           case 400:
             titleKey = "alerts.signUp.error400.title";
@@ -169,15 +167,7 @@ export default function SignUpForm() {
 
       {/* Email */}
       <FormField id="email" label={t("signUpPage.emailLabel")} required>
-        <input
-          type="email"
-          name="email"
-          required
-          defaultValue={initialEmail}
-          value={formData.email}
-          onChange={handleChange}
-          className={inputClassname}
-        />
+        <input type="email" name="email" required value={formData.email} onChange={handleChange} className={inputClassname} />
       </FormField>
 
       {/* Password */}

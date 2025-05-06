@@ -74,7 +74,7 @@ export default function SignInForm() {
         setUserData(userData);
         addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
 
-        router.push(redirect ? `/${redirect}` : "/");
+        router.push(redirect ? redirect : "/");
         router.refresh();
       } else if (!actionResponse.isSuccess) {
         let titleKey = "alerts.signIn.defaultError.title";

@@ -92,11 +92,18 @@ export default function ReviewForm({ id }: Props) {
   }, [state]);
 
   if (!userData) {
+    const redirectValue = `${pathname}#review-form`;
     return (
-      <div className={twMerge(subtleSectionWrapperClassname, "mt-10 text-center")}>
+      <div className={twMerge(subtleSectionWrapperClassname, "text-center")}>
         <p className="text-sm text-gray-700">
           {t("reviews.loginPrompt.text")}{" "}
-          <Link href={`/connexion?redirect=${pathname}`} className={linkClassname}>
+          <Link
+            href={{
+              pathname: "/connexion", // The page to navigate to
+              query: { redirect: redirectValue }, // The query parameters
+            }}
+            className={linkClassname}
+          >
             {t("reviews.loginPrompt.link")}
           </Link>{" "}
           {t("reviews.loginPrompt.suffix")}

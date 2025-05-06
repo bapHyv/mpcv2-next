@@ -34,7 +34,7 @@ export default function LanguageSelector() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative h-8 w-8">
       <button
         ref={iconRef}
         type="button"
