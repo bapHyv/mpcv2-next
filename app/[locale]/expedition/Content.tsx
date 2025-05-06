@@ -76,7 +76,10 @@ export default function DisplayComponents() {
     if (actionResponse) {
       if (actionResponse.isSuccess && actionResponse.data && actionResponse.statusCode === 200) {
         if (isUserDataAPIResponse(actionResponse.data)) {
-          console.log(actionResponse.data);
+          if (!Array.isArray(actionResponse.data.addresses)) {
+            actionResponse.data.addresses = [];
+          }
+
           setUserData(actionResponse.data);
           addAlert(uuid(), t("alerts.accountCreation.success200.text"), t("alerts.accountCreation.success200.title"), "emerald");
           router.push("/paiement");

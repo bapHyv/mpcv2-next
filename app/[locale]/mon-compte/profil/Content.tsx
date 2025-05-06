@@ -153,6 +153,10 @@ export default function Profile() {
       setIsUpdating(false);
       setIsLoading(false);
       if (actionResponse.isSuccess && isUserDataAPIResponse(actionResponse.data) && actionResponse.statusCode === 200) {
+        if (!Array.isArray(actionResponse.data.addresses)) {
+          actionResponse.data.addresses = [];
+        }
+
         setUserData((prevState) => {
           if (prevState) {
             return { ...prevState, ...actionResponse.data };

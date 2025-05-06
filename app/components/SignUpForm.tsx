@@ -103,6 +103,11 @@ export default function SignUpForm() {
     if (actionResponse.statusCode !== 0) {
       if (actionResponse.isSuccess && isUserDataAPIResponse(actionResponse.data) && actionResponse.statusCode === 200) {
         const redirectPath = searchParams.get("redirect");
+
+        if (!Array.isArray(actionResponse.data.addresses)) {
+          actionResponse.data.addresses = [];
+        }
+
         setUserData(actionResponse.data);
         addAlert(uuid(), t("alerts.signUp.success.text"), t("alerts.signUp.success.title"), "emerald");
         router.push(redirectPath ? `/${redirectPath}` : "/"); // Redirect to account

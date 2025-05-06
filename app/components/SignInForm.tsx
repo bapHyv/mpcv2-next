@@ -67,6 +67,10 @@ export default function SignInForm() {
         const redirect = searchParams.get("redirect");
         const userData = actionResponse.data as UserDataAPIResponse;
 
+        if (!Array.isArray(userData.addresses)) {
+          userData.addresses = [];
+        }
+
         setUserData(userData);
         addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
 
