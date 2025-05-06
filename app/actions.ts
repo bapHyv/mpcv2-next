@@ -132,8 +132,6 @@ export async function register(stringifiedData: string, formData?: FormData) {
     const billingAddress: billingAddress | undefined = formData ? JSON.parse(formData.get("billing-address") as string) : undefined;
     const isDifferentBilling: boolean | undefined = formData ? !!formData.get("different-billing") : undefined;
 
-    console.log({ isDifferentBilling });
-
     const user: IUser = {
       mail: parsedUser.email,
       password: parsedUser.password,
@@ -151,12 +149,6 @@ export async function register(stringifiedData: string, formData?: FormData) {
         }
       }
     }
-
-    console.log({ parsedUser });
-    console.log({ shippingAddress });
-    console.log({ billingAddress });
-    console.log({ isDifferentBilling });
-    console.log({ user });
 
     const fetchOptions = {
       method: "POST",
@@ -226,8 +218,6 @@ export async function update(stringifiedData: string) {
     if ("confirmNewPassword" in user) {
       delete user.confirmNewPassword;
     }
-
-    console.log(user);
 
     const fetchOptions = {
       method: "PUT",

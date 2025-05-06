@@ -123,8 +123,6 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
   useEffect(() => {
     if (actionResponse.statusCode !== 0) {
       if (actionResponse.isSuccess && isAddress(actionResponse.data) && actionResponse.statusCode === 200) {
-        console.log(actionResponse.data);
-
         setUserData((prevState) => {
           if (prevState) return { ...prevState, addresses: [...prevState.addresses, actionResponse.data as Address] };
           return null;
