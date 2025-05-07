@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 import Star from "@/app/components/Star";
 import Title from "@/app/components/Title";
@@ -45,6 +46,7 @@ const FormField = ({
 );
 
 export default function Form() {
+  const [inputType, setInputType] = useState<"password" | "text">("password");
   const t = useTranslations("shippingPage.addressForm");
   const { sseData } = useSse();
   const { userData } = useAuth();
@@ -262,16 +264,26 @@ export default function Form() {
             </FormField>
             {/* Password (Guest Checkout) */}
             {!userData && (
-              <FormField id="password" label={t("createPasswordLabel")} required helpText={t("createPasswordHelpText")}>
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={order.password}
-                  onChange={handleChange}
-                  required
-                  className={inputClassname}
-                />
+              <FormField id="password" label={t("createPasswordLabel")} required helpText={t("createPasswordHelpText")} className="relative">
+                <>
+                  <input
+                    id="password"
+                    type={inputType}
+                    name="password"
+                    value={order.password}
+                    onChange={handleChange}
+                    required
+                    className={inputClassname}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
+                    className="absolute inset-y-0 right-0 top-2 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+                    aria-label={inputType === "password" ? t("showPasswordAriaLabel") : t("hidePasswordAriaLabel")}
+                  >
+                    {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
+                  </button>
+                </>
               </FormField>
             )}
             <FormField id="shipping-order-notes" label={t("orderNotesLabel")}>
