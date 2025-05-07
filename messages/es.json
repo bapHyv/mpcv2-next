@@ -1937,7 +1937,9 @@
       "createPasswordLabel": "Crear contraseña de cuenta",
       "createPasswordHelpText": "Tu cuenta se creará usando este correo electrónico y contraseña.",
       "orderNotesLabel": "Notas del pedido (Opcional)",
-      "differentBillingLabel": "¿Facturar a una dirección diferente?"
+      "differentBillingLabel": "¿Facturar a una dirección diferente?",
+      "showPasswordAriaLabel": "Mostrar contraseña",
+      "hidePasswordAriaLabel": "Ocultar contraseña"
     }
   },
   "reviews": {

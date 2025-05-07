@@ -6,6 +6,9 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["geoip-lite"],
+    serverActions: {
+      allowedOrigins: ["sherlocks-paiement.secure.lcl.fr"],
+    },
   },
   reactStrictMode: false,
   images: {

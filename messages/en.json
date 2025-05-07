@@ -1942,7 +1942,9 @@
       "createPasswordLabel": "Create account password",
       "createPasswordHelpText": "Your account will be created using this email and password.",
       "orderNotesLabel": "Order notes (Optional)",
-      "differentBillingLabel": "Bill to a different address?"
+      "differentBillingLabel": "Bill to a different address?",
+      "showPasswordAriaLabel": "Show password",
+      "hidePasswordAriaLabel": "Hide password"
     }
   },
   "reviews": {

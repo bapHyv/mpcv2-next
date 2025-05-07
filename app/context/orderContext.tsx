@@ -98,7 +98,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
 
     const isAddressType = type === "text" || type === "select-one" || type === "textarea" || type === "email" || type === "tel";
 
-    if (type === "password") {
+    if (type === "password" || id === "password") {
       setOrder((prevState) => {
         return {
           ...prevState,

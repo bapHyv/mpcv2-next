@@ -1852,7 +1852,9 @@
       "createPasswordLabel": "Créer un mot de passe",
       "createPasswordHelpText": "Votre compte sera créé avec cet email et mot de passe.",
       "orderNotesLabel": "Notes de commande (Facultatif)",
-      "differentBillingLabel": "Facturer à une adresse différente ?"
+      "differentBillingLabel": "Facturer à une adresse différente ?",
+      "showPasswordAriaLabel": "Afficher le mot de passe",
+      "hidePasswordAriaLabel": "Masquer le mot de passe"
     }
   },
   "reviews": {
