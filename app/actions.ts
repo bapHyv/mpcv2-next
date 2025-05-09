@@ -484,6 +484,14 @@ export async function payment(stringifiedOrder: string) {
   try {
     const order: Order = JSON.parse(stringifiedOrder);
 
+    if (!order["different-billing"]) {
+      for (const key in order.shippingAddress) {
+        if (key !== "order-notes") {
+          order.billingAddress[key as keyof billingAddress] = order.shippingAddress[key as keyof shippingAddress];
+        }
+      }
+    }
+
     const fetchOptions = {
       method: "POST",
       body: JSON.stringify(order),
