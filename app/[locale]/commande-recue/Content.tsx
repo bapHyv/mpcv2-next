@@ -56,7 +56,7 @@ function formatDate(locale: string): string {
 
 // 1500ms => get localStorage
 // 2000ms => setLoading to false
-// 3000ms => clear state (will clear localStorage)
+// 2500ms => clear state (will clear localStorage)
 
 export default function Content({ searchParams, locale }: ContentProps) {
   const { orderId, payment } = searchParams;
@@ -120,7 +120,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
           }
         }
         handleCleanUpAfterPayment();
-      }, 3000);
+      }, 2500);
 
       return () => clearTimeout(cleanupTimeout);
     }

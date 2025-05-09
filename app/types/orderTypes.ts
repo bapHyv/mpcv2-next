@@ -1,25 +1,3 @@
-// {
-//     products: {
-//         ID_PRODUCT: [
-//             {label: 'XXXX', amount: '50', quantity: '1'},
-//             ...
-//         ],
-//         ...
-//     },
-//     discounts: [
-//         {type: 'coupon', value: 'toto4000'},
-//         {type: 'loyaltyPoints', value: '4000'},
-//         ...
-//     ],
-//     shippingMethodId: SHIPPING_METHOD_ID,
-//     shippingAddress: {},
-//     billingAddress: {},
-//     total: XXXX,
-//     customerIp: '',
-//     customerUserAgent: '',
-//     deviceType: Desktop || Mobile
-// }
-
 import { Address } from "@/app/types/profileTypes";
 import { DiscountCode, discountType } from "@/app/types/sseTypes";
 import { ParcelPoint } from "@/app/types/mapTypes";

@@ -82,7 +82,12 @@ export default async function Page({ params: { locale }, searchParams }: Command
 
   return (
     <>
-      <Title title={t("pageTitle")} type="h1" classname={twMerge(titleClassname, "md:mt-14 text-green text-center")} firstLetterClassname="text-xl" />
+      <Title
+        title={t("pageTitle")}
+        type="h1"
+        classname={twMerge(titleClassname, "mt-10 md:mt-14 text-green text-center")}
+        firstLetterClassname="text-xl"
+      />
 
       <Content {...contentProps} />
     </>

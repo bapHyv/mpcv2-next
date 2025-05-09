@@ -23,6 +23,7 @@ import { IActionResponse } from "@/app/types/apiTypes";
 
 interface Params {
   setIsAddModalOpen: Dispatch<SetStateAction<boolean>>;
+  onOperationComplete: () => void;
 }
 
 type addAddressForm = Omit<Address, "id">;
@@ -51,7 +52,7 @@ const FormField = ({
   </div>
 );
 
-export default function AddAddressModale({ setIsAddModalOpen }: Params) {
+export default function AddAddressModale({ setIsAddModalOpen, onOperationComplete }: Params) {
   const t = useTranslations("");
 
   const { setUserData } = useAuth();
@@ -81,15 +82,6 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
     statusCode: 0,
   });
 
-  const handleResetActionResponse = () => {
-    setActionResponse({
-      message: "",
-      data: null,
-      isSuccess: false,
-      statusCode: 0,
-    });
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target as HTMLInputElement;
     setFormData((prev) => ({
@@ -106,10 +98,11 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
         const stringifiedData = JSON.stringify(formData);
         setIsLoading(true);
         const response = await addAddress(stringifiedData);
-        setIsLoading(false);
         setActionResponse(response);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     addAddressFunction();
@@ -122,15 +115,14 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
 
   useEffect(() => {
     if (actionResponse.statusCode !== 0) {
+      setIsLoading(false);
       if (actionResponse.isSuccess && isAddress(actionResponse.data) && actionResponse.statusCode === 200) {
         setUserData((prevState) => {
           if (prevState) return { ...prevState, addresses: [...prevState.addresses, actionResponse.data as Address] };
           return null;
         });
         addAlert(uuid(), t("alerts.profile.addresses.add.200.text"), t("alerts.profile.addresses.add.200.title"), "emerald");
-        setIsAddModalOpen(false);
-        setIsLoading(false);
-        setTimeout(() => handleResetActionResponse(), 1000);
+        onOperationComplete();
       } else if (!actionResponse.isSuccess) {
         let titleKey = "alerts.genericError.title";
         let textKey = "alerts.genericError.text";
@@ -155,7 +147,6 @@ export default function AddAddressModale({ setIsAddModalOpen }: Params) {
         }
         const alertText = actionResponse.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), alertType);
-        setTimeout(() => handleResetActionResponse(), 1000);
         setIsAddModalOpen(false);
       }
     }
