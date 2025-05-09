@@ -183,7 +183,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         "order-notes": prevOrder.shippingAddress["order-notes"] || "", // Notes are special, usually not from saved address
       };
 
-      const newBillingAddress: billingAddress = {
+      let newBillingAddress: billingAddress = {
         firstname: getAddressFieldValue(prevOrder.billingAddress.firstname, userBillingAddress?.firstname),
         lastname: getAddressFieldValue(prevOrder.billingAddress.lastname, userBillingAddress?.lastname),
         company: getAddressFieldValue(prevOrder.billingAddress.company, userBillingAddress?.company),
