@@ -11,6 +11,55 @@ import { useConsent } from "@/app/context/consentContext";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { useSse } from "@/app/context/sseContext";
 
+export const initialShippingAddressState: shippingAddress = {
+  address1: "",
+  address2: "",
+  city: "",
+  company: "",
+  country: "",
+  email: "",
+  firstname: "",
+  lastname: "",
+  phone: "",
+  postalCode: "",
+  province: "",
+  "order-notes": "",
+};
+
+export const initialBillingAddressState: billingAddress = {
+  address1: "",
+  address2: "",
+  city: "",
+  company: "",
+  country: "",
+  email: "",
+  firstname: "",
+  lastname: "",
+  phone: "",
+  postalCode: "",
+  province: "",
+};
+
+export const initialOrderState: Order = {
+  products: {},
+  discounts: [],
+  fidelity: 0,
+  shippingMethodId: null,
+  "shipping-method": "",
+  "parcel-point": null,
+  shippingAddress: { ...initialShippingAddressState },
+  billingAddress: { ...initialBillingAddressState },
+  password: "",
+  "different-billing": false,
+  "payment-method": null,
+  "sub-total": 0,
+  shippingCost: 0,
+  total: 0,
+  customerIp: "",
+  customerUserAgent: "",
+  deviceType: {} as UAParser.IResult,
+};
+
 interface OrderContext {
   order: Order;
   setOrder: Dispatch<SetStateAction<Order>>;
@@ -26,49 +75,8 @@ interface OrderContext {
 export const orderContext = createContext({} as OrderContext);
 
 export const OrderProvider = ({ children }: { children: ReactNode }) => {
-  const [order, setOrder] = useState<Order>({
-    products: {},
-    discounts: [],
-    fidelity: 0,
-    shippingMethodId: null,
-    "shipping-method": "",
-    "parcel-point": null,
-    shippingAddress: {
-      address1: "",
-      address2: "",
-      city: "",
-      company: "",
-      country: "",
-      email: "",
-      firstname: "",
-      lastname: "",
-      phone: "",
-      postalCode: "",
-      province: "",
-      "order-notes": "",
-    },
-    billingAddress: {
-      address1: "",
-      address2: "",
-      city: "",
-      company: "",
-      country: "",
-      email: "",
-      firstname: "",
-      lastname: "",
-      phone: "",
-      postalCode: "",
-      province: "",
-    },
-    password: "",
-    "different-billing": false,
-    "payment-method": null,
-    "sub-total": 0,
-    shippingCost: 0,
-    total: 0,
-    customerIp: "",
-    customerUserAgent: "",
-    deviceType: {} as UAParser.IResult,
+  const [order, setOrder] = useState<Order>(() => {
+    return { ...initialOrderState };
   });
 
   const { sseData } = useSse();
@@ -151,6 +159,58 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const differentBilling = order["different-billing"];
+
+  // Pre-fill the shippingAddress and billingAddress properties with user's data.
+  useEffect(() => {
+    setOrder((prevOrder) => {
+      const getAddressFieldValue = (currentValue: string | undefined, userAddressValue: string | undefined, defaultValue: string = ""): string => {
+        return currentValue || userAddressValue || defaultValue;
+      };
+
+      const newShippingAddress: shippingAddress = {
+        firstname: getAddressFieldValue(prevOrder.shippingAddress.firstname, userShippingAddress?.firstname),
+        lastname: getAddressFieldValue(prevOrder.shippingAddress.lastname, userShippingAddress?.lastname),
+        company: getAddressFieldValue(prevOrder.shippingAddress.company, userShippingAddress?.company),
+        address1: getAddressFieldValue(prevOrder.shippingAddress.address1, userShippingAddress?.address1),
+        address2: getAddressFieldValue(prevOrder.shippingAddress.address2, userShippingAddress?.address2),
+        city: getAddressFieldValue(prevOrder.shippingAddress.city, userShippingAddress?.city),
+        postalCode: getAddressFieldValue(prevOrder.shippingAddress.postalCode, userShippingAddress?.postalCode),
+        province: getAddressFieldValue(prevOrder.shippingAddress.province, ""),
+        country: getAddressFieldValue(prevOrder.shippingAddress.country, userShippingAddress?.country),
+        email: getAddressFieldValue(prevOrder.shippingAddress.email, userShippingAddress?.email),
+        phone: getAddressFieldValue(prevOrder.shippingAddress.phone, userShippingAddress?.phone),
+        "order-notes": prevOrder.shippingAddress["order-notes"] || "", // Notes are special, usually not from saved address
+      };
+
+      const newBillingAddress: billingAddress = {
+        firstname: getAddressFieldValue(prevOrder.billingAddress.firstname, userBillingAddress?.firstname),
+        lastname: getAddressFieldValue(prevOrder.billingAddress.lastname, userBillingAddress?.lastname),
+        company: getAddressFieldValue(prevOrder.billingAddress.company, userBillingAddress?.company),
+        address1: getAddressFieldValue(prevOrder.billingAddress.address1, userBillingAddress?.address1),
+        address2: getAddressFieldValue(prevOrder.billingAddress.address2, userBillingAddress?.address2),
+        city: getAddressFieldValue(prevOrder.billingAddress.city, userBillingAddress?.city),
+        postalCode: getAddressFieldValue(prevOrder.billingAddress.postalCode, userBillingAddress?.postalCode),
+        province: getAddressFieldValue(prevOrder.billingAddress.province, ""),
+        country: getAddressFieldValue(prevOrder.billingAddress.country, userBillingAddress?.country),
+        email: getAddressFieldValue(prevOrder.billingAddress.email, userBillingAddress?.email),
+        phone: getAddressFieldValue(prevOrder.billingAddress.phone, userBillingAddress?.phone),
+      };
+
+      const shippingChanged = JSON.stringify(newShippingAddress) !== JSON.stringify(prevOrder.shippingAddress);
+      const billingChanged = JSON.stringify(newBillingAddress) !== JSON.stringify(prevOrder.billingAddress);
+
+      if (shippingChanged || billingChanged) {
+        return {
+          ...prevOrder,
+          shippingAddress: newShippingAddress,
+          billingAddress: newBillingAddress,
+        };
+      }
+      return prevOrder;
+    });
+  }, [userShippingAddress, userBillingAddress, sseData, differentBilling]);
+
   useEffect(() => {
     setOrder((prevState) => {
       const computedDiscounts = prevState.discounts.reduce((discountValue, discountCode) => {
@@ -205,59 +265,14 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       const updatedTotal = computedTotal > 0 ? computedTotal : 0;
       const updatedOrderTotal = updatedTotal + prevState.shippingCost;
 
-      //
-      // sseData ? Object.keys(sseData?.shippingMethods.byShippingZones)[0] : ""
-      const shippingAddress: shippingAddress = {
-        address1: prevState.shippingAddress.address1 ? prevState.shippingAddress.address1 : userShippingAddress?.address1 || "",
-        address2: prevState.shippingAddress.address2 ? prevState.shippingAddress.address2 : userShippingAddress?.address2 || "",
-        city: prevState.shippingAddress.city ? prevState.shippingAddress.city : userShippingAddress?.city || "",
-        company: prevState.shippingAddress.company ? prevState.shippingAddress.company : userShippingAddress?.company || "",
-        country: prevState.shippingAddress.country
-          ? prevState.shippingAddress.country
-          : userShippingAddress
-          ? userShippingAddress.country
-          : sseData
-          ? Object.keys(sseData?.shippingMethods.byShippingZones)[0]
-          : "",
-        email: prevState.shippingAddress.email ? prevState.shippingAddress.email : userShippingAddress?.email || "",
-        firstname: prevState.shippingAddress.firstname ? prevState.shippingAddress.firstname : userShippingAddress?.firstname || "",
-        lastname: prevState.shippingAddress.lastname ? prevState.shippingAddress.lastname : userShippingAddress?.lastname || "",
-        phone: prevState.shippingAddress.phone ? prevState.shippingAddress.phone : userShippingAddress?.phone || "",
-        postalCode: prevState.shippingAddress.postalCode ? prevState.shippingAddress.postalCode : userShippingAddress?.postalCode || "",
-        province: prevState.shippingAddress.province ? prevState.shippingAddress.province : "",
-        "order-notes": prevState.shippingAddress["order-notes"] ? prevState.shippingAddress["order-notes"] : "",
-      };
-
-      const billingAddress: billingAddress = {
-        address1: prevState.billingAddress.address1 ? prevState.billingAddress.address1 : userBillingAddress?.address1 || "",
-        address2: prevState.billingAddress.address2 ? prevState.billingAddress.address2 : userBillingAddress?.address2 || "",
-        city: prevState.billingAddress.city ? prevState.billingAddress.city : userBillingAddress?.city || "",
-        company: prevState.billingAddress.company ? prevState.billingAddress.company : userBillingAddress?.company || "",
-        country: prevState.billingAddress.country
-          ? prevState.billingAddress.country
-          : userBillingAddress
-          ? userBillingAddress.country
-          : sseData
-          ? Object.keys(sseData?.shippingMethods.byShippingZones)[0]
-          : "",
-        email: prevState.billingAddress.email ? prevState.billingAddress.email : userBillingAddress?.email || "",
-        firstname: prevState.billingAddress.firstname ? prevState.billingAddress.firstname : userBillingAddress?.firstname || "",
-        lastname: prevState.billingAddress.lastname ? prevState.billingAddress.lastname : userBillingAddress?.lastname || "",
-        phone: prevState.billingAddress.phone ? prevState.billingAddress.phone : userBillingAddress?.phone || "",
-        postalCode: prevState.billingAddress.postalCode ? prevState.billingAddress.postalCode : userBillingAddress?.postalCode || "",
-        province: prevState.billingAddress.province ? prevState.billingAddress.province : "",
-      };
-
       return {
         ...prevState,
         ["sub-total"]: updatedTotal,
         total: updatedOrderTotal,
         products: updatedProducts,
-        shippingAddress,
-        billingAddress,
       };
     });
-  }, [cart, order.discounts, order.fidelity, userShippingAddress, userBillingAddress, order.shippingMethodId, sseData]);
+  }, [cart, order.discounts, order.fidelity, order.shippingMethodId, sseData]);
 
   /**
    * Has to reset shippingMethodId and shippingCost when changing country.
@@ -291,6 +306,9 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         return {
           ...prevState,
           discounts: [],
+          fidelity: 0,
+          shippingAddress: { ...initialShippingAddressState },
+          billingAddress: { ...initialShippingAddressState },
         };
       });
     } else if (userData) {

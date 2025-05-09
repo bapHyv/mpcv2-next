@@ -78,6 +78,10 @@ export default function Profile() {
   const { userData, setUserData } = useAuth();
   const { addAlert } = useAlerts();
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleResetActionResponse = () => {
     setActionResponse({
       message: "",
@@ -168,6 +172,7 @@ export default function Profile() {
         setConfirmNewPassword("");
         setTimeout(() => handleResetActionResponse(), 1000);
         addAlert(uuid(), t("alerts.profile.infos.200.text"), t("alerts.profile.infos.200.title"), "emerald");
+        scrollToTop();
       } else {
         let alertTitle = t("alerts.genericError.title");
         let alertText = actionResponse.message || t("alerts.genericError.text");
@@ -202,6 +207,7 @@ export default function Profile() {
         }
         setTimeout(() => handleResetActionResponse(), 1000);
         addAlert(uuid(), alertText, alertTitle, alertType);
+        scrollToTop();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -48,9 +48,10 @@ interface Params {
   editingAddress: Address;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   setEditingAddress: Dispatch<SetStateAction<Address | null>>;
+  onOperationComplete: () => void;
 }
 
-export default function UpdateAddresseModale({ editingAddress, setEditingAddress, setIsModalOpen }: Params) {
+export default function UpdateAddresseModale({ editingAddress, setEditingAddress, setIsModalOpen, onOperationComplete }: Params) {
   const t = useTranslations("");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -74,31 +75,27 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
     });
   };
 
-  const handleResetActionResponse = () => {
-    setActionResponse({
-      message: "",
-      data: null,
-      isSuccess: false,
-      statusCode: 0,
-    });
-  };
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const updateAddressFunction = async () => {
       try {
-        const addressId = new FormData(e.currentTarget).get("id");
         const stringifiedData = JSON.stringify({
           address: editingAddress,
-          id: addressId,
+          id: editingAddress.id,
         });
         setIsLoading(true);
         const response = await updateAddress(stringifiedData);
-        setIsLoading(false);
         setActionResponse(response);
       } catch (error) {
-        console.error(error);
+        console.error("Failed to submit update address form:", error);
+        setIsLoading(false);
+        setActionResponse({
+          message: t("alerts.genericError.text"),
+          data: null,
+          isSuccess: false,
+          statusCode: 500,
+        });
       }
     };
     updateAddressFunction();
@@ -111,10 +108,11 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
 
   useEffect(() => {
     if (isResponseApi(actionResponse) && actionResponse.statusCode !== 0) {
+      setIsLoading(false);
       if (actionResponse.isSuccess && actionResponse.statusCode === 200) {
         // Have to do this because the Address.id is supposed to be type number but the updateAddressResponse.id is type string
         const deepCopy = JSON.parse(JSON.stringify(actionResponse.data));
-        deepCopy.id = parseInt(deepCopy.id);
+        deepCopy.id = parseInt(deepCopy.id, 10);
 
         const updatedAddress: Address = deepCopy;
 
@@ -126,8 +124,7 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
           return null;
         });
         addAlert(uuid(), t("alerts.profile.addresses.update.200.text"), t("alerts.profile.addresses.update.200.title"), "emerald");
-        setIsModalOpen(false);
-        setTimeout(() => handleResetActionResponse(), 1000);
+        onOperationComplete();
       } else {
         let alertTitleKey = "alerts.genericError.title";
         let alertTextKey = "alerts.genericError.text";
@@ -145,8 +142,8 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
             break;
         }
         const alertText = actionResponse.message || t(alertTextKey);
-        setTimeout(() => handleResetActionResponse(), 1000);
         addAlert(uuid(), alertText, t(alertTitleKey), alertType);
+        onOperationComplete();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -177,7 +174,6 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
 
           {/* Form */}
           <form className="space-y-4" onSubmit={handleSubmit}>
-            <input type="hidden" name="id" value={editingAddress.id} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
               <FormField id="firstname" label={t("addressesPage.form.firstNameLabel")} required>
                 <input

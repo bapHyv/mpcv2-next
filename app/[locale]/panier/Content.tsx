@@ -34,7 +34,7 @@ export default function DisplayComponents() {
         const response = await fetch("https://api.monplancbd.fr/products/fleurs-cbd", fetchOptions);
         if (!response.ok) throw new Error("Failed to fetch");
         const data: APIResponse<Flower> = await response.json();
-        const productsArray: Flower[] = Object.values(data.products);
+        const productsArray: Flower[] = Object.values(data.products).filter((product) => !!parseInt(product.stock));
         setProducts(productsArray);
       } catch (error) {
         console.error("Error fetching flowers:", error);

@@ -31,6 +31,21 @@ export default function Content() {
     setIsModalOpen(true);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleAddAddressOperationComplete = () => {
+    setIsAddModalOpen(false);
+    scrollToTop();
+  };
+
+  const handleEditAddressOperationComplete = () => {
+    setIsModalOpen(false);
+    setEditingAddress(null);
+    scrollToTop();
+  };
+
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       <Title title={t("title")} type="h1" classname={twMerge(titleClassname, "md:mt-14 text-green")} firstLetterClassname="text-xl" />
@@ -75,12 +90,13 @@ export default function Content() {
       )}
 
       {/* Modal Components (remain functionally the same) */}
-      {isAddModalOpen && <AddAddressModale setIsAddModalOpen={setIsAddModalOpen} />}
+      {isAddModalOpen && <AddAddressModale onOperationComplete={handleAddAddressOperationComplete} setIsAddModalOpen={setIsAddModalOpen} />}
       {isModalOpen && editingAddress && (
         <UpdateAddresseModale
           editingAddress={editingAddress}
           setEditingAddress={setEditingAddress} // Pass setter for internal state mgmt
           setIsModalOpen={setIsModalOpen} // Pass standard setter to close
+          onOperationComplete={handleEditAddressOperationComplete}
         />
       )}
     </div>
