@@ -24,6 +24,7 @@ interface IUser {
   optInMarketing: boolean;
   shippingAddress: shippingAddress | null;
   billingAddress: billingAddress | null;
+  referralToken: string | null;
 }
 
 export type statusCode = 0 | 200 | 201 | 204 | 400 | 401 | 404 | 409 | 422 | 500;
@@ -122,6 +123,7 @@ interface User {
   email: string;
   password: string;
   optInMarketing: boolean;
+  referralToken: string | null;
 }
 
 export async function register(stringifiedData: string, formData?: FormData) {
@@ -140,6 +142,7 @@ export async function register(stringifiedData: string, formData?: FormData) {
       optInMarketing: parsedUser.optInMarketing,
       shippingAddress: !!shippingAddress ? shippingAddress : null,
       billingAddress: !!billingAddress ? billingAddress : null,
+      referralToken: parsedUser.referralToken,
     };
 
     if (isDifferentBilling !== undefined && billingAddress && shippingAddress && !isDifferentBilling) {
@@ -384,7 +387,6 @@ export async function updateAddress(stringifiedData: string) {
 }
 
 /**
- * TODO STATUS: add 201 and 403
  * status code:
  *  204: success, send {message, null, isSuccess, status code: 204}
  *  400: invalid data {message, null, !isSuccess, statusCode: 400}

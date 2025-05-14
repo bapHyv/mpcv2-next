@@ -487,6 +487,7 @@
     "section1": {
       "title": "1. Información Legal (Editor del Sitio)",
       "intro": "De conformidad con las disposiciones de los artículos 6-III y 19 de la Ley n° 2004-575 del 21 de junio de 2004 para la Confianza en la Economía Digital (LCEN), se informa a los usuarios y visitantes del sitio www.monplancbd.fr de las presentes menciones legales. El sitio www.monplancbd.fr es editado por:",
+      "lawLinkText": "Ley n° 2004-575 del 21 de junio de 2004",
       "item_companyName": {
         "label": "Razón Social:",
         "value": "MONPLANCBD SAS"
@@ -528,7 +529,8 @@
       "title": "2. Administración del Sitio",
       "item_director": {
         "label": "Director de Publicación:",
-        "value": "Sr. HAMDADA Mohamed Yacine"
+        "name": "Sr. HAMDADA Mohamed Yacine",
+        "legal_entity_note": "(actuando como representante legal de {companyName})"
       },
       "item_directorContact": {
         "label": "Contacto del Director de Publicación:",
@@ -556,11 +558,11 @@
       },
       "item_hostAddress": {
         "label": "Dirección del Proveedor de Alojamiento:",
-        "value": "BP 438, 75366 París CEDEX 08, Francia"
+        "value": "8 rue de la Ville l’Evêque, 75008 Paris, France"
       },
       "item_hostContact": {
         "label": "Contacto del Proveedor de Alojamiento:",
-        "value": "+33 (0)1 84 13 00 00"
+        "value": "SCALEWAY SAS BP 438 75366 PARIS CEDEX 08 FRANCE"
       }
     },
     "section4": {
@@ -572,12 +574,36 @@
     "section5": {
       "title": "5. Protección de Datos Personales",
       "para1": "MONPLANCBD SAS se compromete a proteger la privacidad de sus usuarios y la confidencialidad de sus datos personales. La recopilación y el tratamiento de los datos personales realizados en el sitio www.monplancbd.fr se ajustan al Reglamento General de Protección de Datos (RGPD) y a la Ley francesa de Informática y Libertades. Para obtener información detallada sobre cómo recopilamos, utilizamos y protegemos sus datos, así como sobre el ejercicio de sus derechos, consulte nuestra {privacyPolicyLink}.",
-      "privacyPolicyLinkText": "Política de Privacidad"
+      "privacyPolicyLinkText": "Política de Privacidad",
+      "para2_rights_summary": "De conformidad con la Ley francesa de Protección de Datos del 6 de enero de 1978, modificada, y el RGPD, usted tiene derecho de acceso, rectificación, supresión, limitación del tratamiento y portabilidad de sus datos personales, así como el derecho de oponerse a su tratamiento. Puede ejercer estos derechos contactándonos a través de los datos proporcionados en nuestra Política de Privacidad."
     },
     "section6": {
       "title": "6. Uso de Cookies",
       "para1": "El sitio www.monplancbd.fr utiliza cookies para asegurar su correcto funcionamiento, mejorar su experiencia de navegación y realizar estadísticas de visita. Al continuar navegando por este sitio, usted acepta el uso de estas cookies, a menos que las haya desactivado en la configuración de su navegador. Para obtener más información sobre las cookies que utilizamos y sobre cómo gestionar sus preferencias, consulte la sección dedicada en nuestra {privacyPolicyLink}.",
-      "privacyPolicyLinkText": "Política de Privacidad"
+      "cookiePolicyLinkText": "Política de Cookies",
+      "para2_definition": "Una cookie es un pequeño archivo de texto almacenado en su dispositivo (ordenador, tableta, smartphone) cuando visita un sitio web. Permite al sitio reconocer su dispositivo y recordar cierta información sobre su visita, como sus preferencias o acciones a lo largo del tiempo.",
+      "para3_management_intro": "Puede gestionar o desactivar las cookies a través de la configuración de su navegador. A continuación, encontrará enlaces a las instrucciones para los navegadores comunes:",
+      "browser_settings": {
+        "link_text": "Instrucciones",
+        "chrome": {
+          "label": "Google Chrome",
+          "link": "https://support.google.com/chrome/answer/95647?hl=es"
+        },
+        "firefox": {
+          "label": "Mozilla Firefox",
+          "link": "https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias"
+        },
+        "safari": {
+          "label": "Apple Safari",
+          "link": "https://support.apple.com/es-es/guide/safari/sfri11471/mac"
+        },
+        "edge": {
+          "label": "Microsoft Edge",
+          "link": "https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
+        }
+      },
+      "para4_youronlinechoices": "Para más información sobre las cookies y cómo controlarlas, también puede visitar {yourOnlineChoicesLink} (Alianza Europea de Publicidad Digital Interactiva).",
+      "yourOnlineChoicesLinkText": "YourOnlineChoices.com/es"
     },
     "section7": {
       "title": "7. Enlaces de Hipertexto",
@@ -648,7 +674,12 @@
       "title": "3. Acceso al Sitio y Elegibilidad (Solo Usuarios Adultos)",
       "para1": "El Sitio y los Productos ofrecidos están destinados exclusivamente a personas mayores de 18 años. Al acceder y utilizar este Sitio, usted declara y garantiza que tiene al menos 18 años y posee la plena capacidad legal para aceptar estas CGU y, en su caso, para comprar nuestros Productos de acuerdo con nuestras CGC.",
       "para2": "MonPlanCBD no recopila conscientemente información de personas menores de 18 años. Si nos enteramos de que un menor ha proporcionado información personal o ha intentado utilizar el Sitio, tomaremos las medidas necesarias para eliminar dicha información y/o bloquear el acceso.",
-      "para3": "El acceso al Sitio desde territorios donde su contenido o la venta de los Productos sea ilegal está prohibido."
+      "para3": "El acceso al Sitio desde territorios donde su contenido o la venta de los Productos sea ilegal está prohibido.",
+      "subsection_availability": {
+        "title": "Disponibilidad y Mantenimiento del Sitio",
+        "para1": "MonPlanCBD se esfuerza por hacer que el Sitio sea accesible las 24 horas del día, los 7 días de la semana, excepto en casos de fuerza mayor o eventos fuera del control de MonPlanCBD, y sujeto a cualquier avería e intervención de mantenimiento necesaria para el correcto funcionamiento del Sitio y los servicios.",
+        "para2": "MonPlanCBD podrá interrumpir el acceso a todo o parte del Sitio en cualquier momento, sin previo aviso y sin derecho a compensación, por motivos de mantenimiento técnico u otros. El Usuario reconoce que MonPlanCBD no se hace responsable de ninguna indisponibilidad del Sitio."
+      }
     },
     "section4": {
       "title": "4. Cuentas de Usuario",
@@ -729,7 +760,8 @@
       "item6": "Intentar obtener acceso no autorizado al Sitio, a las cuentas de otros usuarios o a los sistemas informáticos o redes conectados al Sitio.",
       "item7": "Recopilar o almacenar datos personales sobre otros usuarios sin su consentimiento explícito.",
       "item8": "Utilizar el Sitio con fines comerciales sin nuestro permiso previo por escrito, incluida la publicidad o la solicitud.",
-      "item9": "Utilizar robots, \"spiders\" u otros dispositivos automáticos, procesos o medios para acceder al Sitio con cualquier fin, incluida la supervisión o copia de cualquier material en el Sitio (scraping)."
+      "item9": "Utilizar robots, \"spiders\" u otros dispositivos automáticos, procesos o medios para acceder al Sitio con cualquier fin, incluida la supervisión o copia de cualquier material en el Sitio (scraping).",
+      "item10_technical_responsibility": "Acceder al Sitio utilizando un equipo reciente, libre de virus y con un navegador actualizado. Usted es responsable de la seguridad de su propio equipo y conexión a internet."
     },
     "section8": {
       "title": "8. Contenido Generado por los Usuarios (Opiniones de Productos)",
@@ -857,7 +889,15 @@
       "title": "Tiempos de Entrega Estimados",
       "para1": "Los tiempos de entrega proporcionados son solo estimaciones y comienzan a contar desde la fecha de envío. Los tiempos reales pueden variar debido a retrasos del transportista o circunstancias imprevistas.",
       "para2": "Si su pedido no ha llegado en un plazo de {maxDays} días desde el envío, por favor contáctenos. Si el retraso supera los treinta días desde la fecha del pedido, el contrato de venta podrá ser rescindido y se le reembolsará el importe.",
-      "para3_france_estimate": "El tiempo de entrega típico para Francia Metropolitana es de {days} días hábiles después del envío."
+      "para3_france_estimate": "El tiempo de entrega típico para Francia Metropolitana es de {days} días hábiles después del envío.",
+      "para3_spain_estimate": "El tiempo de entrega típico para España es de {days} días hábiles después del envío.",
+      "para3_ireland_estimate": "El tiempo de entrega típico para Irlanda es de {days} días hábiles después del envío.",
+      "para3_belgium_estimate": "El tiempo de entrega típico para Bélgica es de {days} días hábiles después del envío.",
+      "para3_portugal_estimate": "El tiempo de entrega típico para Portugal es de {days} días hábiles después del envío.",
+      "para3_denmark_estimate": "El tiempo de entrega típico para Dinamarca es de {days} días hábiles después del envío.",
+      "para3_corsica_estimate": "El tiempo de entrega típico para Córcega es de {days} días hábiles después del envío.",
+      "para3_germany_estimate": "El tiempo de entrega típico para Alemania es de {days} días hábiles después del envío.",
+      "para3_luxembourg_estimate": "El tiempo de entrega típico para Luxemburgo es de {days} días hábiles después del envío."
     },
     "tracking": {
       "title": "Seguimiento del Pedido",
@@ -1156,7 +1196,7 @@
       },
       "accountGuest": {
         "title": "Cuenta de Cliente y Pedido como Invitado",
-        "para1": "El Comprador puede elegir crear una cuenta de cliente o realizar el pedido como invitado. Crear una cuenta permite seguir el estado de los pedidos y facilitar compras futuras. Si tiene una cuenta, el Comprador deberá identificarse antes de finalizar su pedido."
+        "para1_revised": "Para realizar un pedido, el Comprador debe proporcionar la información necesaria para crear una cuenta de cliente, incluyendo una dirección de correo electrónico y una contraseña, antes de proceder al pago. Esta cuenta le permitirá seguir sus pedidos y facilitar sus compras futuras. Si ya existe una cuenta para el correo electrónico proporcionado, se le pedirá al Comprador que inicie sesión."
       },
       "confirmation": {
         "title": "Confirmación del Pedido",
@@ -1164,7 +1204,7 @@
       },
       "securePayment": {
         "title": "Métodos de Pago Seguros",
-        "para1": "MONPLANCBD ofrece pago seguro con tarjeta bancaria a través de la plataforma Stripe (u otro proveedor especificado). El Comprador es redirigido a la interfaz segura del proveedor para introducir sus datos bancarios. El pago con tarjeta bancaria es irrevocable, salvo en caso de uso fraudulento probado."
+        "para1_revised": "MONPLANCBD ofrece pago seguro con tarjeta bancaria a través de la solución Sherlocks 3D Secure del banco LCL. El Comprador es redirigido a la interfaz segura de LCL para introducir sus datos bancarios. El pago con tarjeta bancaria es irrevocable, salvo en caso de uso fraudulento probado."
       },
       "proof": {
         "title": "Prueba de la Transacción",
@@ -1215,7 +1255,9 @@
       },
       "issues": {
         "title": "Problemas de Entrega (Daños, Paquete no recibido)",
-        "para1": "En caso de daño constatado durante la entrega, el Comprador debe formular una reclamación motivada al transportista en un plazo de tres (3) días (sin incluir festivos) siguientes a la entrega, mediante carta certificada con acuse de recibo, e informar simultáneamente a MONPLANCBD. En cuanto a los paquetes indicados como \"entregados\" por el transportista pero no recibidos por el Comprador, MONPLANCBD se compromete a abrir una investigación con el transportista. El resultado de esta investigación (llevada a cabo por el transportista) determinará las acciones a seguir (reembolso, reenvío), sin que MONPLANCBD pueda garantizar un resultado favorable si el transportista confirma la entrega."
+        "para1_damage": "En caso de daño constatado durante la entrega, el Comprador debe formular una reclamación motivada al transportista en un plazo de tres (3) días (sin incluir festivos) siguientes a la entrega, mediante carta certificada con acuse de recibo, e informar simultáneamente a MONPLANCBD.",
+        "para2_non_receipt_important_note": "NOTA IMPORTANTE SOBRE LA NO RECEPCIÓN DE PAQUETES:",
+        "para3_non_receipt_policy": "Si el seguimiento indica que su pedido ha sido entregado, pero usted afirma no haberlo recibido, MONPLANCBD iniciará una investigación con el transportista. Sin embargo, tenga en cuenta que si el transportista confirma la entrega en la dirección proporcionada, MONPLANCBD no podrá ser considerada responsable y no procederá al reenvío ni al reembolso del pedido. Le aconsejamos asegurar un lugar de entrega seguro."
       }
     },
     "legalGuarantees": {
@@ -2141,9 +2183,15 @@
         "title": "Error de Envío",
         "text": "Se produjo un error desconocido al enviar tu reseña."
       },
-      "error403": { "title": "Ya Evaluado", "text": "Parece que ya has dejado una reseña para este producto." }
+      "error403": {
+        "title": "Ya Evaluado",
+        "text": "Parece que ya has dejado una reseña para este producto."
+      }
     },
-    "genericError": { "title": "Error", "text": "Se produjo un error inesperado." },
+    "genericError": {
+      "title": "Error",
+      "text": "Se produjo un error inesperado."
+    },
     "cart": {
       "insufficientStockIncrement": {
         "title": "Stock Limitado",
@@ -2272,20 +2320,50 @@
       },
       "addresses": {
         "delete": {
-          "200": { "title": "Dirección Eliminada", "text": "Dirección eliminada con éxito." },
-          "400": { "title": "Solicitud Inválida", "text": "Falta el ID de la dirección." },
-          "500": { "title": "Error del Servidor", "text": "No se pudo eliminar la dirección. Por favor, inténtalo de nuevo." }
+          "200": {
+            "title": "Dirección Eliminada",
+            "text": "Dirección eliminada con éxito."
+          },
+          "400": {
+            "title": "Solicitud Inválida",
+            "text": "Falta el ID de la dirección."
+          },
+          "500": {
+            "title": "Error del Servidor",
+            "text": "No se pudo eliminar la dirección. Por favor, inténtalo de nuevo."
+          }
         },
         "add": {
-          "200": { "title": "Dirección Añadida", "text": "Dirección añadida con éxito." },
-          "400": { "title": "Información Inválida", "text": "Por favor, comprueba los detalles de la dirección proporcionada." },
-          "409": { "title": "Error", "text": "No se pudo añadir la dirección. Por favor, inténtalo de nuevo." },
-          "422": { "title": "Error de Validación", "text": "Alguna información de la dirección no es válida." }
+          "200": {
+            "title": "Dirección Añadida",
+            "text": "Dirección añadida con éxito."
+          },
+          "400": {
+            "title": "Información Inválida",
+            "text": "Por favor, comprueba los detalles de la dirección proporcionada."
+          },
+          "409": {
+            "title": "Error",
+            "text": "No se pudo añadir la dirección. Por favor, inténtalo de nuevo."
+          },
+          "422": {
+            "title": "Error de Validación",
+            "text": "Alguna información de la dirección no es válida."
+          }
         },
         "update": {
-          "200": { "title": "Dirección Actualizada", "text": "Dirección actualizada con éxito." },
-          "400": { "title": "Información Inválida", "text": "Por favor, comprueba los detalles de la dirección proporcionada." },
-          "422": { "title": "Error de Validación", "text": "Alguna información de la dirección no es válida." }
+          "200": {
+            "title": "Dirección Actualizada",
+            "text": "Dirección actualizada con éxito."
+          },
+          "400": {
+            "title": "Información Inválida",
+            "text": "Por favor, comprueba los detalles de la dirección proporcionada."
+          },
+          "422": {
+            "title": "Error de Validación",
+            "text": "Alguna información de la dirección no es válida."
+          }
         }
       }
     },

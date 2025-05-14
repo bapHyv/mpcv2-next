@@ -487,6 +487,7 @@
     "section1": {
       "title": "1. Legal Information (Site Editor)",
       "intro": "In accordance with the provisions of Articles 6-III and 19 of Law No. 2004-575 of June 21, 2004 for Confidence in the Digital Economy (LCEN), users and visitors of the www.monplancbd.fr site are informed of these legal notices. The www.monplancbd.fr site is published by:",
+      "lawLinkText": "Law No. 2004-575 of June 21, 2004",
       "item_companyName": {
         "label": "Company Name:",
         "value": "MONPLANCBD SAS"
@@ -528,7 +529,8 @@
       "title": "2. Site Administration",
       "item_director": {
         "label": "Publication Director:",
-        "value": "Mr. HAMDADA Mohamed Yacine"
+        "name": "Mr. HAMDADA Mohamed Yacine",
+        "legal_entity_note": "(acting as legal representative of {companyName})"
       },
       "item_directorContact": {
         "label": "Publication Director Contact:",
@@ -556,11 +558,11 @@
       },
       "item_hostAddress": {
         "label": "Host Address:",
-        "value": "BP 438, 75366 Paris CEDEX 08, France"
+        "value": "8 rue de la Ville l’Evêque, 75008 Paris, France"
       },
       "item_hostContact": {
         "label": "Host Contact:",
-        "value": "+33 (0)1 84 13 00 00"
+        "value": "SCALEWAY SAS BP 438 75366 PARIS CEDEX 08 FRANCE"
       }
     },
     "section4": {
@@ -571,13 +573,37 @@
     },
     "section5": {
       "title": "5. Personal Data Protection",
-      "para1": "MONPLANCBD SAS is committed to protecting the privacy of its users and the confidentiality of their personal data. The collection and processing of personal data carried out on the www.monplancbd.fr site comply with the General Data Protection Regulation (GDPR) and the French Data Protection Act. For detailed information on how we collect, use, and protect your data, as well as how to exercise your rights, please consult our {privacyPolicyLink}.",
-      "privacyPolicyLinkText": "Privacy Policy"
+      "para1": "MONPLANCBD SAS is committed to protecting the privacy of its users and the confidentiality of their personal data. The collection and processing of personal data carried out on the www.monplancbd.fr site comply with the General Data Protection Regulation (GDPR) and the French Data Protection Act. For detailed information on how we collect, use, and protect your data, as well as how to exercise your rights, please consult our {privacyPolicyLink}. This policy details the types of data collected, the purposes of processing, data recipients, retention periods, and your rights.",
+      "privacyPolicyLinkText": "Privacy Policy",
+      "para2_rights_summary": "In accordance with the French Data Protection Act of January 6, 1978, as amended, and the GDPR, you have the right to access, rectify, delete, limit the processing of, and port your personal data, as well as the right to object to its processing. You can exercise these rights by contacting us using the details provided in our Privacy Policy."
     },
     "section6": {
       "title": "6. Use of Cookies",
-      "para1": "The www.monplancbd.fr site uses cookies to ensure its proper functioning, improve your browsing experience, and compile visit statistics. By continuing to browse this site, you accept the use of these cookies, unless you have disabled them in your browser settings. For more information on the cookies we use and how to manage your preferences, please consult the dedicated section in our {privacyPolicyLink}.",
-      "privacyPolicyLinkText": "Privacy Policy"
+      "para1": "The www.monplancbd.fr site uses cookies to ensure its proper functioning, improve your browsing experience, and compile visit statistics. By continuing to browse this site, you accept the use of these cookies, unless you have disabled them in your browser settings. For more information on the cookies we use and how to manage your preferences, please consult the dedicated section in our {cookiePolicyLink}.",
+      "cookiePolicyLinkText": "Cookie Policy",
+      "para2_definition": "A cookie is a small text file stored on your device (computer, tablet, smartphone) when you visit a website. It allows the site to recognize your device and remember certain information about your visit, such as your preferences or actions over time.",
+      "para3_management_intro": "You can manage or disable cookies through your browser settings. Below are links to instructions for common browsers:",
+      "browser_settings": {
+        "link_text": "Instructions",
+        "chrome": {
+          "label": "Google Chrome",
+          "link": "https://support.google.com/chrome/answer/95647"
+        },
+        "firefox": {
+          "label": "Mozilla Firefox",
+          "link": "https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences"
+        },
+        "safari": {
+          "label": "Apple Safari",
+          "link": "https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac"
+        },
+        "edge": {
+          "label": "Microsoft Edge",
+          "link": "https://support.microsoft.com/en-us/windows/delete-and-manage-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
+        }
+      },
+      "para4_youronlinechoices": "For more information about cookies and how to control them, you can also visit {yourOnlineChoicesLink} (European Interactive Digital Advertising Alliance).",
+      "yourOnlineChoicesLinkText": "YourOnlineChoices.com"
     },
     "section7": {
       "title": "7. Hypertext Links",
@@ -648,7 +674,12 @@
       "title": "3. Site Access and Eligibility (Adult Users Only)",
       "para1": "The Site and the Products offered are exclusively intended for persons aged 18 years or older. By accessing and using this Site, you represent and warrant that you are at least 18 years old and possess the full legal capacity to accept these ToU and, where applicable, to purchase our Products in accordance with our T&Cs.",
       "para2": "MonPlanCBD does not knowingly collect information from individuals under the age of 18. If we learn that a minor has provided personal information or attempted to use the Site, we will take the necessary steps to delete such information and/or block access.",
-      "para3": "Access to the Site from territories where its content or the sale of Products is illegal is prohibited."
+      "para3": "Access to the Site from territories where its content or the sale of Products is illegal is prohibited.",
+      "subsection_availability": {
+        "title": "Site Availability and Maintenance",
+        "para1": "MonPlanCBD endeavors to make the Site accessible 24 hours a day, 7 days a week, except in cases of force majeure or events outside of MonPlanCBD's control, and subject to any breakdowns and maintenance interventions necessary for the proper functioning of the Site and services.",
+        "para2": "MonPlanCBD may interrupt access to all or part of the Site at any time, without prior notice and without right to compensation, for technical maintenance or other reasons. Users acknowledge that MonPlanCBD cannot be held responsible for any unavailability of the Site."
+      }
     },
     "section4": {
       "title": "4. User Accounts",
@@ -729,7 +760,8 @@
       "item6": "Attempt to gain unauthorized access to the Site, other user accounts, or computer systems or networks connected to the Site.",
       "item7": "Collect or store personal data about other users without their express consent.",
       "item8": "Use the Site for commercial purposes without our prior written permission, including advertising or solicitation.",
-      "item9": "Use any robot, spider, or other automatic device, process, or means to access the Site for any purpose, including monitoring or copying any of the material on the Site (scraping)."
+      "item9": "Use any robot, spider, or other automatic device, process, or means to access the Site for any purpose, including monitoring or copying any of the material on the Site (scraping).",
+      "item10_technical_responsibility": "Access the Site using recent, virus-free equipment and an up-to-date browser. You are responsible for the security of your own equipment and internet connection."
     },
     "section8": {
       "title": "8. User-Generated Content (Product Reviews)",
@@ -857,7 +889,15 @@
       "title": "Estimated Delivery Times",
       "para1": "Delivery times provided are estimates only and start from the date of dispatch. Actual delivery times may vary due to carrier delays or unforeseen circumstances.",
       "para2": "If your order has not arrived within {maxDays} days of dispatch, please contact us. If the delay exceeds thirty days from the order date, the sales contract may be cancelled, and you will be refunded.",
-      "para3_france_estimate": "Typical delivery time for Metropolitan France is {days} business days after dispatch."
+      "para3_france_estimate": "Typical delivery time for Metropolitan France is {days} business days after dispatch.",
+      "para3_spain_estimate": "Typical delivery time for Spain is {days} business days after dispatch.",
+      "para3_ireland_estimate": "Typical delivery time for Ireland is {days} business days after dispatch.",
+      "para3_belgium_estimate": "Typical delivery time for Belgium is {days} business days after dispatch.",
+      "para3_portugal_estimate": "Typical delivery time for Portugal is {days} business days after dispatch.",
+      "para3_denmark_estimate": "Typical delivery time for Denmark is {days} business days after dispatch.",
+      "para3_corsica_estimate": "Typical delivery time for Corsica is {days} business days after dispatch.",
+      "para3_germany_estimate": "Typical delivery time for Germany is {days} business days after dispatch.",
+      "para3_luxembourg_estimate": "Typical delivery time for Luxembourg is {days} business days after dispatch."
     },
     "tracking": {
       "title": "Order Tracking",
@@ -1155,8 +1195,8 @@
         "para1": "To place an order, the Buyer selects the desired products and adds them to their basket. They can modify the contents of their basket (quantities, references) at any time. Before validating the order, the Buyer checks the summary of their basket, the delivery address (and billing address if different), and the total amount including calculated shipping costs."
       },
       "accountGuest": {
-        "title": "Customer Account and Guest Checkout",
-        "para1": "The Buyer can choose to create a customer account or place an order as a guest. Creating an account allows tracking order status and facilitates future purchases. If they have an account, the Buyer must log in before finalizing their order."
+        "title": "Customer Account Creation",
+        "para1_revised": "To place an order, the Buyer must provide the necessary information for creating a customer account, including an email address and password, before proceeding to payment. This account will allow them to track their orders and facilitate future purchases. If an account already exists for the email provided, the Buyer will be prompted to log in."
       },
       "confirmation": {
         "title": "Order Confirmation",
@@ -1164,7 +1204,7 @@
       },
       "securePayment": {
         "title": "Secure Payment Methods",
-        "para1": "MONPLANCBD offers secure payment by credit/debit card via the Stripe platform (or other specified provider). The Buyer is redirected to the secure interface of the provider to enter their bank details. Payment by credit/debit card is irrevocable, except in proven cases of fraudulent use."
+        "para1_revised": "MONPLANCBD offers secure payment by credit/debit card via the Sherlocks 3D Secure solution from LCL bank. The Buyer is redirected to the secure interface of LCL to enter their bank details. Payment by credit/debit card is irrevocable, except in proven cases of fraudulent use."
       },
       "proof": {
         "title": "Proof of Transaction",
@@ -1215,7 +1255,9 @@
       },
       "issues": {
         "title": "Delivery Issues (Damage, Package Not Received)",
-        "para1": "In case of damage noted upon delivery, the Buyer must formulate a reasoned claim with the carrier within three (3) days (excluding public holidays) following delivery, by registered letter with acknowledgment of receipt, and simultaneously inform MONPLANCBD. Regarding packages indicated as \"delivered\" by the carrier but not received by the Buyer, MONPLANCBD undertakes to open an investigation with the carrier. The outcome of this investigation (conducted by the carrier) will determine the follow-up actions (refund, reshipment), without MONPLANCBD being able to guarantee a favorable outcome if the carrier confirms delivery."
+        "para1_damage": "In case of damage noted upon delivery, the Buyer must formulate a reasoned claim with the carrier within three (3) days (excluding public holidays) following delivery, by registered letter with acknowledgment of receipt, and simultaneously inform MONPLANCBD.",
+        "para2_non_receipt_important_note": "IMPORTANT NOTE REGARDING NON-RECEIPT OF PACKAGES:",
+        "para3_non_receipt_policy": "If tracking indicates your order has been delivered, but you claim not to have received it, MONPLANCBD will initiate an investigation with the carrier. However, please be aware that if the carrier confirms delivery to the address provided, MONPLANCBD cannot be held responsible and will not proceed with a reshipment or refund of the order. We advise ensuring a secure delivery location."
       }
     },
     "legalGuarantees": {
@@ -1771,7 +1813,6 @@
     "pointsPlural": "loyalty points",
     "earnSuffix": "with this purchase ✨"
   },
-
   "STOP_HERE": "________________________________________________________________________________________________________________________",
   "tabs": {
     "profile": "Personal Information",
@@ -2146,9 +2187,15 @@
         "title": "Submission Error",
         "text": "An unknown error occurred while submitting your review."
       },
-      "error403": { "title": "Already Reviewed", "text": "You seem to have already reviewed this product." }
+      "error403": {
+        "title": "Already Reviewed",
+        "text": "You seem to have already reviewed this product."
+      }
     },
-    "genericError": { "title": "Error", "text": "An unexpected error occurred." },
+    "genericError": {
+      "title": "Error",
+      "text": "An unexpected error occurred."
+    },
     "cart": {
       "cartEmptied": {
         "title": "Cart Emptied",
@@ -2277,20 +2324,50 @@
       },
       "addresses": {
         "delete": {
-          "200": { "title": "Address Deleted", "text": "Address successfully deleted." },
-          "400": { "title": "Invalid Request", "text": "Address ID is missing." },
-          "500": { "title": "Server Error", "text": "Could not delete address. Please try again." }
+          "200": {
+            "title": "Address Deleted",
+            "text": "Address successfully deleted."
+          },
+          "400": {
+            "title": "Invalid Request",
+            "text": "Address ID is missing."
+          },
+          "500": {
+            "title": "Server Error",
+            "text": "Could not delete address. Please try again."
+          }
         },
         "add": {
-          "200": { "title": "Address Added", "text": "Address added successfully." },
-          "400": { "title": "Invalid Information", "text": "Please check the address details provided." },
-          "409": { "title": "Error", "text": "Could not add address. Please try again." },
-          "422": { "title": "Validation Error", "text": "Some address information is invalid." }
+          "200": {
+            "title": "Address Added",
+            "text": "Address added successfully."
+          },
+          "400": {
+            "title": "Invalid Information",
+            "text": "Please check the address details provided."
+          },
+          "409": {
+            "title": "Error",
+            "text": "Could not add address. Please try again."
+          },
+          "422": {
+            "title": "Validation Error",
+            "text": "Some address information is invalid."
+          }
         },
         "update": {
-          "200": { "title": "Address Updated", "text": "Address updated successfully." },
-          "400": { "title": "Invalid Information", "text": "Please check the address details provided." },
-          "422": { "title": "Validation Error", "text": "Some address information is invalid." }
+          "200": {
+            "title": "Address Updated",
+            "text": "Address updated successfully."
+          },
+          "400": {
+            "title": "Invalid Information",
+            "text": "Please check the address details provided."
+          },
+          "422": {
+            "title": "Validation Error",
+            "text": "Some address information is invalid."
+          }
         }
       }
     },

@@ -55,6 +55,7 @@ export interface AuthContextType {
   cleanUpLocalStorageUserRelated: () => void;
   logout: () => void;
   isLoggingOut: boolean;
+  referralToken: string | null;
 }
 
 export interface UserMetadata {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { twMerge } from "tailwind-merge";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 
@@ -13,13 +13,13 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 export default function Content() {
   const t = useTranslations("");
+  const locale = useLocale();
   const { userData } = useAuth();
   const { addAlert } = useAlerts();
 
   const handleCopy = () => {
     if (!userData?.referralToken) return;
-    // TODO: Verify referral link structure
-    const referralLink = `https://www.monplancbd.fr/mon-compte-mon-plan-cbd/?referral=${userData.referralToken}`;
+    const referralLink = `https://www.monplancbd.fr/${locale}/?referral=${userData.referralToken}`;
     navigator.clipboard.writeText(referralLink).then(
       () => {
         addAlert(uuid(), t("alerts.referral.copy.success.text"), t("alerts.referral.copy.success.title"), "emerald");
@@ -108,7 +108,7 @@ export default function Content() {
                   <input
                     type="text"
                     readOnly
-                    value={`https://www.monplancbd.fr/mon-compte-mon-plan-cbd/?referral=${userData.referralToken}`} // TODO: Verify URL structure
+                    value={`https://www.monplancbd.fr/${locale}/?referral=${userData.referralToken}`}
                     className="flex-grow border-0 p-2 text-sm text-gray-600 bg-gray-50 focus:ring-0"
                     aria-label={t("account.loyaltyPage.referralLinkLabel")}
                   />

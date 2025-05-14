@@ -390,6 +390,7 @@
     "section1": {
       "title": "1. Informations Légales (Éditeur du Site)",
       "intro": "Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique (LCEN), il est porté à la connaissance des utilisateurs et visiteurs du site www.monplancbd.fr les présentes mentions légales. Le site www.monplancbd.fr est édité par :",
+      "lawLinkText": "Loi n° 2004-575 du 21 juin 2004",
       "item_companyName": {
         "label": "Raison Sociale :",
         "value": "MONPLANCBD SAS"
@@ -431,7 +432,8 @@
       "title": "2. Administration du Site",
       "item_director": {
         "label": "Directeur de la Publication :",
-        "value": "Monsieur HAMDADA Mohamed Yacine"
+        "name": "Monsieur HAMDADA Mohamed Yacine",
+        "legal_entity_note": "(agissant en qualité de représentant légal de {companyName})"
       },
       "item_directorContact": {
         "label": "Contact du Directeur de la Publication :",
@@ -459,11 +461,11 @@
       },
       "item_hostAddress": {
         "label": "Adresse de l'Hébergeur :",
-        "value": "BP 438, 75366 Paris CEDEX 08, France"
+        "value": "8 rue de la Ville l’Evêque, 75008 Paris, France"
       },
       "item_hostContact": {
         "label": "Contact de l'Hébergeur :",
-        "value": "+33 (0)1 84 13 00 00"
+        "value": "SCALEWAY SAS BP 438 75366 PARIS CEDEX 08 FRANCE"
       }
     },
     "section4": {
@@ -475,12 +477,36 @@
     "section5": {
       "title": "5. Protection des Données Personnelles",
       "para1": "MONPLANCBD SAS s'engage à protéger la vie privée de ses utilisateurs et la confidentialité de leurs données personnelles. La collecte et le traitement des données personnelles effectués sur le site www.monplancbd.fr se font dans le respect du Règlement Général sur la Protection des Données (RGPD) et de la loi Informatique et Libertés. Pour obtenir des informations détaillées sur la manière dont nous collectons, utilisons et protégeons vos données, ainsi que sur l'exercice de vos droits, veuillez consulter notre {privacyPolicyLink}.",
-      "privacyPolicyLinkText": "Politique de Confidentialité"
+      "privacyPolicyLinkText": "Politique de Confidentialité",
+      "para2_rights_summary": "Conformément à la loi Informatique et Libertés du 6 janvier 1978 modifiée et au RGPD, vous disposez d'un droit d'accès, de rectification, de suppression, de limitation du traitement, de portabilité de vos données personnelles, ainsi que du droit de vous opposer à leur traitement. Vous pouvez exercer ces droits en nous contactant aux coordonnées fournies dans notre Politique de Confidentialité."
     },
     "section6": {
       "title": "6. Utilisation des Cookies",
       "para1": "Le site www.monplancbd.fr utilise des cookies pour assurer son bon fonctionnement, améliorer votre expérience de navigation et réaliser des statistiques de visite. En continuant à naviguer sur ce site, vous acceptez l'utilisation de ces cookies, sauf si vous les avez désactivés dans les paramètres de votre navigateur. Pour plus d'informations sur les cookies que nous utilisons et sur la manière de gérer vos préférences, veuillez consulter la section dédiée dans notre {privacyPolicyLink}.",
-      "privacyPolicyLinkText": "Politique de Confidentialité"
+      "cookiePolicyLinkText": "Politique de Cookies",
+      "para2_definition": "Un cookie est un petit fichier texte stocké sur votre terminal (ordinateur, tablette, smartphone) lors de la visite d'un site. Il permet au site de reconnaître votre appareil et de se souvenir de certaines informations concernant votre visite, telles que vos préférences ou vos actions au fil du temps.",
+      "para3_management_intro": "Vous pouvez gérer ou désactiver les cookies par l'intermédiaire des paramètres de votre navigateur. Voici des liens vers les instructions des navigateurs courants :",
+      "browser_settings": {
+        "link_text": "Instructions",
+        "chrome": {
+          "label": "Google Chrome",
+          "link": "https://support.google.com/chrome/answer/95647?hl=fr"
+        },
+        "firefox": {
+          "label": "Mozilla Firefox",
+          "link": "https://support.mozilla.org/fr/kb/effacer-cookies-donnees-site-firefox"
+        },
+        "safari": {
+          "label": "Apple Safari",
+          "link": "https://support.apple.com/fr-fr/guide/safari/sfri11471/mac"
+        },
+        "edge": {
+          "label": "Microsoft Edge",
+          "link": "https://support.microsoft.com/fr-fr/windows/supprimer-et-g%C3%A9rer-les-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
+        }
+      },
+      "para4_youronlinechoices": "Pour plus d'informations sur les cookies et comment les contrôler, vous pouvez également visiter le site {yourOnlineChoicesLink} (European Interactive Digital Advertising Alliance).",
+      "yourOnlineChoicesLinkText": "YourOnlineChoices.com/fr"
     },
     "section7": {
       "title": "7. Liens Hypertextes",
@@ -551,7 +577,12 @@
       "title": "3. Accès au Site et Éligibilité (Utilisateurs Majeurs)",
       "para1": "Le Site et les Produits proposés sont exclusivement destinés aux personnes âgées de 18 ans révolus ou plus. En accédant et en utilisant ce Site, vous déclarez et garantissez que vous avez au moins 18 ans et que vous possédez la pleine capacité juridique pour accepter ces CGU et, le cas échéant, pour acheter nos Produits conformément à nos CGV.",
       "para2": "MonPlanCBD ne collecte pas sciemment d'informations auprès de personnes de moins de 18 ans. Si nous apprenons qu'un mineur a fourni des informations personnelles ou a tenté d'utiliser le Site, nous prendrons les mesures nécessaires pour supprimer ces informations et/ou bloquer l'accès.",
-      "para3": "L'accès au Site depuis des territoires où son contenu ou la vente des Produits serait illégal est interdit."
+      "para3": "L'accès au Site depuis des territoires où son contenu ou la vente des Produits serait illégal est interdit.",
+      "subsection_availability": {
+        "title": "Disponibilité et Maintenance du Site",
+        "para1": "MonPlanCBD s'efforce de rendre le Site accessible 24 heures sur 24, 7 jours sur 7, sauf cas de force majeure ou d'événements hors du contrôle de MonPlanCBD, et sous réserve des éventuelles pannes et interventions de maintenance nécessaires au bon fonctionnement du Site et des services.",
+        "para2": "MonPlanCBD pourra à tout moment interrompre l'accès à tout ou partie du Site, sans préavis et sans droit à indemnités, pour des raisons de maintenance technique ou autres. L'Utilisateur reconnaît que MonPlanCBD ne saurait être tenue responsable de toute indisponibilité du Site."
+      }
     },
     "section4": {
       "title": "4. Comptes Utilisateurs",
@@ -632,7 +663,8 @@
       "item6": "Tenter d'obtenir un accès non autorisé au Site, aux comptes d'autres utilisateurs, ou aux systèmes informatiques ou réseaux connectés au Site.",
       "item7": "Collecter ou stocker des données personnelles sur d'autres utilisateurs sans leur consentement explicite.",
       "item8": "Utiliser le Site à des fins commerciales sans notre autorisation écrite préalable, y compris la publicité ou la sollicitation.",
-      "item9": "Utiliser des robots, \"spiders\", ou autres dispositifs automatiques, processus ou moyens pour accéder au Site à quelque fin que ce soit, y compris la surveillance ou la copie de tout matériel sur le Site (scraping)."
+      "item9": "Utiliser des robots, \"spiders\", ou autres dispositifs automatiques, processus ou moyens pour accéder au Site à quelque fin que ce soit, y compris la surveillance ou la copie de tout matériel sur le Site (scraping).",
+      "item10_technical_responsibility": "Accéder au Site en utilisant un matériel récent, ne contenant pas de virus et avec un navigateur de dernière génération mis à jour. Vous êtes responsable de la sécurité de votre propre équipement et de votre connexion internet."
     },
     "section8": {
       "title": "8. Contenu Généré par les Utilisateurs (Avis Produits)",
@@ -760,7 +792,15 @@
       "title": "Délais de Livraison Estimés",
       "para1": "Les délais de livraison ne sont donnés qu’à titre indicatif et commencent à compter de la date d'expédition. Les délais réels peuvent varier en raison de retards du transporteur ou de circonstances imprévues.",
       "para2": "Si votre commande n'est pas arrivée dans les {maxDays} jours suivant l'expédition, veuillez nous contacter. Si le délai dépasse trente jours à compter de la commande, le contrat de vente pourra être résilié et vous serez remboursé.",
-      "para3_france_estimate": "Le délai de livraison typique pour la France Métropolitaine est de {days} jours ouvrables après expédition."
+      "para3_france_estimate": "Le délai de livraison typique pour la France Métropolitaine est de {days} jours ouvrables après expédition.",
+      "para3_spain_estimate": "Le délai de livraison typique pour l'Espagne est de {days} jours ouvrés après expédition.",
+      "para3_ireland_estimate": "Le délai de livraison typique pour l'Irlande est de {days} jours ouvrés après expédition.",
+      "para3_belgium_estimate": "Le délai de livraison typique pour la Belgique est de {days} jours ouvrés après expédition.",
+      "para3_portugal_estimate": "Le délai de livraison typique pour le Portugal est de {days} jours ouvrés après expédition.",
+      "para3_denmark_estimate": "Le délai de livraison typique pour le Danemark est de {days} jours ouvrés après expédition.",
+      "para3_corsica_estimate": "Le délai de livraison typique pour la Corse est de {days} jours ouvrés après expédition.",
+      "para3_germany_estimate": "Le délai de livraison typique pour l'Allemagne est de {days} jours ouvrés après expédition.",
+      "para3_luxembourg_estimate": "Le délai de livraison typique pour le Luxembourg est de {days} jours ouvrés après expédition."
     },
     "tracking": {
       "title": "Suivi de Commande",
@@ -1059,7 +1099,7 @@
       },
       "accountGuest": {
         "title": "Compte Client et Commande Invité",
-        "para1": "L'Acheteur peut choisir de créer un compte client ou de passer commande en tant qu'invité. La création d'un compte permet de suivre l'état des commandes et de faciliter les achats futurs. S'il possède un compte, l'Acheteur devra s'identifier avant de finaliser sa commande."
+        "para1_revised": "Pour passer commande, l'Acheteur doit fournir les informations nécessaires à la création d'un compte client, incluant une adresse e-mail et un mot de passe, avant de procéder au paiement. Ce compte lui permettra de suivre ses commandes et de faciliter ses achats futurs. Si un compte existe déjà pour l'email fourni, l'Acheteur sera invité à se connecter."
       },
       "confirmation": {
         "title": "Confirmation de Commande",
@@ -1067,7 +1107,7 @@
       },
       "securePayment": {
         "title": "Moyens de Paiement Sécurisés",
-        "para1": "MONPLANCBD propose le paiement sécurisé par carte bancaire via la plateforme Stripe (ou autre prestataire spécifié). L'Acheteur est redirigé vers l'interface sécurisée du prestataire pour saisir ses informations bancaires. Le paiement par carte bancaire est irrévocable, sauf en cas d'utilisation frauduleuse prouvée."
+        "para1_revised": "MONPLANCBD propose le paiement sécurisé par carte bancaire via la solution Sherlocks 3D Secure de la banque LCL. L'Acheteur est redirigé vers l'interface sécurisée de LCL pour saisir ses informations bancaires. Le paiement par carte bancaire est irrévocable, sauf en cas d'utilisation frauduleuse prouvée."
       },
       "proof": {
         "title": "Preuve de la Transaction",
@@ -1118,7 +1158,9 @@
       },
       "issues": {
         "title": "Problèmes de Livraison (Dommages, Colis non reçu)",
-        "para1": "En cas de dommage constaté lors de la livraison, l'Acheteur doit formuler une réclamation motivée auprès du transporteur dans un délai de trois (3) jours (non compris les jours fériés) suivant la livraison, par lettre recommandée avec accusé de réception, et en informer simultanément MONPLANCBD. Concernant les colis indiqués comme \"livrés\" par le transporteur mais non reçus par l'Acheteur, MONPLANCBD s'engage à ouvrir une enquête auprès du transporteur. L'issue de cette enquête (menée par le transporteur) déterminera les suites données (remboursement, réexpédition), sans que MONPLANCBD ne puisse garantir une issue favorable si le transporteur confirme la livraison."
+        "para1_damage": "En cas de dommage constaté lors de la livraison, l'Acheteur doit formuler une réclamation motivée auprès du transporteur dans un délai de trois (3) jours (non compris les jours fériés) suivant la livraison, par lettre recommandée avec accusé de réception, et en informer simultanément MONPLANCBD.",
+        "para2_non_receipt_important_note": "NOTE IMPORTANTE CONCERNANT LA NON-RÉCEPTION DES COLIS :",
+        "para3_non_receipt_policy": "Si le suivi indique que votre commande a été livrée, mais que vous affirmez ne pas l'avoir reçue, MONPLANCBD ouvrira une enquête auprès du transporteur. Cependant, veuillez noter que si le transporteur confirme la livraison à l'adresse fournie, MONPLANCBD ne pourra être tenue pour responsable et ne procédera ni au renvoi, ni au remboursement de la commande. Nous vous conseillons de vous assurer d'un lieu de livraison sécurisé."
       }
     },
     "legalGuarantees": {
@@ -2141,9 +2183,15 @@
         "title": "Erreur d'Envoi",
         "text": "Une erreur inconnue est survenue lors de l'envoi de votre avis."
       },
-      "error403": { "title": "Déjà Évalué", "text": "Vous semblez avoir déjà laissé un avis pour ce produit." }
+      "error403": {
+        "title": "Déjà Évalué",
+        "text": "Vous semblez avoir déjà laissé un avis pour ce produit."
+      }
     },
-    "genericError": { "title": "Erreur", "text": "Une erreur inattendue est survenue." },
+    "genericError": {
+      "title": "Erreur",
+      "text": "Une erreur inattendue est survenue."
+    },
     "cart": {
       "insufficientStockIncrement": {
         "title": "Stock Limité",
@@ -2272,20 +2320,50 @@
       },
       "addresses": {
         "delete": {
-          "200": { "title": "Adresse Supprimée", "text": "Adresse supprimée avec succès." },
-          "400": { "title": "Requête Invalide", "text": "L'identifiant de l'adresse est manquant." },
-          "500": { "title": "Erreur Serveur", "text": "Impossible de supprimer l'adresse. Veuillez réessayer." }
+          "200": {
+            "title": "Adresse Supprimée",
+            "text": "Adresse supprimée avec succès."
+          },
+          "400": {
+            "title": "Requête Invalide",
+            "text": "L'identifiant de l'adresse est manquant."
+          },
+          "500": {
+            "title": "Erreur Serveur",
+            "text": "Impossible de supprimer l'adresse. Veuillez réessayer."
+          }
         },
         "add": {
-          "200": { "title": "Adresse Ajoutée", "text": "Adresse ajoutée avec succès." },
-          "400": { "title": "Informations Invalides", "text": "Veuillez vérifier les détails de l'adresse fournie." },
-          "409": { "title": "Erreur", "text": "Impossible d'ajouter l'adresse. Veuillez réessayer." },
-          "422": { "title": "Erreur de Validation", "text": "Certaines informations d'adresse sont invalides." }
+          "200": {
+            "title": "Adresse Ajoutée",
+            "text": "Adresse ajoutée avec succès."
+          },
+          "400": {
+            "title": "Informations Invalides",
+            "text": "Veuillez vérifier les détails de l'adresse fournie."
+          },
+          "409": {
+            "title": "Erreur",
+            "text": "Impossible d'ajouter l'adresse. Veuillez réessayer."
+          },
+          "422": {
+            "title": "Erreur de Validation",
+            "text": "Certaines informations d'adresse sont invalides."
+          }
         },
         "update": {
-          "200": { "title": "Adresse Mise à Jour", "text": "Adresse mise à jour avec succès." },
-          "400": { "title": "Informations Invalides", "text": "Veuillez vérifier les détails de l'adresse fournie." },
-          "422": { "title": "Erreur de Validation", "text": "Certaines informations d'adresse sont invalides." }
+          "200": {
+            "title": "Adresse Mise à Jour",
+            "text": "Adresse mise à jour avec succès."
+          },
+          "400": {
+            "title": "Informations Invalides",
+            "text": "Veuillez vérifier les détails de l'adresse fournie."
+          },
+          "422": {
+            "title": "Erreur de Validation",
+            "text": "Certaines informations d'adresse sont invalides."
+          }
         }
       }
     },

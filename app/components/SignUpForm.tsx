@@ -52,14 +52,6 @@ export default function SignUpForm() {
   const [doesPasswordsMatch, setDoesPasswordMatch] = useState(true);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    email: searchParams.get("email") || "",
-    password: "",
-    optInMarketing: false,
-  });
-
   const [isLoading, setIsLoading] = useState(false);
   const [actionResponse, setActionResponse] = useState<IActionResponse>({
     message: "",
@@ -68,8 +60,17 @@ export default function SignUpForm() {
     statusCode: 0,
   });
 
-  const { setUserData } = useAuth();
+  const { setUserData, referralToken } = useAuth();
   const { addAlert } = useAlerts();
+
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: searchParams.get("email") || "",
+    password: "",
+    optInMarketing: false,
+    referralToken,
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target as HTMLInputElement;
