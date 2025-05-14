@@ -119,13 +119,19 @@ export default async function Page({ params }: { params: { locale: string } }) {
         <p>{t("costs.ireland.thresholdMet", { amount: 80 })}</p>
         <p>{t("costs.ireland.thresholdNotMet", { amount: 80, cost: 10 })}</p>
       </div>
-      {/* Note: A table might be a clearer way to present this visually later */}
       {/* Estimated Delivery Times */}
       <h2>{t("deliveryTimes.title")}</h2>
       <p>{t("deliveryTimes.para1")}</p>
       <p>{t("deliveryTimes.para2", { maxDays: 30 })}</p>
-      {/* TODO: Add typical estimated times per country if available */}
       <p>{t("deliveryTimes.para3_france_estimate", { days: "1-3" })}</p>
+      <p>{t("deliveryTimes.para3_spain_estimate", { days: "2-4" })}</p>
+      <p>{t("deliveryTimes.para3_ireland_estimate", { days: "3-5" })}</p>
+      <p>{t("deliveryTimes.para3_belgium_estimate", { days: "2-4" })}</p>
+      <p>{t("deliveryTimes.para3_portugal_estimate", { days: "2-4" })}</p>
+      <p>{t("deliveryTimes.para3_denmark_estimate", { days: "3-5" })}</p>
+      <p>{t("deliveryTimes.para3_corsica_estimate", { days: "3-5" })}</p>
+      <p>{t("deliveryTimes.para3_germany_estimate", { days: "2-4" })}</p>
+      <p>{t("deliveryTimes.para3_luxembourg_estimate", { days: "2-4" })}</p>
       {/* Order Tracking */}
       <h2>{t("tracking.title")}</h2>
       <p>{t("tracking.para1")}</p>

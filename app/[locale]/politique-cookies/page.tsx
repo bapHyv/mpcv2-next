@@ -106,10 +106,6 @@ export default async function CookiePolicyPage({ params: { locale } }: { params:
           <strong>{t("section3.functional.cookie1.name")}</strong>: {t("section3.functional.cookie1.purpose")} (
           {t("section3.functional.cookie1.duration")})
         </li>
-        {/* If age_verified was a cookie: 
-        TODO: check this
-        */}
-        {/* <li><strong>{t("section3.functional.cookie2.name")}</strong>: {t("section3.functional.cookie2.purpose")} ({t("section3.functional.cookie2.duration")})</li> */}
       </ul>
       {/* 3.3 Analytics & Improvement Data (Not Cookies, but related data collection) */}
       <h3>{t("section3.analytics.title")}</h3>

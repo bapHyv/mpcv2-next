@@ -37,7 +37,7 @@ export default function DisplayComponents() {
   const { order } = useOrder();
   const router = useRouter();
   const { addAlert } = useAlerts();
-  const { userData, setUserData } = useAuth();
+  const { userData, setUserData, referralToken } = useAuth();
   const t = useTranslations("");
 
   const handleAction = async (e: FormEvent<HTMLFormElement>) => {
@@ -56,6 +56,7 @@ export default function DisplayComponents() {
             firstname: order.shippingAddress.firstname,
             lastname: order.shippingAddress.lastname,
             optInMarketing: !!formData.get("optInMarketing") ? true : false,
+            referralToken,
           });
 
           const response = await register(stringifiedUser, formData);

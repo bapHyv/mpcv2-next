@@ -7,16 +7,20 @@ import { useTranslations } from "next-intl";
 import { logout as logoutAction } from "@/app/actions";
 import { useAlerts } from "@/app/context/alertsContext";
 import { AuthContextType, UserDataAPIResponse } from "@/app/types/profileTypes";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserDataAPIResponse | null>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [referralToken, setReferralToken] = useState<null | string>(null);
+
   const { addAlert } = useAlerts();
+
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const tAlerts = useTranslations("alerts.auth");
 
   const cleanUpLocalStorageUserRelated = () => {
@@ -45,6 +49,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userData]);
 
+  useEffect(() => {
+    if (!referralToken && !!searchParams.get("referral")) {
+      setReferralToken(searchParams.get("referral"));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   const logout = async () => {
     try {
       setIsLoggingOut(true);
@@ -69,7 +80,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const value = { userData, setUserData, cleanUpLocalStorageUserRelated, logout, isLoggingOut };
+  const value = { userData, setUserData, cleanUpLocalStorageUserRelated, logout, isLoggingOut, referralToken };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
