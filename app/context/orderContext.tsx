@@ -384,6 +384,10 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [consentState.analytics, isLoadingConsent]);
 
+  /**
+   * TODO: add send order to BE request here. Use if (userData) {...}
+   *
+   */
   useEffect(() => {
     if (order) {
       localStorage.setItem("order", JSON.stringify(order));

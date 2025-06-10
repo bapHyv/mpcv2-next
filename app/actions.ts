@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { fetchWrapper } from "@/app/utils/fetchWrapper";
 import { billingAddress, Order, shippingAddress, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
 import { generatePaymentToken } from "@/app/utils/auth";
+import { ProductCart } from "@/app/context/productsAndCartContext";
 interface ErrorReponse {
   message: string;
   statusCode: number;
@@ -482,9 +483,14 @@ export async function forgottenPassword(stringifiedData: string) {
   }
 }
 
+interface OrderAndCart {
+  order: Order;
+  cart: { total: number; products: ProductCart[] };
+}
+
 export async function payment(stringifiedOrder: string) {
   try {
-    const order: Order = JSON.parse(stringifiedOrder);
+    const { order, cart }: OrderAndCart = JSON.parse(stringifiedOrder);
 
     if (!order["different-billing"]) {
       for (const key in order.shippingAddress) {
@@ -496,7 +502,7 @@ export async function payment(stringifiedOrder: string) {
 
     const fetchOptions = {
       method: "POST",
-      body: JSON.stringify(order),
+      body: JSON.stringify({ order, cart }),
       headers: {
         "Content-Type": "application/json",
       },

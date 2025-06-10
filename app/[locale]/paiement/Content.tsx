@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, FormEvent } from "react";
+import { useEffect, useRef, useState, FormEvent, useMemo } from "react";
 import clsx from "clsx";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 
@@ -19,6 +19,7 @@ import { isSuccessResponse } from "@/app/utils/typeGuardsFunctions";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";
 import { IActionResponse } from "@/app/types/apiTypes";
+import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
 
 interface OrderId {
   orderId: number;
@@ -27,19 +28,25 @@ interface OrderId {
 export default function Page() {
   const [isPending, setIsPending] = useState(false);
   const [actionResponse, setActionResponse] = useState<null | IActionResponse>(null);
-  const [initPaymentResponse, setInitPaymentResponse] = useState<null | (OrderId & SipsSuccessResponse) | (OrderId & SipsFailResponse)>(null);
+  const [initPaymentResponse, setInitPaymentResponse] = useState<
+    null | (OrderId & SipsSuccessResponse) | (OrderId & SipsFailResponse) | { error: true }
+  >(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const { order } = useOrder();
+  const { cart } = useProductsAndCart();
   const router = useRouter();
 
-  const shouldReturn = paymentRouteGuard(order);
+  const shouldReturn = useMemo(() => {
+    return paymentRouteGuard(order);
+  }, [order]);
 
   const handleAction = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (initPaymentResponse) {
       if (
         order["payment-method"] === "secure-3d-card" &&
+        !("error" in initPaymentResponse) &&
         initPaymentResponse.redirectionStatusCode === "00" &&
         isSuccessResponse(initPaymentResponse)
       ) {
@@ -64,59 +71,61 @@ export default function Page() {
         document.body.appendChild(form);
         form.submit();
       } else if (order["payment-method"] === "bank-transfer") {
-        // Check if bank transfer selected
         const bankTransferPayment = async () => {
           setIsPending(true);
           try {
-            // Pass orderId from initPaymentResponse if it exists
-            const response = await bankTransfer(JSON.stringify(order), initPaymentResponse?.orderId);
+            const response = await bankTransfer(JSON.stringify(order), (initPaymentResponse as OrderId & SipsSuccessResponse)?.orderId);
             setActionResponse(response);
           } catch (error) {
             console.error("Bank transfer action failed:", error);
-            // Handle error state appropriately, maybe show an alert
           } finally {
             setIsPending(false);
           }
         };
         bankTransferPayment();
       } else {
-        // Handle other payment methods or errors if necessary
         console.warn("Unhandled payment method or response state:", order["payment-method"], initPaymentResponse);
       }
     } else {
-      // Handle case where initPaymentResponse is null (e.g., API call failed)
       console.error("Cannot proceed with payment, initial payment setup failed.");
-      // Show an error message to the user?
     }
   };
+
+  const initPayment = async () => {
+    console.log("Initiating payment...");
+    setIsPending(true);
+    try {
+      const response = await payment(JSON.stringify({ order, cart }));
+      if (response?.data) {
+        setInitPaymentResponse(response.data as (OrderId & SipsSuccessResponse) | (OrderId & SipsFailResponse));
+      } else {
+        console.error("Failed to initialize payment", response?.message);
+        setInitPaymentResponse({ error: true });
+      }
+    } catch (error) {
+      console.error("Error calling initPayment action:", error);
+    } finally {
+      setIsPending(false);
+    }
+  };
+
+  /**
+   * TODO: Fetch toutes les une seconde pendant 3 secondes
+   *
+   * essayer de fetch si:
+   *  -initPaymentResponse est null ou qu'il y a une erreur
+   *
+   * Ne pas réessayer de fetch si il y a une response correcte
+   */
 
   // Trigger init-payment on mounted
   useEffect(() => {
     if (!shouldReturn && order && !initPaymentResponse && !isPending) {
-      // Avoid re-fetching if pending
-      const initPayment = async (orderData: Order) => {
-        console.log("Initiating payment...");
-        setIsPending(true);
-        try {
-          const response = await payment(JSON.stringify(orderData));
-          if (response?.data) {
-            setInitPaymentResponse(response.data as (OrderId & SipsSuccessResponse) | (OrderId & SipsFailResponse));
-          } else {
-            console.error("Failed to initialize payment", response?.message);
-            // Handle error - maybe show an alert
-          }
-        } catch (error) {
-          console.error("Error calling initPayment action:", error);
-          // Handle error
-        } finally {
-          setIsPending(false);
-        }
-      };
-      initPayment(order);
+      initPayment();
       console.log("Payment Page Mounted, Ready for initPayment");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldReturn, order, initPaymentResponse, isPending]);
+  }, [shouldReturn, order, initPaymentResponse]);
 
   useEffect(() => {
     if (
@@ -128,15 +137,11 @@ export default function Page() {
     ) {
       router.push(`/commande-recue?token=${actionResponse.data}`);
     }
-    // Reset actionResponse after handling
     if (actionResponse) setActionResponse(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionResponse, initPaymentResponse, router, order]);
 
-  // Keep route guard logic
   if (shouldReturn) {
-    // console.log("Payment route guard triggered, redirecting back.");
-    // Check if window is defined (client-side) before using router
     if (typeof window !== "undefined") {
       router.back();
     }
@@ -167,7 +172,11 @@ export default function Page() {
         {/* Left Column: Payment Methods & Total */}
         <div className="lg:col-span-7 space-y-6">
           <PaymentMethods />
-          <Total isPending={isPending} />
+          <Total
+            isPending={isPending}
+            isError={(() => (initPaymentResponse && "error" in initPaymentResponse ? true : false))()}
+            retryInitPayment={initPayment}
+          />
         </div>
 
         {/* Right Column: Order Summary */}
