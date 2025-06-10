@@ -27,6 +27,52 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("userData");
   };
 
+  /**
+   *
+   *
+   * Cas 0:
+   * -Si userData dans le localStorage:
+   *      -Utiliser refresh token pour avoir nouveau AT, RF et data user
+   *      -Si error: logout
+   *
+   * S'il est connecté sur deux appareil en même temps:
+   *
+   * Cas 1:
+   * L'utilisateur se connecte sur Appareil-1, il reçois un token AT1 et RF1
+   * L'utilisateur se connecte sur Appareil-2, il reçois un token AT2 et RF2 rendant AT1 et RF1 obsolète
+   * Plus tard, l'utilisateur revient sur Appareil-1, ce qui déclenche un fetch user avec le RT1 => Error donc logout
+   *
+   * Cas 2:
+   *  L'utilisateur se connecte sur Appareil-1, il reçois un token AT1 et RF1
+   *  L'utilisateur se connecte sur Appareil-2, il reçois un token AT2 et RF2, rendant AT1 et RF1 obsolète
+   *  L'utilisateur essaye de passer une commande ou de faire une modification sur Appareil-1 sans avoir refresh la page au préalable, QUE DOIT-IL SE PASSER?
+   *
+   * Lors de la modification de ses données OU de la modification de son panier OU quand il arrive sur la page expédition:
+   *
+   *
+   *
+   * Actions: Modifier
+   *
+   *
+   * Jusqu'à présent, je n'avais pas besoin des tokens dans le front.
+   * Lors du login, je set les AT et RT dans les cookies
+   * Lors du logout, je delete les AT et RT
+   * L'utilisation des tokens se faisait uniquement dans les actions.
+   * Pour gérer les réponses 401, j'ai crée un fetchWrapper qui,
+   *  lors de requête, s'il reçois un 401, il utilise le RT
+   *  pour récupérer un nouvel AT valide puis relance la requête avec ce nouvel AT.
+   *
+   * Aujourd'hui, nous mettons en place le fetch des data users lors de l'arrivé sur le site.
+   * Ce qui fait que, les tokens sont à deux endroits: cookies et userData
+   * Lors du fetch des données utilisateurs dans le FE avec le RT,
+   *  je me retrouve obligatoirement avec une différence de token entre le userData et le refreshToken
+   */
+
+  /**
+   * TODO: Add fetch user data with refresh token here
+   *
+   * Utiliser AT. Si 401, utilisation du RT. Le payload utilisateur sera dans avec le nouvel AT et RT.
+   */
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
 

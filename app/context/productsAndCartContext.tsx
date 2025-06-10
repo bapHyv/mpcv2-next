@@ -135,6 +135,12 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * TODO: Add send cart to BE request here. Use if (userData) {...}
+   *
+   * Cas particulier:
+   * Si l'utilisateur rempli un panier sans etre connecte. S'il se connecte et qu'il avait un panier enregistre dans le BE et que ce panier est different, lui demander lequel il veut conserver.
+   */
   useEffect(() => {
     const tot = cart.total;
     let newTotal = 0;

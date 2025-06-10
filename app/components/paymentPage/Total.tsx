@@ -10,12 +10,18 @@ import Title from "@/app/components/Title";
 import { useOrder } from "@/app/context/orderContext";
 import { sectionWrapperClassname, titleClassname, buttonClassname, linkClassname } from "@/app/staticData/cartPageClasses";
 
-export default function Total({ isPending }: { isPending: boolean }) {
+interface Props {
+  isPending: boolean;
+  isError: boolean;
+  retryInitPayment: () => Promise<void>;
+}
+
+export default function Total({ isPending, isError, retryInitPayment }: Props) {
   const t = useTranslations("");
   const { order } = useOrder();
 
   const isDisabled = useMemo(
-    () => isPending || !order["payment-method"],
+    () => isError || isPending || !order["payment-method"],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isPending, order["payment-method"]]
   );
@@ -24,6 +30,7 @@ export default function Total({ isPending }: { isPending: boolean }) {
 
   const getButtonText = () => {
     if (isPending) return null;
+    if (isError) return "Something went wrong, please press the button below to retry";
     if (!order["payment-method"]) return t("paymentPage.totalSummary.noMethodButtonText");
     if (order["payment-method"] === "bank-transfer") return t("paymentPage.totalSummary.bankTransferButtonText");
     return t("paymentPage.totalSummary.cardPaymentButtonText");
@@ -70,6 +77,23 @@ export default function Total({ isPending }: { isPending: boolean }) {
             getButtonText()
           )}
         </button>
+        {isError ? (
+          <button
+            type="button"
+            className={twMerge(buttonClassname, "w-full py-3 text-base flex items-center justify-center mt-5")}
+            onClick={() => retryInitPayment()}
+            disabled={isPending}
+          >
+            {isPending ? (
+              <>
+                <ArrowPathIcon className="animate-spin h-5 w-5 mr-2" aria-hidden="true" />
+                {t("forms.pendingText")}
+              </>
+            ) : (
+              "Retry"
+            )}
+          </button>
+        ) : null}
       </div>
     </section>
   );

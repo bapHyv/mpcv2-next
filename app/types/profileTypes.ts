@@ -1,4 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
+import { ProductCart } from "@/app/context/productsAndCartContext";
+import { Order as OrderContext } from "@/app/types/orderTypes";
 
 export interface User {
   username: string;
@@ -148,4 +150,6 @@ export interface UserDataAPIResponse {
   orders: Order[];
   accessToken: string;
   refreshToken: string;
+  cart: { total: number; products: ProductCart[] };
+  order: OrderContext;
 }
