@@ -1,6 +1,5 @@
 "use client";
 
-import { useFormState } from "react-dom";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
@@ -9,7 +8,6 @@ import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
 import SubmitButton from "@/app/components/SubmitButton";
-import { register } from "@/app/actions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
@@ -53,12 +51,6 @@ export default function SignUpForm() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [actionResponse, setActionResponse] = useState<IActionResponse>({
-    message: "",
-    data: null,
-    isSuccess: false,
-    statusCode: 0,
-  });
 
   const { setUserData, referralToken } = useAuth();
   const { addAlert } = useAlerts();
@@ -66,7 +58,7 @@ export default function SignUpForm() {
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
-    email: searchParams.get("email") || "",
+    mail: searchParams.get("email") || "",
     password: "",
     optInMarketing: false,
     referralToken,
@@ -80,71 +72,70 @@ export default function SignUpForm() {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    const registerFunction = async () => {
-      try {
-        const stringifiedData = JSON.stringify(formData);
-        setIsLoading(true);
-        const response = await register(stringifiedData);
-        setIsLoading(false);
-        setActionResponse(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    if (formData.password !== repeatPassword) {
+      setDoesPasswordMatch(false);
+      setIsLoading(false);
+      return;
+    }
 
-    registerFunction();
-  };
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-  useEffect(() => {
-    if (actionResponse.statusCode !== 0) {
-      if (actionResponse.isSuccess && isUserDataAPIResponse(actionResponse.data) && actionResponse.statusCode === 200) {
-        const redirectPath = searchParams.get("redirect");
+      const responseData = await response.json();
 
-        if (!Array.isArray(actionResponse.data.addresses)) {
-          actionResponse.data.addresses = [];
-        }
-
-        setUserData(actionResponse.data);
-        addAlert(uuid(), t("alerts.signUp.success.text"), t("alerts.signUp.success.title"), "emerald");
-        router.push(redirectPath ? `/${redirectPath}` : "/"); // Redirect to account
-        router.refresh();
-      } else {
+      if (!response.ok) {
         let titleKey = "alerts.signUp.defaultError.title";
         let textKey = "alerts.signUp.defaultError.text";
         let alertType: "yellow" | "red" | "blue" = "red";
 
-        switch (actionResponse.statusCode) {
-          case 409:
-            titleKey = "alerts.signUp.error409.title";
-            textKey = "alerts.signUp.error409.text";
-            alertType = "blue";
-            setTimeout(() => router.push(`/connexion?email=${encodeURIComponent((actionResponse.data as string) || formData.email)}`), 500);
-            break;
-          case 400:
-            titleKey = "alerts.signUp.error400.title";
-            textKey = "alerts.signUp.error400.text";
-            alertType = "yellow";
-            break;
-          case 422:
-            titleKey = "alerts.signUp.error422.title";
-            textKey = "alerts.signUp.error422.text";
-            alertType = "yellow";
-            break;
-          case 500:
-            titleKey = "alerts.signUp.error500.title";
-            textKey = "alerts.signUp.error500.text";
-            alertType = "red";
-            break;
+        if (response.status === 409) {
+          titleKey = "alerts.signUp.error409.title";
+          textKey = responseData.message || "alerts.signUp.error409.text";
+          alertType = "blue";
+          setTimeout(() => router.push(`/connexion?email=${encodeURIComponent(responseData.email || formData.mail)}`), 500);
+        } else if (response.status === 400 || response.status === 422) {
+          titleKey = response.status === 400 ? "alerts.signUp.error400.title" : "alerts.signUp.error422.title";
+          textKey = responseData.message || (response.status === 400 ? "alerts.signUp.error400.text" : "alerts.signUp.error422.text");
+          alertType = "yellow";
+        } else {
+          // 500 or other errors
+          titleKey = "alerts.signUp.error500.title";
+          textKey = responseData.message || "alerts.signUp.error500.text";
+          alertType = "red";
         }
-        const alertText = t(textKey);
-        addAlert(uuid(), alertText, t(titleKey), alertType);
+        addAlert(uuid(), textKey.startsWith("alerts.") ? t(textKey) : textKey, t(titleKey), alertType);
+        return;
       }
+
+      // --- Handle Success ---
+      if (isUserDataAPIResponse(responseData)) {
+        const redirectPath = searchParams.get("redirect");
+        if (!Array.isArray(responseData.addresses)) {
+          responseData.addresses = [];
+        }
+        setUserData(responseData);
+        addAlert(uuid(), t("alerts.signUp.success.text"), t("alerts.signUp.success.title"), "emerald");
+        router.push(redirectPath ? `/${redirectPath}` : "/");
+        router.refresh();
+      } else {
+        // This case should be rare, but it's good practice to handle it
+        addAlert(uuid(), t("alerts.signUp.defaultError.text"), t("alerts.signUp.defaultError.title"), "yellow");
+      }
+    } catch (error) {
+      console.error("Registration request failed:", error);
+      addAlert(uuid(), t("alerts.signUp.error500.text"), t("alerts.signUp.error500.title"), "red");
+    } finally {
+      setIsLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionResponse]);
+  };
 
   useEffect(() => {
     if (repeatPassword) {
@@ -168,7 +159,7 @@ export default function SignUpForm() {
 
       {/* Email */}
       <FormField id="email" label={t("signUpPage.emailLabel")} required>
-        <input type="email" name="email" required value={formData.email} onChange={handleChange} className={inputClassname} />
+        <input type="email" name="mail" required value={formData.mail} onChange={handleChange} className={inputClassname} />
       </FormField>
 
       {/* Password */}

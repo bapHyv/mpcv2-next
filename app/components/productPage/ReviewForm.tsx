@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useEffect, useState, FormEvent } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { StarIcon } from "@heroicons/react/24/solid";
@@ -9,8 +8,7 @@ import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
 import { useTranslations } from "next-intl";
 
-import Title from "@/app/components/Title";
-import { comment as commentAction } from "@/app/actions";
+import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import {
@@ -20,48 +18,90 @@ import {
   linkClassname,
   titleClassname as baseTitleClassname,
 } from "@/app/staticData/cartPageClasses";
-import SubmitButton from "@/app/components/SubmitButton";
+import { IActionResponse } from "@/app/types/apiTypes";
 
-const initialState = {
-  message: "",
-  data: null,
-  isSuccess: false,
-  statusCode: 0,
-};
+import Title from "@/app/components/Title";
+import SubmitButton from "@/app/components/SubmitButton";
 
 interface Props {
   id: number;
 }
 
 export default function ReviewForm({ id }: Props) {
+  const [commentValue, setCommentValue] = useState("");
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [actionResponse, setActionResponse] = useState<IActionResponse>({
+    message: "",
+    data: null,
+    isSuccess: false,
+    statusCode: 0,
+  });
+
+  const { fetchWrapper } = useFetchWrapper();
   const t = useTranslations("");
   const { userData } = useAuth();
   const { addAlert } = useAlerts();
   const pathname = usePathname();
 
-  const [state, formAction] = useFormState(commentAction, initialState as any);
-
-  const [commentValue, setCommentValue] = useState("");
-  const [rating, setRating] = useState(0);
-  const [hoverRating, setHoverRating] = useState(0);
-
   const handleRatingClick = (selectedRating: number) => setRating(selectedRating);
   const handleRatingHover = (hoveredRating: number) => setHoverRating(hoveredRating);
   const handleRatingLeave = () => setHoverRating(0);
 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetchWrapper(`/api/products/${id}/reviews`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ review: commentValue, rating }),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        setActionResponse({
+          message: responseData.message || "An error occurred",
+          isSuccess: false,
+          statusCode: response.status as any,
+          data: null,
+        });
+        return;
+      }
+
+      setActionResponse({
+        message: "Comment added successfully",
+        isSuccess: true,
+        statusCode: 200, // Or response.status
+        data: null,
+      });
+    } catch (error) {
+      console.error("Add comment request failed:", error);
+      setActionResponse({
+        message: t("alerts.genericError.text"),
+        isSuccess: false,
+        statusCode: 500,
+        data: null,
+      });
+    }
+  };
+
   useEffect(() => {
-    if (state.statusCode !== 0) {
-      if (state.isSuccess && (state.statusCode === 200 || state.statusCode === 201 || state.statusCode === 204)) {
+    if (actionResponse.statusCode !== 0) {
+      if (actionResponse.isSuccess && (actionResponse.statusCode === 200 || actionResponse.statusCode === 201 || actionResponse.statusCode === 204)) {
         addAlert(uuid(), t("alerts.addReview.success.text"), t("alerts.addReview.success.title"), "emerald");
         setCommentValue("");
         setRating(0);
         setHoverRating(0);
-      } else if (!state.isSuccess) {
+      } else if (!actionResponse.isSuccess) {
         let titleKey = "alerts.addReview.defaultError.title";
         let textKey = "alerts.addReview.defaultError.text";
         let alertType: "yellow" | "red" = "red";
 
-        switch (state.statusCode) {
+        switch (actionResponse.statusCode) {
           case 400:
             titleKey = "alerts.addReview.error400.title";
             textKey = "alerts.addReview.error400.text";
@@ -83,12 +123,12 @@ export default function ReviewForm({ id }: Props) {
             alertType = "red";
             break;
         }
-        const alertText = state.message || t(textKey);
+        const alertText = actionResponse.message || t(textKey);
         addAlert(uuid(), alertText, t(titleKey), alertType);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [actionResponse]);
 
   if (!userData) {
     const redirectValue = `${pathname}#review-form`;
@@ -119,7 +159,7 @@ export default function ReviewForm({ id }: Props) {
         classname={twMerge(baseTitleClassname, "text-center !mb-6 text-lg")}
         firstLetterClassname="text-2xl"
       />
-      <form action={formAction} className="space-y-5 max-w-xl mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-5 max-w-xl mx-auto">
         <input type="hidden" name="rating" value={rating} />
         <input type="hidden" name="id" value={id} />
 
@@ -176,7 +216,12 @@ export default function ReviewForm({ id }: Props) {
 
         {/* Submit Button */}
         <div className="flex justify-end pt-2">
-          <SubmitButton text={t("reviews.submitButton")} isDisabled={rating === 0 || !commentValue.trim()} className="px-5 py-2" />
+          <SubmitButton
+            text={t("reviews.submitButton")}
+            isDisabled={rating === 0 || !commentValue.trim()}
+            isPending={isLoading}
+            className="px-5 py-2"
+          />
         </div>
       </form>
     </div>

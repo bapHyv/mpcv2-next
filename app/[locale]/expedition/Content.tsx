@@ -15,23 +15,14 @@ import OrderSummary from "@/app/components/shippingPage/OrderSummary";
 import Shipping from "@/app/components/shippingPage/Shipping";
 import AreYouCustomer from "@/app/components/cartPage/AreYouCustomer";
 import Title from "@/app/components/Title";
-import { data, statusCode, register } from "@/app/actions";
 import { useOrder } from "@/app/context/orderContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 import { useAuth } from "@/app/context/authContext";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 
-interface IActionResponse {
-  message: string;
-  data: data;
-  isSuccess: boolean;
-  statusCode: statusCode;
-}
-
 export default function DisplayComponents() {
   const [isPending, setIsPending] = useState(false);
-  const [actionResponse, setActionResponse] = useState<null | IActionResponse>(null);
   const form = useRef<HTMLFormElement>(null);
 
   const { order } = useOrder();
@@ -41,78 +32,75 @@ export default function DisplayComponents() {
   const t = useTranslations("");
 
   const handleAction = async (e: FormEvent<HTMLFormElement>) => {
-    if (form.current) {
-      e.preventDefault();
-      try {
-        if (!userData) {
-          setIsPending(true);
-          const formData = new FormData(form.current);
-          formData.append("shipping-address", JSON.stringify(order.shippingAddress));
-          formData.append("billing-address", JSON.stringify(order.billingAddress));
+    e.preventDefault();
+    if (!form.current) return;
 
-          const stringifiedUser = JSON.stringify({
-            email: order.shippingAddress.email,
-            password: order.password,
-            firstname: order.shippingAddress.firstname,
-            lastname: order.shippingAddress.lastname,
-            optInMarketing: !!formData.get("optInMarketing") ? true : false,
-            referralToken,
-          });
-
-          const response = await register(stringifiedUser, formData);
-          setIsPending(false);
-          setActionResponse(response);
-        } else {
-          router.push("/paiement");
-        }
-      } catch (error) {
-        console.error("Error during form action:", error);
-        setIsPending(false);
-        addAlert(uuid(), t("alerts.accountCreation.genericError.text"), t("alerts.accountCreation.genericError.title"), "red");
-      }
+    // If the user is already logged in, just proceed to payment.
+    if (userData) {
+      router.push("/paiement");
+      return;
     }
-  };
 
-  useEffect(() => {
-    if (actionResponse) {
-      if (actionResponse.isSuccess && actionResponse.data && actionResponse.statusCode === 200) {
-        if (isUserDataAPIResponse(actionResponse.data)) {
-          if (!Array.isArray(actionResponse.data.addresses)) {
-            actionResponse.data.addresses = [];
-          }
+    // --- Guest Checkout / Registration Logic ---
+    setIsPending(true);
+    try {
+      const formData = new FormData(form.current);
 
-          setUserData(actionResponse.data);
-          addAlert(uuid(), t("alerts.accountCreation.success200.text"), t("alerts.accountCreation.success200.title"), "emerald");
-          router.push("/paiement");
-        } else {
-          console.warn("Successful response but unexpected data format:", actionResponse.data);
-          addAlert(uuid(), t("alerts.accountCreation.defaultError.text"), t("alerts.accountCreation.defaultError.title"), "yellow");
-        }
-      } else if (!actionResponse.isSuccess) {
+      // Construct the payload for our API route
+      const payload = {
+        mail: order.shippingAddress.email,
+        password: order.password,
+        firstname: order.shippingAddress.firstname,
+        lastname: order.shippingAddress.lastname,
+        optInMarketing: !!formData.get("optInMarketing"),
+        referralToken,
+        shippingAddress: order.shippingAddress,
+        billingAddress: order.billingAddress,
+        isDifferentBilling: order["different-billing"],
+      };
+
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
         let textKey = "alerts.accountCreation.defaultError.text";
         let titleKey = "alerts.accountCreation.title";
         let color: "blue" | "red" | "yellow" = "red";
 
-        switch (actionResponse.statusCode) {
-          case 409:
-            textKey = "alerts.accountCreation.error409.text";
-            titleKey = "alerts.accountCreation.error409.title";
-            color = "blue";
-            setTimeout(() => router.push("/connexion?redirect=paiement"), 500);
-            break;
-          case 500:
-            textKey = "alerts.accountCreation.error500.text";
-            titleKey = "alerts.accountCreation.error500.title";
-            color = "red";
-            break;
+        if (response.status === 409) {
+          textKey = "alerts.accountCreation.error409.text";
+          titleKey = "alerts.accountCreation.error409.title";
+          color = "blue";
+          setTimeout(() => router.push("/connexion?redirect=paiement"), 500);
+        } else {
+          textKey = responseData.message || "alerts.accountCreation.defaultError.text";
+          titleKey = "alerts.accountCreation.defaultError.title";
+          color = "red";
         }
-        const alertText = actionResponse.message || t(textKey);
-        addAlert(uuid(), alertText, t(titleKey), color);
+        addAlert(uuid(), t(textKey), t(titleKey), color);
+        return;
       }
-      setActionResponse(null);
+
+      if (isUserDataAPIResponse(responseData)) {
+        if (!Array.isArray(responseData.addresses)) {
+          responseData.addresses = [];
+        }
+        setUserData(responseData);
+        addAlert(uuid(), t("alerts.accountCreation.success200.text"), t("alerts.accountCreation.success200.title"), "emerald");
+        router.push("/paiement");
+      }
+    } catch (error) {
+      console.error("Error during guest checkout registration:", error);
+      addAlert(uuid(), t("alerts.accountCreation.genericError.text"), t("alerts.accountCreation.genericError.title"), "red");
+    } finally {
+      setIsPending(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionResponse]);
+  };
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">

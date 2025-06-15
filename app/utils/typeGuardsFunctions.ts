@@ -1,12 +1,6 @@
 import { UserDataAPIResponse, UserMetadata, Address, Order, Product, Shipping, UpdateAddressResponse } from "@/app/types/profileTypes";
 import { BoxtalConnectMethod, FlatRateMethod, FreeShippingMethod, IShippingMethod, LocalPickupMethod } from "@/app/types/sseTypes";
 import { InitPaymentResponse, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
-import { IResponseAPI } from "@/app/actions";
-
-export function isResponseApi(data: any): data is IResponseAPI {
-  if ("message" in data && "data" in data && "isSuccess" in data && "statusCode" in data) return true;
-  return false;
-}
 
 export function isId(data: any): data is { id: string } {
   if (!data || typeof data.id !== "string") {

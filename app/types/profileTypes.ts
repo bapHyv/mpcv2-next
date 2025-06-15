@@ -56,6 +56,7 @@ export interface AuthContextType {
   setUserData: Dispatch<SetStateAction<UserDataAPIResponse | null>>;
   cleanUpLocalStorageUserRelated: () => void;
   logout: () => void;
+  isAuthLoading: boolean;
   isLoggingOut: boolean;
   referralToken: string | null;
 }
@@ -138,6 +139,8 @@ export interface UserDataAPIResponse {
   user_activation_key: string;
   user_status: number;
   display_name: string;
+  cartBkp: null | string;
+  orderBkp: null | string;
   mail: string;
   addresses: Address[];
   firstname: string;
@@ -152,4 +155,28 @@ export interface UserDataAPIResponse {
   refreshToken: string;
   cart: { total: number; products: ProductCart[] };
   order: OrderContext;
+}
+
+export interface FetchUserDataAPIResponse {
+  ID: number;
+  user_login: string;
+  user_nicename: string;
+  user_email: string;
+  user_url: string;
+  user_registered: string;
+  user_activation_key: string;
+  user_status: number;
+  display_name: string;
+  cartBkp: null | string;
+  orderBkp: null | string;
+  mail: string;
+  addresses: Address[];
+  firstname: string;
+  lastname: string;
+  nickname: string;
+  loyaltyPoints: number;
+  referralToken: string;
+  optInMarketing: number;
+  discounts: string[];
+  orders: Order[];
 }

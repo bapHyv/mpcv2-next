@@ -9,8 +9,8 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useAlerts } from "@/app/context/alertsContext";
 import { useAuth } from "@/app/context/authContext";
 import { Address } from "@/app/types/profileTypes";
-import { updateAddress } from "@/app/actions";
-import { isAddress, isResponseApi, isUpdateAddressResponse } from "@/app/utils/typeGuardsFunctions";
+import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
+import { isUpdateAddressResponse } from "@/app/utils/typeGuardsFunctions";
 import { useSse } from "@/app/context/sseContext";
 import { disableBodyScroll, enableBodyScroll } from "@/app/utils/bodyScroll";
 
@@ -53,6 +53,7 @@ interface Params {
 
 export default function UpdateAddresseModale({ editingAddress, setEditingAddress, setIsModalOpen, onOperationComplete }: Params) {
   const t = useTranslations("");
+  const { fetchWrapper } = useFetchWrapper();
 
   const [isLoading, setIsLoading] = useState(false);
   const [actionResponse, setActionResponse] = useState<IActionResponse>({
@@ -75,30 +76,46 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!editingAddress) return;
 
-    const updateAddressFunction = async () => {
-      try {
-        const stringifiedData = JSON.stringify({
-          address: editingAddress,
-          id: editingAddress.id,
-        });
-        setIsLoading(true);
-        const response = await updateAddress(stringifiedData);
-        setActionResponse(response);
-      } catch (error) {
-        console.error("Failed to submit update address form:", error);
-        setIsLoading(false);
+    setIsLoading(true);
+
+    try {
+      const response = await fetchWrapper(`/api/user/addresses/${editingAddress.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editingAddress),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
         setActionResponse({
-          message: t("alerts.genericError.text"),
-          data: null,
+          message: responseData.message || "An error occurred",
           isSuccess: false,
-          statusCode: 500,
+          statusCode: response.status as any,
+          data: null,
         });
+        return;
       }
-    };
-    updateAddressFunction();
+
+      setActionResponse({
+        message: "Address successfully updated",
+        isSuccess: true,
+        statusCode: 200,
+        data: responseData,
+      });
+    } catch (error) {
+      console.error("Update address request failed:", error);
+      setActionResponse({
+        message: t("alerts.genericError.text"),
+        isSuccess: false,
+        statusCode: 500,
+        data: null,
+      });
+    }
   };
 
   useEffect(() => {
@@ -107,14 +124,13 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
   }, []);
 
   useEffect(() => {
-    if (isResponseApi(actionResponse) && actionResponse.statusCode !== 0) {
+    if (actionResponse.statusCode !== 0) {
       setIsLoading(false);
-      if (actionResponse.isSuccess && actionResponse.statusCode === 200) {
-        // Have to do this because the Address.id is supposed to be type number but the updateAddressResponse.id is type string
-        const deepCopy = JSON.parse(JSON.stringify(actionResponse.data));
-        deepCopy.id = parseInt(deepCopy.id, 10);
-
-        const updatedAddress: Address = deepCopy;
+      if (actionResponse.isSuccess && isUpdateAddressResponse(actionResponse.data) && actionResponse.statusCode === 200) {
+        const updatedAddress: Address = {
+          ...actionResponse.data,
+          id: parseInt(actionResponse.data.id, 10),
+        };
 
         setUserData((prevState) => {
           if (prevState) {

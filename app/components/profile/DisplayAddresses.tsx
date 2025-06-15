@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 import { Address } from "@/app/types/profileTypes";
-import { deleteAddress } from "@/app/actions";
+import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 import { useAuth } from "@/app/context/authContext";
 import { isId } from "@/app/utils/typeGuardsFunctions";
 import { useAlerts } from "@/app/context/alertsContext";
@@ -29,6 +29,7 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
     statusCode: 0,
   });
 
+  const { fetchWrapper } = useFetchWrapper();
   const t = useTranslations("");
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
@@ -42,25 +43,45 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const deleteAddressFunction = async () => {
-      try {
-        const addressId = new FormData(e.currentTarget).get("addressId");
-        const stringifiedData = JSON.stringify({ id: addressId });
-        setIsLoading(true);
-        const response = await deleteAddress(stringifiedData);
-        setIsLoading(false);
-        setActionResponse(response);
-      } catch (error) {
-        console.error(error);
+  const handleDelete = async (addressId: number) => {
+    setIsLoading(true);
+    try {
+      const response = await fetchWrapper(`/api/user/addresses/${addressId}`, {
+        method: "DELETE",
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        setActionResponse({
+          message: responseData.message || "An error occurred",
+          isSuccess: false,
+          statusCode: response.status as any,
+          data: null,
+        });
+        return;
       }
-    };
-    deleteAddressFunction();
+
+      setActionResponse({
+        message: "Address successfully deleted",
+        isSuccess: true,
+        statusCode: 200,
+        data: { id: responseData.id },
+      });
+    } catch (error) {
+      console.error("Delete address request failed:", error);
+      setActionResponse({
+        message: t("alerts.genericError.text"),
+        isSuccess: false,
+        statusCode: 500,
+        data: null,
+      });
+    }
   };
 
   useEffect(() => {
     if (actionResponse.statusCode !== 0) {
+      setIsLoading(false);
       if (actionResponse.isSuccess && isId(actionResponse.data) && actionResponse.statusCode === 200) {
         const { id } = actionResponse.data;
         setUserData((prevState) => {
@@ -96,6 +117,7 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
         setTimeout(() => handleResetActionResponse(), 1000);
         addAlert(uuid(), alertText, t(titleKey), alertType);
       }
+      handleResetActionResponse();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actionResponse]);
@@ -158,13 +180,15 @@ export default function AddressList({ addresses, setIsModalOpen }: Params) {
                 <span className="hidden sm:inline">{t("addressesPage.editButton")}</span>
               </button>
               {/* Delete Button Form */}
-              <form className="inline-block" onSubmit={handleSubmit}>
-                <input type="hidden" value={address.id} name="addressId" />
-                <button type="submit" className={twMerge(buttonClassname, "bg-red-600 hover:bg-red-700 focus:ring-red-500 px-3 py-1.5 text-xs")}>
-                  {isLoading ? <LoadingSpinner color="white" size="xs" className="mr-1 sm:mr-0" /> : <TrashIcon className="h-4 w-4 mr-1 sm:mr-0" />}
-                  <span className="hidden sm:inline">{t("addressesPage.deleteButton")}</span>
-                </button>
-              </form>
+              <button
+                type="button"
+                onClick={() => handleDelete(address.id)}
+                disabled={isLoading}
+                className={twMerge(buttonClassname, "bg-red-600 hover:bg-red-700 focus:ring-red-500 px-3 py-1.5 text-xs")}
+              >
+                {isLoading ? <LoadingSpinner color="white" size="xs" className="mr-1 sm:mr-0" /> : <TrashIcon className="h-4 w-4 mr-1 sm:mr-0" />}
+                <span className="hidden sm:inline">{t("addressesPage.deleteButton")}</span>
+              </button>
             </div>
           </div>
         </li>

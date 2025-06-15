@@ -8,8 +8,8 @@ import { twMerge } from "tailwind-merge";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
 import { Address } from "@/app/types/profileTypes";
-import { addAddress } from "@/app/actions";
 import { isAddress } from "@/app/utils/typeGuardsFunctions";
+import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { useSse } from "@/app/context/sseContext";
@@ -55,6 +55,7 @@ const FormField = ({
 export default function AddAddressModale({ setIsAddModalOpen, onOperationComplete }: Params) {
   const t = useTranslations("");
 
+  const { fetchWrapper } = useFetchWrapper();
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
   const { sseData } = useSse();
@@ -90,22 +91,44 @@ export default function AddAddressModale({ setIsAddModalOpen, onOperationComplet
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    const addAddressFunction = async () => {
-      try {
-        const stringifiedData = JSON.stringify(formData);
-        setIsLoading(true);
-        const response = await addAddress(stringifiedData);
-        setActionResponse(response);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
+    try {
+      const response = await fetchWrapper("/api/user/addresses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        setActionResponse({
+          message: responseData.message || "An error occurred",
+          isSuccess: false,
+          statusCode: response.status as any,
+          data: null,
+        });
+        return;
       }
-    };
-    addAddressFunction();
+
+      setActionResponse({
+        message: "Address successfully added",
+        isSuccess: true,
+        statusCode: response.status as any,
+        data: responseData,
+      });
+    } catch (error) {
+      console.error("Add address request failed:", error);
+      setActionResponse({
+        message: t("alerts.genericError.text"),
+        isSuccess: false,
+        statusCode: 500,
+        data: null,
+      });
+    }
   };
 
   useEffect(() => {

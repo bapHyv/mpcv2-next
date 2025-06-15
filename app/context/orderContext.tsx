@@ -86,12 +86,12 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const { consentState, isLoadingConsent } = useConsent();
 
   const userShippingAddress = useMemo(() => {
-    if (userData) return userData.addresses.find((address) => address.shipping);
+    if (userData) return userData.addresses?.find((address) => address.shipping);
     return undefined;
   }, [userData]);
 
   const userBillingAddress = useMemo(() => {
-    if (userData) return userData.addresses.find((address) => address.billing);
+    if (userData) return userData.addresses?.find((address) => address.billing);
     return undefined;
   }, [userData]);
 

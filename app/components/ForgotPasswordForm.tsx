@@ -7,51 +7,59 @@ import { v4 as uuid } from "uuid";
 import { useTranslations } from "next-intl";
 
 import SubmitButton from "@/app/components/SubmitButton";
-import { forgottenPassword } from "@/app/actions";
 import { useAlerts } from "@/app/context/alertsContext";
 import { inputClassname, labelClassname } from "@/app/staticData/cartPageClasses";
 import { IActionResponse } from "../types/apiTypes";
 
-const initialState = {
-  message: "",
-  data: null,
-  isSuccess: false,
-  statusCode: 0,
-  email: "",
-};
-
 export default function ForgotPasswordForm() {
+  const [actionResponse, setActionResponse] = useState<IActionResponse>({ message: "", data: null, isSuccess: false, statusCode: 0 });
   const t = useTranslations("");
   const [email, setEmail] = useState("");
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const forgotPasswordFunction = async () => {
-      try {
-        const stringifiedData = JSON.stringify({ mail: email });
-        setIsLoading(true);
-        const response = await forgottenPassword(stringifiedData);
-        setIsLoading(false);
-        setActionResponse(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    forgotPasswordFunction();
-  };
-
   const [isLoading, setIsLoading] = useState(false);
-  const [actionResponse, setActionResponse] = useState<IActionResponse>({
-    message: "",
-    data: null,
-    isSuccess: false,
-    statusCode: 0,
-  });
 
   const { addAlert } = useAlerts();
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mail: email }),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        setActionResponse({
+          message: responseData.message || "An error occurred",
+          isSuccess: false,
+          statusCode: response.status as any,
+          data: null,
+        });
+        return;
+      }
+
+      setActionResponse({
+        message: "Success",
+        isSuccess: true,
+        statusCode: 200, // We now expect a 200 from our API route
+        data: null,
+      });
+    } catch (error) {
+      console.error("Forgot password request failed:", error);
+      setActionResponse({
+        message: t("alerts.genericError.text"),
+        isSuccess: false,
+        statusCode: 500,
+        data: null,
+      });
+    }
+  };
 
   useEffect(() => {
     if (actionResponse.statusCode !== 0) {

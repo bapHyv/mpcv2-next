@@ -8,25 +8,16 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 import SubmitButton from "@/app/components/SubmitButton";
-import { login } from "@/app/actions";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { UserDataAPIResponse } from "@/app/types/profileTypes";
 import { inputClassname, labelClassname, linkClassname } from "@/app/staticData/cartPageClasses";
-import { IActionResponse } from "@/app/types/apiTypes";
 
 export default function SignInForm() {
   const t = useTranslations("");
   const [inputType, setInputType] = useState<"password" | "text">("password");
   const [formData, setFormData] = useState({ username: "", password: "" });
-
   const [isLoading, setIsLoading] = useState(false);
-  const [actionResponse, setActionResponse] = useState<IActionResponse>({
-    message: "",
-    data: null,
-    isSuccess: false,
-    statusCode: 0,
-  });
 
   const { setUserData } = useAuth();
   const { addAlert } = useAlerts();
@@ -41,64 +32,59 @@ export default function SignInForm() {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    const loginFunction = async () => {
-      try {
-        const stringifiedData = JSON.stringify(formData);
-        setIsLoading(true);
-        const response = await login(stringifiedData);
-        setIsLoading(false);
-        setActionResponse(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    loginFunction();
-  };
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-  useEffect(() => {
-    if (actionResponse.statusCode !== 0) {
-      if (actionResponse.statusCode === 204) {
+      // Handle "User not found"
+      if (response.status === 204) {
         addAlert(uuid(), t("alerts.signIn.info204.text"), t("alerts.signIn.info204.title"), "blue");
-        router.push(`/inscription/?email=${encodeURIComponent(actionResponse.data as string)}`);
-      } else if (actionResponse.isSuccess && actionResponse.data && actionResponse.statusCode === 200) {
-        const redirect = searchParams.get("redirect");
-        const userData = actionResponse.data as UserDataAPIResponse;
-
-        if (!Array.isArray(userData.addresses)) {
-          userData.addresses = [];
-        }
-
-        setUserData(userData);
-        addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
-
-        router.push(redirect ? redirect : "/");
-        router.refresh();
-      } else if (!actionResponse.isSuccess) {
-        let titleKey = "alerts.signIn.defaultError.title";
-        let textKey = "alerts.signIn.defaultError.text";
-        let color: "yellow" | "red" | "blue" = "red";
-
-        switch (actionResponse.statusCode) {
-          case 401:
-            titleKey = "alerts.signIn.error401.title";
-            textKey = "alerts.signIn.error401.text";
-            color = "yellow";
-            break;
-          case 500:
-            titleKey = "alerts.signIn.error500.title";
-            textKey = "alerts.signIn.error500.text";
-            color = "red";
-            break;
-        }
-        const alertText = t(textKey);
-        addAlert(uuid(), alertText, t(titleKey), color);
+        router.push(`/inscription/?email=${encodeURIComponent(formData.username)}`);
+        return; // Stop further execution
       }
+
+      const responseData = await response.json();
+
+      // Handle other errors (like 401 - Wrong Password)
+      if (!response.ok) {
+        let titleKey = "alerts.signIn.defaultError.title";
+        let textKey = responseData.message || "alerts.signIn.defaultError.text";
+        let color: "yellow" | "red" = "red";
+
+        if (response.status === 401) {
+          titleKey = "alerts.signIn.error401.title";
+          textKey = responseData.message || "alerts.signIn.error401.text";
+          color = "yellow";
+        }
+        addAlert(uuid(), textKey.startsWith("alerts.") ? t(textKey) : textKey, t(titleKey), color);
+        return;
+      }
+
+      // Handle successful login
+      const userData = responseData as UserDataAPIResponse;
+      if (!Array.isArray(userData.addresses)) {
+        userData.addresses = [];
+      }
+      setUserData(userData);
+      addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
+
+      const redirect = searchParams.get("redirect");
+      router.push(redirect ? redirect : "/");
+      router.refresh();
+    } catch (error) {
+      console.error("Login request failed:", error);
+      addAlert(uuid(), t("alerts.signIn.error500.text"), t("alerts.signIn.error500.title"), "red");
+    } finally {
+      setIsLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionResponse]);
+  };
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>

@@ -11,10 +11,10 @@ import SubmitButton from "@/app/components/SubmitButton";
 import Title from "@/app/components/Title";
 import Star from "@/app/components/Star";
 
+import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
-import { update } from "@/app/actions";
 import {
   sectionWrapperClassname,
   inputClassname,
@@ -71,9 +71,11 @@ export default function Profile() {
     mail: "",
     oldPassword: "",
     newPassword: "",
+    confirmNewPassword: "",
     optInMarketing: false,
   });
 
+  const { fetchWrapper } = useFetchWrapper();
   const t = useTranslations();
   const { userData, setUserData } = useAuth();
   const { addAlert } = useAlerts();
@@ -114,6 +116,7 @@ export default function Profile() {
         mail: userData.mail || "",
         oldPassword: "",
         newPassword: "",
+        confirmNewPassword: "",
         optInMarketing: !!userData.optInMarketing,
       });
     }
@@ -122,20 +125,46 @@ export default function Profile() {
     setDoesPasswordMatch(true);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const updateUser = async () => {
-      try {
-        const stringifiedData = JSON.stringify(localFormData);
-        setIsLoading(true);
-        const response = await update(stringifiedData);
-        setIsLoading(false);
-        setActionResponse(response);
-      } catch (error) {
-        console.error(error);
+    setIsLoading(true);
+
+    const { confirmNewPassword, ...payload } = localFormData;
+
+    try {
+      const response = await fetchWrapper("/api/user", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        setActionResponse({
+          message: responseData.message || "An error occurred",
+          data: null,
+          isSuccess: false,
+          statusCode: response.status as any,
+        });
+        return;
       }
-    };
-    updateUser();
+
+      setActionResponse({
+        message: "User successfully updated",
+        data: responseData,
+        isSuccess: true,
+        statusCode: 200,
+      });
+    } catch (error) {
+      console.error("Update request failed:", error);
+      setActionResponse({
+        message: t("alerts.genericError.text"),
+        data: null,
+        isSuccess: false,
+        statusCode: 500,
+      });
+    }
   };
 
   useEffect(() => {
@@ -146,6 +175,7 @@ export default function Profile() {
         mail: userData.mail || "",
         oldPassword: "",
         newPassword: "",
+        confirmNewPassword: "",
         optInMarketing: !!userData.optInMarketing,
       });
       setIsUpdating(false);
@@ -157,10 +187,6 @@ export default function Profile() {
       setIsUpdating(false);
       setIsLoading(false);
       if (actionResponse.isSuccess && isUserDataAPIResponse(actionResponse.data) && actionResponse.statusCode === 200) {
-        if (!Array.isArray(actionResponse.data.addresses)) {
-          actionResponse.data.addresses = [];
-        }
-
         setUserData((prevState) => {
           if (prevState) {
             return { ...prevState, ...actionResponse.data };
@@ -179,23 +205,23 @@ export default function Profile() {
         let alertType: "yellow" | "red" = "red";
 
         switch (actionResponse.statusCode) {
-          case 400: // e.g., Bad input data
+          case 400:
             alertTitle = t("alerts.profile.infos.400.title");
             alertText = actionResponse.message || t("alerts.profile.infos.400.text");
             alertType = "yellow";
             break;
-          case 401: // e.g., Incorrect old password
+          case 401:
             alertTitle = t("alerts.profile.infos.401.title");
             alertText = actionResponse.message || t("alerts.profile.infos.401.text");
             alertType = "yellow";
             setLocalFormData((prev) => ({ ...prev, oldPassword: "" }));
             break;
-          case 409: // e.g., Email already exists (if allowing email change)
+          case 409:
             alertTitle = t("alerts.profile.infos.409.title");
             alertText = actionResponse.message || t("alerts.profile.infos.409.text");
             alertType = "yellow";
             break;
-          case 422: // Validation error (server-side)
+          case 422:
             alertTitle = t("alerts.profile.infos.422.title");
             alertText = actionResponse.message || t("alerts.profile.infos.422.text");
             alertType = "yellow";

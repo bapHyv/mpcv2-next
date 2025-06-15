@@ -11,7 +11,7 @@ import OrderSummary from "@/app/components/shippingPage/OrderSummary";
 import Total from "@/app/components/paymentPage/Total";
 import Title from "@/app/components/Title";
 
-import { bankTransfer, payment } from "@/app/actions";
+import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 import { useOrder } from "@/app/context/orderContext";
 import { paymentRouteGuard } from "@/app/utils/paymentRouteGuard";
 import { Order, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
@@ -29,10 +29,11 @@ export default function Page() {
   const [isPending, setIsPending] = useState(false);
   const [actionResponse, setActionResponse] = useState<null | IActionResponse>(null);
   const [initPaymentResponse, setInitPaymentResponse] = useState<
-    null | (OrderId & SipsSuccessResponse) | (OrderId & SipsFailResponse) | { error: true }
+    null | ({ orderId: number } & (SipsSuccessResponse | SipsFailResponse)) | { error: true }
   >(null);
   const formRef = useRef<HTMLFormElement>(null);
 
+  const { fetchWrapper } = useFetchWrapper();
   const { order } = useOrder();
   const { cart } = useProductsAndCart();
   const router = useRouter();
@@ -41,69 +42,84 @@ export default function Page() {
     return paymentRouteGuard(order);
   }, [order]);
 
-  const handleAction = (e: FormEvent<HTMLFormElement>) => {
+  const handleAction = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (initPaymentResponse) {
-      if (
-        order["payment-method"] === "secure-3d-card" &&
-        !("error" in initPaymentResponse) &&
-        initPaymentResponse.redirectionStatusCode === "00" &&
-        isSuccessResponse(initPaymentResponse)
-      ) {
-        setIsPending(true);
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = initPaymentResponse.redirectionUrl;
+    if (!initPaymentResponse || "error" in initPaymentResponse) {
+      console.error("Cannot proceed, payment initialization failed.");
+      return;
+    }
 
-        const versionInput = document.createElement("input");
-        versionInput.type = "hidden";
-        versionInput.name = "redirectionVersion";
-        versionInput.value = initPaymentResponse.redirectionVersion;
+    if (order["payment-method"] === "bank-transfer") {
+      setIsPending(true);
+      try {
+        const bankResponse = await fetchWrapper(`/api/payment/bank-transfer/${initPaymentResponse.orderId}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(order),
+        });
 
-        const dataInput = document.createElement("input");
-        dataInput.type = "hidden";
-        dataInput.name = "redirectionData";
-        dataInput.value = initPaymentResponse.redirectionData;
+        if (!bankResponse.ok) throw new Error("Bank transfer setup failed");
 
-        form.appendChild(versionInput);
-        form.appendChild(dataInput);
-
-        document.body.appendChild(form);
-        form.submit();
-      } else if (order["payment-method"] === "bank-transfer") {
-        const bankTransferPayment = async () => {
-          setIsPending(true);
-          try {
-            const response = await bankTransfer(JSON.stringify(order), (initPaymentResponse as OrderId & SipsSuccessResponse)?.orderId);
-            setActionResponse(response);
-          } catch (error) {
-            console.error("Bank transfer action failed:", error);
-          } finally {
-            setIsPending(false);
-          }
-        };
-        bankTransferPayment();
-      } else {
-        console.warn("Unhandled payment method or response state:", order["payment-method"], initPaymentResponse);
+        const { token } = await bankResponse.json();
+        router.push(`/commande-recue?token=${token}`);
+      } catch (error) {
+        console.error("Bank transfer flow failed:", error);
+        // Show error alert
+      } finally {
+        setIsPending(false);
       }
+      return;
+    }
+
+    // --- Secure 3D Card Flow ---
+    if (isSuccessResponse(initPaymentResponse)) {
+      setIsPending(true);
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = initPaymentResponse.redirectionUrl;
+
+      const versionInput = document.createElement("input");
+      versionInput.type = "hidden";
+      versionInput.name = "redirectionVersion";
+      versionInput.value = initPaymentResponse.redirectionVersion;
+
+      const dataInput = document.createElement("input");
+      dataInput.type = "hidden";
+      dataInput.name = "redirectionData";
+      dataInput.value = initPaymentResponse.redirectionData;
+
+      form.appendChild(versionInput);
+      form.appendChild(dataInput);
+
+      document.body.appendChild(form);
+      form.submit();
     } else {
-      console.error("Cannot proceed with payment, initial payment setup failed.");
+      // Handle cases where Sips returns a failure code during init
+      console.error("SIPS initialization failed:", initPaymentResponse);
+      // Show an error alert to the user.
     }
   };
 
   const initPayment = async () => {
-    console.log("Initiating payment...");
     setIsPending(true);
+    setInitPaymentResponse(null);
     try {
-      const response = await payment(JSON.stringify({ order, cart }));
-      if (response?.data) {
-        setInitPaymentResponse(response.data as (OrderId & SipsSuccessResponse) | (OrderId & SipsFailResponse));
-      } else {
-        console.error("Failed to initialize payment", response?.message);
+      const response = await fetchWrapper("/api/payment/init", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ order, cart }),
+      });
+
+      if (!response.ok) {
         setInitPaymentResponse({ error: true });
+        return;
       }
+
+      const responseData = await response.json();
+      setInitPaymentResponse(responseData);
     } catch (error) {
-      console.error("Error calling initPayment action:", error);
+      console.error("Error calling initPayment API:", error);
+      setInitPaymentResponse({ error: true });
     } finally {
       setIsPending(false);
     }
