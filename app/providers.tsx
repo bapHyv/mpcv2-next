@@ -12,11 +12,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ConsentProvider>
       <AlertsProvider>
         <SseProvider>
-          <AuthProvider>
-            <ProductsAndCartProvider>
+          <ProductsAndCartProvider>
+            <AuthProvider>
               <OrderProvider>{children}</OrderProvider>
-            </ProductsAndCartProvider>
-          </AuthProvider>
+            </AuthProvider>
+          </ProductsAndCartProvider>
         </SseProvider>
       </AlertsProvider>
     </ConsentProvider>

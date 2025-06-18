@@ -20,6 +20,16 @@
     "closeButtonAriaLabel": "Fermer la modale des préférences",
     "cookiePreferencesLink": "Préférences des Cookies"
   },
+  "cartConflictModal": {
+    "title": "Conflit de Panier Détecté",
+    "description": "Vous avez des articles dans votre panier actuel, et un panier différent a été sauvegardé sur votre compte lors d'une session précédente. Veuillez choisir celui que vous souhaitez conserver.",
+    "localCartTitle": "Votre Panier Actuel",
+    "remoteCartTitle": "Votre Panier Sauvegardé",
+    "keepLocalButton": "Garder le Panier Actuel",
+    "useRemoteButton": "Utiliser le Panier Sauvegardé",
+    "totalLabel": "Total",
+    "closeAriaLabel": "Fermer et garder le panier actuel"
+  },
   "cookiePolicy": {
     "metadata": {
       "title": "Politique de Cookies | MonPlanCBD",
@@ -2149,6 +2159,16 @@
       }
     },
     "auth": {
+      "cartConflict": {
+        "remoteSelected": {
+          "title": "Panier Sauvegardé Restauré",
+          "text": "Votre panier précédemment sauvegardé a été chargé. Vous pouvez maintenant finaliser votre commande."
+        },
+        "localSelected": {
+          "title": "Panier Actuel Conservé",
+          "text": "Vous avez choisi de conserver votre panier actuel. Votre panier précédemment sauvegardé a été écrasé."
+        }
+      },
       "logoutSuccess": {
         "title": "Déconnexion Réussie",
         "text": "Vous avez été déconnecté avec succès."

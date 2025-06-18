@@ -1,6 +1,10 @@
 "use client";
 import { createContext, useContext, ReactNode, useState, useEffect, Dispatch, SetStateAction, useMemo } from "react";
 import { UAParser } from "ua-parser-js";
+import { v4 as uuid } from "uuid";
+
+import { useDebounce } from "@/app/hooks/useDebounce";
+import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 
 import { ParcelPoint } from "@/app/types/mapTypes";
 import { Order, OrderProducts, shippingAddress, billingAddress } from "@/app/types/orderTypes";
@@ -10,6 +14,15 @@ import { useAuth } from "@/app/context/authContext";
 import { useConsent } from "@/app/context/consentContext";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { useSse } from "@/app/context/sseContext";
+import { useTranslations } from "next-intl";
+import CartConflictModal from "@/app/components/modals/CartConflictModal";
+import { useAlerts } from "./alertsContext";
+
+/**
+ * TODO:
+ * refaire le dossier, la conversation est trop lente
+ * Problème lorsque l'utilisateur à un panier vide, qu'il se connecte et qu'il a un cartBkp. Le cartBkp devrait remplir le panier
+ */
 
 export const initialShippingAddressState: shippingAddress = {
   address1: "",
@@ -84,6 +97,10 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const { userData } = useAuth();
   const isDiscountCodeUsable = useDiscountCodeUsable();
   const { consentState, isLoadingConsent } = useConsent();
+  const { fetchWrapper } = useFetchWrapper();
+
+  const stateToBackup = useMemo(() => ({ cart, order }), [cart, order]);
+  const debouncedState = useDebounce(stateToBackup, 2000);
 
   const userShippingAddress = useMemo(() => {
     if (userData) return userData.addresses?.find((address) => address.shipping);
@@ -384,15 +401,40 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [consentState.analytics, isLoadingConsent]);
 
-  /**
-   * TODO: add send order to BE request here. Use if (userData) {...}
-   *
-   */
   useEffect(() => {
     if (order) {
       localStorage.setItem("order", JSON.stringify(order));
     }
   }, [order]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData, cart]);
+
+  useEffect(() => {
+    if (!userData || !debouncedState.cart.products.length) {
+      return;
+    }
+
+    const backupData = async () => {
+      console.log("Debounced effect triggered: Backing up cart and order...");
+      try {
+        await fetchWrapper("/api/user/backup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            cartBkp: JSON.stringify(debouncedState.cart),
+            orderBkp: JSON.stringify(debouncedState.order),
+          }),
+        });
+        console.log("Backup successful.");
+      } catch (error) {
+        console.error("Failed to back up user data:", error);
+      }
+    };
+
+    backupData();
+  }, [debouncedState, userData, fetchWrapper]);
 
   return <orderContext.Provider value={{ order, setOrder, handleChange }}>{children}</orderContext.Provider>;
 };

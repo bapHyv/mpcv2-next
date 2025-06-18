@@ -32,7 +32,7 @@ async function refreshSession() {
       return NextResponse.json({ message: "Session invalid or expired" }, { status: 401 });
     }
 
-    const { accessToken, refreshToken, ...userData }: BackendRefreshResponse = await response.json();
+    const { accessToken, refreshToken, userData }: BackendRefreshResponse = await response.json();
 
     const domain = process.env.NODE_ENV === "development" ? "localhost" : process.env.MAIN_DOMAIN;
     const cookieOptions = { httpOnly: true, secure: true, sameSite: "strict" as const, path: "/", domain };

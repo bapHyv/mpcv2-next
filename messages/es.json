@@ -20,6 +20,16 @@
     "closeButtonAriaLabel": "Cerrar modal de preferencias",
     "cookiePreferencesLink": "Preferencias de Cookies"
   },
+  "cartConflictModal": {
+    "title": "Conflicto de Carrito Detectado",
+    "description": "Tienes artículos en tu carrito actual y un carrito diferente fue guardado en tu cuenta de una sesión anterior. Por favor, elige cuál te gustaría conservar.",
+    "localCartTitle": "Tu Carrito Actual",
+    "remoteCartTitle": "Tu Carrito Guardado",
+    "keepLocalButton": "Mantener Carrito Actual",
+    "useRemoteButton": "Usar Carrito Guardado",
+    "totalLabel": "Total",
+    "closeAriaLabel": "Cerrar y mantener el carrito actual"
+  },
   "cookiePolicy": {
     "metadata": {
       "title": "Política de Cookies | MonPlanCBD",
@@ -2149,6 +2159,16 @@
       }
     },
     "auth": {
+      "cartConflict": {
+        "remoteSelected": {
+          "title": "Carrito Guardado Restaurado",
+          "text": "Tu carrito guardado anteriormente ha sido cargado. Ahora puedes proceder con tu pedido."
+        },
+        "localSelected": {
+          "title": "Carrito Actual Mantenido",
+          "text": "Has elegido mantener tu carrito actual. Tu carrito guardado anteriormente ha sido descartado."
+        }
+      },
       "logoutSuccess": {
         "title": "Sesión Cerrada",
         "text": "Has cerrado sesión correctamente."

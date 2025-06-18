@@ -20,6 +20,16 @@
     "closeButtonAriaLabel": "Close preferences modal",
     "cookiePreferencesLink": "Cookie Preferences"
   },
+  "cartConflictModal": {
+    "title": "Cart Conflict Detected",
+    "description": "You have items in your current cart, and a different cart was saved to your account from a previous session. Please choose which one you'd like to keep.",
+    "localCartTitle": "Your Current Cart",
+    "remoteCartTitle": "Your Saved Cart",
+    "keepLocalButton": "Keep Current Cart",
+    "useRemoteButton": "Use Saved Cart",
+    "totalLabel": "Total",
+    "closeAriaLabel": "Close and keep current cart"
+  },
   "cookiePolicy": {
     "metadata": {
       "title": "Cookie Policy | MonPlanCBD",
@@ -2153,6 +2163,16 @@
       }
     },
     "auth": {
+      "cartConflict": {
+        "remoteSelected": {
+          "title": "Saved Cart Restored",
+          "text": "Your previously saved cart has been loaded. You can now proceed with your order."
+        },
+        "localSelected": {
+          "title": "Current Cart Kept",
+          "text": "You've chosen to keep your current cart. Your previously saved cart has been discarded."
+        }
+      },
       "logoutSuccess": {
         "title": "Logout Successful",
         "text": "You have been successfully logged out."
