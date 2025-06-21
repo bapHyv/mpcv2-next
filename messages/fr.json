@@ -1827,6 +1827,10 @@
     "detailsAriaLabel": "Détails de la réduction"
   },
   "shippingPage": {
+    "addressSelector": {
+      "shippingTitle": "Choisissez une adresse de livraison",
+      "billingTitle": "Choisissez une adresse de facturation"
+    },
     "metadataTitle": "Expédition - MonPlanCBD",
     "h1": "Expédition",
     "backToCartButton": "Retour au Panier",

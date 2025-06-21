@@ -1916,6 +1916,10 @@
     "detailsAriaLabel": "Discount details"
   },
   "shippingPage": {
+    "addressSelector": {
+      "shippingTitle": "Choose a shipping address",
+      "billingTitle": "Choose a billing address"
+    },
     "metadataTitle": "Shipping - MonPlanCBD",
     "h1": "Shipping",
     "backToCartButton": "Back to Cart",

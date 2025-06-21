@@ -125,15 +125,6 @@ export default function Page() {
     }
   };
 
-  /**
-   * TODO: Fetch toutes les une seconde pendant 3 secondes
-   *
-   * essayer de fetch si:
-   *  -initPaymentResponse est null ou qu'il y a une erreur
-   *
-   * Ne pas réessayer de fetch si il y a une response correcte
-   */
-
   // Trigger init-payment on mounted
   useEffect(() => {
     if (!shouldReturn && order && !initPaymentResponse && !isPending) {

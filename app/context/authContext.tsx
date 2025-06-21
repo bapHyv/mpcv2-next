@@ -7,17 +7,22 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import CartConflictModal from "@/app/components/modals/CartConflictModal";
 import { useAlerts } from "@/app/context/alertsContext";
-import { useProductsAndCart, ProductCart } from "@/app/context/productsAndCartContext";
-import { useOrder } from "./orderContext";
+import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { AuthContextType, UserDataAPIResponse } from "@/app/types/profileTypes";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+/**
+ *
+ * TODO: ajouter un check des produits lors de la comparaison de cart et cartBkp
+ */
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserDataAPIResponse | null>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [referralToken, setReferralToken] = useState<null | string>(null);
+  // TODO: remove orderBkp here
   const [conflictingData, setConflictingData] = useState<{ cartBkp: string; orderBkp: string } | null>(null);
   const [isConflictModalVisible, setIsConflictModalVisible] = useState(false);
 
@@ -38,6 +43,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setCart(savedCart);
       addAlert(uuid(), tAlerts("cartConflict.remoteSelected.text"), tAlerts("cartConflict.remoteSelected.title"), "emerald");
     } else {
+      setUserData((prevState) => {
+        if (prevState) {
+          return {
+            ...prevState,
+            cartBkp: JSON.stringify(localCart),
+          };
+        } else {
+          return null;
+        }
+      });
       addAlert(uuid(), tAlerts("cartConflict.localSelected.text"), tAlerts("cartConflict.localSelected.title"), "emerald");
     }
 
@@ -54,25 +69,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [userData]);
 
   useEffect(() => {
+    if (userData) {
+      const localCartHasItems = localCart.products && localCart.products.length > 0;
+      const remoteHasItems = userData.cartBkp && userData.cartBkp !== "null" && JSON.parse(userData.cartBkp).products.length > 0;
+      const areCartsDifferent = JSON.stringify(localCart) !== userData.cartBkp;
+      if (!localCartHasItems && remoteHasItems) {
+        setCart(JSON.parse(userData.cartBkp || "null"));
+      } else if (areCartsDifferent) {
+        // TODO: remove orderBkp here
+        setConflictingData({ cartBkp: userData.cartBkp || "null", orderBkp: userData.orderBkp || "null" });
+        setIsConflictModalVisible(true);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData]);
+
+  useEffect(() => {
     const fetchInitialSession = async () => {
       try {
         const response = await fetch("/api/auth/session");
-
         if (response.ok) {
           const fetchedUserData: UserDataAPIResponse = await response.json();
           setUserData(fetchedUserData);
-
-          const localCartHasItems = localCart.products && localCart.products.length > 0;
-          const remoteHasItems =
-            fetchedUserData.cartBkp && fetchedUserData.cartBkp !== "null" && JSON.parse(fetchedUserData.cartBkp).products.length > 0;
-          const areCartsDifferent = JSON.stringify(localCart) !== fetchedUserData.cartBkp;
-
-          if (!localCartHasItems && remoteHasItems) {
-            setCart(JSON.parse(fetchedUserData.cartBkp || "null"));
-          } else if (areCartsDifferent) {
-            setConflictingData({ cartBkp: fetchedUserData.cartBkp || "null", orderBkp: fetchedUserData.orderBkp || "null" });
-            setIsConflictModalVisible(true);
-          }
         } else {
           setUserData(null);
           cleanUpLocalStorageUserRelated();

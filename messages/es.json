@@ -1912,6 +1912,10 @@
     "detailsAriaLabel": "Detalles del descuento"
   },
   "shippingPage": {
+    "addressSelector": {
+      "shippingTitle": "Elija una dirección de envío",
+      "billingTitle": "Elija una dirección de facturación"
+    },
     "metadataTitle": "Envío - MonPlanCBD",
     "h1": "Envío",
     "backToCartButton": "Volver al Carrito",

@@ -7,6 +7,7 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 import Star from "@/app/components/Star";
 import Title from "@/app/components/Title";
+import AddressSelector from "./AddressSelector";
 import { useAuth } from "@/app/context/authContext";
 import { useOrder } from "@/app/context/orderContext";
 import { useSse } from "@/app/context/sseContext";
@@ -98,6 +99,8 @@ export default function Form() {
           firstLetterClassname="text-2xl"
           id="shipping-address-heading"
         />
+
+        <AddressSelector type="shipping" />
 
         {/* --- Personal Info --- */}
         <fieldset aria-label={t("personalInfoLegend")} className="mb-6 border-b border-gray-200 pb-6">
@@ -330,6 +333,9 @@ export default function Form() {
           firstLetterClassname="text-2xl"
           id="billing-address-heading"
         />
+
+        <AddressSelector type="billing" />
+
         {/* Billing Personal Info */}
         <fieldset aria-label={t("personalInfoLegend")} className="mb-6 border-b border-gray-200 pb-6">
           <legend className="text-base font-semibold text-gray-900 mb-4">{t("personalInfoLegend")}</legend>

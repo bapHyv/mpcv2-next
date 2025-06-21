@@ -1,12 +1,10 @@
 "use client";
 import { createContext, useContext, ReactNode, useState, useEffect, Dispatch, SetStateAction, useMemo } from "react";
 import { UAParser } from "ua-parser-js";
-import { v4 as uuid } from "uuid";
 
 import { useDebounce } from "@/app/hooks/useDebounce";
 import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 
-import { ParcelPoint } from "@/app/types/mapTypes";
 import { Order, OrderProducts, shippingAddress, billingAddress } from "@/app/types/orderTypes";
 import { computeFixedProductDiscount, computePercentDiscount } from "@/app/utils/orderFunctions";
 import useDiscountCodeUsable from "@/app/hooks/useDiscountCodeUsable";
@@ -14,15 +12,6 @@ import { useAuth } from "@/app/context/authContext";
 import { useConsent } from "@/app/context/consentContext";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { useSse } from "@/app/context/sseContext";
-import { useTranslations } from "next-intl";
-import CartConflictModal from "@/app/components/modals/CartConflictModal";
-import { useAlerts } from "./alertsContext";
-
-/**
- * TODO:
- * refaire le dossier, la conversation est trop lente
- * Problème lorsque l'utilisateur à un panier vide, qu'il se connecte et qu'il a un cartBkp. Le cartBkp devrait remplir le panier
- */
 
 export const initialShippingAddressState: shippingAddress = {
   address1: "",
@@ -102,16 +91,6 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const stateToBackup = useMemo(() => ({ cart, order }), [cart, order]);
   const debouncedState = useDebounce(stateToBackup, 2000);
 
-  const userShippingAddress = useMemo(() => {
-    if (userData) return userData.addresses?.find((address) => address.shipping);
-    return undefined;
-  }, [userData]);
-
-  const userBillingAddress = useMemo(() => {
-    if (userData) return userData.addresses?.find((address) => address.billing);
-    return undefined;
-  }, [userData]);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
     shipping?: {
@@ -175,58 +154,6 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       });
     }
   };
-
-  const differentBilling = order["different-billing"];
-
-  // Pre-fill the shippingAddress and billingAddress properties with user's data.
-  useEffect(() => {
-    setOrder((prevOrder) => {
-      const getAddressFieldValue = (currentValue: string | undefined, userAddressValue: string | undefined, defaultValue: string = ""): string => {
-        return currentValue || userAddressValue || defaultValue;
-      };
-
-      const newShippingAddress: shippingAddress = {
-        firstname: getAddressFieldValue(prevOrder.shippingAddress.firstname, userShippingAddress?.firstname),
-        lastname: getAddressFieldValue(prevOrder.shippingAddress.lastname, userShippingAddress?.lastname),
-        company: getAddressFieldValue(prevOrder.shippingAddress.company, userShippingAddress?.company),
-        address1: getAddressFieldValue(prevOrder.shippingAddress.address1, userShippingAddress?.address1),
-        address2: getAddressFieldValue(prevOrder.shippingAddress.address2, userShippingAddress?.address2),
-        city: getAddressFieldValue(prevOrder.shippingAddress.city, userShippingAddress?.city),
-        postalCode: getAddressFieldValue(prevOrder.shippingAddress.postalCode, userShippingAddress?.postalCode),
-        province: getAddressFieldValue(prevOrder.shippingAddress.province, ""),
-        country: getAddressFieldValue(prevOrder.shippingAddress.country, userShippingAddress?.country),
-        email: getAddressFieldValue(prevOrder.shippingAddress.email, userShippingAddress?.email),
-        phone: getAddressFieldValue(prevOrder.shippingAddress.phone, userShippingAddress?.phone),
-        "order-notes": prevOrder.shippingAddress["order-notes"] || "", // Notes are special, usually not from saved address
-      };
-
-      let newBillingAddress: billingAddress = {
-        firstname: getAddressFieldValue(prevOrder.billingAddress.firstname, userBillingAddress?.firstname),
-        lastname: getAddressFieldValue(prevOrder.billingAddress.lastname, userBillingAddress?.lastname),
-        company: getAddressFieldValue(prevOrder.billingAddress.company, userBillingAddress?.company),
-        address1: getAddressFieldValue(prevOrder.billingAddress.address1, userBillingAddress?.address1),
-        address2: getAddressFieldValue(prevOrder.billingAddress.address2, userBillingAddress?.address2),
-        city: getAddressFieldValue(prevOrder.billingAddress.city, userBillingAddress?.city),
-        postalCode: getAddressFieldValue(prevOrder.billingAddress.postalCode, userBillingAddress?.postalCode),
-        province: getAddressFieldValue(prevOrder.billingAddress.province, ""),
-        country: getAddressFieldValue(prevOrder.billingAddress.country, userBillingAddress?.country),
-        email: getAddressFieldValue(prevOrder.billingAddress.email, userBillingAddress?.email),
-        phone: getAddressFieldValue(prevOrder.billingAddress.phone, userBillingAddress?.phone),
-      };
-
-      const shippingChanged = JSON.stringify(newShippingAddress) !== JSON.stringify(prevOrder.shippingAddress);
-      const billingChanged = JSON.stringify(newBillingAddress) !== JSON.stringify(prevOrder.billingAddress);
-
-      if (shippingChanged || billingChanged) {
-        return {
-          ...prevOrder,
-          shippingAddress: newShippingAddress,
-          billingAddress: newBillingAddress,
-        };
-      }
-      return prevOrder;
-    });
-  }, [userShippingAddress, userBillingAddress, sseData, differentBilling]);
 
   useEffect(() => {
     setOrder((prevState) => {
@@ -415,7 +342,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     if (!userData || !debouncedState.cart.products.length) {
       return;
     }
-
+    // TODO: remove orderBkp here
     const backupData = async () => {
       console.log("Debounced effect triggered: Backing up cart and order...");
       try {
