@@ -2150,6 +2150,16 @@
     "itemExcludeCategories": "Descuento no aplicable a artículos de {categories}. Añade artículos de otras categorías."
   },
   "alerts": {
+    "sessionExpired": {
+      "title": "Sesión Expirada",
+      "text": "Los detalles de su pedido ya no están disponibles. Es posible que su sesión haya expirado o haya sido borrada."
+    },
+    "payment": {
+      "prepareError": {
+        "title": "Error en el Pedido",
+        "text": "No se pudo preparar el resumen de su pedido. Por favor, inténtelo de nuevo."
+      }
+    },
     "referral": {
       "copy": {
         "success": {

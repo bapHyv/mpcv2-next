@@ -83,12 +83,12 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
 
   const { sseData } = useSse();
   const { cart } = useProductsAndCart();
-  const { userData } = useAuth();
+  const { userData, setUserData } = useAuth();
   const isDiscountCodeUsable = useDiscountCodeUsable();
   const { consentState, isLoadingConsent } = useConsent();
   const { fetchWrapper } = useFetchWrapper();
 
-  const stateToBackup = useMemo(() => ({ cart, order }), [cart, order]);
+  const stateToBackup = useMemo(() => ({ cart }), [cart]);
   const debouncedState = useDebounce(stateToBackup, 2000);
 
   const handleChange = (
@@ -335,33 +335,42 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   }, [order]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, cart]);
-
-  useEffect(() => {
-    if (!userData || !debouncedState.cart.products.length) {
+    if (!userData) {
       return;
     }
-    // TODO: remove orderBkp here
     const backupData = async () => {
       console.log("Debounced effect triggered: Backing up cart and order...");
       try {
-        await fetchWrapper("/api/user/backup", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            cartBkp: JSON.stringify(debouncedState.cart),
-            orderBkp: JSON.stringify(debouncedState.order),
-          }),
-        });
-        console.log("Backup successful.");
+        if (JSON.stringify(cart) !== userData.cartBkp) {
+          const cartBkp = JSON.stringify(debouncedState.cart);
+          await fetchWrapper("/api/user/backup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              cartBkp,
+            }),
+          });
+          console.log("Backup successful.");
+          setUserData((prevState) => {
+            if (prevState) {
+              return { ...prevState, cartBkp };
+            } else {
+              return null;
+            }
+          });
+        } else {
+          console.log("No difference between cart and cartBkp, nothing happened...");
+          return;
+        }
       } catch (error) {
         console.error("Failed to back up user data:", error);
       }
     };
 
     backupData();
-  }, [debouncedState, userData, fetchWrapper]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedState]);
 
   return <orderContext.Provider value={{ order, setOrder, handleChange }}>{children}</orderContext.Provider>;
 };

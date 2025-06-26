@@ -153,6 +153,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
     }
   }, [cart]);
 
+  // This useEffect check if the cart has products that don't exist or has product with quantity over availability
   useEffect(() => {
     if (!cart.products.length || !sseData) return;
 
@@ -199,6 +200,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areProductsReady, sseData]);
 
+  // This useEffect remove the quantity from the cart to the products display in the UI to prevent the user from overbuying.
   useEffect(() => {
     if (!sseData) return;
 

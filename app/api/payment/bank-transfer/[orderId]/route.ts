@@ -10,6 +10,7 @@ interface RouteParams {
 
 export async function POST(request: Request, { params }: RouteParams) {
   const { orderId } = params;
+
   if (!orderId) {
     return NextResponse.json({ message: "Order ID is required." }, { status: 400 });
   }

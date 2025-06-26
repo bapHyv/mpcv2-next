@@ -2154,6 +2154,16 @@
     "itemExcludeCategories": "Discount not applicable to items from {categories}. Add items from other categories."
   },
   "alerts": {
+    "sessionExpired": {
+      "title": "Session Expired",
+      "text": "Your order details are no longer available. Your session may have expired or been cleared."
+    },
+    "payment": {
+      "prepareError": {
+        "title": "Order Error",
+        "text": "Could not prepare your order summary. Please try again."
+      }
+    },
     "referral": {
       "copy": {
         "success": {

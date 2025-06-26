@@ -7,26 +7,22 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import CartConflictModal from "@/app/components/modals/CartConflictModal";
 import { useAlerts } from "@/app/context/alertsContext";
-import { useProductsAndCart } from "@/app/context/productsAndCartContext";
+import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { AuthContextType, UserDataAPIResponse } from "@/app/types/profileTypes";
+import { useSse } from "@/app/context/sseContext";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-/**
- *
- * TODO: ajouter un check des produits lors de la comparaison de cart et cartBkp
- */
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserDataAPIResponse | null>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [referralToken, setReferralToken] = useState<null | string>(null);
-  // TODO: remove orderBkp here
-  const [conflictingData, setConflictingData] = useState<{ cartBkp: string; orderBkp: string } | null>(null);
+  const [conflictingData, setConflictingData] = useState<{ cartBkp: string } | null>(null);
   const [isConflictModalVisible, setIsConflictModalVisible] = useState(false);
 
   const { cart: localCart, setCart } = useProductsAndCart();
+  const { sseData } = useSse();
   const { addAlert } = useAlerts();
   const router = useRouter();
   const pathname = usePathname();
@@ -71,13 +67,51 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (userData) {
       const localCartHasItems = localCart.products && localCart.products.length > 0;
-      const remoteHasItems = userData.cartBkp && userData.cartBkp !== "null" && JSON.parse(userData.cartBkp).products.length > 0;
-      const areCartsDifferent = JSON.stringify(localCart) !== userData.cartBkp;
+      const remoteCart: { total: number; products: ProductCart[] } | null = JSON.parse(userData.cartBkp || "null");
+
+      // Check if cartBkp has products that don't exist or not enough stock
+      if (remoteCart && remoteCart.products.length > 0 && sseData) {
+        remoteCart.products = remoteCart.products.filter((product) => {
+          if (!(product.id in sseData.stocks)) {
+            return false;
+          } else if (product.quantity * parseInt(product.option, 10) > sseData.stocks[product.id]) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+      }
+
+      const remoteHasItems = remoteCart && remoteCart.products.length > 0;
+
+      // Has to remove cartItemId to compare the products because it will alway be different.
+      const areCartsDifferent = (() => {
+        const localCartDC: { total: number; products: ProductCart[] } | null = JSON.parse(JSON.stringify(localCart));
+        const remoteCartDC: { total: number; products: ProductCart[] } | null = JSON.parse(JSON.stringify(remoteCart));
+
+        if (localCartDC) {
+          (localCartDC.products as unknown as Omit<ProductCart, "cartItemId">[]) = localCartDC.products.map((product) => {
+            const { cartItemId, ...rest } = product;
+            return rest;
+          });
+        }
+
+        if (remoteCartDC) {
+          (remoteCartDC.products as unknown as Omit<ProductCart, "cartItemId">[]) = remoteCartDC.products.map((product) => {
+            const { cartItemId, ...rest } = product;
+            return rest;
+          });
+        }
+
+        const diff = JSON.stringify(localCartDC) !== JSON.stringify(remoteCartDC);
+
+        return diff;
+      })();
+
       if (!localCartHasItems && remoteHasItems) {
-        setCart(JSON.parse(userData.cartBkp || "null"));
+        setCart(remoteCart);
       } else if (areCartsDifferent) {
-        // TODO: remove orderBkp here
-        setConflictingData({ cartBkp: userData.cartBkp || "null", orderBkp: userData.orderBkp || "null" });
+        setConflictingData({ cartBkp: JSON.stringify(remoteCart) || "null" });
         setIsConflictModalVisible(true);
       }
     }
@@ -96,6 +130,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           cleanUpLocalStorageUserRelated();
         }
       } catch (error) {
+        console.log(error);
         console.error("Failed to fetch initial session:", error);
         setUserData(null);
         cleanUpLocalStorageUserRelated();

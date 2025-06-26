@@ -13,9 +13,9 @@ type initPaymentResponse = ({ orderId: number } & SipsSuccessResponse) | ({ orde
 export async function POST(request: Request) {
   try {
     const body: OrderAndCart = await request.json();
-    const { order, cart } = body;
+    const { order } = body;
 
-    if (!order || !cart || !cart.products.length) {
+    if (!order) {
       return NextResponse.json({ message: "Missing order or cart data." }, { status: 400 });
     }
 
@@ -30,10 +30,10 @@ export async function POST(request: Request) {
     const response = await serverFetchWrapper(`${process.env.API_HOST}/order/init-payment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ order, cart }),
+      body: JSON.stringify(order),
     });
 
-    const responseData = await response.json().catch(() => ({}));
+    const responseData = await response.json();
 
     if (!response.ok) {
       return NextResponse.json({ message: responseData.message || "Failed to initialize payment." }, { status: response.status });

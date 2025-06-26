@@ -26,7 +26,7 @@ interface Params {
   onOperationComplete: () => void;
 }
 
-type addAddressForm = Omit<Address, "id">;
+type addAddressForm = Omit<Address, "id"> & { state: string };
 
 const FormField = ({
   id,
@@ -68,6 +68,7 @@ export default function AddAddressModale({ setIsAddModalOpen, onOperationComplet
     address1: "",
     address2: "",
     postalCode: "",
+    state: "",
     city: "",
     phone: "",
     email: "",

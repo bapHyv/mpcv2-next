@@ -191,7 +191,6 @@ export function isSipsFailResponse(response: any): response is SipsFailResponse 
     typeof response.redirectionStatusCode === "string" &&
     typeof response.redirectionVersion === "string" &&
     typeof response.seal === "string" &&
-    // Additional check to ensure it's not a success response
     !isSipsSuccessResponse(response)
   );
 }

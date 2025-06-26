@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, FormEvent, useMemo } from "react";
 import clsx from "clsx";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
+import { v4 as uuid } from "uuid";
 
 import PaymentMethods from "@/app/components/paymentPage/PaymentMethods";
 import OrderSummary from "@/app/components/shippingPage/OrderSummary";
@@ -14,16 +15,16 @@ import Title from "@/app/components/Title";
 import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 import { useOrder } from "@/app/context/orderContext";
 import { paymentRouteGuard } from "@/app/utils/paymentRouteGuard";
-import { Order, SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
+import { SipsFailResponse, SipsSuccessResponse } from "@/app/types/orderTypes";
 import { isSuccessResponse } from "@/app/utils/typeGuardsFunctions";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 import { twMerge } from "tailwind-merge";
 import { IActionResponse } from "@/app/types/apiTypes";
-import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
-
-interface OrderId {
-  orderId: number;
-}
+import { useProductsAndCart } from "@/app/context/productsAndCartContext";
+import useCleanUpAfterPayment from "@/app/hooks/useCleanUpAfterPayment";
+import { setItemWithExpiry } from "@/app/utils/temporaryStorage";
+import { useAlerts } from "@/app/context/alertsContext";
+import { useTranslations } from "next-intl";
 
 export default function Page() {
   const [isPending, setIsPending] = useState(false);
@@ -33,14 +34,20 @@ export default function Page() {
   >(null);
   const formRef = useRef<HTMLFormElement>(null);
 
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  const t = useTranslations();
+  const { addAlert } = useAlerts();
   const { fetchWrapper } = useFetchWrapper();
   const { order } = useOrder();
   const { cart } = useProductsAndCart();
+  const { handleCleanUpAfterPayment } = useCleanUpAfterPayment();
   const router = useRouter();
 
   const shouldReturn = useMemo(() => {
     return paymentRouteGuard(order);
-  }, [order]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleAction = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,8 +56,21 @@ export default function Page() {
       return;
     }
 
+    setIsPending(true);
+    const JWT_EXPIRY_SECONDS = 900;
+
+    try {
+      setItemWithExpiry("tempOrder", order, JWT_EXPIRY_SECONDS);
+      setItemWithExpiry("tempCart", cart, JWT_EXPIRY_SECONDS);
+      console.log("Order and Cart state saved to temporary storage.");
+    } catch (error) {
+      console.error("Critical Error: Failed to save state to localStorage. Aborting payment.", error);
+      addAlert(uuid(), t("alerts.payment.prepareError.text"), t("alerts.payment.prepareError.title"), "red");
+      setIsPending(false);
+      return; // Stop the process
+    }
+
     if (order["payment-method"] === "bank-transfer") {
-      setIsPending(true);
       try {
         const bankResponse = await fetchWrapper(`/api/payment/bank-transfer/${initPaymentResponse.orderId}`, {
           method: "POST",
@@ -61,6 +81,8 @@ export default function Page() {
         if (!bankResponse.ok) throw new Error("Bank transfer setup failed");
 
         const { token } = await bankResponse.json();
+
+        handleCleanUpAfterPayment();
         router.push(`/commande-recue?token=${token}`);
       } catch (error) {
         console.error("Bank transfer flow failed:", error);
@@ -73,7 +95,20 @@ export default function Page() {
 
     // --- Secure 3D Card Flow ---
     if (isSuccessResponse(initPaymentResponse)) {
-      setIsPending(true);
+      handleCleanUpAfterPayment();
+      setIsRedirecting(true);
+    } else {
+      // Handle cases where Sips returns a failure code during init
+      console.error("SIPS initialization failed:", initPaymentResponse);
+      // Show an error alert to the user.
+      setIsPending(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isRedirecting && initPaymentResponse && !("error" in initPaymentResponse) && isSuccessResponse(initPaymentResponse)) {
+      console.log("Cleanup complete, now submitting form to payment gateway...");
+
       const form = document.createElement("form");
       form.method = "POST";
       form.action = initPaymentResponse.redirectionUrl;
@@ -93,12 +128,8 @@ export default function Page() {
 
       document.body.appendChild(form);
       form.submit();
-    } else {
-      // Handle cases where Sips returns a failure code during init
-      console.error("SIPS initialization failed:", initPaymentResponse);
-      // Show an error alert to the user.
     }
-  };
+  }, [isRedirecting, initPaymentResponse]);
 
   const initPayment = async () => {
     setIsPending(true);

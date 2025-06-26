@@ -9,16 +9,18 @@ interface BackupPayload {
 export async function POST(request: Request) {
   try {
     const body: BackupPayload = await request.json();
-    const { cartBkp, orderBkp } = body;
+    const { cartBkp } = body;
 
-    if (!cartBkp || !orderBkp) {
-      return NextResponse.json({ message: "Cart and order data are required." }, { status: 400 });
+    if (!cartBkp) {
+      return NextResponse.json({ message: "Cart data is required." }, { status: 400 });
     }
+
+    console.log(cartBkp);
 
     const response = await serverFetchWrapper(`${process.env.API_HOST}/backup-order-data`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cartBkp, orderBkp }),
+      body: JSON.stringify({ cart: cartBkp }),
     });
 
     if (!response.ok) {

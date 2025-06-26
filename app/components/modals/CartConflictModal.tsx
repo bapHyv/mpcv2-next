@@ -85,10 +85,9 @@ export default function CartConflictModal({ isOpen, onClose, onResolve, localCar
         {/* Carts Comparison */}
         <div className="flex-grow overflow-y-auto pr-2 -mr-2">
           {" "}
-          {/* Manages overall scroll if needed */}
           <div className="flex flex-col md:flex-row gap-4 sm:gap-6">
-            <CartDisplay title={t("localCartTitle")} cart={localCart} />
             <CartDisplay title={t("remoteCartTitle")} cart={remoteCart} />
+            <CartDisplay title={t("localCartTitle")} cart={localCart} />
           </div>
         </div>
 

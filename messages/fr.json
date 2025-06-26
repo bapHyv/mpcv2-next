@@ -2150,6 +2150,16 @@
     "itemExcludeCategories": "Code non applicable sur les articles de {categories}. Ajoutez des articles d'autres catégories."
   },
   "alerts": {
+    "sessionExpired": {
+      "title": "Session Expirée",
+      "text": "Les détails de votre commande ne sont plus disponibles. Votre session a peut-être expiré ou été effacée."
+    },
+    "payment": {
+      "prepareError": {
+        "title": "Erreur de Commande",
+        "text": "Impossible de préparer le récapitulatif de votre commande. Veuillez réessayer."
+      }
+    },
     "referral": {
       "copy": {
         "success": {

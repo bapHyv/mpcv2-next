@@ -7,8 +7,8 @@ import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 
 import { useAlerts } from "@/app/context/alertsContext";
-import useCleanUpAfterPayment from "@/app/hooks/useCleanUpAfterPayment";
 
+import { getItemWithExpiry } from "@/app/utils/temporaryStorage";
 import Title from "@/app/components/Title";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import { sectionWrapperClassname, titleClassname as baseTitleClassname, subtleSectionWrapperClassname } from "@/app/staticData/cartPageClasses";
@@ -54,83 +54,69 @@ function formatDate(locale: string): string {
   });
 }
 
-// 1500ms => get localStorage
-// 2000ms => setLoading to false
-// 2500ms => clear state (will clear localStorage)
-
 export default function Content({ searchParams, locale }: ContentProps) {
   const { orderId, payment } = searchParams;
-  const t = useTranslations("orderReceived");
+  const t = useTranslations("");
   const { addAlert } = useAlerts();
-  const { handleCleanUpAfterPayment } = useCleanUpAfterPayment();
 
   const [order, setOrder] = useState<Order | null>(null);
   const [cart, setCart] = useState<{ total: number; products: ProductCart[] } | null>(null);
-
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const timeoutLocalStorageId = setTimeout(() => {
-      const storedOrder = localStorage.getItem("order");
-      const storedCart = localStorage.getItem("cart");
+    const tempOrder = getItemWithExpiry<Order>("tempOrder");
+    const tempCart = getItemWithExpiry<{ total: number; products: ProductCart[] }>("tempCart");
 
-      if (storedOrder) {
-        setOrder(JSON.parse(localStorage.getItem("order") || "null"));
+    if (tempOrder && tempCart) {
+      setOrder(tempOrder);
+      setCart(tempCart);
+    } else {
+      const errorMessage = t("alerts.sessionExpired.text");
+      setError(errorMessage);
+      addAlert(uuid(), errorMessage, t("alerts.sessionExpired.title"), "red");
+    }
+
+    setIsLoading(false);
+
+    const { payment, temp_status, failure_reason, error_message } = searchParams;
+    if (payment === "bankTransfer") {
+      addAlert(uuid(), t("orderReceived.alerts.bankTransfer.text"), t("orderReceived.alerts.bankTransfer.title"), "emerald");
+    } else if (payment === "secure3dcard") {
+      if (temp_status === "success") {
+        addAlert(uuid(), t("orderReceived.alerts.cardSuccess.text"), t("orderReceived.alerts.cardSuccess.title"), "emerald");
+      } else if (temp_status === "fraud_warning") {
+        addAlert(
+          uuid(),
+          t("orderReceived.alerts.cardWarning.text", { reason: failure_reason || t("orderReceived.status.unknownReason") }),
+          t("orderReceived.alerts.cardWarning.title"),
+          "yellow"
+        );
+      } else {
+        addAlert(
+          uuid(),
+          t("orderReceived.alerts.cardFailed.text", { reason: failure_reason || error_message || t("orderReceived.status.unknownReason") }),
+          t("orderReceived.alerts.cardFailed.title"),
+          "red"
+        );
       }
-      if (storedCart) {
-        setCart(JSON.parse(localStorage.getItem("cart") || "null"));
-      }
-    }, 1500);
-    return () => clearTimeout(timeoutLocalStorageId);
-  }, []);
-
-  useEffect(() => {
-    const timeoutIsLoadingId = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timeoutIsLoadingId);
-  }, []);
-
-  // --- Cleanup Effect ---
-  useEffect(() => {
-    if (order && cart) {
-      const cleanupTimeout = setTimeout(() => {
-        const { payment, temp_status, failure_reason, error_message } = searchParams;
-        if (payment === "bankTransfer") {
-          addAlert(uuid(), t("alerts.bankTransfer.text"), t("alerts.bankTransfer.title"), "emerald");
-        } else if (payment === "secure3dcard") {
-          if (temp_status === "success") {
-            addAlert(uuid(), t("alerts.cardSuccess.text"), t("alerts.cardSuccess.title"), "emerald");
-          } else if (temp_status === "fraud_warning") {
-            addAlert(
-              uuid(),
-              t("alerts.cardWarning.text", { reason: failure_reason || t("status.unknownReason") }),
-              t("alerts.cardWarning.title"),
-              "yellow"
-            );
-          } else {
-            // Handle various failures
-            addAlert(
-              uuid(),
-              t("alerts.cardFailed.text", { reason: failure_reason || error_message || t("status.unknownReason") }),
-              t("alerts.cardFailed.title"),
-              "red"
-            );
-          }
-        }
-        handleCleanUpAfterPayment();
-      }, 2500);
-
-      return () => clearTimeout(cleanupTimeout);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, cart]);
+  }, []);
 
-  if (isLoading || !order || !cart) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[300px]">
         <LoadingSpinner size="lg" color="green" />
+      </div>
+    );
+  }
+
+  if (error || !order || !cart) {
+    return (
+      <div className="text-center py-10 my-6 bg-red-50 border border-red-200 rounded-lg">
+        <h2 className="text-xl font-semibold text-red-700">{t("alerts.sessionExpired.title")}</h2>
+        <p className="mt-2 text-gray-600">{error || "Could not display your order summary."}</p>
       </div>
     );
   }
@@ -164,46 +150,46 @@ export default function Content({ searchParams, locale }: ContentProps) {
               "bg-blue-50 text-blue-800 border border-blue-200"
           )}
         >
-          <p className="font-medium">{t(`status.${searchParams.temp_status || "unknown"}`)}</p>
+          <p className="font-medium">{t(`orderReceived.status.${searchParams.temp_status || "unknown"}`)}</p>
           {(searchParams.failure_reason || searchParams.error_message) && (
             <p className="mt-1 text-xs">{searchParams.failure_reason || searchParams.error_message}</p>
           )}
-          {searchParams.temp_status === "fraud_warning" && <p className="mt-1 text-xs">{t("statusMessages.fraudWarningNote")}</p>}
+          {searchParams.temp_status === "fraud_warning" && <p className="mt-1 text-xs">{t("orderReceived.statusMessages.fraudWarningNote")}</p>}
           {searchParams.temp_status !== "success" && searchParams.temp_status !== "fraud_warning" && (
-            <p className="mt-1 text-xs">{t("statusMessages.contactSupport")}</p>
+            <p className="mt-1 text-xs">{t("orderReceived.statusMessages.contactSupport")}</p>
           )}
         </div>
       )}
 
       {/* 2. Order Summary Table */}
       <section aria-labelledby="order-summary-heading" className={sectionWrapperClassname}>
-        <Title type="h2" title={t("summary.title")} classname={baseTitleClassname} />
+        <Title type="h2" title={t("orderReceived.summary.title")} classname={baseTitleClassname} />
         <table className="w-full text-sm mt-4">
           <tbody>
             <tr className="border-b">
-              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("summary.orderNumber")}</th>
-              <td className="text-right py-2">{orderId || t("summary.notAvailable")}</td>
+              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.summary.orderNumber")}</th>
+              <td className="text-right py-2">{orderId || t("orderReceived.summary.notAvailable")}</td>
             </tr>
             <tr className="border-b">
-              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("summary.date")}</th>
+              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.summary.date")}</th>
               <td className="text-right py-2">{formatDate(locale)}</td>
             </tr>
             <tr className="border-b">
-              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("summary.email")}</th>
-              <td className="text-right py-2 truncate">{order.shippingAddress?.email || t("summary.notAvailable")}</td>
+              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.summary.email")}</th>
+              <td className="text-right py-2 truncate">{order.shippingAddress?.email || t("orderReceived.summary.notAvailable")}</td>
             </tr>
             <tr className="border-b">
-              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("summary.total")}</th>
+              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.summary.total")}</th>
               <td className="text-right font-semibold py-2">{order.total?.toFixed(2) || "0.00"}€</td>
             </tr>
             <tr>
-              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("summary.paymentMethod")}</th>
+              <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.summary.paymentMethod")}</th>
               <td className="text-right py-2">
                 {payment === "bankTransfer"
-                  ? t("paymentMethods.bankTransfer")
+                  ? t("orderReceived.paymentMethods.bankTransfer")
                   : payment === "secure3dcard"
-                  ? t("paymentMethods.card")
-                  : t("summary.notAvailable")}
+                  ? t("orderReceived.paymentMethods.card")
+                  : t("orderReceived.summary.notAvailable")}
               </td>
             </tr>
           </tbody>
@@ -213,43 +199,45 @@ export default function Content({ searchParams, locale }: ContentProps) {
       {/* 3. Bank Transfer Information (Conditional) */}
       {payment === "bankTransfer" && (
         <section aria-labelledby="bank-details-heading" className={sectionWrapperClassname}>
-          <Title type="h2" title={t("bankDetails.title")} classname={baseTitleClassname} />
-          <p className="text-sm text-gray-600 text-center mb-4">{t("bankDetails.instruction")}</p>
+          <Title type="h2" title={t("orderReceived.bankDetails.title")} classname={baseTitleClassname} />
+          <p className="text-sm text-gray-600 text-center mb-4">{t("orderReceived.bankDetails.instruction")}</p>
           <table className="w-full text-sm mt-4">
             <tbody>
               <tr className="border-b">
-                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("bankDetails.bankNameLabel")}</th>
-                <td className="text-right py-2">{t("bankDetails.bankNameValue")}</td>
+                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.bankDetails.bankNameLabel")}</th>
+                <td className="text-right py-2">{t("orderReceived.bankDetails.bankNameValue")}</td>
               </tr>
               <tr className="border-b">
-                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("bankDetails.accountNumberLabel")}</th>
-                <td className="text-right py-2">{t("bankDetails.accountNumberValue")}</td>
+                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.bankDetails.accountNumberLabel")}</th>
+                <td className="text-right py-2">{t("orderReceived.bankDetails.accountNumberValue")}</td>
               </tr>
               <tr className="border-b">
-                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("bankDetails.branchCodeLabel")}</th>
-                <td className="text-right py-2">{t("bankDetails.branchCodeValue")}</td>
+                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.bankDetails.branchCodeLabel")}</th>
+                <td className="text-right py-2">{t("orderReceived.bankDetails.branchCodeValue")}</td>
               </tr>
               <tr className="border-b">
-                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("bankDetails.ibanLabel")}</th>
-                <td className="text-right py-2">{t("bankDetails.ibanValue")}</td>
+                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.bankDetails.ibanLabel")}</th>
+                <td className="text-right py-2">{t("orderReceived.bankDetails.ibanValue")}</td>
               </tr>
               <tr>
-                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("bankDetails.bicLabel")}</th>
-                <td className="text-right py-2">{t("bankDetails.bicValue")}</td>
+                <th className="text-left font-medium text-gray-600 py-2 pr-2">{t("orderReceived.bankDetails.bicLabel")}</th>
+                <td className="text-right py-2">{t("orderReceived.bankDetails.bicValue")}</td>
               </tr>
             </tbody>
           </table>
-          <p className="text-xs text-red-600 mt-4 italic">{t("bankDetails.reminder", { orderId: orderId || t("summary.notAvailable") })}</p>
+          <p className="text-xs text-red-600 mt-4 italic">
+            {t("orderReceived.bankDetails.reminder", { orderId: orderId || t("orderReceived.summary.notAvailable") })}
+          </p>
         </section>
       )}
 
       {/* 4. Order Details (Products, Totals) */}
       <section aria-labelledby="order-details-heading" className={sectionWrapperClassname}>
-        <Title type="h2" title={t("orderDetails.title")} classname={baseTitleClassname} />
+        <Title type="h2" title={t("orderReceived.orderDetails.title")} classname={baseTitleClassname} />
         {/* Product List Header */}
         <div className="flex justify-between text-sm font-medium text-gray-500 border-b pb-2 mt-4">
-          <span>{t("orderDetails.productHeader")}</span>
-          <span>{t("orderDetails.totalHeader")}</span>
+          <span>{t("orderReceived.orderDetails.productHeader")}</span>
+          <span>{t("orderReceived.orderDetails.totalHeader")}</span>
         </div>
         {/* Product List */}
         <ul className="divide-y divide-gray-200 text-sm">
@@ -267,30 +255,30 @@ export default function Content({ searchParams, locale }: ContentProps) {
         {/* Totals */}
         <dl className="space-y-1 border-t pt-3 mt-3 text-sm">
           <div className="flex justify-between">
-            <dt className="text-gray-600">{t("orderDetails.subtotalLabel")}</dt>
+            <dt className="text-gray-600">{t("orderReceived.orderDetails.subtotalLabel")}</dt>
             <dd className="text-gray-800">{order["sub-total"]?.toFixed(2) || "0.00"}€</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-600">{t("orderDetails.shippingLabel")}</dt>
+            <dt className="text-gray-600">{t("orderReceived.orderDetails.shippingLabel")}</dt>
             <dd className="text-gray-800">{order.shippingCost?.toFixed(2) || "0.00"}€</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-600">{t("orderDetails.paymentMethodLabel")}</dt>
+            <dt className="text-gray-600">{t("orderReceived.orderDetails.paymentMethodLabel")}</dt>
             <dd className="text-gray-800">
               {payment === "bankTransfer"
-                ? t("paymentMethods.bankTransfer")
+                ? t("orderReceived.paymentMethods.bankTransfer")
                 : payment === "secure3dcard"
-                ? t("paymentMethods.card")
-                : t("summary.notAvailable")}
+                ? t("orderReceived.paymentMethods.card")
+                : t("orderReceived.summary.notAvailable")}
             </dd>
           </div>
           <div className="flex justify-between text-base font-semibold pt-2 border-t mt-2">
-            <dt>{t("orderDetails.grandTotalLabel")}</dt>
+            <dt>{t("orderReceived.orderDetails.grandTotalLabel")}</dt>
             <dd>{order.total?.toFixed(2) || "0.00"}€</dd>
           </div>
           {vatAmount > 0 && (
             <div className="flex justify-end text-xs text-gray-500">
-              <span>{t("orderDetails.vatIncludedText", { vatAmount: vatAmount.toFixed(2) })}</span>
+              <span>{t("orderReceived.orderDetails.vatIncludedText", { vatAmount: vatAmount.toFixed(2) })}</span>
             </div>
           )}
         </dl>
@@ -300,7 +288,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Shipping Address */}
         <section aria-labelledby="shipping-address-heading" className={subtleSectionWrapperClassname}>
-          <Title type="h2" title={t("shippingAddress.title")} classname={twMerge(baseTitleClassname, "text-left")} />
+          <Title type="h2" title={t("orderReceived.shippingAddress.title")} classname={twMerge(baseTitleClassname, "text-left")} />
           <address className="mt-4 text-sm not-italic text-gray-700 space-y-0.5">
             <p className="font-medium text-gray-900">
               {order.shippingAddress.firstname} {order.shippingAddress.lastname}
@@ -320,7 +308,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
 
         {/* Billing Address */}
         <section aria-labelledby="billing-address-heading" className={subtleSectionWrapperClassname}>
-          <Title type="h2" title={t("billingAddress.title")} classname={twMerge(baseTitleClassname, "text-left")} />
+          <Title type="h2" title={t("orderReceived.billingAddress.title")} classname={twMerge(baseTitleClassname, "text-left")} />
           <address className="mt-4 text-sm not-italic text-gray-700 space-y-0.5">
             <p className="font-medium text-gray-900">
               {order["different-billing"] ? order.billingAddress.firstname : order.shippingAddress.firstname}{" "}
