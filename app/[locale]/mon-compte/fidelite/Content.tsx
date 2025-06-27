@@ -54,7 +54,7 @@ export default function Content() {
       />
 
       <div className="space-y-10 xl:space-y-12">
-        <section className={twMerge(subtleSectionWrapperClassname, "text-center")}>
+        <section className={twMerge(subtleSectionWrapperClassname, "text-center bg-transparent")}>
           <h2 className="text-lg font-semibold text-gray-800 mb-1">{t("account.loyaltyPage.balanceTitle")}</h2>
           <p className="font-bold text-4xl text-green mb-1">
             {userData.loyaltyPoints ?? 0}
@@ -64,6 +64,39 @@ export default function Content() {
           </p>
           <p className="text-xs text-gray-500">{t("account.loyaltyPage.cartPointsInfo")}</p>
         </section>
+
+        {/* Referral Link Display and Copy */}
+        <div className={twMerge(subtleSectionWrapperClassname, "text-center bg-green lg:w-1/2 m-auto 2xl:w-1/3")}>
+          <div className="mb-2 flex items-center justify-between">
+            <span>✨</span>
+            <span>✨</span>
+          </div>
+          <p className="text-lg text-center font-bold text-white mb-3">{t("account.loyaltyPage.referralFooterText")}</p>
+          <div className="flex justify-center">
+            <div className="flex w-full max-w-md border border-gray-300 rounded-md shadow-sm overflow-hidden">
+              <input
+                type="text"
+                readOnly
+                value={`https://www.monplancbd.fr/${locale}/?referral=${userData.referralToken}`}
+                className="flex-grow border-0 p-2 text-sm text-gray-600 bg-gray-50 focus:ring-0"
+                aria-label={t("account.loyaltyPage.referralLinkLabel")}
+              />
+              <button
+                type="button"
+                onClick={handleCopy}
+                title={t("account.loyaltyPage.referralCopyTitle")}
+                className={twMerge(buttonClassname, "rounded-l-none px-3 inline-flex items-center bg-black")}
+              >
+                <ClipboardDocumentIcon className="h-5 w-5" aria-hidden="true" />
+                <span className="sr-only">{t("account.loyaltyPage.referralCopyTitle")}</span>
+              </button>
+            </div>
+          </div>
+          <div className="mt-2 flex items-center justify-between">
+            <span>✨</span>
+            <span>✨</span>
+          </div>
+        </div>
 
         {/* How to Earn Section */}
         <section>
@@ -97,31 +130,6 @@ export default function Content() {
               <div className={infoBoxClassname}>
                 <h3 className="text-base font-semibold text-gray-800 mb-2">{t("account.loyaltyPage.boxes.box5.title")}</h3>
                 <p className="text-sm text-gray-600">{t("account.loyaltyPage.boxes.box5.description")}</p>
-              </div>
-            </div>
-
-            {/* Referral Link Display and Copy */}
-            <div className={twMerge(subtleSectionWrapperClassname, "text-center")}>
-              <p className="text-sm text-gray-700 mb-3">{t("account.loyaltyPage.referralFooterText")}</p>
-              <div className="flex justify-center">
-                <div className="flex w-full max-w-md border border-gray-300 rounded-md shadow-sm overflow-hidden">
-                  <input
-                    type="text"
-                    readOnly
-                    value={`https://www.monplancbd.fr/${locale}/?referral=${userData.referralToken}`}
-                    className="flex-grow border-0 p-2 text-sm text-gray-600 bg-gray-50 focus:ring-0"
-                    aria-label={t("account.loyaltyPage.referralLinkLabel")}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleCopy}
-                    title={t("account.loyaltyPage.referralCopyTitle")}
-                    className={twMerge(buttonClassname, "rounded-l-none px-3 inline-flex items-center")}
-                  >
-                    <ClipboardDocumentIcon className="h-5 w-5" aria-hidden="true" />
-                    <span className="sr-only">{t("account.loyaltyPage.referralCopyTitle")}</span>
-                  </button>
-                </div>
               </div>
             </div>
           </section>

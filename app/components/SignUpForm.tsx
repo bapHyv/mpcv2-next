@@ -14,7 +14,6 @@ import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 import { useTranslations } from "next-intl";
 import Star from "@/app/components/Star";
 import { inputClassname, labelClassname, checkRadioClassname, linkClassname } from "@/app/staticData/cartPageClasses";
-import { IActionResponse } from "@/app/types/apiTypes";
 
 const FormField = ({
   id,

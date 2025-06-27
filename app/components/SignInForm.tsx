@@ -43,16 +43,14 @@ export default function SignInForm() {
         body: JSON.stringify(formData),
       });
 
-      // Handle "User not found"
-      if (response.status === 204) {
+      if (response.status === 404) {
         addAlert(uuid(), t("alerts.signIn.info204.text"), t("alerts.signIn.info204.title"), "blue");
         router.push(`/inscription/?email=${encodeURIComponent(formData.username)}`);
-        return; // Stop further execution
+        return;
       }
 
       const responseData = await response.json();
 
-      // Handle other errors (like 401 - Wrong Password)
       if (!response.ok) {
         let titleKey = "alerts.signIn.defaultError.title";
         let textKey = responseData.message || "alerts.signIn.defaultError.text";
@@ -67,7 +65,6 @@ export default function SignInForm() {
         return;
       }
 
-      // Handle successful login
       const userData = responseData as UserDataAPIResponse;
       if (!Array.isArray(userData.addresses)) {
         userData.addresses = [];

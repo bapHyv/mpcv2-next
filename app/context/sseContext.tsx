@@ -31,7 +31,7 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
 
       const sseData: SSEData = {
         stocks: transformedStocks,
-        coupons: data.coupons,
+        coupons: data.coupons.allData,
         shippingMethods: data.shippingMethods,
       };
 

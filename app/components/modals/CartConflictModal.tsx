@@ -24,15 +24,15 @@ const CartDisplay = ({ title, cart }: { title: string; cart: { total: number; pr
     <div className="flex flex-col w-full border border-gray-200 rounded-lg bg-white shadow-sm">
       <h3 className="text-lg font-semibold text-gray-800 p-4 border-b bg-gray-50 rounded-t-lg">{title}</h3>
       <div className="overflow-y-auto p-4 flex-grow max-h-[40vh]">
-        {cart.products.length > 0 ? (
-          cart.products.map((product) => <CartProductCard key={product.cartItemId} {...product} isInModale={true} />)
+        {cart?.products?.length > 0 ? (
+          cart?.products?.map((product) => <CartProductCard key={product.cartItemId} {...product} isInModale={true} />)
         ) : (
           <p className="text-sm text-gray-500 text-center py-8">Cart is empty.</p>
         )}
       </div>
       <div className="p-4 border-t font-semibold flex justify-between items-center bg-gray-50 rounded-b-lg">
         <span>{t("totalLabel")}:</span>
-        <span>{cart.total.toFixed(2)}€</span>
+        <span>{cart?.total?.toFixed(2)}€</span>
       </div>
     </div>
   );

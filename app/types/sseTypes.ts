@@ -1,6 +1,6 @@
 export interface SSEDataAPIResponse {
   stocks: Record<string, string | null>;
-  coupons: Record<string, DiscountCode>;
+  coupons: { allData: Record<string, DiscountCode>; limitedData: Record<string, DiscountCode> };
   shippingMethods: ShippingMethods;
 }
 

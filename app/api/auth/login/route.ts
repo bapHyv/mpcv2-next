@@ -17,18 +17,15 @@ export async function POST(request: Request) {
       body: JSON.stringify({ username, password }),
     });
 
-    // Case 1: User does not exist (returns 204 to redirect to sign up)
     if (response.status === 204) {
-      return NextResponse.json({ email: username }, { status: 204 });
+      return NextResponse.json({ message: "User not found", email: username }, { status: 404 });
     }
 
-    // Case 2: Any other error (401 Wrong Password)
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({ message: "An unknown error occurred." }));
       return NextResponse.json(errorData, { status: response.status });
     }
 
-    // Case 3: Successful login (200 OK)
     const userData: UserDataAPIResponse = await response.json();
 
     const domain = process.env.NODE_ENV === "development" ? "localhost" : process.env.MAIN_DOMAIN;
@@ -37,7 +34,6 @@ export async function POST(request: Request) {
     cookies().set("accessToken", userData.accessToken, cookieOptions);
     cookies().set("refreshToken", userData.refreshToken, cookieOptions);
 
-    // Return the user data to the client, but WITHOUT the tokens
     const { accessToken, refreshToken, ...userProfileData } = userData;
 
     return NextResponse.json(userProfileData, { status: 200 });
