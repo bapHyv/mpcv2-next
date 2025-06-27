@@ -69,6 +69,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const localCartHasItems = localCart.products && localCart.products.length > 0;
       const remoteCart: { total: number; products: ProductCart[] } | null = JSON.parse(userData.cartBkp || "null");
 
+      // If no remote cart, no need to compute anything, just keep the localCartHasItems
+      if (!remoteCart) return;
+      if (remoteCart.products.length === 0) return;
+
       // Check if cartBkp has products that don't exist or not enough stock
       if (remoteCart && remoteCart.products.length > 0 && sseData) {
         remoteCart.products = remoteCart.products.filter((product) => {
@@ -111,7 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (!localCartHasItems && remoteHasItems) {
         setCart(remoteCart);
       } else if (areCartsDifferent) {
-        setConflictingData({ cartBkp: JSON.stringify(remoteCart) || "null" });
+        setConflictingData({ cartBkp: JSON.stringify(remoteCart) });
         setIsConflictModalVisible(true);
       }
     }

@@ -22,6 +22,8 @@ export async function PUT(request: Request) {
 
     const { accessToken, refreshToken, ...userProfileData } = updatedUserData;
 
+    console.log(userProfileData);
+
     return NextResponse.json(userProfileData, { status: 200 });
   } catch (error) {
     console.error("Error in /api/user PUT route:", error);

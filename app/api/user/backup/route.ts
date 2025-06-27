@@ -15,8 +15,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Cart data is required." }, { status: 400 });
     }
 
-    console.log(cartBkp);
-
     const response = await serverFetchWrapper(`${process.env.API_HOST}/backup-order-data`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
