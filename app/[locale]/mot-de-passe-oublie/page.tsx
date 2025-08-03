@@ -48,6 +48,7 @@ export default async function Page({ params: { locale } }: Params) {
           <h1 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{t("h1")}</h1>
         </div>
         <p className="mt-4 text-center text-sm text-gray-600 max-w-sm mx-auto">{t("introText")}</p>
+        <p className="text-yellow-500 font-bold italic mb-4 text-center mt-5">{t("operation")}</p>
         <div className={twMerge("mt-8 bg-white px-6 py-8 shadow rounded-lg sm:px-10 sm:py-10")}>
           <ForgotPasswordForm />
         </div>
