@@ -36,7 +36,7 @@ export default function ProductOptions({ pricesPer, name, id, image, category, i
   const firstOption = productData ? parseInt(Object.keys(productData.prices)[0]) : 0;
 
   const hasStockAvailable = useMemo(() => {
-    return !isNaN(currentStock) && currentStock > firstOption;
+    return !isNaN(currentStock) && currentStock >= firstOption;
   }, [currentStock, firstOption]);
 
   const addProductToCart = () => {

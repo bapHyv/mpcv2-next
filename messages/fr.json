@@ -1473,6 +1473,8 @@
     "description": "description"
   },
   "category": {
+    "text": "Désolé mais aucun produit n'a été trouvé pour cette catégorie: Cliquez sur le bouton ci-dessous pour vous diriger vers la page fleurs",
+    "button": "Vers la page fleurs",
     "title": "Produits",
     "description": "description",
     "flower": "Fleurs CBD",
@@ -1749,6 +1751,7 @@
   "forgotPassword": {
     "h1": "Mot de passe oublié ?",
     "introText": "Entrez l'adresse e-mail associée à votre compte et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "operation": "Cette opération peut prendre jusqu'à 5 minutes",
     "rememberPasswordPrompt": "Vous vous souvenez du mot de passe ? ",
     "loginLinkText": "Se connecter",
     "logoAltText": "Logo Monplancbd"

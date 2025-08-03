@@ -252,7 +252,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
           discounts: [],
           fidelity: 0,
           shippingAddress: { ...initialShippingAddressState },
-          billingAddress: { ...initialShippingAddressState },
+          billingAddress: { ...initialBillingAddressState },
         };
       });
     } else if (userData) {

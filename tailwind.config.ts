@@ -22,6 +22,10 @@ const config: Config = {
         "14": "repeat(14, minmax(0, 1fr));",
       },
       keyframes: {
+        "pulse-bg": {
+          "0%, 100%": { backgroundColor: "rgba(15, 15, 15, 1)" },
+          "50%": { backgroundColor: "rgba(0, 0, 0, 1)" },
+        },
         tada: {
           "0%": {
             transform: "scale3d(1, 1, 1)",
@@ -98,6 +102,7 @@ const config: Config = {
         fingerslideoutright: "fingerslideoutright 0.5s ease-out forwards",
         slightpulse: "slightpulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         backgroundOpacitySlightPulse: "backgroundOpacitySlightPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "pulse-bg": "pulse-bg 2s ease-in-out infinite",
       },
       boxShadow: {
         carousel: "inset 0px 0px 10px #000000",

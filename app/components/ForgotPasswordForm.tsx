@@ -47,7 +47,7 @@ export default function ForgotPasswordForm() {
       setActionResponse({
         message: "Success",
         isSuccess: true,
-        statusCode: 200, // We now expect a 200 from our API route
+        statusCode: 204,
         data: null,
       });
     } catch (error) {

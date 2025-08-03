@@ -91,6 +91,7 @@ export default function ReviewForm({ id }: Props) {
 
   useEffect(() => {
     if (actionResponse.statusCode !== 0) {
+      setIsLoading(false);
       if (actionResponse.isSuccess && (actionResponse.statusCode === 200 || actionResponse.statusCode === 201 || actionResponse.statusCode === 204)) {
         addAlert(uuid(), t("alerts.addReview.success.text"), t("alerts.addReview.success.title"), "emerald");
         setCommentValue("");
@@ -138,8 +139,8 @@ export default function ReviewForm({ id }: Props) {
           {t("reviews.loginPrompt.text")}{" "}
           <Link
             href={{
-              pathname: "/connexion", // The page to navigate to
-              query: { redirect: redirectValue }, // The query parameters
+              pathname: "/connexion",
+              query: { redirect: redirectValue },
             }}
             className={linkClassname}
           >

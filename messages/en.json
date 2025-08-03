@@ -1573,6 +1573,8 @@
     "description": "description"
   },
   "category": {
+    "text": "Sorry, but no products were found for this category. Click the button below to be redirected to the flowers page.",
+    "button": "To the flowers page",
     "title": "Produits",
     "description": "description",
     "flower": "CBD Flower",
@@ -1838,6 +1840,7 @@
   "forgotPassword": {
     "h1": "Forgot your password?",
     "introText": "Enter the email address associated with your account, and we'll send you a link to reset your password.",
+    "operation": "This operation may take up to 5 minutes.",
     "rememberPasswordPrompt": "Remember your password? ",
     "loginLinkText": "Log in",
     "logoAltText": "Monplancbd Logo"

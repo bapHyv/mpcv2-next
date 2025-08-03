@@ -12,7 +12,7 @@ import ProductCard from "@/app/components/products/ProductCard";
 import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 import OtherNavbar from "@/app/components/OtherNavbar";
 import Separator from "@/app/components/Separator";
-import { linkClassname, titleClassname } from "@/app/staticData/cartPageClasses";
+import { buttonClassname, linkClassname, subtleSectionWrapperClassname, titleClassname } from "@/app/staticData/cartPageClasses";
 
 interface Params {
   params: {
@@ -188,9 +188,22 @@ export default async function CategoryPage({ params: { locale, category } }: Par
       />
       {/* Product Grid Container */}
       <div className="flex flex-wrap px-2 justify-center gap-4 mb-8 md:mb-12">
-        {products.length > 0
-          ? products.map((prod) => <ProductCard key={prod.id} locale={locale} {...prod} category={currentSlug} />)
-          : productCardsSkeleton}
+        {products.length > 0 ? (
+          products.map((prod) => <ProductCard key={prod.id} locale={locale} {...prod} category={currentSlug} />)
+        ) : (
+          <div className={twMerge(subtleSectionWrapperClassname, "text-center")}>
+            <p className="text-gray-600 italic mb-4">{t("category.text")}</p>
+            {/* Add button directly within the empty state */}
+            <Link
+              key="no-product-found"
+              href={`/${locale}/fleurs-cbd`}
+              type="button"
+              className={twMerge(buttonClassname, "inline-flex items-center")} // Use standard button style
+            >
+              {t("category.button")}
+            </Link>
+          </div>
+        )}
       </div>
       <section aria-labelledby="category-content-heading" className="py-10 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
