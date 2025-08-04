@@ -1817,7 +1817,7 @@
       "copyButton": "Copiar",
       "footerText": "¡Invita a tus amigos a unirse para ganar aún más puntos!"
     },
-    "earnPrefix": "✨ Ganarás",
+    "earnPrefix": "✨",
     "pointsSingular": "punto de fidelidad",
     "pointsPlural": "puntos de fidelidad",
     "earnSuffix": "con esta compra ✨"

@@ -13,7 +13,7 @@ async function refreshSession() {
   const oldAccessToken = cookies().get("accessToken")?.value;
 
   if (!oldRefreshToken || !oldAccessToken) {
-    return NextResponse.json({ message: "No session found" }, { status: 401 });
+    return NextResponse.json(null, { status: 200 });
   }
 
   try {
