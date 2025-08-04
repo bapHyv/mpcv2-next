@@ -13,7 +13,7 @@ export default function ProductImageGallery({ images }: ProductImageGalleryProps
   const allImages = images.main ? [images.main, ...images.others] : images.others;
 
   return (
-    <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
+    <div className="mx-auto mt-6 w-full max-w-2xl sm:block lg:max-w-none">
       <TabList className="grid grid-cols-4 gap-4 sm:gap-6">
         {allImages.map((image) => (
           <Tab

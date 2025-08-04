@@ -1732,7 +1732,7 @@
       "copyButton": "Copier",
       "footerText": "Invitez vos amis à nous rejoindre pour gagner encore plus de points !"
     },
-    "earnPrefix": "✨ Vous gagnerez",
+    "earnPrefix": "✨",
     "pointsSingular": "point de fidélité",
     "pointsPlural": "points de fidélité",
     "earnSuffix": "avec cet achat ✨"

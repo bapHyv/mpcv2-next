@@ -88,28 +88,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       const remoteHasItems = remoteCart && remoteCart.products.length > 0;
 
-      // Has to remove cartItemId to compare the products because it will alway be different.
+      // Has to remove cartItemId to compare the products. The cartItemId is a uuid, making each product unique.
+      // For example, 1g of MIX SMALL BUD in one cart, will be different from 1g of MIX SMALL BUD in an other cart because of its id.
+      // This is the reason why the cartItemIds have to be removed to compare the carts.
       const areCartsDifferent = (() => {
-        const localCartDC: { total: number; products: ProductCart[] } | null = JSON.parse(JSON.stringify(localCart));
-        const remoteCartDC: { total: number; products: ProductCart[] } | null = JSON.parse(JSON.stringify(remoteCart));
+        const normalizeCart = (cart: { products: ProductCart[] } | null) => {
+          if (!cart || !cart.products) return null;
 
-        if (localCartDC) {
-          (localCartDC.products as unknown as Omit<ProductCart, "cartItemId">[]) = localCartDC.products.map((product) => {
-            const { cartItemId, ...rest } = product;
-            return rest;
+          // 1. Deep copy to avoid mutating the original state
+          const cartCopy = JSON.parse(JSON.stringify(cart));
+
+          // 2. Sort the products array by ID and then by option for consistency
+          cartCopy.products.sort((a: ProductCart, b: ProductCart) => {
+            if (a.id !== b.id) {
+              return a.id - b.id;
+            }
+            return a.option.localeCompare(b.option);
           });
-        }
 
-        if (remoteCartDC) {
-          (remoteCartDC.products as unknown as Omit<ProductCart, "cartItemId">[]) = remoteCartDC.products.map((product) => {
-            const { cartItemId, ...rest } = product;
-            return rest;
-          });
-        }
+          // 3. Remove the client-specific `cartItemId` from each product
+          cartCopy.products.forEach((p: any) => delete p.cartItemId);
 
-        const diff = JSON.stringify(localCartDC) !== JSON.stringify(remoteCartDC);
+          return cartCopy;
+        };
 
-        return diff;
+        const normalizedLocal = normalizeCart(localCart);
+        const normalizedRemote = normalizeCart(remoteCart);
+
+        // 4. Compare the stringified versions of the normalized objects
+        return JSON.stringify(normalizedLocal) !== JSON.stringify(normalizedRemote);
       })();
 
       if (!localCartHasItems && remoteHasItems) {
@@ -126,9 +133,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const fetchInitialSession = async () => {
       try {
         const response = await fetch("/api/auth/session");
+
         if (response.ok) {
-          const fetchedUserData: UserDataAPIResponse = await response.json();
-          setUserData(fetchedUserData);
+          const responseText = await response.text();
+
+          if (responseText && responseText !== "null") {
+            const fetchedUserData: UserDataAPIResponse = JSON.parse(responseText);
+            setUserData(fetchedUserData);
+          } else {
+            setUserData(null);
+            cleanUpLocalStorageUserRelated();
+          }
         } else {
           setUserData(null);
           cleanUpLocalStorageUserRelated();

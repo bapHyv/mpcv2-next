@@ -1820,7 +1820,7 @@
       "copyButton": "Copy",
       "footerText": "Invite your friends to join us to earn even more points!"
     },
-    "earnPrefix": "✨ You will earn",
+    "earnPrefix": "✨",
     "pointsSingular": "loyalty point",
     "pointsPlural": "loyalty points",
     "earnSuffix": "with this purchase ✨"
