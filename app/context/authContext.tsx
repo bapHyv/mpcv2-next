@@ -65,6 +65,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [userData]);
 
   useEffect(() => {
+    // Prevent triggering the modale in the payment process. It can happen when the user is already subscribed, isn't logged in
+    // then log in before payment.
+    if (
+      pathname.includes("expedition") ||
+      pathname.includes("paiement") ||
+      searchParams.get("redirect") === "expedition" ||
+      searchParams.get("redirect") === "paiement"
+    )
+      return;
+
     if (userData) {
       const localCartHasItems = localCart.products && localCart.products.length > 0;
       const remoteCart: { total: number; products: ProductCart[] } | null = JSON.parse(userData.cartBkp || "null");

@@ -76,7 +76,7 @@ export default function DisplayComponents() {
           textKey = "alerts.accountCreation.error409.text";
           titleKey = "alerts.accountCreation.error409.title";
           color = "blue";
-          setTimeout(() => router.push("/connexion?redirect=paiement"), 500);
+          setTimeout(() => router.push(`/connexion?redirect=paiement&mail=${encodeURIComponent(order.shippingAddress.email)}`), 500);
         } else {
           textKey = responseData.message || "alerts.accountCreation.defaultError.text";
           titleKey = "alerts.accountCreation.defaultError.title";
