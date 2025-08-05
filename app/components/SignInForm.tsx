@@ -24,6 +24,12 @@ export default function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  useEffect(() => {
+    if (!!searchParams.get("mail")) {
+      setFormData((prevState) => ({ ...prevState, username: searchParams.get("mail") || "" }));
+    }
+  }, [searchParams]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target as HTMLInputElement;
     setFormData((prev) => ({
@@ -91,7 +97,16 @@ export default function SignInForm() {
           {t("signInPage.emailLabel")}
         </label>
         <div className="mt-2">
-          <input id="email" name="username" type="email" required autoComplete="email" className={inputClassname} onChange={handleChange} />
+          <input
+            id="email"
+            name="username"
+            type="email"
+            required
+            autoComplete="email"
+            value={formData.username}
+            className={inputClassname}
+            onChange={handleChange}
+          />
         </div>
       </div>
 
@@ -112,6 +127,7 @@ export default function SignInForm() {
             id="password"
             name="password"
             type={inputType}
+            value={formData.password}
             required
             autoComplete="current-password"
             className={inputClassname}
