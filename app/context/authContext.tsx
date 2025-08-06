@@ -68,8 +68,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Prevent triggering the modale in the payment process. It can happen when the user is already subscribed, isn't logged in
     // then log in before payment.
     if (
+      pathname.includes("panier") ||
       pathname.includes("expedition") ||
       pathname.includes("paiement") ||
+      searchParams.get("redirect") === "panier" ||
       searchParams.get("redirect") === "expedition" ||
       searchParams.get("redirect") === "paiement"
     )
@@ -79,7 +81,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const localCartHasItems = localCart.products && localCart.products.length > 0;
       const remoteCart: { total: number; products: ProductCart[] } | null = JSON.parse(userData.cartBkp || "null");
 
-      // If no remote cart, no need to compute anything, just keep the localCartHasItems
+      // If no remote cart, no need to compute anything, just keep the localCart
       if (!remoteCart) return;
       if (remoteCart.products.length === 0) return;
 
