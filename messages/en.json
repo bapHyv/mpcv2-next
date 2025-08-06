@@ -1898,7 +1898,8 @@
       "vatText": "(includes {vatAmount}€ VAT)",
       "checkoutButton": "Proceed to Shipping",
       "loginPromptText": "Log in to continue.",
-      "loginPromptLink": "Log in"
+      "loginPromptLink": "Log in",
+      "notAllowed": "Cannot order"
     },
     "discounts": {
       "accountCodesTitle": "Account Discounts",
@@ -1963,7 +1964,8 @@
       "createAccountButtonText": "Create Account & Pay",
       "relayErrorText": "Please select a pickup point on the map above.",
       "noProduct": "No products in the cart",
-      "noProductLink": "Click here to browse our product selection"
+      "noProductLink": "Click here to browse our product selection",
+      "notAllowed": "Cannot order"
     },
     "shippingMethods": {
       "title": "Shipping",

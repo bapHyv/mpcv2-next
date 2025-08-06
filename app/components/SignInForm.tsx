@@ -59,15 +59,16 @@ export default function SignInForm() {
 
       if (!response.ok) {
         let titleKey = "alerts.signIn.defaultError.title";
-        let textKey = responseData.message || "alerts.signIn.defaultError.text";
+        let textKey = "alerts.signIn.defaultError.text";
         let color: "yellow" | "red" = "red";
 
         if (response.status === 401) {
           titleKey = "alerts.signIn.error401.title";
-          textKey = responseData.message || "alerts.signIn.error401.text";
+          textKey = "alerts.signIn.error401.text";
           color = "yellow";
         }
         addAlert(uuid(), textKey.startsWith("alerts.") ? t(textKey) : textKey, t(titleKey), color);
+        setIsLoading(false);
         return;
       }
 
@@ -84,8 +85,6 @@ export default function SignInForm() {
     } catch (error) {
       console.error("Login request failed:", error);
       addAlert(uuid(), t("alerts.signIn.error500.text"), t("alerts.signIn.error500.title"), "red");
-    } finally {
-      setIsLoading(false);
     }
   };
 

@@ -15,7 +15,7 @@ import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 
 export default function Total({ isPending }: { isPending: boolean }) {
   const t = useTranslations("");
-  const { order } = useOrder();
+  const { order, setOrder } = useOrder();
   const { userData } = useAuth();
   const { cart } = useProductsAndCart();
 
@@ -23,9 +23,12 @@ export default function Total({ isPending }: { isPending: boolean }) {
 
   const finalTotalWithShipping = order.total;
 
+  const isTotalZero = order.total === 0 || order.total < 0;
+
   const getButtonText = () => {
     if (isPending) return null;
     if (isDisabled && order["shipping-method"] === "boxtal_connect") return t("shippingPage.totalSummary.relayButtonText");
+    if (isTotalZero) return t("shippingPage.totalSummary.notAllowed");
     if (userData) return t("shippingPage.totalSummary.paymentButtonText");
     if (!cart.products.length) return t("shippingPage.totalSummary.noProduct");
     return t("shippingPage.totalSummary.createAccountButtonText");
@@ -98,7 +101,7 @@ export default function Total({ isPending }: { isPending: boolean }) {
       <div className="mt-6">
         <button
           type="submit"
-          disabled={isDisabled || !cart.products.length}
+          disabled={isDisabled || !cart.products.length || isTotalZero}
           className={twMerge(buttonClassname, "w-full py-3 text-base flex justify-center items-center")}
         >
           {isPending ? (

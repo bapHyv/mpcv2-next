@@ -200,7 +200,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
       {payment === "bankTransfer" && (
         <section aria-labelledby="bank-details-heading" className={sectionWrapperClassname}>
           <Title type="h2" title={t("orderReceived.bankDetails.title")} classname={baseTitleClassname} />
-          <p className="text-sm text-gray-600 text-center mb-4">{t("orderReceived.bankDetails.instruction")}</p>
+          <p className="text-sm text-yellow-500 font-semibold text-center mb-4">{t("orderReceived.bankDetails.instruction")}</p>
           <table className="w-full text-sm mt-4">
             <tbody>
               <tr className="border-b">

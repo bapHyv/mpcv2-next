@@ -67,7 +67,7 @@ export function useFetchWrapper() {
 
       return response;
     },
-    [setUserData] // Dependency array for useCallback
+    [setUserData]
   );
 
   return { fetchWrapper };

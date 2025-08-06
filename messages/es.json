@@ -1894,7 +1894,8 @@
       "vatText": "(incluye {vatAmount}€ IVA)",
       "checkoutButton": "Proceder al Envío",
       "loginPromptText": "Inicia sesión para continuar.",
-      "loginPromptLink": "Iniciar sesión"
+      "loginPromptLink": "Iniciar sesión",
+      "notAllowed": "Imposible ordenar"
     },
     "discounts": {
       "accountCodesTitle": "Descuentos de la Cuenta",
@@ -1959,7 +1960,8 @@
       "createAccountButtonText": "Crear cuenta y pagar",
       "relayErrorText": "Por favor, selecciona un punto de recogida en el mapa de arriba.",
       "noProduct": "No hay productos en el carrito",
-      "noProductLink": "Haz clic aquí para ver nuestra selección de productos"
+      "noProductLink": "Haz clic aquí para ver nuestra selección de productos",
+      "notAllowed": "Imposible ordenar"
     },
     "shippingMethods": {
       "title": "Envío",

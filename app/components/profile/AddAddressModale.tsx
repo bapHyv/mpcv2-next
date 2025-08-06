@@ -169,8 +169,7 @@ export default function AddAddressModale({ setIsAddModalOpen, onOperationComplet
             alertType = "yellow";
             break;
         }
-        const alertText = actionResponse.message || t(textKey);
-        addAlert(uuid(), alertText, t(titleKey), alertType);
+        addAlert(uuid(), t(textKey), t(titleKey), alertType);
         setIsAddModalOpen(false);
       }
     }
