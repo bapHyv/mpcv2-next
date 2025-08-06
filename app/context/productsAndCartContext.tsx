@@ -148,9 +148,8 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
         ...prevCart,
         total: newTotal,
       }));
-
-      localStorage.setItem("cart", JSON.stringify({ total: newTotal, products: cart.products }));
     }
+    localStorage.setItem("cart", JSON.stringify({ total: newTotal, products: cart.products }));
   }, [cart]);
 
   // This useEffect check if the cart has products that don't exist or has product with quantity over availability

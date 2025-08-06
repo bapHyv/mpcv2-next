@@ -89,7 +89,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const { fetchWrapper } = useFetchWrapper();
 
   const stateToBackup = useMemo(() => ({ cart }), [cart]);
-  const debouncedState = useDebounce(stateToBackup, 2000);
+  const debouncedState = useDebounce(stateToBackup);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -341,23 +341,29 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
     const backupData = async () => {
       console.log("Debounced effect triggered: Backing up cart and order...");
       try {
+        // Only trigger backup if the carts are different
         if (JSON.stringify(cart) !== userData.cartBkp) {
           const cartBkp = JSON.stringify(debouncedState.cart);
-          await fetchWrapper("/api/user/backup", {
+
+          const response = await fetchWrapper("/api/user/backup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               cartBkp,
             }),
           });
-          console.log("Backup successful.");
-          setUserData((prevState) => {
-            if (prevState) {
-              return { ...prevState, cartBkp };
-            } else {
-              return null;
-            }
-          });
+
+          // Only update the state if the backup is successful
+          if (response.ok) {
+            console.log("Backup successful.");
+            setUserData((prevState) => {
+              if (prevState) {
+                return { ...prevState, cartBkp };
+              } else {
+                return null;
+              }
+            });
+          }
         } else {
           console.log("No difference between cart and cartBkp, nothing happened...");
           return;

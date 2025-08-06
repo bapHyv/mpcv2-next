@@ -18,15 +18,11 @@ export async function POST(request: Request, { params }: RouteParams) {
   try {
     const body = await request.json();
 
-    console.log(body);
-
     const response = await serverFetchWrapper(`${process.env.API_HOST}/order/${orderId}/transfer-payment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-
-    console.log(response);
 
     if (response.status !== 204) {
       const errorData = await response.json().catch(() => ({}));
