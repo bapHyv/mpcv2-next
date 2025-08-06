@@ -1809,7 +1809,8 @@
       "vatText": "(dont {vatAmount}€ TVA)",
       "checkoutButton": "Choisir la méthode d'expédition",
       "loginPromptText": "Connectez-vous pour continuer.",
-      "loginPromptLink": "Connectez-vous"
+      "loginPromptLink": "Connectez-vous",
+      "notAllowed": "Impossible de commander"
     },
     "discounts": {
       "accountCodesTitle": "Codes liés au compte",
@@ -1874,7 +1875,8 @@
       "createAccountButtonText": "Créer compte et payer",
       "relayErrorText": "Sélectionnez un point relais sur la carte ci-dessus.",
       "noProduct": "Aucun produit dans le panier",
-      "noProductLink": "Cliquez ici pour vous diriger vers notre selection de produits"
+      "noProductLink": "Cliquez ici pour vous diriger vers notre selection de produits",
+      "notAllowed": "Impossible de commander"
     },
     "shippingMethods": {
       "title": "Expédition",

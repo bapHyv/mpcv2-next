@@ -58,6 +58,7 @@ export default function CartSummary() {
   const finalTotal = cart.total - discountsTotal - fidelityReduction;
   const finalTotalClamped = Math.max(0, finalTotal);
   const vatIncluded = computeVAT(cart, discountsTotal + fidelityReduction);
+  const isOrderZero = order.total === 0 || order.total < 0;
 
   return (
     <section aria-labelledby="summary-heading" className={twMerge(sectionWrapperClassname)}>
@@ -109,7 +110,9 @@ export default function CartSummary() {
             <dt>{t("cartPage.summary.totalLabel")}</dt>
             <dd className="text-right">
               {finalTotalClamped.toFixed(2)}€
-              <p className="text-xs font-normal text-gray-500 mt-0.5">{t("cartPage.summary.vatText", { vatAmount: vatIncluded.toFixed(2) })}</p>
+              {vatIncluded < 0 || vatIncluded === 0 ? null : (
+                <p className="text-xs font-normal text-gray-500 mt-0.5">{t("cartPage.summary.vatText", { vatAmount: vatIncluded.toFixed(2) })}</p>
+              )}
             </dd>
           </div>
         </div>
@@ -121,10 +124,11 @@ export default function CartSummary() {
           href="/expedition"
           className={clsx(
             "flex w-full items-center justify-center rounded-md border border-transparent bg-green px-6 py-3 text-base font-medium text-white shadow-sm",
-            "hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
+            "hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2",
+            { "pointer-events-none bg-neutral-400 cursor-not-allowed": isOrderZero }
           )}
         >
-          {t("cartPage.summary.checkoutButton")}
+          {isOrderZero ? t("cartPage.summary.notAllowed") : t("cartPage.summary.checkoutButton")}
         </Link>
 
         {/* Login Prompt */}

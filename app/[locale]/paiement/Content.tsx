@@ -25,6 +25,7 @@ import useCleanUpAfterPayment from "@/app/hooks/useCleanUpAfterPayment";
 import { setItemWithExpiry } from "@/app/utils/temporaryStorage";
 import { useAlerts } from "@/app/context/alertsContext";
 import { useTranslations } from "next-intl";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 export default function Page() {
   const [isPending, setIsPending] = useState(false);
@@ -32,6 +33,7 @@ export default function Page() {
   const [initPaymentResponse, setInitPaymentResponse] = useState<
     null | ({ orderId: number } & (SipsSuccessResponse | SipsFailResponse)) | { error: true }
   >(null);
+  const [isFinalizing, setIsFinalizing] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -70,6 +72,10 @@ export default function Page() {
       return; // Stop the process
     }
 
+    setIsFinalizing(true);
+    // Short delay to allow the overlay to render before heavy work
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
     if (order["payment-method"] === "bank-transfer") {
       try {
         const bankResponse = await fetchWrapper(`/api/payment/bank-transfer/${initPaymentResponse.orderId}`, {
@@ -86,9 +92,9 @@ export default function Page() {
         router.push(`/commande-recue?token=${token}`);
       } catch (error) {
         console.error("Bank transfer flow failed:", error);
-        // Show error alert
-      } finally {
+        setIsFinalizing(false);
         setIsPending(false);
+        // Show error alert
       }
       return;
     }
@@ -101,6 +107,7 @@ export default function Page() {
       // Handle cases where Sips returns a failure code during init
       console.error("SIPS initialization failed:", initPaymentResponse);
       // Show an error alert to the user.
+      setIsFinalizing(false);
       setIsPending(false);
     }
   };
@@ -188,6 +195,12 @@ export default function Page() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      {isFinalizing && (
+        <div className="fixed inset-0 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center z-[10000]">
+          <LoadingSpinner size="lg" color="green" />
+          <p className="mt-4 text-lg font-semibold text-gray-700">Finalizing your order...</p>
+        </div>
+      )}
       {/* Center Title */}
       <Title
         title="Paiement"

@@ -97,20 +97,21 @@ export default function SignUpForm() {
 
         if (response.status === 409) {
           titleKey = "alerts.signUp.error409.title";
-          textKey = responseData.message || "alerts.signUp.error409.text";
+          textKey = "alerts.signUp.error409.text";
           alertType = "blue";
           setTimeout(() => router.push(`/connexion?email=${encodeURIComponent(responseData.email || formData.mail)}`), 500);
         } else if (response.status === 400 || response.status === 422) {
           titleKey = response.status === 400 ? "alerts.signUp.error400.title" : "alerts.signUp.error422.title";
-          textKey = responseData.message || (response.status === 400 ? "alerts.signUp.error400.text" : "alerts.signUp.error422.text");
+          textKey = response.status === 400 ? "alerts.signUp.error400.text" : "alerts.signUp.error422.text";
           alertType = "yellow";
         } else {
           // 500 or other errors
           titleKey = "alerts.signUp.error500.title";
-          textKey = responseData.message || "alerts.signUp.error500.text";
+          textKey = "alerts.signUp.error500.text";
           alertType = "red";
         }
         addAlert(uuid(), textKey.startsWith("alerts.") ? t(textKey) : textKey, t(titleKey), alertType);
+        setIsLoading(false);
         return;
       }
 
@@ -127,11 +128,11 @@ export default function SignUpForm() {
       } else {
         // This case should be rare, but it's good practice to handle it
         addAlert(uuid(), t("alerts.signUp.defaultError.text"), t("alerts.signUp.defaultError.title"), "yellow");
+        setIsLoading(false);
       }
     } catch (error) {
       console.error("Registration request failed:", error);
       addAlert(uuid(), t("alerts.signUp.error500.text"), t("alerts.signUp.error500.title"), "red");
-    } finally {
       setIsLoading(false);
     }
   };

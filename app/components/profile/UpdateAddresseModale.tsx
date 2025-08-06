@@ -157,8 +157,7 @@ export default function UpdateAddresseModale({ editingAddress, setEditingAddress
             alertType = "yellow";
             break;
         }
-        const alertText = actionResponse.message || t(alertTextKey);
-        addAlert(uuid(), alertText, t(alertTitleKey), alertType);
+        addAlert(uuid(), t(alertTextKey), t(alertTitleKey), alertType);
         onOperationComplete();
       }
     }
