@@ -1678,7 +1678,8 @@
     "shippingButton": "Order",
     "emptyMessage": "Your cart is currently empty.",
     "continueShoppingButton": "Continue Shopping",
-    "orSeparator": "or"
+    "orSeparator": "or",
+    "close": "close"
   },
   "productCardCart": {
     "nbItem": "number of item",
