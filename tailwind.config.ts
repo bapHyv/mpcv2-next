@@ -21,6 +21,9 @@ const config: Config = {
         "16": "repeat(16, minmax(0, 1fr));",
         "14": "repeat(14, minmax(0, 1fr));",
       },
+      fontSize: {
+        xxs: ["0.5rem", "0.625rem"],
+      },
       keyframes: {
         "pulse-bg": {
           "0%, 100%": { backgroundColor: "rgba(15, 15, 15, 1)" },

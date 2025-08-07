@@ -118,10 +118,6 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
             return acc;
           }, {} as ProductsFromContext);
 
-        if (!!localStorage.getItem("cart")) {
-          setCart(JSON.parse(localStorage.getItem("cart") as string));
-        }
-
         setProducts(formatedProducts);
         setVariationTable(variationTable);
         setAreProductsReady(true);
@@ -130,6 +126,10 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
         console.error("Failed to fetch products:", error);
       }
     };
+
+    if (!!localStorage.getItem("cart")) {
+      setCart(JSON.parse(localStorage.getItem("cart") as string));
+    }
 
     fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps

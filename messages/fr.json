@@ -1578,7 +1578,8 @@
     "shippingButton": "Commander",
     "emptyMessage": "Votre panier est actuellement vide.",
     "continueShoppingButton": "Continuer les achats",
-    "orSeparator": "ou"
+    "orSeparator": "ou",
+    "close": "fermer"
   },
   "productCardCart": {
     "nbItem": "nombre d'article",

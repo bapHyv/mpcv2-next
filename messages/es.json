@@ -1675,7 +1675,8 @@
     "shippingButton": "Pagar",
     "emptyMessage": "Tu carrito está actualmente vacío.",
     "continueShoppingButton": "Continuar Comprando",
-    "orSeparator": "o"
+    "orSeparator": "o",
+    "close": "cerca"
   },
   "productCardCart": {
     "nbItem": "número de artículo",

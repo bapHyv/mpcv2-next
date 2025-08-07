@@ -160,18 +160,19 @@ export default async function CategoryPage({ params: { locale, category } }: Par
 
   const products = await getCategoryProducts(currentSlug);
 
-  const productCardsSkeleton = new Array(8).fill(0).map((_, i) => <ProductCardSkeleton key={`skeleton-${i}`} />);
-
   return (
     <div className="md:pt-10">
       {/* Category Navigation Bar */}
-      <OtherNavbar className="xl:justify-center">
+      <OtherNavbar className="xl:justify-center animate-slide-in-bottom md:animate-slide-in-top">
         {categories.map((cat) => (
           <Link
             key={cat.slug}
             href={`/${locale}/${cat.slug}`}
             className={twMerge(
-              "capitalize text-center text-sm py-1 px-3 mx-1 rounded-md text-nowrap whitespace-nowrap transition-colors duration-150 ease-in-out hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white",
+              "capitalize text-center text-sm py-1 px-3 mx-1 rounded-md text-nowrap whitespace-nowrap",
+
+              "transition-colors duration-150 ease-in-out",
+              "hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white",
               category === cat.slug ? "font-medium text-green bg-white/10 ring-1 ring-green/50" : "text-white"
             )}
           >

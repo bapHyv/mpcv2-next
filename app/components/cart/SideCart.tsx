@@ -92,7 +92,7 @@ export default function Cart() {
         {/* Panel Container */}
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
+            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-16 sm:pl-16">
               <DialogPanel
                 transition
                 className="pointer-events-auto w-screen max-w-md transform transition duration-300 ease-in-out data-[closed]:translate-x-full"
@@ -111,11 +111,12 @@ export default function Cart() {
                         <button
                           type="button"
                           onClick={() => setOpen(false)}
-                          className="relative rounded-md p-1 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-green"
+                          className="relative flex flex-col justify-center items-center rounded-md p-1 text-gray-900 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-green"
                         >
                           <span className="absolute -inset-2.5" />
                           <span className="sr-only">{t("cart.closeButtonSR")}</span>
                           <XMarkIcon aria-hidden="true" className="h-6 w-6" />
+                          <span className="text-xxs">{t("cart.close")}</span>
                         </button>
                       </div>
                     </div>
