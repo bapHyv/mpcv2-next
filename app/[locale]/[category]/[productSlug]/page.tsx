@@ -268,7 +268,7 @@ export default async function Page({ params: { category, locale, productSlug } }
         </TabGroup>
 
         {/* --- Product Info Column --- */}
-        <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0 space-y-6">
+        <div className="mt-10 sm:mt-16 sm:px-0 lg:mt-0 space-y-6">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl text-center lg:text-left">{product.name}</h1>
           {/* Product Price Component Placeholder */}
           <div className="mt-3">

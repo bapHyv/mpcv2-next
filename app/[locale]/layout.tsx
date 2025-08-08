@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
 import { NextIntlClientProvider } from "next-intl";
@@ -13,6 +13,10 @@ import CookieConsentBanner from "@/app/components/CookieConsentBanner";
 export const metadata: Metadata = {
   title: "Monplancbd",
   description: "Les meilleures fleurs aux meilleurs prix",
+};
+
+export const viewport: Viewport = {
+  colorScheme: "light",
 };
 
 const myFont = localFont({
