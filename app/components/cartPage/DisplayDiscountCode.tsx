@@ -22,33 +22,36 @@ export default function DisplayDiscountCode() {
   const { sseData } = useSse();
   const { order, setOrder } = useOrder();
 
-  const isPublicDiscountCodeUsable = () => (sseData?.coupons[publicDiscountCode]?.individualUse && order.discounts.length > 0 ? false : true);
+  const isPublicDiscountCodeUsable = () =>
+    sseData?.coupons[publicDiscountCode.toLowerCase()]?.individualUse && order.discounts.length > 0 ? false : true;
 
   const handleUsePublicDiscountCode = () => {
-    if (sseData?.coupons && publicDiscountCode && sseData.coupons[publicDiscountCode] && isPublicDiscountCodeValid) {
+    if (sseData?.coupons && publicDiscountCode && sseData.coupons[publicDiscountCode.toLowerCase()] && isPublicDiscountCodeValid) {
       if (order.discounts.some((d) => d.name === publicDiscountCode)) {
         addAlert(uuid(), t("alerts.cart.promoCodeAlreadyApplied.text"), t("alerts.cart.promoCodeAlreadyApplied.title"), "yellow");
         return;
       }
       setOrder((prevState) => ({
         ...prevState,
-        discounts: [...prevState.discounts, { ...sseData.coupons[publicDiscountCode], name: publicDiscountCode }],
+        discounts: [...prevState.discounts, { ...sseData.coupons[publicDiscountCode.toLowerCase()], name: publicDiscountCode }],
       }));
       setPublicDiscountCode("");
       addAlert(uuid(), t("alerts.cart.promoCodeApplied.text"), t("alerts.cart.promoCodeApplied.title"), "emerald");
     } else {
+      setPublicDiscountCode("");
       addAlert(uuid(), t("alerts.cart.promoCodeInvalid.text"), t("alerts.cart.promoCodeInvalid.title"), "red");
     }
   };
 
   useEffect(() => {
+    console.log(publicDiscountCode);
     if (
       sseData?.coupons && // Check if coupons data exists
       publicDiscountCode && // Check if input has value
-      sseData.coupons[publicDiscountCode] && // Check if code exists in data
-      !sseData.coupons[publicDiscountCode].linkedToUser && // Check if it's a public code
+      sseData.coupons[publicDiscountCode.toLowerCase()] && // Check if code exists in data
+      !sseData.coupons[publicDiscountCode.toLowerCase()].linkedToUser && // Check if it's a public code
       isPublicDiscountCodeUsable() && // Check individual use rules
-      !order.discounts.some((d) => d.name === publicDiscountCode) // Check if not already applied
+      !order.discounts.some((d) => d.name.toLowerCase() === publicDiscountCode.toLowerCase()) // Check if not already applied
     ) {
       setIsPublicDiscountCodeValid(true);
     } else {
