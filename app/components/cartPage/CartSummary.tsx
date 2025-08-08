@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { useAlerts } from "@/app/context/alertsContext";
 import { useOrder } from "@/app/context/orderContext";
@@ -17,6 +17,7 @@ import clsx from "clsx";
 
 export default function CartSummary() {
   const t = useTranslations("");
+  const locale = useLocale();
   const { cart } = useProductsAndCart();
   const { order, setOrder } = useOrder();
   const { addAlert } = useAlerts();
@@ -121,7 +122,7 @@ export default function CartSummary() {
       {/* Checkout Button */}
       <div className="mt-6">
         <Link
-          href="/expedition"
+          href={`/${locale}/expedition`}
           className={clsx(
             "flex w-full items-center justify-center rounded-md border border-transparent bg-green px-6 py-3 text-base font-medium text-white shadow-sm",
             "hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2",
@@ -134,7 +135,7 @@ export default function CartSummary() {
         {/* Login Prompt */}
         {!userData && (
           <p className="text-center text-xs text-gray-500 mt-2">
-            <Link href="/connexion?redirect=expedition" className={linkClassname}>
+            <Link href={`/${locale}/connexion?redirect=expedition`} className={linkClassname}>
               {t("cartPage.summary.loginPromptLink")}
             </Link>{" "}
             {t("cartPage.summary.loginPromptText")}

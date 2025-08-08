@@ -5,7 +5,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { APIResponse, Flower } from "@/app/types/productsTypes";
@@ -22,6 +22,7 @@ export default function DisplayComponents() {
   const { cart } = useProductsAndCart();
   const [products, setProducts] = useState<null | Flower[]>(null);
   const t = useTranslations("");
+  const locale = useLocale();
 
   useEffect(() => {
     const fetchFlowers = async () => {
@@ -54,7 +55,7 @@ export default function DisplayComponents() {
 
       <div className="mb-6">
         <Link
-          href={"/"}
+          href={`/${locale}`}
           className={twMerge(clsx(buttonClassname, "bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50", "px-3 py-1.5 text-sm"))}
         >
           <ArrowLeftIcon className="h-4 w-4 mr-1.5" aria-hidden="true" />

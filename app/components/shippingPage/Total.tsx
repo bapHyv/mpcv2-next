@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import { useMemo } from "react";
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import Star from "@/app/components/Star";
 import Title from "@/app/components/Title";
@@ -15,6 +15,7 @@ import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 
 export default function Total({ isPending }: { isPending: boolean }) {
   const t = useTranslations("");
+  const locale = useLocale();
   const { order, setOrder } = useOrder();
   const { userData } = useAuth();
   const { cart } = useProductsAndCart();
@@ -58,7 +59,7 @@ export default function Total({ isPending }: { isPending: boolean }) {
       {/* Privacy Policy Text */}
       <p className="text-xs text-gray-600 mb-4">
         {t("shippingPage.totalSummary.privacyPolicyText")}{" "}
-        <Link href="/politiques-de-confidentialites" target="_blank" className={linkClassname}>
+        <Link href={`/${locale}/politiques-de-confidentialites`} target="_blank" className={linkClassname}>
           {t("shippingPage.totalSummary.privacyPolicyLinkText")}
         </Link>
       </p>
@@ -75,7 +76,7 @@ export default function Total({ isPending }: { isPending: boolean }) {
             <div className="ml-3 text-sm leading-6">
               <label htmlFor="condition-generales" className="text-gray-700 cursor-pointer">
                 {t("shippingPage.totalSummary.termsLabel")}
-                <Link href="/conditions-generales-de-vente" target="_blank" className={linkClassname}>
+                <Link href={`/${locale}/conditions-generales-de-vente`} target="_blank" className={linkClassname}>
                   {" "}
                   {t("shippingPage.totalSummary.termsLinkText")}
                 </Link>{" "}
@@ -121,7 +122,7 @@ export default function Total({ isPending }: { isPending: boolean }) {
       )}
 
       {!cart.products.length && (
-        <Link href="/fleurs-cbd" className="block w-full mt-4 text-center text-green underline font-semibold text-sm">
+        <Link href={`/${locale}/fleurs-cbd`} className="block w-full mt-4 text-center text-green underline font-semibold text-sm">
           {t("shippingPage.totalSummary.noProductLink")}
         </Link>
       )}

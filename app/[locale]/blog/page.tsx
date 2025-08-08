@@ -81,7 +81,7 @@ export default function Page({ params }: { params: Params }) {
         {data.map((e, i) => (
           <Link
             key={`${e.alt}-${i}`}
-            href={`/blog/${e.href}`}
+            href={`/${locale}/blog/${e.href}`}
             className={clsx(
               "w-full flex flex-col items-center gap-1 border border-neutral-300 rounded-md p-2 shadow-md",
               "sm:w-1/3",

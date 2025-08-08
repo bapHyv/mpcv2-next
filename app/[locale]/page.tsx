@@ -260,7 +260,7 @@ export default async function HomePage({ params }: Params) {
       <h1 className="sr-only">{t("homepage.seoH1")}</h1>
 
       {/* 2. Hero Section */}
-      <section aria-labelledby="hero-heading" className="mb-8">
+      <section aria-labelledby="hero-heading">
         <h2 id="hero-heading" className="sr-only">
           {t("homepage.heroSR")}
         </h2>
@@ -268,13 +268,42 @@ export default async function HomePage({ params }: Params) {
       </section>
 
       {/* 2. Trust Pilot */}
-      <section aria-labelledby="trustpilot" className="mb-8">
+      <section aria-labelledby="trustpilot">
         <div className="w-32 m-auto flex flex-col justify-center items-center">
           <Link href="https://fr.trustpilot.com/review/monplancbd.fr?utm_medium=trustbox&utm_source=MicroReviewCount" target="_blank">
-            <Image src="/trustpilot.png" alt="trustpilot link monplancbd" width={1544} height={700} className="h-10 object-contain" />
+            <Image src="/trustpilot.png" alt="trustpilot link monplancbd" width={1544} height={700} className="h-36 object-contain" />
           </Link>
         </div>
       </section>
+
+      <Separator classname="m-0 mb-8" />
+
+      {/* 4. Categories Section */}
+      <section aria-labelledby="categories-heading" className="px-4 sm:px-6 lg:px-8 mb-10 md:mb-16">
+        <Title type="h2" title={t("homepage.categoriesTitle")} classname={sectionTitleClassname} id="categories-heading" />
+        <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8 md:mb-10">{t("homepage.categoriesIntroText")}</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4 md:gap-5 max-w-7xl mx-auto">
+          {homePageCategories.map((cat) => (
+            <Link key={cat.slug} href={`/${locale}/${cat.slug}`} legacyBehavior>
+              <a
+                className={twMerge(
+                  "group flex flex-col items-center justify-center p-5 rounded-lg border border-gray-200 shadow-sm transition-all duration-200 ease-in-out",
+                  "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green",
+                  cat.bgColor,
+                  cat.textColor,
+                  cat.hoverBgColor,
+                  "hover:shadow-md hover:-translate-y-1"
+                )}
+              >
+                {cat.IconComponent}
+                <span className="text-sm md:text-base font-medium text-center leading-tight">{t(cat.nameKey)}</span>
+              </a>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <Separator classname="my-8 md:my-12" />
 
       {/* 3. Featured Flowers Section */}
       <section aria-labelledby="featured-flowers-heading" className="mb-8 md:mb-12">
@@ -305,33 +334,6 @@ export default async function HomePage({ params }: Params) {
           </a>
         </Link>
       </div>
-
-      <Separator classname="my-8 md:my-12" />
-
-      {/* 4. Categories Section */}
-      <section aria-labelledby="categories-heading" className="px-4 sm:px-6 lg:px-8 mb-10 md:mb-16">
-        <Title type="h2" title={t("homepage.categoriesTitle")} classname={sectionTitleClassname} id="categories-heading" />
-        <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8 md:mb-10">{t("homepage.categoriesIntroText")}</p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4 md:gap-5 max-w-7xl mx-auto">
-          {homePageCategories.map((cat) => (
-            <Link key={cat.slug} href={`/${locale}/${cat.slug}`} legacyBehavior>
-              <a
-                className={twMerge(
-                  "group flex flex-col items-center justify-center p-5 rounded-lg border border-gray-200 shadow-sm transition-all duration-200 ease-in-out",
-                  "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green",
-                  cat.bgColor,
-                  cat.textColor,
-                  cat.hoverBgColor,
-                  "hover:shadow-md hover:-translate-y-1"
-                )}
-              >
-                {cat.IconComponent}
-                <span className="text-sm md:text-base font-medium text-center leading-tight">{t(cat.nameKey)}</span>
-              </a>
-            </Link>
-          ))}
-        </div>
-      </section>
 
       <Separator classname="my-8 md:my-12" />
 

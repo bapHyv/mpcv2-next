@@ -7,7 +7,7 @@ import { useEffect, useRef, useState, FormEvent } from "react";
 import clsx from "clsx";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { twMerge } from "tailwind-merge";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import Form from "@/app/components/shippingPage/Form";
 import Total from "@/app/components/shippingPage/Total";
@@ -30,6 +30,7 @@ export default function DisplayComponents() {
   const { addAlert } = useAlerts();
   const { userData, setUserData, referralToken } = useAuth();
   const t = useTranslations("");
+  const locale = useLocale();
 
   const handleAction = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -113,7 +114,7 @@ export default function DisplayComponents() {
 
       <div className="mb-6">
         <Link
-          href={"/panier"}
+          href={`/${locale}/panier`}
           className={twMerge(clsx(buttonClassname, "bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50", "px-3 py-1.5 text-sm"))}
         >
           <ArrowLeftIcon className="h-4 w-4 mr-1.5" aria-hidden="true" />

@@ -175,7 +175,9 @@ export default function Cart() {
                           className={twMerge(buttonClassname, "bg-red-600 w-full flex gap-x-2 items-end")}
                         >
                           <TrashIcon className={iconClassname} />
-                          {t("alerts.cart.emptyCartButton")}
+                          <div>
+                            <span className="align-sub">{t("alerts.cart.emptyCartButton")}</span>
+                          </div>
                         </button>
                       </div>
                     </div>

@@ -1679,6 +1679,8 @@
   },
   "orders": {
     "title": "Mes commandes",
+    "noOrder": "Vous n'avez aucune commande passée.",
+    "catalog": "Consulter notre catalogue",
     "order": {
       "date": "Date",
       "orderNumber": "Commande n°",
@@ -2116,6 +2118,8 @@
   },
   "paymentPage": {
     "metadataTitle": "Paiement - MonPlanCBD",
+    "finalizing": "Finalisation de votre commande...",
+    "return": "Retour à l'expédition",
     "totalSummary": {
       "title": "Récapitulatif Final",
       "totalAmountLabel": "Montant total à payer :",

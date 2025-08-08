@@ -6,7 +6,7 @@ import Link from "next/link";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 import { useAuth } from "@/app/context/authContext";
@@ -41,6 +41,7 @@ export default function ReviewForm({ id }: Props) {
 
   const { fetchWrapper } = useFetchWrapper();
   const t = useTranslations("");
+  const locale = useLocale();
   const { userData } = useAuth();
   const { addAlert } = useAlerts();
   const pathname = usePathname();
@@ -139,7 +140,7 @@ export default function ReviewForm({ id }: Props) {
           {t("reviews.loginPrompt.text")}{" "}
           <Link
             href={{
-              pathname: "/connexion",
+              pathname: `/${locale}/connexion`,
               query: { redirect: redirectValue },
             }}
             className={linkClassname}

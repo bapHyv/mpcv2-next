@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { UserCircleIcon, ArrowLeftEndOnRectangleIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
@@ -9,18 +9,18 @@ import { UserCircleIcon, ArrowLeftEndOnRectangleIcon, ArrowPathIcon } from "@her
 import { useAuth } from "@/app/context/authContext";
 import { iconClassname } from "@/app/staticData/cartPageClasses";
 import OtherNavbar from "./OtherNavbar";
-import { useState } from "react";
 
 export default function AccountHeader() {
   const t = useTranslations("");
   const pathname = usePathname();
   const { logout, isLoggingOut } = useAuth();
+  const locale = useLocale();
 
   const itemsProfile = [
-    { textKey: "navbar.info", href: `/mon-compte/profil`, icon: <UserCircleIcon className={iconClassname} /> },
+    { textKey: "navbar.info", href: `/${locale}/mon-compte/profil`, icon: <UserCircleIcon className={iconClassname} /> },
     {
       textKey: "navbar.addresses",
-      href: `/mon-compte/adresses`,
+      href: `/${locale}/mon-compte/adresses`,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClassname}>
           <path
@@ -33,7 +33,7 @@ export default function AccountHeader() {
     },
     {
       textKey: "navbar.orders",
-      href: `/mon-compte/commandes`,
+      href: `/${locale}/mon-compte/commandes`,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClassname}>
           <path
@@ -46,7 +46,7 @@ export default function AccountHeader() {
     },
     {
       textKey: "navbar.fidelity",
-      href: `/mon-compte/fidelite`,
+      href: `/${locale}/mon-compte/fidelite`,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClassname}>
           <path

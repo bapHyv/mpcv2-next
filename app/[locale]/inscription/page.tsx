@@ -56,7 +56,7 @@ export default async function Page({ params: { locale } }: Params) {
           {/* Sign In Link */}
           <p className="mt-8 text-center text-sm text-gray-500">
             {t("signInPrompt")}{" "}
-            <Link href="/connexion" className={twMerge(linkClassname)}>
+            <Link href={`/${locale}/connexion`} className={twMerge(linkClassname)}>
               {t("signInLink")}
             </Link>
           </p>

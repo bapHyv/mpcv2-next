@@ -27,7 +27,7 @@ export default async function NavBar({ locale }: { locale: string }) {
             <Image alt={t("mainLogoAlt")} src="/logo-blanc.png" width={55} height={55} className="h-auto" />
           </Link>
           {/* PROFILE LINK/ICON PHONE */}
-          <Link href="/mon-compte/profil">
+          <Link href={`/${locale}/mon-compte/profil`}>
             <UserCircleIcon className={iconHeaderClassname} />
           </Link>
           {/* CART BUTTON AND SIDE CART */}
@@ -43,14 +43,18 @@ export default async function NavBar({ locale }: { locale: string }) {
           <div className="flex items-center gap-x-4 lg:gap-x-6">
             {/* PRODUCTS BUTTON */}
             <Link href={`/${locale}/fleurs-cbd`} className={twMerge(buttonClassname, "px-4 py-2 text-sm inline-flex items-center")}>
-              <Image src="/canna-blanc.png" alt={t("cbdLogoAlt")} height={18} width={18} className="mr-2" />
-              <span>{t("productsLink")}</span>
+              <Image src="/canna-blanc.png" alt={t("cbdLogoAlt")} height={20} width={20} className="mr-2" />
+              <div>
+                <span className="align-sub">{t("productsLink")}</span>
+              </div>
             </Link>
 
             {/* BLOG LINK */}
             <Link href={`/${locale}/blog`} className={twMerge(buttonClassname, "px-4 py-2 text-sm inline-flex items-center")}>
               <NewspaperIcon className="w-5 h-5 text-white mr-2" />
-              <span>{t("blogLink")}</span>
+              <div>
+                <span className="align-sub">{t("blogLink")}</span>
+              </div>
             </Link>
           </div>
           {/* Right-Side Icons */}
@@ -58,8 +62,8 @@ export default async function NavBar({ locale }: { locale: string }) {
             {/* LANGUAGE SELECTOR */}
             <LanguageSelector />
 
-            {/* PROFILE DROPDOWN */}
-            <Link href="/mon-compte/profil">
+            {/* PROFILE LINK */}
+            <Link href={`/${locale}/mon-compte/profil`}>
               <UserCircleIcon className={iconHeaderClassname} />
             </Link>
 

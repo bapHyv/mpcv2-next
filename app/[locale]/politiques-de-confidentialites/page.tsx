@@ -184,7 +184,7 @@ export default async function Page({ params: { locale } }: Params) {
       <h2>{t("privacyPolicy.cookies.title")}</h2>
 
       <p>
-        {t("privacyPolicy.cookies.introduction")} <Link href="/politique-cookies">{t("privacyPolicy.cookies.cookiePolicyLinkText")}</Link>
+        {t("privacyPolicy.cookies.introduction")} <Link href={`/${locale}/politique-cookies`}>{t("privacyPolicy.cookies.cookiePolicyLinkText")}</Link>
       </p>
       {/* Sub-section: Gestion du Consentement aux Cookies */}
 
