@@ -11,7 +11,7 @@ import SubmitButton from "@/app/components/SubmitButton";
 import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Star from "@/app/components/Star";
 import { inputClassname, labelClassname, checkRadioClassname, linkClassname } from "@/app/staticData/cartPageClasses";
 
@@ -41,6 +41,7 @@ const FormField = ({
 
 export default function SignUpForm() {
   const t = useTranslations("");
+  const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -253,7 +254,7 @@ export default function SignUpForm() {
           <div className="ml-3 text-sm leading-6">
             <label htmlFor="condition-generales" className="text-gray-700 cursor-pointer">
               {t("signUpPage.termsLabel")}{" "}
-              <Link href="/conditions-generales-de-vente" target="_blank" className={linkClassname}>
+              <Link href={`/${locale}/conditions-generales-de-vente`} target="_blank" className={linkClassname}>
                 {t("signUpPage.termsLink")}
               </Link>{" "}
               <Star />

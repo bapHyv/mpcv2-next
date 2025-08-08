@@ -54,7 +54,7 @@ export default async function Page({ params: { locale } }: Params) {
         </div>
         <p className="mt-8 text-center text-sm text-gray-500">
           {t("rememberPasswordPrompt")}
-          <Link href="/connexion" className={twMerge(linkClassname)}>
+          <Link href={`/${locale}/connexion`} className={twMerge(linkClassname)}>
             {t("loginLinkText")}
           </Link>
         </p>

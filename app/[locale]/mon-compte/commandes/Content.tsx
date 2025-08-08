@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
@@ -26,6 +26,7 @@ import { Order } from "@/app/types/profileTypes";
 export default function Content() {
   const t = useTranslations("orders");
   const { userData } = useAuth();
+  const locale = useLocale();
 
   const getStatusClass = (status: Order["status"]): string => {
     switch (status) {
@@ -79,12 +80,12 @@ export default function Content() {
         </div>
       ) : !userData.orders || userData.orders.length === 0 ? (
         <div className={twMerge(subtleSectionWrapperClassname, "text-center")}>
-          <p className="text-gray-600 mb-4">Vous n&apos;avez aucune commande passée.</p>
+          <p className="text-gray-600 mb-4">{t("noOrder")}</p>
           <Link
-            href="/fleurs-cbd"
+            href={`/${locale}/fleurs-cbd`}
             className="inline-flex items-center rounded-md border border-transparent bg-green px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-green focus:ring-offset-2"
           >
-            Consulter notre catalogue
+            {t("catalog")}
           </Link>
         </div>
       ) : (
@@ -132,7 +133,7 @@ export default function Content() {
               </div>
               {/* Optional: Add a link/button to view order details */}
               {/* <div className="mt-4 text-right">
-                           <Link href={`/mon-compte/commandes/${order.id}`} className="text-sm font-medium text-green hover:text-dark-green">
+                           <Link href={`/${locale}/mon-compte/commandes/${order.id}`} className="text-sm font-medium text-green hover:text-dark-green">
                                Voir détails →
                            </Link>
                        </div> */}

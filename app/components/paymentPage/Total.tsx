@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import { useMemo } from "react";
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import Title from "@/app/components/Title";
 import { useOrder } from "@/app/context/orderContext";
@@ -18,6 +18,7 @@ interface Props {
 
 export default function Total({ isPending, isError, retryInitPayment }: Props) {
   const t = useTranslations("");
+  const locale = useLocale();
   const { order } = useOrder();
 
   const isDisabled = useMemo(
@@ -60,7 +61,7 @@ export default function Total({ isPending, isError, retryInitPayment }: Props) {
       {/* Privacy Policy Text */}
       <p className="text-xs text-gray-600 my-4">
         {t("paymentPage.totalSummary.privacyPolicyText")}{" "}
-        <Link href="/politiques-de-confidentialites" target="_blank" className={linkClassname}>
+        <Link href={`/${locale}/politiques-de-confidentialites`} target="_blank" className={linkClassname}>
           {t("paymentPage.totalSummary.privacyPolicyLinkText")}
         </Link>
       </p>

@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { v4 as uuid } from "uuid";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import SubmitButton from "@/app/components/SubmitButton";
 import { useAuth } from "@/app/context/authContext";
@@ -23,6 +23,7 @@ export default function SignInForm() {
   const { addAlert } = useAlerts();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const locale = useLocale();
 
   useEffect(() => {
     if (!!searchParams.get("mail")) {
@@ -116,7 +117,7 @@ export default function SignInForm() {
             {t("signInPage.passwordLabel")}
           </label>
           <div className="text-sm">
-            <Link href="/mot-de-passe-oublie" className={linkClassname}>
+            <Link href={`/${locale}/mot-de-passe-oublie`} className={linkClassname}>
               {t("signInPage.forgotPasswordLink")}
             </Link>
           </div>

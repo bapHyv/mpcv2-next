@@ -24,7 +24,7 @@ import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 import useCleanUpAfterPayment from "@/app/hooks/useCleanUpAfterPayment";
 import { setItemWithExpiry } from "@/app/utils/temporaryStorage";
 import { useAlerts } from "@/app/context/alertsContext";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 export default function Page() {
@@ -45,6 +45,7 @@ export default function Page() {
   const { cart } = useProductsAndCart();
   const { handleCleanUpAfterPayment } = useCleanUpAfterPayment();
   const router = useRouter();
+  const locale = useLocale();
 
   const shouldReturn = useMemo(() => {
     return paymentRouteGuard(order);
@@ -211,7 +212,7 @@ export default function Page() {
 
       <div className="mb-6">
         <Link
-          href={"/expedition"}
+          href={`/${locale}/expedition`}
           className={twMerge(clsx(buttonClassname, "bg-white text-neutral-700 border border-neutral-300 hover:bg-neutral-50", "px-3 py-1.5 text-sm"))}
         >
           <ArrowLeftIcon className="h-4 w-4 mr-1.5" aria-hidden="true" />

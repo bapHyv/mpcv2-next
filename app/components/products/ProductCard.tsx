@@ -77,7 +77,7 @@ export default async function ProductCard({
         )}
       >
         <div className="relative mb-3">
-          <Link href={`/${category}/${slug}`} className="block">
+          <Link href={`/${locale}/${category}/${slug}`} className="block">
             <div
               className={clsx("relative w-full overflow-hidden rounded-md bg-gray-100", "aspect-w-1 aspect-h-1", isOutOfStock ? "opacity-65" : "")}
             >
@@ -95,7 +95,7 @@ export default async function ProductCard({
             {isOutOfStock ? (
               <span className={twMerge(statusBadgeBase, "bg-red-100 text-red-800")}>{t("outOfStock")}</span>
             ) : isPromo ? (
-              <Link href={`/${category}/${slug}`}>
+              <Link href={`/${locale}/${category}/${slug}`}>
                 <span className={twMerge(statusBadgeBase, "bg-green text-white animate-tada cursor-pointer")}>{t("promo")}</span>
               </Link>
             ) : null}

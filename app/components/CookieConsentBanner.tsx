@@ -52,7 +52,7 @@ export default function CookieConsentBanner() {
           <p id="cookie-consent-description">
             {/* Use dangerouslySetInnerHTML if your translation includes the link directly */}
             {t("description")}{" "}
-            <Link href="/politique-cookies" className={linkClassname}>
+            <Link href={`/${locale}/politique-cookies`} className={linkClassname}>
               {t("link")}
             </Link>
             .

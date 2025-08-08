@@ -45,7 +45,7 @@ export default async function Page({ params: { locale } }: Params) {
     <div className="flex min-h-screen flex-1 flex-col items-center px-6 py-12 lg:px-8 bg-gray-50">
       <div className="w-full sm:max-w-md">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm mb-8">
-          <Image alt={t("logoAlt")} width={50} height={50} src={`/canna-vert.png`} className="mx-auto h-12 w-auto" />
+          <Image alt={t("logoAlt")} width={64} height={64} src={`/logo_fleur_verte_souligne_noir.png`} className="mx-auto h-16 w-auto" />
           <h1 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{t("h1")}</h1>
         </div>
         {/* Form Section */}
@@ -55,7 +55,7 @@ export default async function Page({ params: { locale } }: Params) {
           {/* Sign Up Link */}
           <p className="mt-8 text-center text-sm text-gray-500">
             {t("signUpPrompt")}{" "}
-            <Link href="/inscription" className={twMerge(linkClassname)}>
+            <Link href={`/${locale}/inscription`} className={twMerge(linkClassname)}>
               {t("signUpLink")}
             </Link>
           </p>

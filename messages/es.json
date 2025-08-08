@@ -1764,6 +1764,8 @@
   },
   "orders": {
     "title": "Mis pedidos",
+    "noOrder": "No tienes pedidos realizados.",
+    "catalog": "Ver nuestro catálogo",
     "order": {
       "date": "Fecha",
       "orderNumber": "Pedido n°",
@@ -2116,6 +2118,8 @@
   },
   "paymentPage": {
     "metadataTitle": "Pago - MonPlanCBD",
+    "finalizing": "Finalizando su pedido...",
+    "return": "Volver al envío",
     "totalSummary": {
       "title": "Resumen Final",
       "totalAmountLabel": "Importe total a pagar:",
