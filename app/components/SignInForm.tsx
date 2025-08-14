@@ -19,7 +19,7 @@ export default function SignInForm() {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
 
-  const { setUserData } = useAuth();
+  const { loginAndSetUser } = useAuth();
   const { addAlert } = useAlerts();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -77,7 +77,7 @@ export default function SignInForm() {
       if (!Array.isArray(userData.addresses)) {
         userData.addresses = [];
       }
-      setUserData(userData);
+      loginAndSetUser(userData);
       addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
 
       const redirect = searchParams.get("redirect");

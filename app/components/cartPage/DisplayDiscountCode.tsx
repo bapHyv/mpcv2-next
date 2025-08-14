@@ -44,7 +44,6 @@ export default function DisplayDiscountCode() {
   };
 
   useEffect(() => {
-    console.log(publicDiscountCode);
     if (
       sseData?.coupons && // Check if coupons data exists
       publicDiscountCode && // Check if input has value
