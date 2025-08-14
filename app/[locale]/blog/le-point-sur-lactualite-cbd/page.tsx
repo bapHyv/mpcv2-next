@@ -1,3 +1,7 @@
+export async function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "en" }, { locale: "es" }];
+}
+
 export default function Page() {
   return (
     <article>

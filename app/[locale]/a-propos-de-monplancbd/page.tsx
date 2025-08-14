@@ -4,6 +4,10 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 
+export async function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "en" }, { locale: "es" }];
+}
+
 interface GenerateMetadataParams {
   params: { locale: string };
 }

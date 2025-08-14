@@ -6,6 +6,10 @@ interface GenerateMetadataParams {
   params: { locale: string };
 }
 
+export async function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "en" }, { locale: "es" }];
+}
+
 export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
   const { locale } = params;
   const t = await getTranslations({ locale, namespace: "" });
@@ -71,7 +75,6 @@ export default async function Page({ params: { locale } }: Params) {
           }),
         }}
       />
-
       {/* Legal Information List */}
       <ul className="list-none space-y-2 my-4">
         <li>
@@ -132,7 +135,6 @@ export default async function Page({ params: { locale } }: Params) {
           {/* Note: Adjust href="/${locale}/conditions-generales-de-vente" if your GTC page slug is different */}
         </li>
       </ul>
-
       {/* H2: 2. Administration du Site */}
       <h2>{t("section2.title")}</h2>
       <ul className="list-none space-y-2 my-4">
@@ -167,7 +169,6 @@ export default async function Page({ params: { locale } }: Params) {
           </li>
         )}
       </ul>
-
       {/* H2: 3. Hébergement du Site */}
       <h2>{t("section3.title")}</h2>
       <p>{t("section3.intro")}</p>
@@ -193,12 +194,10 @@ export default async function Page({ params: { locale } }: Params) {
           <p>{t("section3.item_hostContact.value")}</p>
         </li>
       </ul>
-
       {/* H2: 4. Propriété Intellectuelle */}
       <h2>{t("section4.title")}</h2>
       <p>{t("section4.para1")}</p>
       <p>{t("section4.para2")}</p>
-
       {/* H2: 5. Protection des Données Personnelles */}
       <h2>{t("section5.title")}</h2>
       <p
@@ -212,18 +211,14 @@ export default async function Page({ params: { locale } }: Params) {
       />
       <p>{t("section5.para2_rights_summary")}</p>
       {/* Note: Adjust href="/${locale}/politiques-de-confidentialites" if slug differs */}
-
       {/* H2: 6. Utilisation des Cookies */}
       <h2>{t("section6.title")}</h2>
-      <p
-        dangerouslySetInnerHTML={{
-          __html: t("section6.para1", {
-            privacyPolicyLink: `<a href="/${locale}/politiques-de-confidentialites" class="${linkClassname}">${t(
-              "section6.cookiePolicyLinkText"
-            )}</a>`,
-          }),
-        }}
-      />
+      <p>
+        {t("section6.para1")}
+        <a href={`/${locale}/politiques-de-confidentialites`} className={`${linkClassname}`}>
+          {t("section6.cookiePolicyLinkText")}
+        </a>
+      </p>
       <p>{t("section6.para2_definition")}</p>
       <p>{t("section6.para3_management_intro")}</p>
       <ul className="list-disc list-inside my-4 space-y-1">
@@ -262,21 +257,17 @@ export default async function Page({ params: { locale } }: Params) {
         }}
       />
       {/* Note: Assuming cookie details are in Privacy Policy */}
-
       {/* H2: 7. Liens Hypertextes */}
       <h2>{t("section7.title")}</h2>
       <p>{t("section7.para1")}</p>
       <p>{t("section7.para2")}</p>
-
       {/* H2: 8. Limitation de Responsabilité */}
       <h2>{t("section8.title")}</h2>
       <p>{t("section8.para1")}</p>
       <p>{t("section8.para2")}</p>
-
       {/* H2: 9. Droit Applicable et Juridiction */}
       <h2>{t("section9.title")}</h2>
       <p>{t("section9.para1")}</p>
-
       {/* H2: 10. Date de Mise à Jour */}
       <h2>{t("section10.title")}</h2>
       <p>{t("section10.para1", { updateDate: "12/05/2025" })}</p>

@@ -492,8 +492,8 @@
     },
     "section6": {
       "title": "6. Utilisation des Cookies",
-      "para1": "Le site www.monplancbd.fr utilise des cookies pour assurer son bon fonctionnement, améliorer votre expérience de navigation et réaliser des statistiques de visite. En continuant à naviguer sur ce site, vous acceptez l'utilisation de ces cookies, sauf si vous les avez désactivés dans les paramètres de votre navigateur. Pour plus d'informations sur les cookies que nous utilisons et sur la manière de gérer vos préférences, veuillez consulter la section dédiée dans notre {privacyPolicyLink}.",
-      "cookiePolicyLinkText": "Politique de Cookies",
+      "para1": "Le site www.monplancbd.fr utilise des cookies pour assurer son bon fonctionnement, améliorer votre expérience de navigation et réaliser des statistiques de visite. En continuant à naviguer sur ce site, vous acceptez l'utilisation de ces cookies, sauf si vous les avez désactivés dans les paramètres de votre navigateur. Pour plus d'informations sur les cookies que nous utilisons et sur la manière de gérer vos préférences, veuillez consulter la section dédiée dans notre ",
+      "cookiePolicyLinkText": "politique de Cookies",
       "para2_definition": "Un cookie est un petit fichier texte stocké sur votre terminal (ordinateur, tablette, smartphone) lors de la visite d'un site. Il permet au site de reconnaître votre appareil et de se souvenir de certaines informations concernant votre visite, telles que vos préférences ou vos actions au fil du temps.",
       "para3_management_intro": "Vous pouvez gérer ou désactiver les cookies par l'intermédiaire des paramètres de votre navigateur. Voici des liens vers les instructions des navigateurs courants :",
       "browser_settings": {

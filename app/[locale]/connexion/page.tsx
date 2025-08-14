@@ -8,6 +8,10 @@ import { twMerge } from "tailwind-merge";
 import SignInForm from "@/app/components/SignInForm";
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 
+export async function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "en" }, { locale: "es" }];
+}
+
 interface Params {
   params: {
     locale: string;

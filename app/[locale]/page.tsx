@@ -34,6 +34,10 @@ interface GenerateMetadataParams {
   };
 }
 
+export async function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "en" }, { locale: "es" }];
+}
+
 export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
   const { locale } = params;
   const t = await getTranslations({ locale });

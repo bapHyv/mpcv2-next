@@ -1,7 +1,10 @@
 import { linkClassname } from "@/app/staticData/cartPageClasses";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
-// import FaqContent from './Content';
+
+export async function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "en" }, { locale: "es" }];
+}
 
 interface GenerateMetadataParams {
   params: { locale: string };
