@@ -16,7 +16,7 @@ import ReviewForm from "@/app/components/productPage/ReviewForm";
 // import Timer from "@/app/components/Timer";
 import ProductImageGallery from "@/app/components/productPage/ProductImageGallery";
 
-import { Analyse, Cannabinoids, Product, Terpenes } from "@/app/types/productsTypes";
+import { Analyse, Cannabinoids, Product, Terpenes, APIResponse } from "@/app/types/productsTypes";
 import { terpenesToColor } from "@/app/utils/terpenesToColor";
 import { findHighestOption, returnRenamedGrowingMethod } from "@/app/utils/productFunctions";
 // TODO: UNCOMMENT THIS
@@ -30,6 +30,40 @@ interface Params {
     category: string;
     productSlug: string;
   };
+}
+
+export async function generateStaticParams() {
+  const locales = ["fr", "en", "es"];
+  const allParams: { locale: string; category: string; productSlug: string }[] = [];
+
+  try {
+    const response = await fetch(`${process.env.API_HOST}/products`);
+    if (!response.ok) {
+      console.error(`[Static Generation] Failed to fetch products. Status: ${response.status}`);
+      return [];
+    }
+
+    const data: APIResponse<Product> = await response.json();
+
+    const products: Product[] = Object.values(data.products).filter(Boolean);
+
+    for (const product of products) {
+      if (product && product.slug && product.category) {
+        for (const locale of locales) {
+          allParams.push({
+            locale: locale,
+            category: product.category,
+            productSlug: product.slug,
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.error("[Static Generation] An error occurred while generating product params:", error);
+    return [];
+  }
+
+  return allParams;
 }
 
 async function getProductDataForMeta(productSlug: string): Promise<Product | null> {
@@ -64,7 +98,7 @@ export async function generateMetadata({ params: { category: categorySlug, local
   const productName = product.name;
   const shortDescription = product.shortDescription;
 
-  const representativePrice = Object.entries(product.prices)[0][1].price;
+  const representativePrice = !!Object.entries(product.prices).length ? Object.entries(product.prices)[0][1].price : "";
 
   const stockStatus = product.stock && parseInt(product.stock, 10) > 0 ? "instock" : "outofstock";
 

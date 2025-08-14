@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 
 import Star from "@/app/components/Star";
 import Title from "@/app/components/Title";
-import ParcelPointMapComponent from "@/app/components/shippingPage/ParcelPointMapComponent";
 import { useSse } from "@/app/context/sseContext";
 import { useOrder } from "@/app/context/orderContext";
 import { useProductsAndCart } from "@/app/context/productsAndCartContext";

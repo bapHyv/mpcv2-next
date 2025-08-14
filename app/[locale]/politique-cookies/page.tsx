@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { linkClassname } from "@/app/staticData/cartPageClasses"; // For styling links
+import { linkClassname } from "@/app/staticData/cartPageClasses";
 
 interface GenerateMetadataParams {
   params: { locale: string };
 }
 
-// Metadata Generation (Similar to other static pages)
+export async function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "en" }, { locale: "es" }];
+}
+
 export async function generateMetadata({ params }: GenerateMetadataParams): Promise<Metadata> {
   const { locale } = params;
-  const t = await getTranslations({ locale, namespace: "" }); // Namespace for this page
+  const t = await getTranslations({ locale, namespace: "" });
   const siteBaseUrl = process.env.MAIN_URL || "https://www.monplancbd.fr";
 
   const title = t("cookiePolicy.metadata.title");
@@ -21,7 +24,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
     alternates: {
       canonical: `${siteBaseUrl}/${locale}/politique-cookies`,
       languages: {
-        // Add alternates for other languages
         "fr-FR": `${siteBaseUrl}/fr/politique-cookies`,
         "en-US": `${siteBaseUrl}/en/politique-cookies`,
         "es-ES": `${siteBaseUrl}/es/politique-cookies`,
@@ -29,7 +31,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       },
     },
     robots: {
-      // Discourage indexing unless you specifically want it indexed
       index: false,
       follow: true,
       googleBot: {
@@ -45,7 +46,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
       title: title,
       description: description,
       url: `${siteBaseUrl}/${locale}/politique-cookies`,
-      siteName: t("global.brandName"), // Assuming global namespace for brand name
+      siteName: t("global.brandName"),
       images: [{ url: `${siteBaseUrl}/og-image-default.png`, width: 1200, height: 630, alt: "MonPlanCBD" }],
       locale: locale.replace("-", "_"),
       type: "article",
@@ -59,7 +60,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   };
 }
 
-// Page Component
 export default async function CookiePolicyPage({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: "cookiePolicy" });
 

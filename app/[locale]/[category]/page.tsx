@@ -9,7 +9,6 @@ import { APIResponse, categories as ICategories, Product } from "@/app/types/pro
 import Title from "@/app/components/Title";
 import { doesCategoryExists, findSlug, findTitle } from "@/app/utils/productFunctions";
 import ProductCard from "@/app/components/products/ProductCard";
-import ProductCardSkeleton from "@/app/components/products/ProductCardSkeleton";
 import OtherNavbar from "@/app/components/OtherNavbar";
 import Separator from "@/app/components/Separator";
 import { buttonClassname, linkClassname, subtleSectionWrapperClassname, titleClassname } from "@/app/staticData/cartPageClasses";
@@ -19,6 +18,21 @@ interface Params {
     locale: string;
     category: string;
   };
+}
+
+export async function generateStaticParams() {
+  const locales = ["fr", "en", "es"];
+  const categories = await getCategories("en");
+  const categorySlugs = categories.map((cat) => cat.slug);
+
+  const params = locales.flatMap((locale) =>
+    categorySlugs.map((category) => ({
+      locale,
+      category,
+    }))
+  );
+
+  return params;
 }
 
 async function getCategories(locale: string): Promise<ICategories> {

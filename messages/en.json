@@ -589,8 +589,8 @@
     },
     "section6": {
       "title": "6. Use of Cookies",
-      "para1": "The www.monplancbd.fr site uses cookies to ensure its proper functioning, improve your browsing experience, and compile visit statistics. By continuing to browse this site, you accept the use of these cookies, unless you have disabled them in your browser settings. For more information on the cookies we use and how to manage your preferences, please consult the dedicated section in our {cookiePolicyLink}.",
-      "cookiePolicyLinkText": "Cookie Policy",
+      "para1": "The www.monplancbd.fr site uses cookies to ensure its proper functioning, improve your browsing experience, and compile visit statistics. By continuing to browse this site, you accept the use of these cookies, unless you have disabled them in your browser settings. For more information on the cookies we use and how to manage your preferences, please consult the dedicated section in our ",
+      "cookiePolicyLinkText": "cookie Policy",
       "para2_definition": "A cookie is a small text file stored on your device (computer, tablet, smartphone) when you visit a website. It allows the site to recognize your device and remember certain information about your visit, such as your preferences or actions over time.",
       "para3_management_intro": "You can manage or disable cookies through your browser settings. Below are links to instructions for common browsers:",
       "browser_settings": {

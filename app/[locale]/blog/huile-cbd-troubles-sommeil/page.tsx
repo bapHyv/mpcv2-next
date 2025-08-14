@@ -1,6 +1,11 @@
 interface Params {
   locale: string;
 }
+
+export async function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "en" }, { locale: "es" }];
+}
+
 export default function Page({ params }: { params: Params }) {
   const { locale } = params;
   return (
