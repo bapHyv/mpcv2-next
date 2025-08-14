@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction, useCallback } from "react";
 import { v4 as uuid } from "uuid";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -64,9 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userData]);
 
-  useEffect(() => {
-    // Prevent triggering the modale in the payment process. It can happen when the user is already subscribed, isn't logged in
-    // then log in before payment.
+  const handleCartConflict = useCallback((newUserData: UserDataAPIResponse) => {
     if (
       pathname.includes("panier") ||
       pathname.includes("expedition") ||
@@ -77,69 +75,70 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     )
       return;
 
-    if (userData) {
-      const localCartHasItems = localCart.products && localCart.products.length > 0;
-      const remoteCart: { total: number; products: ProductCart[] } | null = JSON.parse(userData.cartBkp || "null");
+    const localCartHasItems = localCart.products && localCart.products.length > 0;
+    const remoteCart: { total: number; products: ProductCart[] } | null = JSON.parse(newUserData.cartBkp || "null");
+    // If no remote cart, no need to compute anything, just keep the localCart
+    if (!remoteCart || remoteCart.products.length === 0) return;
+    // Check if cartBkp has products that don't exist or not enough stock
+    if (remoteCart && remoteCart.products.length > 0 && sseData) {
+      remoteCart.products = remoteCart.products.filter((product) => {
+        if (!(product.id in sseData.stocks)) {
+          return false;
+        } else if (product.quantity * parseInt(product.option, 10) > sseData.stocks[product.id]) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+    }
+    const remoteHasItems = remoteCart && remoteCart.products.length > 0;
 
-      // If no remote cart, no need to compute anything, just keep the localCart
-      if (!remoteCart) return;
-      if (remoteCart.products.length === 0) return;
+    // Has to remove cartItemId to compare the products. The cartItemId is a uuid, making each product unique.
+    // For example, 1g of MIX SMALL BUD in one cart, will be different from 1g of MIX SMALL BUD in an other cart because of its id.
+    // This is the reason why the cartItemIds have to be removed to compare the carts.
+    const areCartsDifferent = (() => {
+      const normalizeCart = (cart: { products: ProductCart[] } | null) => {
+        if (!cart || !cart.products) return null;
 
-      // Check if cartBkp has products that don't exist or not enough stock
-      if (remoteCart && remoteCart.products.length > 0 && sseData) {
-        remoteCart.products = remoteCart.products.filter((product) => {
-          if (!(product.id in sseData.stocks)) {
-            return false;
-          } else if (product.quantity * parseInt(product.option, 10) > sseData.stocks[product.id]) {
-            return false;
-          } else {
-            return true;
+        // 1. Deep copy to avoid mutating the original state
+        const cartCopy = JSON.parse(JSON.stringify(cart));
+
+        // 2. Sort the products array by ID and then by option for consistency
+        cartCopy.products.sort((a: ProductCart, b: ProductCart) => {
+          if (a.id !== b.id) {
+            return a.id - b.id;
           }
+          return a.option.localeCompare(b.option);
         });
-      }
 
-      const remoteHasItems = remoteCart && remoteCart.products.length > 0;
+        // 3. Remove the client-specific `cartItemId` from each product
+        cartCopy.products.forEach((p: any) => delete p.cartItemId);
 
-      // Has to remove cartItemId to compare the products. The cartItemId is a uuid, making each product unique.
-      // For example, 1g of MIX SMALL BUD in one cart, will be different from 1g of MIX SMALL BUD in an other cart because of its id.
-      // This is the reason why the cartItemIds have to be removed to compare the carts.
-      const areCartsDifferent = (() => {
-        const normalizeCart = (cart: { products: ProductCart[] } | null) => {
-          if (!cart || !cart.products) return null;
+        return cartCopy;
+      };
 
-          // 1. Deep copy to avoid mutating the original state
-          const cartCopy = JSON.parse(JSON.stringify(cart));
+      const normalizedLocal = normalizeCart(localCart);
+      const normalizedRemote = normalizeCart(remoteCart);
+      // 4. Compare the stringified versions of the normalized objects
+      return JSON.stringify(normalizedLocal) !== JSON.stringify(normalizedRemote);
+    })();
 
-          // 2. Sort the products array by ID and then by option for consistency
-          cartCopy.products.sort((a: ProductCart, b: ProductCart) => {
-            if (a.id !== b.id) {
-              return a.id - b.id;
-            }
-            return a.option.localeCompare(b.option);
-          });
-
-          // 3. Remove the client-specific `cartItemId` from each product
-          cartCopy.products.forEach((p: any) => delete p.cartItemId);
-
-          return cartCopy;
-        };
-
-        const normalizedLocal = normalizeCart(localCart);
-        const normalizedRemote = normalizeCart(remoteCart);
-
-        // 4. Compare the stringified versions of the normalized objects
-        return JSON.stringify(normalizedLocal) !== JSON.stringify(normalizedRemote);
-      })();
-
-      if (!localCartHasItems && remoteHasItems) {
-        setCart(remoteCart);
-      } else if (areCartsDifferent) {
-        setConflictingData({ cartBkp: JSON.stringify(remoteCart) });
-        setIsConflictModalVisible(true);
-      }
+    if (!localCartHasItems && remoteHasItems) {
+      setCart(remoteCart);
+    } else if (areCartsDifferent) {
+      setConflictingData({ cartBkp: JSON.stringify(remoteCart) });
+      setIsConflictModalVisible(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData]);
+  }, []);
+
+  const loginAndSetUser = useCallback(
+    (newUserData: UserDataAPIResponse) => {
+      setUserData(newUserData);
+      handleCartConflict(newUserData);
+    },
+    [handleCartConflict]
+  );
 
   useEffect(() => {
     const fetchInitialSession = async () => {
@@ -220,6 +219,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         isLoggingOut,
         isAuthLoading,
         referralToken,
+        loginAndSetUser,
       }}
     >
       {conflictingData && (
