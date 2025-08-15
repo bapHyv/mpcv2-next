@@ -26,7 +26,7 @@ import {
 
 import { APIResponse, Product } from "@/app/types/productsTypes";
 import { linkClassname, titleClassname as baseTitleClassname } from "@/app/staticData/cartPageClasses";
-import Image from "next/image";
+import TrustpilotScore from "@/app/components/homepage/TrustpilotScore";
 
 interface GenerateMetadataParams {
   params: {
@@ -272,18 +272,15 @@ export default async function HomePage({ params }: Params) {
       </section>
 
       {/* 2. Trust Pilot */}
-      <section aria-labelledby="trustpilot">
-        <div className="w-32 m-auto flex flex-col justify-center items-center">
-          <Link href="https://fr.trustpilot.com/review/monplancbd.fr?utm_medium=trustbox&utm_source=MicroReviewCount" target="_blank">
-            <Image src="/trustpilot.png" alt="trustpilot link monplancbd" width={1544} height={700} className="h-36 object-contain" />
-          </Link>
-        </div>
+      <section aria-labelledby="trustpilot-heading" className="px-4 mt-8">
+        <h2 id="trustpilot-heading" className="sr-only">
+          {t("homepage.trustpilotSR")}
+        </h2>
+        <TrustpilotScore />
       </section>
 
-      <Separator classname="m-0 mb-8" />
-
       {/* 3. Featured Flowers Section */}
-      <section aria-labelledby="featured-flowers-heading" className="mb-8 md:mb-12">
+      <section aria-labelledby="featured-flowers-heading" className="my-8 md:my-12">
         <Title type="h2" title={t("homepage.featuredFlowersTitle")} classname={sectionTitleClassname} id="featured-flowers-heading" />
 
         {/* Introductory Text for Flowers */}
