@@ -2,12 +2,14 @@ export interface SSEDataAPIResponse {
   stocks: Record<string, string | null>;
   coupons: { allData: Record<string, DiscountCode>; limitedData: Record<string, DiscountCode> };
   shippingMethods: ShippingMethods;
+  trustpilot: { score: string; reviewsCnt: string };
 }
 
 export interface SSEData {
   stocks: Record<string, number>;
   coupons: Record<string, DiscountCode>;
   shippingMethods: ShippingMethods;
+  trustpilot: { score: string; reviewsCnt: string };
 }
 
 export type discountType = "percent" | "fixed_cart" | "fixed_product";

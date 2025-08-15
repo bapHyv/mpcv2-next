@@ -150,7 +150,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
           if (responseText && responseText !== "null") {
             const fetchedUserData: UserDataAPIResponse = JSON.parse(responseText);
-            setUserData(fetchedUserData);
+            loginAndSetUser(fetchedUserData);
           } else {
             setUserData(null);
             cleanUpLocalStorageUserRelated();

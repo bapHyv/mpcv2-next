@@ -8,6 +8,8 @@ const intlMiddleware = createIntlMiddleware({
   defaultLocale: "fr",
 });
 
+// client => middleware => backend/api-route => api-mpc
+
 export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   let modifiedRequest = request;
@@ -16,7 +18,6 @@ export function middleware(request: NextRequest) {
     requestHeaders.delete("origin");
 
     // Create a new request object with the modified headers.
-    // We clone the URL and copy other essential properties.
     modifiedRequest = new NextRequest(request.nextUrl.clone(), {
       headers: requestHeaders,
       method: request.method,
