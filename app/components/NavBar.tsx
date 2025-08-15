@@ -45,7 +45,7 @@ export default async function NavBar({ locale }: { locale: string }) {
             <Link href={`/${locale}/fleurs-cbd`} className={twMerge(buttonClassname, "px-4 py-2 text-sm inline-flex items-center")}>
               <Image src="/canna-blanc.png" alt={t("cbdLogoAlt")} height={20} width={20} className="mr-2" />
               <div>
-                <span className="align-sub">{t("productsLink")}</span>
+                <span>{t("productsLink")}</span>
               </div>
             </Link>
 
@@ -53,7 +53,7 @@ export default async function NavBar({ locale }: { locale: string }) {
             <Link href={`/${locale}/blog`} className={twMerge(buttonClassname, "px-4 py-2 text-sm inline-flex items-center")}>
               <NewspaperIcon className="w-5 h-5 text-white mr-2" />
               <div>
-                <span className="align-sub">{t("blogLink")}</span>
+                <span>{t("blogLink")}</span>
               </div>
             </Link>
           </div>

@@ -176,7 +176,7 @@ export default function Cart() {
                         >
                           <TrashIcon className={iconClassname} />
                           <div>
-                            <span className="align-sub">{t("alerts.cart.emptyCartButton")}</span>
+                            <span>{t("alerts.cart.emptyCartButton")}</span>
                           </div>
                         </button>
                       </div>
