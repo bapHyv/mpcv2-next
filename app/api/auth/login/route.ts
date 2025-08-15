@@ -4,6 +4,7 @@ import { UserDataAPIResponse } from "@/app/types/profileTypes";
 
 export async function POST(request: Request) {
   try {
+    const userAgent = request.headers.get("user-agent") || "";
     const body = await request.json();
     const { username, password } = body;
 
@@ -13,7 +14,7 @@ export async function POST(request: Request) {
 
     const response = await fetch(`${process.env.API_HOST}/login`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "user-agent": userAgent },
       body: JSON.stringify({ username, password }),
     });
 

@@ -17,6 +17,8 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
 
   const { addAlert } = useAlerts();
 
+  console.log(sseData);
+
   useEffect(() => {
     const fetchSSEData = async () => {
       const response = await fetch(baseUrl);
@@ -33,6 +35,7 @@ export function SseProvider({ children }: { children: ReactNode }): JSX.Element 
         stocks: transformedStocks,
         coupons: data.coupons.allData,
         shippingMethods: data.shippingMethods,
+        trustpilot: data.trustpilot,
       };
 
       setSseData(sseData);
