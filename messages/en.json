@@ -300,6 +300,13 @@
     }
   },
   "homepage": {
+    "trustpilotSR": "Our customer ratings on Trustpilot",
+    "trustpilotScore": "TrustScore",
+    "trustpilotOutOf": "out of",
+    "trustpilotBasedOn": "based on",
+    "reviews": "reviews",
+    "trustpilotAlt": "Trustpilot Logo",
+    "trustpilotAriaLabel": "View our Trustpilot profile. Current score is {score} out of 5 based on {count} reviews.",
     "seoH1": "Buy Premium Quality CBD in France 🇫🇷 - Flowers 🌿, Oils 💧, Resins ✨ | MonPlanCBD",
     "heroSR": "MonPlanCBD Special Offers ✨ and New CBD Arrivals 🎉",
     "categoriesTitle": "Explore Our CBD Worlds 🪐",
