@@ -3,6 +3,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { ArrowPathIcon, ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuid } from "uuid";
@@ -21,6 +22,8 @@ import {
   buttonClassname,
   checkRadioClassname,
   titleClassname as baseTitleClassname,
+  commonClasses,
+  iconClassname,
 } from "@/app/staticData/cartPageClasses";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import { IActionResponse } from "@/app/types/apiTypes";
@@ -58,6 +61,7 @@ export default function Profile() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoggingOut, setIsloggingOut] = useState(false);
   const [actionResponse, setActionResponse] = useState<IActionResponse>({
     message: "",
     data: null,
@@ -77,7 +81,7 @@ export default function Profile() {
 
   const { fetchWrapper } = useFetchWrapper();
   const t = useTranslations();
-  const { userData, setUserData } = useAuth();
+  const { userData, setUserData, logout } = useAuth();
   const { addAlert } = useAlerts();
 
   const scrollToTop = () => {
@@ -165,6 +169,11 @@ export default function Profile() {
         statusCode: 500,
       });
     }
+  };
+
+  const handleLogout = () => {
+    setIsloggingOut(true);
+    logout();
   };
 
   useEffect(() => {
@@ -422,7 +431,7 @@ export default function Profile() {
             </fieldset>
 
             {/* --- Buttons Section --- */}
-            <div className="mt-10 pt-6 border-t border-gray-200 flex justify-end gap-x-3">
+            <div className={clsx("mt-10 pt-6 border-t border-gray-200 flex gap-x-3", isUpdating ? "justify-end" : "justify-center")}>
               {isUpdating ? (
                 <>
                   {/* Cancel Button */}
@@ -450,6 +459,34 @@ export default function Profile() {
               )}
             </div>
           </form>
+        </div>
+      )}
+
+      {!userData ? null : (
+        <div className="flex justify-center mt-8 my-4">
+          <button
+            type="button"
+            onClick={handleLogout}
+            className={twMerge(
+              clsx(
+                commonClasses,
+                "md:hidden font-medium text-sm px-6 py-2 bg-red-600 disabled:bg-neutral-400 disabled:opacity-70 disabled:cursor-not-allowed"
+              )
+            )}
+            disabled={isLoggingOut}
+          >
+            {isLoggingOut ? (
+              <>
+                <ArrowPathIcon className="animate-spin h-5 w-5 mr-2" aria-hidden="true" />
+                {t("forms.pendingText")}
+              </>
+            ) : (
+              <>
+                <ArrowLeftEndOnRectangleIcon className={twMerge(iconClassname)} />
+                <span>{t("navbar.logout")}</span>
+              </>
+            )}
+          </button>
         </div>
       )}
     </div>

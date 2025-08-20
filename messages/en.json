@@ -1647,10 +1647,10 @@
       "french": "French"
     },
     "openUserMenuSR": "Open user menu",
-    "info": "My Profile",
-    "addresses": "My Addresses",
-    "orders": "My Orders",
-    "fidelity": "Loyalty & Referral",
+    "info": "Profile",
+    "addresses": "Addresses",
+    "orders": "Orders",
+    "fidelity": "Loyalty",
     "logout": "Log Out",
     "login": "Log In",
     "register": "Sign Up"
@@ -1986,6 +1986,9 @@
       "selectCountryText": "Please select a delivery country in the address above to see options."
     },
     "addressForm": {
+      "accountSectionLegend": "Account Information",
+      "passwordLabel": "Password",
+      "accountInfoHelpText": "If you already have an account, we will log you in. Otherwise, an account will be created for you with this email and password.",
       "shippingTitle": "Shipping Address",
       "billingTitle": "Billing Address",
       "personalInfoLegend": "Personal Information",

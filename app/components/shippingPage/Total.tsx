@@ -16,7 +16,7 @@ import { useProductsAndCart } from "@/app/context/productsAndCartContext";
 export default function Total({ isPending }: { isPending: boolean }) {
   const t = useTranslations("");
   const locale = useLocale();
-  const { order, setOrder } = useOrder();
+  const { order } = useOrder();
   const { userData } = useAuth();
   const { cart } = useProductsAndCart();
 

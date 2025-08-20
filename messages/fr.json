@@ -1547,10 +1547,10 @@
       "french": "Français"
     },
     "openUserMenuSR": "Ouvrir le menu utilisateur",
-    "info": "Mon Profil",
-    "addresses": "Mes Adresses",
-    "orders": "Mes Commandes",
-    "fidelity": "Fidélité & Parrainage",
+    "info": "Profil",
+    "addresses": "Adresses",
+    "orders": "Commandes",
+    "fidelity": "Fidélité",
     "logout": "Déconnexion",
     "login": "Connexion",
     "register": "Inscription"
@@ -1897,6 +1897,9 @@
       "selectCountryText": "Veuillez sélectionner un pays de livraison dans l'adresse ci-dessus pour voir les options."
     },
     "addressForm": {
+      "accountSectionLegend": "Informations de Compte",
+      "passwordLabel": "Mot de passe",
+      "accountInfoHelpText": "Si vous avez déjà un compte, nous vous connecterons. Sinon, un compte sera créé pour vous avec cet e-mail et ce mot de passe.",
       "shippingTitle": "Adresse de Livraison",
       "billingTitle": "Adresse de Facturation",
       "personalInfoLegend": "Informations Personnelles",
