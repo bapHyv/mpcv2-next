@@ -48,8 +48,7 @@ const FormField = ({
     {children}
 
     {helpText && (
-      <p className={twMerge("mt-1 text-xs text-gray-500 flex gap-x-1", helpTextClassname)}>
-        {hasInfo && <InformationCircleIcon className="h-fit w-10 text-blue-600" />}
+      <p className={twMerge("mt-1 text-xs text-gray-500 flex items-start gap-x-1", hasInfo && "info-icon", helpTextClassname)}>
         <span className="mt-1">{helpText}</span>
       </p>
     )}
