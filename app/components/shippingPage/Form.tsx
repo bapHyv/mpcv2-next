@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { EyeIcon, EyeSlashIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 
 import Star from "@/app/components/Star";
 import Title from "@/app/components/Title";
@@ -27,6 +27,8 @@ const FormField = ({
   required,
   children,
   helpText,
+  helpTextClassname,
+  hasInfo,
   className,
 }: {
   id: string;
@@ -34,6 +36,8 @@ const FormField = ({
   required?: boolean;
   children: React.ReactNode;
   helpText?: string;
+  helpTextClassname?: string;
+  hasInfo?: boolean;
   className?: string;
 }) => (
   <div className={twMerge("mb-4", className)}>
@@ -42,7 +46,13 @@ const FormField = ({
       {label} {required && <Star />}
     </label>
     {children}
-    {helpText && <p className="mt-1 text-xs text-gray-500">{helpText}</p>}
+
+    {helpText && (
+      <p className={twMerge("mt-1 text-xs text-gray-500 flex gap-x-1", helpTextClassname)}>
+        {hasInfo && <InformationCircleIcon className="h-fit w-10 text-blue-600" />}
+        <span className="mt-1">{helpText}</span>
+      </p>
+    )}
   </div>
 );
 
@@ -145,7 +155,7 @@ export default function Form() {
         </fieldset>
 
         {/* --- Address Info --- */}
-        <fieldset aria-label={t("addressInfoLegend")}>
+        <fieldset aria-label={t("addressInfoLegend")} className="mb-6 border-b border-gray-200 pb-6">
           <legend className="text-base font-semibold text-gray-900 mb-4">{t("addressInfoLegend")}</legend>
           <div className="space-y-4">
             <FormField id="shipping-country" label={t("countryLabel")} required>
@@ -253,7 +263,28 @@ export default function Form() {
                 className={inputClassname}
               />
             </FormField>
-            <FormField id="shipping-email" label={t("emailLabel")} required helpText={t("emailHelpText")}>
+
+            {/* --- Contact Section (Logged-in User) --- */}
+            {userData && (
+              <FormField id="shipping-email" label={t("emailLabel")} required helpText={t("emailHelpText")}>
+                <input
+                  id="shipping-email"
+                  type="email"
+                  name="email"
+                  value={order.shippingAddress.email}
+                  onChange={handleChange}
+                  required
+                  autoComplete="shipping email"
+                  className={inputClassname}
+                />
+              </FormField>
+            )}
+          </div>
+        </fieldset>
+        {!userData && (
+          <fieldset aria-label={t("accountSectionLegend")}>
+            <legend className="text-base font-semibold text-gray-900 mb-4">{t("accountSectionLegend")}</legend>
+            <FormField id="shipping-email" label={t("emailLabel")} required>
               <input
                 id="shipping-email"
                 type="email"
@@ -265,41 +296,49 @@ export default function Form() {
                 className={inputClassname}
               />
             </FormField>
-            {/* Password (Guest Checkout) */}
-            {!userData && (
-              <FormField id="password" label={t("createPasswordLabel")} required helpText={t("createPasswordHelpText")} className="relative">
-                <>
-                  <input
-                    id="password"
-                    type={inputType}
-                    name="password"
-                    value={order.password}
-                    onChange={handleChange}
-                    required
-                    className={inputClassname}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
-                    className="absolute inset-y-0 right-0 top-2 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
-                    aria-label={inputType === "password" ? t("showPasswordAriaLabel") : t("hidePasswordAriaLabel")}
-                  >
-                    {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
-                  </button>
-                </>
-              </FormField>
-            )}
-            <FormField id="shipping-order-notes" label={t("orderNotesLabel")}>
-              <textarea
-                id="shipping-order-notes"
-                rows={4}
-                name="order-notes"
-                value={order.shippingAddress["order-notes"]}
-                onChange={handleChange}
-                className={inputClassname}
-              ></textarea>
+
+            <FormField
+              id="password"
+              label={t("passwordLabel")}
+              required
+              helpText={t("accountInfoHelpText")}
+              helpTextClassname="text-sm mt-2 text-gray-600 italic"
+              hasInfo={true}
+              className="relative"
+            >
+              <>
+                <input
+                  id="password"
+                  type={inputType}
+                  name="password"
+                  value={order.password}
+                  onChange={handleChange}
+                  required
+                  className={inputClassname}
+                />
+                <button
+                  type="button"
+                  onClick={() => setInputType((prev) => (prev === "password" ? "text" : "password"))}
+                  className="absolute h-fit inset-y-0 right-0 top-9 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+                  aria-label={inputType === "password" ? t("showPasswordAriaLabel") : t("hidePasswordAriaLabel")}
+                >
+                  {inputType === "password" ? <EyeIcon className="w-5 h-5" /> : <EyeSlashIcon className="w-5 h-5" />}
+                </button>
+              </>
             </FormField>
-          </div>
+          </fieldset>
+        )}
+        <fieldset>
+          <FormField id="shipping-order-notes" label={t("orderNotesLabel")}>
+            <textarea
+              id="shipping-order-notes"
+              rows={4}
+              name="order-notes"
+              value={order.shippingAddress["order-notes"]}
+              onChange={handleChange}
+              className={inputClassname}
+            ></textarea>
+          </FormField>
         </fieldset>
       </section>
 

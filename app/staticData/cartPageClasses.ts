@@ -36,3 +36,10 @@ export const linkClassname = clsx("font-semibold text-green hover:text-opacity-8
 
 export const iconHeaderClassname = clsx("h-8 w-8 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white rounded-md p-0.5");
 export const iconClassname = clsx("h-5 w-5 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white");
+
+export const commonClasses = clsx(
+  "flex items-center",
+  "capitalize text-center text-xs md:text-sm flex gap-x-1 py-1 px-1 mx-1 rounded-md text-nowrap",
+  "text-white",
+  "xl:text-base xl:px-3"
+);

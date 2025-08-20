@@ -1644,10 +1644,10 @@
       "french": "Francés"
     },
     "openUserMenuSR": "Abrir menú de usuario",
-    "info": "Mi Perfil",
-    "addresses": "Mis Direcciones",
-    "orders": "Mis Pedidos",
-    "fidelity": "Fidelidad y Recomendación",
+    "info": "Perfil",
+    "addresses": "Direcciones",
+    "orders": "Pedidos",
+    "fidelity": "Fidelidad",
     "logout": "Cerrar Sesión",
     "login": "Iniciar Sesión",
     "register": "Registrarse"
@@ -1982,6 +1982,9 @@
       "selectCountryText": "Por favor, selecciona un país de entrega en la dirección de arriba para ver las opciones."
     },
     "addressForm": {
+      "accountSectionLegend": "Información de la Cuenta",
+      "passwordLabel": "Contraseña",
+      "accountInfoHelpText": "Si ya tienes una cuenta, te conectaremos. De lo contrario, se creará una cuenta para ti con este correo electrónico y contraseña.",
       "shippingTitle": "Dirección de Envío",
       "billingTitle": "Dirección de Facturación",
       "personalInfoLegend": "Información Personal",

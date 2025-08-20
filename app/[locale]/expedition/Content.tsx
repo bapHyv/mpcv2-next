@@ -20,6 +20,7 @@ import { useAlerts } from "@/app/context/alertsContext";
 import { isUserDataAPIResponse } from "@/app/utils/typeGuardsFunctions";
 import { useAuth } from "@/app/context/authContext";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
+import { UserDataAPIResponse } from "@/app/types/profileTypes";
 
 export default function DisplayComponents() {
   const [isPending, setIsPending] = useState(false);
@@ -47,59 +48,96 @@ export default function DisplayComponents() {
     try {
       const formData = new FormData(form.current);
 
-      // Construct the payload for our API route
-      const payload = {
-        mail: order.shippingAddress.email,
+      const loginPayload = {
+        username: order.shippingAddress.email,
         password: order.password,
-        firstname: order.shippingAddress.firstname,
-        lastname: order.shippingAddress.lastname,
-        optInMarketing: !!formData.get("optInMarketing"),
-        referralToken,
-        shippingAddress: order.shippingAddress,
-        billingAddress: order.billingAddress,
-        isDifferentBilling: order["different-billing"],
       };
 
-      const response = await fetch("/api/auth/register", {
+      const loginResponse = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(loginPayload),
       });
 
-      const responseData = await response.json();
+      if (loginResponse.status === 404) {
+        // Construct the payload for our API route
+        const payload = {
+          mail: order.shippingAddress.email,
+          password: order.password,
+          firstname: order.shippingAddress.firstname,
+          lastname: order.shippingAddress.lastname,
+          optInMarketing: !!formData.get("optInMarketing"),
+          referralToken,
+          shippingAddress: order.shippingAddress,
+          billingAddress: order.billingAddress,
+          isDifferentBilling: order["different-billing"],
+        };
 
-      if (!response.ok) {
-        let textKey = "alerts.accountCreation.defaultError.text";
-        let titleKey = "alerts.accountCreation.title";
-        let color: "blue" | "red" | "yellow" = "red";
+        const response = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
 
-        if (response.status === 409) {
-          textKey = "alerts.accountCreation.error409.text";
-          titleKey = "alerts.accountCreation.error409.title";
-          color = "blue";
-          setTimeout(() => router.push(`/connexion?redirect=paiement&mail=${encodeURIComponent(order.shippingAddress.email)}`), 500);
-        } else {
-          textKey = responseData.message || "alerts.accountCreation.defaultError.text";
-          titleKey = "alerts.accountCreation.defaultError.title";
-          color = "red";
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          let textKey = "alerts.accountCreation.defaultError.text";
+          let titleKey = "alerts.accountCreation.title";
+          let color: "blue" | "red" | "yellow" = "red";
+
+          if (response.status === 409) {
+            textKey = "alerts.accountCreation.error409.text";
+            titleKey = "alerts.accountCreation.error409.title";
+            color = "blue";
+            setTimeout(() => router.push(`/connexion?redirect=paiement&mail=${encodeURIComponent(order.shippingAddress.email)}`), 500);
+          } else {
+            textKey = responseData.message || "alerts.accountCreation.defaultError.text";
+            titleKey = "alerts.accountCreation.defaultError.title";
+            color = "red";
+          }
+          addAlert(uuid(), t(textKey), t(titleKey), color);
+          return;
         }
-        addAlert(uuid(), t(textKey), t(titleKey), color);
+
+        if (isUserDataAPIResponse(responseData)) {
+          if (!Array.isArray(responseData.addresses)) {
+            responseData.addresses = [];
+          }
+          setUserData(responseData);
+          addAlert(uuid(), t("alerts.accountCreation.success200.text"), t("alerts.accountCreation.success200.title"), "emerald");
+          router.push("/paiement");
+        }
         return;
       }
 
-      if (isUserDataAPIResponse(responseData)) {
-        if (!Array.isArray(responseData.addresses)) {
-          responseData.addresses = [];
-        }
-        setUserData(responseData);
-        addAlert(uuid(), t("alerts.accountCreation.success200.text"), t("alerts.accountCreation.success200.title"), "emerald");
-        router.push("/paiement");
+      if (loginResponse.status === 409) {
+        let titleKey = "alerts.signIn.defaultError.title";
+        let textKey = "alerts.signIn.defaultError.text";
+        let color: "red" = "red";
+        addAlert(uuid(), textKey.startsWith("alerts.") ? t(textKey) : textKey, t(titleKey), color);
+        return;
       }
+
+      if (loginResponse.status === 401) {
+        let titleKey = "alerts.signIn.error401.title";
+        let textKey = "alerts.signIn.error401.text";
+        let color: "yellow" = "yellow";
+        addAlert(uuid(), textKey.startsWith("alerts.") ? t(textKey) : textKey, t(titleKey), color);
+        return;
+      }
+
+      const userData: UserDataAPIResponse = await loginResponse.json();
+      if (!Array.isArray(userData.addresses)) {
+        userData.addresses = [];
+      }
+
+      setUserData(userData);
+      addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
+      router.push("/paiement");
     } catch (error) {
       console.error("Error during guest checkout registration:", error);
       addAlert(uuid(), t("alerts.accountCreation.genericError.text"), t("alerts.accountCreation.genericError.title"), "red");
-    } finally {
-      setIsPending(false);
     }
   };
 

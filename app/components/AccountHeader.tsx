@@ -9,12 +9,20 @@ import { UserCircleIcon, ArrowLeftEndOnRectangleIcon, ArrowPathIcon } from "@her
 import { useAuth } from "@/app/context/authContext";
 import { iconClassname } from "@/app/staticData/cartPageClasses";
 import OtherNavbar from "./OtherNavbar";
+import { useState } from "react";
 
 export default function AccountHeader() {
+  const [isLoggingOut, setIsloggingOut] = useState(false);
+
   const t = useTranslations("");
   const pathname = usePathname();
-  const { logout, isLoggingOut } = useAuth();
+  const { logout } = useAuth();
   const locale = useLocale();
+
+  const handleLogout = () => {
+    setIsloggingOut(true);
+    logout();
+  };
 
   const itemsProfile = [
     { textKey: "navbar.info", href: `/${locale}/mon-compte/profil`, icon: <UserCircleIcon className={iconClassname} /> },
@@ -57,15 +65,16 @@ export default function AccountHeader() {
         </svg>
       ),
     },
-    { textKey: "navbar.logout", onClick: logout, icon: <ArrowLeftEndOnRectangleIcon className={twMerge(iconClassname)} /> },
+    { textKey: "navbar.logout", onClick: handleLogout, icon: <ArrowLeftEndOnRectangleIcon className={twMerge(iconClassname)} /> },
   ];
 
   return (
-    <OtherNavbar className="lg:justify-center">
+    <OtherNavbar className="flex justify-center p-0">
       {itemsProfile.map((item) => {
         const isActive = "href" in item && item.href && pathname.includes(item.href);
         const commonClasses = twMerge(
-          "capitalize text-center text-sm flex gap-x-1 py-1 px-1 mx-1 rounded-md text-nowrap transition-colors duration-150 ease-in-out",
+          "flex items-center",
+          "capitalize text-center text-xs md:text-sm flex gap-x-1 py-1 px-1 mx-1 rounded-md text-nowrap transition-colors duration-150 ease-in-out",
           "text-white hover:bg-white/10",
           "xl:text-base xl:px-3",
           isActive && "font-medium text-green bg-white/10"
@@ -77,7 +86,16 @@ export default function AccountHeader() {
             <span>{t(item.textKey)}</span>
           </Link>
         ) : (
-          <button key={item.textKey} type="button" onClick={item.onClick} className={twMerge(commonClasses, "bg-red-600 font-medium px-2")}>
+          <button
+            key={item.textKey}
+            type="button"
+            onClick={item.onClick}
+            className={twMerge(
+              commonClasses,
+              "hidden md:flex bg-red-600 font-medium px-2 disabled:bg-neutral-400 disabled:opacity-70 disabled:cursor-not-allowed"
+            )}
+            disabled={isLoggingOut}
+          >
             {isLoggingOut ? (
               <>
                 <ArrowPathIcon className="animate-spin h-5 w-5 mr-2" aria-hidden="true" />
