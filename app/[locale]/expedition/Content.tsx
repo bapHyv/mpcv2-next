@@ -22,8 +22,14 @@ import { useAuth } from "@/app/context/authContext";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 import { UserDataAPIResponse } from "@/app/types/profileTypes";
 
+interface AuthError {
+  message: string;
+  status: number;
+}
+
 export default function DisplayComponents() {
   const [isPending, setIsPending] = useState(false);
+  const [authError, setAuthError] = useState<null | AuthError>(null);
   const form = useRef<HTMLFormElement>(null);
 
   const { order } = useOrder();
@@ -44,6 +50,7 @@ export default function DisplayComponents() {
     }
 
     // --- Guest Checkout / Registration Logic ---
+    setAuthError(null);
     setIsPending(true);
     try {
       const formData = new FormData(form.current);
@@ -96,6 +103,7 @@ export default function DisplayComponents() {
             titleKey = "alerts.accountCreation.defaultError.title";
             color = "red";
           }
+          setIsPending(false);
           addAlert(uuid(), t(textKey), t(titleKey), color);
           return;
         }
@@ -115,6 +123,8 @@ export default function DisplayComponents() {
         let titleKey = "alerts.signIn.defaultError.title";
         let textKey = "alerts.signIn.defaultError.text";
         let color: "red" = "red";
+        setAuthError({ status: 409, message: t(textKey) });
+        setIsPending(false);
         addAlert(uuid(), textKey.startsWith("alerts.") ? t(textKey) : textKey, t(titleKey), color);
         return;
       }
@@ -123,6 +133,8 @@ export default function DisplayComponents() {
         let titleKey = "alerts.signIn.error401.title";
         let textKey = "alerts.signIn.error401.text";
         let color: "yellow" = "yellow";
+        setAuthError({ status: 401, message: t(textKey) });
+        setIsPending(false);
         addAlert(uuid(), textKey.startsWith("alerts.") ? t(textKey) : textKey, t(titleKey), color);
         return;
       }
@@ -135,6 +147,7 @@ export default function DisplayComponents() {
       setUserData(userData);
       addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
       router.push("/paiement");
+      router.refresh();
     } catch (error) {
       console.error("Error during guest checkout registration:", error);
       addAlert(uuid(), t("alerts.accountCreation.genericError.text"), t("alerts.accountCreation.genericError.title"), "red");
@@ -164,7 +177,7 @@ export default function DisplayComponents() {
 
       <form ref={form} onSubmit={handleAction} className="lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-8 xl:gap-x-12 mt-6">
         <div className="lg:col-span-7 space-y-6">
-          <Form />
+          <Form authError={authError} />
         </div>
         <div className="lg:col-span-5 mt-8 lg:mt-0 space-y-6">
           <OrderSummary />
