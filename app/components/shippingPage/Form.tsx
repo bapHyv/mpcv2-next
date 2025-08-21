@@ -55,7 +55,11 @@ const FormField = ({
   </div>
 );
 
-export default function Form() {
+interface Props {
+  authError: null | { status: number; message: string };
+}
+
+export default function Form({ authError }: Props) {
   const [inputType, setInputType] = useState<"password" | "text">("password");
   const t = useTranslations("shippingPage.addressForm");
   const { sseData } = useSse();
@@ -292,7 +296,7 @@ export default function Form() {
                 onChange={handleChange}
                 required
                 autoComplete="shipping email"
-                className={inputClassname}
+                className={twMerge(inputClassname, authError && authError.status === 401 && "ring-red-500 focus:ring-red-500 border-red-500")}
               />
             </FormField>
 
@@ -300,8 +304,8 @@ export default function Form() {
               id="password"
               label={t("passwordLabel")}
               required
-              helpText={t("accountInfoHelpText")}
-              helpTextClassname="text-sm mt-2 text-gray-600 italic"
+              helpText={authError && authError.status === 401 ? authError.message : t("accountInfoHelpText")}
+              helpTextClassname={twMerge("text-sm mt-2 italic", authError && authError.status === 401 ? "text-red-600" : "text-gray-600")}
               hasInfo={true}
               className="relative"
             >
@@ -313,7 +317,7 @@ export default function Form() {
                   value={order.password}
                   onChange={handleChange}
                   required
-                  className={inputClassname}
+                  className={twMerge(inputClassname, authError && authError.status === 401 && "ring-red-500 focus:ring-red-500 border-red-500")}
                 />
                 <button
                   type="button"

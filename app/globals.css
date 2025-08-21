@@ -285,6 +285,10 @@ article,
   }
 }
 
+.product-page-long-description {
+  @apply text-base;
+}
+
 /* General Heading Styles - Updated */
 article h1,
 article h2,
@@ -310,7 +314,7 @@ article h1,
 .utility-page h1,
 .city-page h1,
 .product-page-long-description h1 {
-  @apply text-center text-3xl sm:text-4xl font-bold tracking-tight text-gray-900; /* Adjusted size, weight, tracking, color */
+  @apply text-center text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900; /* Adjusted size, weight, tracking, color */
 }
 
 /* H2 Specific - Updated */
@@ -318,7 +322,7 @@ article h2,
 .utility-page h2,
 .city-page h2,
 .product-page-long-description h2 {
-  @apply font-bold text-green text-center mt-6 text-xl sm:text-2xl; /* Use theme color, adjusted size/margin */
+  @apply font-bold text-green text-center mt-6 text-lg sm:text-xl; /* Use theme color, adjusted size/margin */
 }
 
 /* H3 Specific - Updated */
@@ -326,7 +330,7 @@ article h3,
 .utility-page h3,
 .city-page h3,
 .product-page-long-description h3 {
-  @apply font-semibold mt-5 text-lg sm:text-xl text-gray-800; /* Adjusted weight, size, margin, color */
+  @apply font-semibold mt-5 text-base sm:text-lg text-gray-800; /* Adjusted weight, size, margin, color */
 }
 
 /* H4 Specific - Updated */

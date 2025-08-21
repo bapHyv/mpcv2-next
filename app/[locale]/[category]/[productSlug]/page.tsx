@@ -267,7 +267,7 @@ export default async function Page({ params: { category, locale, productSlug } }
   // }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 2xl:px-[22.5%] py-6 sm:py-10">
       <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 xl:gap-x-12">
         {/* --- Image Gallery --- */}
         <TabGroup as="div" className="flex flex-col-reverse">
