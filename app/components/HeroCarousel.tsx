@@ -5,13 +5,14 @@ import Image, { StaticImageData } from "next/image";
 import { twMerge } from "tailwind-merge";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
-import banner1Desktop from "@/public/blueberry_2:1.png";
-import banner1Tablet from "@/public/blueberry_3:2.png";
-import banner1Mobile from "@/public/blueberry_4:3.png";
+import banner1Desktop from "@/public/cheesy_fruit_banner_.png";
+import banner1Tablet from "@/public/cheesy_fruit_banner_.png";
+import banner1Mobile from "@/public/cheesy_fruit_banner_3:2.png";
 
-import banner2Desktop from "@/public/pf_2:1.png";
-import banner2Tablet from "@/public/pf_3:2.png";
-import banner2Mobile from "@/public/pf_4:3.png";
+import banner2Desktop from "@/public/zangria_banner_.png";
+import banner2Tablet from "@/public/zangria_banner_.png";
+import banner2Mobile from "@/public/zangria_banner_3:2.png";
+import { useLocale } from "next-intl";
 
 const carouselBanners: {
   desktopSrc: StaticImageData | string;
@@ -24,15 +25,15 @@ const carouselBanners: {
     desktopSrc: banner1Desktop,
     tabletSrc: banner1Tablet,
     mobileSrc: banner1Mobile,
-    alt: "Blueberry Banner",
-    href: "/fleurs-cbd/-blueberry-",
+    alt: "cheesy fruit cbd promotion",
+    href: "/fleurs-cbd/-cheesy-fruit-",
   },
   {
     desktopSrc: banner2Desktop,
     tabletSrc: banner2Tablet,
     mobileSrc: banner2Mobile,
-    alt: "Passion fruit Banner",
-    href: "/pollens-resines-hash-cbd/-passion-fruit-dry-sift-120u-",
+    alt: "zangria dry sift cbd promotion",
+    href: "/pollens-resines-hash-cbd/-zangria-dry-sift-120-",
   },
 ];
 
@@ -41,6 +42,7 @@ const DESKTOP_BREAKPOINT = 1024;
 const SWIPE_THRESHOLD = 50;
 
 const HeroCarousel = () => {
+  const locale = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeBanners, setActiveBanners] = useState<(StaticImageData | string)[]>([]);
   const totalSlides = carouselBanners.length;
@@ -118,16 +120,7 @@ const HeroCarousel = () => {
   }, [currentIndex]);
 
   if (activeBanners.length === 0) {
-    return (
-      <div
-        className={twMerge(
-          "relative w-full overflow-hidden bg-gray-200",
-          "aspect-w-4 aspect-h-3",
-          "md:aspect-w-3 md:aspect-h-2",
-          "lg:aspect-w-2 lg:aspect-h-1"
-        )}
-      ></div>
-    );
+    return <div className={twMerge("relative w-full overflow-hidden bg-gray-200", "aspect-w-3 aspect-h-2", "md:aspect-w-3 aspect-h-1")}></div>;
   }
 
   return (
@@ -142,18 +135,11 @@ const HeroCarousel = () => {
         {activeBanners.map((src, index) => {
           const bannerData = carouselBanners[index];
           const Wrapper = bannerData.href ? "a" : "div";
-          const wrapperProps = bannerData.href ? { href: bannerData.href } : {};
+          const wrapperProps = bannerData.href ? { href: `/${locale}${bannerData.href}` } : {};
 
           return (
             <Wrapper key={index} className="flex-shrink-0 w-full" {...wrapperProps}>
-              <div
-                className={twMerge(
-                  "relative w-full overflow-hidden",
-                  "aspect-w-4 aspect-h-3",
-                  "md:aspect-w-3 md:aspect-h-2",
-                  "lg:aspect-w-2 lg:aspect-h-1"
-                )}
-              >
+              <div className={twMerge("relative w-full overflow-hidden", "aspect-w-3 aspect-h-2 md:aspect-w-3 md:aspect-h-1")}>
                 <Image
                   src={src}
                   alt={bannerData.alt}

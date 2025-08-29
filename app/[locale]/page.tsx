@@ -283,11 +283,6 @@ export default async function HomePage({ params }: Params) {
       <section aria-labelledby="featured-flowers-heading" className="my-8 md:my-12">
         <Title type="h2" title={t("homepage.featuredFlowersTitle")} classname={sectionTitleClassname} id="featured-flowers-heading" />
 
-        {/* Introductory Text for Flowers */}
-        <p className="text-center text-gray-600 max-w-3xl mx-auto mb-8 md:mb-10 px-4 sm:px-6 lg:px-8 leading-relaxed">
-          {t("homepage.featuredFlowersIntroText")} {/* Add this translation key */}
-        </p>
-
         <Carousel length={flowers ? flowers.length : 0}>
           {flowers && flowers.length > 0
             ? flowers.map((flower) => (
@@ -295,6 +290,11 @@ export default async function HomePage({ params }: Params) {
               ))
             : productCardsSkeleton}
         </Carousel>
+
+        {/* Introductory Text for Flowers */}
+        <p className="text-center text-gray-600 max-w-3xl mx-auto mb-8 mt-6 md:mb-10 px-4 sm:px-6 lg:px-8 leading-relaxed">
+          {t("homepage.featuredFlowersIntroText")} {/* Add this translation key */}
+        </p>
       </section>
 
       {/* Optional: Link to All Flowers */}
@@ -342,11 +342,6 @@ export default async function HomePage({ params }: Params) {
       <section aria-labelledby="featured-hashs-heading" className="mb-8 md:mb-12">
         <Title type="h2" title={t("homepage.featuredHashsTitle")} classname={sectionTitleClassname} id="featured-hashs-heading" />
 
-        {/* Introductory Text for Hashs */}
-        <p className="text-center text-gray-600 max-w-3xl mx-auto mb-8 md:mb-10 px-4 sm:px-6 lg:px-8 leading-relaxed">
-          {t("homepage.featuredHashsIntroText")} {/* Add this translation key */}
-        </p>
-
         <Carousel length={hashs ? hashs.length : 0}>
           {hashs && hashs.length > 0
             ? hashs.map((hash) => (
@@ -354,6 +349,11 @@ export default async function HomePage({ params }: Params) {
               ))
             : productCardsSkeleton}
         </Carousel>
+
+        {/* Introductory Text for Hashs */}
+        <p className="text-center text-gray-600 max-w-3xl mx-auto mb-8 md:mb-10 mt-6 px-4 sm:px-6 lg:px-8 leading-relaxed">
+          {t("homepage.featuredHashsIntroText")} {/* Add this translation key */}
+        </p>
       </section>
 
       {/* Optional: Link to All Hash */}
@@ -374,15 +374,15 @@ export default async function HomePage({ params }: Params) {
       <section aria-labelledby="featured-oils-heading" className="mb-8 md:mb-12">
         <Title type="h2" title={t("homepage.featuredOilsTitle")} classname={sectionTitleClassname} id="featured-oils-heading" />
 
-        <p className="text-center text-gray-600 max-w-3xl mx-auto mb-8 md:mb-10 px-4 sm:px-6 lg:px-8 leading-relaxed">
-          {t("homepage.featuredOilsIntroText")} {/* Add this translation key */}
-        </p>
-
         <Carousel length={oils ? oils.length : 0}>
           {oils && oils.length > 0
             ? oils.map((oil) => <ProductCard key={oil.id} {...oil} locale={locale} category={"huiles-cbd"} mainDivClassname="rounded-md" />)
             : productCardsSkeleton}
         </Carousel>
+
+        <p className="text-center text-gray-600 max-w-3xl mx-auto mb-8 md:mb-10 mt-6 px-4 sm:px-6 lg:px-8 leading-relaxed">
+          {t("homepage.featuredOilsIntroText")} {/* Add this translation key */}
+        </p>
       </section>
 
       {/* Optional: Link to All Oils */}
