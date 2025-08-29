@@ -25,7 +25,6 @@ export default function Shipping() {
   }, [order.discounts]);
 
   const filteredMethods: ShippingMethod[] = useMemo(() => {
-    // Original logic with added null checks and enabled check
     if (
       sseData?.shippingMethods?.byShippingZones &&
       order.shippingAddress.country &&
@@ -51,12 +50,11 @@ export default function Shipping() {
           if (priceThreshold * 1.055 < cart.total) return false;
           return true;
         } else {
-          // Default case for unknown method types (shouldn't happen with guards)
-          return false; // Or true depending on desired behavior
+          return false;
         }
       });
     } else {
-      return []; // Return empty array if data is missing
+      return [];
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart.products, cart.total, hasFreeShipping, order.shippingAddress.country, order["sub-total"], sseData]);

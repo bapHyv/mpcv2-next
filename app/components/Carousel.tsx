@@ -161,7 +161,7 @@ function Bullets({ length, divRef }: PropsBullets) {
   }
 
   return (
-    <div className="my-6 flex justify-center">
+    <div className="mt-6 mb-1 flex justify-center">
       <div className="flex items-center justify-center gap-2.5">
         {new Array(bullets).fill(0).map((_, i) => (
           <button

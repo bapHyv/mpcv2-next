@@ -199,7 +199,7 @@ export function ProductsAndCartProvider({ children }: { children: ReactNode }): 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areProductsReady, sseData]);
 
-  // This useEffect remove the quantity from the cart to the products display in the UI to prevent the user from overbuying.
+  // This useEffect removes the quantity from the cart to the products display in the UI to prevent the user from overbuying.
   useEffect(() => {
     if (!sseData) return;
 
