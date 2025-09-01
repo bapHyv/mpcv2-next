@@ -27,7 +27,7 @@ export default function BurgerMenuHeader() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative h-8 w-8">
       <button
         ref={buttonRef}
         type="button"

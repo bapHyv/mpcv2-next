@@ -68,14 +68,17 @@ export default async function Page({ params: { locale }, searchParams }: Command
     redirect(`/${locale}`);
   }
 
+  const isSuccess = decodedToken.status === "success" || decodedToken.status === "fraud_warning" || decodedToken.payment === "bankTransfer";
+
+  const titleKey = isSuccess ? "pageTitleSuccess" : "pageTitleFailed";
+  const titleColorClass = isSuccess ? "text-green" : "text-red-600";
+
   const contentProps = {
     locale: locale,
-    // Construct the searchParams for the Content component, using verified token data
-    // while preserving potentially useful original params like failure_reason.
     searchParams: {
-      orderId: String(decodedToken.orderId), // Use verified orderId from token
-      payment: decodedToken.payment, // Use verified payment type from token
-      temp_status: decodedToken.status as TempStatus | undefined, // Use verified status from token (cast if necessary)
+      orderId: String(decodedToken.orderId),
+      payment: decodedToken.payment,
+      status: decodedToken.status as TempStatus | undefined,
       failure_reason,
     },
   };
@@ -83,9 +86,9 @@ export default async function Page({ params: { locale }, searchParams }: Command
   return (
     <>
       <Title
-        title={t("pageTitle")}
+        title={t(titleKey)}
         type="h1"
-        classname={twMerge(titleClassname, "mt-10 md:mt-14 text-green text-center")}
+        classname={twMerge(titleClassname, "mt-10 md:mt-14 text-center", titleColorClass)}
         firstLetterClassname="text-xl"
       />
 

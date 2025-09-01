@@ -220,9 +220,9 @@ export default function Page() {
         </Link>
       </div>
 
-      <form ref={formRef} onSubmit={handleAction} className="lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-8 xl:gap-x-12 mt-6">
+      <form ref={formRef} onSubmit={handleAction} className={twMerge("flex flex-col mt-6", "lg:flex-row lg:gap-x-6", "2xl:w-2/3 2xl:m-auto")}>
         {/* Left Column: Payment Methods & Total */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:w-1/2 space-y-6">
           <PaymentMethods />
           <Total
             isPending={isPending}
@@ -232,7 +232,7 @@ export default function Page() {
         </div>
 
         {/* Right Column: Order Summary */}
-        <div className="lg:col-span-5 mt-8 lg:mt-0">
+        <div className="mt-8 lg:mt-0 lg:w-1/2">
           <OrderSummary />
         </div>
       </form>

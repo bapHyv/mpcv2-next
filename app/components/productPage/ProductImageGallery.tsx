@@ -13,14 +13,14 @@ export default function ProductImageGallery({ images }: ProductImageGalleryProps
   const allImages = images.main ? [images.main, ...images.others] : images.others;
 
   return (
-    <div className="mx-auto mt-6 w-full max-w-2xl sm:block lg:max-w-none">
+    <div className="mt-6 w-full max-w-2xl sm:block lg:max-w-none">
       <TabList className="grid grid-cols-4 gap-4 sm:gap-6">
         {allImages.map((image) => (
           <Tab
             key={`${image.alt}-${image.url}`}
             className={({ selected }) =>
               clsx(
-                "relative flex h-20 sm:h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900",
+                "relative flex aspect-1 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900",
                 "hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green",
                 selected ? "ring-2 ring-green ring-offset-1" : "ring-1 ring-inset ring-gray-300"
               )
