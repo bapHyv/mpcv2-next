@@ -173,13 +173,12 @@ export default function DisplayComponents() {
         </Link>
       </div>
 
-      <AreYouCustomer redirect="expedition" />
-
-      <form ref={form} onSubmit={handleAction} className="lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-8 xl:gap-x-12 mt-6">
-        <div className="lg:col-span-7 space-y-6">
+      <form ref={form} onSubmit={handleAction} className={twMerge("flex flex-col mt-6", "lg:flex-row lg:gap-x-6", "2xl:w-2/3 2xl:m-auto")}>
+        <div className="lg:w-1/2">
+          <AreYouCustomer redirect="expedition" />
           <Form authError={authError} />
         </div>
-        <div className="lg:col-span-5 mt-8 lg:mt-0 space-y-6">
+        <div className="mt-8 space-y-6 lg:mt-0 lg:w-1/2">
           <OrderSummary />
           <Shipping />
           <Total isPending={isPending} />

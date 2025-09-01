@@ -60,7 +60,7 @@ export default function DisplayDiscountCode() {
   }, [publicDiscountCode, sseData, order.discounts]);
 
   return (
-    <section aria-labelledby="discount-code-heading" className={twMerge(sectionWrapperClassname)}>
+    <section aria-labelledby="discount-code-heading" className={twMerge(sectionWrapperClassname, "my-0 sm:my-0")}>
       <div className="space-y-6">
         {/* --- LINKED DISCOUNT CODE Section --- */}
         {userData && sseData?.coupons && userData.discounts.length > 0 && (

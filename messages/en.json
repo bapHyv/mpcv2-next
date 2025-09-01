@@ -349,7 +349,13 @@
   },
   "orderReceived": {
     "metadataTitle": "Order Confirmation - MonPlanCBD",
-    "pageTitle": "Order Received",
+    "pageTitleSuccess": "Order Received",
+    "pageTitleFailed": "Order Failed",
+    "failure": {
+      "title": "What's Next?",
+      "text": "Your payment could not be completed, but your cart is still saved. You can return to the previous step to try another payment method.",
+      "button": "Retry Payment"
+    },
     "status": {
       "processing": "Payment Processing",
       "success": "Payment Successful",

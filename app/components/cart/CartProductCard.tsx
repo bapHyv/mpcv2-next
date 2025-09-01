@@ -120,7 +120,7 @@ export default function CartProductCard({
 
       <div className="flex w-full">
         {/* Image Container */}
-        <div className="relative flex-shrink-0 w-1/4 sm:w-1/3">
+        <div className="relative flex-shrink-0 w-1/4 md:w-[92px] md:h-[92px]">
           <Image
             src={!!image ? `https://www.monplancbd.fr/wp-content/uploads/${image.url}` : "/canna-vert.png"}
             alt={!!image ? image.alt : name}

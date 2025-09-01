@@ -45,7 +45,7 @@ export default function DisplayComponents() {
   }, [cart.products.length]);
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className={twMerge("container mx-auto px-4 sm:px-6 lg:px-8")}>
       <Title
         title="Panier"
         type="h1"
@@ -64,16 +64,16 @@ export default function DisplayComponents() {
       </div>
 
       {cart.products.length > 0 ? (
-        <div className="lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-8 xl:gap-x-12">
-          <section aria-labelledby="cart-heading" className="lg:col-span-7">
+        <div className="flex flex-col lg:flex-row lg:gap-x-6 2xl:w-2/3 2xl:m-auto">
+          <section aria-labelledby="cart-heading" className="lg:w-1/2">
             <h2 id="cart-heading" className="sr-only">
               Items in your shopping cart
             </h2>
-            <AreYouCustomer redirect="panier" />
+            <AreYouCustomer redirect="panier" classname="lg:mt-0" />
             <DisplayProducts />
           </section>
 
-          <section aria-labelledby="summary-heading" className="lg:col-span-5 mt-8 lg:mt-0 space-y-6">
+          <section aria-labelledby="summary-heading" className={twMerge("mb-1 lg:mt-0", "md:mt-6 md:mb-8", "lg:m-0 lg:w-1/2")}>
             <h2 id="summary-heading" className="sr-only">
               Order summary
             </h2>

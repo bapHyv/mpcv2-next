@@ -2043,7 +2043,13 @@
   },
   "orderReceived": {
     "metadataTitle": "Confirmation de Commande - MonPlanCBD",
-    "pageTitle": "Commande Reçue",
+    "pageTitleSuccess": "Commande Reçue",
+    "pageTitleFailed": "Commande Échouée",
+    "failure": {
+      "title": "Et maintenant ?",
+      "text": "Votre paiement n'a pas pu être validé, mais votre panier est toujours sauvegardé. Vous pouvez retourner à l'étape précédente pour essayer un autre moyen de paiement.",
+      "button": "Réessayer le paiement"
+    },
     "status": {
       "processing": "Paiement en cours de traitement",
       "success": "Paiement Réussi",
