@@ -5,15 +5,16 @@ import { useTranslations } from "next-intl";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 
-import { ProductCart } from "@/app/context/productsAndCartContext";
+import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
 import { disableBodyScroll, enableBodyScroll } from "@/app/utils/bodyScroll";
 import { buttonClassname } from "@/app/staticData/cartPageClasses";
 import CartProductCard from "@/app/components/cart/CartProductCard";
+import { useFetchWrapper } from "@/app/hooks/useFetchWrapper";
 
 interface CartConflictModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onResolve: (choice: "local" | "remote") => void;
+  onResolve: (choice: "local" | "remote", cart: { total: number; products: ProductCart[] }) => void;
   localCart: { total: number; products: ProductCart[] };
   remoteCart: { total: number; products: ProductCart[] };
 }
@@ -40,6 +41,26 @@ const CartDisplay = ({ title, cart }: { title: string; cart: { total: number; pr
 
 export default function CartConflictModal({ isOpen, onClose, onResolve, localCart, remoteCart }: CartConflictModalProps) {
   const t = useTranslations("cartConflictModal");
+  const { cart } = useProductsAndCart();
+  const { fetchWrapper } = useFetchWrapper();
+
+  const keepLocalCart = async (callback: () => void) => {
+    const cartBkp = JSON.stringify(localCart);
+
+    const response = await fetchWrapper("/api/user/backup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        cartBkp,
+      }),
+    });
+
+    // Only update the state if the backup is successful
+    if (response.ok) {
+      console.log("Backup successful.");
+      callback();
+    }
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -55,7 +76,9 @@ export default function CartConflictModal({ isOpen, onClose, onResolve, localCar
   return (
     <div
       className="fixed inset-0 z-[9990] flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm p-4"
-      onMouseDown={onClose}
+      onMouseDown={() => {
+        keepLocalCart(onClose);
+      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="cart-conflict-title"
@@ -72,7 +95,9 @@ export default function CartConflictModal({ isOpen, onClose, onResolve, localCar
             </h2>
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => {
+                keepLocalCart(onClose);
+              }}
               className="p-1 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green rounded-md"
               aria-label={t("closeAriaLabel")}
             >
@@ -93,12 +118,20 @@ export default function CartConflictModal({ isOpen, onClose, onResolve, localCar
 
         {/* Modal Footer with Action Buttons */}
         <div className="flex-shrink-0 mt-6 pt-5 border-t border-gray-200 flex flex-col sm:flex-row-reverse sm:items-center gap-3">
-          <button type="button" onClick={() => onResolve("local")} className={twMerge(buttonClassname, "w-full sm:w-auto")}>
+          <button
+            type="button"
+            onClick={() => {
+              keepLocalCart(() => {
+                onResolve("local", cart);
+              });
+            }}
+            className={twMerge(buttonClassname, "w-full sm:w-auto")}
+          >
             {t("keepLocalButton")}
           </button>
           <button
             type="button"
-            onClick={() => onResolve("remote")}
+            onClick={() => onResolve("remote", cart)}
             className={twMerge(buttonClassname, "w-full sm:w-auto", "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50")}
           >
             {t("useRemoteButton")}

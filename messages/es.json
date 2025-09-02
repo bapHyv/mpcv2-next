@@ -435,6 +435,10 @@
       "cardFailed": {
         "title": "Pago Fallido",
         "text": "No se pudo procesar su pago ({reason}). Por favor, intente de nuevo o contacte con soporte."
+      },
+      "cartRestored": {
+        "title": "Panier Restauré",
+        "text": "Votre paiement a échoué, mais ne vous inquiétez pas, nous avons restauré les articles dans votre panier."
       }
     }
   },

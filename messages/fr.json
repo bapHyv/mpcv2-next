@@ -2129,6 +2129,10 @@
       "cardFailed": {
         "title": "Échec du Paiement",
         "text": "Votre paiement n'a pas pu être traité ({reason}). Veuillez réessayer ou contacter le support."
+      },
+      "cartRestored": {
+        "title": "Panier Restauré",
+        "text": "Votre paiement a échoué, mais ne vous inquiétez pas, nous avons restauré les articles dans votre panier."
       }
     }
   },

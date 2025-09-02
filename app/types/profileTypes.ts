@@ -56,7 +56,7 @@ export interface AuthContextType {
   setUserData: Dispatch<SetStateAction<UserDataAPIResponse | null>>;
   cleanUpLocalStorageUserRelated: () => void;
   logout: () => void;
-  loginAndSetUser: (userData: UserDataAPIResponse) => void;
+  loginAndSetUser: (userData: UserDataAPIResponse, cart: { total: number; products: ProductCart[] }) => void;
   isAuthLoading: boolean;
   isLoggingOut: boolean;
   referralToken: string | null;

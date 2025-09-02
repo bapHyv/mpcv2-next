@@ -60,6 +60,23 @@ export default function Page() {
     }
 
     setIsPending(true);
+
+    try {
+      console.log("Payment submitted: Clearing remote cart backup...");
+      const emptyCart = { total: 0, products: [] };
+
+      await fetchWrapper("/api/user/backup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cartBkp: JSON.stringify(emptyCart),
+        }),
+      });
+      console.log("Remote cart backup cleared successfully.");
+    } catch (error) {
+      console.error("Failed to clear remote cart backup, proceeding with payment:", error);
+    }
+
     const JWT_EXPIRY_SECONDS = 900;
 
     try {
@@ -70,11 +87,10 @@ export default function Page() {
       console.error("Critical Error: Failed to save state to localStorage. Aborting payment.", error);
       addAlert(uuid(), t("alerts.payment.prepareError.text"), t("alerts.payment.prepareError.title"), "red");
       setIsPending(false);
-      return; // Stop the process
+      return;
     }
 
     setIsFinalizing(true);
-    // Short delay to allow the overlay to render before heavy work
     await new Promise((resolve) => setTimeout(resolve, 50));
 
     if (order["payment-method"] === "bank-transfer") {

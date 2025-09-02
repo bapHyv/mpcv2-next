@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { v4 as uuid } from "uuid";
 import { twMerge } from "tailwind-merge";
@@ -20,7 +20,7 @@ import {
 import { computeVAT } from "@/app/utils/orderFunctions";
 
 import { Order, OrderProduct } from "@/app/types/orderTypes";
-import { ProductCart } from "@/app/context/productsAndCartContext";
+import { ProductCart, useProductsAndCart } from "@/app/context/productsAndCartContext";
 import Link from "next/link";
 
 type PaymentStatus =
@@ -64,26 +64,32 @@ export default function Content({ searchParams, locale }: ContentProps) {
   const { orderId, payment, status } = searchParams;
   const t = useTranslations("");
   const { addAlert } = useAlerts();
+  const { setCart } = useProductsAndCart();
 
   const [order, setOrder] = useState<Order | null>(null);
-  const [cart, setCart] = useState<{ total: number; products: ProductCart[] } | null>(null);
+  const [displayCart, setDisplayCart] = useState<{ total: number; products: ProductCart[] } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const isSuccess = status === "success" || status === "fraud_warning" || payment === "bankTransfer";
 
   useEffect(() => {
-    if (isSuccess) {
-      const tempOrder = getItemWithExpiry<Order>("tempOrder");
-      const tempCart = getItemWithExpiry<{ total: number; products: ProductCart[] }>("tempCart");
+    const tempOrder = getItemWithExpiry<Order>("tempOrder");
+    const tempCart = getItemWithExpiry<{ total: number; products: ProductCart[] }>("tempCart");
 
+    if (isSuccess) {
       if (tempOrder && tempCart) {
         setOrder(tempOrder);
-        setCart(tempCart);
+        setDisplayCart(tempCart);
       } else {
         const errorMessage = t("alerts.sessionExpired.text");
         setError(errorMessage);
         addAlert(uuid(), errorMessage, t("alerts.sessionExpired.title"), "red");
+      }
+    } else {
+      if (tempCart) {
+        setCart(tempCart);
+        addAlert(uuid(), t("orderReceived.alerts.cartRestored.text"), t("orderReceived.alerts.cartRestored.title"), "emerald");
       }
     }
 
@@ -113,7 +119,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
+  }, [isSuccess, setCart]);
 
   if (isLoading) {
     return (
@@ -123,7 +129,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
     );
   }
 
-  if (isSuccess && (error || !order || !cart)) {
+  if (isSuccess && (error || !order || !displayCart)) {
     return (
       <div className="text-center py-10 my-6 bg-red-50 border border-red-200 rounded-lg">
         <h2 className="text-xl font-semibold text-red-700">{t("alerts.sessionExpired.title")}</h2>
@@ -138,7 +144,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
   }, 0);
 
   const fidelityReduction = (order?.fidelity || 0) / 10;
-  const vatAmount = cart && discountsTotal !== undefined ? computeVAT(cart, discountsTotal + fidelityReduction) : 0;
+  const vatAmount = displayCart && discountsTotal !== undefined ? computeVAT(displayCart, discountsTotal + fidelityReduction) : 0;
 
   return (
     <div className="container m-auto px-4 space-y-8 mt-6 2xl:w-2/3 2xl:m-auto">
@@ -173,7 +179,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
         </div>
       )}
 
-      {isSuccess && order && cart ? (
+      {isSuccess && order && displayCart ? (
         <section aria-labelledby="order-summary-heading" className={sectionWrapperClassname}>
           <Title type="h2" title={t("orderReceived.summary.title")} classname={baseTitleClassname} />
           <table className="w-full text-sm mt-4">
@@ -243,7 +249,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
         </section>
       )}
 
-      {isSuccess && order && cart ? (
+      {isSuccess && order && displayCart ? (
         <section aria-labelledby="order-details-heading" className={sectionWrapperClassname}>
           <Title type="h2" title={t("orderReceived.orderDetails.title")} classname={baseTitleClassname} />
           <div className="flex justify-between text-sm font-medium text-gray-500 border-b pb-2 mt-4">
@@ -294,7 +300,7 @@ export default function Content({ searchParams, locale }: ContentProps) {
         </section>
       ) : null}
 
-      {isSuccess && order && cart ? (
+      {isSuccess && order && displayCart ? (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <section aria-labelledby="shipping-address-heading" className={subtleSectionWrapperClassname}>
             <Title type="h2" title={t("orderReceived.shippingAddress.title")} classname={twMerge(baseTitleClassname, "text-left")} />
