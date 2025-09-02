@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
 import { v4 as uuid } from "uuid";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [conflictingData, setConflictingData] = useState<{ cartBkp: string } | null>(null);
   const [isConflictModalVisible, setIsConflictModalVisible] = useState(false);
 
-  const { cart: localCart, setCart } = useProductsAndCart();
+  const { cart, setCart } = useProductsAndCart();
   const { sseData } = useSse();
   const { addAlert } = useAlerts();
   const router = useRouter();
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("userData");
   };
 
-  const resolveCartConflict = (choice: "local" | "remote") => {
+  const resolveCartConflict = async (choice: "local" | "remote", localCart: { total: number; products: ProductCart[] }) => {
     if (choice === "remote" && conflictingData) {
       const savedCart = JSON.parse(conflictingData.cartBkp);
       setCart(savedCart);
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userData]);
 
-  const handleCartConflict = useCallback((newUserData: UserDataAPIResponse) => {
+  const handleCartConflict = useCallback((newUserData: UserDataAPIResponse, localCart: { products: ProductCart[]; total: number }) => {
     if (
       pathname.includes("panier") ||
       pathname.includes("expedition") ||
@@ -133,9 +133,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const loginAndSetUser = useCallback(
-    (newUserData: UserDataAPIResponse) => {
+    (newUserData: UserDataAPIResponse, cart: { total: number; products: ProductCart[] }) => {
       setUserData(newUserData);
-      handleCartConflict(newUserData);
+      handleCartConflict(newUserData, cart);
     },
     [handleCartConflict]
   );
@@ -150,7 +150,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
           if (responseText && responseText !== "null") {
             const fetchedUserData: UserDataAPIResponse = JSON.parse(responseText);
-            loginAndSetUser(fetchedUserData);
+            loginAndSetUser(fetchedUserData, cart);
           } else {
             setUserData(null);
             cleanUpLocalStorageUserRelated();
@@ -225,9 +225,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {conflictingData && (
         <CartConflictModal
           isOpen={isConflictModalVisible}
-          onClose={() => resolveCartConflict("local")}
+          onClose={() => resolveCartConflict("local", cart)}
           onResolve={resolveCartConflict}
-          localCart={localCart}
+          localCart={cart}
           remoteCart={JSON.parse(conflictingData.cartBkp)}
         />
       )}

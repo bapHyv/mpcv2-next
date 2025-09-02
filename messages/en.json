@@ -435,6 +435,10 @@
       "cardFailed": {
         "title": "Payment Failed",
         "text": "Your payment could not be processed ({reason}). Please try again or contact support."
+      },
+      "cartRestored": {
+        "title": "Cart Restored",
+        "text": "Your payment failed, but don't worry, we've restored the items in your cart."
       }
     }
   },

@@ -12,6 +12,7 @@ import { useAuth } from "@/app/context/authContext";
 import { useAlerts } from "@/app/context/alertsContext";
 import { UserDataAPIResponse } from "@/app/types/profileTypes";
 import { inputClassname, labelClassname, linkClassname } from "@/app/staticData/cartPageClasses";
+import { useProductsAndCart } from "../context/productsAndCartContext";
 
 export default function SignInForm() {
   const t = useTranslations("");
@@ -19,6 +20,7 @@ export default function SignInForm() {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
 
+  const { cart } = useProductsAndCart();
   const { loginAndSetUser } = useAuth();
   const { addAlert } = useAlerts();
   const router = useRouter();
@@ -77,7 +79,7 @@ export default function SignInForm() {
       if (!Array.isArray(userData.addresses)) {
         userData.addresses = [];
       }
-      loginAndSetUser(userData);
+      loginAndSetUser(userData, cart);
       addAlert(uuid(), t("alerts.signIn.success200.text"), t("alerts.signIn.success200.title"), "emerald");
 
       const redirect = searchParams.get("redirect");
