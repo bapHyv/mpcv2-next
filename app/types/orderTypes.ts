@@ -30,6 +30,11 @@ export interface DiscountApplied extends DiscountCode {
   name: string;
 }
 
+export interface FormatedDiscount {
+  type: "coupon" | "loyaltyPoints";
+  value: DiscountApplied | number;
+}
+
 export type shippingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string; "order-notes": string };
 export type billingAddress = Omit<Address, "id" | "billing" | "shipping"> & { province: string };
 export interface Order {
@@ -50,6 +55,10 @@ export interface Order {
   customerIp: string;
   customerUserAgent: string;
   deviceType: UAParser.IResult;
+}
+
+export interface FormatedOrder extends Omit<Order, "discounts"> {
+  discounts: FormatedDiscount[];
 }
 
 export interface SipsSuccessResponse {

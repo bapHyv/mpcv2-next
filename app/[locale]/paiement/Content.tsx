@@ -26,6 +26,8 @@ import { setItemWithExpiry } from "@/app/utils/temporaryStorage";
 import { useAlerts } from "@/app/context/alertsContext";
 import { useLocale, useTranslations } from "next-intl";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
+import { formatOrder } from "@/app/utils/orderFunctions";
+import { useAuth } from "@/app/context/authContext";
 
 export default function Page() {
   const [isPending, setIsPending] = useState(false);
@@ -43,6 +45,7 @@ export default function Page() {
   const { fetchWrapper } = useFetchWrapper();
   const { order } = useOrder();
   const { cart } = useProductsAndCart();
+  const { setUserData } = useAuth();
   const { handleCleanUpAfterPayment } = useCleanUpAfterPayment();
   const router = useRouter();
   const locale = useLocale();
@@ -61,6 +64,7 @@ export default function Page() {
 
     setIsPending(true);
 
+    // Reset cartBkp
     try {
       console.log("Payment submitted: Clearing remote cart backup...");
       const emptyCart = { total: 0, products: [] };
@@ -79,6 +83,8 @@ export default function Page() {
 
     const JWT_EXPIRY_SECONDS = 900;
 
+    // Store cart and order in the local storage
+    // It is used in the "commande-recue" page to display data avoid an extra fetch to the server
     try {
       setItemWithExpiry("tempOrder", order, JWT_EXPIRY_SECONDS);
       setItemWithExpiry("tempCart", cart, JWT_EXPIRY_SECONDS);
@@ -93,6 +99,7 @@ export default function Page() {
     setIsFinalizing(true);
     await new Promise((resolve) => setTimeout(resolve, 50));
 
+    // Bank transfer Flow
     if (order["payment-method"] === "bank-transfer") {
       try {
         const bankResponse = await fetchWrapper(`/api/payment/bank-transfer/${initPaymentResponse.orderId}`, {
@@ -105,6 +112,17 @@ export default function Page() {
 
         const { token } = await bankResponse.json();
 
+        setUserData((prevState) => {
+          if (prevState) {
+            return {
+              ...prevState,
+              loyaltyPoints: prevState.loyaltyPoints - order.fidelity,
+            };
+          } else {
+            return null;
+          }
+        });
+
         handleCleanUpAfterPayment();
         router.push(`/commande-recue?token=${token}`);
       } catch (error) {
@@ -116,7 +134,7 @@ export default function Page() {
       return;
     }
 
-    // --- Secure 3D Card Flow ---
+    // Secure 3D Card Flow
     if (isSuccessResponse(initPaymentResponse)) {
       handleCleanUpAfterPayment();
       setIsRedirecting(true);
@@ -158,11 +176,14 @@ export default function Page() {
   const initPayment = async () => {
     setIsPending(true);
     setInitPaymentResponse(null);
+
     try {
+      const formatedOrder = formatOrder(order);
+
       const response = await fetchWrapper("/api/payment/init", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ order, cart }),
+        body: JSON.stringify({ order: formatedOrder, cart }),
       });
 
       if (!response.ok) {

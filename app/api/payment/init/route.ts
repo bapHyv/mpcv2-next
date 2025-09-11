@@ -13,7 +13,7 @@ type initPaymentResponse = ({ orderId: number } & SipsSuccessResponse) | ({ orde
 export async function POST(request: Request) {
   try {
     const body: OrderAndCart = await request.json();
-    const { order } = body;
+    const { order, cart } = body;
 
     if (!order) {
       return NextResponse.json({ message: "Missing order or cart data." }, { status: 400 });
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     const response = await serverFetchWrapper(`${process.env.API_HOST}/order/init-payment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(order),
+      body: JSON.stringify({ order, cartBkp: JSON.stringify(cart) }),
     });
 
     const responseData = await response.json();

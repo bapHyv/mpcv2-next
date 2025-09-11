@@ -1,5 +1,5 @@
 import { ProductCart } from "@/app/context/productsAndCartContext";
-import { DiscountApplied } from "@/app/types/orderTypes";
+import { DiscountApplied, FormatedDiscount, FormatedOrder, Order } from "@/app/types/orderTypes";
 
 export const displayDiscountValue = (d: DiscountApplied, products: ProductCart[]) => {
   switch (d.discountType) {
@@ -109,3 +109,25 @@ export const computeVAT = (c: { total: number; products: ProductCart[] }, discou
 };
 
 export const findLowestVATRate = (products: ProductCart[]): number => Math.max(...products.map((prod) => prod.VATRate));
+
+export const formatOrder = (order: Order): FormatedOrder => {
+  const deepCopyOrder: FormatedOrder = JSON.parse(JSON.stringify(order));
+
+  if (!!order.discounts.length) {
+    deepCopyOrder.discounts = [];
+
+    order.discounts.forEach((orderDiscount) => {
+      const discount: FormatedDiscount = { type: "coupon", value: orderDiscount };
+      deepCopyOrder.discounts.push(discount);
+    });
+  }
+
+  if (!!order.fidelity) {
+    const loyalty: FormatedDiscount = { type: "loyaltyPoints", value: order.fidelity };
+    deepCopyOrder.discounts.push(loyalty);
+  }
+
+  console.log(deepCopyOrder);
+
+  return deepCopyOrder;
+};
