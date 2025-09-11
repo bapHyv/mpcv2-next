@@ -13,7 +13,7 @@ export default function DisplayProductsCartPage() {
   const { cart } = useProductsAndCart();
 
   return (
-    <div className={twMerge(sectionWrapperClassname, "mt-6", "lg:w-full")}>
+    <div className={twMerge(sectionWrapperClassname, "mt-6 lg:mt-0", "lg:w-full")}>
       <Title title={t("productsTitle")} type="h2" classname={twMerge(baseTitleClassname, "mb-4")} firstLetterClassname="text-2xl" id="products" />
 
       {/* Keep product mapping */}

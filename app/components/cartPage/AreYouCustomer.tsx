@@ -19,7 +19,7 @@ export default function AreYouCustomer({ redirect, classname }: Props) {
   if (userData) return null;
 
   return (
-    <section className={twMerge(subtleSectionWrapperClassname, "text-sm text-center sm:text-left", classname)}>
+    <section className={twMerge(subtleSectionWrapperClassname, "text-sm text-center sm:text-left sm:my-0 sm:mb-6", classname)}>
       {t("promptText")}{" "}
       <Link href={{ pathname: `/${locale}/connexion`, query: { redirect } }} className={twMerge(linkClassname, "font-medium")}>
         {t("loginLinkText")}
