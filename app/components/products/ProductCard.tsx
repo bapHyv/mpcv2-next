@@ -72,15 +72,13 @@ export default async function ProductCard({
     <div className={twMerge("transform text-left text-base transition w-[336px] sm:w-[306px] lg:w-[25rem] flex-shrink-0", mainDivClassname)}>
       <div
         className={twMerge(
-          "flex flex-col h-full overflow-hidden p-3 rounded-lg shadow-md bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-150 ease-in-out",
+          "flex flex-col overflow-hidden p-3 rounded-lg shadow-md h-full bg-white border border-gray-200 hover:shadow-lg transition-shadow duration-150 ease-in-out",
           secondeDivClassname
         )}
       >
         <div className="relative mb-3">
           <Link href={`/${locale}/${category}/${slug}`} className="block">
-            <div
-              className={clsx("relative w-full overflow-hidden rounded-md bg-gray-100", "aspect-w-1 aspect-h-1", isOutOfStock ? "opacity-65" : "")}
-            >
+            <div className={clsx("relative w-full overflow-hidden rounded-full", "aspect-w-1 aspect-h-1", isOutOfStock ? "opacity-65" : "")}>
               <Image
                 alt={!!images.main ? images.main.alt : name}
                 src={!!images.main ? `${process.env.MAIN_URL}${process.env.IMG_HOST}${images.main.url}` : "/logo-noir.png"}
@@ -91,7 +89,7 @@ export default async function ProductCard({
               />
             </div>
           </Link>
-          <div className="absolute top-2 right-2 z-10">
+          <div className="absolute top-0 right-0 z-10">
             {isOutOfStock ? (
               <span className={twMerge(statusBadgeBase, "bg-red-100 text-red-800")}>{t("outOfStock")}</span>
             ) : isPromo ? (

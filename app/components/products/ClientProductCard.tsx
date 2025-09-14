@@ -68,9 +68,7 @@ export default function ClientProductCard({
       >
         <div className="relative mb-3">
           <Link href={`/${category}/${slug}`} className="block group">
-            <div
-              className={clsx("relative w-full overflow-hidden rounded-md bg-gray-100", "aspect-w-1 aspect-h-1", isOutOfStock ? "opacity-65" : "")}
-            >
+            <div className={clsx("relative w-full overflow-hidden rounded-full", "aspect-w-1 aspect-h-1", isOutOfStock ? "opacity-65" : "")}>
               <Image
                 alt={!!images.main ? images.main.alt : "Image placeholder"}
                 src={!!images.main ? `https://www.monplancbd.fr/wp-content/uploads/${images.main.url}` : "/logo-noir.png"}
@@ -83,7 +81,7 @@ export default function ClientProductCard({
           </Link>
 
           {/* Overlay Chips */}
-          <div className="absolute top-2 right-2 z-10">
+          <div className="absolute top-0 right-0 z-10">
             {isOutOfStock ? (
               <span className={twMerge(statusBadgeBase, "bg-red-100 text-red-800")}>{t("outOfStock")}</span>
             ) : isPromo ? (
