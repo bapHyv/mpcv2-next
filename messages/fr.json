@@ -1,4 +1,8 @@
 {
+  "parcelPointMap": {
+    "text": "Utiliser la carte pour choisir le point relais",
+    "button": "Trouver un point relais"
+  },
   "cookieConsent": {
     "bannerAriaLabel": "Bandeau de Consentement aux Cookies",
     "description": "Nous utilisons des cookies essentiels au fonctionnement du site. Avec votre accord, nous utilisons aussi des cookies fonctionnels (ex: langue préférée) et des outils d'analyse (ex: infos appareil) pour améliorer votre expérience. Consultez notre",
