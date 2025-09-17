@@ -101,3 +101,9 @@ export {
   type ParcelPointNetwork,
   type ParcelPointNetworkCode,
 };
+
+export interface BoxtalAuthResponse {
+  expiresIn: number;
+  tokenType: string;
+  accessToken: string;
+}

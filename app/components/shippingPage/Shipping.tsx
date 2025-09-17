@@ -13,6 +13,7 @@ import { sectionWrapperClassname, titleClassname, checkRadioClassname } from "@/
 import { isBoxtalConnectMethod, isFlatRateMethod, isFreeShippingMethod, isLocalPickupMethod } from "@/app/utils/typeGuardsFunctions";
 import { ShippingMethod } from "@/app/types/sseTypes";
 import { findLowestVATRate } from "@/app/utils/orderFunctions";
+import ParcelPointMap from "@/app/components/boxtal/ParcelPointMap";
 
 export default function Shipping() {
   const t = useTranslations("shippingPage.shippingMethods");
@@ -31,9 +32,7 @@ export default function Shipping() {
       sseData.shippingMethods.byShippingZones[order.shippingAddress.country]
     ) {
       return sseData.shippingMethods.byShippingZones[order.shippingAddress.country].methods.filter((m) => {
-        if (isBoxtalConnectMethod(m)) {
-          return false;
-        } else if (isLocalPickupMethod(m)) {
+        if (isBoxtalConnectMethod(m) || isLocalPickupMethod(m)) {
           return true;
         } else if (isFreeShippingMethod(m)) {
           if (hasFreeShipping) return true;
@@ -137,7 +136,7 @@ export default function Shipping() {
         firstLetterClassname="text-xl"
         id="shipping-heading"
       />
-
+      {order.shippingAddress.country === "France (hors Corse)" && order["shipping-method"] === "boxtal_connect" && <ParcelPointMap />}
       <fieldset>
         <legend className="sr-only">
           {t("legendSR")} {<Star />}

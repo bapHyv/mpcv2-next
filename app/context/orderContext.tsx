@@ -219,16 +219,15 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   }, [cart, order.discounts, order.fidelity, order.shippingMethodId, sseData]);
 
   /**
-   * Has to reset shippingMethodId and shippingCost when changing country.
+   * Has to reset shippingMethodId, shipping-method and shippingCost when changing country .
    * It prevents the shippingCost and the instanceId from staying set to the previous country.
    * Example:
    * FRANCE = shippingMethodId: A, shippingCost: B
    * GUADELOUPE = shippingMethodId: C, shippingCost: D
-   * The user set country to FRANCE, selects shpping method flat_rate (shippingMethodId: A, shippingCost: B)
+   * The user set country to FRANCE, selects shipping method flat_rate (shippingMethodId: A, shippingCost: B)
    * user then set country to GUADELOUPE. The shippingMethodId and the shippingCost are still respectively set to A and B instead of C and D
    * This use effect prevents this behavior.
-   * It also reset when the cart and discounts change since those parameters can have an impact on
-   * the price and shipping method.
+   * It also reset when the cart and discounts change since those parameters can have an impact on the price and shipping method.
    */
   useEffect(() => {
     setOrder((prevState) => {
@@ -236,6 +235,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
         ...prevState,
         shippingMethodId: null,
         shippingCost: 0,
+        "shipping-method": "",
       };
     });
   }, [order.shippingAddress.country, cart.products, cart.total, order.discounts]);
