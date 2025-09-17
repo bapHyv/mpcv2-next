@@ -1,4 +1,8 @@
 {
+  "parcelPointMap": {
+    "text": "Use the map to choose the pickup point",
+    "button": "Find a pickup point"
+  },
   "cookieConsent": {
     "bannerAriaLabel": "Cookie Consent Banner",
     "description": "We use essential cookies for site operation. With your consent, we also use functional cookies (like remembering your language) and analytics tools (like collecting device info) to improve your experience. Read our",

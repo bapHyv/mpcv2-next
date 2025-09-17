@@ -4,6 +4,7 @@ import { useOrder } from "@/app/context/orderContext";
 import { useEffect, useState } from "react";
 import { BoxtalParcelPointMap, ParcelPoint } from "@/app/types/mapTypes";
 import { BoxtalAuthResponse } from "@/app/types/mapTypes";
+import { useTranslations } from "next-intl";
 const BoxtalMaps = require("@boxtal/parcel-point-map");
 
 interface BoxtalToken {
@@ -14,6 +15,8 @@ interface BoxtalToken {
 export default function BoxtalMap() {
   const [accessToken, setAccessToken] = useState<null | string>(null);
   const [map, setMap] = useState<null | BoxtalParcelPointMap>(null);
+
+  const t = useTranslations("");
 
   const { order, setOrder } = useOrder();
 
@@ -35,7 +38,7 @@ export default function BoxtalMap() {
           console.log("LS Hit");
           return;
         } else {
-          const response = await fetch("/api/boxtal");
+          const response = await fetch("/api/boxtal", { cache: "no-cache" });
 
           if (!response.ok) {
             throw new Error("Failed to fetch access token");
@@ -60,7 +63,7 @@ export default function BoxtalMap() {
       setOrder((prevState) => {
         return {
           ...prevState,
-          "parcel-point": {} as ParcelPoint,
+          "parcel-point": null,
         };
       });
     };
@@ -117,11 +120,11 @@ export default function BoxtalMap() {
       <div className="flex my-3 items-center justify-end">
         {order["parcel-point"] && "code" in order["parcel-point"] ? (
           <div className="flex items-center justify-center w-full">
-            <span className="italic font-bold text-md">Utiliser la map pour choisir le point relais</span>
+            <span className="italic font-bold text-md">{t("parcelPointMap.text")}</span>
           </div>
         ) : (
           <button type="button" className="py-2 px-3 bg-green text-white rounded-md shadow-md" onClick={handleFind}>
-            Trouver un point relais
+            {t("parcelPointMap.button")}
           </button>
         )}
       </div>

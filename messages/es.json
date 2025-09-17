@@ -1,4 +1,8 @@
 {
+  "parcelPointMap": {
+    "text": "Usa el mapa para elegir el punto de recogida",
+    "button": "Encontrar un punto de recogida"
+  },
   "cookieConsent": {
     "bannerAriaLabel": "Banner de Consentimiento de Cookies",
     "description": "Utilizamos cookies esenciales para el funcionamiento del sitio. Con tu consentimiento, también usamos cookies funcionales (ej: recordar idioma) y herramientas de análisis (ej: información del dispositivo) para mejorar tu experiencia. Lee nuestra",
