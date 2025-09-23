@@ -409,6 +409,7 @@ export default async function Page({ params: { category, locale, productSlug } }
                           <ul role="list">
                             {Object.entries(product.analyzes as Analyse).map(([key, value]) => (
                               <li key={key}>
+                                {/* TODO: add locale in href */}
                                 <Link
                                   href={`https://www.monplancbd.fr/analyses/${value}`}
                                   target="_blank"

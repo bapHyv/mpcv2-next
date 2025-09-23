@@ -537,3 +537,11 @@ article dfn,
   line-height: 1;
   flex-shrink: 0;
 }
+
+.external-link::after {
+  content: "\2197";
+  margin-left: 0.2em;
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+  font-weight: bold;
+}

@@ -1,4 +1,13 @@
 {
+  "analyses": {
+    "metadataTitle": "Analyses - MonPlanCBD",
+    "title": "Analyses",
+    "text": {
+      "part1": "La transparence et la qualité sont au cœur de notre engagement. Nous savons à quel point il est important pour vous d'avoir confiance dans les produits CBD que vous consommez. C'est pourquoi nous mettons à votre disposition l'intégralité des rapports de laboratoire indépendants pour chacun de nos produits.",
+      "part2": "Veuillez trouver ci-dessous les liens vers les analyses de nos produits. Cliquez sur le produit de votre choix pour consulter son rapport détaillé:"
+    },
+    "filterPlaceholder": "Rechercher un produit..."
+  },
   "parcelPointMap": {
     "text": "Utiliser la carte pour choisir le point relais",
     "button": "Trouver un point relais"
