@@ -1,4 +1,13 @@
 {
+  "analyses": {
+    "metadataTitle": "Análisis - MonPlanCBD",
+    "title": "Análisis",
+    "text": {
+      "part1": "La transparencia y la calidad son el corazón de nuestro compromiso. Sabemos lo importante que es para usted confiar en los productos de CBD que consume. Por eso, ponemos a su disposición la totalidad de los informes de laboratorio independientes para cada uno de nuestros productos.",
+      "part2": "A continuación, encontrará los enlaces a los análisis de nuestros productos. Haga clic en el producto de su elección para consultar su informe detallado:"
+    },
+    "filterPlaceholder": "Buscar un producto..."
+  },
   "parcelPointMap": {
     "text": "Usa el mapa para elegir el punto de recogida",
     "button": "Encontrar un punto de recogida"
