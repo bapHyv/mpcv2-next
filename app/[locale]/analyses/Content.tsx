@@ -117,7 +117,7 @@ export default function Content() {
                 </div>
                 <div className=" flex justify-center items-center p-2">
                   <Link
-                    href={`https://www.monplancbd.fr/${locale}/analyses/${product.analyzes["cannabinoïdes"]}`}
+                    href={`https://www.monplancbd.fr/analyses/${product.analyzes["cannabinoïdes"]}`}
                     className="text-xs 2xl:text-sm text-green underline flex gap-1"
                   >
                     {product.name}
