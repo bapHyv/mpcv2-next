@@ -119,6 +119,7 @@ export default function Content() {
                   <Link
                     href={`https://www.monplancbd.fr/analyses/${product.analyzes["cannabinoïdes"]}`}
                     className="text-xs 2xl:text-sm text-green underline flex gap-1"
+                    target="_blank"
                   >
                     {product.name}
                   </Link>
